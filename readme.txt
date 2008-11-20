@@ -1,5 +1,5 @@
 === Wordpress Popular Posts ===
-Contributors: Ikk24
+Contributors: Ikki24
 Donate link: http://rauru.com/
 Tags: popular, posts, widget, seo
 Requires at least: 2.0.2
@@ -20,7 +20,7 @@ Features:
 
 * It can also display comment count for each entry. Enabled by default.
 
-* If you want to, you can also include a small excerpt of each post. If activated, you can also limit the excerpt to display a certain amount of characters (25 by default). Disabled by default.
+* If you want to, you can limit the amount of characters displayed for each entry listed. If activated, you can also limit the excerpt to display a certain number of characters (25 by default). Disabled by default.
 
 == Installation ==
 
