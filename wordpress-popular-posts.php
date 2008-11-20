@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Wordpress Popular Posts
-Plugin URI: http://rauru.com/wordpress-plugins
+Plugin URI: http://rauru.com/wordpress-popular-posts/
 Description: Retrieves the most active entries of your blog and displays them on a list. Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular('Title', number of posts); ?&gt;</strong>
 Version: 1.0
 Author: H&eacute;ctor Cabrera
