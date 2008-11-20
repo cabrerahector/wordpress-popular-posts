@@ -1,5 +1,5 @@
 === Wordpress Popular Posts ===
-Contributors: Ikk24
+Contributors: Ikki24
 Donate link: http://rauru.com/
 Tags: popular, posts, widget, seo
 Requires at least: 2.0.2
