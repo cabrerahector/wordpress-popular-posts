@@ -99,11 +99,11 @@ add_action("plugins_loaded", "init_get_mostpopular");
 function get_mostpopular($title = "Popular Posts", $limit = 25) {
 	global $wpdb, $post;		
 	
-    $mostcommenteds = $wpdb->get_results("SELECT  $wpdb->posts.ID, post_title, post_name, post_date, COUNT($wpdb->comments.comment_post_ID) AS 'comment_count' FROM $wpdb->posts LEFT JOIN $wpdb->comments ON $wpdb->posts.ID = $wpdb->comments.comment_post_ID WHERE comment_approved = '1' AND post_date_gmt < '".gmdate("Y-m-d H:i:s")."' AND post_status = 'publish' AND post_password = '' GROUP BY $wpdb->comments.comment_post_ID ORDER  BY comment_count DESC LIMIT $limit");
+    $mostpopular = $wpdb->get_results("SELECT  $wpdb->posts.ID, post_title, post_name, post_date, COUNT($wpdb->comments.comment_post_ID) AS 'comment_count' FROM $wpdb->posts LEFT JOIN $wpdb->comments ON $wpdb->posts.ID = $wpdb->comments.comment_post_ID WHERE comment_approved = '1' AND post_date_gmt < '".gmdate("Y-m-d H:i:s")."' AND post_status = 'publish' AND post_password = '' GROUP BY $wpdb->comments.comment_post_ID ORDER  BY comment_count DESC LIMIT $limit");
 	
 	echo "<h2 class=\"widgettitle\">$title</h2>";
 	echo "<ul>";
-	foreach ($mostcommenteds as $post) {
+	foreach ($mostpopular as $post) {
 		$post_title = substr(htmlspecialchars(stripslashes($post->post_title)),0,25) . "...";
 		$comment_total = (int) $post->comment_total;
 		echo "<li><a href=\"".get_permalink()."\">$post_title&nbsp;<strong>($comment_count)</strong></a></li>";
