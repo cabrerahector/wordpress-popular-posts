@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Wordpress Popular Posts
-Plugin URI: http://rauru.com/wordpress-popular-posts/
+Plugin URI: http://rauru.com/wordpress-popular-posts
 Description: Retrieves the most active entries of your blog and displays them on a list. Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular('Title', number of posts); ?&gt;</strong>
-Version: 1.0
+Version: 1.1
 Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
@@ -99,13 +99,13 @@ add_action("plugins_loaded", "init_get_mostpopular");
 function get_mostpopular($title = "Popular Posts", $limit = 25) {
 	global $wpdb, $post;		
 	
-    $mostpopular = $wpdb->get_results("SELECT  $wpdb->posts.ID, post_title, post_name, post_date, COUNT($wpdb->comments.comment_post_ID) AS 'comment_count' FROM $wpdb->posts LEFT JOIN $wpdb->comments ON $wpdb->posts.ID = $wpdb->comments.comment_post_ID WHERE comment_approved = '1' AND post_date_gmt < '".gmdate("Y-m-d H:i:s")."' AND post_status = 'publish' AND post_password = '' GROUP BY $wpdb->comments.comment_post_ID ORDER  BY comment_count DESC LIMIT $limit");
+    $mostcommenteds = $wpdb->get_results("SELECT  $wpdb->posts.ID, post_title, post_name, post_date, COUNT($wpdb->comments.comment_post_ID) AS 'comment_count' FROM $wpdb->posts LEFT JOIN $wpdb->comments ON $wpdb->posts.ID = $wpdb->comments.comment_post_ID WHERE comment_approved = '1' AND post_date_gmt < '".gmdate("Y-m-d H:i:s")."' AND post_status = 'publish' AND post_password = '' GROUP BY $wpdb->comments.comment_post_ID ORDER  BY comment_count DESC LIMIT $limit");
 	
 	echo "<h2 class=\"widgettitle\">$title</h2>";
 	echo "<ul>";
-	foreach ($mostpopular as $post) {
+	foreach ($mostcommenteds as $post) {
 		$post_title = substr(htmlspecialchars(stripslashes($post->post_title)),0,25) . "...";
-		$comment_total = (int) $post->comment_total;
+		$comment_count = (int) $post->comment_count;
 		echo "<li><a href=\"".get_permalink()."\">$post_title&nbsp;<strong>($comment_count)</strong></a></li>";
 	}
 	echo "</ul>";

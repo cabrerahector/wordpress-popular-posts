@@ -4,7 +4,7 @@ Donate link: http://rauru.com/
 Tags: popular, posts, widget, seo
 Requires at least: 2.0.2
 Tested up to: 2.6.2
-Stable tag: 1.0
+Stable tag: 1.1
 
 Adds a widget to show the most popular posts in your Wordpress blog.
 
