@@ -101,8 +101,6 @@ function get_mostpopular($title = "Popular Posts", $limit = 25, $excerpt = FALSE
 	
 	if ((!is_string($title)) || ($title == '')) $title = "Popular Posts";
 	if ((!is_numeric($limit)) || ($limit <= 0) || ($limit == '')) $limit = 25;
-	if ((!is_bool($excerpt)) || ($excerpt == '')) $excerpt = FALSE;
-	if ((!is_bool($comments)) || ($comments == '')) $comments = TRUE;
 	if ((!is_numeric($characters)) || ($characters <= 0) || ($characters == '')) $characters = 25;
 	
     $mostcommenteds = $wpdb->get_results("SELECT  $wpdb->posts.ID, post_title, post_name, post_date, COUNT($wpdb->comments.comment_post_ID) AS 'comment_count' FROM $wpdb->posts LEFT JOIN $wpdb->comments ON $wpdb->posts.ID = $wpdb->comments.comment_post_ID WHERE comment_approved = '1' AND post_date_gmt < '".gmdate("Y-m-d H:i:s")."' AND post_status = 'publish' AND post_password = '' GROUP BY $wpdb->comments.comment_post_ID ORDER  BY comment_count DESC LIMIT $limit");
