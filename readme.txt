@@ -33,7 +33,7 @@ Features:
 = Placing Wordpress Popular Posts in your templates =
 
 
-If you want to use Wordpress Popular Posts in your templates and not as a widget, simply place `<?php get_mostpopular(); ?>`, where *title* is how you want to name your popular posts list, and *number of posts* is the amount of entries you want to display on your list (eg. `<?php get_mostpopular(); ?>`).
+If you want to use **Wordpress Popular Posts** in your templates and not as a widget, simply place `<?php get_mostpopular(); ?>` where you want your listing to be shown. Yup, it's that simple.
 
 
 **v.1.2** I've added a few parameters to the function so you can tweak **Wordpress Popular Posts** to your liking.
