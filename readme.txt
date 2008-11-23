@@ -4,7 +4,7 @@ Donate link: http://rauru.com/
 Tags: popular, posts, widget, seo
 Requires at least: 2.0.2
 Tested up to: 2.6.2
-Stable tag: 1.1
+Stable tag: 1.2
 
 Adds a widget to show the most popular posts in your Wordpress blog.
 
@@ -33,7 +33,23 @@ Features:
 = Placing Wordpress Popular Posts in your templates =
 
 
-If you want to use Wordpress Popular Posts in your templates and not as a widget, simply place `<?php get_mostpopular('Title', number of posts); ?>`, where *title* is how you want to name your popular posts list, and *number of posts* is the amount of entries you want to display on your list (eg. `<?php get_mostpopular('Popular Posts', 10); ?>`).
+If you want to use Wordpress Popular Posts in your templates and not as a widget, simply place `<?php get_mostpopular(); ?>`, where *title* is how you want to name your popular posts list, and *number of posts* is the amount of entries you want to display on your list (eg. `<?php get_mostpopular(); ?>`).
+
+
+**v.1.2** I've added a few parameters to the function so you can tweak **Wordpress Popular Posts** to your liking.
+
+**USAGE:**
+
+`<?php get_mostpopular(TITLE, NUMBER-OF-POSTS, SHOW-EXCERPT, SHOW-COMMENTS, CHARACTERS); ?>`
+
+**PARAMETERS:**
+
+* **TITLE** (*string*): refers to the title of the widget. Default is `Popular Posts`.
+* **NUMBER-OF-POSTS** (*integer*): refers to the amount of entries to be retrieved. Default is 25.
+* **SHOW-EXCERPT** (*boolean*): if set to TRUE, it'll limit the number of characters shown for each entry listed. Default is FALSE.
+* **SHOW-COMMENTS** (*boolean*): if set to TRUE, comments count will be displayed next to each entry listed. Default is TRUE.
+* **CHARACTERS** (*integer*): refers to the number of characters to show per entry. Default is 25.
+
 
 == Frequently Asked Questions ==
 
