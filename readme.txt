@@ -1,7 +1,7 @@
 === Wordpress Popular Posts ===
 Contributors: Ikki24
 Donate link: http://rauru.com/
-Tags: popular, posts, widget, seo
+Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.0.2
 Tested up to: 2.6.2
 Stable tag: 1.2
