@@ -42,6 +42,7 @@ If you want to use **Wordpress Popular Posts** in your templates and not as a wi
 
 `<?php get_mostpopular(TITLE, NUMBER-OF-POSTS, SHOW-EXCERPT, SHOW-COMMENTS, CHARACTERS); ?>`
 
+
 **Example:** `<?php get_mostpopular('Popular Posts', 15); ?>`
 
 
