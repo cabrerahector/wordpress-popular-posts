@@ -3,12 +3,12 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://rauru.com/wordpress-popular-posts
 Description: Retrieves the most active entries of your blog and displays them on a list. Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular(); ?&gt;</strong>
-Version: 1.3.1
+Version: 1.3.2
 Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
 
-$localversion = "1.3.1";
+$localversion = "1.3.2";
 
 function widget_mostpopular($args) {
 	extract($args);	
@@ -104,9 +104,9 @@ function widget_mostpopular($args) {
 				}
 			}
 			if (!empty($post_stats)) {
-				echo '<li><a href="'.get_permalink().'" title="'. htmlspecialchars(stripslashes($post->post_title)) .'">'. $post_title .'</a> <span class="post-stats">' . $post_stats . '</span></li>';
+				echo '<li><a href="'.get_permalink($post->ID).'" title="'. htmlspecialchars(stripslashes($post->post_title)) .'">'. $post_title .'</a> <span class="post-stats">' . $post_stats . '</span></li>';
 			} else {
-				echo '<li><a href="'.get_permalink().'" title="'. htmlspecialchars(stripslashes($post->post_title)) .'">'. $post_title .'</a></li>';
+				echo '<li><a href="'.get_permalink($post->ID).'" title="'. htmlspecialchars(stripslashes($post->post_title)) .'">'. $post_title .'</a></li>';
 			}
 		}
 		echo "</ul><!-- End Wordpress Popular Posts Plugin -->";		
