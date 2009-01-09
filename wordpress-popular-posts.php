@@ -8,7 +8,7 @@ Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
 
-$localversion = 1.3.1;
+$localversion = "1.3.1";
 
 function widget_mostpopular($args) {
 	extract($args);	
