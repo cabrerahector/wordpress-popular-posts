@@ -4,7 +4,7 @@ Donate link: http://rauru.com/
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.0.2
 Tested up to: 2.7
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog.
 

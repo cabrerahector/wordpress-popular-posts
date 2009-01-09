@@ -3,12 +3,12 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://rauru.com/wordpress-popular-posts
 Description: Retrieves the most active entries of your blog and displays them on a list. Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular(); ?&gt;</strong>
-Version: 1.3
+Version: 1.3.1
 Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
 
-$localversion = 1.3;
+$localversion = 1.3.1;
 
 function widget_mostpopular($args) {
 	extract($args);	
@@ -115,7 +115,7 @@ function widget_mostpopular($args) {
 }
 
 function mostpopular_control() {  
-	echo "<p>Please visit <a href=\"http://rauru.com/wp-admin/options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php\">Wordpress Popular Post Administration Page</a> to adjust its settings.</p>";
+	echo "<p>Please visit <a href=\"options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php\">Wordpress Popular Post Administration Page</a> to adjust its settings.</p>";
 }
 
 function init_mostpopular(){
@@ -218,7 +218,7 @@ function mostpopular_adminpage() {
 		td.even_row {background:#ddd}
 		td.odd_row label, td.even_row label {font-weight:bold; font-size:11px}
 		
-		input.txt, input.nro {padding:3px 5px!important; height:15px; border:#999 1px solid;}
+		input.txt, input.nro {padding:3px 5px!important; border:#999 1px solid;}
 		input.nro {width:20px}
 		
 		input.checkbox {border:#999 1px solid}
@@ -407,7 +407,7 @@ add_action('after_plugin_row', 'wmpp_check_version');
 function wmpp_check_version($plugin) {
 	global $localversion;
  	if( strpos(basename(dirname(__FILE__)) . '/wordpress-popular-posts.php',$plugin)!==false ) {
-		$version_file = wp_remote_fopen("http://rauru.com/wpmpp.chk");
+		$version_file = wp_remote_fopen("http://rauru.com/wppp.chk");
 		if ($version_file) { // version file was successfully retrieved from Rauru.com
 			$data = explode('@', $version_file);
 			if ( version_compare($data[0], $localversion, '>') ) {					
