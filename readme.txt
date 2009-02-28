@@ -4,7 +4,7 @@ Donate link: http://rauru.com/
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.0.2
 Tested up to: 2.7
-Stable tag: 1.3.2
+Stable tag: 1.4.0
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog.
 
@@ -15,9 +15,16 @@ Wordpress Popular Posts  is a sidebar widget that displays the most popular post
 **Features:**
 
 * Wordpress popular posts is highly customizable. You can set its title (or leave it blank if you don't want to use any), how many entries to show, whether to display or not comments count and/or pageviews for each entry listed, and to show (or not) an excerpt of each post's title.
-* **[NEW FEATURE]**: List your posts either by **comment count**, **pageviews** or **average daily views**. Sorted by **comment count** by default.
-* **[NEW FEATURE]**: You can also list those pages of your blog (About, Services, Archives, etc.) that are getting a lot of attention from your readers. Enabled by default.
-* **[NEW FEATURE]**: Wordpress Popular Posts now counts with an **Admin page** where you can manage all its settings. No more manual configuration!
+* List your posts either by **comment count**, **pageviews** or **average daily views**. Sorted by **comment count** by default.
+* You can also list those pages of your blog (About, Services, Archives, etc.) that are getting a lot of attention from your readers. Enabled by default.
+* Wordpress Popular Posts now counts with an **Admin page** where you can manage all its settings. No more manual configuration!
+* **[NEW FEATURE]**: Wordpress Popular Posts is now **localized**! Currently supported languages: English (default), Russian and Spanish.
+* **[NEW FEATURE]**: *Time Range* - list your most popular posts within a specific time range (eg. today's popular posts, this week's popular posts, etc.)!
+
+**Localization:**
+
+* **Russian** | by [Aleksey Timkov](http://icellulars.net/)
+* **Spanish** | by [Héctor Cabrera](http://rauru.com/)
 
 [Version History](http://rauru.com/wordpress-popular-posts/)
 
@@ -38,6 +45,14 @@ If you want to use **Wordpress Popular Posts** somewhere else in your templates,
 `<?php if (function_exists('get_mostpopular')) get_mostpopular(); ?>`
 
 == Frequently Asked Questions ==
+
+* *I'm getting a "Sorry. No data so far." message. What's wrong?*
+
+Patience, my friend. One of two things is happening here:
+
+1) (and more likely) Wordpress Popular Posts has not registered any views yet. Each time someone views your posts WPP will notice it (except when it's you). If you're getting this message it's because no one has checked your posts yet. Give it some time.
+
+2) If you're using the code snippet, remember that it must be placed either in sidebar.php (usually it should be put in there), or in footer.php, or in header.php. Generally speaking, putting it somewhere else will prevent Wordpress Popular Posts from working as expected.
 
 * *I've got posts with better stats (comments, pageviews, etc.) than those listed by your plugin. What's wrong?*
 
