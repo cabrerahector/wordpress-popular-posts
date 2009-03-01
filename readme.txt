@@ -24,7 +24,7 @@ Wordpress Popular Posts  is a sidebar widget that displays the most popular post
 **Localization:**
 
 * **Russian** | by [Aleksey Timkov](http://icellulars.net/)
-* **Spanish** | by [Héctor Cabrera](http://rauru.com/)
+* **Spanish** | by [H&eacute;ctor Cabrera](http://rauru.com/)
 
 [Version History](http://rauru.com/wordpress-popular-posts/)
 
