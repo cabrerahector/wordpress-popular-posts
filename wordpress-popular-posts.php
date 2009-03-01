@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://rauru.com/wordpress-popular-posts
 Description: Retrieves the most active entries of your blog and displays them on a list. Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular(); ?&gt;</strong>
-Version: 1.4.0
+Version: 1.4.1
 Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
@@ -11,7 +11,7 @@ Author URI: http://rauru.com/
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts {
 	
-		var $version = "1.4.0";
+		var $version = "1.4.1";
 		var $options = array();
 		var $options_snippet = array();
 		var $options_holder = array();
@@ -269,6 +269,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				}
 			}
 		}
+		
+		// install Wordpress Popular Posts
+		function jal_install () {
+			global $wpdb;
+			$table_name = $wpdb->prefix . $this->table_name;
+			if ( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name ) {
+				$sql = "CREATE TABLE " . $table_name . " ( UNIQUE KEY id (postid, day), postid int(10) NOT NULL, day date NOT NULL, pageviews int(10) default 1 );";		
+				require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+				dbDelta($sql);
+			}
+		}		
 	} // End Wordpress Popular Posts class
 	
 	$wpp = new WordpressPopularPosts();
@@ -279,6 +290,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 	add_action('init', array(&$wpp,'wordpress_popular_posts_textdomain'));
 	add_action('admin_menu', 'add_mostpopular_admin');	
 	add_action('wp_head', array(&$wpp,'mostpopular_header'));
+	register_activation_hook(__FILE__, array(&$wpp,'jal_install'));
 	
 	/* Plugin core */
 	function get_mostpopular() { 

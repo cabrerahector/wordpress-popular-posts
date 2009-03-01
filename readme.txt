@@ -3,8 +3,8 @@ Contributors: Ikki24
 Donate link: http://rauru.com/
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.0.2
-Tested up to: 2.7
-Stable tag: 1.4.0
+Tested up to: 2.7.1
+Stable tag: 1.4.1
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog.
 
@@ -26,7 +26,7 @@ Wordpress Popular Posts  is a sidebar widget that displays the most popular post
 * **Russian** | by [Aleksey Timkov](http://icellulars.net/)
 * **Spanish** | by [H&eacute;ctor Cabrera](http://rauru.com/)
 
-[Version History](http://rauru.com/wordpress-popular-posts/)
+[Version History](http://rauru.com/wordpress-popular-posts#releases)
 
 == Installation ==
 
