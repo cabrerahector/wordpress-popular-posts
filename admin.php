@@ -26,25 +26,28 @@
 		if ( (!is_numeric($wpp->options['limit'])) || ($wpp->options['limit'] <= 0) ) $wpp->options['limit'] = 10;		
 		if ( (!is_numeric($wpp->options['characters'])) || ($wpp->options['characters'] <= 0) ) $wpp->options['characters'] = 25;		
 		
-		if (isset($_POST['plugin_mostpopular-SeparateSettings'])) {
-			update_option("wpp_widget_on", "on");
-			
-			$wpp->options_snippet['title'] = htmlspecialchars(escapeThis($_POST['plugin_mostpopular-SnippetTitle']));
-			$wpp->options_snippet['limit'] = htmlspecialchars(escapeThis($_POST['plugin_mostpopular-Limit_Snippet']));
-			$wpp->options_snippet['characters'] = htmlspecialchars(escapeThis($_POST['plugin_mostpopular-ExcerptLimit_Snippet']));	
-			$wpp->options_snippet['sortby'] = $_POST['plugin_mostpopular-Sort_Snippet'];
-			$wpp->options_snippet['range'] = $_POST['plugin_mostpopular-Range_Snippet'];
-			
-			if (isset($_POST['plugin_mostpopular-IncludePages_Snippet'])) { $wpp->options_snippet['pages'] = true; } else { $wpp->options_snippet['pages'] = false; }		
-			if (isset($_POST['plugin_mostpopular-ShowCount_Snippet'])) { $wpp->options_snippet['comments'] = true; } else { $wpp->options_snippet['comments'] = false; }		
-			if (isset($_POST['plugin_mostpopular-ShowViews_Snippet'])) { $wpp->options_snippet['views'] = true; } else { $wpp->options_snippet['views'] = false; }	
-			if (isset($_POST['plugin_mostpopular-ShowAuthor_Snippet'])) { $wpp->options_snippet['author'] = true; } else { $wpp->options_snippet['author'] = false; }
-			if (isset($_POST['plugin_mostpopular-ShowDate_Snippet'])) { $wpp->options_snippet['date'] = true; } else { $wpp->options_snippet['date'] = false; }	
-			if (isset($_POST['plugin_mostpopular-ShowExcerpt_Snippet'])) { $wpp->options_snippet['excerpt'] = true; } else { $wpp->options_snippet['excerpt'] = false; }		
-			if ( (!is_numeric($wpp->options_snippet['limit'])) || ($wpp->options_snippet['limit'] <= 0) ) $wpp->options_snippet['limit'] = 10;		
-			if ( (!is_numeric($wpp->options_snippet['characters'])) || ($wpp->options_snippet['characters'] <= 0) ) $wpp->options_snippet['characters'] = 25;
+		if (isset($_POST['plugin_mostpopular-SeparateSettings'])) {			
+			if (get_option("wpp_widget_on") == "on") {				
+				$wpp->options_snippet['title'] = htmlspecialchars(escapeThis($_POST['plugin_mostpopular-SnippetTitle']));
+				$wpp->options_snippet['limit'] = htmlspecialchars(escapeThis($_POST['plugin_mostpopular-Limit_Snippet']));
+				$wpp->options_snippet['characters'] = htmlspecialchars(escapeThis($_POST['plugin_mostpopular-ExcerptLimit_Snippet']));	
+				$wpp->options_snippet['sortby'] = $_POST['plugin_mostpopular-Sort_Snippet'];
+				$wpp->options_snippet['range'] = $_POST['plugin_mostpopular-Range_Snippet'];
+				
+				if (isset($_POST['plugin_mostpopular-IncludePages_Snippet'])) { $wpp->options_snippet['pages'] = true; } else { $wpp->options_snippet['pages'] = false; }		
+				if (isset($_POST['plugin_mostpopular-ShowCount_Snippet'])) { $wpp->options_snippet['comments'] = true; } else { $wpp->options_snippet['comments'] = false; }		
+				if (isset($_POST['plugin_mostpopular-ShowViews_Snippet'])) { $wpp->options_snippet['views'] = true; } else { $wpp->options_snippet['views'] = false; }	
+				if (isset($_POST['plugin_mostpopular-ShowAuthor_Snippet'])) { $wpp->options_snippet['author'] = true; } else { $wpp->options_snippet['author'] = false; }
+				if (isset($_POST['plugin_mostpopular-ShowDate_Snippet'])) { $wpp->options_snippet['date'] = true; } else { $wpp->options_snippet['date'] = false; }	
+				if (isset($_POST['plugin_mostpopular-ShowExcerpt_Snippet'])) { $wpp->options_snippet['excerpt'] = true; } else { $wpp->options_snippet['excerpt'] = false; }		
+				if ( (!is_numeric($wpp->options_snippet['limit'])) || ($wpp->options_snippet['limit'] <= 0) ) $wpp->options_snippet['limit'] = 10;		
+				if ( (!is_numeric($wpp->options_snippet['characters'])) || ($wpp->options_snippet['characters'] <= 0) ) $wpp->options_snippet['characters'] = 25;
+			} else {
+				update_option("wpp_widget_on", "on");
+			}
 		} else {
-			update_option("wpp_widget_on", "off");			
+			update_option("wpp_widget_on", "off");
+			$wpp->options_snippet = $wpp->options; // reset options		
 		}
 		
 		update_option("wpp_options", $wpp->options);
@@ -203,7 +206,7 @@
 		</tr>        
 		<?php } ?>
 		<tr>
-			<td colspan="2" align="center">
+			<td colspan="<?php if (get_option("wpp_widget_on") == "on") { echo "3"; } else { echo "2"; } ?>" align="center">
 				<br />
 				<input type="submit" name="Submit" value="Update options" id="btn_submit" />	
 				<input type="hidden" id="plugin_mostpopular-Submit" name="plugin_mostpopular-Submit" value="1" />
@@ -218,5 +221,5 @@
 		  else
 			 return stripslashes($data);
 	   } else return $data;
-	}
+	}	
 ?>
