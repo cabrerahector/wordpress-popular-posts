@@ -1,0 +1,262 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Wordpress Popular Posts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-07 10:54-0430\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Héctor Cabrera <admin@rauru.com>\n"
+"Language-Team: Héctor Cabrera <admin@rauru.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: VENEZUELA\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin.php:105
+msgid "With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog. You can either use it as a <a href=\"widgets.php\"><strong>Sidebar Widget</strong></a>  (<a href=\"http://codex.wordpress.org/Plugins/WordPress_Widgets\" rel=\"external nofollow\"><small>what's a widget?</small></a>), or place it in your templates using this handy <strong>code snippet</strong>: <em>&lt;?php if (function_exists(\"get_mostpopular\")) get_mostpopular(); ?&gt</em>."
+msgstr ""
+
+#: admin.php:106
+msgid "Use the Settings Manager below to tweak Wordpress Popular Posts to your liking."
+msgstr ""
+
+#: admin.php:107
+msgid "Settings"
+msgstr ""
+
+#: admin.php:112
+msgid "Separate settings for the widget and the code snippet:"
+msgstr ""
+
+#: admin.php:119
+msgid "WIDGET SETTINGS"
+msgstr ""
+
+#: admin.php:120
+msgid "CODE SNIPPET SETTINGS"
+msgstr ""
+
+#: admin.php:124
+msgid "Title:"
+msgstr ""
+
+#: admin.php:131
+msgid "Show up to:"
+msgstr ""
+
+#: admin.php:134
+msgid "posts"
+msgstr ""
+
+#: admin.php:138
+msgid "Time Range:"
+msgstr ""
+
+#: admin.php:141
+#: admin.php:151
+msgid "All-Time"
+msgstr ""
+
+#: admin.php:142
+#: admin.php:152
+msgid "Today"
+msgstr ""
+
+#: admin.php:143
+#: admin.php:153
+msgid "Last 7 days"
+msgstr ""
+
+#: admin.php:144
+#: admin.php:154
+msgid "Last 30 days"
+msgstr ""
+
+#: admin.php:145
+#: admin.php:155
+msgid "Last Year"
+msgstr ""
+
+#: admin.php:161
+msgid "Sort posts by:"
+msgstr ""
+
+#: admin.php:164
+#: admin.php:172
+msgid "Comments"
+msgstr ""
+
+#: admin.php:165
+#: admin.php:173
+msgid "Total Views"
+msgstr ""
+
+#: admin.php:166
+#: admin.php:174
+msgid "Avg. Daily Views"
+msgstr ""
+
+#: admin.php:180
+msgid "Include pages:"
+msgstr ""
+
+#: admin.php:187
+msgid "STATS TAG SETTINGS"
+msgstr ""
+
+#: admin.php:190
+msgid "Show comment count:"
+msgstr ""
+
+#: admin.php:197
+msgid "Show pageviews:"
+msgstr ""
+
+#: admin.php:204
+msgid "Show author:"
+msgstr ""
+
+#: admin.php:211
+msgid "Show date:"
+msgstr ""
+
+#: admin.php:218
+msgid "Shorten title output:"
+msgstr ""
+
+#: admin.php:226
+msgid "Shorten title to:"
+msgstr ""
+
+#: admin.php:227
+#: admin.php:229
+msgid "characters"
+msgstr ""
+
+#: admin.php:234
+msgid "HTML MARKUP SETTINGS"
+msgstr ""
+
+#: admin.php:237
+msgid "Before / after Popular Posts:"
+msgstr ""
+
+#: admin.php:244
+msgid "Before / after title:"
+msgstr ""
+
+#: admin.php:251
+msgid "Before / after each post:"
+msgstr ""
+
+#: admin.php:258
+msgid "Stats Tag display style:"
+msgstr ""
+
+#: admin.php:261
+#: admin.php:268
+msgid "Inline"
+msgstr ""
+
+#: admin.php:262
+#: admin.php:269
+msgid "Block"
+msgstr ""
+
+#: admin.php:275
+msgid "Delimiter:"
+msgstr ""
+
+#: admin.php:286
+msgid "HTML OUTPUT PREVIEW"
+msgstr ""
+
+#: admin.php:289
+msgid "Preview (Widget):"
+msgstr ""
+
+#: admin.php:289
+#: admin.php:318
+msgid "click on Update Settings to see changes"
+msgstr ""
+
+#: admin.php:318
+msgid "Preview (Code Snippet):"
+msgstr ""
+
+#: admin.php:350
+msgid "Update settings"
+msgstr ""
+
+#: admin.php:355
+msgid "Do you <em>like</em> this plugin?"
+msgstr ""
+
+#: admin.php:355
+#, fuzzy
+msgid "Rate Wordpress Popular Posts!"
+msgstr "Популярное"
+
+#: admin.php:355
+msgid "Rate it 5"
+msgstr ""
+
+#: admin.php:355
+msgid "on the official Plugin Directory!"
+msgstr ""
+
+#: admin.php:356
+msgid "Do you <em>love</em> this plugin?"
+msgstr ""
+
+#: admin.php:356
+msgid "Buy me a beer!"
+msgstr ""
+
+#: admin.php:356
+msgid "Each donation motivates me to keep releasing free stuff for the Wordpress community!"
+msgstr ""
+
+#: dev.php:17
+#: dev.php:236
+#: dev.php:237
+#: wordpress-popular-posts.php:26
+#: wordpress-popular-posts.php:240
+#: wordpress-popular-posts.php:241
+msgid "Popular Posts"
+msgstr "Популярное"
+
+#: dev.php:137
+#: wordpress-popular-posts.php:143
+msgid "<p>Sorry. No data so far.</p>"
+msgstr "<p>К сожалению, данных не найдено.</p>"
+
+#: dev.php:154
+#: wordpress-popular-posts.php:160
+msgid " comment(s)"
+msgstr " комментарий(ев)"
+
+#: dev.php:157
+#: wordpress-popular-posts.php:163
+msgid " view(s)"
+msgstr " просмотр(ов)"
+
+#: dev.php:162
+#: wordpress-popular-posts.php:168
+msgid " view(s) per day"
+msgstr " просмотр(ов) за день"
+
+#: dev.php:231
+#: wordpress-popular-posts.php:235
+msgid "Please visit <a href=\"options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php\">Wordpress Popular Post Administration Page</a> to adjust its settings."
+msgstr "Пожалуйста посетите <a href=\"options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php\">страницу настройки плагина Wordpress Popular Post</a> для установки параметров."
+
+#: dev.php:235
+#: wordpress-popular-posts.php:239
+msgid "The most popular posts on your blog"
+msgstr ""
+

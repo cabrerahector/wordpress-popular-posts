@@ -2,8 +2,8 @@
 /*
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://rauru.com/wordpress-popular-posts
-Description: Retrieves the most active entries of your blog and displays them on a list. Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular(); ?&gt;</strong>
-Version: 1.4.2
+Description: Retrieves the most active entries of your blog and displays them with your own formatting. Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular(); ?&gt;</strong>
+Version: 1.4.3
 Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
@@ -11,14 +11,14 @@ Author URI: http://rauru.com/
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts {
 	
-		var $version = "1.4.2";
+		var $version = "1.4.3";
 		var $options = array();
 		var $options_snippet = array();
 		var $options_holder = array();
 		var $table_name = "pageviews";
 		
 		function WordpressPopularPosts() {
-			$this->options = get_option("wpp_options");			
+			$this->options = get_option("wpp_options");
 			if ( empty($this->options) ) {
 				$this->options = get_option("widget_mostpopular");
 				if ( empty($this->options) ) {
@@ -33,7 +33,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						'sortby' => 1,
 						'range' => 'all-time',
 						'author' => false,
-						'date' => false
+						'date' => false,
+						'markup' => array('wpp-start'=>'&lt;ul&gt;', 'wpp-end'=>'&lt;/ul&gt;', 'post-start'=>'&lt;li&gt;', 'post-end'=>'&lt;/li&gt;', 'display'=>'block', 'delimiter' => ' [...]', 'title-start' => '&lt;h2&gt;', 'title-end' => '&lt;/h2&gt;')
 					);
 				}
 			}			
@@ -141,7 +142,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( !is_array($mostpopular) || empty($mostpopular) ) {
 				echo "".__('<p>Sorry. No data so far.</p>', 'wordpress-popular-posts')."";
 			} else {	
-				echo "\n"."<ul><!-- Wordpress Popular Posts Plugin ". $this->version ." -->"."\n";
+				echo "\n" . html_entity_decode($this->options_holder[$summoner]['markup']['wpp-start'], ENT_QUOTES) . "<!-- Wordpress Popular Posts Plugin ". $this->version ." -->"."\n";
 				$stat_count = 0;
 				
 				foreach ($mostpopular as $post) {
@@ -149,7 +150,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$post_stats = " ";
 					
 					if ( $this->options_holder[$summoner]['excerpt'] ) { 
-						$post_title = substr(htmlspecialchars(stripslashes($post->post_title)),0,$this->options_holder[$summoner]['characters']) . " [...]";
+						$post_title = substr(htmlspecialchars(stripslashes($post->post_title)),0,$this->options_holder[$summoner]['characters']) . $this->options_holder[$summoner]['markup']['delimiter'];
 					} else {
 						$post_title = htmlspecialchars(stripslashes($post->post_title));
 					}			
@@ -190,12 +191,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						}
 					}
 					if ( !empty($post_stats) ) {
-						echo '<li><a href="'.get_permalink($post->ID).'" title="'. htmlspecialchars(stripslashes($post->post_title)) .'">'. html_entity_decode($post_title) .'</a> <span class="post-stats">' . $post_stats . '</span></li>'."\n";
+						if ($this->options_holder[$summoner]['markup']['display'] == 'block') {
+							$display = " style=\"display:block\"";
+						} else {
+							$display = "";
+						}
+						echo html_entity_decode($this->options_holder[$summoner]['markup']['post-start'], ENT_QUOTES) . '<a href="'.get_permalink($post->ID).'" title="'. htmlspecialchars(stripslashes($post->post_title)) .'">'. html_entity_decode($post_title) .'</a> <span class="post-stats"'. $display .'>' . $post_stats . '</span>' . html_entity_decode($this->options_holder[$summoner]['markup']['post-end'], ENT_QUOTES) . "\n";
 					} else {
-						echo '<li><a href="'.get_permalink($post->ID).'" title="'. htmlspecialchars(stripslashes($post->post_title)) .'">'. html_entity_decode($post_title) .'</a></li>'."\n";
+						echo html_entity_decode($this->options_holder[$summoner]['markup']['post-start'], ENT_QUOTES) . '<a href="'.get_permalink($post->ID).'" title="'. htmlspecialchars(stripslashes($post->post_title)) .'">'. html_entity_decode($post_title) .'</a>' . html_entity_decode($this->options_holder[$summoner]['markup']['post-end'], ENT_QUOTES) . "\n";
 					}
 				}
-				echo "</ul><!-- End Wordpress Popular Posts Plugin ". $this->version ." -->"."\n";		
+				echo html_entity_decode($this->options_holder[$summoner]['markup']['wpp-end'], ENT_QUOTES) . "<!-- End Wordpress Popular Posts Plugin ". $this->version ." -->"."\n";		
 			}
 		}
 		
@@ -216,11 +222,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function widget_mostpopular($args) {
 			extract($args);			
 			
-			echo $before_widget;
+			echo $before_widget;			
 			if ($this->options['title'] != '') {
-				echo $before_title;
-				echo $this->options['title'];
-				echo $after_title;
+				echo html_entity_decode($this->options['markup']['title-start'], ENT_QUOTES) . $this->options['title'] . html_entity_decode($this->options['markup']['title-end'], ENT_QUOTES);
 			}			
 			$this->get_popular_posts(0);			
 			echo $after_widget;
@@ -232,8 +236,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		}
 		
 		function init_mostpopular(){
-			register_sidebar_widget("Popular Posts", array(&$this,"widget_mostpopular"));
-			register_widget_control("Popular Posts", array(&$this,'mostpopular_control'), 200, 200 );
+			$widget_ops = array('classname' => 'widget_popular_posts', 'description' => __( 'The most popular posts on your blog' ) );
+			wp_register_sidebar_widget('popular-posts', __('Popular Posts'), array(&$this,'widget_mostpopular'), $widget_ops);
+			wp_register_widget_control('popular-posts', __('Popular Posts'), array(&$this,'mostpopular_control'));
 		}
 		
 		function mostpopular_header() {
@@ -293,10 +298,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 	register_activation_hook(__FILE__, array(&$wpp,'jal_install'));
 	
 	/* Plugin core */
-	function get_mostpopular() { 
+	function get_mostpopular() {
 		global $wpp;
 		if ( !empty($wpp->options_snippet['title']) ) {
-			echo "<h2 class=\"widgettitle\">".$wpp->options_snippet['title']."</h2>";
+			echo html_entity_decode($wpp->options_snippet['markup']['title-start'], ENT_QUOTES) . $wpp->options_snippet['title'] . html_entity_decode($wpp->options_snippet['markup']['title-end'], ENT_QUOTES);
 		}	
 		$wpp->get_popular_posts(1);
 	}

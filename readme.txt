@@ -1,32 +1,35 @@
 === Wordpress Popular Posts ===
 Contributors: Ikki24
-Donate link: http://rauru.com/
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadslayer%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.0.2
 Tested up to: 2.7.1
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 
-With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog.
+With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog with your own formatting.
 
 == Description ==
 
-Wordpress Popular Posts  is a sidebar widget that displays the most popular posts on your blog.
+Wordpress Popular Posts  is a sidebar widget that displays the most popular posts on your blog with your own formatting.
 
 **Features:**
 
+* **[NEW FEATURE]**: Use your own formatting! Control how your most popular posts are going to be displayed on your templates.
+* **[NEW FEATURE]**: Wordpress Popular Posts is now **localized**! Currently supported languages: English (default), Russian, Spanish, Swedish and Korean.
+* **[NEW FEATURE]**: *Time Range* - list your most popular posts within a specific time range (eg. today's popular posts, this week's popular posts, etc.)!
 * Wordpress popular posts is highly customizable. You can set its title (or leave it blank if you don't want to use any), how many entries to show, whether to display or not comments count and/or pageviews for each entry listed, and to show (or not) an excerpt of each post's title.
 * List your posts either by **comment count**, **pageviews** or **average daily views**. Sorted by **comment count** by default.
 * You can also list those pages of your blog (About, Services, Archives, etc.) that are getting a lot of attention from your readers. Enabled by default.
 * Wordpress Popular Posts now counts with an **Admin page** where you can manage all its settings. No more manual configuration!
-* **[NEW FEATURE]**: Wordpress Popular Posts is now **localized**! Currently supported languages: English (default), Russian and Spanish.
-* **[NEW FEATURE]**: *Time Range* - list your most popular posts within a specific time range (eg. today's popular posts, this week's popular posts, etc.)!
 
 **Localization:**
 
-* **Russian** | by [Aleksey Timkov](http://icellulars.net/)
-* **Spanish** | by [H&eacute;ctor Cabrera](http://rauru.com/)
+* **Russian** | by [Aleksey Timkov](http://icellulars.net/) (*10% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Spanish** | by [Héctor Cabrera](http://rauru.com/) (*100% translated!*)
+* **Swedish** | by [.SE (The Internet Infrastructure Foundation)](http://iis.se/) (*69% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Korean** | by [Jong-In](http://incommunity.codex.kr/wordpress) (*60% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
 
-[Version History](http://rauru.com/wordpress-popular-posts#releases)
+[Version History](http://rauru.com/wordpress-popular-posts#releases) | [Localization](http://rauru.com/wordpress-popular-posts#localization)
 
 == Installation ==
 
@@ -34,7 +37,7 @@ Wordpress Popular Posts  is a sidebar widget that displays the most popular post
 2. Upload the `wordpress-popular-posts` folder to the `/wp-content/plugins/` directory.
 3. Activate **Wordpress Popular Posts** plugin through the 'Plugins' menu in WordPress.
 4. In your admin console, go to Design > Widgets (or Presentation > Widgets for Wordpress 2.3 and lower), and drag the Wordpress Popular Posts widget to wherever you want it to be, and click Save Changes.
-5. *optional* In your admin console, go to Design > Widgets (or Presentation > Widgets for Wordpress 2.3 and lower), click Edit on **Popular Posts** and customize it to your likings. Once you're done with it, click on Change and then on Save Changes. **[NEW FEATURE]** You can now also change its settings using WPP Admin page.
+5. *optional* In your admin console, go to Appearance > Widgets (or Presentation > Widgets for Wordpress 2.3 and lower), click Edit on **Popular Posts** and customize it to your likings. Once you're done with it, click on Change and then on Save Changes. **[NEW FEATURE]** You can now also change its settings using WPP Admin page.
 
 = Placing Wordpress Popular Posts in your templates =
 
@@ -61,6 +64,10 @@ Every time a post is viewed by someone (except you), it is registered by *Wordpr
 * *How can I style the small tag where comments count, pageviews, etc. (the "stats tag") are displayed?*
 
 I have included a small stylesheet file called wpp.css that you can use to style the **stats tag** to your liking.
+
+* *I would like to help translate Wordpress Popular Posts into my language. What do I need to do?*
+
+[Here](http://rauru.com/wordpress-popular-posts#localization) you will find all the necessary information about it. Many thanks in advance for your help!
 
 == Screenshots ==
 
