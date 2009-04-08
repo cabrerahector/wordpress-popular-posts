@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.0.2
 Tested up to: 2.7.1
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog with your own formatting.
 
