@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-07 10:52-0430\n"
+"POT-Creation-Date: 2009-04-08 14:17-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Cabrera <admin@rauru.com>\n"
 "Language-Team: Héctor Cabrera <admin@rauru.com>\n"
@@ -142,15 +142,27 @@ msgid "HTML MARKUP SETTINGS"
 msgstr ""
 
 #: admin.php:237
+msgid "Before / after title:"
+msgstr ""
+
+#: admin.php:237
+msgid "(for example: &lt;h2&gt; | &lt;/h2&gt;)"
+msgstr ""
+
+#: admin.php:244
 msgid "Before / after Popular Posts:"
 msgstr ""
 
 #: admin.php:244
-msgid "Before / after title:"
+msgid "(for example: &lt;ul&gt; | &lt;/ul&gt;)"
 msgstr ""
 
 #: admin.php:251
 msgid "Before / after each post:"
+msgstr ""
+
+#: admin.php:251
+msgid "(for example: &lt;li&gt; | &lt;/li&gt;)"
 msgstr ""
 
 #: admin.php:258
@@ -167,24 +179,24 @@ msgstr ""
 msgid "Block"
 msgstr ""
 
-#: admin.php:275
+#: admin.php:276
 msgid "Delimiter:"
 msgstr ""
 
-#: admin.php:286
+#: admin.php:288
 msgid "HTML OUTPUT PREVIEW"
 msgstr ""
 
-#: admin.php:289
+#: admin.php:291
 msgid "Preview (Widget):"
 msgstr ""
 
-#: admin.php:289
-#: admin.php:318
+#: admin.php:291
+#: admin.php:320
 msgid "click on Update Settings to see changes"
 msgstr ""
 
-#: admin.php:318
+#: admin.php:320
 msgid "Preview (Code Snippet):"
 msgstr ""
 
@@ -220,41 +232,32 @@ msgstr ""
 msgid "Each donation motivates me to keep releasing free stuff for the Wordpress community!"
 msgstr ""
 
-#: dev.php:17
-#: dev.php:236
-#: dev.php:237
 #: wordpress-popular-posts.php:26
 #: wordpress-popular-posts.php:240
 #: wordpress-popular-posts.php:241
 msgid "Popular Posts"
 msgstr ""
 
-#: dev.php:137
 #: wordpress-popular-posts.php:143
 msgid "<p>Sorry. No data so far.</p>"
 msgstr ""
 
-#: dev.php:154
 #: wordpress-popular-posts.php:160
 msgid " comment(s)"
 msgstr ""
 
-#: dev.php:157
 #: wordpress-popular-posts.php:163
 msgid " view(s)"
 msgstr ""
 
-#: dev.php:162
 #: wordpress-popular-posts.php:168
 msgid " view(s) per day"
 msgstr ""
 
-#: dev.php:231
 #: wordpress-popular-posts.php:235
 msgid "Please visit <a href=\"options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php\">Wordpress Popular Post Administration Page</a> to adjust its settings."
 msgstr ""
 
-#: dev.php:235
 #: wordpress-popular-posts.php:239
 msgid "The most popular posts on your blog"
 msgstr ""

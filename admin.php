@@ -234,21 +234,21 @@
         	<td class="separate_title" colspan="<?php if (get_option("wpp_widget_on") == "on") { echo "3"; } else { echo "2"; } ?>"><small><?php echo __('HTML MARKUP SETTINGS', 'wordpress-popular-posts'); ?></small></td>
         </tr>
         <tr>
-        	<td class="even_row"><label for="plugin_mostpopular-BeforeTitle"><?php echo __('Before / after title:', 'wordpress-popular-posts'); ?>  <span style="color:#ff0000; font-size:9px">NEW!</span></label><br /><small>(for example: &lt;h2&gt; | &lt;/h2&gt;)</small></td>
+        	<td class="even_row"><label for="plugin_mostpopular-BeforeTitle"><?php echo __('Before / after title:', 'wordpress-popular-posts'); ?>  <span style="color:#ff0000; font-size:9px">NEW!</span></label><br /><small><?php echo __('(for example: &lt;h2&gt; | &lt;/h2&gt;)', 'wordpress-popular-posts'); ?></small></td>
             <td class="even_row" align="center"><input type="text" id="plugin_mostpopular-BeforeTitle" name="plugin_mostpopular-BeforeTitle" value="<?php echo $wpp->options['markup']['title-start'];?>" class="txt2" /> <input type="text" id="plugin_mostpopular-AfterTitle" name="plugin_mostpopular-AfterTitle" value="<?php echo $wpp->options['markup']['title-end'];?>" class="txt2" /> </td>
             <?php if (get_option("wpp_widget_on") == "on") : ?>
             <td class="even_row" align="center"><input type="text" id="plugin_mostpopular-BeforeTitle_Snippet" name="plugin_mostpopular-BeforeTitle_Snippet" value="<?php echo $wpp->options_snippet['markup']['title-start'];?>" class="txt2" /> <input type="text" id="plugin_mostpopular-AfterTitle_Snippet" name="plugin_mostpopular-AfterTitle_Snippet" value="<?php echo $wpp->options_snippet['markup']['title-end'];?>" class="txt2" /> </td>
             <?php endif; ?>
         </tr>
         <tr>
-        	<td class="odd_row"><label for="plugin_mostpopular-BeforeWPP"><?php echo __('Before / after Popular Posts:', 'wordpress-popular-posts'); ?>  <span style="color:#ff0000; font-size:9px">NEW!</span></label><br /><small>(for example: &lt;ul&gt; | &lt;/ul&gt;)</small></td>
+        	<td class="odd_row"><label for="plugin_mostpopular-BeforeWPP"><?php echo __('Before / after Popular Posts:', 'wordpress-popular-posts'); ?>  <span style="color:#ff0000; font-size:9px">NEW!</span></label><br /><small><?php echo __('(for example: &lt;ul&gt; | &lt;/ul&gt;)', 'wordpress-popular-posts'); ?></small></td>
             <td class="odd_row" align="center"><input type="text" id="plugin_mostpopular-BeforeWPP" name="plugin_mostpopular-BeforeWPP" value="<?php echo $wpp->options['markup']['wpp-start'];?>" class="txt2" /> <input type="text" id="plugin_mostpopular-AfterWPP" name="plugin_mostpopular-AfterWPP" value="<?php echo $wpp->options['markup']['wpp-end'];?>" class="txt2" /> </td>
             <?php if (get_option("wpp_widget_on") == "on") : ?>
             <td class="odd_row" align="center"><input type="text" id="plugin_mostpopular-BeforeWPP_Snippet" name="plugin_mostpopular-BeforeWPP_Snippet" value="<?php echo $wpp->options_snippet['markup']['wpp-start'];?>" class="txt2" /> <input type="text" id="plugin_mostpopular-AfterWPP_Snippet" name="plugin_mostpopular-AfterWPP_Snippet" value="<?php echo $wpp->options_snippet['markup']['wpp-end'];?>" class="txt2" /> </td>
             <?php endif; ?>
         </tr>        
         <tr>
-        	<td class="even_row"><label for="plugin_mostpopular-BeforePost"><?php echo __('Before / after each post:', 'wordpress-popular-posts'); ?>  <span style="color:#ff0000; font-size:9px">NEW!</span></label><br /><small>(for example: &lt;li&gt; | &lt;/li&gt;)</small></td>
+        	<td class="even_row"><label for="plugin_mostpopular-BeforePost"><?php echo __('Before / after each post:', 'wordpress-popular-posts'); ?>  <span style="color:#ff0000; font-size:9px">NEW!</span></label><br /><small><?php __('(for example: &lt;li&gt; | &lt;/li&gt;)', 'wordpress-popular-posts'); ?></small></td>
             <td class="even_row" align="center"><input type="text" id="plugin_mostpopular-BeforePost" name="plugin_mostpopular-BeforePost" value="<?php echo $wpp->options['markup']['post-start'];?>" class="txt2" /> <input type="text" id="plugin_mostpopular-AfterPost" name="plugin_mostpopular-AfterPost" value="<?php echo $wpp->options['markup']['post-end'];?>" class="txt2" /> </td>
             <?php if (get_option("wpp_widget_on") == "on") : ?>
             <td class="even_row" align="center"><input type="text" id="plugin_mostpopular-BeforePost_Snippet" name="plugin_mostpopular-BeforePost_Snippet" value="<?php echo $wpp->options_snippet['markup']['post-start'];?>" class="txt2" /> <input type="text" id="plugin_mostpopular-AfterPost_Snippet" name="plugin_mostpopular-AfterPost_Snippet" value="<?php echo $wpp->options_snippet['markup']['post-end'];?>" class="txt2" /> </td>
