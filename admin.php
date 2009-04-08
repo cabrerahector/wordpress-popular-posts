@@ -363,6 +363,4 @@
 			 return stripslashes($data);
 	   } else return $data;
 	}
-	
-	print_r($wpp->options);
 ?>

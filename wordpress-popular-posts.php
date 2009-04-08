@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://rauru.com/wordpress-popular-posts
 Description: Retrieves the most active entries of your blog and displays them with your own formatting. Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular(); ?&gt;</strong>
-Version: 1.4.3
+Version: 1.4.4
 Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
@@ -11,7 +11,7 @@ Author URI: http://rauru.com/
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts {
 	
-		var $version = "1.4.3";
+		var $version = "1.4.4";
 		var $options = array();
 		var $options_snippet = array();
 		var $options_holder = array();
@@ -259,7 +259,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		
 		// Plugin localization (Credits: Aleksey Timkov at@uadeveloper.com)
 		function wordpress_popular_posts_textdomain() {
-			load_plugin_textdomain('wordpress-popular-posts', 'wp-content/plugins/wordpress-popular-posts/lang/' . WPLANG);
+			load_plugin_textdomain('wordpress-popular-posts', 'wp-content/plugins/wordpress-popular-posts');
 		}
 		
 		// Version validator - inspired on cforms' version checker function
