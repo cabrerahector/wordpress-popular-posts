@@ -14,7 +14,7 @@ Wordpress Popular Posts  is a sidebar widget that displays the most popular post
 
 **Features:**
 
-**WARNING: if you are upgrading from a version prior to 1.4.6, please [update to 1.4.6](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.4.6.zip) before moving to 1.5.x! **
+**Important Notice:** if you are upgrading from a version prior to 1.4.6, please [update to 1.4.6](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.4.6.zip) before moving to 1.5.x!
 
 * **[NEW FEATURE]**: Use **your own formatting**! Control how your most popular posts are going to be displayed on your templates (*optional*).
 * **[NEW FEATURE]**: [WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support added!
