@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://rauru.com/wordpress-popular-posts
 Description: Retrieves the most active entries of your blog and displays them with your own formatting (<em>optional</em>). Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular(); ?&gt;</strong>
-Version: 1.4.6
+Version: 1.5.0
 Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
@@ -11,13 +11,14 @@ Author URI: http://rauru.com/
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts {
 	
-		var $version = "1.4.6";
+		var $version = "1.5.0";
 		var $options = array();
 		var $options_snippet = array();
 		var $options_holder = array();
 		var $table_name = "pageviews";
 		var $qTrans = false;
 		var $GD = false;
+		var $postRating = false;
 		
 		function WordpressPopularPosts() {
 			$this->options = get_option("wpp_options");
@@ -40,6 +41,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						'range' => 'all-time',
 						'author' => false,
 						'date' => false,
+						'rating' => false,
 						'custom-markup' => false,
 						'markup' => array('wpp-start'=>'&lt;ul&gt;', 'wpp-end'=>'&lt;/ul&gt;', 'post-start'=>'&lt;li&gt;', 'post-end'=>'&lt;/li&gt;', 'display'=>'block', 'delimiter' => ' [...]', 'title-start' => '&lt;h2&gt;', 'title-end' => '&lt;/h2&gt;', 'default-title' => true)
 					);
@@ -92,16 +94,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$range = "post_date_gmt < '".gmdate("Y-m-d H:i:s")."'";
 					break;
 				case 'today':					
-					$range = "$table_wpp.day > NOW() - INTERVAL 24 HOUR";
+					$range = "$table_wpp.last_viewed > NOW() - INTERVAL 24 HOUR";
 					break;
 				case 'weekly':
-					$range = "$table_wpp.day >= '".gmdate("Y-m-d")."' - INTERVAL 7 DAY";
+					$range = "$table_wpp.last_viewed >= '".gmdate("Y-m-d")."' - INTERVAL 7 DAY";
 					break;
 				case 'monthly':
-					$range = "$table_wpp.day >= '".gmdate("Y-m-d")."' - INTERVAL 30 DAY";
+					$range = "$table_wpp.last_viewed >= '".gmdate("Y-m-d")."' - INTERVAL 30 DAY";
 					break;
 				case 'yearly':
-					$range = "$table_wpp.day >= '".gmdate("Y-m-d")."' - INTERVAL 365 DAY";
+					$range = "$table_wpp.last_viewed >= '".gmdate("Y-m-d")."' - INTERVAL 365 DAY";
 					break;
 				default:
 					$range = "post_date_gmt < '".gmdate("Y-m-d H:i:s")."'";
@@ -127,7 +129,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// dynamic query fields
 			$fields = ', ';			
-			if ( $this->options_holder[$summoner]['views'] || ($sortby == 'pageviews') ) $fields .= "SUM($table_wpp.pageviews) AS 'pageviews' ";
+			if ( $this->options_holder[$summoner]['views'] || ($sortby == 'pageviews') ) $fields .= "$table_wpp.pageviews AS 'pageviews' ";
 			if ( $this->options_holder[$summoner]['comments'] ) {
 				if ( $fields != ', ' ) {
 					$fields .= ", $wpdb->posts.comment_count AS 'comment_count' ";
@@ -137,9 +139,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			if ( $sortby == 'avg_views' ) {
 				if ( $fields != ', ' ) {
-					$fields .= ", (SUM($table_wpp.pageviews)/(IF ( DATEDIFF(CURDATE(), MIN($table_wpp.day)) > 0, DATEDIFF(CURDATE(), MIN($table_wpp.day)), 1) )) AS 'avg_views' ";
+					$fields .= ", ($table_wpp.pageviews/(IF ( DATEDIFF(CURDATE(), MIN($table_wpp.day)) > 0, DATEDIFF(CURDATE(), MIN($table_wpp.day)), 1) )) AS 'avg_views' ";
 				} else {
-					$fields .= "(SUM($table_wpp.pageviews)/(IF ( DATEDIFF(CURDATE(), MIN($table_wpp.day)) > 0, DATEDIFF(CURDATE(), MIN($table_wpp.day)), 1) )) AS 'avg_views' ";
+					$fields .= "($table_wpp.pageviews/(IF ( DATEDIFF(CURDATE(), MIN($table_wpp.day)) > 0, DATEDIFF(CURDATE(), MIN($table_wpp.day)), 1) )) AS 'avg_views' ";
 				}
 			}
 			if ( $this->options_holder[$summoner]['author'] ) {
@@ -161,15 +163,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$mostpopular = $wpdb->get_results("SELECT $wpdb->posts.ID, $wpdb->posts.post_title $fields FROM $wpdb->posts LEFT JOIN $table_wpp ON $wpdb->posts.ID = $table_wpp.postid WHERE post_status = 'publish' AND post_password = '' AND $range AND pageviews > 0 $nopages GROUP BY postid ORDER BY $sortby DESC LIMIT " . $this->options_holder[$summoner]['limit'] . "");
 			
+			echo "SELECT $wpdb->posts.ID, $wpdb->posts.post_title $fields FROM $wpdb->posts LEFT JOIN $table_wpp ON $wpdb->posts.ID = $table_wpp.postid WHERE post_status = 'publish' AND post_password = '' AND $range AND pageviews > 0 $nopages GROUP BY postid ORDER BY $sortby DESC LIMIT " . $this->options_holder[$summoner]['limit'] . "";
+			
 			if ( !is_array($mostpopular) || empty($mostpopular) ) {
 				echo "".__('<p>Sorry. No data so far.</p>', 'wordpress-popular-posts')."";
 			} else {
 				if ($this->options_holder[$summoner]['custom-markup']) {
-					echo "\n" . html_entity_decode($this->options_holder[$summoner]['markup']['wpp-start'], ENT_QUOTES) . "<!-- Wordpress Popular Posts Plugin ". $this->version ." -->"."\n";
+					echo "\n" . html_entity_decode($this->options_holder[$summoner]['markup']['wpp-start'], ENT_QUOTES) . "<!-- Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
 				} else {
 					echo "\n"."<ul><!-- Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
 				}
-				$stat_count = 0;
+				//$stat_count = 0;
 				
 				foreach ($mostpopular as $wppost) {					
 				
@@ -199,7 +203,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 					if ( $this->options_holder[$summoner]['comments'] ) {
 						$comment_count = (int) $wppost->comment_count;
-						$post_stats .= $comment_count . " " . __(' comment(s)', 'wordpress-popular-posts');
+						$post_stats .= "<span class=\"wpp-comments\">" . $comment_count . " " . __(' comment(s)', 'wordpress-popular-posts') . "</span>";
 					}
 					if ( $this->options_holder[$summoner]['views'] ) {
 						$views_text = __(' view(s)', 'wordpress-popular-posts');
@@ -213,9 +217,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						}			
 						
 						if ($post_stats != " ") {
-							$post_stats .= " | $pageviews $views_text";
+							$post_stats .= " | <span class=\"wpp-views\">$pageviews $views_text</span>";
 						} else {							
-							$post_stats .= "$pageviews $views_text";
+							$post_stats .= "<span class=\"wpp-views\">$pageviews $views_text</span>";
 						}										
 					}
 					if ( $this->options_holder[$summoner]['author'] ) {
@@ -227,9 +231,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 					if ( $this->options_holder[$summoner]['date'] ) {
 						if ($post_stats != " ") {
-							$post_stats .= " | posted on ".date("F, j",strtotime($wppost->date_gmt));
+							$post_stats .= " | <span class=\"wpp-date\">posted on ".date("F, j",strtotime($wppost->date_gmt))."</span>";
 						} else {					
-							$post_stats .= "posted on ".date("F, j",strtotime($wppost->date_gmt));
+							$post_stats .= "<span class=\"wpp-date\">posted on ".date("F, j",strtotime($wppost->date_gmt))."</span>";
 						}
 					}
 					
@@ -252,26 +256,34 @@ if ( !class_exists('WordpressPopularPosts') ) {
 												
 					}
 					
+					if ($this->options_holder[$summoner]['rating'] && function_exists('the_ratings_results')) {
+						$rating = '<span class="wpp-rating">'.the_ratings_results($wppost->ID).'</span>';
+					} else {
+						$rating = '';
+					}
+					
 					$data = array(
 						'title' => '<a href="'.get_permalink($wppost->ID).'" title="'. htmlspecialchars(stripslashes($tit)) .'">'. html_entity_decode($post_title) .'</a>',
 						'summary' => $post_content,
 						'stats' => $stats,
-						'img' => $thumb
-					);
+						'img' => $thumb,
+						'id' => $wppost->ID
+					);		
+					
 					
 					if ($this->options_holder[$summoner]['custom-markup']) {
 						if ($this->options_holder[$summoner]['pattern']['active']) {
 							echo html_entity_decode($this->options_holder[$summoner]['markup']['post-start'], ENT_QUOTES) . $this->format_content($this->options_holder[$summoner]['pattern']['text'], $data) . html_entity_decode($this->options_holder[$summoner]['markup']['post-end'], ENT_QUOTES) . "\n";
 						} else {
-							echo html_entity_decode($this->options_holder[$summoner]['markup']['post-start'], ENT_QUOTES) . '<a href="'.get_permalink($wppost->ID).'" title="'. htmlspecialchars(stripslashes($tit)) .'">'. html_entity_decode($post_title) .'</a>'.$post_content.' '. $stats . html_entity_decode($this->options_holder[$summoner]['markup']['post-end'], ENT_QUOTES) . "\n";
+							echo html_entity_decode($this->options_holder[$summoner]['markup']['post-start'], ENT_QUOTES) . '<a href="'.get_permalink($wppost->ID).'" title="'. htmlspecialchars(stripslashes($tit)) .'">'. html_entity_decode($post_title) .'</a>'.$post_content.' '. $stats . $rating . html_entity_decode($this->options_holder[$summoner]['markup']['post-end'], ENT_QUOTES) . "\n";
 						}
-					} else {						
-						echo '<li>'.$thumb.'<a href="'.get_permalink($wppost->ID).'" title="'. htmlspecialchars(stripslashes($tit)) .'">'. html_entity_decode($post_title) .'</a>'. $post_content .' '.$stats.'</li>' . "\n";
+					} else {
+						echo '<li>'. $thumb .'<a href="'. get_permalink($wppost->ID) .'" title="'. htmlspecialchars(stripslashes($tit)) .'">'. html_entity_decode($post_title) .'</a>'. $post_content .' '. $stats . $rating .'</li>' . "\n";
 					}
 				}			
 				
 				if ($this->options_holder[$summoner]['custom-markup']) {
-					echo html_entity_decode($this->options_holder[$summoner]['markup']['wpp-end'], ENT_QUOTES) . "<!-- End Wordpress Popular Posts Plugin ". $this->version ." -->"."\n";
+					echo html_entity_decode($this->options_holder[$summoner]['markup']['wpp-end'], ENT_QUOTES) . "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
 				} else {
 					echo "\n"."</ul><!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
 				}
@@ -286,10 +298,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				global $wp_query;		
 			
 				$postid = $wp_query->post->ID; // get post ID
-				$table_name = $wpdb->prefix . $this->table_name;	
+				$table_name = $wpdb->prefix . $this->table_name;
 				
-				$result = $wpdb->query("INSERT INTO $table_name (postid, day) VALUES ('".$wpdb->escape($postid)."', NOW()) ON DUPLICATE KEY UPDATE pageviews=pageviews+1");
+				$exists = $wpdb->get_results("SELECT postid FROM $table_name WHERE postid = '".$postid."'");
+				
+				if ($exists) {
+					$result = $wpdb->query("UPDATE $table_name SET last_viewed = NOW(), pageviews = pageviews + 1 WHERE postid = '$postid'");
+				} else {				
+					$result = $wpdb->query("INSERT INTO $table_name (postid, day, last_viewed) VALUES ('".$postid."', NOW(), NOW())");
+				}
+				
 			}
+			
 			return $content;
 		}
 		
@@ -363,12 +383,38 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			if ( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name ) {
 				if ( $wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix.$tpp."'") != $wpdb->prefix.$tpp ) {
-					$sql = "CREATE TABLE " . $wpdb->prefix.$tpp . " ( UNIQUE KEY id (postid, day), postid int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', pageviews int(10) default 1 );";		
+					$sql = "CREATE TABLE " . $wpdb->prefix.$tpp . " ( UNIQUE KEY id (postid), postid int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', last_viewed datetime NOT NULL default '0000-00-00 00:00:00', pageviews int(10) default 1 );";		
 					require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 					dbDelta($sql);
-				}				
-			} else { // table already exists, let's check if it is up to date				
-				$wpdb->query("ALTER TABLE ".$table_name." RENAME ".$wpdb->prefix.$tpp.",  CHANGE day day datetime NOT NULL default '0000-00-00 00:00:00';");
+				} else { // table already exists, let's check if updated
+					$last = false;
+					$result = $wpdb->get_results("DESCRIBE " . $wpdb->prefix.$tpp);
+					
+					if ($result) {
+						foreach ($result as $r) {
+							if ($r->Field == 'last_viewed') {
+								$last = true;
+								break;
+							}
+						}
+					
+						if ($last == false) {
+							$wpdb->query("CREATE TABLE wp_wpptemp ( UNIQUE KEY id (postid), postid int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', last_viewed datetime NOT NULL default '0000-00-00 00:00:00', pageviews int(10) default 1 )");
+							
+							$old_rows = $wpdb->get_results("SELECT DISTINCT postid FROM ".$wpdb->prefix.$tpp." ORDER BY postid");
+							foreach($old_rows as $row) {
+								$tmp = $wpdb->get_results("SELECT day, sum(pageviews) AS views FROM ".$wpdb->prefix.$tpp." WHERE postid = '".$row->postid."'");
+								foreach($tmp as $t) {
+									$wpdb->query("INSERT INTO wp_wpptemp (postid, day, last_viewed, pageviews) VALUES (".$row->postid.", '".$t->day."', NOW(), ".$t->views.")");
+								}
+							}
+							
+							$wpdb->query("RENAME TABLE ".$wpdb->prefix.$tpp." TO ".$wpdb->prefix."popularpostsdata_backup, wp_wpptemp TO ".$wpdb->prefix.$tpp.";");	
+						}
+					}
+				}
+			} else { // table already exists, let's check if it is up to date		
+				$wpdb->query("ALTER TABLE ".$table_name." RENAME ".$wpdb->prefix.$tpp.", CHANGE day day datetime NOT NULL default '0000-00-00 00:00:00';");
 			}
 			$this->table_name = $tpp;		
 		}
@@ -408,8 +454,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$excerpt = $wpdb->get_results("SELECT post_excerpt FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
 			if (empty($excerpt[0]['post_excerpt'])) {
 				$excerpt = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
+				$excerpt[0]['post_content'] = preg_replace("/\[caption.*\[\/caption\]/", "", $excerpt[0]['post_content']);
 				return substr(strip_tags($excerpt[0]['post_content']), 0, $this->options_holder[$summoner]['post-characters']);
 			} else {
+				$excerpt[0]['post_excerpt'] = preg_replace("/\[caption.*\[\/caption\]/", "", $excerpt[0]['post_excerpt']);;
 				return substr(strip_tags($excerpt[0]['post_excerpt']), 0, $this->options_holder[$summoner]['post-characters']);				
 			}
 		}
@@ -420,12 +468,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			global $wpdb;
 			$source = array();
 			
-			$source = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
+			$raw = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
+			
+			$source = strip_tags($raw[0]["post_content"], "<img>");
 		
-			$count = substr_count($source[0]['post_content'], '<img');
+			$count = substr_count($source, '<img');
 			
 			if ($count > 0) { // images have been found
-				$p = substr( $source[0]['post_content'], strpos($source[0]['post_content'], "<img", 0), (strpos($source[0]['post_content'], '>') - strpos($source[0]['post_content'], "<img", 0) + 1) );
+				$p = substr( $source, strpos($source, "<img", 0), (strpos($source, '>') - strpos($source, "<img", 0) + 1) );
 				
 				$img_pattern = '/<\s*img [^\>]*src\s*=\s*[\""\']?([^\""\'\s>]*)/i';			
 				preg_match($img_pattern, $p, $imgm);
@@ -443,7 +493,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if (empty($string) || (empty($data) || !is_array($data))) return false;
 			
 			$params = array();
-			$pattern = '/\{(summary|stats|title|image)\}/i';		
+			$pattern = '/\{(summary|stats|title|image|rating)\}/i';		
 			preg_match_all($pattern, $string, $matches);
 			
 			for ($i=0; $i < count($matches[0]); $i++) {		
@@ -462,6 +512,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if (strtolower($matches[0][$i]) == "{image}") {
 					$params[$matches[0][$i]] = $data['img'];
 					continue;
+				}
+				// WP-PostRatings check
+				if (function_exists('the_ratings_results') && ( $this->options['rating'] || $this->options_snippet['rating'] )) {
+					if (strtolower($matches[0][$i]) == "{rating}") {
+						$params[$matches[0][$i]] = the_ratings_results($data['id']);
+						continue;
+					}
 				}
 			}
 			
@@ -501,4 +558,5 @@ if ( !class_exists('WordpressPopularPosts') ) {
 	}
 	/* End Admin page */
 }
+
 ?>

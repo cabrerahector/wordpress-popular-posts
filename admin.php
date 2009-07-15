@@ -6,7 +6,7 @@
 	//$wpp->options = array();
 			
 	if (!is_array( $wpp->options ) || empty( $wpp->options )) {
-		$wpp->options = array( 'title' => 'Popular Posts', 'limit' => 10, 'pages' => true, 'thumbnail' => array('show' => false, 'width' => 70, 'height' => 70), 'pattern' => array('active' => false, 'text' => '{title}: {summary} {stats}'), 'comments' => true, 'views' => true, 'excerpt' => true, 'characters' => 25, 'post-excerpt' => false, 'post-characters' => 55, 'sortby' => 1, 'range' => 'all-time', 'author' => false, 'date' => false, 'custom-markup' => false, 'markup' => array('wpp-start'=>'&lt;ul&gt;', 'wpp-end'=>'&lt;/ul&gt;', 'post-start'=>'&lt;li&gt;', 'post-end'=>'&lt;/li&gt;', 'display'=>'block', 'delimiter' => ' [...]', 'title-start' => '&lt;h2&gt;', 'title-end' => '&lt;/h2&gt;', 'default-title' => true)	);			
+		$wpp->options = array('title' => 'Popular Posts', 'limit' => 10, 'pages' => true, 'thumbnail' => array('show' => false, 'width' => 70, 'height' => 70), 'pattern' => array('active' => false, 'text' => '{title}: {summary} {stats}'), 'comments' => true, 'views' => true, 'excerpt' => true, 'characters' => 25, 'post-excerpt' => false, 'post-characters' => 55, 'sortby' => 1, 'range' => 'all-time', 'author' => false, 'date' => false, 'rating' => false, 'custom-markup' => false, 'markup' => array('wpp-start'=>'&lt;ul&gt;', 'wpp-end'=>'&lt;/ul&gt;', 'post-start'=>'&lt;li&gt;', 'post-end'=>'&lt;/li&gt;', 'display'=>'block', 'delimiter' => ' [...]', 'title-start' => '&lt;h2&gt;', 'title-end' => '&lt;/h2&gt;', 'default-title' => true)	);			
 	}
 	
 	$wpp->options_snippet = get_option("wpp_options_snippet");
@@ -44,7 +44,8 @@
 			$wpp->options['markup']['delimiter'] = htmlspecialchars(escapeThis($_POST['plugin_mostpopular-Delimiter']));
 		}
 		
-		if (isset($_POST['plugin_mostpopular-IncludePages'])) { $wpp->options['pages'] = true; } else { $wpp->options['pages'] = false; }		
+		if (isset($_POST['plugin_mostpopular-IncludePages'])) { $wpp->options['pages'] = true; } else { $wpp->options['pages'] = false; }
+		if (isset($_POST['plugin_mostpopular-ShowRating'])) { $wpp->options['rating'] = true; } else { $wpp->options['rating'] = false; }
 		if (isset($_POST['plugin_mostpopular-ShowCount'])) { $wpp->options['comments'] = true; } else { $wpp->options['comments'] = false; }		
 		if (isset($_POST['plugin_mostpopular-ShowViews'])) { $wpp->options['views'] = true; } else { $wpp->options['views'] = false; }		
 		if (isset($_POST['plugin_mostpopular-ShowAuthor'])) { $wpp->options['author'] = true; } else { $wpp->options['author'] = false; }
@@ -85,7 +86,8 @@
 					$wpp->options_snippet['markup']['delimiter'] = htmlspecialchars(escapeThis($_POST['plugin_mostpopular-Delimiter_Snippet']));
 				}
 				
-				if (isset($_POST['plugin_mostpopular-IncludePages_Snippet'])) { $wpp->options_snippet['pages'] = true; } else { $wpp->options_snippet['pages'] = false; }		
+				if (isset($_POST['plugin_mostpopular-IncludePages_Snippet'])) { $wpp->options_snippet['pages'] = true; } else { $wpp->options_snippet['pages'] = false; }
+				if (isset($_POST['plugin_mostpopular-ShowRating_Snippet'])) { $wpp->options_snippet['rating'] = true; } else { $wpp->options_snippet['rating'] = false; }
 				if (isset($_POST['plugin_mostpopular-ShowCount_Snippet'])) { $wpp->options_snippet['comments'] = true; } else { $wpp->options_snippet['comments'] = false; }		
 				if (isset($_POST['plugin_mostpopular-ShowViews_Snippet'])) { $wpp->options_snippet['views'] = true; } else { $wpp->options_snippet['views'] = false; }	
 				if (isset($_POST['plugin_mostpopular-ShowAuthor_Snippet'])) { $wpp->options_snippet['author'] = true; } else { $wpp->options_snippet['author'] = false; }
@@ -305,6 +307,15 @@
             <?php endif; ?>
         </tr>
         <?php } ?>
+        <?php if (function_exists('the_ratings_results')) : ?>
+        <tr>
+			<td class="odd_row"><label for="plugin_mostpopular-ShowRating"><?php echo __('Show rating:', 'wordpress-popular-posts'); ?></label> <small>(<a href="#" class="tooltip" rel="<?php echo __("If WP-PostRatings plugin is installed in your blog, use this option to show the rating of your posts", "wordpress-popular-posts"); ?>">?</a>)</small></td>
+			<td class="odd_row" align="center"><input type="checkbox" id="plugin_mostpopular-ShowRating" name="plugin_mostpopular-ShowRating" <?php if ($wpp->options['rating']) echo "checked=\"checked\""; ?> class="checkbox" /></td>
+            <?php if (get_option("wpp_widget_on") == "on") : ?>
+            <td class="odd_row" align="center"><input type="checkbox" id="plugin_mostpopular-ShowRating_Snippet" name="plugin_mostpopular-ShowRating_Snippet" <?php if ($wpp->options_snippet['rating']) echo "checked=\"checked\""; ?> class="checkbox" /></td>
+            <?php endif; ?>
+		</tr>
+        <?php endif; ?>
         <tr>
         	<td class="separate_title" colspan="<?php if (get_option("wpp_widget_on") == "on") { echo "3"; } else { echo "2"; } ?>"><small><?php echo __('STATS TAG SETTINGS', 'wordpress-popular-posts'); ?></small></td>
         </tr>
@@ -339,14 +350,14 @@
         <tr>
         	<td class="even_row"><label for=""><?php echo __('Stats Tag display style:', 'wordpress-popular-posts'); ?>  <span style="color:#ff0000; font-size:9px">NEW!</span></label> <small>(<a href="#" class="tooltip" rel="<?php echo __("Select 'inline' if you want the stats to display next to the content, or 'block' if you want it to show on the next line", "wordpress-popular-posts"); ?>">?</a>)</small></td>
             <td class="even_row" align="center">
-            	<select name="plugin_mostpopular-StatsTagDisplay">				
+            	<select name="plugin_mostpopular-StatsTagDisplay"<?php if (!$wpp->options['comments'] && !$wpp->options['views'] && !$wpp->options['author'] && !$wpp->options['date']) echo " disabled=\"disabled\""; ?>>				
 					<option value="inline" <?php if ($wpp->options['markup']['display'] == 'inline') {?> selected="selected"<?php } ?>><?php echo __('Inline', 'wordpress-popular-posts'); ?></option>
                     <option value="block" <?php if ($wpp->options['markup']['display'] == 'block') {?> selected="selected"<?php } ?>><?php echo __('Block', 'wordpress-popular-posts'); ?></option>
 				</select>
 			</td>
             <?php if (get_option("wpp_widget_on") == "on") : ?>
             <td class="even_row" align="center">
-            	<select name="plugin_mostpopular-StatsTagDisplay_Snippet">				
+            	<select name="plugin_mostpopular-StatsTagDisplay_Snippet"<?php if (!$wpp->options_snippet['comments'] && !$wpp->options_snippet['views'] && !$wpp->options_snippet['author'] && !$wpp->options_snippet['date']) echo " disabled=\"disabled\""; ?>>				
 					<option value="inline" <?php if ($wpp->options_snippet['markup']['display'] == 'inline') {?> selected="selected"<?php } ?>><?php echo __('Inline', 'wordpress-popular-posts'); ?></option>
                     <option value="block" <?php if ($wpp->options_snippet['markup']['display'] == 'block') {?> selected="selected"<?php } ?>><?php echo __('Block', 'wordpress-popular-posts'); ?></option>
 				</select>

@@ -2,9 +2,9 @@
 Contributors: Ikki24
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadslayer%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
 Tags: popular, posts, widget, seo, wordpress
-Requires at least: 2.0.2
+Requires at least: 2.3
 Tested up to: 2.7.1
-Stable tag: 1.4.6
+Stable tag: 1.5.0
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog with your own formatting.
 
@@ -14,10 +14,14 @@ Wordpress Popular Posts  is a sidebar widget that displays the most popular post
 
 **Features:**
 
+** If you are upgrading from a version prior to 1.4.5, please update to 1.4.5 before moving to 1.5! **
+
 * **[NEW FEATURE]**: Use **your own formatting**! Control how your most popular posts are going to be displayed on your templates (*optional*).
+* **[NEW FEATURE]**: [WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support added!
+* **[NEW FEATURE]**: Database improvements - Wordpress Popular Posts will now use a lot less space to cache your most popular posts!
 * **[NEW FEATURE]**: You can now include a **thumbnail** of your posts! (*optional*)
-* **[NEW FEATURE]**: **Post excerpts** are also available for display! (*optional*)
-* **[NEW FEATURE]**: Wordpress Popular Posts is now **localized**! Currently supported languages: *English* (default), *Russian*, *Spanish*, *Swedish*, *Korean*, *Danish*, *Hebrew*, *French* and *German*.
+* Post excerpts feature is also available! (*optional*)
+* *Wordpress Popular Posts is localized*! Currently supported languages: *English* (default), *Russian*, *Spanish*, *Swedish*, *Korean*, *Danish*, *Hebrew*, *French* and *German*.
 * *Time Range* - list your most popular posts within a specific time range (eg. today's popular posts, this week's popular posts, etc.)!
 * Wordpress popular posts is highly customizable. You can set its title (or leave it blank if you don't want to use any), how many entries to show, whether to display or not comments count and/or pageviews for each entry listed, and to show (or not) an excerpt of each post's title.
 * List your posts either by **comment count**, **pageviews** or **average daily views**. Sorted by **comment count** by default.
@@ -26,14 +30,14 @@ Wordpress Popular Posts  is a sidebar widget that displays the most popular post
 
 **Localization:**
 
-* **Russian** | by [Aleksey Timkov](http://icellulars.net/) (*8% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Russian** | by [Aleksey Timkov](http://icellulars.net/) (*7% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
 * **Spanish** | by [H&eacute;ctor Cabrera](http://rauru.com/) (*100% translated!*)
-* **Swedish** | by [.SE (The Internet Infrastructure Foundation)](http://iis.se/) (*50% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
-* **Korean** | by [Jong-In](http://incommunity.codex.kr/wordpress) (*44% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
-* **Danish** | by [Ulrik H&oslash;yer Kold](http://ulrikkold.dk) (*74% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
-* **Hebrew** | by Eyal Gursoy (*74% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Swedish** | by [.SE (The Internet Infrastructure Foundation)](http://iis.se/) (*49% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Korean** | by [Jong-In](http://incommunity.codex.kr/wordpress) (*42% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Danish** | by [Ulrik H&oslash;yer Kold](http://ulrikkold.dk) (*72% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Hebrew** | by Eyal Gursoy (*72% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
 * **French** | by [Martin Ransom](http://www.au-trescols.net)
-* **German** | by [Jan Wildefeld](http://janwildefeld.de) (*73% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **German** | by [Jan Wildefeld](http://janwildefeld.de) (*71% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
 
 [Version History](http://rauru.com/wordpress-popular-posts#releases) | [Localization](http://rauru.com/wordpress-popular-posts#localization)
 
@@ -61,7 +65,7 @@ If you activated the option "Use custom HTML Markup", make sure you have filled 
 
 * *Thumbnails are not being displayed.*
 
-Please make sure that: 1) your current host is running PHP 4.3 or higher, 2) your host has the GD library installed, 3) the cache subfolder (wordpress-popular-posts/scripts/cache/) has writing permissions (chmodd it to 777 if you're unsure about this), and 4) your popular posts has images to display.
+Please make sure that: 1) your current host is running PHP 4.3 or higher, 2) your host has the GD library installed, 3) the cache subfolder (wordpress-popular-posts/scripts/cache/) is *writable* (chmodd it to 777 if you're unsure about this), and 4) your popular posts has images to display.
 
 * *I'm getting a "Sorry. No data so far." message. What's wrong?*
 
