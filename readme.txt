@@ -3,7 +3,7 @@ Contributors: Ikki24
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadslayer%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.3
-Tested up to: 2.8.0
+Tested up to: 2.8.6
 Stable tag: 1.5.1
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog with your own formatting.
@@ -30,16 +30,14 @@ Wordpress Popular Posts  is a sidebar widget that displays the most popular post
 
 **Localization:**
 
-* **Russian** | by [Aleksey Timkov](http://icellulars.net/) (*7% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Russian** | by [Aleksey Timkov](http://icellulars.net/) (*7% translated*)
 * **Spanish** | by [H&eacute;ctor Cabrera](http://rauru.com/) (*100% translated!*)
-* **Swedish** | by [.SE (The Internet Infrastructure Foundation)](http://iis.se/) (*49% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
-* **Korean** | by [Jong-In](http://incommunity.codex.kr/wordpress) (*42% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
-* **Danish** | by [Ulrik H&oslash;yer Kold](http://ulrikkold.dk) (*72% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
-* **Hebrew** | by Eyal Gursoy (*72% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
+* **Swedish** | by [.SE (The Internet Infrastructure Foundation)](http://iis.se/) (*49% translated*)
+* **Korean** | by [Jong-In](http://incommunity.codex.kr/wordpress) (*42% translated*)
+* **Danish** | by [Ulrik H&oslash;yer Kold](http://ulrikkold.dk) (*72% translated*)
+* **Hebrew** | by Eyal Gursoy (*72% translated*)
 * **French** | by [Martin Ransom](http://www.au-trescols.net)
-* **German** | by [Jan Wildefeld](http://janwildefeld.de) (*71% translated*) [(help localize!)](http://rauru.com/wordpress-popular-posts#localization)
-
-[Version History](http://rauru.com/wordpress-popular-posts#releases) | [Localization](http://rauru.com/wordpress-popular-posts#localization)
+* **German** | by [Jan Wildefeld](http://janwildefeld.de) (*71% translated*)
 
 == Installation ==
 
@@ -85,7 +83,7 @@ I have included a small stylesheet file called wpp.css that you can use to style
 
 * *I would like to help translate Wordpress Popular Posts into my language. What do I need to do?*
 
-[Here](http://rauru.com/wordpress-popular-posts#localization) you will find all the necessary information about it. Many thanks in advance for your help!
+You can contact me via email here: *yo at soyunduro dot com*. I'll provide you with the .PO file so you can help me translate Wordpress Popular Posts into your language. Thank you! 
 
 == Screenshots ==
 
