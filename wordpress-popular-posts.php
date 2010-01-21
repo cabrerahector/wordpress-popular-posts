@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://rauru.com/wordpress-popular-posts
 Description: Retrieves the most active entries of your blog and displays them with your own formatting (<em>optional</em>). Use it as a widget or place it in your templates using  <strong>&lt;?php get_mostpopular(); ?&gt;</strong>
-Version: 2.0.0
+Version: 2.0.1
 Author: H&eacute;ctor Cabrera
 Author URI: http://rauru.com/
 */
@@ -25,7 +25,7 @@ function load_wpp() {
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.0.0";
+		var $version = "2.0.1";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -398,7 +398,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
     /* ]]> */
 </script>
 <!-- End Wordpress Popular Posts v<?php echo $this->version; ?> -->
-            <?php			
+            <?php
 			}
 		}		
 		
@@ -526,15 +526,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$thumb = "";
 					$data = array();
 					
-					// qTranslate integration check 
+					// get post title
+					/* qTranslate integration check */
 					($this->qTrans) ? $tit = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($wppost->post_title) : $tit = $wppost->post_title;
 					
 					if ( $instance['shorten_title']['active'] && (strlen($tit) > $instance['shorten_title']['length'])) {
-						$post_title = "<span class=\"wpp-post-title\">" . substr(htmlspecialchars(stripslashes($tit)),0,$instance['shorten_title']['length']) . "...</span>";
-					} else {
-						$post_title = "<span class=\"wpp-post-title\">" . htmlspecialchars(stripslashes($tit)) . "</span>";
-					}					
+						$tit = $this->truncate($tit, $instance['shorten_title']['length'] + 3, '', true, true) . "...";
+					}
+					$post_title = "<span class=\"wpp-post-title\">" . stripslashes($tit) . "</span>";
 					
+					// get post excerpt
 					if ( $instance['post-excerpt']['active'] ) {
 						if ($instance['markup']['pattern']['active']) {
 							$post_content = "<span class=\"wpp-excerpt\">" . $this->get_summary($wppost->ID, $instance) . "</span>";
@@ -545,6 +546,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$post_content = "";
 					}
 					
+					// build stats tag
 					if ( $instance['stats_tag']['comment_count'] ) {
 						$comment_count = (int) $wppost->comment_count;
 						$post_stats .= "<span class=\"wpp-comments\">" . $comment_count . " " . __(' comment(s)', 'wordpress-popular-posts') . "</span>";
@@ -560,21 +562,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							$pageviews = (int) $wppost->pageviews;
 						}			
 						
-						if ($post_stats != " ") {
+						if ($post_stats != "") {
 							$post_stats .= " | <span class=\"wpp-views\">$pageviews $views_text</span>";
 						} else {							
 							$post_stats .= "<span class=\"wpp-views\">$pageviews $views_text</span>";
 						}										
 					}
 					if ( $instance['stats_tag']['author'] ) {
-						if ($post_stats != " ") {
+						if ($post_stats != "") {
 							$post_stats .= " | by <span class=\"wpp-author\">".$wppost->display_name."</span>";
 						} else {					
 							$post_stats .= "by <span class=\"wpp-author\">".$wppost->display_name."</span>";
 						}
 					}
 					if ( $instance['stats_tag']['date'] ) {
-						if ($post_stats != " ") {
+						if ($post_stats != "") {
 							$post_stats .= " | <span class=\"wpp-date\">posted on ".date("F, j",strtotime($wppost->date_gmt))."</span>";
 						} else {					
 							$post_stats .= "<span class=\"wpp-date\">posted on ".date("F, j",strtotime($wppost->date_gmt))."</span>";
@@ -585,6 +587,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$stats = ' <span class="post-stats">' . $post_stats . '</span> ';
 					}
 					
+					// get thumbnail
 					if ($instance['thumbnail']['active'] && $this->thumb ) {
 						// let's try to retrieve the first image of the current post
 						$img = $this->get_img($wppost->ID);
@@ -596,6 +599,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 												
 					}
 					
+					// get rating
 					if ($instance['rating'] && $this->postRating) {
 						$rating = '<span class="wpp-rating">'.the_ratings_results($wppost->ID).'</span>';
 					} else {
@@ -610,7 +614,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						'id' => $wppost->ID
 					);		
 					
-					
+					// build custom layout
 					if ($instance['markup']['custom_html']) {
 						if ($instance['markup']['pattern']['active']) {
 							$content .= htmlspecialchars_decode($instance['markup']['post-start'], ENT_QUOTES) . $this->format_content($instance['markup']['pattern']['form'], $data, $instance['rating']) . htmlspecialchars_decode($instance['markup']['post-end'], ENT_QUOTES) . "\n";
@@ -636,16 +640,29 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		// builds posts' excerpt
 		function get_summary($id, $instance){
 			if (!is_numeric($id)) return false;
-			global $wpdb;
-			$excerpt = $wpdb->get_results("SELECT post_excerpt FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
-			if (empty($excerpt[0]['post_excerpt'])) {
-				$excerpt = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
-				$excerpt[0]['post_content'] = preg_replace("/\[caption.*\[\/caption\]/", "", $excerpt[0]['post_content']);
-				return substr(strip_tags($excerpt[0]['post_content']), 0, $instance['post-excerpt']['length']);
+			global $wpdb;			
+			$excerpt = "";
+			$result = "";
+			
+			$result = $wpdb->get_results("SELECT post_excerpt FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
+			
+			if (empty($result[0]['post_excerpt'])) {
+				// no custom excerpt defined, how lazy of you!
+				
+				$result = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
+				$excerpt = preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_content']);
 			} else {
-				$excerpt[0]['post_excerpt'] = preg_replace("/\[caption.*\[\/caption\]/", "", $excerpt[0]['post_excerpt']);;
-				return substr(strip_tags($excerpt[0]['post_excerpt']), 0, $instance['post-excerpt']['length']);				
+				// user has defined a custom excerpt, yay!
+				$excerpt = preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_excerpt']);
 			}
+			
+			if (strlen($excerpt) <= $instance['post-excerpt']['length']) {
+				$excerpt = strip_tags($excerpt, '<a><b><i><strong><em>');
+			} else {				
+				$excerpt = $this->truncate($excerpt, $instance['post-excerpt']['length'], '', true, true);
+			}
+			
+			return $excerpt;
 		}
 		
 		// gets the first image of post / page
@@ -659,10 +676,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$source = strip_tags($raw[0]["post_content"], "<img>");
 		
-			$count = substr_count($source, '<img');
+			$count = substr_count($source, '<img');			
 			
 			if ($count > 0) { // images have been found
-				$p = substr( $source, strpos($source, "<img", 0), (strpos($source, '>') - strpos($source, "<img", 0) + 1) );
+				$p = substr( $source, strpos($source, "<img", 0), (strpos($source, '>') - strpos($source, "<img", 0) + 1) );				
 				
 				$img_pattern = '/<\s*img [^\>]*src\s*=\s*[\""\']?([^\""\'\s>]*)/i';			
 				preg_match($img_pattern, $p, $imgm);
@@ -715,6 +732,114 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $string;
+		}		
+		
+		// code seen at http://www.gsdesign.ro/blog/cut-html-string-without-breaking-the-tags/
+		// slightly modified by Hector Cabrera
+		// Since 2.0.1
+		/**
+		* Truncates text.
+		*
+		* Cuts a string to the length of $length and replaces the last characters
+		* with the ending if the text is longer than length.
+		*
+		* @param string  $text String to truncate.
+		* @param integer $length Length of returned string, including ellipsis.
+		* @param string  $ending Ending to be appended to the trimmed string.
+		* @param boolean $exact If false, $text will not be cut mid-word
+		* @param boolean $considerHtml If true, HTML tags would be handled correctly
+		* @return string Trimmed string.
+		*/		
+		function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
+			if ($considerHtml) {
+				// if the plain text is shorter than the maximum length, return the whole text
+				if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
+					return $text;
+				}
+				// splits all html-tags to scanable lines
+				preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
+				$total_length = strlen($ending);
+				$open_tags = array();
+				$truncate = '';
+				foreach ($lines as $line_matchings) {
+					// if there is any html-tag in this line, handle it and add it (uncounted) to the output
+					if (!empty($line_matchings[1])) {
+						// if it's an "empty element" with or without xhtml-conform closing slash (f.e. <br/>)
+						if (preg_match('/^<(\s*.+?\/\s*|\s*(img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param)(\s.+?)?)>$/is', $line_matchings[1])) {
+							// do nothing
+						// if tag is a closing tag (f.e. </b>)
+						} else if (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings)) {
+							// delete tag from $open_tags list
+							$pos = array_search($tag_matchings[1], $open_tags);
+							if ($pos !== false) {
+								unset($open_tags[$pos]);
+							}
+						// if tag is an opening tag (f.e. <b>)
+						} else if (preg_match('/^<\s*([^\s>!]+).*?>$/s', $line_matchings[1], $tag_matchings)) {
+							// add tag to the beginning of $open_tags list
+							array_unshift($open_tags, strtolower($tag_matchings[1]));
+						}
+						// add html-tag to $truncate'd text
+						$truncate .= $line_matchings[1];
+					}
+					// calculate the length of the plain text part of the line; handle entities as one character
+					$content_length = strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
+					if ($total_length+$content_length> $length) {
+						// the number of characters which are left
+						$left = $length - $total_length;
+						$entities_length = 0;
+						// search for html entities
+						if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
+							// calculate the real length of all entities in the legal range
+							foreach ($entities[0] as $entity) {
+								if ($entity[1]+1-$entities_length <= $left) {
+									$left--;
+									$entities_length += strlen($entity[0]);
+								} else {
+									// no more characters left
+									break;
+								}
+							}
+						}
+						$truncate .= substr($line_matchings[2], 0, $left+$entities_length);
+						// maximum lenght is reached, so get off the loop
+						break;
+					} else {
+						$truncate .= $line_matchings[2];
+						$total_length += $content_length;
+					}
+					// if the maximum length is reached, get off the loop
+					if($total_length>= $length) {
+						break;
+					}
+				}
+			} else {
+				if (strlen($text) <= $length) {
+					return $text;
+				} else {
+					//$truncate = substr($text, 0, $length - strlen($ending));					
+					$truncate = substr($text, 0, $length); // modified by Hector Cabrera
+				}
+			}
+			// if the words shouldn't be cut in the middle...
+			if (!$exact) {
+				// ...search the last occurance of a space...
+				$spacepos = strrpos($truncate, ' ');
+				if (isset($spacepos)) {
+					// ...and cut the text in this position
+					$truncate = substr($truncate, 0, $spacepos);
+				}
+			}
+			// add the defined ending to the text
+			$truncate .= $ending;
+			if($considerHtml) {
+				// close all unclosed html-tags
+				foreach ($open_tags as $tag) {
+					$truncate .= '</' . $tag . '>';
+				}				
+				$truncate = strip_tags($truncate, '<a><b><i><strong><em>'); // added by Hector Cabrera
+			}
+			return $truncate;
 		}
 		
 		// plugin localization (Credits: Aleksey Timkov at@uadeveloper.com)
@@ -789,12 +914,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'header_end' => '</h2>',
 				'do_pattern' => false,
 				'pattern_form' => '{image} {title}: {summary} {stats}'
-			), $atts ) );
+			), $atts ) );			
 			
 			$shortcode_ops = array(
 				'title' => strip_tags($header),
 				'limit' => empty($limit) ? 10 : (is_numeric($limit)) ? (($limit > 0) ? $limit : 10) : 10,
-				'range' => empty($range) ? 'daily' : ($range != 'daily' || $range =! 'weekly' || $range =! 'monthly' || $range = 'all') ? 'daily' : $range,
+				'range' => empty($range) ? 'daily' : $range,
 				'order_by' => empty($order_by) ? 'comments' : ($order_by != 'comments' || $order_by =! 'views' || $order_by =! 'avg') ? 'comments' : $range,
 				'pages' => empty($pages) ? false : $pages,
 				'shorten_title' => array(
@@ -816,7 +941,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				),
 				'rating' => empty($rating) ? false : is_bool($rating) ? $rating : false,
 				'stats_tag' => array(
-					'comment_count' => empty($stats_comments) ? true : $stats_comments,
+					'comment_count' => empty($stats_comments) ? false : $stats_comments,
 					'views' => empty($stats_views) ? false : $stats_views,
 					'author' => empty($stats_author) ? false : $stats_author,
 					'date' => empty($stats_date) ? false : $stats_date
@@ -842,14 +967,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			// print popular posts list
-			echo $this->get_popular_posts($shortcode_ops, false);			
+			echo $this->get_popular_posts($shortcode_ops, false);
 			
 		}
 	}
 }
 
 /**
- * Wordpress Popular Posts functions for use in themes.
+ * Wordpress Popular Posts template tags for use in themes.
  */
 
 // gets views count
@@ -871,17 +996,27 @@ function wpp_get_views($id = NULL) {
 	}
 }
 
+// gets popular posts
+function get_mostpopular($args = NULL) {
+
+	if (is_null($args)) {
+		return do_shortcode('[wpp]');
+	} else {
+		$atts = trim(str_replace("&", " ", $args));
+		return do_shortcode('[wpp '.$atts.']');
+	}
+}
+
+
 /**
- * Wordpress Popular Posts 2.0.0 Changelog.
+ * Wordpress Popular Posts 2.0.1 Changelog.
  */
- 
-/* 
- = 2.0.0 =
-* Plugin rewritten to support Multi-Widget capabilities
-* Cache table implemented
-* Shortcode support added
-* Category exclusion feature added
-* Ajax update added - plugin is now compatible with caching plugins such as WP Super Cache
-* Thumbnail feature improved - some bugs were fixed, too
-* Maintenance page added
+
+/*
+ = 2.0.1 =
+* Post title excerpt now includes html entities. Characters like AÄÖ should display properly now.
+* Post excerpt has been improved. Now it supports the following HTML tags: <a><b><i><strong><em>.
+* Template tag wpp_get_views() added. Retrieves the views count of a single post.
+* Template tag get_mostpopular() re-added. Parameter support included.
+* Shortcode bug fixed (range was always "daily" no matter what option was being selected by the user).
 */

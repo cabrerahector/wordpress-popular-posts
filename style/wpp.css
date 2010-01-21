@@ -6,13 +6,16 @@ Use the following classes to style your popular posts list as you like.
 */
 
 /* title styles */
-.wpp-post-title {}
+.wpp-post-title {
+}
 
 /* thumbnail styles */
-img.wpp-thumbnail {}
+img.wpp-thumbnail {
+}
 
 /* excerpt styles */
-.wpp-excerpt {}
+.wpp-excerpt {
+}
 
 /* Stats tag styles */
 .post-stats {
@@ -20,15 +23,19 @@ img.wpp-thumbnail {}
 	font-weight:bold;
 }
 	
-	.wpp-comments {}
+	.wpp-comments {
+	}
 	
-	.wpp-views {}
+	.wpp-views {
+	}
 	
 	.wpp-author {
 		font-style:italic;
 	}
 	
-	.wpp-date {}
+	.wpp-date {
+	}
 
 /* WP-PostRatings styles */
-.wpp-rating {}
+.wpp-rating {
+}

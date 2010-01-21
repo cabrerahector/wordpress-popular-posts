@@ -23,14 +23,14 @@
 		
 		.wpp-ans {display:none; width:100%;}
 		
-		#attr_table {
+		.attr_table {
 			width:99%;
 			border-top:#ccc 1px solid;
 			border-right:#ccc 1px solid;
 			border-bottom:#ccc 1px solid;
 		}
 		
-			#attr_table td {
+			.attr_table td {
 				padding:3px;
 				font-size:11px;
 				border-left:#ccc 1px solid;
@@ -127,14 +127,42 @@
                 <div class="wpp-ans" id="q-11">
                     <p><?php _e('If checked, you can decide the order of the items displayed on each entry. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". Available tags: {image}, {title}, {summary}, {stats} and {rating}. Disabled by default.', 'wordpress-popular-posts'); ?></p>
                 </div>
+                <h4><a href="#" rel="q-15"><?php _e('What are "Template Tags"?', 'wordpress-popular-posts'); ?></a></h4>
+                <div class="wpp-ans" id="q-15">
+                    <p><?php _e('Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: get_mostpopular() and wpp_get_views().', 'wordpress-popular-posts'); ?></p>
+                </div>
+                <h4><a href="#" rel="q-16"><?php _e('What are the template tags that Wordpress Popular Posts supports?', 'wordpress-popular-posts'); ?></a></h4>
+                <div class="wpp-ans" id="q-16">
+                    <p><?php _e('The following are the template tags supported by Wordpress Popular Posts:', 'wordpress-popular-posts'); ?></p>
+                    <table cellpadding="0" cellspacing="0" class="attr_table">
+                    	<tr>
+                        	<td class="attr_heading"><?php _e('Template tag', 'wordpress-popular-posts'); ?></td>
+                            <td class="attr_heading"><?php _e('What it does ', 'wordpress-popular-posts'); ?></td>
+                            <td class="attr_heading"><?php _e('Parameters', 'wordpress-popular-posts'); ?></td>
+                            <td class="attr_heading"><?php _e('Example', 'wordpress-popular-posts'); ?></td>
+                        </tr>
+                        <tr>
+                        	<td><strong>get_mostpopular()</strong></td>
+                            <td><?php _e('Similar to the widget functionality, this tag retrieves the most popular posts on your blog. While it can be customized via parameters, these are not needed for it to work.', 'wordpress-popular-posts'); ?></td>
+                            <td><?php _e('Please refer to "What attributes does Wordpress Popular Posts shortcode [wpp] have?"', 'wordpress-popular-posts'); ?></td>
+                            <td>&lt;?php get_mostpopular(); ?&gt;<br />&lt;?php get_mostpopular("range=weekly&amp;limit=7"); ?&gt;</td>
+                        </tr>
+                        <tr>
+                        	<td><strong>wpp_get_views()</strong></td>
+                            <td><?php _e('Displays the number of views of a single post. Post ID required, or it will return false.', 'wordpress-popular-posts'); ?></td>
+                            <td><?php _e('Post ID', 'wordpress-popular-posts'); ?></td>
+                            <td>&lt;?php wpp_get_views($post->ID); ?&gt;<br />&lt;?php wpp_get_views(15); ?&gt;</td>
+                        </tr>
+                    </table>
+                </div>
                 <h4><a href="#" rel="q-12"><?php _e('What are "shortcodes"?', 'wordpress-popular-posts'); ?></a></h4>
                 <div class="wpp-ans" id="q-12">
                     <p><?php _e('Shortcodes are hooks that allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', 'wordpress-popular-posts', 'wordpress-popular-posts'); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
                 </div>
                 <h4><a href="#" rel="q-13"><?php _e('What attributes does Wordpress Popular Posts shortcode [wpp] have?', 'wordpress-popular-posts'); ?></a></h4>
                 <div class="wpp-ans" id="q-13">
-                    <p><?php _e('There are a number of attributes Wordpress Popular Posts currently supports', 'wordpress-popular-posts'); ?>:</p>
-                    <table cellpadding="0" cellspacing="0" id="attr_table">
+                    <p><?php _e('There are a number of attributes Wordpress Popular Posts currently supports:', 'wordpress-popular-posts'); ?>:</p>
+                    <table cellpadding="0" cellspacing="0" class="attr_table">
                     	<tr>
                         	<td class="attr_heading"><?php _e('Attributes', 'wordpress-popular-posts'); ?></td>
                             <td class="attr_heading"><?php _e('What it does ', 'wordpress-popular-posts'); ?></td>
@@ -180,8 +208,8 @@
                         <tr>
                         	<td><strong>pages</strong></td>
                             <td><?php _e('Tells Wordpress Popular Posts whether to consider or not pages while building the popular list', 'wordpress-popular-posts'); ?></td>
-                            <td>true, false</td>
-                            <td>pages=true</td>
+                            <td>1 (true), (0) false</td>
+                            <td>pages=1</td>
                         </tr>
                         <tr>
                         	<td><strong>title_length</strong></td>
@@ -216,32 +244,32 @@
                         <tr>
                         	<td><strong>rating</strong></td>
                             <td><?php _e('If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries', 'wordpress-popular-posts'); ?></td>
-                            <td>true, false</td>
-                            <td>rating=true</td>
+                            <td>1 (true), (0) false</td>
+                            <td>rating=1</td>
                         </tr>
                         <tr>
                         	<td><strong>stats_comments</strong></td>
                             <td><?php _e('If set, Wordpress Popular Posts will show how many comments each popular post has got until now', 'wordpress-popular-posts'); ?></td>
-                            <td>true, false</td>
-                            <td>stats_comments=true</td>
+                            <td>1 (true), 0 (false)</td>
+                            <td>stats_comments=1</td>
                         </tr>
                         <tr>
                         	<td><strong>stats_views</strong></td>
                             <td><?php _e('If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed', 'wordpress-popular-posts'); ?></td>
-                            <td>true, false</td>
-                            <td>stats_views=true</td>
+                            <td>1 (true), (0) false</td>
+                            <td>stats_views=1</td>
                         </tr>
                         <tr>
                         	<td><strong>stats_author</strong></td>
                             <td><?php _e('If set, Wordpress Popular Posts will show who published each popular post on the list', 'wordpress-popular-posts'); ?></td>
-                            <td>true, false</td>
-                            <td>stats_author=true</td>
+                            <td>1 (true), (0) false</td>
+                            <td>stats_author=1</td>
                         </tr>
                         <tr>
                         	<td><strong>stats_date</strong></td>
                             <td><?php _e('If set, Wordpress Popular Posts will when each popular post on the list was published', 'wordpress-popular-posts'); ?></td>
-                            <td>true, false</td>
-                            <td>stats_date=true</td>
+                            <td>1 (true), (0) false</td>
+                            <td>stats_date=1</td>
                         </tr>
                         <tr>
                         	<td><strong>wpp_start</strong></td>
@@ -270,8 +298,8 @@
                         <tr>
                         	<td><strong>do_pattern</strong></td>
                             <td><?php _e('If set, this option will allow you to decide the order of the contents within each item on the list.', 'wordpress-popular-posts'); ?></td>
-                            <td>true, false</td>
-                            <td>do_pattern=true</td>
+                            <td>1 (true), (0) false</td>
+                            <td>do_pattern=1</td>
                         </tr>
                         <tr>
                         	<td><strong>pattern_form</strong></td>
@@ -306,5 +334,8 @@
     <hr />
     <p><?php _e('Do you like this plugin?', 'wordpress-popular-posts'); ?> <a title="<?php _e('Rate Wordpress Popular Posts!', 'wordpress-popular-posts'); ?>" href="http://wordpress.org/extend/plugins/wordpress-popular-posts/#rate-response" target="_blank"><strong><?php _e('Rate it 5', 'wordpress-popular-posts'); ?></strong></a> <?php _e('on the official Plugin Directory!', 'wordpress-popular-posts'); ?></p>
     <p><?php _e('Do you love this plugin?', 'wordpress-popular-posts'); ?> <a title="<?php _e('Buy me a beer!', 'wordpress-popular-posts'); ?>" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadslayer%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted" target="_blank"><strong><?php _e('Buy me a beer!', 'wordpress-popular-posts'); ?></strong></a>. <?php _e('Each donation motivates me to keep releasing free stuff for the Wordpress community!', 'wordpress-popular-posts'); ?></p>
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadslayer%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted" target="_blank" rel="external nofollow"><img src="<?php echo get_bloginfo('url') . "/" . PLUGINDIR; ?>/wordpress-popular-posts/btn_donateCC_LG_global.gif" width="122" height="47" alt="<?php _e('Buy me a beer!', 'wordpress-popular-posts'); ?>" border="0" /></a>    
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadslayer%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted" target="_blank" rel="external nofollow"><img src="<?php echo get_bloginfo('url') . "/" . PLUGINDIR; ?>/wordpress-popular-posts/btn_donateCC_LG_global.gif" width="122" height="47" alt="<?php _e('Buy me a beer!', 'wordpress-popular-posts'); ?>" border="0" /></a>
+    <?php
+		
+	?>
 </div>

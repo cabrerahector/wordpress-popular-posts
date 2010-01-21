@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-15 11:07-0430\n"
+"POT-Creation-Date: 2010-01-21 15:15-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Cabrera <admin@rauru.com>\n"
 "Language-Team: Héctor Cabrera <admin@rauru.com>\n"
@@ -146,206 +146,248 @@ msgid "If checked, you can decide the order of the items displayed on each entry
 msgstr "Si se tilda, puedes decidir el orden de los items mostrados en cada entrada. Por ejemplo, configurarlo como \"{title}: {summary}\" (sin las comillas) mostrar&iacute;a \"T&iacute;tulo del post: extracto del post aqu&iacute;\". Etiquetas disponibles: {image}, {title}, {summary}, {stats} y {rating}. Deshabilitado por defecto."
 
 #: maintenance.php:130
-msgid "What are \"shortcodes\"?"
-msgstr "&iquest;Qu&eacute; son los \"shortcodes\"?"
+msgid "What are \"Template Tags\"?"
+msgstr "&iquest;Qu&eacute; son los \"Template Tags\"?"
 
 #: maintenance.php:132
-msgid "Shortcodes are hooks that allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit"
-msgstr "Los shortcodes son hooks que nos permiten llamar a una funci&oacute;n php simplemente escribiendo algo como [shortcode]. Con Wordpress Popular Posts, el shortcode [wpp] te permitir&aacute; insertar una lista de los posts m&aacute;s populares en p&aacute;ginas y en los contenidos de los posts. Para m&aacute;s informaci&oacute; visita"
+msgid "Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: get_mostpopular() and wpp_get_views()."
+msgstr "Los Template Tags son simplemente funciones php que te permiten realizar ciertas acciones. Por ejemplo, Wordpress Popular Posts actualmante soporte dos template tags diferentes: get_mostpopular y wpp_get_views()."
 
 #: maintenance.php:134
-msgid "What attributes does Wordpress Popular Posts shortcode [wpp] have?"
-msgstr "&iquest;Qu&eacute; atributos tiene el shortcode [wpp] de Wordpress Popular Posts?"
+msgid "What are the template tags that Wordpress Popular Posts supports?"
+msgstr "&iquest;Cu&aacute;les template tags soporta Wordpress Popular Posts?"
 
 #: maintenance.php:136
-msgid "There are a number of attributes Wordpress Popular Posts currently supports"
-msgstr "Hay un n&uacute;mero de atributos que Wordpress Popular Posts actualmente soporta"
+msgid "The following are the template tags supported by Wordpress Popular Posts:"
+msgstr "Los siguientes son los template tags soportados por Wordpress Popular Posts:"
 
 #: maintenance.php:139
-msgid "Attributes"
-msgstr "Atributos"
+msgid "Template tag"
+msgstr "Template tag"
 
 #: maintenance.php:140
+#: maintenance.php:168
 msgid "What it does "
 msgstr "Qu&eacute; hace"
 
 #: maintenance.php:141
-msgid "Possible values"
-msgstr "Valores Posibles"
+msgid "Parameters"
+msgstr "Par&aacute;metros"
 
 #: maintenance.php:142
+#: maintenance.php:170
 msgid "Example"
 msgstr "Ejemplo"
 
 #: maintenance.php:146
+msgid "Similar to the widget functionality, this tag retrieves the most popular posts on your blog. While it can be customized via parameters, these are not needed for it to work."
+msgstr "Al igual que la funcionalidad tipo widget, este tag obtiene los posts m&aacute;s populares de tu blog. Puede ser personalizado via par&aacute;metros, pero no son necesarios para que funcione."
+
+#: maintenance.php:147
+msgid "Please refer to \"What attributes does Wordpress Popular Posts shortcode [wpp] have?\""
+msgstr "Favor leer \"&iquest;Cu&aacute;les template tags soporta Wordpress Popular Posts?\""
+
+#: maintenance.php:152
+msgid "Displays the number of views of a single post. Post ID required, or it will return false."
+msgstr "Muestra el n&uacute;mero de vistas de un post. Se requiere el ID del post, o la funci&oacute;n retornar&aacute; falso."
+
+#: maintenance.php:153
+msgid "Post ID"
+msgstr "ID del Post"
+
+#: maintenance.php:158
+msgid "What are \"shortcodes\"?"
+msgstr "&iquest;Qu&eacute; son los \"shortcodes\"?"
+
+#: maintenance.php:160
+msgid "Shortcodes are hooks that allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit"
+msgstr "Los shortcodes son hooks que nos permiten llamar a una funci&oacute;n php simplemente escribiendo algo como [shortcode]. Con Wordpress Popular Posts, el shortcode [wpp] te permitir&aacute; insertar una lista de los posts m&aacute;s populares en p&aacute;ginas y en los contenidos de los posts. Para m&aacute;s informaci&oacute; visita"
+
+#: maintenance.php:162
+msgid "What attributes does Wordpress Popular Posts shortcode [wpp] have?"
+msgstr "&iquest;Qu&eacute; atributos tiene el shortcode [wpp] de Wordpress Popular Posts?"
+
+#: maintenance.php:164
+msgid "There are a number of attributes Wordpress Popular Posts currently supports:"
+msgstr "Hay un n&uacute;mero de atributos que Wordpress Popular Posts actualmente soporta:"
+
+#: maintenance.php:167
+msgid "Attributes"
+msgstr "Atributos"
+
+#: maintenance.php:169
+msgid "Possible values"
+msgstr "Valores Posibles"
+
+#: maintenance.php:174
 msgid "Sets a heading for the list"
 msgstr "Setea el encabezado de la lista"
 
-#: maintenance.php:147
-#: maintenance.php:153
-#: maintenance.php:159
-#: maintenance.php:201
-#: maintenance.php:249
-#: maintenance.php:255
-#: maintenance.php:261
-#: maintenance.php:267
+#: maintenance.php:175
+#: maintenance.php:181
+#: maintenance.php:187
+#: maintenance.php:229
+#: maintenance.php:277
+#: maintenance.php:283
+#: maintenance.php:289
+#: maintenance.php:295
 msgid "Text string"
 msgstr "Cadena de texto"
 
-#: maintenance.php:152
+#: maintenance.php:180
 msgid "Set the opening tag for the heading of the list"
 msgstr "Setea la etiqueta html de apertura del encabezado de la lista"
 
-#: maintenance.php:158
+#: maintenance.php:186
 msgid "Set the closing tag for the heading of the list"
 msgstr "Setea la etiqueta de cierre del encabezado de la lista"
 
-#: maintenance.php:164
+#: maintenance.php:192
 msgid "Sets the maximum number of popular posts to be shown on the listing"
 msgstr "Setea el n&uacute;mero m&aacute;ximo de posts populares a mostrarse en la lista"
 
-#: maintenance.php:165
-#: maintenance.php:189
-#: maintenance.php:195
-#: maintenance.php:207
-#: maintenance.php:213
+#: maintenance.php:193
+#: maintenance.php:217
+#: maintenance.php:223
+#: maintenance.php:235
+#: maintenance.php:241
 msgid "Positive integer"
 msgstr "Entero positivo"
 
-#: maintenance.php:170
+#: maintenance.php:198
 msgid "Tells Wordpress Popular Posts to retrieve the most popular entries within the time range specified by you"
 msgstr "Le dice a Wordpress Popular Posts que debe traer los posts m&aacute;s populares que est&eacute;n dentro del tiempo especificado por t&iacute;."
 
-#: maintenance.php:176
+#: maintenance.php:204
 msgid "Sets the sorting option of the popular posts"
 msgstr "Setea el valor por el cual deben ordenarse los posts populares"
 
-#: maintenance.php:177
+#: maintenance.php:205
 msgid "(for average views per day)"
 msgstr "(vistas promedio por d&iacute;a)"
 
-#: maintenance.php:182
+#: maintenance.php:210
 msgid "Tells Wordpress Popular Posts whether to consider or not pages while building the popular list"
 msgstr "Le dice a Wordpress Popular Posts si debe considerar o no las p&aacute;ginas mientras construye la lista popular"
 
-#: maintenance.php:188
+#: maintenance.php:216
 msgid "If set, Wordpress Popular Posts will shorten each post title to \"n\" characters whenever possible"
 msgstr "Si se setea, Wordpress Popular Posts acortar&aacute; cada t&iacute;tulo a \"n\" caracteres cuando sea posible"
 
-#: maintenance.php:194
+#: maintenance.php:222
 msgid "If set, Wordpress Popular Posts will build and include an excerpt of \"n\" characters long from the content of each post listed as popular"
 msgstr "Si se setea, Wordpress Popular Posts construir&aacute; e insertar&aacute; un extracto de \"n\" caracteres de largo del contenido de cada post listado como popular"
 
-#: maintenance.php:200
+#: maintenance.php:228
 msgid "If set, Wordpress Popular Posts will exclude all entries that belong to the specified category(ies)."
 msgstr "Si se setea, Wordpress Popular Posts excluir&aacute; todas las entradas que pertenezcan a las categor&iacute;as especificadas."
 
-#: maintenance.php:206
+#: maintenance.php:234
 msgid "If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails"
 msgstr "Si se setea, y si la configuraci&oacute;n actual de tu servidor lo permite, podr&aacute;s mostrar miniaturas (thumbnails) de tus posts. Este atributo setea el ancho de las miniaturas"
 
-#: maintenance.php:212
+#: maintenance.php:240
 msgid "If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the height for thumbnails"
 msgstr "Si se setea, y si la configuraci&oacute;n actual de tu servidor lo permite, podr&aacute;s mostrar miniaturas (thumbnails) de tus posts. Este atributo setea el alto de las miniaturas"
 
-#: maintenance.php:218
+#: maintenance.php:246
 msgid "If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries"
 msgstr "Si se setea, y si el plugin WP-PostRatings est&aacute; instalado y activo en tu blog, Wordpress Popular Posts mostrar&aacute; c&oacute;mo tus visitantes califican tus entradas"
 
-#: maintenance.php:224
+#: maintenance.php:252
 msgid "If set, Wordpress Popular Posts will show how many comments each popular post has got until now"
 msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntos comentarios ha obtenido cada post popular hasta ahora"
 
-#: maintenance.php:230
+#: maintenance.php:258
 msgid "If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed"
 msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntas vistas ha obtenido cada post popular desde que se instal&oacute; el plugin"
 
-#: maintenance.php:236
+#: maintenance.php:264
 msgid "If set, Wordpress Popular Posts will show who published each popular post on the list"
 msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; qui&eacute;n public&oacute; cada uno de los posts populares de la lista"
 
-#: maintenance.php:242
+#: maintenance.php:270
 msgid "If set, Wordpress Popular Posts will when each popular post on the list was published"
 msgstr "Si se setea, Wordpress Popular Posts mostra&aacute; cuando fue publicado cada post en la lista"
 
-#: maintenance.php:248
+#: maintenance.php:276
 msgid "Sets the opening tag for the listing"
 msgstr "Setea la etiqueta de apertura de la lista"
 
-#: maintenance.php:254
+#: maintenance.php:282
 msgid "Sets the closing tag for the listing"
 msgstr "Setea la etiqueta de cierre de la lista"
 
-#: maintenance.php:260
+#: maintenance.php:288
 msgid "Sets the opening tag for each item on the list"
 msgstr "Setea la etiqueta de apertura de cada item en la lista"
 
-#: maintenance.php:266
+#: maintenance.php:294
 msgid "Sets the closing tag for each item on the list"
 msgstr "Setea la etiqueta de cierre de cada item en la lista"
 
-#: maintenance.php:272
+#: maintenance.php:300
 msgid "If set, this option will allow you to decide the order of the contents within each item on the list."
 msgstr "Si se setea, esta opci&oacute;n te permitir&aacute; decidir el orden de los contenidos de cada item en la lista"
 
-#: maintenance.php:278
+#: maintenance.php:306
 msgid "If set, you can decide the order of each content inside a single item on the list. For example, setting it to \"{title}: {summary}\" would output something like \"Your Post Title: summary here\""
 msgstr "Si se setea, puedes decidir el orden de los contenidos de cada item en la lista. Por ejemplo, configurarlo como \"{title}: {summary}\" mostrar&iacute;a algo como \"Tu t&iacute;tulo: extracto del post aqu&iacute;\" "
 
-#: maintenance.php:279
+#: maintenance.php:307
 msgid "Available tags"
 msgstr "Etiquetas disponibles"
 
-#: maintenance.php:287
+#: maintenance.php:315
 msgid "Maintenance Settings"
 msgstr "Opciones de Mantenimiento"
 
-#: maintenance.php:288
+#: maintenance.php:316
 msgid "Wordpress Popular Posts keeps historical data of your most popular entries for up to 30 days. If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so."
 msgstr "Wordpress Popular Posts guarda data hist&oacute;rica de tus posts m&aacute;s populares por hasta 30 d&iacute;as. Si por alguna raz&oacute;n necesitas limpiar el cache, o inclusive tanto el cache como la tabla hist&oacute;rica, por favor utiliza los botones de abajo."
 
-#: maintenance.php:291
+#: maintenance.php:319
 msgid "Empty cache"
 msgstr "Vaciar cache"
 
-#: maintenance.php:292
+#: maintenance.php:320
 msgid "Use this button to manually clear entries from WPP cache only"
 msgstr "Utiliza este bot&oacute;n para limpiar manualmente todas las entradas del cache de Wordpress Popular Posts"
 
-#: maintenance.php:298
+#: maintenance.php:326
 msgid "Clear all data"
 msgstr "Eliminar toda la data"
 
-#: maintenance.php:299
+#: maintenance.php:327
 msgid "Use this button to manually clear entries from all WPP data tables"
 msgstr "Utiliza este bot&oacute;n para limpiar toda la data de Wordpress Popular Posts"
 
-#: maintenance.php:307
+#: maintenance.php:335
 msgid "Do you like this plugin?"
 msgstr "&iquest;Te gusta este plugin?"
 
-#: maintenance.php:307
+#: maintenance.php:335
 msgid "Rate Wordpress Popular Posts!"
 msgstr "&iexcl;Califica Wordpress Popular Posts!"
 
-#: maintenance.php:307
+#: maintenance.php:335
 msgid "Rate it 5"
 msgstr "&iexcl;Dale un 5"
 
-#: maintenance.php:307
+#: maintenance.php:335
 msgid "on the official Plugin Directory!"
 msgstr "en el directorio oficial de plugins!"
 
-#: maintenance.php:308
+#: maintenance.php:336
 msgid "Do you love this plugin?"
 msgstr "&iquest;Te encanta este plugin?"
 
-#: maintenance.php:308
-#: maintenance.php:309
+#: maintenance.php:336
+#: maintenance.php:337
 msgid "Buy me a beer!"
 msgstr "&iexcl;C&oacute;mprame una cerveza!"
 
-#: maintenance.php:308
+#: maintenance.php:336
 msgid "Each donation motivates me to keep releasing free stuff for the Wordpress community!"
 msgstr "&iexcl;Cada donativo me motiva a seguir contribuyendo con la comunidad Wordpress!"
 
@@ -531,19 +573,19 @@ msgstr "Lo lamento, no tienes suficientes permisos para hacer esto. Por favor co
 msgid "Sorry. No data so far."
 msgstr "Lo lamento, no hay informaci&oacute;n a&uacute;n."
 
-#: wordpress-popular-posts.php:550
+#: wordpress-popular-posts.php:552
 msgid " comment(s)"
 msgstr "comentario(s)"
 
-#: wordpress-popular-posts.php:553
+#: wordpress-popular-posts.php:555
 msgid " view(s)"
 msgstr "vista(s)"
 
-#: wordpress-popular-posts.php:558
+#: wordpress-popular-posts.php:560
 msgid " view(s) per day"
 msgstr "vista(s) por d&iacute;a"
 
-#: wordpress-popular-posts.php:740
+#: wordpress-popular-posts.php:865
 msgid "Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 2.8 to function correctly. Please update your blog via Tools &gt; Upgrade."
 msgstr "Tu versi&oacute;n de Wordpress es muy antigua. El plugin Wordpress Popular Posts requiere al menos la versi&oacute;n 2.8 para funcionar correctamente. Por favor actualiza tu blog via Herramientas &gt; Actualizar."
 
