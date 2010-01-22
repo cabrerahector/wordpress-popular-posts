@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.8
 Tested up to: 2.9.1
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog.
 
@@ -85,16 +85,19 @@ The **wpp_get_views** template tag retrieves the views count of a single post si
 == Frequently Asked Questions ==
 
 * *I'm getting "Sorry. No data so far". What's up with that?*
-Chances are that no one has seen your posts / pages yet. If you're logged in into wp-admin, your views are not counted either since you're the site's administrator.
+Chances are that no one has seen your posts / pages yet. If you're logged in into wp-admin, your views are not counted since you're the site's administrator. Additionally, if you're a previous user of Wordpress Popular Posts you might want to check [this thread](http://wordpress.org/support/topic/352693#post-1361288) for a more detailed explanation.
 
 * *I'm unable to activate the "Display post thumbnail" option. Why?*
 You should check that: your host is running **PHP 4.3+**; the **GD library** is installed and enabled by your host; your "wordpress-popular-posts/scripts/cache" directory **exists** and is **writable**; there are images on your posts.
+
+* *Can I embed my most popular posts in any other ways than via sidebar widgets?*
+Yes. You have two other ways to achieve this: via **shortcode** (so you can embed it directly on your posts / pages), or via **template tag**.
 
 * *What are the parameters that the get_popularpost() template tag accepts?*
 You can find a complete list of parameters via wp-admin > Settings > Wordpress Popular Posts under the section "What attributes does Wordpress Popular Posts shortcode [wpp] have?".
 
 * *Does your plugin include any css stylesheets?*
-Yes, *but* it's empty. It's there for you to style your most popular posts list as you like. You might need an expert for that if you don't know html/css, though.
+Yes, *but* there are no predefined styles (well, almost). It's there for you to style your most popular posts list as you like. You might need an expert for that if you don't know html/css, though.
 
 * *Would you help me style my list, please?*
 For a small donation, sure why not?
@@ -116,9 +119,14 @@ Please don't, and read my words carefully, don't use my email address to contact
 
 == Changelog ==
 
+= 2.0.2 =
+* "Keep text format and links" feature introduced. If selected, formatting tags and hyperlinks won't be removed from excerpt.
+* Post title excerpt html entities bug fixed. It was causing the excerpt function to display more characters than the requested by user.
+* Several shortcode bugs fixed (range, order_by, do_pattern, pattern_form were not working as expected).
+
 = 2.0.1 =
-* Post title excerpt now includes html entities. Characters like ÄÖ should display properly now.
-* Post excerpt has been improved. Now it supports the following HTML tags: <a><b><i><strong><em>.
+* Post title excerpt now includes html entities. Characters like &Aring;&Auml;&Ouml; should display properly now.
+* Post excerpt has been improved. Now it supports the following HTML tags: &lt;a&gt;&lt;b&gt;&lt;i&gt;&lt;strong&gt;&lt;em&gt;.
 * Template tag wpp_get_views() added. Retrieves the views count of a single post.
 * Template tag get_mostpopular() re-added. Parameter support included.
 * Shortcode bug fixed (range was always "daily" no matter what option was being selected by the user).
