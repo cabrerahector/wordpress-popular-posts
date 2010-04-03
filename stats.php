@@ -108,19 +108,6 @@
             <?php do_shortcode('[wpp range=all stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
         </div>
     </div>
-    <?php
-    if ( class_exists('SitePress') ) {
-		global $sitepress;
-		$apply_filters = 1;
-		
-		$langs = icl_get_languages('skip_missing=0');
-		
-		if ($langs) {				
-			foreach ($langs as $l) {
-				if (!$l['active']) $ol[] = '<a href="index.php?page=wpp-stats-display&lang='.$l['language_code'].'" title="'.$l['native_name'].'">'.$l['native_name'].'</a> <a href="index.php?page=wpp-stats-display&lang='.$l['language_code'].'" title="'.$l['native_name'].'"><img src="'.$l['country_flag_url'].'" width="18" height="12" alt="" border="0" align="middle" /></a>';
-			}			
-			echo "<p id='wpp-langs'>".__('See statistics also in', 'wordpress-popular-posts').": ".join(', ', $ol)."</p>";
-		}
-	}
+    <?php    
 	?>
 </div>
