@@ -1,4 +1,6 @@
 <?php
+	if (basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__)) exit('Please do not load this page directly');
+	
 	$rand = md5(uniqid(rand(), true));
 	
 	$wpp_rand = get_option("wpp_rand");
@@ -69,7 +71,8 @@
 	}
 	
 </script>
-<div id="wpp_wrapper">
+<div class="wrap">
+	<div id="icon-options-general" class="icon32"><br /></div>
     <h2 id="wmpp-title">Wordpress Popular Posts</h2>
     
     <h3><?php _e('Whoa! What just happened in here?!', 'wordpress-popular-posts'); ?></h3>
@@ -301,6 +304,13 @@
                             <td>stats_date=1</td>
                         </tr>
                         <tr>
+                        	<td><strong>stats_date_format</strong></td>
+                            <td><?php _e('Sets the date format', 'wordpress-popular-posts'); ?></td>
+                            <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                            <td align="center">0</td>
+                            <td>stats_date_format='F j, Y'</td>
+                        </tr>
+                        <tr>
                         	<td><strong>wpp_start</strong></td>
                             <td><?php _e('Sets the opening tag for the listing', 'wordpress-popular-posts'); ?></td>
                             <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
@@ -351,15 +361,15 @@
                 <p><?php _e('Wordpress Popular Posts keeps historical data of your most popular entries for up to 30 days. If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p><br />
                 <table cellpadding="5" cellspacing="1">
                 	<tr>
-                    	<td valign="top" width="140"><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" value="<?php _e("Empty cache", "wordpress-popular-posts"); ?>" onclick="confirm_reset_cache()" /></td>
-                    	<td><label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only'); ?></small></label></td>
+                    	<td valign="top" width="140"><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", "wordpress-popular-posts"); ?>" onclick="confirm_reset_cache()" /></td>
+                    	<td><label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></td>
                     </tr>
                     <tr>
                     	<td colspan="2">&nbsp;</td>
                     </tr>
                     <tr>
-                    	<td valign="top"><input type="button" name="wpp-reset-all" id="wpp-reset-all" value="<?php _e("Clear all data", "wordpress-popular-posts"); ?>" onclick="confirm_reset_all()" /></td>
-                    	<td><label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables'); ?></small></label></td>
+                    	<td valign="top"><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", "wordpress-popular-posts"); ?>" onclick="confirm_reset_all()" /></td>
+                    	<td><label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></td>
                     </tr>
                 </table>
             </td><!-- end maintenance -->
