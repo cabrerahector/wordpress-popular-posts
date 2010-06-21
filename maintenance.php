@@ -110,6 +110,10 @@
                 <div class="wpp-ans" id="q-5">
                     <p><?php _e('If checked, Wordpress Popular Posts will attempt to find the very first image of each post in the listing and turn it into a thumbnail. Note that for this option to work you must check that: your current web host is running PHP 4.3+ or higher and the GD Library is installed and enabled; also that your "wordpress-popular-posts/scripts/cache" directory exists and is writable. Disabled by default.', 'wordpress-popular-posts'); ?></p>
                 </div>
+				<h4><a href="#" rel="q-18"><?php _e('What does "Generate all thumbnails for me" and "Use thumbnails selected by me" do?', 'wordpress-popular-posts'); ?></a></h4>
+                <div class="wpp-ans" id="q-18">
+                    <p><?php _e('The first option tells Wordpress Popular Posts to generate automatically all thumbnails from the first image attached to each post. If you select the latter, Wordpress Popular Posts will use the thumbnail you have selected for each post on the Post Edit Screen in the Post Thumbnail metabox (this also requires including add_theme_support("post-thumbnails") to your theme\'s functions.php file).', 'wordpress-popular-posts'); ?></p>
+                </div>
                 <h4><a href="#" rel="q-6"><?php _e('What does "Display comment count" do?', 'wordpress-popular-posts'); ?></a></h4>
                 <div class="wpp-ans" id="q-6">
                     <p><?php _e('If checked, Wordpress Popular Posts will display how many comments each popular post has got until now. Enabled by default.', 'wordpress-popular-posts'); ?></p>
@@ -347,7 +351,7 @@
                         </tr>
                         <tr>
                         	<td><strong>pattern_form</strong></td>
-                            <td><?php _e('If set, you can decide the order of each content inside a single item on the list. For example, setting it to "{title}: {summary}" would output something like "Your Post Title: summary here"', 'wordpress-popular-posts'); ?></td>
+                            <td><?php _e('If set, you can decide the order of each content inside a single item on the list. For example, setting it to "{title}: {summary}" would output something like "Your Post Title: summary here". This attribute requires do_pattern to be true.', 'wordpress-popular-posts'); ?></td>
                             <td><?php _e('Available tags', 'wordpress-popular-posts'); ?>: {image}, {title}, {summary}, {stats}, {rating}</td>
                             <td align="center">{image} {title}: {summary} {stats}</td>
                             <td>pattern_form="{image} {title}: {summary} {stats}"</td>

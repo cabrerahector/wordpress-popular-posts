@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using  <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.0.3
+Version: 2.1.0
 Author: H&eacute;ctor Cabrera
 Author URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 License: GPL2
@@ -28,7 +28,7 @@ function load_wpp() {
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.0.3";
+		var $version = "2.1.0";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -102,7 +102,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// set version
 			$wpp_ver = get_option('wpp_ver');
-			if (!$wp_ver) add_option('wpp_ver', $this->version);
+			(!$wp_ver) ? add_option('wpp_ver', $this->version) : update_option('wpp_ver', $this->version);
 			
 			// add stats page
 			add_action('admin_menu', array(&$this, 'wpp_stats'));
@@ -117,9 +117,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// has user set a title?
 			if ($instance['title'] != '') {
 				if ($instance['markup']['custom_html'] && $instance['markup']['title-start'] != "" && $instance['markup']['title-end'] != "" ) {
-					echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . htmlspecialchars_decode($instance['title'], ENT_QUOTES) . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
+					echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $instance['title'], ENT_QUOTES . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
 				} else {
-					echo $before_title . htmlspecialchars_decode($instance['title'], ENT_QUOTES) . $after_title;
+					echo $before_title . $instance['title'] . $after_title;
 				}
 			}
 			
@@ -133,7 +133,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$instance = $old_instance;
 			
-			$instance['title'] = htmlspecialchars( stripslashes(strip_tags( $new_instance['title'] )), ENT_QUOTES );
+			$instance['title'] = htmlspecialchars( stripslashes(strip_tags( $new_instance['title'] )), ENT_QUOTES, 'UTF-8', FALSE );
 			$instance['limit'] = is_numeric($new_instance['limit']) ? $new_instance['limit'] : 10;
 			$instance['range'] = $new_instance['range'];
 			$instance['order_by'] = $new_instance['order_by'];
@@ -147,10 +147,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance['exclude-cats']['cats'] = empty($new_instance['excluded']) ? '' : (ctype_digit(str_replace(",", "", $new_instance['excluded']))) ? $new_instance['excluded'] : '';
 			if ($this->thumb) { // can create thumbnails
 				$instance['thumbnail']['active'] = $new_instance['thumbnail-active'];
+				$instance['thumbnail']['thumb_selection'] = empty($new_instance['thumb_selection']) ? (function_exists('get_the_post_thumbnail') ? $instance['thumbnail']['thumb_selection'] : "wppgenerated") : $new_instance['thumb_selection'];
 				$instance['thumbnail']['width'] = is_numeric($new_instance['thumbnail-width']) ? $new_instance['thumbnail-width'] : 15;
 				$instance['thumbnail']['height'] = is_numeric($new_instance['thumbnail-height']) ? $new_instance['thumbnail-height'] : 15;
 			} else { // cannot create thumbnails
 				$instance['thumbnail']['active'] = false;
+				$instance['thumbnail']['thumb_selection'] = "wppgenerated";
 				$instance['thumbnail']['width'] = 15;
 				$instance['thumbnail']['height'] = 15;
 			}
@@ -266,26 +268,32 @@ if ( !class_exists('WordpressPopularPosts') ) {
             	&nbsp;&nbsp;<label for="<?php echo $this->get_field_id( 'post-excerpt-length' ); ?>"><?php _e('Excerpt length:', 'wordpress-popular-posts'); ?> <input id="<?php echo $this->get_field_id( 'post-excerpt-length' ); ?>" name="<?php echo $this->get_field_name( 'post-excerpt-length' ); ?>" value="<?php echo $instance['post-excerpt']['length']; ?>" class="widefat" style="width:30px!important" /> <?php _e('characters', 'wordpress-popular-posts'); ?></label>
 			</fieldset>
 			<br />
-            <?php endif; ?>            
+            <?php endif; ?>
             <input type="checkbox" class="checkbox" <?php echo ($instance['exclude-cats']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'exclude-cats' ); ?>" name="<?php echo $this->get_field_name( 'exclude-cats' ); ?>" /> <label for="<?php echo $this->get_field_id( 'exclude-cats' ); ?>"><?php _e('Exclude categories', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('url'); ?>/wp-admin/options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php">?</a>]</small><br />
             <?php if ($instance['exclude-cats']['active']) : ?>
             <fieldset class="widefat">
                 <legend><?php _e('Categories to exclude', 'wordpress-popular-posts'); ?></legend>
                 &nbsp;&nbsp;<label for="<?php echo $this->get_field_id( 'excluded' ); ?>"><?php _e('ID(s) (comma separated, no spaces):', 'wordpress-popular-posts'); ?></label><br />&nbsp;&nbsp;<input id="<?php echo $this->get_field_id( 'excluded' ); ?>" name="<?php echo $this->get_field_name( 'excluded' ); ?>" value="<?php echo $instance['exclude-cats']['cats']; ?>" class="widefat" style="width:150px" /><br /><br />
-            </fieldset>
+            </fieldset>            
+            <?php endif; ?>
             <br />
-            <?php endif; ?>
-            
-            <input type="checkbox" class="checkbox" <?php echo ($instance['thumbnail']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-active' ); ?>" /> <label for="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>"><?php _e('Display post thumbnail', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('url'); ?>/wp-admin/options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php">?</a>]</small><br />
-            <?php if($instance['thumbnail']['active']) : ?>
-            <fieldset class="widefat">
-                <legend><?php _e('Thumbnail Dimensions', 'wordpress-popular-posts'); ?></legend>
-                    <label for="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>">&nbsp;&nbsp;<?php _e('Width:', 'wordpress-popular-posts'); ?></label> 
-                    <input id="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-width' ); ?>" value="<?php echo $instance['thumbnail']['width']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?> <br />
-                    <label for="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>">&nbsp;&nbsp;<?php _e('Height:', 'wordpress-popular-posts'); ?></label> 
-                    <input id="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-height' ); ?>" value="<?php echo $instance['thumbnail']['height']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?><br />
+			
+			<fieldset style="width:214px; padding:5px;"  class="widefat">
+                <legend><?php _e('Thumbnail settings', 'wordpress-popular-posts'); ?></legend>
+				<input type="checkbox" class="checkbox" <?php echo ($instance['thumbnail']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-active' ); ?>" /> <label for="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>"><?php _e('Display post thumbnail', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('url'); ?>/wp-admin/options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php">?</a>]</small><br />
+				<?php if($instance['thumbnail']['active']) : ?>
+				
+				<input type="radio" name="<?php echo $this->get_field_name( 'thumb_selection' ); ?>" value="wppgenerated" <?php if ( 'wppgenerated' == $instance['thumbnail']['thumb_selection'] ) echo 'checked="checked"'; ?>> <label for="<?php echo $this->get_field_id( 'thumb_selection' ); ?>"><?php _e('Generate all thumbnails for me', 'wordpress-popular-posts'); ?></label><br />
+				<input type="radio" name="<?php echo $this->get_field_name( 'thumb_selection' ); ?>" value="usergenerated" <?php if ( 'usergenerated' == $instance['thumbnail']['thumb_selection']) { echo 'checked="checked"'; } if (!function_exists('get_the_post_thumbnail')) { echo 'disabled="disabled"'; } ?>>  <label for="<?php echo $this->get_field_id( 'thumb_selection' ); ?>"><?php _e('Use thumbnails selected by me', 'wordpress-popular-posts'); ?></label>				
+				
+				<label for="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>"><?php _e('Width:', 'wordpress-popular-posts'); ?></label> 
+				<input id="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-width' ); ?>" value="<?php echo $instance['thumbnail']['width']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?> <br />
+				<label for="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>"><?php _e('Height:', 'wordpress-popular-posts'); ?></label> 
+				<input id="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-height' ); ?>" value="<?php echo $instance['thumbnail']['height']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?><br />
+				
+				<?php endif; ?>
 			</fieldset>
-            <?php endif; ?>
+			
             <br />
             <fieldset style="width:214px; padding:5px;"  class="widefat">
                 <legend><?php _e('Stats Tag settings', 'wordpress-popular-posts'); ?></legend>
@@ -303,7 +311,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
                     </fieldset>
                 <?php endif; ?>
             </fieldset>
-            <br /><br /> 
+            <br />
+			
             <fieldset style="width:214px; padding:5px;"  class="widefat">
                 <legend><?php _e('HTML Markup settings', 'wordpress-popular-posts'); ?></legend>
                 <input type="checkbox" class="checkbox" <?php echo ($instance['markup']['custom_html']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'custom_html' ); ?>" name="<?php echo $this->get_field_name( 'custom_html' ); ?>" /> <label for="<?php echo $this->get_field_id( 'custom_html' ); ?>"><?php _e('Use custom HTML Markup', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('url'); ?>/wp-admin/options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php">?</a>]</small><br />
@@ -330,6 +339,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		// updates popular posts data table
 		function wpp_ajax_update() {		
 			$nonce = $_POST['token'];
+			$error = "";
 			
 			// is this a valid request?
 			if (! wp_verify_nonce($nonce, 'wpp-token') ) die("Oops!");
@@ -343,10 +353,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// if we got an ID, let's update the data table
 						
 			global $wpdb;
+			
+			$wpdb->show_errors();
+			
 			$table = $wpdb->prefix . 'popularpostsdata';
 			
 			// update popularpostsdata table
-			$exists = $wpdb->get_results("SELECT postid FROM $table WHERE postid = '".$id."'");							
+			$exists = $wpdb->get_results("SELECT postid FROM $table WHERE postid = '$id'");							
 			if ($exists) {
 				$result = $wpdb->query("UPDATE $table SET last_viewed = NOW(), pageviews = pageviews + 1 WHERE postid = '$id'");
 			} else {				
@@ -361,7 +374,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$result2 = $wpdb->query("INSERT INTO ".$table."cache (id, day) VALUES ('".$id."', CURDATE())");
 			}
 			
-			die();
+			if (($result == 1) && ($result2 == 1)) {
+				die("SELECT pageviews FROM $table WHERE postid = '$id'");
+			} else {
+				die($wpdb->print_error);
+			}		
+			
 		}
 		
 		// clears Wordpress Popular Posts' data
@@ -437,15 +455,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// get current post's ID
 			global $wp_query;
+			wp_reset_query();
 			
 			// if we're on a page or post, load the script
 			if ( (is_single() || is_page()) && !is_user_logged_in() ) {
-				$id = $wp_query->post->ID;			
+				$id = $wp_query->post->ID;
 			?>
 <!-- Wordpress Popular Posts v<?php echo $this->version; ?> -->
 <script type="text/javascript" charset="utf-8">
     /* <![CDATA[ */				
-    jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {action: 'wpp_update', token: '<?php echo $nonce; ?>', id: <?php echo $id; ?>});
+    //jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {action: 'wpp_update', token: '<?php echo $nonce; ?>', id: <?php echo $id; ?>});
+	jQuery.post('<?php echo bloginfo( 'url' ); ?>/wp-admin/admin-ajax.php', {action: 'wpp_update', token: '<?php echo $nonce; ?>', id: <?php echo $id; ?>});
     /* ]]> */
 </script>
 <!-- End Wordpress Popular Posts v<?php echo $this->version; ?> -->
@@ -468,6 +488,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			switch( $instance['range'] ) {
 				case 'all':
 					$range = "post_date_gmt < '".gmdate("Y-m-d H:i:s")."'";
+					break;
+				case 'yesterday':
+					$range = $table."cache.day >= '".gmdate("Y-m-d")."' - INTERVAL 1 DAY";
 					break;
 				case 'daily':
 					$range = $table."cache.day = CURDATE()";
@@ -547,11 +570,24 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$force_pv = "";
 			}
 			
-			// Category excluding snippet suggested by user erik.straud at http://wordpress.org/support/topic/272363?replies=10#post-1331386
-			// Modified it a bit to fit my plugin better.
-			// Thanks, erik!
+			// Category excluding snippet suggested by user raamdev at http://wordpress.org/support/topic/397885
+			// Thanks, raamdev!
 			if ( $instance['exclude-cats']['active'] && !empty($instance['exclude-cats']['cats']) ) {
-				$exclude = " AND $wpdb->posts.ID NOT IN (SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN (".$instance['exclude-cats']['cats'].")) ";
+				$exclude = " AND $wpdb->posts.ID NOT IN (
+
+							SELECT  object_id
+							FROM    $wpdb->term_relationships AS r
+									JOIN $wpdb->term_taxonomy AS x ON x.term_taxonomy_id = r.term_taxonomy_id
+									JOIN $wpdb->terms AS t ON t.term_id = x.term_id
+							WHERE   x.taxonomy = 'category'
+									AND object_id IN
+									   (
+										SELECT object_id
+										FROM $wpdb->term_relationships AS r
+										JOIN $wpdb->term_taxonomy AS x ON x.term_taxonomy_id = r.term_taxonomy_id
+										JOIN $wpdb->terms AS t ON t.term_id = x.term_id
+										WHERE   x.taxonomy = 'category'
+										AND t.term_id IN  (".$instance['exclude-cats']['cats']."))) ";
 			} else {
 				$exclude = "";
 			}
@@ -643,13 +679,33 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// get thumbnail
 					if ($instance['thumbnail']['active'] && $this->thumb ) {
 						// let's try to retrieve the first image of the current post
-						$img = $this->get_img($wppost->ID);
-						if ( (!$img || empty($img)) ) {
-							$thumb = "";
-						} else {
-							$thumb = "<a href=\"".get_permalink($wppost->ID)."\" title=\"". htmlspecialchars($title_attr) ."\"><img src=\"". $this->pluginDir . "/scripts/timthumb.php?src=". $img[1] ."&amp;h=".$instance['thumbnail']['height']."&amp;w=".$instance['thumbnail']['width']."&amp;zc=1\" alt=\"".$wppost->post_title."\" border=\"0\" class=\"wpp-thumbnail\" width=\"".$instance['thumbnail']['width']."\" height=\"".$instance['thumbnail']['height']."\" "."/></a>";
+						
+						$thumb = "";
+						
+						// Uncomment this block to have Wordpress Popular Posts
+						// create an image when there is no thumbnail selected
+						// by user for the user. Otherwise, WPP will use the
+						// Post Thumbnail feature to retrieve it.
+						/*if (function_exists('get_the_post_thumbnail') && has_post_thumbnail( $wppost->ID )) { // check if the user has selected a post thumbnail
+							$thumb = "<a href=\"".get_permalink($wppost->ID)."\" class=\"ugen\" title=\"". htmlspecialchars($title_attr) ."\">" . get_the_post_thumbnail($wppost->ID, array($instance['thumbnail']['width'], $instance['thumbnail']['height']), array('class' => 'wpp-thumbnail', 'alt' => htmlspecialchars($title_attr), 'title' => htmlspecialchars($title_attr)) ) ."</a>";
+						} else { // let's use timthumb.php to generate the image
+							$img = $this->get_img($wppost->ID);
+							if ( ($img && !empty($img)) ) {
+								$thumb = "<a href=\"".get_permalink($wppost->ID)."\" class=\"wppgen\" title=\"". htmlspecialchars($title_attr) ."\"><img src=\"". $this->pluginDir . "/scripts/timthumb.php?src=". $img[1] ."&amp;h=".$instance['thumbnail']['height']."&amp;w=".$instance['thumbnail']['width']."&amp;zc=1\" alt=\"".$wppost->post_title."\" border=\"0\" class=\"wpp-thumbnail\" width=\"".$instance['thumbnail']['width']."\" height=\"".$instance['thumbnail']['height']."\" "."/></a>";
+							}
+						}*/
+						
+						// Comment out this block if you plan to use the one above!
+						if ($instance['thumbnail']['thumb_selection'] == "usergenerated") { // use thumbnail selected by user
+							if (function_exists('get_the_post_thumbnail') && has_post_thumbnail( $wppost->ID )) {
+								$thumb = "<a href=\"".get_permalink($wppost->ID)."\" title=\"". htmlspecialchars($title_attr) ."\">" . get_the_post_thumbnail($wppost->ID, array($instance['thumbnail']['width'], $instance['thumbnail']['height']), array('class' => 'wpp-thumbnail', 'alt' => htmlspecialchars($title_attr), 'title' => htmlspecialchars($title_attr)) ) ."</a>";
+							}
+						} else if ($instance['thumbnail']['thumb_selection'] == "wppgenerated") { // Wordpress Popular Posts should attempt to create a thumbnail by itself
+							$img = $this->get_img($wppost->ID);
+							if ( ($img && !empty($img)) ) {
+								$thumb = "<a href=\"".get_permalink($wppost->ID)."\" class=\"wppgen\" title=\"". htmlspecialchars($title_attr) ."\"><img src=\"". $this->pluginDir . "/scripts/timthumb.php?src=". $img[1] ."&amp;h=".$instance['thumbnail']['height']."&amp;w=".$instance['thumbnail']['width']."&amp;zc=1\" alt=\"".$wppost->post_title."\" border=\"0\" class=\"wpp-thumbnail\" width=\"".$instance['thumbnail']['width']."\" height=\"".$instance['thumbnail']['height']."\" "."/></a>";
+							}
 						}
-												
 					}
 					
 					// get rating
@@ -727,29 +783,23 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function get_img($id = "", $print = false) {
 			if ( empty($id) || !is_numeric($id) ) return false;
 			
-			global $wpdb;
-			$source = array();
+			// get post attachments
+			$attachments = get_children(array('post_parent' => $id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order'));
 			
-			$raw = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
+			// no image has been found
+			if ( ! is_array($attachments) ) return false;
 			
-			$source = strip_tags($raw[0]["post_content"], "<img>");
-			$source = preg_replace("/<object[0-9 a-z_?*=\":\-\/\.#\,\\n\\r\\t]+/smi", "", $source); // remove Flash
-		
-			$count = substr_count($source, '<img');			
+			$count = count($attachments);
+			$first_attachment = array_shift($attachments);			
+			$img = wp_get_attachment_image($first_attachment->ID);
 			
-			if ($count > 0) { // images have been found
-				$p = substr( $source, strpos($source, "<img", 0), (strpos($source, '>') - strpos($source, "<img", 0) + 1) );				
-				
-				$img_pattern = '/<\s*img [^\>]*src\s*=\s*[\""\']?([^\""\'\s>]*)/i';			
-				preg_match($img_pattern, $p, $imgm);
-				
-				if ($print)
+			preg_match('/<\s*img [^\>]*src\s*=\s*[\""\']?([^\""\'\s>]*)/i', $img, $imgm);
+			
+			if ($print)
 					echo $imgm[1];
 				else
 					return $imgm;
-			} else { // post has no images
-				return false;
-			}
+
 		}
 		
 		// parses content structure defined by user
@@ -949,6 +999,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'cats_to_exclude' => '',
 				'thumbnail_width' => 0,
 				'thumbnail_height' => 0,
+				'thumbnail_selection' => 'wppgenerated',
 				'rating' => false,
 				'stats_comments' => true,
 				'stats_views' => false,
@@ -966,8 +1017,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			), $atts ) );
 			
 			// possible values for "Time Range" and "Order by"
-			$range_values = array("daily", "weekly", "monthly", "all");
+			$range_values = array("yesterday", "daily", "weekly", "monthly", "all");
 			$order_by_values = array("comments", "views", "avg");
+			$thumbnail_selector = array("wppgenerated", "usergenerated");
 			
 			$shortcode_ops = array(
 				'title' => strip_tags($header),
@@ -990,6 +1042,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				),		
 				'thumbnail' => array(
 					'active' => empty($thumbnail_width) ? false : (is_numeric($thumbnail_width)) ? (($thumbnail_width > 0) ? true : false) : false,
+					'thumb_selection' => (in_array($thumbnail_selection, $thumbnail_selector)) ? $thumbnail_selection : 'wppgenerated',
 					'width' => empty($thumbnail_width) ? 0 : (is_numeric($thumbnail_width)) ? $thumbnail_width : 0,
 					'height' => empty($thumbnail_height) ? 0 : (is_numeric($thumbnail_height)) ? $thumbnail_height : 0
 				),
@@ -1018,17 +1071,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				)
 			);
 			
-			echo "<!-- Wordpress Popular Posts Plugin v". $this->version ." [SC] [".$shortcode_ops['range']."] -->"."\n";
+			$shortcode_content = "";
+			
+			$shortcode_content .= "<!-- Wordpress Popular Posts Plugin v". $this->version ." [SC] [".$shortcode_ops['range']."] -->"."\n";
 			
 			// is there a title defined by user?
 			if (!empty($header) && !empty($header_start) && !empty($header_end)) {
-				echo $header_start . $header . $header_end;
+				$shortcode_content .= $header_start . $header . $header_end;
 			}
 			
 			// print popular posts list
-			echo $this->get_popular_posts($shortcode_ops, false);
+			$shortcode_content .= $this->get_popular_posts($shortcode_ops, false);
 			
-			echo "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
+			$shortcode_content .= "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
+			
+			return $shortcode_content;
 		}
 		
 		// stats page
@@ -1052,17 +1109,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 function wpp_get_views($id = NULL) {
 	// have we got an id?
 	if ( empty($id) || is_null($id) || !is_numeric($id) ) {
-		return false;
+		return "-1";
 	} else {		
 		global $wpdb;
-		$table_name = $wpdb->prefix . "popularpostsdata";
 		
-		$result = $wpdb->get_results("SELECT pageviews AS 'views' FROM $table_name WHERE postid = '$id'", ARRAY_A);
+		$table_name = $wpdb->prefix . "popularpostsdata";		
+		$result = $wpdb->get_results("SELECT pageviews FROM $table_name WHERE postid = '$id'", ARRAY_A);
 		
 		if ( !is_array($result) || empty($result) ) {
 			return "0";
 		} else {
-			return $result[0]['views'];
+			return $result[0]['pageviews'];
 		}
 	}
 }
@@ -1072,10 +1129,10 @@ function wpp_get_views($id = NULL) {
 function wpp_get_mostpopular($args = NULL) {
 
 	if (is_null($args)) {
-		return do_shortcode('[wpp]');
+		echo do_shortcode('[wpp]');
 	} else {
 		$atts = trim(str_replace("&", " ", $args));
-		return do_shortcode('[wpp '.$atts.']');
+		echo do_shortcode('[wpp '.$atts.']');
 	}
 }
 
@@ -1090,14 +1147,13 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.0.3 Changelog.
+ * Wordpress Popular Posts 2.1.0 Changelog.
  */
 
 /*
- = 2.0.3 =
- * Several UI enhancements were applied to this version.
- * Added a Dashboard to Admin panel so users can view what's popular directly from there.
- * Users can now select a different date format.
- * get_mostpopular() function deprecated. Replaced with wpp_get_mostpopular().
- * Cache maintenance bug fixed.
+ = 2.1.0 =
+ * Title special HTML entities bug fixed.
+ * Thumbnail feature improved! Wordpress Popular Posts now supports The Post Thumbnail feature. You can choose whether to select your own thumbnails, or let Wordpress Popular Posts create them for you!
+ * Shortcode bug fixed. Thanks Krokkodriljo!
+ * Category exclusion feature improved. Thanks raamdev!
 */

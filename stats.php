@@ -89,23 +89,29 @@
     <h2 id="wmpp-title">Wordpress Popular Posts Stats</h2>
     <p><?php _e("Click on each tab to see what are the most popular entries on your blog today, this week, last 30 days or all time since Wordpress Popular Posts was installed.", "wordpress-popular-posts"); ?></p>    
     <div id="wpp-stats-tabs">
-    	<a href="#" class="button-primary" rel="wpp-daily"><?php _e("Today", "wordpress-popular-posts"); ?></a>
+    	<!--<a href="#" class="button-secondary" rel="wpp-yesterday"><?php _e("Yesterday", "wordpress-popular-posts"); ?></a>-->
+        <a href="#" class="button-primary" rel="wpp-daily"><?php _e("Today", "wordpress-popular-posts"); ?></a>
         <a href="#" class="button-secondary" rel="wpp-weekly"><?php _e("Weekly", "wordpress-popular-posts"); ?></a>
         <a href="#" class="button-secondary" rel="wpp-monthly"><?php _e("Monthly", "wordpress-popular-posts"); ?></a>
         <a href="#" class="button-secondary" rel="wpp-all"><?php _e("All-time", "wordpress-popular-posts"); ?></a>
     </div>
     <div id="wpp-stats-canvas">
+        <!--
+        <div class="wpp-stats" id="wpp-yesterday">
+            <?php //echo do_shortcode('[wpp range=yesterday stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
+        </div>
+        -->
         <div class="wpp-stats wpp-stats-active" id="wpp-daily">
-            <?php do_shortcode('[wpp range=today stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
+            <?php echo do_shortcode('[wpp range=today stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
         </div>
         <div class="wpp-stats" id="wpp-weekly">
-            <?php do_shortcode('[wpp range=weekly stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
+            <?php echo do_shortcode('[wpp range=weekly stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
         </div>
         <div class="wpp-stats" id="wpp-monthly">
-            <?php do_shortcode('[wpp range=monthly stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
+            <?php echo do_shortcode('[wpp range=monthly stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
         </div>
         <div class="wpp-stats" id="wpp-all">
-            <?php do_shortcode('[wpp range=all stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
+            <?php echo do_shortcode('[wpp range=all stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]'); ?>
         </div>
     </div>
     <?php    
