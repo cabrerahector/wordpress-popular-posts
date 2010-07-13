@@ -1,6 +1,6 @@
 <?php
 /*
-	TimThumb script created by Tim McDaniels and Darren Hoyt with tweaks by Ben Gillbanks
+	TimThumb script created by Tim McDaniels and Darren Hoyt with tweaks by Ben Gillbank s
 	http://code.google.com/p/timthumb/
 
 	MIT License: http://www.opensource.org/licenses/mit-license.php
