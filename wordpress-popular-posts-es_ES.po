@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-21 10:53-0430\n"
+"POT-Creation-Date: 2010-07-13 10:00-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Hector Cabrera <me@cabrerahector.com>\n"
 "Language-Team: Héctor Cabrera <admin@rauru.com>\n"
@@ -247,16 +247,16 @@ msgstr "Setea el encabezado de la lista"
 #: maintenance.php:194
 #: maintenance.php:201
 #: maintenance.php:257
-#: maintenance.php:313
 #: maintenance.php:320
 #: maintenance.php:327
 #: maintenance.php:334
 #: maintenance.php:341
+#: maintenance.php:348
 msgid "Text string"
 msgstr "Cadena de texto"
 
 #: maintenance.php:188
-#: wordpress-popular-posts.php:183
+#: wordpress-popular-posts.php:191
 msgid "Popular Posts"
 msgstr "Entradas Populares"
 
@@ -325,107 +325,111 @@ msgid "If set, and if your current server configuration allows it, you will be a
 msgstr "Si se setea, y si la configuraci&oacute;n actual de tu servidor lo permite, podr&aacute;s mostrar miniaturas (thumbnails) de tus posts. Este atributo setea el alto de las miniaturas"
 
 #: maintenance.php:277
+msgid "Sets the source of thumbnails to use for each post listed. If set to wppgenerated Wordpress Popular Posts will create the images for you, otherwise it will use the thumbnails selected by you. *Requires enabling The Post Thumbnail feature on your theme*"
+msgstr "Setea la fuente de las miniaturas a utilizar con cada post en el listado. Si se setea como wppgenerated Wordpress Popular Posts crear&aacute; las im&aacute;genes por ti, caso contrario utilizar&aacute; las miniaturas que has seleccionado. *Requiere habilitar la funcionalidad de The Post Thumbnail en tu tema*"
+
+#: maintenance.php:284
 msgid "If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries"
 msgstr "Si se setea, y si el plugin WP-PostRatings est&aacute; instalado y activo en tu blog, Wordpress Popular Posts mostrar&aacute; c&oacute;mo tus visitantes califican tus entradas"
 
-#: maintenance.php:284
+#: maintenance.php:291
 msgid "If set, Wordpress Popular Posts will show how many comments each popular post has got until now"
 msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntos comentarios ha obtenido cada post popular hasta ahora"
 
-#: maintenance.php:291
+#: maintenance.php:298
 msgid "If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed"
 msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntas vistas ha obtenido cada post popular desde que se instal&oacute; el plugin"
 
-#: maintenance.php:298
+#: maintenance.php:305
 msgid "If set, Wordpress Popular Posts will show who published each popular post on the list"
 msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; qui&eacute;n public&oacute; cada uno de los posts populares de la lista"
 
-#: maintenance.php:305
+#: maintenance.php:312
 msgid "If set, Wordpress Popular Posts will when each popular post on the list was published"
 msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; cuando fue publicado cada post en la lista"
 
-#: maintenance.php:312
+#: maintenance.php:319
 msgid "Sets the date format"
 msgstr "Setea el formato de la fecha"
 
-#: maintenance.php:319
+#: maintenance.php:326
 msgid "Sets the opening tag for the listing"
 msgstr "Setea la etiqueta de apertura de la lista"
 
-#: maintenance.php:326
+#: maintenance.php:333
 msgid "Sets the closing tag for the listing"
 msgstr "Setea la etiqueta de cierre de la lista"
 
-#: maintenance.php:333
+#: maintenance.php:340
 msgid "Sets the opening tag for each item on the list"
 msgstr "Setea la etiqueta de apertura de cada item en la lista"
 
-#: maintenance.php:340
+#: maintenance.php:347
 msgid "Sets the closing tag for each item on the list"
 msgstr "Setea la etiqueta de cierre de cada item en la lista"
 
-#: maintenance.php:347
+#: maintenance.php:354
 msgid "If set, this option will allow you to decide the order of the contents within each item on the list."
 msgstr "Si se setea, esta opci&oacute;n te permitir&aacute; decidir el orden de los contenidos de cada item en la lista"
 
-#: maintenance.php:354
+#: maintenance.php:361
 msgid "If set, you can decide the order of each content inside a single item on the list. For example, setting it to \"{title}: {summary}\" would output something like \"Your Post Title: summary here\". This attribute requires do_pattern to be true."
 msgstr "Si se setea, puedes decidir el orden de los contenidos de cada item en la lista. Por ejemplo, configurarlo como \"{title}: {summary}\" mostrar&iacute;a algo como \"Tu t&iacute;tulo: extracto del post aqu&iacute;\". Este atributo requiere que do_pattern sea true."
 
-#: maintenance.php:355
+#: maintenance.php:362
 msgid "Available tags"
 msgstr "Etiquetas disponibles"
 
-#: maintenance.php:364
+#: maintenance.php:371
 msgid "Maintenance Settings"
 msgstr "Opciones de Mantenimiento"
 
-#: maintenance.php:365
+#: maintenance.php:372
 msgid "Wordpress Popular Posts keeps historical data of your most popular entries for up to 30 days. If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so."
 msgstr "Wordpress Popular Posts guarda data hist&oacute;rica de tus posts m&aacute;s populares por hasta 30 d&iacute;as. Si por alguna raz&oacute;n necesitas limpiar el cache, o inclusive tanto el cache como la tabla hist&oacute;rica, por favor utiliza los botones de abajo."
 
-#: maintenance.php:368
+#: maintenance.php:375
 msgid "Empty cache"
 msgstr "Vaciar cache"
 
-#: maintenance.php:369
+#: maintenance.php:376
 msgid "Use this button to manually clear entries from WPP cache only"
 msgstr "Utiliza este bot&oacute;n para limpiar manualmente todas las entradas del cache de Wordpress Popular Posts"
 
-#: maintenance.php:375
+#: maintenance.php:382
 msgid "Clear all data"
 msgstr "Eliminar toda la data"
 
-#: maintenance.php:376
+#: maintenance.php:383
 msgid "Use this button to manually clear entries from all WPP data tables"
 msgstr "Utiliza este bot&oacute;n para limpiar toda la data de Wordpress Popular Posts"
 
-#: maintenance.php:384
+#: maintenance.php:391
 msgid "Do you like this plugin?"
 msgstr "&iquest;Te gusta este plugin?"
 
-#: maintenance.php:384
+#: maintenance.php:391
 msgid "Rate Wordpress Popular Posts!"
 msgstr "&iexcl;Califica Wordpress Popular Posts!"
 
-#: maintenance.php:384
+#: maintenance.php:391
 msgid "Rate it 5"
 msgstr "&iexcl;Dale un 5"
 
-#: maintenance.php:384
+#: maintenance.php:391
 msgid "on the official Plugin Directory!"
 msgstr "en el directorio oficial de plugins!"
 
-#: maintenance.php:385
+#: maintenance.php:392
 msgid "Do you love this plugin?"
 msgstr "&iquest;Te encanta este plugin?"
 
-#: maintenance.php:385
-#: maintenance.php:386
+#: maintenance.php:392
+#: maintenance.php:393
 msgid "Buy me a beer!"
 msgstr "&iexcl;C&oacute;mprame una cerveza!"
 
-#: maintenance.php:385
+#: maintenance.php:392
 msgid "Each donation motivates me to keep releasing free stuff for the Wordpress community!"
 msgstr "&iexcl;Cada donativo me motiva a seguir contribuyendo con la comunidad Wordpress!"
 
@@ -438,7 +442,7 @@ msgid "Yesterday"
 msgstr "Ayer"
 
 #: stats.php:93
-#: wordpress-popular-posts.php:242
+#: wordpress-popular-posts.php:250
 msgid "Today"
 msgstr "Hoy"
 
@@ -451,235 +455,235 @@ msgid "Monthly"
 msgstr "Mensualmente"
 
 #: stats.php:96
-#: wordpress-popular-posts.php:245
+#: wordpress-popular-posts.php:253
 msgid "All-time"
 msgstr "Todos"
 
-#: wordpress-popular-posts.php:236
+#: wordpress-popular-posts.php:244
 msgid "Title:"
 msgstr "T&iacute;tulo:"
 
-#: wordpress-popular-posts.php:238
+#: wordpress-popular-posts.php:246
 msgid "Show up to:"
 msgstr "Mostrar hasta:"
 
-#: wordpress-popular-posts.php:239
+#: wordpress-popular-posts.php:247
 msgid "posts"
 msgstr "posts"
 
-#: wordpress-popular-posts.php:240
+#: wordpress-popular-posts.php:248
 msgid "Time Range:"
 msgstr "Rango de tiempo:"
 
-#: wordpress-popular-posts.php:243
+#: wordpress-popular-posts.php:251
 msgid "Last 7 days"
 msgstr "&Uacute;ltimos 7 d&iacute;as"
 
-#: wordpress-popular-posts.php:244
+#: wordpress-popular-posts.php:252
 msgid "Last 30 days"
 msgstr "&Uacute;ltimos 30 d&iacute;as"
 
-#: wordpress-popular-posts.php:248
+#: wordpress-popular-posts.php:256
 msgid "Sort posts by:"
 msgstr "Ordernar posts por:"
 
-#: wordpress-popular-posts.php:250
+#: wordpress-popular-posts.php:258
 msgid "Comments"
 msgstr "Comentarios"
 
-#: wordpress-popular-posts.php:251
+#: wordpress-popular-posts.php:259
 msgid "Total views"
 msgstr "Vistas"
 
-#: wordpress-popular-posts.php:252
+#: wordpress-popular-posts.php:260
 msgid "Avg. daily views"
 msgstr "Vistas por d&iacute;a"
 
-#: wordpress-popular-posts.php:255
+#: wordpress-popular-posts.php:263
 msgid "Include pages"
 msgstr "Incluir p&aacute;ginas"
 
-#: wordpress-popular-posts.php:257
+#: wordpress-popular-posts.php:265
 msgid "Display post rating"
 msgstr "Mostrar calificaci&oacute;n del post"
 
-#: wordpress-popular-posts.php:259
+#: wordpress-popular-posts.php:267
 msgid "Shorten title output"
 msgstr "Acortar t&iacute;tulo"
 
-#: wordpress-popular-posts.php:261
+#: wordpress-popular-posts.php:269
 msgid "Shorten title to"
 msgstr "acortar t&iacute;tulo a"
 
-#: wordpress-popular-posts.php:261
-#: wordpress-popular-posts.php:268
+#: wordpress-popular-posts.php:269
+#: wordpress-popular-posts.php:276
 msgid "characters"
 msgstr "caracteres"
 
-#: wordpress-popular-posts.php:263
+#: wordpress-popular-posts.php:271
 msgid "Display post excerpt"
 msgstr "Mostrar extracto del post"
 
-#: wordpress-popular-posts.php:266
+#: wordpress-popular-posts.php:274
 msgid "Excerpt Properties"
 msgstr "Propiedades del extracto"
 
-#: wordpress-popular-posts.php:267
+#: wordpress-popular-posts.php:275
 msgid "Keep text format and links"
 msgstr "Mantener formato de texto y links"
 
-#: wordpress-popular-posts.php:268
+#: wordpress-popular-posts.php:276
 msgid "Excerpt length:"
 msgstr "Longitud del extracto:"
 
-#: wordpress-popular-posts.php:272
+#: wordpress-popular-posts.php:280
 msgid "Exclude categories"
 msgstr "Excluir categor&iacute;as"
 
-#: wordpress-popular-posts.php:275
+#: wordpress-popular-posts.php:283
 msgid "Categories to exclude"
 msgstr "Categor&iacute;as a excluir"
 
-#: wordpress-popular-posts.php:276
+#: wordpress-popular-posts.php:284
 msgid "ID(s) (comma separated, no spaces):"
 msgstr "ID(s) (separado por comas, sin espacios):"
 
-#: wordpress-popular-posts.php:282
+#: wordpress-popular-posts.php:290
 msgid "Thumbnail settings"
 msgstr "Configuraci&oacute;n de la miniatura"
 
-#: wordpress-popular-posts.php:283
+#: wordpress-popular-posts.php:291
 msgid "Display post thumbnail"
 msgstr "Mostrar miniatura"
 
-#: wordpress-popular-posts.php:286
+#: wordpress-popular-posts.php:294
 msgid "Generate all thumbnails for me"
 msgstr "Genera las miniaturas por mi"
 
-#: wordpress-popular-posts.php:287
+#: wordpress-popular-posts.php:295
 msgid "Use thumbnails selected by me"
 msgstr "Usa las ministuras que seleccion&eacute;"
 
-#: wordpress-popular-posts.php:289
+#: wordpress-popular-posts.php:297
 msgid "Width:"
 msgstr "Ancho:"
 
-#: wordpress-popular-posts.php:290
-#: wordpress-popular-posts.php:292
+#: wordpress-popular-posts.php:298
+#: wordpress-popular-posts.php:300
 msgid "px"
 msgstr "px"
 
-#: wordpress-popular-posts.php:291
+#: wordpress-popular-posts.php:299
 msgid "Height:"
 msgstr "Alto:"
 
-#: wordpress-popular-posts.php:299
+#: wordpress-popular-posts.php:307
 msgid "Stats Tag settings"
 msgstr "Configuraci&oacute;n del Stats Tag"
 
-#: wordpress-popular-posts.php:300
+#: wordpress-popular-posts.php:308
 msgid "Display comment count"
 msgstr "Mostrar comentarios"
 
-#: wordpress-popular-posts.php:301
+#: wordpress-popular-posts.php:309
 msgid "Display views"
 msgstr "Mostrar vistas"
 
-#: wordpress-popular-posts.php:302
+#: wordpress-popular-posts.php:310
 msgid "Display author"
 msgstr "Mostrar autor"
 
-#: wordpress-popular-posts.php:303
+#: wordpress-popular-posts.php:311
 msgid "Display date"
 msgstr "Mostrar fecha"
 
-#: wordpress-popular-posts.php:306
+#: wordpress-popular-posts.php:314
 msgid "Date Format"
 msgstr "Formato de la fecha"
 
-#: wordpress-popular-posts.php:317
+#: wordpress-popular-posts.php:325
 msgid "HTML Markup settings"
 msgstr "Configuraci&oacute;n del Markup HTML"
 
-#: wordpress-popular-posts.php:318
+#: wordpress-popular-posts.php:326
 msgid "Use custom HTML Markup"
 msgstr "Utilizar Markup HTML personalizado"
 
-#: wordpress-popular-posts.php:321
+#: wordpress-popular-posts.php:329
 msgid "Before / after title:"
 msgstr "Antes / despu&eacute;s del t&iacute;tulo:"
 
-#: wordpress-popular-posts.php:323
+#: wordpress-popular-posts.php:331
 msgid "Before / after Popular Posts:"
 msgstr "Antes / despu&eacute;s de los Post Populares:"
 
-#: wordpress-popular-posts.php:325
+#: wordpress-popular-posts.php:333
 msgid "Before / after each post:"
 msgstr "Antes / despu&eacute;s de cada post:"
 
-#: wordpress-popular-posts.php:329
+#: wordpress-popular-posts.php:337
 msgid "Use content formatting tags"
 msgstr "Utilizar etiquetas de contenido"
 
-#: wordpress-popular-posts.php:332
+#: wordpress-popular-posts.php:340
 msgid "Content format:"
 msgstr "Formato del contenido:"
 
-#: wordpress-popular-posts.php:400
+#: wordpress-popular-posts.php:412
 msgid "Success! The cache table has been cleared!"
 msgstr "&excl;Eacute;xito! &excl;El cache ha sido vaciado!"
 
-#: wordpress-popular-posts.php:402
+#: wordpress-popular-posts.php:414
 msgid "Error: cache table does not exist."
 msgstr "Error: la tabla cache no existe."
 
-#: wordpress-popular-posts.php:408
+#: wordpress-popular-posts.php:420
 msgid "Success! All data have been cleared!"
 msgstr "&excl;Eacute;xito! &excl;Toda la data ha sido eliminada!"
 
-#: wordpress-popular-posts.php:410
+#: wordpress-popular-posts.php:422
 msgid "Error: one or both data tables are missing."
 msgstr "Error: una o ambas tablas de datos no existen."
 
-#: wordpress-popular-posts.php:413
+#: wordpress-popular-posts.php:425
 msgid "Invalid action."
 msgstr "Acci&oacute;n inv&aacute;lida."
 
-#: wordpress-popular-posts.php:416
+#: wordpress-popular-posts.php:428
 msgid "Sorry, you do not have enough permissions to do this. Please contact the site administrator for support."
 msgstr "Lo lamento, no tienes suficientes permisos para hacer esto. Por favor contacta al administrador del sitio."
 
-#: wordpress-popular-posts.php:602
+#: wordpress-popular-posts.php:617
 msgid "Sorry. No data so far."
 msgstr "Lo lamento, no hay informaci&oacute;n a&uacute;n."
 
-#: wordpress-popular-posts.php:643
+#: wordpress-popular-posts.php:660
 msgid " comment(s)"
 msgstr "comentario(s)"
 
-#: wordpress-popular-posts.php:646
+#: wordpress-popular-posts.php:663
 msgid " view(s)"
 msgstr "vista(s)"
 
-#: wordpress-popular-posts.php:651
+#: wordpress-popular-posts.php:668
 msgid " view(s) per day"
 msgstr "vista(s) por d&iacute;a"
 
-#: wordpress-popular-posts.php:664
-#: wordpress-popular-posts.php:666
+#: wordpress-popular-posts.php:681
+#: wordpress-popular-posts.php:683
 msgid "by"
 msgstr "por"
 
-#: wordpress-popular-posts.php:671
-#: wordpress-popular-posts.php:673
+#: wordpress-popular-posts.php:688
+#: wordpress-popular-posts.php:690
 msgid "posted on"
 msgstr "publicado el"
 
-#: wordpress-popular-posts.php:973
+#: wordpress-popular-posts.php:978
 msgid "Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 2.8 to function correctly. Please update your blog via Tools &gt; Upgrade."
 msgstr "Tu versi&oacute;n de Wordpress es muy antigua. El plugin Wordpress Popular Posts requiere al menos la versi&oacute;n 2.8 para funcionar correctamente. Por favor actualiza tu blog via Herramientas &gt; Actualizar."
 
-#: wordpress-popular-posts.php:1096
+#: wordpress-popular-posts.php:1103
 msgid "Wordpress Popular Posts Stats"
 msgstr "Estad&iacute;sticas de Wordpress Popular Posts"
 

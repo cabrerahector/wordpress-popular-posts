@@ -271,6 +271,13 @@
                             <td><?php _e('Positive integer', 'wordpress-popular-posts'); ?></td>
                             <td align="center">15</td>
                             <td>thumbnail_height=30</td>
+                        </tr>                        
+                        <tr>
+                        	<td><strong>thumbnail_selection</strong></td>
+                            <td><?php _e('Sets the source of thumbnails to use for each post listed. If set to wppgenerated Wordpress Popular Posts will create the images for you, otherwise it will use the thumbnails selected by you. *Requires enabling The Post Thumbnail feature on your theme*', 'wordpress-popular-posts'); ?></td>
+                            <td>"wppgenerated", "usergenerated"</td>
+                            <td align="center">wppgenerated</td>
+                            <td>thumbnail_selection="wppgenerated"</td>
                         </tr>
                         <tr>
                         	<td><strong>rating</strong></td>
