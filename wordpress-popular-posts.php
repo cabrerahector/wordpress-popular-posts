@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using  <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.1.1
+Version: 2.1.2
 Author: H&eacute;ctor Cabrera
 Author URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 License: GPL2
@@ -28,7 +28,7 @@ function load_wpp() {
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.1.1";
+		var $version = "2.1.2";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -51,7 +51,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if (empty($this->pluginDir)) $this->pluginDir = WP_PLUGIN_URL . '/wordpress-popular-posts';
 			
 			// enqueue jQuery
-			add_action('init', array(&$this, 'swap_jquery'));
+			//add_action('init', array(&$this, 'swap_jquery'));
 			
 			// add ajax update to wp_ajax_ hook
 			add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
@@ -462,7 +462,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		}
 		
 		// prints ajax script to theme's header
-		function wpp_print_ajax() {			
+		function wpp_print_ajax() {
+			// let's add jQuery
+			wp_print_scripts('jquery');
+			
 			// create security token
 			$nonce = wp_create_nonce('wpp-token');
 			
@@ -1151,13 +1154,10 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.1.1 Changelog.
+ * Wordpress Popular Posts 2.1.2 Changelog.
  */
 
 /*
- = 2.1.1 =
- * Fixed bug preventing widget title from being saved.
- * Fixed bug affecting blogs with Wordpress installed somewhere else than domain's root.
- * Added htmlentities to post titles.
- * Added default thumbnail image if none is found in the post.
+ = 2.1.2 =
+ * Fixed bug preventing HTML View / Visual View on Edit Post page from working.
 */

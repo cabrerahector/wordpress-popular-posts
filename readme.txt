@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.8
 Tested up to: 3.0.0
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog.
 
@@ -133,6 +133,9 @@ Please don't, and read my words carefully, don't use my email address to contact
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 2.1.2 =
+* Fixed bug preventing HTML View / Visual View on Edit Post page from working.
+
 = 2.1.1 =
 * Fixed bug preventing widget title from being saved.
 * Fixed bug affecting blogs with Wordpress installed somewhere else than domain's root.
