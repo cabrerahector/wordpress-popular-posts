@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using  <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.1.3
+Version: 2.1.4
 Author: H&eacute;ctor Cabrera
 Author URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 License: GPL2
@@ -28,11 +28,13 @@ function load_wpp() {
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.1.3";
+		var $version = "2.1.4";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
 		var $pluginDir = "";
+		var $charset = "UTF-8";
+		var $magicquotes = false;
 		
 		// constructor
 		function WordpressPopularPosts() {
@@ -49,6 +51,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// set plugin path
 			if (empty($this->pluginDir)) $this->pluginDir = WP_PLUGIN_URL . '/wordpress-popular-posts';
+			
+			// set charset
+			$this->charset = get_bloginfo('charset');
+			
+			// detect PHP magic quotes
+			$this->magicquotes = get_magic_quotes_gpc();
 			
 			// add ajax update to wp_ajax_ hook
 			add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
@@ -138,7 +146,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance = $old_instance;
 			
 			//$instance['title'] = htmlspecialchars( stripslashes(strip_tags( $new_instance['title'] )), ENT_QUOTES, 'UTF-8', FALSE );
-			$instance['title'] = htmlspecialchars( stripslashes(strip_tags( $new_instance['title'] )), ENT_QUOTES );
+			$instance['title'] = ($this->magicquotes) ? htmlspecialchars( stripslashes(strip_tags( $new_instance['title'] )), ENT_QUOTES ) : htmlspecialchars( strip_tags( $new_instance['title'] ), ENT_QUOTES );
 			$instance['limit'] = is_numeric($new_instance['limit']) ? $new_instance['limit'] : 10;
 			$instance['range'] = $new_instance['range'];
 			$instance['order_by'] = $new_instance['order_by'];
@@ -620,14 +628,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					/* qTranslate integration check */
 					($this->qTrans) ? $tit = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($wppost->post_title) : $tit = $wppost->post_title;
 					
-					$tit = stripslashes($tit);
-					$title_attr = htmlentities($tit, ENT_QUOTES);
+					$tit = ($this->magicquotes) ? stripslashes($tit) : $tit;
+					$title_attr = htmlentities($tit, ENT_QUOTES, $this->charset);
 					
 					if ( $instance['shorten_title']['active'] && (strlen($tit) > $instance['shorten_title']['length'])) {
-						$tit = mb_substr($tit, 0, $instance['shorten_title']['length'], 'UTF-8') . "...";
+						$tit = mb_substr($tit, 0, $instance['shorten_title']['length'], $this->charset) . "...";
 					}
 					
-					$tit = htmlentities($tit, ENT_QUOTES);
+					$tit = htmlentities($tit, ENT_QUOTES, $this->charset);
 					
 					// get post excerpt
 					if ( $instance['post-excerpt']['active'] ) {
@@ -692,7 +700,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						// let's try to retrieve the post thumbnail!
 						if ($instance['thumbnail']['thumb_selection'] == "usergenerated") { // use thumbnail selected by user
 							if (function_exists('get_the_post_thumbnail') && has_post_thumbnail( $wppost->ID )) {
-								$thumb = "<a href=\"".get_permalink($wppost->ID)."\" title=\"". $title_attr ."\">" . get_the_post_thumbnail($wppost->ID, array($tbWidth, $tbHeight), array('class' => 'wpp-thumbnail', 'alt' => $title_attr, 'title' => $title_attr) ) ."</a> <!-- $tbWidth $tbHeight-->";
+								$thumb = "<a href=\"".get_permalink($wppost->ID)."\" title=\"". $title_attr ."\">" . get_the_post_thumbnail($wppost->ID, array($tbWidth), array('class' => 'wpp-thumbnail', 'alt' => $title_attr, 'title' => $title_attr) ) ."</a> <!-- $tbWidth $tbHeight-->";
 							}
 						} else if ($instance['thumbnail']['thumb_selection'] == "wppgenerated") { // Wordpress Popular Posts should attempt to create a thumbnail by itself
 							$img = $this->get_img($wppost->ID);
@@ -709,7 +717,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$rating = '';
 					}
 					$data = array(
-						'title' => '<a href="'.get_permalink($wppost->ID).'" title="'. $title_attr .'"><span class=\"wpp-post-title\">'. $tit .'</span></a>',
+						'title' => '<a href="'.get_permalink($wppost->ID).'" title="'. $title_attr .'"><span class="wpp-post-title">'. $tit .'</span></a>',
 						'summary' => $post_content,
 						'stats' => $stats,
 						'img' => $thumb,
@@ -721,10 +729,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						if ($instance['markup']['pattern']['active']) {
 							$content .= htmlspecialchars_decode($instance['markup']['post-start'], ENT_QUOTES) . $this->format_content($instance['markup']['pattern']['form'], $data, $instance['rating']) . htmlspecialchars_decode($instance['markup']['post-end'], ENT_QUOTES) . "\n";
 						} else {
-							$content .= htmlspecialchars_decode($instance['markup']['post-start'], ENT_QUOTES) . $thumb . '<a href="'.get_permalink($wppost->ID).'" title="'. $title_attr .'"><span class=\"wpp-post-title\">'. $tit .'</span></a>'.$post_content.' '. $stats . $rating . htmlspecialchars_decode($instance['markup']['post-end'], ENT_QUOTES) . "\n";
+							$content .= htmlspecialchars_decode($instance['markup']['post-start'], ENT_QUOTES) . $thumb . '<a href="'.get_permalink($wppost->ID).'" title="'. $title_attr .'"><span class="wpp-post-title">'. $tit .'</span></a>'.$post_content.' '. $stats . $rating . htmlspecialchars_decode($instance['markup']['post-end'], ENT_QUOTES) . "\n";
 						}
 					} else {
-						$content .= '<li>'. $thumb .'<a href="'. get_permalink($wppost->ID) .'" title="'. $title_attr .'"><span class=\"wpp-post-title\">'. $tit .'</span></a>'. $post_content .' '. $stats . $rating .'</li>' . "\n";
+						$content .= '<li>'. $thumb .'<a href="'. get_permalink($wppost->ID) .'" title="'. $title_attr .'"><span class="wpp-post-title">'. $tit .'</span></a>'. $post_content .' '. $stats . $rating .'</li>' . "\n";
 					}
 				}			
 				
@@ -1142,10 +1150,10 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.1.1 Changelog.
+ * Wordpress Popular Posts 2.1.4 Changelog.
  */
 
 /*
- = 2.1.3 =
- * Fixed bug preventing HTML View / Visual View on Edit Post page from working.
+ = 2.1.4 =
+ * Added charset detection.
 */
