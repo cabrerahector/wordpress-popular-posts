@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using  <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.1.4
+Version: 2.1.5
 Author: H&eacute;ctor Cabrera
 Author URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 License: GPL2
@@ -28,7 +28,7 @@ function load_wpp() {
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.1.4";
+		var $version = "2.1.5";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -158,6 +158,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance['post-excerpt']['keep_format'] = $new_instance['post-excerpt-format'];
 			$instance['exclude-cats']['active'] = $new_instance['exclude-cats'];
 			$instance['exclude-cats']['cats'] = empty($new_instance['excluded']) ? '' : (ctype_digit(str_replace(",", "", $new_instance['excluded']))) ? $new_instance['excluded'] : '';
+			/*
 			if ($this->thumb) { // can create thumbnails
 				$instance['thumbnail']['active'] = $new_instance['thumbnail-active'];
 				$instance['thumbnail']['thumb_selection'] = empty($new_instance['thumb_selection']) ? "wppgenerated" : $new_instance['thumb_selection'];
@@ -166,6 +167,19 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			} else { // cannot create thumbnails
 				$instance['thumbnail']['active'] = false;
 				$instance['thumbnail']['thumb_selection'] = "wppgenerated";
+				$instance['thumbnail']['width'] = 15;
+				$instance['thumbnail']['height'] = 15;
+			}
+			*/
+			
+			if ($this->thumb) { // can create thumbnails
+				$instance['thumbnail']['active'] = $new_instance['thumbnail-active'];
+				$instance['thumbnail']['thumb_selection'] = "usergenerated";
+				$instance['thumbnail']['width'] = is_numeric($new_instance['thumbnail-width']) ? $new_instance['thumbnail-width'] : 15;
+				$instance['thumbnail']['height'] = is_numeric($new_instance['thumbnail-height']) ? $new_instance['thumbnail-height'] : 15;
+			} else { // cannot create thumbnails
+				$instance['thumbnail']['active'] = false;
+				$instance['thumbnail']['thumb_selection'] = "usergenerated";
 				$instance['thumbnail']['width'] = 15;
 				$instance['thumbnail']['height'] = 15;
 			}
@@ -294,8 +308,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			<fieldset style="width:214px; padding:5px;"  class="widefat">
                 <legend><?php _e('Thumbnail settings', 'wordpress-popular-posts'); ?></legend>
 				<input type="checkbox" class="checkbox" <?php echo ($instance['thumbnail']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-active' ); ?>" /> <label for="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>"><?php _e('Display post thumbnail', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('url'); ?>/wp-admin/options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php">?</a>]</small><br />
-				<?php if($instance['thumbnail']['active']) : ?>
-				
+				<?php //if($instance['thumbnail']['active']) : ?>
+				<!--
 				<input type="radio" name="<?php echo $this->get_field_name( 'thumb_selection' ); ?>" value="wppgenerated" <?php if ( 'wppgenerated' == $instance['thumbnail']['thumb_selection'] ) echo 'checked="checked"'; ?>> <label for="<?php echo $this->get_field_id( 'thumb_selection' ); ?>"><?php _e('Generate all thumbnails for me', 'wordpress-popular-posts'); ?></label><br />
 				<input type="radio" name="<?php echo $this->get_field_name( 'thumb_selection' ); ?>" value="usergenerated" <?php if ( 'usergenerated' == $instance['thumbnail']['thumb_selection']) { echo 'checked="checked"'; } if (!function_exists('get_the_post_thumbnail')) { echo 'disabled="disabled"'; } ?>>  <label for="<?php echo $this->get_field_id( 'thumb_selection' ); ?>"><?php _e('Use thumbnails selected by me', 'wordpress-popular-posts'); ?></label>				
 				
@@ -303,8 +317,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				<input id="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-width' ); ?>" value="<?php echo $instance['thumbnail']['width']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?> <br />
 				<label for="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>"><?php _e('Height:', 'wordpress-popular-posts'); ?></label> 
 				<input id="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-height' ); ?>" value="<?php echo $instance['thumbnail']['height']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?><br />
-				
-				<?php endif; ?>
+				-->
+				<?php //endif; ?>
 			</fieldset>
 			
             <br />
@@ -1045,7 +1059,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				),		
 				'thumbnail' => array(
 					'active' => empty($thumbnail_width) ? false : (is_numeric($thumbnail_width)) ? (($thumbnail_width > 0) ? true : false) : false,
-					'thumb_selection' => (in_array($thumbnail_selection, $thumbnail_selector)) ? $thumbnail_selection : 'wppgenerated',
+					'thumb_selection' => 'usergenerated',
 					'width' => empty($thumbnail_width) ? 0 : (is_numeric($thumbnail_width)) ? $thumbnail_width : 0,
 					'height' => empty($thumbnail_height) ? 0 : (is_numeric($thumbnail_height)) ? $thumbnail_height : 0
 				),
@@ -1150,10 +1164,10 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.1.4 Changelog.
+ * Wordpress Popular Posts 2.1.5 Changelog.
  */
 
 /*
- = 2.1.4 =
- * Added charset detection.
+	= 2.1.5 =
+	* Dropped TimThumb support in favor of Wordpress's Featured Image function.
 */

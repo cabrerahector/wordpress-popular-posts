@@ -108,11 +108,7 @@
                 </div>
                 <h4><a href="#" rel="q-5"><?php _e('What does "Display post thumbnail" do?', 'wordpress-popular-posts'); ?></a></h4>
                 <div class="wpp-ans" id="q-5">
-                    <p><?php _e('If checked, Wordpress Popular Posts will attempt to find the very first image of each post in the listing and turn it into a thumbnail. Note that for this option to work you must check that: your current web host is running PHP 4.3+ or higher and the GD Library is installed and enabled; also that your "wordpress-popular-posts/scripts/cache" directory exists and is writable. Disabled by default.', 'wordpress-popular-posts'); ?></p>
-                </div>
-				<h4><a href="#" rel="q-18"><?php _e('What does "Generate all thumbnails for me" and "Use thumbnails selected by me" do?', 'wordpress-popular-posts'); ?></a></h4>
-                <div class="wpp-ans" id="q-18">
-                    <p><?php _e('The first option tells Wordpress Popular Posts to generate automatically all thumbnails from the first image attached to each post. If you select the latter, Wordpress Popular Posts will use the thumbnail you have selected for each post on the Post Edit Screen in the Post Thumbnail metabox (this also requires including add_theme_support("post-thumbnails") to your theme\'s functions.php file).', 'wordpress-popular-posts'); ?></p>
+                    <p><?php _e('If checked, Wordpress Popular Posts will attempt to use the thumbnail you have selected for each post on the Post Edit Screen under Featured Image (this also requires including add_theme_support("post-thumbnails") to your theme\'s functions.php file). Disabled by default.', 'wordpress-popular-posts'); ?></p>
                 </div>
                 <h4><a href="#" rel="q-6"><?php _e('What does "Display comment count" do?', 'wordpress-popular-posts'); ?></a></h4>
                 <div class="wpp-ans" id="q-6">
@@ -274,10 +270,10 @@
                         </tr>                        
                         <tr>
                         	<td><strong>thumbnail_selection</strong></td>
-                            <td><?php _e('Sets the source of thumbnails to use for each post listed. If set to wppgenerated Wordpress Popular Posts will create the images for you, otherwise it will use the thumbnails selected by you. *Requires enabling The Post Thumbnail feature on your theme*', 'wordpress-popular-posts'); ?></td>
-                            <td>"wppgenerated", "usergenerated"</td>
-                            <td align="center">wppgenerated</td>
-                            <td>thumbnail_selection="wppgenerated"</td>
+                            <td><?php _e('Wordpress Popular Posts will use the thumbnails selected by you. *Requires enabling The Post Thumbnail feature on your theme*', 'wordpress-popular-posts'); ?></td>
+                            <td>"usergenerated"</td>
+                            <td align="center">usergenerated</td>
+                            <td>thumbnail_selection="usergenerated"</td>
                         </tr>
                         <tr>
                         	<td><strong>rating</strong></td>
