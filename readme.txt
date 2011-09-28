@@ -14,6 +14,8 @@ Wordpress Popular Posts is a highly customizable sidebar widget that displays th
 
 **IMPORTANT NOTICES:**
 
+Due to critical security issues, Wordpress Popular Posts v.2.1.5 has dropped support for TimThumb. Please upgrade as soon as possible since your site may be under risk of being exploited.
+
 From **version 2.0** and on, **Wordpress Popular Posts** requires at least **Wordpress 2.8** in order to function correctly. If you are not running Wordpress 2.8 or can't update your blog right now, please don't upgrade to/install version 2.x!
 
 Also, if you are upgrading from any version prior to 1.4.6, please [update to 1.4.6](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.4.6.zip) before moving to 2.x!
