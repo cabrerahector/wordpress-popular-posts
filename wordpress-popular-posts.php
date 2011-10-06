@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using  <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.1.5
+Version: 2.1.6
 Author: H&eacute;ctor Cabrera
 Author URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 License: GPL2
@@ -28,7 +28,7 @@ function load_wpp() {
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.1.5";
+		var $version = "2.1.6";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -58,6 +58,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// detect PHP magic quotes
 			$this->magicquotes = get_magic_quotes_gpc();
 			
+			// print stylesheet
+			add_action('wp_head', array(&$this, 'wpp_print_stylesheet'));
+			
 			// add ajax update to wp_ajax_ hook
 			add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
 			add_action('wp_head', array(&$this, 'wpp_print_ajax'));
@@ -66,17 +69,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			add_action('wp_ajax_wpp_clear_cache', array(&$this, 'wpp_clear_data'));
 			add_action('wp_ajax_wpp_clear_all', array(&$this, 'wpp_clear_data'));
 			
-			// print stylesheet
-			add_action('wp_head', array(&$this, 'wpp_print_stylesheet'));
-			
 			// activate textdomain for translations
 			add_action('init', array(&$this, 'wpp_textdomain'));
 			
 			// activate maintenance page
 			add_action('admin_menu', array(&$this, 'add_wpp_maintenance_page'));
-							
-			// database creation
-			register_activation_hook(__FILE__, $this->wpp_install());
 			
 			// cache maintenance schedule
 			register_deactivation_hook(__FILE__, array(&$this, 'wpp_deactivation'));			
@@ -100,7 +97,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if (function_exists('the_ratings_results')) $this->postRating = true;
 			
 			// Can we create thumbnails?
-			if (extension_loaded('gd') && function_exists('gd_info') && version_compare(phpversion(), '4.3.0', '>=')) $this->thumb = true;
+			if (extension_loaded('gd') && function_exists('gd_info') && version_compare(phpversion(), '4.3.0', '>=') && function_exists('add_theme_support')) $this->thumb = true;
 			
 			// shortcode
 			if( function_exists('add_shortcode') ){
@@ -110,7 +107,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// set version
 			$wpp_ver = get_option('wpp_ver');
-			if (!$wp_ver) {
+			if (!$wpp_ver) {
 				add_option('wpp_ver', $this->version);
 			} else if (version_compare($wpp_ver, $this->version, '<')) {
 				update_option('wpp_ver', $this->version);
@@ -129,9 +126,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// has user set a title?
 			if ($instance['title'] != '') {
 				if ($instance['markup']['custom_html'] && $instance['markup']['title-start'] != "" && $instance['markup']['title-end'] != "" ) {
-					echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $instance['title'], ENT_QUOTES . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
+					echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . htmlspecialchars_decode($instance['title'], ENT_QUOTES) . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
 				} else {
-					echo $before_title . $instance['title'] . $after_title;
+					echo $before_title . htmlspecialchars_decode($instance['title'], ENT_QUOTES) . $after_title;
 				}
 			}
 			
@@ -158,28 +155,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance['post-excerpt']['keep_format'] = $new_instance['post-excerpt-format'];
 			$instance['exclude-cats']['active'] = $new_instance['exclude-cats'];
 			$instance['exclude-cats']['cats'] = empty($new_instance['excluded']) ? '' : (ctype_digit(str_replace(",", "", $new_instance['excluded']))) ? $new_instance['excluded'] : '';
-			/*
-			if ($this->thumb) { // can create thumbnails
-				$instance['thumbnail']['active'] = $new_instance['thumbnail-active'];
-				$instance['thumbnail']['thumb_selection'] = empty($new_instance['thumb_selection']) ? "wppgenerated" : $new_instance['thumb_selection'];
-				$instance['thumbnail']['width'] = is_numeric($new_instance['thumbnail-width']) ? $new_instance['thumbnail-width'] : 15;
-				$instance['thumbnail']['height'] = is_numeric($new_instance['thumbnail-height']) ? $new_instance['thumbnail-height'] : 15;
-			} else { // cannot create thumbnails
-				$instance['thumbnail']['active'] = false;
-				$instance['thumbnail']['thumb_selection'] = "wppgenerated";
-				$instance['thumbnail']['width'] = 15;
-				$instance['thumbnail']['height'] = 15;
-			}
-			*/
+			$instance['thumbnail']['thumb_selection'] = "usergenerated";
 			
 			if ($this->thumb) { // can create thumbnails
-				$instance['thumbnail']['active'] = $new_instance['thumbnail-active'];
-				$instance['thumbnail']['thumb_selection'] = "usergenerated";
+				$instance['thumbnail']['active'] = $new_instance['thumbnail-active'];				
 				$instance['thumbnail']['width'] = is_numeric($new_instance['thumbnail-width']) ? $new_instance['thumbnail-width'] : 15;
 				$instance['thumbnail']['height'] = is_numeric($new_instance['thumbnail-height']) ? $new_instance['thumbnail-height'] : 15;
 			} else { // cannot create thumbnails
 				$instance['thumbnail']['active'] = false;
-				$instance['thumbnail']['thumb_selection'] = "usergenerated";
 				$instance['thumbnail']['width'] = 15;
 				$instance['thumbnail']['height'] = 15;
 			}
@@ -259,8 +242,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			
 			// form
-			?>            
-            <p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'wordpress-popular-posts'); ?></label>
+			?>
+                        <p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'wordpress-popular-posts'); ?></label>
             <input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" /></p>
             <p><label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php _e('Show up to:', 'wordpress-popular-posts'); ?></label><br />
             <input id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" value="<?php echo $instance['limit']; ?>"  class="widefat" style="width:50px!important" /> <?php _e('posts', 'wordpress-popular-posts'); ?></p>
@@ -308,17 +291,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			<fieldset style="width:214px; padding:5px;"  class="widefat">
                 <legend><?php _e('Thumbnail settings', 'wordpress-popular-posts'); ?></legend>
 				<input type="checkbox" class="checkbox" <?php echo ($instance['thumbnail']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-active' ); ?>" /> <label for="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>"><?php _e('Display post thumbnail', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('url'); ?>/wp-admin/options-general.php?page=wordpress-popular-posts/wordpress-popular-posts.php">?</a>]</small><br />
-				<?php //if($instance['thumbnail']['active']) : ?>
-				<!--
-				<input type="radio" name="<?php echo $this->get_field_name( 'thumb_selection' ); ?>" value="wppgenerated" <?php if ( 'wppgenerated' == $instance['thumbnail']['thumb_selection'] ) echo 'checked="checked"'; ?>> <label for="<?php echo $this->get_field_id( 'thumb_selection' ); ?>"><?php _e('Generate all thumbnails for me', 'wordpress-popular-posts'); ?></label><br />
-				<input type="radio" name="<?php echo $this->get_field_name( 'thumb_selection' ); ?>" value="usergenerated" <?php if ( 'usergenerated' == $instance['thumbnail']['thumb_selection']) { echo 'checked="checked"'; } if (!function_exists('get_the_post_thumbnail')) { echo 'disabled="disabled"'; } ?>>  <label for="<?php echo $this->get_field_id( 'thumb_selection' ); ?>"><?php _e('Use thumbnails selected by me', 'wordpress-popular-posts'); ?></label>				
-				
+				<?php if($instance['thumbnail']['active']) : ?>
 				<label for="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>"><?php _e('Width:', 'wordpress-popular-posts'); ?></label> 
 				<input id="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-width' ); ?>" value="<?php echo $instance['thumbnail']['width']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?> <br />
 				<label for="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>"><?php _e('Height:', 'wordpress-popular-posts'); ?></label> 
-				<input id="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-height' ); ?>" value="<?php echo $instance['thumbnail']['height']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?><br />
-				-->
-				<?php //endif; ?>
+				<input id="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-height' ); ?>" value="<?php echo $instance['thumbnail']['height']; ?>"  class="widefat" style="width:30px!important" <?php echo ($this->thumb) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?><br />				
+				<?php endif; ?>
 			</fieldset>
 			
             <br />
@@ -331,10 +309,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				<?php if ($instance['stats_tag']['date']['active']) : ?>                	
                 	<fieldset class="widefat">
                     	<legend><?php _e('Date Format', 'wordpress-popular-posts'); ?></legend>
-                        <label title='F j, Y'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='F j, Y' <?php echo ($instance['stats_tag']['date']['format'] == 'F j, Y') ? 'checked="checked"' : ''; ?> /><?php echo date('F j, Y', time()); ?></label><br />
-                        <label title='Y/m/d'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='Y/m/d' <?php echo ($instance['stats_tag']['date']['format'] == 'Y/m/d') ? 'checked="checked"' : ''; ?> /><?php echo date('Y/m/d', time()); ?></label><br />
-                        <label title='m/d/Y'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='m/d/Y' <?php echo ($instance['stats_tag']['date']['format'] == 'm/d/Y') ? 'checked="checked"' : ''; ?> /><?php echo date('m/d/Y', time()); ?></label><br />
-                        <label title='d/m/Y'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='d/m/Y' <?php echo ($instance['stats_tag']['date']['format'] == 'd/m/Y') ? 'checked="checked"' : ''; ?> /><?php echo date('d/m/Y', time()); ?></label><br />
+                        <label title='F j, Y'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='F j, Y' <?php echo ($instance['stats_tag']['date']['format'] == 'F j, Y') ? 'checked="checked"' : ''; ?> /><?php echo date_i18n('F j, Y', time()); ?></label><br />
+                        <label title='Y/m/d'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='Y/m/d' <?php echo ($instance['stats_tag']['date']['format'] == 'Y/m/d') ? 'checked="checked"' : ''; ?> /><?php echo date_i18n('Y/m/d', time()); ?></label><br />
+                        <label title='m/d/Y'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='m/d/Y' <?php echo ($instance['stats_tag']['date']['format'] == 'm/d/Y') ? 'checked="checked"' : ''; ?> /><?php echo date_i18n('m/d/Y', time()); ?></label><br />
+                        <label title='d/m/Y'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='d/m/Y' <?php echo ($instance['stats_tag']['date']['format'] == 'd/m/Y') ? 'checked="checked"' : ''; ?> /><?php echo date_i18n('d/m/Y', time()); ?></label><br />
                     </fieldset>
                 <?php endif; ?>
             </fieldset>
@@ -360,7 +338,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <input type="text" id="<?php echo $this->get_field_id( 'pattern_form' ); ?>" name="<?php echo $this->get_field_name( 'pattern_form' ); ?>" value="<?php echo $instance['markup']['pattern']['form']; ?>" style="width:204px" <?php echo ($instance['markup']['pattern']['active']) ? '' : 'disabled="disabled"' ?> /></p>
                 <?php endif; ?>
             </fieldset>
-            <?php // end form	
+            <?php
+		}
+		
+		// RRR Added to get local time as per WP settings		
+		function curdate() {
+			return "'".gmdate( 'Y-m-d', ( time() + ( get_option( 'gmt_offset' ) * 3600 ) ))."'";
+		}
+		
+		function now() {		
+			return "'".current_time('mysql')."'";
 		}
 		
 		// updates popular posts data table
@@ -387,17 +374,27 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// update popularpostsdata table
 			$exists = $wpdb->get_results("SELECT postid FROM $table WHERE postid = '$id'");							
 			if ($exists) {
-				$result = $wpdb->query("UPDATE $table SET last_viewed = NOW(), pageviews = pageviews + 1 WHERE postid = '$id'");
+				// RRR modified to use curdate & now functions above
+				//$result = $wpdb->query("UPDATE $table SET last_viewed = NOW(), pageviews = pageviews + 1 WHERE postid = '$id'");
+				$result = $wpdb->query("UPDATE $table SET last_viewed = ".$this->now().", pageviews = pageviews + 1 WHERE postid = '$id'");
 			} else {				
-				$result = $wpdb->query("INSERT INTO $table (postid, day, last_viewed) VALUES ('".$id."', NOW(), NOW())");
+				// RRR modified to use curdate & now functions above
+				//$result = $wpdb->query("INSERT INTO $table (postid, day, last_viewed) VALUES ('".$id."', NOW(), NOW())");
+				$result = $wpdb->query("INSERT INTO $table (postid, day, last_viewed) VALUES ('".$id."', ".$this->now().", ".$this->now().")" );
 			}
 			
 			// update popularpostsdatacache table
-			$isincache = $wpdb->get_results("SELECT id FROM ".$table."cache WHERE id = '".$id."' AND day = CURDATE()");			
+			// RRR modified to use curdate & now functions above
+			//$isincache = $wpdb->get_results("SELECT id FROM ".$table."cache WHERE id = '".$id."' AND day = CURDATE()");			
+			$isincache = $wpdb->get_results("SELECT id FROM ".$table."cache WHERE id = '".$id."' AND day = ".$this->curdate() );			
 			if ($isincache) {
-				$result2 = $wpdb->query("UPDATE ".$table."cache SET pageviews = pageviews + 1 WHERE id = '".$id."' AND day = CURDATE()");
+				// RRR modified to use curdate & now functions above
+				//$result2 = $wpdb->query("UPDATE ".$table."cache SET pageviews = pageviews + 1 WHERE id = '".$id."' AND day = CURDATE()");
+				$result2 = $wpdb->query("UPDATE ".$table."cache SET pageviews = pageviews + 1 WHERE id = '".$id."' AND day = ".$this->curdate() );
 			} else {		
-				$result2 = $wpdb->query("INSERT INTO ".$table."cache (id, day) VALUES ('".$id."', CURDATE())");
+				// RRR modified to use curdate & now functions above
+				//$result2 = $wpdb->query("INSERT INTO ".$table."cache (id, day) VALUES ('".$id."', CURDATE())");
+				$result2 = $wpdb->query("INSERT INTO ".$table."cache (id, day) VALUES ('".$id."', ".$this->curdate().")");
 			}
 			
 			if (($result == 1) && ($result2 == 1)) {
@@ -448,6 +445,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		// database install
 		function wpp_install() {
 			global $wpdb;
+			$sql = "";
+			$charset_collate = "";
+			
+			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+			
+			if ( ! empty($wpdb->charset) ) $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+			if ( ! empty($wpdb->collate) ) $charset_collate .= " COLLATE $wpdb->collate";
 			
 			// set table name
 			$table = $wpdb->prefix . "popularpostsdata";
@@ -455,20 +459,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// does popularpostsdata table exists?
 			if ( $wpdb->get_var("SHOW TABLES LIKE '$table'") != $table ) { // fresh setup
 				// create tables popularpostsdata and popularpostsdatacache
-				$sql = "CREATE TABLE " . $table . " ( UNIQUE KEY id (postid), postid int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', last_viewed datetime NOT NULL default '0000-00-00 00:00:00', pageviews int(10) default 1 ); CREATE TABLE " . $table ."cache ( UNIQUE KEY id (id, day), id int(10) NOT NULL, day date NOT NULL, pageviews int(10) default 1 );";
-				
-				require_once(ABSPATH . 'wp-admin/includes/upgrade.php');				
-				dbDelta($sql);				
+				$sql = "CREATE TABLE " . $table . " ( UNIQUE KEY id (postid), postid int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', last_viewed datetime NOT NULL default '0000-00-00 00:00:00', pageviews int(10) default 1 ) $charset_collate; CREATE TABLE " . $table ."cache ( UNIQUE KEY id (id, day), id int(10) NOT NULL, day date NOT NULL, pageviews int(10) default 1 ) $charset_collate;";				
 			} else {
 				$cache = $table . "cache";
 				if ( $wpdb->get_var("SHOW TABLES LIKE '$cache'") != $cache ) {
 					// someone is upgrading from version 1.5.x
-					$sql = "CREATE TABLE " . $table ."cache ( UNIQUE KEY id (id, day), id int(10) NOT NULL, day date NOT NULL, pageviews int(10) default 1 );";
-					
-					require_once(ABSPATH . 'wp-admin/includes/upgrade.php');				
-					dbDelta($sql);
+					$sql = "CREATE TABLE " . $table ."cache ( UNIQUE KEY id (id, day), id int(10) NOT NULL, day date NOT NULL, pageviews int(10) default 1 ) $charset_collate;";
 				}
 			}
+			
+			dbDelta($sql);
 		}
 		
 		// prints ajax script to theme's header
@@ -518,7 +518,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$range = $table."cache.day >= '".gmdate("Y-m-d")."' - INTERVAL 1 DAY";
 					break;
 				case 'daily':
-					$range = $table."cache.day = CURDATE()";
+					// RRR modified to use curdate & now functions above
+					//$range = $table."cache.day = CURDATE()";
+					$range = $table."cache.day = ".$this->curdate();
 					break;
 				case 'weekly':
 					$range = $table."cache.day >= '".gmdate("Y-m-d")."' - INTERVAL 7 DAY";
@@ -555,7 +557,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$fields .= "$table.pageviews AS 'pageviews' ";
 				} else {
 					if ( $sortby == 'avg_views' ) {
-						$fields .= "(SUM(".$table."cache.pageviews)/(IF ( DATEDIFF(CURDATE(), MIN(".$table."cache.day)) > 0, DATEDIFF(CURDATE(), MIN(".$table."cache.day)), 1) )) AS 'avg_views' ";						
+						// RRR modified to use curdate & now functions above
+						//$fields .= "(SUM(".$table."cache.pageviews)/(IF ( DATEDIFF(CURDATE(), MIN(".$table."cache.day)) > 0, DATEDIFF(CURDATE(), MIN(".$table."cache.day)), 1) )) AS 'avg_views' ";
+						$fields .= "(SUM(".$table."cache.pageviews)/(IF ( DATEDIFF(".$this->curdate().", MIN(".$table."cache.day)) > 0, DATEDIFF(".$this->curdate().", MIN(".$table."cache.day)), 1) )) AS 'avg_views' ";
 					} else {
 						$fields .= "(SUM(".$table."cache.pageviews)) AS 'pageviews' ";
 					}
@@ -693,9 +697,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 					if ( $instance['stats_tag']['date']['active'] ) {
 						if ($post_stats != "") {
-							$post_stats .= " | <span class=\"wpp-date\">".__('posted on', 'wordpress-popular-posts')." ".date($instance['stats_tag']['date']['format'], strtotime($wppost->date_gmt))."</span>";
+							$post_stats .= " | <span class=\"wpp-date\">".__('posted on', 'wordpress-popular-posts')." ".date_i18n($instance['stats_tag']['date']['format'], strtotime($wppost->date_gmt))."</span>";
 						} else {					
-							$post_stats .= "<span class=\"wpp-date\">".__('posted on', 'wordpress-popular-posts')." ".date($instance['stats_tag']['date']['format'], strtotime($wppost->date_gmt))."</span>";
+							$post_stats .= "<span class=\"wpp-date\">".__('posted on', 'wordpress-popular-posts')." ".date_i18n($instance['stats_tag']['date']['format'], strtotime($wppost->date_gmt))."</span>";
 						}
 					}
 					
@@ -704,24 +708,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 					
 					// get thumbnail
-					if ($instance['thumbnail']['active'] && $this->thumb ) {
+					if ($instance['thumbnail']['active'] && $this->thumb) {
 						$tbWidth = $instance['thumbnail']['width'];
 						$tbHeight = $instance['thumbnail']['height'];
 						
 						// default image
 						$thumb = "<a href=\"".get_permalink($wppost->ID)."\" class=\"wppnothumb\" title=\"". $title_attr ."\"><img src=\"". $this->pluginDir . "/no_thumb.jpg\" alt=\"".$title_attr."\" border=\"0\" class=\"wpp-thumbnail\" width=\"".$tbWidth."\" height=\"".$tbHeight."\" "."/></a>";
 						
-						// let's try to retrieve the post thumbnail!
-						if ($instance['thumbnail']['thumb_selection'] == "usergenerated") { // use thumbnail selected by user
-							if (function_exists('get_the_post_thumbnail') && has_post_thumbnail( $wppost->ID )) {
-								$thumb = "<a href=\"".get_permalink($wppost->ID)."\" title=\"". $title_attr ."\">" . get_the_post_thumbnail($wppost->ID, array($tbWidth), array('class' => 'wpp-thumbnail', 'alt' => $title_attr, 'title' => $title_attr) ) ."</a> <!-- $tbWidth $tbHeight-->";
-							}
-						} else if ($instance['thumbnail']['thumb_selection'] == "wppgenerated") { // Wordpress Popular Posts should attempt to create a thumbnail by itself
-							$img = $this->get_img($wppost->ID);
-							if ( ($img && !empty($img)) ) {
-								$thumb = "<a href=\"".get_permalink($wppost->ID)."\" class=\"wppgen\" title=\"". $title_attr ."\"><img src=\"". $this->pluginDir . "/scripts/timthumb.php?src=". $img[1] ."&amp;h=".$tbHeight."&amp;w=".$tbWidth."&amp;zc=1\" alt=\"".$title_attr."\" border=\"0\" class=\"wpp-thumbnail\" width=\"".$tbWidth."\" height=\"".$tbHeight."\" "."/></a>";
-							}
+						// let's try to retrieve the post thumbnail!						
+						if (function_exists('get_the_post_thumbnail') && has_post_thumbnail( $wppost->ID )) {								
+							$thumb = "<a href=\"".get_permalink($wppost->ID)."\" title=\"". $title_attr ."\">" . get_the_post_thumbnail($wppost->ID, array($tbWidth, $tbHeight), array('class' => 'wpp-thumbnail', 'alt' => $title_attr, 'title' => $title_attr) ) ."</a>";
 						}
+						
 					}
 					
 					// get rating
@@ -778,6 +776,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				// user has defined a custom excerpt, yay!
 				$excerpt = preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_excerpt']);
 			}
+			
+			// RRR added call to the_content filters, allows qTranslate to hook in.
+            if ($this->qTrans) $excerpt = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($excerpt);
 			
 			$excerpt = preg_replace("/<object[0-9 a-z_?*=\":\-\/\.#\,\\n\\r\\t]+/smi", "", $excerpt);
 			
@@ -965,20 +966,20 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		
 		// plugin localization (Credits: Aleksey Timkov at@uadeveloper.com)
 		function wpp_textdomain() {
-			load_plugin_textdomain('wordpress-popular-posts', 'wp-content/plugins/wordpress-popular-posts');
+			load_plugin_textdomain('wordpress-popular-posts', false, dirname(plugin_basename( __FILE__ )));
 		}
 		
 		// insert Wordpress Popular Posts' stylesheet in theme's head section, just in case someone needs it
 		function wpp_print_stylesheet() {
-			echo "\n"."<!-- Wordpress Popular Posts v". $this->version ." -->"."\n".'<link rel="stylesheet" href="'.$this->pluginDir.'/style/wpp.css" type="text/css" media="screen" />'."\n"."<!-- End Wordpress Popular Posts v". $this->version ." -->"."\n";	
+			echo "\n"."<!-- Wordpress Popular Posts -->"."\n".'<link rel="stylesheet" href="'.plugin_dir_url( __FILE__ ).'style/wpp.css" type="text/css" media="screen" />'."\n"."<!-- End Wordpress Popular Posts -->"."\n";	
 		}
 		
 		// create Wordpress Popular Posts' maintenance page
 		function wpp_maintenance_page() {
 			require (dirname(__FILE__) . '/maintenance.php');
 		}	
-		function add_wpp_maintenance_page() {
-			add_submenu_page('options-general.php', 'Wordpress Popular Posts', 'Wordpress Popular Posts', 10, __FILE__, array(&$this, 'wpp_maintenance_page'));
+		function add_wpp_maintenance_page() {			
+			add_submenu_page( 'options-general.php', 'Wordpress Popular Posts', 'Wordpress Popular Posts', 'manage_options', 'wpp_maintenance_page', array(&$this, 'wpp_maintenance_page') );
 		}
 		
 		// version update warning
@@ -990,7 +991,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		// cache maintenance
 		function wpp_cache_maintenance() {
 			global $wpdb;
-			$wpdb->query("DELETE FROM ".$wpdb->prefix."popularpostsdatacache WHERE day < DATE_SUB(CURDATE(), INTERVAL 30 DAY);");
+			// RRR modified to use curdate & now functions above
+			//$wpdb->query("DELETE FROM ".$wpdb->prefix."popularpostsdatacache WHERE day < DATE_SUB(CURDATE(), INTERVAL 30 DAY);");
+			$wpdb->query("DELETE FROM ".$wpdb->prefix."popularpostsdatacache WHERE day < DATE_SUB(".$this->curdate().", INTERVAL 30 DAY);");
 		}
 		
 		// plugin deactivation
@@ -1115,6 +1118,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			require (dirname(__FILE__) . '/stats.php');
         }
 	}
+	
+	// database creation
+	register_activation_hook('WordpressPopularPosts', 'wpp_install');
+	
+	// print stylesheet
+	//add_action('wp_head', array('WordpressPopularPosts', 'wpp_print_stylesheet'));
 }
 
 /**
@@ -1164,10 +1173,15 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.1.5 Changelog.
+ * Wordpress Popular Posts 2.1.6 Changelog.
  */
 
 /*
-	= 2.1.5 =
-	* Dropped TimThumb support in favor of Wordpress's Featured Image function.
+	= 2.1.6 =
+	* Added DB character set and collate detection.
+	* Fixed excerpt translation issue when the qTrans plugin is present. Thanks r3df!.
+	* Fixed thumbnail dimensions issue.
+	* Fixed widget page link.
+	* Fixed widget title encoding bug.
+	* Fixed deprecated errors on load_plugin_textdomain and add_submenu_page.
 */

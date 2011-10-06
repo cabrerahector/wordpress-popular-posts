@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.8
 Tested up to: 3.2.1
-Stable tag: 2.1.5
+Stable tag: 2.1.6
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog.
 
@@ -14,7 +14,7 @@ Wordpress Popular Posts is a highly customizable sidebar widget that displays th
 
 **IMPORTANT NOTICES:**
 
-Due to critical security issues, Wordpress Popular Posts v.2.1.5 has dropped support for TimThumb. Please upgrade as soon as possible since your site may be under risk of being exploited.
+Due to critical security issues, from Wordpress Popular Posts v.2.1.5 **TimThumb support has been dropped**. Please upgrade as soon as possible since your site may be under risk of being exploited.
 
 From **version 2.0** and on, **Wordpress Popular Posts** requires at least **Wordpress 2.8** in order to function correctly. If you are not running Wordpress 2.8 or can't update your blog right now, please don't upgrade to/install version 2.x!
 
@@ -101,6 +101,9 @@ There are a number of reasons that might explain why you are seeing this message
 * *I'm unable to activate the "Display post thumbnail" option. Why?*
 Make sure that: your host is running **PHP 4.3 or higher**; the **GD library** is installed and [enabled by your host](http://wordpress.org/support/topic/289778#post-1366038); your theme has been enabled to use the [Featured Images functionality](http://wordpress.org/support/topic/413441#post-1562888).
 
+* *I'm seeing a "No thumbnail" image, where's my post thumbnail?*
+Make sure you have assigned one using the [Featured Images functionality](http://wordpress.org/support/topic/413441#post-1562888), otherwise my plugin will show this image by default.
+
 * *Can I embed my most popular posts in any other ways than via sidebar widgets?*
 Yes. You have two other ways to achieve this: via **shortcode** [wpp] (so you can embed it directly on your posts / pages), or via **template tag**.
 
@@ -115,6 +118,10 @@ Yes, *but* there are no predefined styles (well, almost). It's up to you to styl
 
 * *Would you help me style my list, please?*
 For a small donation, sure why not?
+
+* *I want to remove WPP's stylesheet. How can I do that?*
+Simply add the following code to yout theme's functions.php file:
+`add_action('wp_head', 'remove_wpp_stylesheet', 1); function remove_wpp_stylesheet() { global $wp_widget_factory; remove_action( 'wp_head', array($wp_widget_factory->widgets['WordpressPopularPosts'], 'wpp_print_stylesheet') ); }`
 
 * *I want your plugin to have x or y functionality. Would you do it for me?*
 I usually accept suggestions, yes. However, if it doesn't fit the nature of my plugin (to list popular posts) or requires something that might affect other users' experiences, chances are that I won't implement it. However, I could cook up a customized version of Wordpress Popular Posts just for you if you really, really need that special feature/capability ... but it won't be for free.
@@ -133,6 +140,14 @@ Please don't, and read my words carefully, don't use my email address to contact
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 2.1.6 =
+* Added DB character set and collate detection.
+* Fixed excerpt translation issue when the qTrans plugin is present. Thanks r3df!.
+* Fixed thumbnail dimensions issue.
+* Fixed widget page link.
+* Fixed widget title encoding bug.
+* Fixed deprecated errors on load_plugin_textdomain and add_submenu_page.
+
 = 2.1.5 =
 * Dropped TimThumb support in favor of Wordpress's Featured Image function.
 
@@ -237,4 +252,4 @@ Please don't, and read my words carefully, don't use my email address to contact
 
 == Upgrade Notice ==
 
-Due to critical security issues, Wordpress Popular Posts v.2.1.5 has dropped support for TimThumb. Please upgrade as soon as possible since your site may be under risk of being exploited.
+Due to critical security issues, from Wordpress Popular Posts v.2.1.5 TimThumb support has been dropped. Please upgrade as soon as possible since your site may be under risk of being exploited.

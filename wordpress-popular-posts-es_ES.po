@@ -669,7 +669,7 @@ msgstr "por"
 #: wordpress-popular-posts.php:696
 #: wordpress-popular-posts.php:698
 msgid "posted on"
-msgstr "publicado el"
+msgstr "publicado en"
 
 #: wordpress-popular-posts.php:986
 msgid "Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 2.8 to function correctly. Please update your blog via Tools &gt; Upgrade."

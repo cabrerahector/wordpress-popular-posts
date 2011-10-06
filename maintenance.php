@@ -77,7 +77,7 @@
     
     <h3><?php _e('Whoa! What just happened in here?!', 'wordpress-popular-posts'); ?></h3>
     <p><?php _e('Previous users of Wordpress Popular Posts will remember that earlier versions of my plugin used to display a Settings page over here. However, from version 2.0 and on things will be slightly different.', 'wordpress-popular-posts'); ?></p>
-    <p><?php _e('Wordpress Popular Posts has gone multi-widget so now you\'ll be able to install multiple instances of my plugin on your sidebars, each with its own unique settings! Because of that, having a General Settings page to handle all instances is simply not a good idea. Fear not, my friend, since you still can set each instance\'s configuration via', 'wordpress-popular-posts'); ?> <a href="<?php echo bloginfo('url')."/wp-admin/widgets.php"; ?>"><?php _e('Widgets page', 'wordpress-popular-posts'); ?></a>.</p><br />
+    <p><?php _e('Wordpress Popular Posts has gone multi-widget so now you\'ll be able to install multiple instances of my plugin on your sidebars, each with its own unique settings! Because of that, having a General Settings page to handle all instances is simply not a good idea. Fear not, my friend, since you still can set each instance\'s configuration via', 'wordpress-popular-posts'); ?> <a href="<?php echo bloginfo('wpurl')."/wp-admin/widgets.php"; ?>"><?php _e('Widgets page', 'wordpress-popular-posts'); ?></a>.</p><br />
     <table width="100%" cellpadding="0" cellspacing="0" style="width:100%!important; border-top:#ccc 1px solid;" id="maintenance_table">
         <tr>
             <td valign="top" width="670"><!-- help area -->
