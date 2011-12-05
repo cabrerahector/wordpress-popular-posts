@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, widget, seo, wordpress
 Requires at least: 2.8
 Tested up to: 3.2.1
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 
 With Wordpress Popular Posts, you can show your visitors what are the most popular entries on your blog.
 
@@ -60,10 +60,10 @@ If you want to use Wordpress Popular Posts on your pages (a "Hall of Fame" page,
 
 `[wpp attribute='value']`
 
-
 Example:
 
 `[wpp range=today stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]`
+
 
 
 = Template Tags =
@@ -148,6 +148,9 @@ Please don't, and read my words carefully, don't use my email address to contact
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 2.2.1 =
+* Quick update to fix error with All-time combined with views breaking the plugin.
+
 = 2.2.0 =
 * Featured Image is generated for the user automatically if not present and if there's an image attached to the post.
 * Range feature Today option changed. Replaced with Last 24 hours.

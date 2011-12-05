@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using  <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.2.0
+Version: 2.2.1
 Author: H&eacute;ctor Cabrera
 Author URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 License: GPL2
@@ -28,7 +28,7 @@ function load_wpp() {
 if ( !class_exists('WordpressPopularPosts') ) {
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.2.0";
+		var $version = "2.2.1";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -387,14 +387,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			// update popularpostsdatacache table
-			//$isincache = $wpdb->get_results("SELECT id FROM ".$table."cache WHERE id = '".$id."' AND day = ".$this->curdate() );
 			$isincache = $wpdb->get_results("SELECT id FROM ".$table."cache WHERE id = '" . $id ."' AND day BETWEEN '".$this->curdate()." 00:00:00' AND '".$this->curdate()." 23:59:59';");
 			if ($isincache) {
-				//$result2 = $wpdb->query("UPDATE ".$table."cache SET pageviews = pageviews + 1 WHERE id = '".$id."' AND day = ".$this->curdate() );
-				//$result2 = $wpdb->query("UPDATE ".$table."cache SET pageviews = pageviews + 1, day = '".$this->now()."' WHERE id = '". $id . "' AND day = '".$this->curdate()."'");
 				$result2 = $wpdb->query("UPDATE ".$table."cache SET pageviews = pageviews + 1, day = '".$this->now()."' WHERE id = '". $id . "' AND day BETWEEN '".$this->curdate()." 00:00:00' AND '".$this->curdate()." 23:59:59';");
 			} else {
-				//$result2 = $wpdb->query("INSERT INTO ".$table."cache (id, day) VALUES ('".$id."', ".$this->curdate().")");
 				$result2 = $wpdb->query("INSERT INTO ".$table."cache (id, day) VALUES ('".$id."', '".$this->now()."')");
 			}
 			
@@ -460,13 +456,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// does popularpostsdata table exists?
 			if ( $wpdb->get_var("SHOW TABLES LIKE '$table'") != $table ) { // fresh setup
 				// create tables popularpostsdata and popularpostsdatacache
-				//$sql = "CREATE TABLE " . $table . " ( UNIQUE KEY id (postid), postid int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', last_viewed datetime NOT NULL default '0000-00-00 00:00:00', pageviews int(10) default 1 ) $charset_collate; CREATE TABLE " . $table ."cache ( UNIQUE KEY id (id, day), id int(10) NOT NULL, day date NOT NULL, pageviews int(10) default 1 ) $charset_collate;";
 				$sql = "CREATE TABLE " . $table . " ( UNIQUE KEY id (postid), postid int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', last_viewed datetime NOT NULL default '0000-00-00 00:00:00', pageviews int(10) default 1 ) $charset_collate; CREATE TABLE " . $table ."cache ( UNIQUE KEY id (id, day), id int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', pageviews int(10) default 1 ) $charset_collate;";
 			} else {
 				$cache = $table . "cache";
 				if ( $wpdb->get_var("SHOW TABLES LIKE '$cache'") != $cache ) {
 					// someone is upgrading from version 1.5.x
-					//$sql = "CREATE TABLE " . $table ."cache ( UNIQUE KEY id (id, day), id int(10) NOT NULL, day date NOT NULL, pageviews int(10) default 1 ) $charset_collate;";
 					$sql = "CREATE TABLE " . $table ."cache ( UNIQUE KEY id (id, day), id int(10) NOT NULL, day datetime NOT NULL, pageviews int(10) default 1 ) $charset_collate;";
 				}
 				
@@ -557,30 +551,20 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// dynamic query fields
 			$fields = ', ';			
 			if ( $instance['stats_tag']['views'] || ($sortby != 'comment_count') ) {
-				/*
-				if ( $instance['range'] == 'all') {
-					$fields .= "$table.pageviews AS 'pageviews' ";
-				} else {
-					if ( $sortby == 'avg_views' ) {
-						// RRR modified to use curdate & now functions above
-						//$fields .= "(SUM(".$table."cache.pageviews)/(IF ( DATEDIFF(CURDATE(), MIN(".$table."cache.day)) > 0, DATEDIFF(CURDATE(), MIN(".$table."cache.day)), 1) )) AS 'avg_views' ";
-						$fields .= "(SUM(".$table."cache.pageviews)/(IF ( DATEDIFF(".$this->curdate().", MIN(".$table."cache.day)) > 0, DATEDIFF(".$this->curdate().", MIN(".$table."cache.day)), 1) )) AS 'avg_views' ";
-					} else {
-						$fields .= "(SUM(".$table."cache.pageviews)) AS 'pageviews' ";
-					}
-				}
-				*/
 				
 				if ( $sortby == 'avg_views' ) {
 					if ( $instance['range'] == 'all') {
-						//$fields .= "(".$table.".pageviews / (IF ( DATEDIFF('".$this->curdate()."', $wpdb->posts.post_date_gmt) > 0, DATEDIFF('".$this->curdate()."', $wpdb->posts.post_date_gmt), 1) )) AS 'avg_views' ";
 						$fields .= "(".$table.".pageviews / (IF ( DATEDIFF('".$this->now()."', $wpdb->posts.post_date_gmt) > 0, DATEDIFF('".$this->now()."', $wpdb->posts.post_date_gmt), 1) )) AS 'avg_views' ";
 					} else {
-						//$fields .= "(SUM(".$table."cache.pageviews)/(IF ( DATEDIFF('".$this->curdate()."', MIN(".$table."cache.day)) > 0, DATEDIFF('".$this->curdate()."', MIN(".$table."cache.day)), 1) )) AS 'avg_views' ";
 						$fields .= "(SUM(".$table."cache.pageviews)/(IF ( DATEDIFF('".$this->now()."', MIN(".$table."cache.day)) > 0, DATEDIFF('".$this->now()."', MIN(".$table."cache.day)), 1) )) AS 'avg_views' ";
 					}
 				} else {
-					$fields .= "(SUM(".$table."cache.pageviews)) AS 'pageviews' ";
+					//$fields .= "(SUM(".$table."cache.pageviews)) AS 'pageviews' ";
+					if ( $instance['range'] == 'all') {
+						$fields .= "$table.pageviews AS 'pageviews' ";
+					} else {
+						$fields .= "(SUM(".$table."cache.pageviews)) AS 'pageviews' ";
+					}
 				}
 			}
 			
@@ -731,18 +715,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$tbWidth = $instance['thumbnail']['width'];
 						$tbHeight = $instance['thumbnail']['height'];
 						
-						/*
-						// default image
-						$thumb = "<a href=\"".get_permalink($the_ID)."\" class=\"wppnothumb\" title=\"". $title_attr ."\"><img src=\"". $this->default_thumbnail . "\" alt=\"".$title_attr."\" border=\"0\" class=\"wpp-thumbnail\" width=\"".$tbWidth."\" height=\"".$tbHeight."\" "."/></a>";
-						
-						// let's try to retrieve the post thumbnail!						
-						if (function_exists('get_the_post_thumbnail')) {
-							if (has_post_thumbnail( $the_ID )) {
-								$thumb = "<a href=\"".get_permalink($the_ID)."\" title=\"". $title_attr ."\">" . get_the_post_thumbnail($the_ID, array($tbWidth, $tbHeight), array('class' => 'wpp-thumbnail', 'alt' => $title_attr, 'title' => $title_attr) ) ."</a>";
-							}
-						}
-						*/
-						
 						if (!function_exists('get_the_post_thumbnail')) { // if the Featured Image is not active, show default thumbnail
 							$thumb = "<a href=\"".get_permalink($the_ID)."\" class=\"wppnothumb\" title=\"". $title_attr ."\"><img src=\"". $this->default_thumbnail . "\" alt=\"".$title_attr."\" border=\"0\" class=\"wpp-thumbnail\" width=\"".$tbWidth."\" height=\"".$tbHeight."\" "."/></a>";
 						} else {
@@ -752,8 +724,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								$thumb = "<a href=\"".get_permalink($the_ID)."\" title=\"". $title_attr ."\">" . $this->generate_post_thumbnail($the_ID, array($tbWidth, $tbHeight), array('class' => 'wpp-thumbnail', 'alt' => $title_attr, 'title' => $title_attr) ) ."</a>";
 							}
 						}
-						
-						//print_r( $this->generate_post_thumbnail($the_ID, array($tbWidth, $tbHeight), array('class' => 'wpp-thumbnail', 'alt' => $title_attr, 'title' => $title_attr)) );
 					}
 					
 					// get rating
@@ -1214,17 +1184,10 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.2.0 Changelog.
+ * Wordpress Popular Posts 2.2.1 Changelog.
  */
 
 /*
-	= 2.2.0 =
-	* Featured Image is generated for the user automatically if not present and if there's an image attached to the post.
-	* Range feature Today option changed. Replaced with Last 24 hours.
-	* Category exclusion query simplified. Thanks to almergabor for the suggestion!
-	* Fixed bug caused by selecting Avg. Views and All-Time that prevented WPP from getting any data from the BD. Thanks Janseo!
-	* Updated the get_summary function to strip out shortcodes from excerpt as well.
-	* Fixed bug in the truncate function affecting accented characters. Thanks r3df!
-	* Fixed bug keeping db tables from being created. Thanks northlake!
-	* Fixed bug on the shortcode which was showing pages even if turned off. Thanks danpkraus!
+	= 2.2.1 =
+	* Quick update to fix error with All-time combined with views breaking the plugin.
 */
