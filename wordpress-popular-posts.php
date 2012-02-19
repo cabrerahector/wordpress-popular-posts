@@ -812,7 +812,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$attachments = get_children(array('post_parent' => $id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order'));
 			
 			// no images have been attached to the post, return default thumbnail
-			if ( !$attachments ) return "<a href=\"".get_permalink($id)."\" class=\"wppnothumb\" title=\"". $atts['title'] ."\"><img src=\"". $this->default_thumbnail . "\" alt=\"". $atts['alt'] ."\" border=\"0\" class=\"". $atts['class'] ."\" width=\"". $dimensions[0] ."\" height=\"". $dimensions[1] ."\" "."/></a>";
+			if ( !$attachments ) return "<img src=\"". $this->default_thumbnail . "\" alt=\"". $atts['alt'] ."\" border=\"0\" class=\"". $atts['class'] ."\" width=\"". $dimensions[0] ."\" height=\"". $dimensions[1] ."\" "."/>";
 			
 			$count = count($attachments);
 			$first_attachment = array_shift($attachments);			
@@ -822,7 +822,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				update_post_meta( $id, '_thumbnail_id', $first_attachment->ID );
 				return get_the_post_thumbnail($id, $dimensions, $atts);
 			} else { // no images have been found, return default thumbnail
-				return "<a href=\"".get_permalink($id)."\" class=\"wppnothumb\" title=\"". $atts['title'] ."\"><img src=\"". $this->default_thumbnail . "\" alt=\"". $atts['alt'] ."\" border=\"0\" class=\"". $atts['class'] ."\" width=\"". $dimensions[0] ."\" height=\"". $dimensions[1] ."\" "."/></a>";
+				return "<img src=\"". $this->default_thumbnail . "\" alt=\"". $atts['alt'] ."\" border=\"0\" class=\"". $atts['class'] ."\" width=\"". $dimensions[0] ."\" height=\"". $dimensions[1] ."\" "."/>";
 			}
 			
 		}
