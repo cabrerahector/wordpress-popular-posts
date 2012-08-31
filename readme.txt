@@ -115,7 +115,7 @@ By default, Wordpress Popular Posts will try and use the [Featured Image](http:/
 Make sure you have assigned one to your posts (either by [attaching an image to your post](http://codex.wordpress.org/Using_Image_and_File_Attachments#Attachment_to_a_Post), selected one using the [Featured Images functionality](http://codex.wordpress.org/Post_Thumbnails#Enabling_Support_for_Post_Thumbnails)), or assigned one using a custom field and told Wordpress Popular Posts what the custom field name is in *wp-admin > Settings > Wordpress Popular Posts > Tools*. Otherwise, my plugin will show this image by default.
 
 = The thumbnail images are broken. What happened? =
-Check that the cache subfolder exists (wordpress-popular-posts/scripts/cache/) and it's *writable* (chmodd it to 777 if you're unsure about this).
+Check that the cache subfolder exists (wordpress-popular-posts/cache/) and it's *writable* (chmodd it to 777 if you're unsure about this).
 
 = Can I embed my most popular posts in any other ways than via sidebar widgets? =
 Yes. You have two other ways to achieve this: via **shortcode**: [wpp] (so you can embed it directly on your posts / pages), or via **template tag**: wpp_get_mostpopular().
