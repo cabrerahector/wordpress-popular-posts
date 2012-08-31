@@ -630,7 +630,58 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		}		
 		
 		// prints popular posts
-		function get_popular_posts($instance, $return = false) {		
+		function get_popular_posts($instance, $return = false) {
+			
+			// set default values			
+			$defaults = array(
+				'title' => __('Popular Posts', 'wordpress-popular-posts'),
+				'limit' => 10,
+				'range' => 'daily',
+				'order_by' => 'comments',
+				'post_type' => 'post,page',
+				'author' => '',
+				'cat' => '',
+				'shorten_title' => array(
+					'active' => false,
+					'length' => 25,
+					'keep_format' => false
+				),
+				'post-excerpt' => array(
+					'active' => false,
+					'length' => 55
+				),				
+				'thumbnail' => array(
+					'active' => false,
+					'width' => 15,
+					'height' => 15
+				),
+				'rating' => false,
+				'stats_tag' => array(
+					'comment_count' => true,
+					'views' => false,
+					'author' => false,
+					'date' => array(
+						'active' => false,
+						'format' => 'F j, Y'
+					)
+				),
+				'markup' => array(
+					'custom_html' => false,
+					'wpp-start' => '&lt;ul&gt;',
+					'wpp-end' => '&lt;/ul&gt;',
+					'post-start' => '&lt;li&gt;',
+					'post-end' => '&lt;/li&gt;',
+					'title-start' => '&lt;h2&gt;',
+					'title-end' => '&lt;/h2&gt;',
+					'pattern' => array(
+						'active' => false,
+						'form' => '{image} {title}: {summary} {stats}'
+					)
+				)
+			);
+			
+			// update instance's default options
+			$instance = wp_parse_args( (array) $instance, $defaults );
 			
 			global $wpdb;
 			$table = $wpdb->prefix . "popularpostsdata";
