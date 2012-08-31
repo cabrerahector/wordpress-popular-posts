@@ -2,706 +2,803 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-02 11:05-0430\n"
+"POT-Creation-Date: 2012-08-31 11:32-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Hector Cabrera <me@cabrerahector.com>\n"
 "Language-Team: Héctor Cabrera <admin@rauru.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: VENEZUELA\n"
+"Language: en_VE\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: maintenance.php:58
+#: admin.php:33
+#: admin.php:44
+#: admin.php:50
+#: admin.php:57
+msgid "Settings saved."
+msgstr "Configuraci&oacute;n guardada."
+
+#: admin.php:38
+msgid "Please provide the name of your custom field."
+msgstr "Por favor indica el nombre de tu custom field."
+
+#: admin.php:247
 msgid "This operation will delete all entries from Wordpress Popular Posts' cache table and cannot be undone."
-msgstr "Esta operaci&oacute;n eliminar&aacute; todas las entradas del cache de Wordpress Popular Posts y no puede revertirse."
+msgstr "Esta operaci&oacute;n borrar&aacute; todas las entradas en el cach&eacute; de Wordpress Popular Posts y no puede ser reversado."
 
-#: maintenance.php:58
-#: maintenance.php:66
+#: admin.php:247
+#: admin.php:255
 msgid "Do you want to continue?"
-msgstr "&iquest;Quieres continuar?"
+msgstr "&iquest;Deseas continuar?"
 
-#: maintenance.php:66
+#: admin.php:255
 msgid "This operation will delete all stored info from Wordpress Popular Posts' data tables and cannot be undone."
-msgstr "Esta operaci&oacute;n eliminar&aacute; toda la informaci&oacute;n almacenada de las tablas de data de Wordpress Popular Posts y no puede revertirse."
+msgstr "Esta operaci&oacute;n borrar&aacute; toda la informaci&oacute;n guardada en las tablas de Wordpress Popular Posts y no puede ser reversado."
 
-#: maintenance.php:78
-msgid "Whoa! What just happened in here?!"
-msgstr "&iexcl;Whoa! &iquest;Qu&eacute; pas&oacute; aqu&iacute;?"
+#: admin.php:269
+msgid "Stats"
+msgstr "Estad&iacute;sticas"
 
-#: maintenance.php:79
-msgid "Previous users of Wordpress Popular Posts will remember that earlier versions of my plugin used to display a Settings page over here. However, from version 2.0 and on things will be slightly different."
-msgstr "Los usuarios previos de Wordpress Popular Posts recordar&aacute;n que versiones anteriores de mi plugin mostraba una p&aacute;gina de Configuraci&oacute;n aqu&iacute;. Sin embargo, desde la versi&oacute;n 2.0 en adelante las cosas ser&aacute;n algo diferentes."
+#: admin.php:270
+msgid "FAQ"
+msgstr "FAQ"
 
-#: maintenance.php:80
-msgid "Wordpress Popular Posts has gone multi-widget so now you'll be able to install multiple instances of my plugin on your sidebars, each with its own unique settings! Because of that, having a General Settings page to handle all instances is simply not a good idea. Fear not, my friend, since you still can set each instance's configuration via"
-msgstr "Wordpress Popular Posts ahora es multi-widget, podr&aacute;s instalar m&uacute;ltiples instancias de mi plugin en tus barras laterales, &iexcl;cada una con su configuraci&oacute;n propia! Por ello, tener una p&aacute;gina de Configuraci&oacute;n General para manejar todas las instancias no es una buena idea. No temas, amigo m&iacute;o, ya que puedes manejar la configuraci&oacute;n de cada instancia a trav&eacute;s de la secci&oacute;n"
+#: admin.php:271
+msgid "Tools"
+msgstr "Herramientas"
 
-#: maintenance.php:80
-msgid "Widgets page"
-msgstr "Widgets"
-
-#: maintenance.php:84
-msgid "Help"
-msgstr "Ayuda"
-
-#: maintenance.php:85
-msgid "What does \"Include pages\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Incluir p&aacute;ginas\"?"
-
-#: maintenance.php:87
-msgid "If checked, Wordpress Popular Posts will also list the most viewed pages on your blog. Enabled by default."
-msgstr "Si de tilda, Wordpress Popular Posts tambi&eacute;n listar&aacute; las p&aacute;ginas m&aacute;s populares en tu blog. Habilitado por defecto."
-
-#: maintenance.php:89
-msgid "What does \"Display post rating\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar rating del post\"?"
-
-#: maintenance.php:91
-msgid "If checked, Wordpress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work. Disabled by default."
-msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; como tus lectores est&aacute;n calificando tus posts m&aacute;s populares. Esta funcionalidad requiere que el plugin WP-PostRatings est&eacute; instalado y activado en tu blog para que funcione. Deshabilitado por defecto."
-
-#: maintenance.php:93
-msgid "What does \"Shorten title output\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Acortar t&iacute;tulos\"?"
-
-#: maintenance.php:95
-msgid "If checked, all posts titles will be shortened to \"n\" characters. A new \"Shorten title to\" option will appear so you can set it to whatever you like. Disabled by default."
-msgstr "Si se tilda, todos los t&iacute;tulos de posts se acortar&aacute; \"n\" caracteres. Una nueva opci&oacute;n, \"Acortar t&iacute;tulo a\" aparecer&aacute; para que puedas configurarlo como gustes. Desactivado por defecto."
-
-#: maintenance.php:97
-msgid "What does \"Display post excerpt\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar extracto del post\"?"
-
-#: maintenance.php:99
-msgid "If checked, Wordpress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be. Disabled by default."
-msgstr "Si se tilda, Wordpress Popular Posts tambi&eacute;n incluir&aacute; un peque&ntilde;o extracto de tus posts en la lista. Similarmente a la opci&oacute;n anterior, podr&aacute;s decidir qu&eacute; tan largo debe ser el extracto. Desactivado por defecto."
-
-#: maintenance.php:101
-msgid "What does \"Keep text format and links\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mantener formato de texto y links\"?"
-
-#: maintenance.php:103
-msgid "If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too."
-msgstr "Si se tilda, y si Mostrar Extracto del Post est&aacute; habilitado, Wordpress Popular Posts mantendr&aacute; las etiquetas de estilo (ejem. bold, italic, etc) que se encontraron en el extracto. Los hiperv&iacute;nculos se mantendr&aacute;n intactos tambi&eacute;n."
-
-#: maintenance.php:105
-msgid "What does \"Exclude Categories\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Excluir Categor&iacute;as\"?"
-
-#: maintenance.php:107
-msgid "If checked, Wordpress Popular Posts will exclude from the listing all those entries that belong to specific categories. When entering more than one Category ID, you need to use commas to separate them (eg. 1,5,12 - no spaces!). Disabled by default."
-msgstr "Si se tilda, Wordpress Popular Posts excluir&aacute; del listado todas aquellas entradas pertenecientes a categor&iacute;as espec&iacute;ficas. Cuando se ingresa m&aacute;s de un ID de Categor&iacute;a, necesitas utilizar comas para separarlas (ejem. 1,5,12 - &excl;sin espacios!). Deshabilitado por defecto."
-
-#: maintenance.php:109
-msgid "What does \"Display post thumbnail\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar miniatura\"?"
-
-#: maintenance.php:111
-msgid "If checked, Wordpress Popular Posts will attempt to use the thumbnail you have selected for each post on the Post Edit Screen under Featured Image (this also requires including add_theme_support(\"post-thumbnails\") to your theme's functions.php file). Disabled by default."
-msgstr "Wordpress Popular Posts utilizar&aacute; la miniatura que seleccionaste como Imagen Destacada para cada entrada (esto tambi&eacute;n requiere incluir add_theme_support(\"post-thumbnails\") al archivo functions.php de tu tema actual)."
-
-#: maintenance.php:113
-msgid "What does \"Display comment count\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar comentarios\"?"
-
-#: maintenance.php:115
-msgid "If checked, Wordpress Popular Posts will display how many comments each popular post has got until now. Enabled by default."
-msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntos comentarios ha obtenido cada post popular hasta ahora. Habilitado por defecto."
-
-#: maintenance.php:117
-msgid "What does \"Display views\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar vistas\"?"
-
-#: maintenance.php:119
-msgid "If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten so far since this plugin was installed. Disabled by default."
-msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntas vistas ha obtenido un post desde la instalaci&oacute;n de este plugin. Deshabilitado por defecto."
-
-#: maintenance.php:121
-msgid "What does \"Display author\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar autor\"?"
-
-#: maintenance.php:123
-msgid "If checked, Wordpress Popular Posts will display the name of the author of each entry listed. Disabled by default."
-msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; el nombre del autor de cada entrada listada. Deshabilitado por defecto."
-
-#: maintenance.php:125
-msgid "What does \"Display date\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar fecha\"?"
-
-#: maintenance.php:127
-msgid "If checked, Wordpress Popular Posts will display the date when each popular posts was published. Disabled by default."
-msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; la fecha en que cada post popular fue publicado. Deshabilitado por defecto."
-
-#: maintenance.php:129
-msgid "What does \"Use custom HTML Markup\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Utilizar Markup HTML personalizado\"?"
-
-#: maintenance.php:131
-msgid "If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you! Disabled by default."
-msgstr "Si se tilda, podr&aacute;s personalizar el markup HTML (la estructura HTML) del listado de tus posts. Por ejemplo, puedes decidir si tus posts estar&aacute;n dentro de una lista desordenada (ul), una lista ordenada (ol), un div, etc. Si sabes xHTML/CSS, &iexcl;esto es para t&iacute;!"
-
-#: maintenance.php:133
-msgid "What does \"Use content formatting tags\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Utilizar etiquetas de contenido\"?"
-
-#: maintenance.php:135
-msgid "If checked, you can decide the order of the items displayed on each entry. For example, setting it to \"{title}: {summary}\" (without the quotes) would display \"Post title: excerpt of the post here\". Available tags: {image}, {title}, {summary}, {stats} and {rating}. Disabled by default."
-msgstr "Si se tilda, puedes decidir el orden de los items mostrados en cada entrada. Por ejemplo, configurarlo como \"{title}: {summary}\" (sin las comillas) mostrar&iacute;a \"T&iacute;tulo del post: extracto del post aqu&iacute;\". Etiquetas disponibles: {image}, {title}, {summary}, {stats} y {rating}. Deshabilitado por defecto."
-
-#: maintenance.php:137
-msgid "What are \"Template Tags\"?"
-msgstr "&iquest;Qu&eacute; son los \"Template Tags\"?"
-
-#: maintenance.php:139
-msgid "Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: get_mostpopular() and wpp_get_views()."
-msgstr "Los Template Tags son simplemente funciones php que te permiten realizar ciertas acciones. Por ejemplo, Wordpress Popular Posts actualmante soporte dos template tags diferentes: get_mostpopular y wpp_get_views()."
-
-#: maintenance.php:141
-msgid "What are the template tags that Wordpress Popular Posts supports?"
-msgstr "&iquest;Cu&aacute;les template tags soporta Wordpress Popular Posts?"
-
-#: maintenance.php:143
-msgid "The following are the template tags supported by Wordpress Popular Posts:"
-msgstr "Los siguientes son los template tags soportados por Wordpress Popular Posts:"
-
-#: maintenance.php:146
-msgid "Template tag"
-msgstr "Template tag"
-
-#: maintenance.php:147
-#: maintenance.php:175
-msgid "What it does "
-msgstr "Qu&eacute; hace"
-
-#: maintenance.php:148
-msgid "Parameters"
-msgstr "Par&aacute;metros"
-
-#: maintenance.php:149
-#: maintenance.php:178
-msgid "Example"
-msgstr "Ejemplo"
-
-#: maintenance.php:153
-msgid "Similar to the widget functionality, this tag retrieves the most popular posts on your blog. While it can be customized via parameters, these are not needed for it to work."
-msgstr "Al igual que la funcionalidad tipo widget, este tag obtiene los posts m&aacute;s populares de tu blog. Puede ser personalizado via par&aacute;metros, pero no son necesarios para que funcione."
-
-#: maintenance.php:154
-msgid "Please refer to \"What attributes does Wordpress Popular Posts shortcode [wpp] have?\""
-msgstr "Favor leer \"&iquest;Cu&aacute;les template tags soporta Wordpress Popular Posts?\""
-
-#: maintenance.php:159
-msgid "Displays the number of views of a single post. Post ID required, or it will return false."
-msgstr "Muestra el n&uacute;mero de vistas de un post. Se requiere el ID del post, o la funci&oacute;n retornar&aacute; falso."
-
-#: maintenance.php:160
-msgid "Post ID"
-msgstr "ID del Post"
-
-#: maintenance.php:165
-msgid "What are \"shortcodes\"?"
-msgstr "&iquest;Qu&eacute; son los \"shortcodes\"?"
-
-#: maintenance.php:167
-msgid "Shortcodes are hooks that allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit"
-msgstr "Los shortcodes son hooks que nos permiten llamar a una funci&oacute;n php simplemente escribiendo algo como [shortcode]. Con Wordpress Popular Posts, el shortcode [wpp] te permitir&aacute; insertar una lista de los posts m&aacute;s populares en p&aacute;ginas y en los contenidos de los posts. Para m&aacute;s informaci&oacute; visita"
-
-#: maintenance.php:169
-msgid "What attributes does Wordpress Popular Posts shortcode [wpp] have?"
-msgstr "&iquest;Qu&eacute; atributos tiene el shortcode [wpp] de Wordpress Popular Posts?"
-
-#: maintenance.php:171
-msgid "There are a number of attributes Wordpress Popular Posts currently supports:"
-msgstr "Hay un n&uacute;mero de atributos que Wordpress Popular Posts actualmente soporta:"
-
-#: maintenance.php:174
-msgid "Attributes"
-msgstr "Atributos"
-
-#: maintenance.php:176
-msgid "Possible values"
-msgstr "Valores Posibles"
-
-#: maintenance.php:177
-msgid "Defaults to"
-msgstr "Por defecto"
-
-#: maintenance.php:182
-msgid "Sets a heading for the list"
-msgstr "Setea el encabezado de la lista"
-
-#: maintenance.php:183
-#: maintenance.php:190
-#: maintenance.php:197
-#: maintenance.php:253
-#: maintenance.php:316
-#: maintenance.php:323
-#: maintenance.php:330
-#: maintenance.php:337
-#: maintenance.php:344
-msgid "Text string"
-msgstr "Cadena de texto"
-
-#: maintenance.php:184
-#: wordpress-popular-posts.php:198
-msgid "Popular Posts"
-msgstr "Entradas Populares"
-
-#: maintenance.php:189
-msgid "Set the opening tag for the heading of the list"
-msgstr "Setea la etiqueta html de apertura del encabezado de la lista"
-
-#: maintenance.php:196
-msgid "Set the closing tag for the heading of the list"
-msgstr "Setea la etiqueta de cierre del encabezado de la lista"
-
-#: maintenance.php:203
-msgid "Sets the maximum number of popular posts to be shown on the listing"
-msgstr "Setea el n&uacute;mero m&aacute;ximo de posts populares a mostrarse en la lista"
-
-#: maintenance.php:204
-#: maintenance.php:232
-#: maintenance.php:239
-#: maintenance.php:260
-#: maintenance.php:267
-msgid "Positive integer"
-msgstr "Entero positivo"
-
-#: maintenance.php:210
-msgid "Tells Wordpress Popular Posts to retrieve the most popular entries within the time range specified by you"
-msgstr "Le dice a Wordpress Popular Posts que debe traer los posts m&aacute;s populares que est&eacute;n dentro del tiempo especificado por t&iacute;."
-
-#: maintenance.php:217
-msgid "Sets the sorting option of the popular posts"
-msgstr "Setea el valor por el cual deben ordenarse los posts populares"
-
-#: maintenance.php:218
-msgid "(for average views per day)"
-msgstr "(vistas promedio por d&iacute;a)"
-
-#: maintenance.php:224
-msgid "Tells Wordpress Popular Posts whether to consider or not pages while building the popular list"
-msgstr "Le dice a Wordpress Popular Posts si debe considerar o no las p&aacute;ginas mientras construye la lista popular"
-
-#: maintenance.php:231
-msgid "If set, Wordpress Popular Posts will shorten each post title to \"n\" characters whenever possible"
-msgstr "Si se setea, Wordpress Popular Posts acortar&aacute; cada t&iacute;tulo a \"n\" caracteres cuando sea posible"
-
-#: maintenance.php:238
-msgid "If set, Wordpress Popular Posts will build and include an excerpt of \"n\" characters long from the content of each post listed as popular"
-msgstr "Si se setea, Wordpress Popular Posts construir&aacute; e insertar&aacute; un extracto de \"n\" caracteres de largo del contenido de cada post listado como popular"
-
-#: maintenance.php:245
-msgid "If set, Wordpress Popular Posts will maintaing all styling tags (strong, italic, etc) and hyperlinks found in the excerpt"
-msgstr "Si se setea, Wordpress Popular Posts mantendr&aacute; las etiquetas de formato (strong, italic, etc) y los hiperv&iacute;nculos encontrados en el extracto"
-
-#: maintenance.php:252
-msgid "If set, Wordpress Popular Posts will exclude all entries that belong to the specified category(ies)."
-msgstr "Si se setea, Wordpress Popular Posts excluir&aacute; todas las entradas que pertenezcan a las categor&iacute;as especificadas."
-
-#: maintenance.php:254
-msgid "None"
-msgstr "Ninguno"
-
-#: maintenance.php:259
-msgid "If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails"
-msgstr "Si se setea, y si la configuraci&oacute;n actual de tu servidor lo permite, podr&aacute;s mostrar miniaturas (thumbnails) de tus posts. Este atributo setea el ancho de las miniaturas"
-
-#: maintenance.php:266
-msgid "If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the height for thumbnails"
-msgstr "Si se setea, y si la configuraci&oacute;n actual de tu servidor lo permite, podr&aacute;s mostrar miniaturas (thumbnails) de tus posts. Este atributo setea el alto de las miniaturas"
-
-#: maintenance.php:273
-msgid "Wordpress Popular Posts will use the thumbnails selected by you. *Requires enabling The Post Thumbnail feature on your theme*"
-msgstr "Wordpress Popular Posts utilizar&aacute; las miniaturas que has seleccionado. *Requiere habilitar la funcionalidad de The Post Thumbnail en tu tema*"
-
-#: maintenance.php:280
-msgid "If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries"
-msgstr "Si se setea, y si el plugin WP-PostRatings est&aacute; instalado y activo en tu blog, Wordpress Popular Posts mostrar&aacute; c&oacute;mo tus visitantes califican tus entradas"
-
-#: maintenance.php:287
-msgid "If set, Wordpress Popular Posts will show how many comments each popular post has got until now"
-msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntos comentarios ha obtenido cada post popular hasta ahora"
-
-#: maintenance.php:294
-msgid "If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed"
-msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntas vistas ha obtenido cada post popular desde que se instal&oacute; el plugin"
-
-#: maintenance.php:301
-msgid "If set, Wordpress Popular Posts will show who published each popular post on the list"
-msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; qui&eacute;n public&oacute; cada uno de los posts populares de la lista"
-
-#: maintenance.php:308
-msgid "If set, Wordpress Popular Posts will when each popular post on the list was published"
-msgstr "Si se setea, Wordpress Popular Posts mostrar&aacute; cuando fue publicado cada post en la lista"
-
-#: maintenance.php:315
-msgid "Sets the date format"
-msgstr "Setea el formato de la fecha"
-
-#: maintenance.php:322
-msgid "Sets the opening tag for the listing"
-msgstr "Setea la etiqueta de apertura de la lista"
-
-#: maintenance.php:329
-msgid "Sets the closing tag for the listing"
-msgstr "Setea la etiqueta de cierre de la lista"
-
-#: maintenance.php:336
-msgid "Sets the opening tag for each item on the list"
-msgstr "Setea la etiqueta de apertura de cada item en la lista"
-
-#: maintenance.php:343
-msgid "Sets the closing tag for each item on the list"
-msgstr "Setea la etiqueta de cierre de cada item en la lista"
-
-#: maintenance.php:350
-msgid "If set, this option will allow you to decide the order of the contents within each item on the list."
-msgstr "Si se setea, esta opci&oacute;n te permitir&aacute; decidir el orden de los contenidos de cada item en la lista"
-
-#: maintenance.php:357
-msgid "If set, you can decide the order of each content inside a single item on the list. For example, setting it to \"{title}: {summary}\" would output something like \"Your Post Title: summary here\". This attribute requires do_pattern to be true."
-msgstr "Si se setea, puedes decidir el orden de los contenidos de cada item en la lista. Por ejemplo, configurarlo como \"{title}: {summary}\" mostrar&iacute;a algo como \"Tu t&iacute;tulo: extracto del post aqu&iacute;\". Este atributo requiere que do_pattern sea true."
-
-#: maintenance.php:358
-msgid "Available tags"
-msgstr "Etiquetas disponibles"
-
-#: maintenance.php:367
-msgid "Maintenance Settings"
-msgstr "Opciones de Mantenimiento"
-
-#: maintenance.php:368
-msgid "Wordpress Popular Posts keeps historical data of your most popular entries for up to 30 days. If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so."
-msgstr "Wordpress Popular Posts guarda data hist&oacute;rica de tus posts m&aacute;s populares por hasta 30 d&iacute;as. Si por alguna raz&oacute;n necesitas limpiar el cache, o inclusive tanto el cache como la tabla hist&oacute;rica, por favor utiliza los botones de abajo."
-
-#: maintenance.php:371
-msgid "Empty cache"
-msgstr "Vaciar cache"
-
-#: maintenance.php:372
-msgid "Use this button to manually clear entries from WPP cache only"
-msgstr "Utiliza este bot&oacute;n para limpiar manualmente todas las entradas del cache de Wordpress Popular Posts"
-
-#: maintenance.php:378
-msgid "Clear all data"
-msgstr "Eliminar toda la data"
-
-#: maintenance.php:379
-msgid "Use this button to manually clear entries from all WPP data tables"
-msgstr "Utiliza este bot&oacute;n para limpiar toda la data de Wordpress Popular Posts"
-
-#: maintenance.php:387
-msgid "Do you like this plugin?"
-msgstr "&iquest;Te gusta este plugin?"
-
-#: maintenance.php:387
-msgid "Rate Wordpress Popular Posts!"
-msgstr "&iexcl;Califica Wordpress Popular Posts!"
-
-#: maintenance.php:387
-msgid "Rate it 5"
-msgstr "&iexcl;Dale un 5"
-
-#: maintenance.php:387
-msgid "on the official Plugin Directory!"
-msgstr "en el directorio oficial de plugins!"
-
-#: maintenance.php:388
-msgid "Do you love this plugin?"
-msgstr "&iquest;Te encanta este plugin?"
-
-#: maintenance.php:388
-#: maintenance.php:389
-msgid "Buy me a beer!"
-msgstr "&iexcl;C&oacute;mprame una cerveza!"
-
-#: maintenance.php:388
-msgid "Each donation motivates me to keep releasing free stuff for the Wordpress community!"
-msgstr "&iexcl;Cada donativo me motiva a seguir contribuyendo con la comunidad Wordpress!"
-
-#: stats.php:90
+#: admin.php:275
 msgid "Click on each tab to see what are the most popular entries on your blog today, this week, last 30 days or all time since Wordpress Popular Posts was installed."
-msgstr "Haga clic en cada pesta&ntilde;a para ver cu&aacute;les son las entradas m&aacute;s populares en su blog hoy, esta semana, en los &uacute;ltimos 30 d&iacute;s o desde que se instal&oacute; Wordpress Popular Posts."
+msgstr "Haz clic en cada pesta&ntilde;a para ver las entradas m&aacute;s populares de tu blog hoy, esta semana, los &uacute;ltimos 30 d&iacute;s o de todos los tiempos."
 
-#: stats.php:92
-msgid "Yesterday"
-msgstr "Ayer"
+#: admin.php:281
+msgid "Order by comments"
+msgstr "Ordenar por comentarios"
 
-#: stats.php:93
-msgid "Today"
-msgstr "Hoy"
+#: admin.php:282
+msgid "Order by views"
+msgstr "Ordenar por vistas"
 
-#: stats.php:94
-msgid "Weekly"
-msgstr "Semanalmente"
+#: admin.php:283
+msgid "Order by avg. daily views"
+msgstr "Ordenar por average de vistas diarias"
 
-#: stats.php:95
-msgid "Monthly"
-msgstr "Mensualmente"
+#: admin.php:285
+msgid "Limit"
+msgstr "L&iacute;mite"
 
-#: stats.php:96
-#: wordpress-popular-posts.php:260
-msgid "All-time"
-msgstr "Todos"
+#: admin.php:287
+#: admin.php:667
+#: admin.php:683
+#: admin.php:700
+msgid "Apply"
+msgstr "Aplicar"
 
-#: wordpress-popular-posts.php:251
-msgid "Title:"
-msgstr "T&iacute;tulo:"
-
-#: wordpress-popular-posts.php:253
-msgid "Show up to:"
-msgstr "Mostrar hasta:"
-
-#: wordpress-popular-posts.php:254
-msgid "posts"
-msgstr "posts"
-
-#: wordpress-popular-posts.php:255
-msgid "Time Range:"
-msgstr "Rango de tiempo:"
-
-#: wordpress-popular-posts.php:257
+#: admin.php:293
+#: wordpress-popular-posts.php:307
 msgid "Last 24 hours"
 msgstr "&Uacute;ltimas 24 horas"
 
-#: wordpress-popular-posts.php:258
+#: admin.php:294
+#: wordpress-popular-posts.php:308
 msgid "Last 7 days"
 msgstr "&Uacute;ltimos 7 d&iacute;as"
 
-#: wordpress-popular-posts.php:259
+#: admin.php:295
+#: wordpress-popular-posts.php:309
 msgid "Last 30 days"
 msgstr "&Uacute;ltimos 30 d&iacute;as"
 
-#: wordpress-popular-posts.php:263
-msgid "Sort posts by:"
-msgstr "Ordernar posts por:"
+#: admin.php:296
+#: wordpress-popular-posts.php:310
+msgid "All-time"
+msgstr "Todos los tiempos"
 
-#: wordpress-popular-posts.php:265
-msgid "Comments"
-msgstr "Comentarios"
+#: admin.php:317
+msgid "Frequently Asked Questions"
+msgstr "Preguntas Frecuentes (FAQ)"
 
-#: wordpress-popular-posts.php:266
-msgid "Total views"
-msgstr "Vistas"
+#: admin.php:321
+msgid "What does \"Title\" do?"
+msgstr "&iquest;Para qu&eacute; es \"T&iacute;tulo\"?"
 
-#: wordpress-popular-posts.php:267
-msgid "Avg. daily views"
-msgstr "Vistas por d&iacute;a"
+#: admin.php:323
+msgid "It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all."
+msgstr "Te permite mostrar un encabezado para tu lista de entradas populares. Si se deja vac&iacute;o, no se mostrar&aacute; el encabezado."
 
-#: wordpress-popular-posts.php:270
-msgid "Include pages"
-msgstr "Incluir p&aacute;ginas"
+#: admin.php:326
+msgid "What is Time Range for?"
+msgstr "&iquest;Para qu&eacute; es \"Rango de Tiempo\"?"
 
-#: wordpress-popular-posts.php:272
-msgid "Display post rating"
-msgstr "Mostrar calificaci&oacute;n del post"
+#: admin.php:328
+msgid "It will tell Wordpress Popular Posts to retrieve all posts with most views / comments within the selected time range."
+msgstr "Le indica a Wordpress Popular Posts que muestre las entradas m&aacute;s vistas / comentadas en el rango de tiempo seleccionado."
 
-#: wordpress-popular-posts.php:274
-msgid "Shorten title output"
-msgstr "Acortar t&iacute;tulo"
+#: admin.php:331
+msgid "What is \"Sort post by\" for?"
+msgstr "&iquest;Para qu&eacute; es \"Ordenar entradas por\"?"
 
-#: wordpress-popular-posts.php:276
-msgid "Shorten title to"
-msgstr "acortar t&iacute;tulo a"
+#: admin.php:333
+msgid "It allows you to decide whether to order your popular posts listing by total views, comments, or average views per day."
+msgstr "Te permite decidir si ordenar tus entradas populares por la cantidad total de vistas, comentarios, o por el porcentaje diario de vistas."
 
-#: wordpress-popular-posts.php:276
-#: wordpress-popular-posts.php:283
-msgid "characters"
-msgstr "caracteres"
+#: admin.php:336
+msgid "What does \"Display post rating\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Mostrar rating de la entrada\"?"
 
-#: wordpress-popular-posts.php:278
-msgid "Display post excerpt"
-msgstr "Mostrar extracto del post"
+#: admin.php:338
+msgid "If checked, Wordpress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work."
+msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; c&oacute;mo tus lectores est&aacute;n calificando tus entradas populares. Esta caracter&iacute;stica requiere que el plugin WP-PostRatings est&eacute; instalado y habilitado en tu blog para que funcione."
 
-#: wordpress-popular-posts.php:281
-msgid "Excerpt Properties"
-msgstr "Propiedades del extracto"
+#: admin.php:341
+#, fuzzy
+msgid "What does \"Shorten title\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Acortar t&iacute;tulo\"?"
 
-#: wordpress-popular-posts.php:282
-msgid "Keep text format and links"
-msgstr "Mantener formato de texto y links"
+#: admin.php:343
+msgid "If checked, all posts titles will be shortened to \"n\" characters. A new \"Shorten title to\" option will appear so you can set it to whatever you like."
+msgstr "Si se tilda, todos los t&iacute;tulos de las entradas se acortar&aacute;n \"n\" caracteres. Una nueva opci&oacute;n \"Acortar t&iacute;tulo en\" se mostrar&aacute; para que puedas configurarlo como quieras."
 
-#: wordpress-popular-posts.php:283
-msgid "Excerpt length:"
-msgstr "Longitud del extracto:"
+#: admin.php:346
+msgid "What does \"Display post excerpt\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Mostrar resumen de la entrada\"?"
 
-#: wordpress-popular-posts.php:287
-msgid "Exclude categories"
-msgstr "Excluir categor&iacute;as"
+#: admin.php:348
+msgid "If checked, Wordpress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be."
+msgstr "Si se tilda, Wordpress Popular Posts incluir&aacute; un peque&ntilde;o extracto de tus entradas en la lista. Similar a la opci&oacute;n anterior, podr&aacute;s decidir qu&eacute; tan largo debe ser el extracto."
 
-#: wordpress-popular-posts.php:290
-msgid "Categories to exclude"
-msgstr "Categor&iacute;as a excluir"
+#: admin.php:351
+msgid "What does \"Keep text format and links\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Mantener el formato de texto y links\"?"
 
-#: wordpress-popular-posts.php:291
-msgid "ID(s) (comma separated, no spaces):"
-msgstr "ID(s) (separado por comas, sin espacios):"
+#: admin.php:353
+msgid "If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too."
+msgstr "Si se tilda, y si la opci&oacute;n Mostrar Resumen est&aacute; habilitada, Wordpress Popular Posts mantendr&aacute; las etiquetas de estilos que se encontraron en el extracto. Los hiperv&iacute;nculos tambi&eacute;n se mantendr&aacute;n."
 
-#: wordpress-popular-posts.php:297
-msgid "Thumbnail settings"
-msgstr "Configuraci&oacute;n de la miniatura"
+#: admin.php:356
+msgid "What is \"Post type\" for?"
+msgstr "&iquest;Para qu&eacute; es el \"Post type\"?"
 
-#: wordpress-popular-posts.php:298
-msgid "Display post thumbnail"
-msgstr "Mostrar miniatura"
+#: admin.php:358
+msgid "This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases)."
+msgstr "Este filtro te permite decidir que tipo de entradas deseas mostrar en el listado. Por defecto, trater&aacute; s&oacute;lo entradas y p&aacute;ginas (que es lo que se quiere, en la mayor&iacute;a de los casos)."
 
-#: wordpress-popular-posts.php:300
-msgid "Width:"
-msgstr "Ancho:"
+#: admin.php:361
+msgid "What is \"Category(ies) ID(s)\" for?"
+msgstr "&iquest;Para qu&eacute; es el \"ID(s) de Categor&iacute;a(s)\"?"
+
+#: admin.php:363
+msgid "This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list."
+msgstr "Este filtro te permite seleccionar qu&eacute; categor&iacute;as deber&iacute;an ser inclu&iacute;das o exclu&iacute;das del listado. Un signo negativo enfrente del ID de la categor&iacute;a la excluir&aacute; de la lista, por ejemplo. Puedes especificar m&aacute;s de un ID separ&aacute;ndolos con comas."
+
+#: admin.php:366
+msgid "What is \"Author(s) ID(s)\" for?"
+msgstr "&iquest;Para qu&eacute; es el \"ID de Autor(es)\"?"
+
+#: admin.php:368
+msgid "Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list."
+msgstr "Justo como el filtro de Categor&iacute;a, &eacute;ste te permite filtrar entradas por ID del autor. Puedes especificar m&aacute;s de un ID separ&aacute;ndolos con comas."
+
+#: admin.php:371
+msgid "What does \"Display post thumbnail\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Mostrar miniatura de  la entrada\"?"
+
+#: admin.php:373
+msgid "If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - Wordpress Popular Posts - Tools."
+msgstr "Si se tilda, Wordpress Popular Posts intentar&aacute; obtener la imagen miniatura de cada entrada. Puedes configurar la fuente de la miniatura via Configuraci&oacute;n - Wordpress Popular Posts - Herramientas."
+
+#: admin.php:376
+msgid "What does \"Display comment count\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Mostrar cantidad de comentarios\"?"
+
+#: admin.php:378
+msgid "If checked, Wordpress Popular Posts will display how many comments each popular post has got in the selected Time Range."
+msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntos comentarios ha obtenido cada entrada popular dentro del Rango de Tiempo seleccionado."
+
+#: admin.php:381
+msgid "What does \"Display views\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Mostrar vistas\"?"
+
+#: admin.php:383
+msgid "If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range."
+msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntas vistas ha obtenido cada entrada en el Rango de Tiempo seleccionado."
+
+#: admin.php:386
+msgid "What does \"Display author\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Mostrar autor\"?"
+
+#: admin.php:388
+msgid "If checked, Wordpress Popular Posts will display the name of the author of each entry listed."
+msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; el nombre del autor de cada entrada listada."
+
+#: admin.php:391
+msgid "What does \"Display date\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Mostrar fecha\"?"
+
+#: admin.php:393
+msgid "If checked, Wordpress Popular Posts will display the date when each popular posts was published."
+msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; la fecha en la que fue publicada cada entrada popular."
+
+#: admin.php:396
+msgid "What does \"Use custom HTML Markup\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Utilizar Markup HTML personalizado\"?"
+
+#: admin.php:398
+msgid "If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!"
+msgstr "Si se tilda, podr&aacute;s personalizad el markup HTML de tu listado de entradas populares. Por ejemplo, podr&aacute;s decidir si colocar tu listado en una lista desordenada, una ordenada, dentro de un div, etc. Si sabes xHTML/CSS, &iexcl;esto es para ti!"
+
+#: admin.php:401
+msgid "What does \"Use content formatting tags\" do?"
+msgstr "&iquest;Qu&eacute; hace \"Utilizar etiquetas de formato de contenido\"?"
+
+#: admin.php:403
+msgid "If checked, you can decide the order of the items displayed on each entry. For example, setting it to \"{title}: {summary}\" (without the quotes) would display \"Post title: excerpt of the post here\". Available tags: {image}, {title}, {summary}, {stats} and {rating}."
+msgstr "Si se tilda, puedes decidir el orden de los elementos mostrados en cada entrada. Por ejemplo, configurarlo como \"{title}: {summary}\" (sin las comillas) mostrar&iacute;a \"T&iacute;tulo de la entrada: extracto de la entrada aqu&iacute;\". Etiquetas disponibles: {image}, {title}, {summary}, {stats} y {rating}."
+
+#: admin.php:406
+msgid "What are \"Template Tags\"?"
+msgstr "&iquest;Qu&eacute; son los \"Template Tags\"?"
+
+#: admin.php:408
+msgid "Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views()."
+msgstr "Los Template Tags son simplemente funciones php que nos permiten realizar ciertas acciones. Por ejemplo, Wordpress Popular Posts actualmente soporta dos template tags diferentes: wpp_get_mostpopular() y wpp_get_views()."
+
+#: admin.php:411
+msgid "What are the template tags that Wordpress Popular Posts supports?"
+msgstr "&iquest;Cu&aacute;les son los Template Tags soportados por Wordpress Popular Posts?"
+
+#: admin.php:413
+msgid "The following are the template tags supported by Wordpress Popular Posts"
+msgstr "Los siguientes son los template tags soportados por Wordpress Popular Posts"
+
+#: admin.php:417
+msgid "Template tag"
+msgstr "Template tag"
+
+#: admin.php:418
+#: admin.php:451
+msgid "What it does "
+msgstr "Qu&eacute; hace"
+
+#: admin.php:419
+msgid "Parameters"
+msgstr "Par&aacute;metros"
+
+#: admin.php:420
+#: admin.php:454
+msgid "Example"
+msgstr "Ejemplo"
+
+#: admin.php:426
+msgid "Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts parameters so you can customize your popular listing, but these are not required."
+msgstr "Parecido a la funcionalidad del widget, esta etiqueta obtiene las entradas m&aacute;s populares de tu blog. Esta funci&oacute;n tambi&eacute;n acepta par&aacute;metros para que puedas personalizar el listado, pero no es requerido."
+
+#: admin.php:427
+msgid "Please refer to \"List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode\"."
+msgstr "Por favor revisa \"Listado de par&aacute;metros aceptados por wpp_get_mostpopular() y el shortcode [wpp]\"."
+
+#: admin.php:432
+msgid "Displays the number of views of a single post. Post ID is required or it will return false."
+msgstr "Muestra la cantidad de vistas de una entrada. El ID de la entrada es requerido, o la funci&oacute;n devolver&aacute; false."
+
+#: admin.php:433
+msgid "Post ID"
+msgstr "ID de la entrada"
+
+#: admin.php:440
+msgid "What are \"shortcodes\"?"
+msgstr "&iquest;Qu&eacute; son los \"shortcodes\"?"
+
+#: admin.php:442
+msgid "Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit"
+msgstr "Los Shortcodes son similares a los BB Codes, &eacute;stos nos permiten llamar a una funci&oacute;n php simplemente escribiendo algo como [shortcode]. Con Wordpress Popular Posts, el shortcode [wpp] te permitir&aacute; insertar una lista de las entradas m&aacute;s populares en el contenido de tus entradas y en p&aacute;ginas tambi&eacute;n. Para mayor informaci&oacute;n sobre los shortcodes, por favor visita"
+
+#: admin.php:444
+msgid "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode"
+msgstr "Lista de par&aacute;metros aceptados por wpp_get_mostpopular() y el shortcode [wpp]"
+
+#: admin.php:446
+msgid "These parameters can be used by both the template tag wpp_get_most_popular() and the shortcode [wpp]."
+msgstr "Estos par&aacute;metros pueden ser utilizados tanto por el template tag wpp_get_mostpopular() como por el shortcode [wpp]."
+
+#: admin.php:450
+msgid "Parameter"
+msgstr "Par&aacute;metro"
+
+#: admin.php:452
+msgid "Possible values"
+msgstr "Valores posibles"
+
+#: admin.php:453
+msgid "Defaults to"
+msgstr "Por defecto"
+
+#: admin.php:460
+msgid "Sets a heading for the list"
+msgstr "Configura el encabezado de la lista"
+
+#: admin.php:461
+#: admin.php:468
+#: admin.php:475
+#: admin.php:503
+#: admin.php:510
+#: admin.php:517
+#: admin.php:594
+#: admin.php:601
+#: admin.php:608
+#: admin.php:615
+#: admin.php:622
+msgid "Text string"
+msgstr "Texto"
+
+#: admin.php:462
+#: wordpress-popular-posts.php:250
+msgid "Popular Posts"
+msgstr "Entradas Populares"
+
+#: admin.php:467
+msgid "Set the opening tag for the heading of the list"
+msgstr "Configura la etiqueta de apertura para el encabezado de la lista"
+
+#: admin.php:474
+msgid "Set the closing tag for the heading of the list"
+msgstr "Configura la etiqueta de cierre para el encabezado de la lista"
+
+#: admin.php:481
+msgid "Sets the maximum number of popular posts to be shown on the listing"
+msgstr "Configura el m&aacute;ximo de entradas populares a ser mostradas en la lista"
+
+#: admin.php:482
+#: admin.php:524
+#: admin.php:531
+#: admin.php:545
+#: admin.php:552
+msgid "Positive integer"
+msgstr "Entero positivo"
+
+#: admin.php:488
+msgid "Tells Wordpress Popular Posts to retrieve the most popular entries within the time range specified by you"
+msgstr "Le indica a Wordpress Popular Posts que debe listar aquellas entradas que hayan sido populares dentro del rango de tiempo especificado por ti"
+
+#: admin.php:495
+msgid "Sets the sorting option of the popular posts"
+msgstr "Configura el ordenado de las entradas populares"
+
+#: admin.php:496
+msgid "(for average views per day)"
+msgstr "(para el porcentaje de vistas por d&iacute;a)"
+
+#: admin.php:502
+msgid "Defines the type of posts to show on the listing"
+msgstr "Define el tipo de entrada a mostrar en el listado"
+
+#: admin.php:509
+msgid "If set, Wordpress Popular Posts will retrieve all entries that belong to the specified category(ies) ID(s). If a minus sign is used, the category(ies) will be excluded instead."
+msgstr "Si se configura, Wordpress Popular Posts mostrar&aacute; todas las entradas que pertenecen a la(s) categor&iacute;a(s) especificada(s). Si se usa un signo negativo, la(s) categor&iacute;a(s) ser&aacute;(n) exclu&iacute;da(s)."
+
+#: admin.php:511
+#: admin.php:518
+msgid "None"
+msgstr "Ninguno"
+
+#: admin.php:516
+msgid "If set, Wordpress Popular Posts will retrieve all entries created by specified author(s) ID(s)."
+msgstr "Si se configura, Wordpress Popular Posts traer&aacute; todas las entradas creadas por el (los) ID(s) de autor(es) especificado(s)."
+
+#: admin.php:523
+msgid "If set, Wordpress Popular Posts will shorten each post title to \"n\" characters whenever possible"
+msgstr "Si se configura, Wordpress Popular Posts acortar&aacute; cada titulo en \"n\" caracteres cuando sea posible"
+
+#: admin.php:530
+msgid "If set, Wordpress Popular Posts will build and include an excerpt of \"n\" characters long from the content of each post listed as popular"
+msgstr "Si se configura, Wordpress Popular Posts construir&aacute; e incluir&aacute; un extracto de \"n\" caracteres del contenido de cada entrada listada como popular"
+
+#: admin.php:537
+msgid "If set, Wordpress Popular Posts will maintaing all styling tags (strong, italic, etc) and hyperlinks found in the excerpt"
+msgstr "Si se configura, Wordpress Popular Posts mantendr&aacute; todas las etiquetas de estilo (strong, italic, etc) y los hiperv&iacute;nculos encontrados en el extracto"
+
+#: admin.php:544
+msgid "If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails"
+msgstr "Si se configura, y si la configuraci&oacute;n actual de tu servidor lo permite, podr&aacute;s mostrar miniaturas de tus entradas. Este atributo configura el ancho de tus miniaturas"
+
+#: admin.php:551
+msgid "If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the height for thumbnails"
+msgstr "Si se configura, y si la configuraci&oacute;n actual de tu servidor lo permite, podr&aacute;s mostrar miniaturas de tus entradas. Este atributo configura el alto de tus miniaturas"
+
+#: admin.php:558
+msgid "If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries"
+msgstr "Si se configura, y si el plugin WP-PostRatings est&aacute; instalado y habilitado en tu blog, Wordpress Popular Posts mostrar&aacute; como tus visitantes han calificado a tus entradas"
+
+#: admin.php:565
+msgid "If set, Wordpress Popular Posts will show how many comments each popular post has got until now"
+msgstr "Si se configura, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntos comentarios ha obtenido cada entrada popular hasta ahora"
+
+#: admin.php:572
+msgid "If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed"
+msgstr "Si se configura, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntas vistas ha obtenido cada entrada popular hasta ahora"
+
+#: admin.php:579
+msgid "If set, Wordpress Popular Posts will show who published each popular post on the list"
+msgstr "Si se configura, Wordpress Popular Posts mostrar&aacute; qui&eacute;n public&oacute; cada entrada popular de la lista"
+
+#: admin.php:586
+msgid "If set, Wordpress Popular Posts will display the date when each popular post on the list was published"
+msgstr "Si se tilda, Wordpress Popular Posts mostrar&aacute; la fecha en la que fue publicada cada entrada popular"
+
+#: admin.php:593
+msgid "Sets the date format"
+msgstr "Configura el formato de la fecha"
+
+#: admin.php:600
+msgid "Sets the opening tag for the listing"
+msgstr "Configura la etiqueta de apertura del listado"
+
+#: admin.php:607
+msgid "Sets the closing tag for the listing"
+msgstr "Configura la etiqueta de cierre del listado"
+
+#: admin.php:614
+msgid "Sets the opening tag for each item on the list"
+msgstr "Configura la etiqueta de apertura de cada &iacute;tem del listado"
+
+#: admin.php:621
+msgid "Sets the closing tag for each item on the list"
+msgstr "Configura la etiqueta de cierre de cada &iacute;tem del listado"
+
+#: admin.php:628
+msgid "If set, this option will allow you to decide the order of the contents within each item on the list."
+msgstr "Si se configura, esta opci&oacute;n te permitir&aacute; decidir el orden de los contenidos dentro de cada item en la lista."
+
+#: admin.php:635
+msgid "If set, you can decide the order of each content inside a single item on the list. For example, setting it to \"{title}: {summary}\" would output something like \"Your Post Title: summary here\". This attribute requires do_pattern to be true."
+msgstr "Si se configura, puedes decidir el orden de cada contenido dentro de cada item en la lista. Por ejemplo, configurarlo como \"{title}: {summary}\" mostrar&iacute;a \"El t&iacute;tulo de tu entrada: resumen aqu&iacute;\". Este atributo requiere que do_pattern sea true."
+
+#: admin.php:636
+msgid "Available tags"
+msgstr "Etiquetas disponibles"
+
+#: admin.php:651
+msgid "Here you will find a handy group of options to tweak Wordpress Popular Posts."
+msgstr "Aqu&iacute; encontrar&aacute;s un &uacute;til grupo de opciones para ajustar a Wordpress Popular Posts."
+
+#: admin.php:653
+msgid "Thumbnail source"
+msgstr "Fuente de la miniatura"
+
+#: admin.php:654
+msgid "Tell Wordpress Popular Posts where it should get thumbnails from"
+msgstr "Dile a Wordpress Popular Posts de d&oacute;nde debe obtener las miniaturas"
+
+#: admin.php:659
+msgid "Featured image"
+msgstr "Imagen destacada"
+
+#: admin.php:660
+msgid "First image on post"
+msgstr "Primera imagen de la entrada"
+
+#: admin.php:661
+msgid "Custom field"
+msgstr "Custom field"
+
+#: admin.php:664
+msgid "Custom field name"
+msgstr "Nombre del custom field"
+
+#: admin.php:673
+msgid "Wordpress Popular Posts Stylesheet"
+msgstr "Hoja de estilos de Wordpress Popular Posts"
+
+#: admin.php:674
+msgid "By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this."
+msgstr "Por defecto, el plugin incluye una hoja de estilos llamada wpp.css que puedes utilizar para darle estilos a tu listado de entradas populares. Si deseas utilizar tu propia hoja de estilos, o no quieres que wpp.css se incluya en el header de tu sitio web, utiliza esto."
+
+#: admin.php:679
+#: admin.php:696
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: admin.php:680
+#: admin.php:697
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: admin.php:689
+msgid "Data tools"
+msgstr "Herramientas de datos"
+
+#: admin.php:691
+#, fuzzy
+msgid "AJAX update. If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached."
+msgstr "Actualizaci&oacute;n AJAX. Si est&aacute;s utilizando un plugin de cacheado como WP Super Cache, habilitar esta caracter&iacute;stica evitar&aacute; que la lista de entradas populares sea guardada en cach&eacute;."
+
+#: admin.php:706
+msgid "Wordpress Popular Posts keeps historical data of your most popular entries for up to 30 days. If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so."
+msgstr "Wordpress Popular Posts mantiene una data hist&oacute;rica de tus entradas m&aacute;s populares hasta por 30 d&iacute;as. Si por alguna raz&oacute;n necesitas vaciar la tabla cach&eacute;, o inclusive las dos tablas hist&oacoute;ricas y de cach&eacute;, por favor utiliza los botones de abajo."
+
+#: admin.php:707
+msgid "Empty cache"
+msgstr "Vaciar el cach&eacute;"
+
+#: admin.php:707
+msgid "Use this button to manually clear entries from WPP cache only"
+msgstr "Utiliza este bot&oacoue;n para vaciar manualmente s&oacute;lo las entradas del cach&eacute; de WPP."
+
+#: admin.php:708
+msgid "Clear all data"
+msgstr "Eliminar toda la data"
+
+#: admin.php:708
+msgid "Use this button to manually clear entries from all WPP data tables"
+msgstr "Utiliza este bot&oacute;n para limpiar manualmente las tablas de datos de WPP"
+
+#: admin.php:714
+msgid "Do you like this plugin?"
+msgstr "&iquest;te gusta este plugin?"
+
+#: admin.php:714
+msgid "Rate Wordpress Popular Posts!"
+msgstr "&iexcl;Califica a Wordpress Popular Posts!"
+
+#: admin.php:714
+msgid "Rate it"
+msgstr "Calif&iacute;calo"
+
+#: admin.php:714
+msgid "on the official Plugin Directory!"
+msgstr "en el Directorio Oficial de Plugins!"
+
+#: admin.php:715
+msgid "Do you love this plugin?"
+msgstr "&iquest;Adoras este plugin?"
+
+#: admin.php:715
+#: admin.php:716
+msgid "Buy me a beer!"
+msgstr "&iexcl;C&oacute;mprame una cerveza!"
+
+#: admin.php:715
+msgid "Each donation motivates me to keep releasing free stuff for the Wordpress community!"
+msgstr "&iexcl;Cada donaci&oacute;n me motiva a seguir publicando cosas gratuitas para la comunidad de Wordpress!"
+
+#: wordpress-popular-posts.php:47
+msgid "The most Popular Posts on your blog."
+msgstr "Las entradas m&aacute;s populares en tu blog."
+
+#: wordpress-popular-posts.php:301
+msgid "Title:"
+msgstr "T&iacute;tulo:"
 
 #: wordpress-popular-posts.php:301
 #: wordpress-popular-posts.php:303
+#: wordpress-popular-posts.php:305
+#: wordpress-popular-posts.php:313
+#: wordpress-popular-posts.php:324
+#: wordpress-popular-posts.php:326
+#: wordpress-popular-posts.php:330
+#: wordpress-popular-posts.php:334
+#: wordpress-popular-posts.php:343
+#: wordpress-popular-posts.php:355
+#: wordpress-popular-posts.php:367
+#: wordpress-popular-posts.php:368
+#: wordpress-popular-posts.php:369
+#: wordpress-popular-posts.php:370
+#: wordpress-popular-posts.php:385
+#: wordpress-popular-posts.php:396
+msgid "What is this?"
+msgstr "&iquest;Qu&eacute; es esto?"
+
+#: wordpress-popular-posts.php:303
+msgid "Show up to:"
+msgstr "Mostrar hasta:"
+
+#: wordpress-popular-posts.php:304
+msgid "posts"
+msgstr "entradas"
+
+#: wordpress-popular-posts.php:305
+msgid "Time Range:"
+msgstr "Rango de Tiempo"
+
+#: wordpress-popular-posts.php:313
+msgid "Sort posts by:"
+msgstr "Ordenar entradas por:"
+
+#: wordpress-popular-posts.php:315
+msgid "Comments"
+msgstr "Comentarios"
+
+#: wordpress-popular-posts.php:316
+msgid "Total views"
+msgstr "Total de vistas"
+
+#: wordpress-popular-posts.php:317
+msgid "Avg. daily views"
+msgstr "Porcentaje de vistas diarias"
+
+#: wordpress-popular-posts.php:322
+msgid "Posts settings"
+msgstr "Configuraci&oacute;n de las entradas"
+
+#: wordpress-popular-posts.php:324
+msgid "Display post rating"
+msgstr "Mostrar rating de la entrada"
+
+#: wordpress-popular-posts.php:326
+msgid "Shorten title"
+msgstr "Acortar t&iacute;tulo"
+
+#: wordpress-popular-posts.php:328
+msgid "Shorten title to"
+msgstr "Acortar t&iacute;tulo en"
+
+#: wordpress-popular-posts.php:328
+#: wordpress-popular-posts.php:335
+msgid "characters"
+msgstr "caracteres"
+
+#: wordpress-popular-posts.php:330
+msgid "Display post excerpt"
+msgstr "Mostrar resumen de la entrada"
+
+#: wordpress-popular-posts.php:333
+msgid "Excerpt Properties"
+msgstr "Propiedades del resumen"
+
+#: wordpress-popular-posts.php:334
+msgid "Keep text format and links"
+msgstr "Mantener formato de texto y links"
+
+#: wordpress-popular-posts.php:335
+msgid "Excerpt length:"
+msgstr "Largo del resumen:"
+
+#: wordpress-popular-posts.php:343
+msgid "Filters:"
+msgstr "Filtros:"
+
+#: wordpress-popular-posts.php:344
+msgid "Post type(s):"
+msgstr "Post type(s):"
+
+#: wordpress-popular-posts.php:346
+msgid "Category(ies) ID(s):"
+msgstr "ID(s) de Categor&iacute;a(s):"
+
+#: wordpress-popular-posts.php:348
+msgid "Author(s) ID(s):"
+msgstr "ID(s) de Autor(es):"
+
+#: wordpress-popular-posts.php:354
+msgid "Thumbnail settings"
+msgstr "Configuraci&oacute;n de miniatura"
+
+#: wordpress-popular-posts.php:355
+msgid "Display post thumbnail"
+msgstr "Mostrar miniatura"
+
+#: wordpress-popular-posts.php:357
+msgid "Width:"
+msgstr "Ancho:"
+
+#: wordpress-popular-posts.php:358
+#: wordpress-popular-posts.php:360
 msgid "px"
 msgstr "px"
 
-#: wordpress-popular-posts.php:302
+#: wordpress-popular-posts.php:359
 msgid "Height:"
 msgstr "Alto:"
 
-#: wordpress-popular-posts.php:309
+#: wordpress-popular-posts.php:366
 msgid "Stats Tag settings"
 msgstr "Configuraci&oacute;n del Stats Tag"
 
-#: wordpress-popular-posts.php:310
+#: wordpress-popular-posts.php:367
 msgid "Display comment count"
-msgstr "Mostrar comentarios"
+msgstr "Mostrar cantidad de comentarios"
 
-#: wordpress-popular-posts.php:311
+#: wordpress-popular-posts.php:368
 msgid "Display views"
 msgstr "Mostrar vistas"
 
-#: wordpress-popular-posts.php:312
+#: wordpress-popular-posts.php:369
 msgid "Display author"
 msgstr "Mostrar autor"
 
-#: wordpress-popular-posts.php:313
+#: wordpress-popular-posts.php:370
 msgid "Display date"
 msgstr "Mostrar fecha"
 
-#: wordpress-popular-posts.php:316
+#: wordpress-popular-posts.php:373
 msgid "Date Format"
 msgstr "Formato de la fecha"
 
-#: wordpress-popular-posts.php:327
+#: wordpress-popular-posts.php:384
 msgid "HTML Markup settings"
 msgstr "Configuraci&oacute;n del Markup HTML"
 
-#: wordpress-popular-posts.php:328
+#: wordpress-popular-posts.php:385
 msgid "Use custom HTML Markup"
 msgstr "Utilizar Markup HTML personalizado"
 
-#: wordpress-popular-posts.php:331
+#: wordpress-popular-posts.php:388
 msgid "Before / after title:"
 msgstr "Antes / despu&eacute;s del t&iacute;tulo:"
 
-#: wordpress-popular-posts.php:333
+#: wordpress-popular-posts.php:390
 msgid "Before / after Popular Posts:"
-msgstr "Antes / despu&eacute;s de los Post Populares:"
+msgstr "Antes / despu&eacute;s de las entradas populares"
 
-#: wordpress-popular-posts.php:335
+#: wordpress-popular-posts.php:392
 msgid "Before / after each post:"
-msgstr "Antes / despu&eacute;s de cada post:"
+msgstr "Antes / despu&eacute;s de cada entrada"
 
-#: wordpress-popular-posts.php:339
+#: wordpress-popular-posts.php:396
 msgid "Use content formatting tags"
-msgstr "Utilizar etiquetas de contenido"
+msgstr "Utilizar etiquetas de formato de contenido"
 
-#: wordpress-popular-posts.php:342
+#: wordpress-popular-posts.php:399
 msgid "Content format:"
-msgstr "Formato del contenido:"
+msgstr "Formato de contenido:"
 
-#: wordpress-popular-posts.php:424
+#: wordpress-popular-posts.php:505
 msgid "Success! The cache table has been cleared!"
-msgstr "&excl;Eacute;xito! &excl;El cache ha sido vaciado!"
+msgstr "&iexcl;&Eacute;xito! &iexcl;La tabla cach&eacute; ha sido borrada!"
 
-#: wordpress-popular-posts.php:426
+#: wordpress-popular-posts.php:507
 msgid "Error: cache table does not exist."
-msgstr "Error: la tabla cache no existe."
+msgstr "Error: la tabla cach&eacute; no existe."
 
-#: wordpress-popular-posts.php:432
+#: wordpress-popular-posts.php:513
 msgid "Success! All data have been cleared!"
-msgstr "&excl;Eacute;xito! &excl;Toda la data ha sido eliminada!"
+msgstr "&iexcl;&Eacute;xito! &iexcl;Toda la data ha sido borrada!"
 
-#: wordpress-popular-posts.php:434
+#: wordpress-popular-posts.php:515
 msgid "Error: one or both data tables are missing."
 msgstr "Error: una o ambas tablas de datos no existen."
 
-#: wordpress-popular-posts.php:437
+#: wordpress-popular-posts.php:518
 msgid "Invalid action."
 msgstr "Acci&oacute;n inv&aacute;lida."
 
-#: wordpress-popular-posts.php:440
+#: wordpress-popular-posts.php:521
 msgid "Sorry, you do not have enough permissions to do this. Please contact the site administrator for support."
-msgstr "Lo lamento, no tienes suficientes permisos para hacer esto. Por favor contacta al administrador del sitio."
+msgstr "Lo lamento, no tienes permisos suficientes para hacer esto. Por favor contacta al administrador del sitio."
 
-#: wordpress-popular-posts.php:643
+#: wordpress-popular-posts.php:852
 msgid "Sorry. No data so far."
-msgstr "Lo lamento, no hay informaci&oacute;n a&uacute;n."
+msgstr "Lo lamentamos. No hay nada que mostrar a&aacute;n."
 
-#: wordpress-popular-posts.php:690
-msgid " comment(s)"
+#: wordpress-popular-posts.php:928
+msgid "comment(s)"
 msgstr "comentario(s)"
 
-#: wordpress-popular-posts.php:693
-msgid " view(s)"
+#: wordpress-popular-posts.php:932
+msgid "view(s)"
 msgstr "vista(s)"
 
-#: wordpress-popular-posts.php:699
-msgid " view(s) per day"
+#: wordpress-popular-posts.php:935
+msgid "view(s) per day"
 msgstr "vista(s) por d&iacute;a"
 
-#: wordpress-popular-posts.php:712
-#: wordpress-popular-posts.php:714
+#: wordpress-popular-posts.php:943
 msgid "by"
 msgstr "por"
 
-#: wordpress-popular-posts.php:719
-#: wordpress-popular-posts.php:721
+#: wordpress-popular-posts.php:947
 msgid "posted on"
-msgstr "publicado en"
+msgstr "publicado el"
 
-#: wordpress-popular-posts.php:1030
+#: wordpress-popular-posts.php:1292
 msgid "Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 2.8 to function correctly. Please update your blog via Tools &gt; Upgrade."
-msgstr "Tu versi&oacute;n de Wordpress es muy antigua. El plugin Wordpress Popular Posts requiere al menos la versi&oacute;n 2.8 para funcionar correctamente. Por favor actualiza tu blog via Herramientas &gt; Actualizar."
+msgstr "Tu versi&oacute;n de Wordpress es muy antigua. El plugin Wordpress Popular Posts requiere al menos la versi&oacute;n 2.8 para funcionar correctamente. Por favor actualiza tu blog via Herramientas &gt; Actualizaciones."
 
-#: wordpress-popular-posts.php:1157
+#: wordpress-popular-posts.php:1416
 msgid "Wordpress Popular Posts Stats"
 msgstr "Estad&iacute;sticas de Wordpress Popular Posts"
 
-#~ msgid "Generate all thumbnails for me"
-#~ msgstr "Genera las miniaturas por mi"
-
-#~ msgid "Use thumbnails selected by me"
-#~ msgstr "Usa las ministuras que seleccion&eacute;"
-
-#~ msgid ""
-#~ "If checked, Wordpress Popular Posts will attempt to find the very first "
-#~ "image of each post in the listing and turn it into a thumbnail. Note that "
-#~ "for this option to work you must check that: your current web host is "
-#~ "running PHP 4.3+ or higher and the GD Library is installed and enabled; "
-#~ "also that your \"wordpress-popular-posts/scripts/cache\" directory exists "
-#~ "and is writable. Disabled by default."
-#~ msgstr ""
-#~ "Si se tilda, Wordpress Popular Posts intentar&aacute; encontrar la "
-#~ "primera imagen de cada post para convertirla en una miniatura "
-#~ "(thumbnail). Nota que para que esta opci&oacute;n funcione debes "
-#~ "verificar que: tu host est&aacute; corre bajo PHP 4.3+ o mejor y que la "
-#~ "librer&iacute;a GD est&aacute; instalada y habilitada; tambi&eacute; que "
-#~ "tu carpeta \"wordpress-popular-posts/scripts/cache\" existe is es "
-#~ "escribible. Desactivada por defecto."
-
-#~ msgid ""
-#~ "What does \"Generate all thumbnails for me\" and \"Use thumbnails "
-#~ "selected by me\" do?"
-#~ msgstr ""
-#~ "&iquest;Qu&eacute; hacen \"Genera las miniaturas por mi\" y \"Usa las "
-#~ "miniaturas que seleccion&eacute;\"?"
-
-#~ msgid "See statistics also in"
-#~ msgstr "Ver estad&iacute;sticas en"
