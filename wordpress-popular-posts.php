@@ -1062,28 +1062,28 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								$path = $this->get_img($p->id, "featured");
 								
 								if ($path) {
-									$thumb .= "<img src=\"". $this->pluginDir ."/timthumb.php?src={$path}&amp;h={$tbHeight}&amp;w={$tbWidth}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_fi\" />";
+									$thumb .= "<img src=\"". $this->pluginDir ."/timthumb.php?src={$path}&amp;h={$tbHeight}&amp;w={$tbWidth}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_fi\" />";
 								} else {
-									$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_fi_def\" />";
+									$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_fi_def\" />";
 								}								
 							} else {
-								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_fi_def\" />";
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_fi_def\" />";
 							}
 						} else if ($this->user_ops['tools']['thumbnail']['source'] == "first_image") { // get first image on post
 							$path = $this->get_img($p->id, "first_image");
 								
 							if ($path) {
-								$thumb .= "<img src=\"". $this->pluginDir ."/timthumb.php?src={$path}&amp;h={$tbHeight}&amp;w={$tbWidth}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_fp\" />";
+								$thumb .= "<img src=\"". $this->pluginDir ."/timthumb.php?src={$path}&amp;h={$tbHeight}&amp;w={$tbWidth}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_fp\" />";
 							} else {
-								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_fp_def\" />";
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_fp_def\" />";
 							}
 						} else if ($this->user_ops['tools']['thumbnail']['source'] == "custom_field") { // get image from custom field
 							$path = get_post_meta($p->id, $this->user_ops['tools']['thumbnail']['field'], true);
 							
 							if ($path != "") {
-								$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_cf\" />";
+								$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_cf\" />";
 							} else {
-								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_cf_def\" />";
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_cf_def\" />";
 							}
 						}
 						
