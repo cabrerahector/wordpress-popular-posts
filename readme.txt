@@ -124,6 +124,9 @@ Yes. You have two other ways to achieve this: via **shortcode**: [wpp] (so you c
 = Where can I find the list of parameters accepted by the wpp_get_mostpopular() template tag / [wpp] shortcode? =
 You can find it via *wp-admin > Settings > Wordpress Popular Posts > FAQ*, under the section **"List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode"**.
 
+= I want to have a popular list of my custom post type. How can I do that? =
+Simply add your custom post type to the Post Type field in the widget (or, if yo're using the template tag / shortcode, use the post_type parameter).
+
 = How can I use my own HTML markup with your plugin? =
 Wordpress Popular Posts is flexible enough to let you use your own HTML markup. To do so, simply activate the *Use custom HTML markup* option and set your desired configuration; or if you're using the template tag / shortcode, you can find the equivalent parameters in the section mentioned above.
 
