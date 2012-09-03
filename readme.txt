@@ -1,10 +1,10 @@
 === Wordpress Popular Posts ===
 Contributors: hcabrera
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadslayer%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
-Tags: popular, posts, popular posts, widget, seo, wordpress
+Tags: popular, posts, popular posts, widget, seo, wordpress, custom post type
 Requires at least: 2.8
 Tested up to: 3.4.1
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,8 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 
 = Main Features =
 * **Multi-widget capable**. That is, you can have several widgets of Wordpress Popular Posts on your blog - each with its own settings!
-* **Time Range** - list your most popular posts within a specific time range (eg. last 24 hours, last 7 days, last 30 days, etc.)!
+* **Time Range** - list those posts of your blog that have been the most popular ones within a specific time range (eg. last 24 hours, last 7 days, last 30 days, etc.)!
+* **Custom Post-type support**. Wanna show other stuff than just posts and pages?
 * Display a **thumbnail** of your posts! (*see the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for technical requirements*).
 * Use **your own layout**! Control how your most popular posts are shown on your theme.
 * Check the **statistics** on your most popular posts from wp-admin.
@@ -25,14 +26,14 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 * **Shortcode support** - use the [wpp] shortcode to showcase your most popular posts on pages, too! For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
 * **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the *wpp_get_mostpopular()* template tag. Additionally, the *wpp_gets_views()* template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
 * **Localizable** to your own language (*See the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for more info*).
-* **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support** added. Show your visitors how your readers are rating your posts!
+* **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support**. Show your visitors how your readers are rating your posts!
 * **Automatic maintenance** - Wordpress Popular Posts will wipe out from its cache automatically all those posts that have not been viewed more than 30 days from the current date, keeping just the popular ones on the list! This ensures that your cache table will remain as compact as possible! (You can also clear it manually if you like, [look here for instructions](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/)!).
 
 = Notice =
 
-From version 2.0 and on, Wordpress Popular Posts requires Wordpress 2.8 at least in order to function correctly. If you're not running Wordpress 2.8 (or newer) please do not upgrade to/install version 2.x!
+From version 2.0 and on, Wordpress Popular Posts requires Wordpress 2.8 at least in order to function correctly. If you're not running Wordpress 2.8 (or newer) please use [Wordpress Popular Posts v.1.5.1](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.5.1.zip) instead.
 
-Also, if you are upgrading from any version prior to Wordpress Popular Posts 1.4.6, please [update to 1.4.6](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.4.6.zip) first before moving to 2.x!
+Also, if you are upgrading from any version prior to Wordpress Popular Posts 1.4.6, please [update to 1.4.6](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.4.6.zip) first!
 
 == Installation ==
 
@@ -171,6 +172,13 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 2.3.1 =
+* Fixed bug caused by the sorter function when there are multiple instances of the widget.
+* Added check for new options in the get_popular_posts function.
+* Added plugin version check to handle upgrades.
+* Fixed bug preventing some site from fetching images from subdomains or external sites.
+* Fixed bug that prevented excluding more than one category using the Category filter.
+
 = 2.3.0 =
 * Merged all pages into Settings/Wordpress Popular Posts.
 * Added new options to the Wordpress Popular Posts Stats dashboard.
@@ -312,4 +320,4 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 * Public release
 
 == Upgrade Notice ==
-From version 2.0 and on, Wordpress Popular Posts requires Wordpress 2.8 at least in order to function correctly. If you're not running Wordpress 2.8 (or newer) please do not upgrade to/install version 2.x! Also, if you are upgrading from any version prior to Wordpress Popular Posts 1.4.6, please update to 1.4.6 first before moving to 2.x!
+From version 2.0 and on, Wordpress Popular Posts requires Wordpress 2.8 at least in order to function correctly. If you're not running Wordpress 2.8 (or newer) please use Wordpress Popular Posts v.1.5.1 instead. Also, if you are upgrading from any version prior to Wordpress Popular Posts 1.4.6, please update to 1.4.6 first!

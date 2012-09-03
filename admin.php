@@ -51,7 +51,7 @@
 		} else if  ($_POST['section'] == "css") {									
 			$ops['tools']['css'] = $_POST['css'];
 			
-			print_r($ops);
+			//print_r($ops);
 			
 			update_option('wpp_settings_config', $ops);				
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";

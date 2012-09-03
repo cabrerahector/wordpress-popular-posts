@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.3.0
+Version: 2.3.1
 Author: H&eacute;ctor Cabrera
 Author URI: http://cabrerahector.com
 License: GPL2
@@ -29,7 +29,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 	
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.3.0";
+		var $version = "2.3.1";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -44,7 +44,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			global $wp_version;
 				
 			// widget settings
-			$widget_ops = array( 'classname' => 'wpp-popular-posts', 'description' => __('The most Popular Posts on your blog.', 'wordpress-popular-posts') );
+			$widget_ops = array( 'classname' => 'popular-posts', 'description' => __('The most Popular Posts on your blog.', 'wordpress-popular-posts') );
 	
 			// widget control settings
 			$control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => 'wpp' );
@@ -143,11 +143,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				add_shortcode('WPP', array(&$this, 'wpp_shortcode'));
 			}
 			
-			// set version
+			// set version and check for upgrades
 			$wpp_ver = get_option('wpp_ver');
 			if (!$wpp_ver) {
 				add_option('wpp_ver', $this->version);
 			} else if (version_compare($wpp_ver, $this->version, '<')) {
+				$this->wpp_upgrade();
 				update_option('wpp_ver', $this->version);
 			}
 		}
@@ -551,12 +552,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 				if ( $wpdb->get_var("SHOW TABLES LIKE '$cache'") != $cache ) {									
 					$sql = "CREATE TABLE $cache ( UNIQUE KEY compositeID (id, day_no_time), id int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', day_no_time date NOT NULL default '0000-00-00', pageviews int(10) default 1 ) $charset_collate;";
-				} else { // check if any column is missing
-					/*
-					$dateField = $wpdb->get_results("SHOW FIELDS FROM " . $table ."cache", ARRAY_A);
-					
-					if ($dateField[1]['Type'] != 'datetime') $wpdb->query("ALTER TABLE ". $table ."cache CHANGE day day datetime NOT NULL default '0000-00-00 00:00:00';");
-					*/					
+				} else { // check if any column is missing					
 					
 					// get table columns
 					$cacheFields = $wpdb->get_results("SHOW FIELDS FROM $cache", ARRAY_A);
@@ -600,6 +596,70 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			dbDelta($sql);
+		}
+		
+		// Checks for stuff that needs updating on plugin reactivation
+		// Since 2.3.1
+		function wpp_upgrade() {
+			
+			global $wpdb;
+			
+			$wpdb->show_errors();
+			
+			$sql = "";
+			$charset_collate = "";
+			
+			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+			
+			if ( ! empty($wpdb->charset) ) $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+			if ( ! empty($wpdb->collate) ) $charset_collate .= " COLLATE $wpdb->collate";
+			
+			// set table name
+			$data = $wpdb->prefix . "popularpostsdata";
+			$cache = $data . "cache";
+			
+			// if the cache table is missing, create it
+			if ( $wpdb->get_var("SHOW TABLES LIKE '$cache'") != $cache ) {									
+				$sql = "CREATE TABLE $cache ( UNIQUE KEY compositeID (id, day_no_time), id int(10) NOT NULL, day datetime NOT NULL default '0000-00-00 00:00:00', day_no_time date NOT NULL default '0000-00-00', pageviews int(10) default 1 ) $charset_collate;";
+			} else { // check if any column is missing					
+				
+				// get table columns
+				$cacheFields = $wpdb->get_results("SHOW FIELDS FROM $cache", ARRAY_A);
+				
+				$alter_day = true;
+				$add_daynotime = true;
+				
+				foreach ($cacheFields as $column) {
+					// check if day column is type datetime
+					if ($column['Field'] == 'day') {
+						if ($column['Type'] == 'datetime') {
+							$alter_day = false;
+						}
+					}
+					
+					// check if day_no_time field exists
+					if ($column['Field'] == 'day_no_time') {
+						$add_daynotime = false;
+					}
+				}
+				
+				if ($alter_day) { // day column is not datimetime, so change it
+					$wpdb->query("ALTER TABLE $cache CHANGE day day datetime NOT NULL default '0000-00-00 00:00:00';");
+				}
+				
+				if ($add_daynotime) { // day_no_time column is missing, add it
+					$wpdb->query("ALTER TABLE $cache ADD day_no_time date NOT NULL default '0000-00-00';");
+					$wpdb->query("UPDATE $cache SET day_no_time = day;");
+				}
+				
+				$cacheIndex = $wpdb->get_results("SHOW INDEX FROM $cache", ARRAY_A);					
+				if ($cacheIndex[0]['Key_name'] == "id") { // if index is id-day change to id-day_no_time
+					$wpdb->query("ALTER TABLE $cache DROP INDEX id, ADD UNIQUE KEY compositeID (id, day_no_time);");
+				}
+			}
+			
+			dbDelta($sql);
+			
 		}
 		
 		// prints ajax script to theme's header
@@ -828,15 +888,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$out = array();
 				$not_in = "";
 				
-				function sorter($a, $b) {
-					if ($a > 0 && $b > 0) {
-						return $a - $b;
-					} else {
-						return $b - $a;
-					}
-				}
-				
-				usort($cat_ids, 'sorter');					
+				usort($cat_ids, array(&$this, 'sorter'));					
 				
 				for ($i=0; $i < count($cat_ids); $i++) {
 					if ($cat_ids[$i] >= 0) $in[] = $cat_ids[$i];
@@ -845,7 +897,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 				$in_cats = implode(",", $in);
 				$out_cats = implode(",", $out);
-				$out_cats = preg_replace( '|[^0-9]|', '', $out_cats );
+				$out_cats = preg_replace( '|[^0-9,]|', '', $out_cats );
 				
 				if ($in_cats != "" && $out_cats == "") { // get posts from from given cats only
 					$where .= " AND p.ID IN (
@@ -1010,28 +1062,28 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								$path = $this->get_img($p->id, "featured");
 								
 								if ($path) {
-									$thumb .= "<img src=\"". $this->pluginDir ."/timthumb.php?src={$path}&amp;h={$tbHeight}&amp;w={$tbWidth}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_tt\" />";
+									$thumb .= "<img src=\"". $this->pluginDir ."/timthumb.php?src={$path}&amp;h={$tbHeight}&amp;w={$tbWidth}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_fi\" />";
 								} else {
-									$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_tcf_def\" />";
+									$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_fi_def\" />";
 								}								
 							} else {
-								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_tcf_def\" />";
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_fi_def\" />";
 							}
 						} else if ($this->user_ops['tools']['thumbnail']['source'] == "first_image") { // get first image on post
 							$path = $this->get_img($p->id, "first_image");
 								
 							if ($path) {
-								$thumb .= "<img src=\"". $this->pluginDir ."/timthumb.php?src={$path}&amp;h={$tbHeight}&amp;w={$tbWidth}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_tt\" />";
+								$thumb .= "<img src=\"". $this->pluginDir ."/timthumb.php?src={$path}&amp;h={$tbHeight}&amp;w={$tbWidth}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_fp\" />";
 							} else {
-								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_tcf_def\" />";
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_fp_def\" />";
 							}
 						} else if ($this->user_ops['tools']['thumbnail']['source'] == "custom_field") { // get image from custom field
 							$path = get_post_meta($p->id, $this->user_ops['tools']['thumbnail']['field'], true);
 							
 							if ($path != "") {
-								$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_tcf\" />";
+								$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp_cf\" />";
 							} else {
-								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_tcf_def\" />";
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_cf_def\" />";
 							}
 						}
 						
@@ -1358,7 +1410,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			remove_shortcode('wpp');
 			remove_shortcode('WPP');
 			
-			delete_option('wpp_ver');
+			//delete_option('wpp_ver');
 		}
 		
 		// shortcode handler
@@ -1470,6 +1522,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function wpp_stats_display() {
 			require (dirname(__FILE__) . '/stats.php');
         }
+		
+		// stats page
+		// Since 2.3.0
+		function sorter($a, $b) {
+			if ($a > 0 && $b > 0) {
+				return $a - $b;
+			} else {
+				return $b - $a;
+			}
+		}
 	}
 	
 	// create tables
@@ -1536,20 +1598,14 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.3.0 Changelog.
+ * Wordpress Popular Posts 2.3.1 Changelog.
  */
 
 /*
-= 2.3.0 =
-* Merged all pages into Settings/Wordpress Popular Posts.
-* Added new options to the Wordpress Popular Posts Stats dashboard.
-* Added check for static homepages to avoid printing ajax script there.
-* Database queries re-built from scratch for optimization.
-* Added the ability to remove / enable plugin's stylesheet from the admin.
-* Added the ability to enable / disable ajax update from the admin.
-* Added the ability to set thumbnail's source from the admin.
-* Timthumb support re-added.
-* Added support for custom post type (Thanks, Brad Williams!).
-* Improved the category filtering feature.
-* Added the ability to get popular posts from given author IDs.
+= 2.3.1 =
+* Fixed bug caused by the sorter function when there are multiple instances of the widget.
+* Added check for new options in the get_popular_posts function.
+* Added plugin version check to handle upgrades.
+* Fixed bug preventing some site from fetching images from subdomains or external sites.
+* Fixed bug that prevented excluding more than one category using the Category filter.
 */
