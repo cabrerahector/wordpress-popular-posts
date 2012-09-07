@@ -1007,14 +1007,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// TITLE
 					$title = ($this->qTrans) ? qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($p->title) : $p->title;
 					$title = strip_tags($title);
-					$title_sub = $title;
+					$title_sub = strip_tags($title);
 					
 					if ( $instance['shorten_title']['active'] && (strlen($title) > $instance['shorten_title']['length'])) {
 						$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset) . "...";
 					}
 					
 					$title = apply_filters('the_title', $title);
-					$title_sub = apply_filters('the_title', $title_sub);
+					$title_sub = strip_tags(apply_filters('the_title', $title_sub));
 					
 					// EXCERPT					
 					if ( $instance['post-excerpt']['active'] ) {
