@@ -1457,8 +1457,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'range' => (in_array($range, $range_values)) ? $range : 'daily',
 				'order_by' => (in_array($order_by, $order_by_values)) ? $order_by : 'comments',
 				'post_type' => empty($post_type) ? 'post,page' : $post_type,
-				'cat' => (ctype_digit(str_replace(",", "", $cat)) && !empty($cat)) ? $cat : '',
-				'author' => (ctype_digit(str_replace(",", "", $author)) && !empty($author)) ? $author : '',
+				'cat' => preg_replace( '|[^0-9,-]|', '', $cat ),
+				'author' => preg_replace( '|[^0-9,]|', '', $author ),
 				'shorten_title' => array(
 					'active' => empty($title_length) ? false : (is_numeric($title_length)) ? (($title_length > 0) ? true : false) : false,
 					'length' => empty($title_length) ? 0 : (is_numeric($title_length)) ? $title_length : 0 
