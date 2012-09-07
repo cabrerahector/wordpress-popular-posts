@@ -1007,7 +1007,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// TITLE
 					$title = ($this->qTrans) ? qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($p->title) : $p->title;
 					$title = strip_tags($title);
-					$title_sub = $title;
+					$title_sub = strip_tags($title);
 					
 					if ( $instance['shorten_title']['active'] && (strlen($title) > $instance['shorten_title']['length'])) {
 						$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset) . "...";
