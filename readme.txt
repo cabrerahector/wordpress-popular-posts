@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, popular posts, widget, seo, wordpress, custom post type
 Requires at least: 2.8
 Tested up to: 3.4.1
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -175,6 +175,12 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 2.3.2 =
+* The ability to enable / disable the Ajax Update has been removed. It introduced a random bug that doubled the views count of some posts / pages. Will be added back when a fix is ready.
+* Fixed a bug preventing the cat parameter from excluding categories (widget was not affected by this).
+* FAQ section (Settings / Wordpress Popular Posts / FAQ) updated.
+* Added french translation. (Thanks, Le Raconteur!)
+
 = 2.3.1 =
 * Fixed bug caused by the sorter function when there are multiple instances of the widget.
 * Added check for new options in the get_popular_posts function.

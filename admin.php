@@ -431,7 +431,7 @@
                                     <td><strong>wpp_get_views()</strong></td>
                                     <td><?php _e('Displays the number of views of a single post. Post ID is required or it will return false.', 'wordpress-popular-posts'); ?></td>
                                     <td><?php _e('Post ID', 'wordpress-popular-posts'); ?></td>
-                                    <td>&lt;?php wpp_get_views($post->ID); ?&gt;<br />&lt;?php wpp_get_views(15); ?&gt;</td>
+                                    <td>&lt;?php echo wpp_get_views($post->ID); ?&gt;<br />&lt;?php echo wpp_get_views(15); ?&gt;</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -441,8 +441,8 @@
                     <div class="wpp-ans" id="q-19">
                         <p><?php _e('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', 'wordpress-popular-posts', 'wordpress-popular-posts'); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
                     </div>
-                    <h4>&raquo; <a href="#" rel="q-13"><?php _e('List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-13" style="display:block;">
+                    <h4>&raquo; <a href="#" rel="q-20"><?php _e('List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-20" style="display:block;">
                         <p><?php _e('These parameters can be used by both the template tag wpp_get_most_popular() and the shortcode [wpp].', 'wordpress-popular-posts'); ?>:</p>
                         <table cellspacing="0" class="wp-list-table widefat fixed posts">
                         	<thead>
@@ -688,11 +688,11 @@
         
         <h3 class="wmpp-subtitle"><?php _e("Data tools", "wordpress-popular-posts"); ?></h3>
                 
-        <p><?php _e("AJAX update. If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached.", "wordpress-popular-posts"); ?></p>
+        <p><?php _e("AJAX update. If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached.", "wordpress-popular-posts"); ?> (NOT AVAILABLE)</p>
         <div class="tablenav top">
         	<div class="alignleft actions">
                 <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
-                    <select name="ajax" id="ajax">
+                    <select name="ajax" id="ajax" disabled="disabled">
                         <option <?php if ($ops['tools']['ajax']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", "wordpress-popular-posts"); ?></option>
                         <option <?php if (!$ops['tools']['ajax']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", "wordpress-popular-posts"); ?></option>
                     </select>

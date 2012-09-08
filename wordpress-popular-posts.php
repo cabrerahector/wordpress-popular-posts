@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.3.1
+Version: 2.3.2
 Author: H&eacute;ctor Cabrera
 Author URI: http://cabrerahector.com
 License: GPL2
@@ -29,7 +29,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 	
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.3.1";
+		var $version = "2.3.2";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -93,6 +93,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				add_action('get_header', array(&$this, 'wpp_print_stylesheet'));
 			}
 			
+			/*
 			if ($this->user_ops['tools']['ajax']) {
 				// add ajax update to wp_ajax_ hook
 				add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
@@ -101,6 +102,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				// add update action, no ajax
 				add_action('the_content', array(&$this,'wpp_update') );
 			}
+			*/
+			
+			add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
+			add_action('wp_head', array(&$this, 'wpp_print_ajax'));
 			
 			// add ajax table truncation to wp_ajax_ hook
 			add_action('wp_ajax_wpp_clear_cache', array(&$this, 'wpp_clear_data'));
@@ -476,13 +481,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$table = $wpdb->prefix . 'popularpostsdata';
 				
 				// update popularpostsdata table
+				
+				
 				$result = $wpdb->query("INSERT INTO {$table} (postid, day, last_viewed) VALUES ({$id}, '{$this->now()}', '{$this->now()}') ON DUPLICATE KEY UPDATE last_viewed = '{$this->now()}', pageviews = pageviews + 1;");
 				
 				$result2 = $wpdb->query("INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$id}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';");
 				
+				
+				echo "INSERT INTO {$table} (postid, day, last_viewed) VALUES ({$id}, '{$this->now()}', '{$this->now()}') ON DUPLICATE KEY UPDATE last_viewed = '{$this->now()}', pageviews = pageviews + 1;" . "<br />";
+				
+				echo "INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$id}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';" . "<br />";
+				
 				if (!$result || !$result2) {
 					die($wpdb->print_error);
 				}
+				
 			}
 			
 			return $content;
@@ -1014,7 +1027,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 					
 					$title = apply_filters('the_title', $title);
-					$title_sub = strip_tags(apply_filters('the_title', $title_sub));
+					$title_sub = apply_filters('the_title', $title_sub);
 					
 					// EXCERPT					
 					if ( $instance['post-excerpt']['active'] ) {
@@ -1598,14 +1611,13 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.3.1 Changelog.
+ * Wordpress Popular Posts 2.3.2 Changelog.
  */
 
 /*
-= 2.3.1 =
-* Fixed bug caused by the sorter function when there are multiple instances of the widget.
-* Added check for new options in the get_popular_posts function.
-* Added plugin version check to handle upgrades.
-* Fixed bug preventing some site from fetching images from subdomains or external sites.
-* Fixed bug that prevented excluding more than one category using the Category filter.
+= 2.3.2 =
+* The ability is enabling / disabling the Ajax Update has been removed. It introduced a random bug that doubled the views count of some posts / pages. Will be added back when a fix is ready.
+* Fixed a bug preventing the cat parameter from excluding categories (widget was not affected by this).
+* FAQ section (Settings / Wordpress Popular Posts / FAQ) updated.
+* Added french translation. (Thanks, Le Raconteur!)
 */
