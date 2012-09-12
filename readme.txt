@@ -100,6 +100,9 @@ First thing to do is read both FAQ and Installation sections, they should addres
 
 = -FUNCTIONALITY- =
 
+= How does the plugin count views / calculate the popularity of posts? =
+If you're sorting your popular posts by *views*, Wordpress Popular Posts will only show the views it started calculating from the time you first installed this plugin. From version 2.3.x and on, Wordpress Popular Posts can also calculate the popularity of your posts by the number of comments it has got, and in this particular case it doesn't matter when the plugin was installed since the comments count data is already present in your database.
+
 = I'm getting "Sorry. No data so far". What's up with that? =
 There are a number of reasons that might explain why you are seeing this message: no one has seen or commented on your posts/pages since Wordpress Popular Posts activation, you should give it some time; your current theme does not have the [wp_header()](http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks) tag in its &lt;head&gt; section, required by my plugin to keep track of what your visitors are viewing on your site; Wordpress Popular Posts was unable to create the necessary DB tables to work, make sure your hosting has granted you permission to create / update / modify tables in the database.
 
