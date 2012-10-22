@@ -227,7 +227,8 @@
 			var ans = jQuery(this).attr("rel");
 			
 			jQuery(".wpp-ans:visible").hide();			
-			jQuery("#"+ans).slideToggle();
+			//jQuery("#"+ans).slideToggle();
+			jQuery("#"+ans).show();
 			
 			e.preventDefault();
 		});
@@ -430,8 +431,8 @@
                                 <tr>
                                     <td><strong>wpp_get_views()</strong></td>
                                     <td><?php _e('Displays the number of views of a single post. Post ID is required or it will return false.', 'wordpress-popular-posts'); ?></td>
-                                    <td><?php _e('Post ID', 'wordpress-popular-posts'); ?></td>
-                                    <td>&lt;?php echo wpp_get_views($post->ID); ?&gt;<br />&lt;?php echo wpp_get_views(15); ?&gt;</td>
+                                    <td><?php _e('Post ID', 'wordpress-popular-posts'); ?>, range ("daily", "weekly", "monthly", "all")</td>
+                                    <td>&lt;?php echo wpp_get_views($post->ID); ?&gt;<br />&lt;?php echo wpp_get_views(15, 'weekly'); ?&gt;</td>
                                 </tr>
                             </tbody>
                         </table>

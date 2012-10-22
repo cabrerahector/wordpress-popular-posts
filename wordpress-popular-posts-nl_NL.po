@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-31 11:32-0430\n"
+"POT-Creation-Date: 2012-08-31 11:31-0430\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Hector Cabrera <me@cabrerahector.com>\n"
-"Language-Team: Héctor Cabrera <admin@rauru.com>\n"
+"Last-Translator: Jeroen van Heemskerck Düker <jeroenvhd@me.com>\n"
+"Language-Team: Jeroen van Heemskerck Duker\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,43 +18,43 @@ msgstr ""
 
 #: admin.php:33 admin.php:44 admin.php:50 admin.php:57
 msgid "Settings saved."
-msgstr "Configuraci&oacute;n guardada."
+msgstr "Instellingen bewaard"
 
 #: admin.php:38
 msgid "Please provide the name of your custom field."
-msgstr "Por favor indica el nombre de tu custom field."
+msgstr "Geef de naam van het aangepaste veld."
 
 #: admin.php:247
 msgid ""
 "This operation will delete all entries from Wordpress Popular Posts' cache "
 "table and cannot be undone."
 msgstr ""
-"Esta operaci&oacute;n borrar&aacute; todas las entradas en el cach&eacute; "
-"de Wordpress Popular Posts y no puede ser reversado."
+"Deze handeling maakt de cache leeg van WP Popular Posts en kan niet worden "
+"hersteld."
 
 #: admin.php:247 admin.php:255
 msgid "Do you want to continue?"
-msgstr "&iquest;Deseas continuar?"
+msgstr "Wil je doorgaan?"
 
 #: admin.php:255
 msgid ""
 "This operation will delete all stored info from Wordpress Popular Posts' "
 "data tables and cannot be undone."
 msgstr ""
-"Esta operaci&oacute;n borrar&aacute; toda la informaci&oacute;n guardada en "
-"las tablas de Wordpress Popular Posts y no puede ser reversado."
+"Deze handeling verwijdert alle gegevens uit het bestand van WP Popular Posts "
+"en kan niet worden hersteld. "
 
 #: admin.php:269
 msgid "Stats"
-msgstr "Estad&iacute;sticas"
+msgstr "Status"
 
 #: admin.php:270
 msgid "FAQ"
-msgstr "FAQ"
+msgstr "Veelgestelde vragen (FAQ)"
 
 #: admin.php:271
 msgid "Tools"
-msgstr "Herramientas"
+msgstr "Gereedschappen"
 
 #: admin.php:275
 msgid ""
@@ -62,89 +62,88 @@ msgid ""
 "today, this week, last 30 days or all time since Wordpress Popular Posts was "
 "installed."
 msgstr ""
-"Haz clic en cada pesta&ntilde;a para ver las entradas m&aacute;s populares "
-"de tu blog hoy, esta semana, los &uacute;ltimos 30 d&iacute;s o de todos los "
-"tiempos."
+"Klik op de tabs om de meestgelezen berichten te zien van vandaag, de "
+"afgelopen week, de laatste maand of vanaf de installatie."
 
 #: admin.php:281
 msgid "Order by comments"
-msgstr "Ordenar por comentarios"
+msgstr "Orden op aantal reacties"
 
 #: admin.php:282
 msgid "Order by views"
-msgstr "Ordenar por vistas"
+msgstr "Orden op aantal keer bekeken"
 
 #: admin.php:283
 msgid "Order by avg. daily views"
-msgstr "Ordenar por average de vistas diarias"
+msgstr "Orden op gemiddeld aantal bezoeken per dag"
 
 #: admin.php:285
 msgid "Limit"
-msgstr "L&iacute;mite"
+msgstr "Limiet"
 
 #: admin.php:287 admin.php:667 admin.php:683 admin.php:700
 msgid "Apply"
-msgstr "Aplicar"
+msgstr "Pas toe"
 
 #: admin.php:293 wordpress-popular-posts.php:307
 msgid "Last 24 hours"
-msgstr "&Uacute;ltimas 24 horas"
+msgstr "Afgelopen 24 uur"
 
 #: admin.php:294 wordpress-popular-posts.php:308
 msgid "Last 7 days"
-msgstr "&Uacute;ltimos 7 d&iacute;as"
+msgstr "Afgelopen week"
 
 #: admin.php:295 wordpress-popular-posts.php:309
 msgid "Last 30 days"
-msgstr "&Uacute;ltimos 30 d&iacute;as"
+msgstr "Afgelopen maand"
 
 #: admin.php:296 wordpress-popular-posts.php:310
 msgid "All-time"
-msgstr "Todos los tiempos"
+msgstr "All-time"
 
 #: admin.php:317
 msgid "Frequently Asked Questions"
-msgstr "Preguntas Frecuentes (FAQ)"
+msgstr "Veelgestelde vragen"
 
 #: admin.php:321
 msgid "What does \"Title\" do?"
-msgstr "&iquest;Para qu&eacute; es \"T&iacute;tulo\"?"
+msgstr "Wat doet \"Titel\" ?"
 
 #: admin.php:323
 msgid ""
 "It allows you to show a heading for your most popular posts listing. If left "
 "empty, no heading will be displayed at all."
 msgstr ""
-"Te permite mostrar un encabezado para tu lista de entradas populares. Si se "
-"deja vac&iacute;o, no se mostrar&aacute; el encabezado."
+"Dit toont een kop boven je lijst van populaire berichten. Laat het leeg om "
+"niets te tonen."
 
 #: admin.php:326
 msgid "What is Time Range for?"
-msgstr "&iquest;Para qu&eacute; es \"Rango de Tiempo\"?"
+msgstr "Waar is Tijdvak voor?"
 
 #: admin.php:328
 msgid ""
 "It will tell Wordpress Popular Posts to retrieve all posts with most views / "
 "comments within the selected time range."
 msgstr ""
-"Le indica a Wordpress Popular Posts que muestre las entradas m&aacute;s "
-"vistas / comentadas en el rango de tiempo seleccionado."
+"Hiermee toon je berichten met het hoogste aantal bezoeken / reacties binnen "
+"het aangegeven tijdvak."
 
 #: admin.php:331
 msgid "What is \"Sort post by\" for?"
-msgstr "&iquest;Para qu&eacute; es \"Ordenar entradas por\"?"
+msgstr "Wat doet \"Sorteer berichten op\" ?"
 
 #: admin.php:333
 msgid ""
 "It allows you to decide whether to order your popular posts listing by total "
 "views, comments, or average views per day."
 msgstr ""
-"Te permite decidir si ordenar tus entradas populares por la cantidad total "
-"de vistas, comentarios, o por el porcentaje diario de vistas."
+"Hiermee bepaal je hoe je de lijst van populaire berichten ordent: op aantal "
+"keren bekeken, aantal reacties, of gemiddeld aantal bezoeken per dag."
 
 #: admin.php:336
 msgid "What does \"Display post rating\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar rating de la entrada\"?"
+msgstr "Wat doet \"Toon berichtwaardering\"?"
 
 #: admin.php:338
 msgid ""
@@ -152,15 +151,12 @@ msgid ""
 "your most popular posts. This feature requires having WP-PostRatings plugin "
 "installed and enabled on your blog for it to work."
 msgstr ""
-"Si se tilda, Wordpress Popular Posts mostrar&aacute; c&oacute;mo tus "
-"lectores est&aacute;n calificando tus entradas populares. Esta "
-"caracter&iacute;stica requiere que el plugin WP-PostRatings est&eacute; "
-"instalado y habilitado en tu blog para que funcione."
+"Kruis deze optie aan om de waardering van je berichten te laten zien. Je "
+"moet de WP-PostRating plugin hebben geinstalleerd en geactiveerd."
 
 #: admin.php:341
-#, fuzzy
 msgid "What does \"Shorten title\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Acortar t&iacute;tulo\"?"
+msgstr "Wat doet \"Kort titel af\"?"
 
 #: admin.php:343
 msgid ""
@@ -168,13 +164,12 @@ msgid ""
 "\"Shorten title to\" option will appear so you can set it to whatever you "
 "like."
 msgstr ""
-"Si se tilda, todos los t&iacute;tulos de las entradas se acortar&aacute;n \"n"
-"\" caracteres. Una nueva opci&oacute;n \"Acortar t&iacute;tulo en\" se "
-"mostrar&aacute; para que puedas configurarlo como quieras."
+"Kruis dit aan als je berichttitel wil beperken tot \"n\" tekens. Gebruik de "
+"volgende optie \"Kort titel af tot\" om de lengte te bepalen."
 
 #: admin.php:346
 msgid "What does \"Display post excerpt\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar resumen de la entrada\"?"
+msgstr "Wat doet \"Toon samenvatting\"?"
 
 #: admin.php:348
 msgid ""
@@ -182,13 +177,12 @@ msgid ""
 "your posts in the list. Similarly to the previous option, you will be able "
 "to decide how long the post excerpt should be."
 msgstr ""
-"Si se tilda, Wordpress Popular Posts incluir&aacute; un peque&ntilde;o "
-"extracto de tus entradas en la lista. Similar a la opci&oacute;n anterior, "
-"podr&aacute;s decidir qu&eacute; tan largo debe ser el extracto."
+"Kruis dit aan om een samenvatting te laten zien in de berichtenlijst. Je "
+"kunt zelf de lengte van de samenvatting bepalen."
 
 #: admin.php:351
 msgid "What does \"Keep text format and links\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mantener el formato de texto y links\"?"
+msgstr "Wat doet \"Behoud tekstopmaak en koppelingen\"?"
 
 #: admin.php:353
 msgid ""
@@ -196,14 +190,12 @@ msgid ""
 "Posts will keep the styling tags (eg. bold, italic, etc) that were found in "
 "the excerpt. Hyperlinks will remain intact, too."
 msgstr ""
-"Si se tilda, y si la opci&oacute;n Mostrar Resumen est&aacute; habilitada, "
-"Wordpress Popular Posts mantendr&aacute; las etiquetas de estilos que se "
-"encontraron en el extracto. Los hiperv&iacute;nculos tambi&eacute;n se "
-"mantendr&aacute;n."
+"Als de optie Toon samenvatting is aangevinkt, behoudt WP Popular Posts alle "
+"stijlkenmerken in de samenvatting. Koppelingen blijven ook behouden."
 
 #: admin.php:356
 msgid "What is \"Post type\" for?"
-msgstr "&iquest;Para qu&eacute; es el \"Post type\"?"
+msgstr "Waar is \"Berichttype\" voor?"
 
 #: admin.php:358
 msgid ""
@@ -211,13 +203,13 @@ msgid ""
 "default, it will retrieve only posts and pages (which should be fine for "
 "most cases)."
 msgstr ""
-"Este filtro te permite decidir que tipo de entradas deseas mostrar en el "
-"listado. Por defecto, trater&aacute; s&oacute;lo entradas y p&aacute;ginas "
-"(que es lo que se quiere, en la mayor&iacute;a de los casos)."
+"Met dit filter bepaal je welke berichttypes (post types) getoond worden. "
+"Standaard worden alleenberichten en pagina's getoond (wat meestal afdoende "
+"is)."
 
 #: admin.php:361
 msgid "What is \"Category(ies) ID(s)\" for?"
-msgstr "&iquest;Para qu&eacute; es el \"ID(s) de Categor&iacute;a(s)\"?"
+msgstr "Waar is \"Categorie ID(s)\" voor?"
 
 #: admin.php:363
 msgid ""
@@ -226,28 +218,26 @@ msgid ""
 "number will exclude posts belonging to it from the list, for example. You "
 "can specify more than one ID with a comma separated list."
 msgstr ""
-"Este filtro te permite seleccionar qu&eacute; categor&iacute;as deber&iacute;"
-"an ser inclu&iacute;das o exclu&iacute;das del listado. Un signo negativo "
-"enfrente del ID de la categor&iacute;a la excluir&aacute; de la lista, por "
-"ejemplo. Puedes especificar m&aacute;s de un ID separ&aacute;ndolos con "
-"comas."
+"Met dit filter bepaal je welke categorie opgenomen wordt of uitgesloten van "
+"de lijst. Met een minteken voor het ID-nummer sluit je een categorie uit. Je "
+"kunt meer dan een ID opgeven, gescheiden door een komma."
 
 #: admin.php:366
 msgid "What is \"Author(s) ID(s)\" for?"
-msgstr "&iquest;Para qu&eacute; es el \"ID de Autor(es)\"?"
+msgstr "Waar is \"Auteur ID(s)\" voor?"
 
 #: admin.php:368
 msgid ""
 "Just like the Category filter, this one lets you filter posts by author ID. "
 "You can specify more than one ID with a comma separated list."
 msgstr ""
-"Justo como el filtro de Categor&iacute;a, &eacute;ste te permite filtrar "
-"entradas por ID del autor. Puedes especificar m&aacute;s de un ID "
-"separ&aacute;ndolos con comas."
+"Net als het Categoriefilter kun je hiermee auteurs opnemen of juist "
+"uitsluiten van de lijst. Je kunt meer dan een ID opgeven, gescheiden door "
+"een komma."
 
 #: admin.php:371
 msgid "What does \"Display post thumbnail\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar miniatura de  la entrada\"?"
+msgstr "Wat doet \"Toon miniatuur\"?"
 
 #: admin.php:373
 msgid ""
@@ -255,62 +245,56 @@ msgid ""
 "of each post. You can set up the source of the thumbnail via Settings - "
 "Wordpress Popular Posts - Tools."
 msgstr ""
-"Si se tilda, Wordpress Popular Posts intentar&aacute; obtener la imagen "
-"miniatura de cada entrada. Puedes configurar la fuente de la miniatura via "
-"Configuraci&oacute;n - Wordpress Popular Posts - Herramientas."
+"Hiermee zoekt WP Popular Posts naar een miniatuurplaatje in het bericht. Je "
+"kunt de bron opgeven via Instellingen - WP Popular Posts - Gereedschappen."
 
 #: admin.php:376
 msgid "What does \"Display comment count\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar cantidad de comentarios\"?"
+msgstr "Wat doet \"Toon aantal reacties\"?"
 
 #: admin.php:378
 msgid ""
 "If checked, Wordpress Popular Posts will display how many comments each "
 "popular post has got in the selected Time Range."
 msgstr ""
-"Si se tilda, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntos "
-"comentarios ha obtenido cada entrada popular dentro del Rango de Tiempo "
-"seleccionado."
+"Hiermee laat de plugin zien hoeveel reacties elk populair bericht heeft "
+"binnen het opgegeven tijdvak."
 
 #: admin.php:381
 msgid "What does \"Display views\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar vistas\"?"
+msgstr "Wat doet \"Toon aantal bezoeken\"?"
 
 #: admin.php:383
 msgid ""
 "If checked, Wordpress Popular Posts will show how many pageviews a single "
 "post has gotten in the selected Time Range."
 msgstr ""
-"Si se tilda, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntas vistas "
-"ha obtenido cada entrada en el Rango de Tiempo seleccionado."
+"Hiermee laat je zien hoe vaak het bericht binnen het opgegeven tijdvak is "
+"bekeken."
 
 #: admin.php:386
 msgid "What does \"Display author\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar autor\"?"
+msgstr "Wat doet \"Toon auteur\"?"
 
 #: admin.php:388
 msgid ""
 "If checked, Wordpress Popular Posts will display the name of the author of "
 "each entry listed."
-msgstr ""
-"Si se tilda, Wordpress Popular Posts mostrar&aacute; el nombre del autor de "
-"cada entrada listada."
+msgstr "Deze optie toont de auteur van elk bericht in de lijst."
 
 #: admin.php:391
 msgid "What does \"Display date\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Mostrar fecha\"?"
+msgstr "Wat doet \"Toon datum\"?"
 
 #: admin.php:393
 msgid ""
 "If checked, Wordpress Popular Posts will display the date when each popular "
 "posts was published."
-msgstr ""
-"Si se tilda, Wordpress Popular Posts mostrar&aacute; la fecha en la que fue "
-"publicada cada entrada popular."
+msgstr "Deze optie toont de publicatiedatum van elk bericht."
 
 #: admin.php:396
 msgid "What does \"Use custom HTML Markup\" do?"
-msgstr "&iquest;Qu&eacute; hace \"Utilizar Markup HTML personalizado\"?"
+msgstr "Wat doet \"Gebruik aangepaste HTML\"?"
 
 #: admin.php:398
 msgid ""
@@ -319,15 +303,13 @@ msgid ""
 "unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is "
 "for you!"
 msgstr ""
-"Si se tilda, podr&aacute;s personalizad el markup HTML de tu listado de "
-"entradas populares. Por ejemplo, podr&aacute;s decidir si colocar tu listado "
-"en una lista desordenada, una ordenada, dentro de un div, etc. Si sabes "
-"xHTML/CSS, &iexcl;esto es para ti!"
+"Met deze optie kun je de HTML-opmaak van de berichtenlijst aanpassen. Maak "
+"er bijvoorbeeld een geordende lijst van, of een div. Als je bekend met met "
+"xHTML en CSS, is dit een optie voor jou!"
 
 #: admin.php:401
 msgid "What does \"Use content formatting tags\" do?"
-msgstr ""
-"&iquest;Qu&eacute; hace \"Utilizar etiquetas de formato de contenido\"?"
+msgstr "Wat doet \"Gebruik opmaaklabels\"?"
 
 #: admin.php:403
 msgid ""
@@ -336,15 +318,14 @@ msgid ""
 "display \"Post title: excerpt of the post here\". Available tags: {image}, "
 "{title}, {summary}, {stats} and {rating}."
 msgstr ""
-"Si se tilda, puedes decidir el orden de los elementos mostrados en cada "
-"entrada. Por ejemplo, configurarlo como \"{title}: {summary}\" (sin las "
-"comillas) mostrar&iacute;a \"T&iacute;tulo de la entrada: extracto de la "
-"entrada aqu&iacute;\". Etiquetas disponibles: {image}, {title}, {summary}, "
-"{stats} y {rating}."
+"Hiermee bepaal je de volgorde van de kenmerken van elk bericht in de lijst. "
+"Bijvoorbeeld: \"{title}: {summary}\" (zonder de aanhalingstekens) wordt "
+"getoond als \"Berichttitel: samenvatting hier\" Labels (tags) om te "
+"gebruiken zijn: {image}, {title}, {summary}, {stats} en {rating}."
 
 #: admin.php:406
 msgid "What are \"Template Tags\"?"
-msgstr "&iquest;Qu&eacute; son los \"Template Tags\"?"
+msgstr "Wat zijn \"sjabloonlabels\"?"
 
 #: admin.php:408
 msgid ""
@@ -352,37 +333,34 @@ msgid ""
 "actions. For example, Wordpress Popular Posts currently supports two "
 "different template tags: wpp_get_mostpopular() and wpp_get_views()."
 msgstr ""
-"Los Template Tags son simplemente funciones php que nos permiten realizar "
-"ciertas acciones. Por ejemplo, Wordpress Popular Posts actualmente soporta "
-"dos template tags diferentes: wpp_get_mostpopular() y wpp_get_views()."
+"Sjabloonlabels of Template Tags zijn eenvoudige php functies. De plugin "
+"ondersteunt momenteel twee sjabloonlabels: wpp_get_mostpopular() en "
+"wpp_get_views()."
 
 #: admin.php:411
 msgid "What are the template tags that Wordpress Popular Posts supports?"
-msgstr ""
-"&iquest;Cu&aacute;les son los Template Tags soportados por Wordpress Popular "
-"Posts?"
+msgstr "Welke sjabloonlabels ondersteunt WP Popular Posts?"
 
 #: admin.php:413
 msgid ""
 "The following are the template tags supported by Wordpress Popular Posts"
-msgstr ""
-"Los siguientes son los template tags soportados por Wordpress Popular Posts"
+msgstr "Deze sjabloonlabels worden ondersteund door de plugin"
 
 #: admin.php:417
 msgid "Template tag"
-msgstr "Template tag"
+msgstr "Sjabloonlabel"
 
 #: admin.php:418 admin.php:451
 msgid "What it does "
-msgstr "Qu&eacute; hace"
+msgstr "Functie"
 
 #: admin.php:419
 msgid "Parameters"
-msgstr "Par&aacute;metros"
+msgstr "Parameters"
 
 #: admin.php:420 admin.php:454
 msgid "Example"
-msgstr "Ejemplo"
+msgstr "Voorbeeld"
 
 #: admin.php:426
 msgid ""
@@ -390,34 +368,32 @@ msgid ""
 "posts on your blog. This function also accepts parameters so you can "
 "customize your popular listing, but these are not required."
 msgstr ""
-"Parecido a la funcionalidad del widget, esta etiqueta obtiene las entradas "
-"m&aacute;s populares de tu blog. Esta funci&oacute;n tambi&eacute;n acepta "
-"par&aacute;metros para que puedas personalizar el listado, pero no es "
-"requerido."
+"Dit label haalt de populairste berichten op. De functie is vergelijkbaar met "
+"die van de widget. Je kunt parameters invullen om je lijst aan te passen, "
+"maar dat is niet verplicht."
 
 #: admin.php:427
 msgid ""
 "Please refer to \"List of parameters accepted by wpp_get_mostpopular() and "
 "the [wpp] shortcode\"."
 msgstr ""
-"Por favor revisa \"Listado de par&aacute;metros aceptados por "
-"wpp_get_mostpopular() y el shortcode [wpp]\"."
+"Bekijk de \"List of parameters accepted by wpp_get_mostpopular() and the "
+"[wpp] shortcode\"."
 
 #: admin.php:432
 msgid ""
 "Displays the number of views of a single post. Post ID is required or it "
 "will return false."
 msgstr ""
-"Muestra la cantidad de vistas de una entrada. El ID de la entrada es "
-"requerido, o la funci&oacute;n devolver&aacute; false."
+"Toont het aantal keren dat het bericht is bekeken. De Post ID is verplicht."
 
 #: admin.php:433
 msgid "Post ID"
-msgstr "ID de la entrada"
+msgstr "Post ID"
 
 #: admin.php:440
 msgid "What are \"shortcodes\"?"
-msgstr "&iquest;Qu&eacute; son los \"shortcodes\"?"
+msgstr "Wat zijn \"shortcodes\"?"
 
 #: admin.php:442
 msgid ""
@@ -427,90 +403,82 @@ msgid ""
 "posts content and pages too! For more information about shortcodes, please "
 "visit"
 msgstr ""
-"Los Shortcodes son similares a los BB Codes, &eacute;stos nos permiten "
-"llamar a una funci&oacute;n php simplemente escribiendo algo como "
-"[shortcode]. Con Wordpress Popular Posts, el shortcode [wpp] te "
-"permitir&aacute; insertar una lista de las entradas m&aacute;s populares en "
-"el contenido de tus entradas y en p&aacute;ginas tambi&eacute;n. Para mayor "
-"informaci&oacute;n sobre los shortcodes, por favor visita"
+"Een \"shortcode\" verwijst naar een php-functie. In WP Popular Posts kun je "
+"de shortcode [wpp] gebruiken om een lijst van populaire berichten te tonen "
+"in een gewoon bericht of een pagina. Voor meer informatie, bekijk "
 
 #: admin.php:444
 msgid ""
 "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode"
-msgstr ""
-"Lista de par&aacute;metros aceptados por wpp_get_mostpopular() y el "
-"shortcode [wpp]"
+msgstr "Alle parameters voor wpp_get_mostpopular() en de [wpp] shortcode"
 
 #: admin.php:446
 msgid ""
 "These parameters can be used by both the template tag wpp_get_most_popular() "
 "and the shortcode [wpp]."
 msgstr ""
-"Estos par&aacute;metros pueden ser utilizados tanto por el template tag "
-"wpp_get_mostpopular() como por el shortcode [wpp]."
+"Deze parameters kun je gebruiken bij het sjabloonlabel wpp_get_most_popular"
+"() en se shortcode [wpp]."
 
 #: admin.php:450
 msgid "Parameter"
-msgstr "Par&aacute;metro"
+msgstr "Parameter"
 
 #: admin.php:452
 msgid "Possible values"
-msgstr "Valores posibles"
+msgstr "Mogelijke waarden"
 
 #: admin.php:453
 msgid "Defaults to"
-msgstr "Por defecto"
+msgstr "Standaard"
 
 #: admin.php:460
 msgid "Sets a heading for the list"
-msgstr "Configura el encabezado de la lista"
+msgstr "Geeft een titel op voor je lijst"
 
 #: admin.php:461 admin.php:468 admin.php:475 admin.php:503 admin.php:510
 #: admin.php:517 admin.php:594 admin.php:601 admin.php:608 admin.php:615
 #: admin.php:622
 msgid "Text string"
-msgstr "Texto"
+msgstr "Vrije tekst"
 
 #: admin.php:462 wordpress-popular-posts.php:250
 msgid "Popular Posts"
-msgstr "Entradas Populares"
+msgstr "Populaire berichten"
 
 #: admin.php:467
 msgid "Set the opening tag for the heading of the list"
-msgstr "Configura la etiqueta de apertura para el encabezado de la lista"
+msgstr "Bepaalt de open-tag voor de lijsttitel"
 
 #: admin.php:474
 msgid "Set the closing tag for the heading of the list"
-msgstr "Configura la etiqueta de cierre para el encabezado de la lista"
+msgstr "Bepaalt de sluit-tag voor de lijsttitel"
 
 #: admin.php:481
 msgid "Sets the maximum number of popular posts to be shown on the listing"
-msgstr ""
-"Configura el m&aacute;ximo de entradas populares a ser mostradas en la lista"
+msgstr "Bepaalt het maximumaantal berichten in de lijst"
 
 #: admin.php:482 admin.php:524 admin.php:531 admin.php:545 admin.php:552
 msgid "Positive integer"
-msgstr "Entero positivo"
+msgstr "Positief geheel getal"
 
 #: admin.php:488
 msgid ""
 "Tells Wordpress Popular Posts to retrieve the most popular entries within "
 "the time range specified by you"
-msgstr ""
-"Le indica a Wordpress Popular Posts que debe listar aquellas entradas que "
-"hayan sido populares dentro del rango de tiempo especificado por ti"
+msgstr "Haalt de populaire berichten op binnen het opgegeven tijdvak"
 
 #: admin.php:495
 msgid "Sets the sorting option of the popular posts"
-msgstr "Configura el ordenado de las entradas populares"
+msgstr "Bepaalt de sorteervolgorde van de populaire berichten"
 
 #: admin.php:496
 msgid "(for average views per day)"
-msgstr "(para el porcentaje de vistas por d&iacute;a)"
+msgstr "(voor het gemiddeld aantal bezoeken per dag)"
 
 #: admin.php:502
 msgid "Defines the type of posts to show on the listing"
-msgstr "Define el tipo de entrada a mostrar en el listado"
+msgstr "Definieert het type berichten in de lijst"
 
 #: admin.php:509
 msgid ""
@@ -518,47 +486,40 @@ msgid ""
 "specified category(ies) ID(s). If a minus sign is used, the category(ies) "
 "will be excluded instead."
 msgstr ""
-"Si se configura, Wordpress Popular Posts mostrar&aacute; todas las entradas "
-"que pertenecen a la(s) categor&iacute;a(s) especificada(s). Si se usa un "
-"signo negativo, la(s) categor&iacute;a(s) ser&aacute;(n) exclu&iacute;da(s)."
+"WP Popular Posts haalt alle berichten op binnen de opgegeven categorie(en). "
+"Een minteken sluit de categorie juist uit."
 
 #: admin.php:511 admin.php:518
 msgid "None"
-msgstr "Ninguno"
+msgstr "Geen"
 
 #: admin.php:516
 msgid ""
 "If set, Wordpress Popular Posts will retrieve all entries created by "
 "specified author(s) ID(s)."
-msgstr ""
-"Si se configura, Wordpress Popular Posts traer&aacute; todas las entradas "
-"creadas por el (los) ID(s) de autor(es) especificado(s)."
+msgstr "WP Popular Posts haalt alle berichten op met de opgegeven auteur ID(s)"
 
 #: admin.php:523
 msgid ""
 "If set, Wordpress Popular Posts will shorten each post title to \"n\" "
 "characters whenever possible"
 msgstr ""
-"Si se configura, Wordpress Popular Posts acortar&aacute; cada titulo en \"n"
-"\" caracteres cuando sea posible"
+"WP Popular Posts kort de berichtkop af tot \"n\" lettertekens, indien "
+"mogelijk"
 
 #: admin.php:530
 msgid ""
 "If set, Wordpress Popular Posts will build and include an excerpt of \"n\" "
 "characters long from the content of each post listed as popular"
-msgstr ""
-"Si se configura, Wordpress Popular Posts construir&aacute; e incluir&aacute; "
-"un extracto de \"n\" caracteres del contenido de cada entrada listada como "
-"popular"
+msgstr "WP Popular Posts neemt een samenvatting op van \"n\" lettertekens "
 
 #: admin.php:537
 msgid ""
 "If set, Wordpress Popular Posts will maintaing all styling tags (strong, "
 "italic, etc) and hyperlinks found in the excerpt"
 msgstr ""
-"Si se configura, Wordpress Popular Posts mantendr&aacute; todas las "
-"etiquetas de estilo (strong, italic, etc) y los hiperv&iacute;nculos "
-"encontrados en el extracto"
+"WP Popular Posts behoudt alle stijlkenmerken (vet, cursief etc) en de "
+"koppelingen in het bericht"
 
 #: admin.php:544
 msgid ""
@@ -566,9 +527,8 @@ msgid ""
 "to display thumbnails of your posts. This attribute sets the width for "
 "thumbnails"
 msgstr ""
-"Si se configura, y si la configuraci&oacute;n actual de tu servidor lo "
-"permite, podr&aacute;s mostrar miniaturas de tus entradas. Este atributo "
-"configura el ancho de tus miniaturas"
+"Je kunt miniaturen in je berichten laten zien, als je serverconfiguratie dat "
+"toestaat. Dit attribuut bepaalt de breedte van het miniatuurplaatje."
 
 #: admin.php:551
 msgid ""
@@ -576,9 +536,8 @@ msgid ""
 "to display thumbnails of your posts. This attribute sets the height for "
 "thumbnails"
 msgstr ""
-"Si se configura, y si la configuraci&oacute;n actual de tu servidor lo "
-"permite, podr&aacute;s mostrar miniaturas de tus entradas. Este atributo "
-"configura el alto de tus miniaturas"
+"Je kunt miniaturen in je berichten laten zien, als je serverconfiguratie dat "
+"toestaat. Dit attribuut bepaalt de hoogte van het miniatuurplaatje."
 
 #: admin.php:558
 msgid ""
@@ -586,69 +545,63 @@ msgid ""
 "blog, Wordpress Popular Posts will show how your visitors are rating your "
 "entries"
 msgstr ""
-"Si se configura, y si el plugin WP-PostRatings est&aacute; instalado y "
-"habilitado en tu blog, Wordpress Popular Posts mostrar&aacute; como tus "
-"visitantes han calificado a tus entradas"
+"Als de WP-PostRatings plugin is geinstalleerd en geactiveerd, toont WP "
+"Popular Posts hiermee hoe je bezoekers de berichten hebben gewaardeerd."
 
 #: admin.php:565
 msgid ""
 "If set, Wordpress Popular Posts will show how many comments each popular "
 "post has got until now"
 msgstr ""
-"Si se configura, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntos "
-"comentarios ha obtenido cada entrada popular hasta ahora"
+"Hiermee toon je hoeveel reacties er tot nu toe zijn op elk populair bericht"
 
 #: admin.php:572
 msgid ""
 "If set, Wordpress Popular Posts will show how many views each popular post "
 "has got since it was installed"
 msgstr ""
-"Si se configura, Wordpress Popular Posts mostrar&aacute; cu&aacute;ntas "
-"vistas ha obtenido cada entrada popular hasta ahora"
+"Hiermee toon je hoe vaak elk populair bericht is bekeken sinds het werd "
+"gepubliceerd."
 
 #: admin.php:579
 msgid ""
 "If set, Wordpress Popular Posts will show who published each popular post on "
 "the list"
-msgstr ""
-"Si se configura, Wordpress Popular Posts mostrar&aacute; qui&eacute;n "
-"public&oacute; cada entrada popular de la lista"
+msgstr "Hiermee toon je wie heet populaire bericht heeft gepubliceerd."
 
 #: admin.php:586
 msgid ""
 "If set, Wordpress Popular Posts will display the date when each popular post "
 "on the list was published"
-msgstr ""
-"Si se tilda, Wordpress Popular Posts mostrar&aacute; la fecha en la que fue "
-"publicada cada entrada popular"
+msgstr "Hiermee toon je de publicatiedatum van elk populair bericht"
 
 #: admin.php:593
 msgid "Sets the date format"
-msgstr "Configura el formato de la fecha"
+msgstr "Bepaalt de datumopmaak"
 
 #: admin.php:600
 msgid "Sets the opening tag for the listing"
-msgstr "Configura la etiqueta de apertura del listado"
+msgstr "Bepaalt de open-tag van de lijst"
 
 #: admin.php:607
 msgid "Sets the closing tag for the listing"
-msgstr "Configura la etiqueta de cierre del listado"
+msgstr "Bepaalt de sluit-tag van de lijst"
 
 #: admin.php:614
 msgid "Sets the opening tag for each item on the list"
-msgstr "Configura la etiqueta de apertura de cada &iacute;tem del listado"
+msgstr "Bepaalt de open-tag van elk item op de lijst"
 
 #: admin.php:621
 msgid "Sets the closing tag for each item on the list"
-msgstr "Configura la etiqueta de cierre de cada &iacute;tem del listado"
+msgstr "Bepaalt de sluit-tag van elk item op de lijst"
 
 #: admin.php:628
 msgid ""
 "If set, this option will allow you to decide the order of the contents "
 "within each item on the list."
 msgstr ""
-"Si se configura, esta opci&oacute;n te permitir&aacute; decidir el orden de "
-"los contenidos dentro de cada item en la lista."
+"Met deze optie bepaal je de volgorde van de onderdelen in elk bericht op de "
+"lijst"
 
 #: admin.php:635
 msgid ""
@@ -657,50 +610,48 @@ msgid ""
 "something like \"Your Post Title: summary here\". This attribute requires "
 "do_pattern to be true."
 msgstr ""
-"Si se configura, puedes decidir el orden de cada contenido dentro de cada "
-"item en la lista. Por ejemplo, configurarlo como \"{title}: {summary}\" "
-"mostrar&iacute;a \"El t&iacute;tulo de tu entrada: resumen aqu&iacute;\". "
-"Este atributo requiere que do_pattern sea true."
+"Je kunt de volgorde vanelk onderdeel in het bericht zelf bepalen. "
+"Bijvoorbeeld: de volgorde \"{title}: {summary}\" wordt getoond als \"je "
+"berichttitel: de samenvatting hier\". De functie do_pattern moet op \"true\" "
+"staan."
 
 #: admin.php:636
 msgid "Available tags"
-msgstr "Etiquetas disponibles"
+msgstr "Beschikbare tags"
 
 #: admin.php:651
 msgid ""
 "Here you will find a handy group of options to tweak Wordpress Popular Posts."
 msgstr ""
-"Aqu&iacute; encontrar&aacute;s un &uacute;til grupo de opciones para ajustar "
-"a Wordpress Popular Posts."
+"Hier vind je een aantal handige opties waarmee je de plugin kunt aanpassen."
 
 #: admin.php:653
 msgid "Thumbnail source"
-msgstr "Fuente de la miniatura"
+msgstr "Bron miniatuur"
 
 #: admin.php:654
 msgid "Tell Wordpress Popular Posts where it should get thumbnails from"
-msgstr ""
-"Dile a Wordpress Popular Posts de d&oacute;nde debe obtener las miniaturas"
+msgstr "Vul in waar de minaturen te vinden zijn"
 
 #: admin.php:659
 msgid "Featured image"
-msgstr "Imagen destacada"
+msgstr "Uitgelichte afbeelding"
 
 #: admin.php:660
 msgid "First image on post"
-msgstr "Primera imagen de la entrada"
+msgstr "Eerste plaatje in het bericht"
 
 #: admin.php:661
 msgid "Custom field"
-msgstr "Custom field"
+msgstr "Aangepast veld"
 
 #: admin.php:664
 msgid "Custom field name"
-msgstr "Nombre del custom field"
+msgstr "Naam aangepast veld"
 
 #: admin.php:673
 msgid "Wordpress Popular Posts Stylesheet"
-msgstr "Hoja de estilos de Wordpress Popular Posts"
+msgstr "Wordpress Popular Posts stijlblad (stylesheet)"
 
 #: admin.php:674
 msgid ""
@@ -709,32 +660,28 @@ msgid ""
 "stylesheet or do not want it to have it included in the header section of "
 "your site, use this."
 msgstr ""
-"Por defecto, el plugin incluye una hoja de estilos llamada wpp.css que "
-"puedes utilizar para darle estilos a tu listado de entradas populares. Si "
-"deseas utilizar tu propia hoja de estilos, o no quieres que wpp.css se "
-"incluya en el header de tu sitio web, utiliza esto."
+"Standaard bevat de plugin een stijlblad genaamd wpp.css. Dit kun je "
+"gebruiken om de opmaak aan te passen. Als je je eigen css-opmaak wilt "
+"gebruiken, of je wilt het niet in de header-sectie van de site hebben, "
+"gebruik dan dit stijlblad. "
 
 #: admin.php:679 admin.php:696
 msgid "Enabled"
-msgstr "Habilitado"
+msgstr "Geactiveerd"
 
 #: admin.php:680 admin.php:697
 msgid "Disabled"
-msgstr "Deshabilitado"
+msgstr "Gedeactiveerd"
 
 #: admin.php:689
 msgid "Data tools"
-msgstr "Herramientas de datos"
+msgstr "Data-gereedschappen"
 
 #: admin.php:691
-#, fuzzy
 msgid ""
 "AJAX update. If you are using a caching plugin such as WP Super Cache, "
 "enabling this feature will keep the popular list from being cached."
 msgstr ""
-"Actualizaci&oacute;n AJAX. Si est&aacute;s utilizando un plugin de cacheado "
-"como WP Super Cache, habilitar esta caracter&iacute;stica evitar&aacute; que "
-"la lista de entradas populares sea guardada en cach&eacute;."
 
 #: admin.php:706
 msgid ""
@@ -742,69 +689,62 @@ msgid ""
 "for up to 30 days. If for some reason you need to clear the cache table, or "
 "even both historical and cache tables, please use the buttons below to do so."
 msgstr ""
-"Wordpress Popular Posts mantiene una data hist&oacute;rica de tus entradas "
-"m&aacute;s populares hasta por 30 d&iacute;as. Si por alguna raz&oacute;n "
-"necesitas vaciar la tabla cach&eacute;, o inclusive las dos tablas "
-"hist&oacoute;ricas y de cach&eacute;, por favor utiliza los botones de abajo."
 
 #: admin.php:707
 msgid "Empty cache"
-msgstr "Vaciar el cach&eacute;"
+msgstr "Maak cache leeg"
 
 #: admin.php:707
 msgid "Use this button to manually clear entries from WPP cache only"
-msgstr ""
-"Utiliza este bot&oacoue;n para vaciar manualmente s&oacute;lo las entradas "
-"del cach&eacute; de WPP."
+msgstr "Klik hier als je de WPP-cache wilt leegmaken"
 
 #: admin.php:708
 msgid "Clear all data"
-msgstr "Eliminar toda la data"
+msgstr "Verwijdere alle gegevens"
 
 #: admin.php:708
 msgid "Use this button to manually clear entries from all WPP data tables"
-msgstr ""
-"Utiliza este bot&oacute;n para limpiar manualmente las tablas de datos de WPP"
+msgstr "Klik hier als je alle gegevens wilt wissen uit de WPP-datatables"
 
 #: admin.php:714
 msgid "Do you like this plugin?"
-msgstr "&iquest;te gusta este plugin?"
+msgstr "Vind je deze plugin leuk?"
 
 #: admin.php:714
 msgid "Rate Wordpress Popular Posts!"
-msgstr "&iexcl;Califica a Wordpress Popular Posts!"
+msgstr "Geef een waardering voor WP Popular Posts!"
 
 #: admin.php:714
 msgid "Rate it"
-msgstr "Calif&iacute;calo"
+msgstr "Geef waardering"
 
 #: admin.php:714
 msgid "on the official Plugin Directory!"
-msgstr "en el Directorio Oficial de Plugins!"
+msgstr "op de officiele Pluginpagina!"
 
 #: admin.php:715
 msgid "Do you love this plugin?"
-msgstr "&iquest;Adoras este plugin?"
+msgstr "Vind je dit een zeer goede plugin?"
 
 #: admin.php:715 admin.php:716
 msgid "Buy me a beer!"
-msgstr "&iexcl;C&oacute;mprame una cerveza!"
+msgstr "Geef mij een biertje!"
 
 #: admin.php:715
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the Wordpress "
 "community!"
 msgstr ""
-"&iexcl;Cada donaci&oacute;n me motiva a seguir publicando cosas gratuitas "
-"para la comunidad de Wordpress!"
+"Jouw gift motiveert mij om gratis plugins te blijven maken voor de WordPress-"
+"gemeenschap!"
 
 #: wordpress-popular-posts.php:47
 msgid "The most Popular Posts on your blog."
-msgstr "Las entradas m&aacute;s populares en tu blog."
+msgstr "De populairste berichten op je site"
 
 #: wordpress-popular-posts.php:301
 msgid "Title:"
-msgstr "T&iacute;tulo:"
+msgstr "Titel:"
 
 #: wordpress-popular-posts.php:301 wordpress-popular-posts.php:303
 #: wordpress-popular-posts.php:305 wordpress-popular-posts.php:313
@@ -815,99 +755,99 @@ msgstr "T&iacute;tulo:"
 #: wordpress-popular-posts.php:369 wordpress-popular-posts.php:370
 #: wordpress-popular-posts.php:385 wordpress-popular-posts.php:396
 msgid "What is this?"
-msgstr "&iquest;Qu&eacute; es esto?"
+msgstr "Wat is dit?"
 
 #: wordpress-popular-posts.php:303
 msgid "Show up to:"
-msgstr "Mostrar hasta:"
+msgstr "Toon maximaal:"
 
 #: wordpress-popular-posts.php:304
 msgid "posts"
-msgstr "entradas"
+msgstr "berichten"
 
 #: wordpress-popular-posts.php:305
 msgid "Time Range:"
-msgstr "Rango de Tiempo"
+msgstr "Tijdvak:"
 
 #: wordpress-popular-posts.php:313
 msgid "Sort posts by:"
-msgstr "Ordenar entradas por:"
+msgstr "Orden berichten op:"
 
 #: wordpress-popular-posts.php:315
 msgid "Comments"
-msgstr "Comentarios"
+msgstr "Reacties"
 
 #: wordpress-popular-posts.php:316
 msgid "Total views"
-msgstr "Total de vistas"
+msgstr "Totaal bekeken"
 
 #: wordpress-popular-posts.php:317
 msgid "Avg. daily views"
-msgstr "Porcentaje de vistas diarias"
+msgstr "Gemiddeld aantal bekeken per dag"
 
 #: wordpress-popular-posts.php:322
 msgid "Posts settings"
-msgstr "Configuraci&oacute;n de las entradas"
+msgstr "Berichtinstellingen"
 
 #: wordpress-popular-posts.php:324
 msgid "Display post rating"
-msgstr "Mostrar rating de la entrada"
+msgstr "Toon waardering"
 
 #: wordpress-popular-posts.php:326
 msgid "Shorten title"
-msgstr "Acortar t&iacute;tulo"
+msgstr "Kort titel af"
 
 #: wordpress-popular-posts.php:328
 msgid "Shorten title to"
-msgstr "Acortar t&iacute;tulo en"
+msgstr "Kort titel af tot"
 
 #: wordpress-popular-posts.php:328 wordpress-popular-posts.php:335
 msgid "characters"
-msgstr "caracteres"
+msgstr "lettertekens"
 
 #: wordpress-popular-posts.php:330
 msgid "Display post excerpt"
-msgstr "Mostrar resumen de la entrada"
+msgstr "Toon samenvatting"
 
 #: wordpress-popular-posts.php:333
 msgid "Excerpt Properties"
-msgstr "Propiedades del resumen"
+msgstr "Kenmerken samenvatting"
 
 #: wordpress-popular-posts.php:334
 msgid "Keep text format and links"
-msgstr "Mantener formato de texto y links"
+msgstr "Behoud tekstopmaak en koppelingen"
 
 #: wordpress-popular-posts.php:335
 msgid "Excerpt length:"
-msgstr "Largo del resumen:"
+msgstr "Lengte samenvatting:"
 
 #: wordpress-popular-posts.php:343
 msgid "Filters:"
-msgstr "Filtros:"
+msgstr "Filters:"
 
 #: wordpress-popular-posts.php:344
 msgid "Post type(s):"
-msgstr "Post type(s):"
+msgstr "Berichttype(s):"
 
 #: wordpress-popular-posts.php:346
 msgid "Category(ies) ID(s):"
-msgstr "ID(s) de Categor&iacute;a(s):"
+msgstr "Categorie ID(s):"
 
 #: wordpress-popular-posts.php:348
 msgid "Author(s) ID(s):"
-msgstr "ID(s) de Autor(es):"
+msgstr "Auteur ID(s):"
 
 #: wordpress-popular-posts.php:354
 msgid "Thumbnail settings"
-msgstr "Configuraci&oacute;n de miniatura"
+msgstr "Instellingen miniatuur"
 
 #: wordpress-popular-posts.php:355
 msgid "Display post thumbnail"
-msgstr "Mostrar miniatura"
+msgstr "Ton miniatuurplaatje"
 
 #: wordpress-popular-posts.php:357
 msgid "Width:"
-msgstr "Ancho:"
+msgstr "Breedte:"
 
 #: wordpress-popular-posts.php:358 wordpress-popular-posts.php:360
 msgid "px"
@@ -915,111 +855,110 @@ msgstr "px"
 
 #: wordpress-popular-posts.php:359
 msgid "Height:"
-msgstr "Alto:"
+msgstr "Hoogte:"
 
 #: wordpress-popular-posts.php:366
 msgid "Stats Tag settings"
-msgstr "Configuraci&oacute;n del Stats Tag"
+msgstr "Instellingen Statuslabel"
 
 #: wordpress-popular-posts.php:367
 msgid "Display comment count"
-msgstr "Mostrar cantidad de comentarios"
+msgstr "Toon aantal reacties"
 
 #: wordpress-popular-posts.php:368
 msgid "Display views"
-msgstr "Mostrar vistas"
+msgstr "Toon aantal bekeken"
 
 #: wordpress-popular-posts.php:369
 msgid "Display author"
-msgstr "Mostrar autor"
+msgstr "Toon auteur"
 
 #: wordpress-popular-posts.php:370
 msgid "Display date"
-msgstr "Mostrar fecha"
+msgstr "Toon datum"
 
 #: wordpress-popular-posts.php:373
 msgid "Date Format"
-msgstr "Formato de la fecha"
+msgstr "Datumopmaak"
 
 #: wordpress-popular-posts.php:384
 msgid "HTML Markup settings"
-msgstr "Configuraci&oacute;n del Markup HTML"
+msgstr "Instellingen HTML-opmaak"
 
 #: wordpress-popular-posts.php:385
 msgid "Use custom HTML Markup"
-msgstr "Utilizar Markup HTML personalizado"
+msgstr "Gebruik aangepaste HTML"
 
 #: wordpress-popular-posts.php:388
 msgid "Before / after title:"
-msgstr "Antes / despu&eacute;s del t&iacute;tulo:"
+msgstr "Voor / na titel:"
 
 #: wordpress-popular-posts.php:390
 msgid "Before / after Popular Posts:"
-msgstr "Antes / despu&eacute;s de las entradas populares"
+msgstr "Voor / na berichtenlijst:"
 
 #: wordpress-popular-posts.php:392
 msgid "Before / after each post:"
-msgstr "Antes / despu&eacute;s de cada entrada"
+msgstr "Voor / na elk bericht:"
 
 #: wordpress-popular-posts.php:396
 msgid "Use content formatting tags"
-msgstr "Utilizar etiquetas de formato de contenido"
+msgstr "Gebruik opmaaklabels"
 
 #: wordpress-popular-posts.php:399
 msgid "Content format:"
-msgstr "Formato de contenido:"
+msgstr "Opmaak:"
 
 #: wordpress-popular-posts.php:505
 msgid "Success! The cache table has been cleared!"
-msgstr "&iexcl;&Eacute;xito! &iexcl;La tabla cach&eacute; ha sido borrada!"
+msgstr "Gelukt! De cache is gewist!"
 
 #: wordpress-popular-posts.php:507
 msgid "Error: cache table does not exist."
-msgstr "Error: la tabla cach&eacute; no existe."
+msgstr "Fout: de cachetabel bestaat niet."
 
 #: wordpress-popular-posts.php:513
 msgid "Success! All data have been cleared!"
-msgstr "&iexcl;&Eacute;xito! &iexcl;Toda la data ha sido borrada!"
+msgstr "Gelukt! Alle gegevens zijn gewist!"
 
 #: wordpress-popular-posts.php:515
 msgid "Error: one or both data tables are missing."
-msgstr "Error: una o ambas tablas de datos no existen."
+msgstr "Fout: eenof meer datatabellen ontbreken."
 
 #: wordpress-popular-posts.php:518
 msgid "Invalid action."
-msgstr "Acci&oacute;n inv&aacute;lida."
+msgstr "Niet toegestaan."
 
 #: wordpress-popular-posts.php:521
 msgid ""
 "Sorry, you do not have enough permissions to do this. Please contact the "
 "site administrator for support."
 msgstr ""
-"Lo lamento, no tienes permisos suficientes para hacer esto. Por favor "
-"contacta al administrador del sitio."
+"Sorry, je hebt geen rechten om dit te doen. Neem contact op met de beheerder."
 
 #: wordpress-popular-posts.php:852
 msgid "Sorry. No data so far."
-msgstr "Lo lamentamos. No hay nada que mostrar a&uacute;n."
+msgstr "Sorry, tot nu toe geen gegevens."
 
 #: wordpress-popular-posts.php:928
 msgid "comment(s)"
-msgstr "comentario(s)"
+msgstr "reactie(s)"
 
 #: wordpress-popular-posts.php:932
 msgid "view(s)"
-msgstr "vista(s)"
+msgstr "keer bekeken"
 
 #: wordpress-popular-posts.php:935
 msgid "view(s) per day"
-msgstr "vista(s) por d&iacute;a"
+msgstr "keer bekeken per dag"
 
 #: wordpress-popular-posts.php:943
 msgid "by"
-msgstr "por"
+msgstr "door"
 
 #: wordpress-popular-posts.php:947
 msgid "posted on"
-msgstr "publicado el"
+msgstr "geplaatst op"
 
 #: wordpress-popular-posts.php:1292
 msgid ""
@@ -1027,10 +966,9 @@ msgid ""
 "at least version 2.8 to function correctly. Please update your blog via "
 "Tools &gt; Upgrade."
 msgstr ""
-"Tu versi&oacute;n de Wordpress es muy antigua. El plugin Wordpress Popular "
-"Posts requiere al menos la versi&oacute;n 2.8 para funcionar correctamente. "
-"Por favor actualiza tu blog via Herramientas &gt; Actualizaciones."
+"Je versie van WordPress is te oud. Deze plugin werkt met versie 2.8 en "
+"later. Vernieuw je versie via Gereedschappen (Tools) &gt; Werk bij (Upgrade)."
 
 #: wordpress-popular-posts.php:1416
 msgid "Wordpress Popular Posts Stats"
-msgstr "Estad&iacute;sticas de Wordpress Popular Posts"
+msgstr "Wordpress Popular Posts Status"
