@@ -140,7 +140,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// Can we create thumbnails?
 			//if (extension_loaded('gd') && function_exists('gd_info') && version_compare(phpversion(), '4.3.0', '>=') && function_exists('add_theme_support')) $this->thumb = true;
-			if (extension_loaded('gd') && function_exists('gd_info') && version_compare(phpversion(), '4.3.0', '>=')) $this->thumb = true;
+			if (extension_loaded('gd') && function_exists('gd_info') && version_compare(phpversion(), '5.2.0', '>=')) $this->thumb = true;
 			
 			// shortcode
 			if( function_exists('add_shortcode') ){
@@ -1133,22 +1133,46 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						
 						$thumb .= "</a>";
 					}
-					
-					$data = array(
+										
+					/*$data = array(
 						'title' => '<a href="'.$permalink.'" title="'.$title.'">'.$title_sub.'</a>',
 						'summary' => $excerpt,
 						'stats' => $stats,
 						'img' => $thumb,
-						'id' => $p->id
-					);
+						'id' => $p->id,
+						'url' => $permalink,
+						'text_title' => $title,
+						'author' => "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>",
+						'views' => $pageviews,
+						'comments' => $comments
+					);*/
 					
-					array_push($posts_data, $data);
+					//array_push($posts_data, $data);
 					
 					// PUTTING IT ALL TOGETHER					
 					if ($instance['markup']['custom_html']) { // build custom layout
-						if ($instance['markup']['pattern']['active']) {
+						
+						if ($instance['markup']['pattern']['active']) { // full custom layout
+						
+							$category = get_the_category( $p->id );
+							
+							$data = array(
+								'title' => '<a href="'.$permalink.'" title="'.$title.'">'.$title_sub.'</a>',
+								'summary' => $excerpt,
+								'stats' => $stats,
+								'img' => $thumb,
+								'id' => $p->id,
+								'url' => $permalink,
+								'text_title' => $title,
+								'category' => ($category[0]) ? '<a href="'.get_category_link($category[0]->term_id ).'">'.$category[0]->cat_name.'</a>' : '',
+								'author' => "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>",
+								'views' => $pageviews,
+								'comments' => $comments
+							);
+							
 							$content .= htmlspecialchars_decode($instance['markup']['post-start'], ENT_QUOTES) . htmlspecialchars_decode($this->format_content($instance['markup']['pattern']['form'], $data, $instance['rating'])) . htmlspecialchars_decode($instance['markup']['post-end'], ENT_QUOTES) . "\n";
-						} else {
+							
+						} else { // semi custom layout
 							$content .= htmlspecialchars_decode($instance['markup']['post-start'], ENT_QUOTES) . "{$thumb}<a href=\"{$permalink}\" title=\"{$title}\" class=\"wpp-post-title\">{$title_sub}</a> {$excerpt}{$stats}{$rating}" . htmlspecialchars_decode($instance['markup']['post-end'], ENT_QUOTES) . "\n";
 						}
 					} else { // build regular layout
@@ -1167,7 +1191,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			//if ($echo) { echo "<noscript>" . $content . "</noscript>"; } else { return $content; }
-			if ($return) { return $posts_data; } else { return $content; }
+			//if ($return) { return $posts_data; } else { return $content; }
+			
+			return $content;
 			
 		}		
 		
@@ -1413,7 +1439,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if (empty($string) || (empty($data) || !is_array($data))) return false;
 			
 			$params = array();
-			$pattern = '/\{(summary|stats|title|image|thumb|rating)\}/i';		
+			$pattern = '/\{(summary|stats|title|image|thumb|rating|url|text_title|author|category|views|comments)\}/i';		
 			preg_match_all($pattern, $string, $matches);
 			
 			for ($i=0; $i < count($matches[0]); $i++) {		
@@ -1439,6 +1465,36 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$params[$matches[0][$i]] = the_ratings_results($data['id']);
 						continue;
 					}
+				}
+				
+				if (strtolower($matches[0][$i]) == "{url}") {
+					$params[$matches[0][$i]] = $data['url'];
+					continue;
+				}
+				
+				if (strtolower($matches[0][$i]) == "{text_title}") {
+					$params[$matches[0][$i]] = $data['text_title'];
+					continue;
+				}
+				
+				if (strtolower($matches[0][$i]) == "{author}") {
+					$params[$matches[0][$i]] = $data['author'];
+					continue;
+				}
+				
+				if (strtolower($matches[0][$i]) == "{category}") {
+					$params[$matches[0][$i]] = $data['category'];
+					continue;
+				}
+				
+				if (strtolower($matches[0][$i]) == "{views}") {
+					$params[$matches[0][$i]] = $data['views'];
+					continue;
+				}
+				
+				if (strtolower($matches[0][$i]) == "{comments}") {
+					$params[$matches[0][$i]] = $data['comments'];
+					continue;
 				}
 			}
 			
@@ -1791,7 +1847,8 @@ function wpp_get_views($id = NULL, $range = NULL) {
 		if ( !is_array($result) || empty($result) || empty($result[0]['pageviews']) ) {
 			return "0";
 		} else {
-			return $result[0]['pageviews'];
+			//return $result[0]['pageviews'];
+			return number_format( $result[0]['pageviews'] );
 		}
 	}
 }
@@ -1839,16 +1896,19 @@ function get_mostpopular($args = NULL) {
 /*
 = 2.3.3 =
 * Added range parameter to wpp_get_views().
+* Added numeric formatting to the wpp_get_views() function.
+* Added new Content Formatting Tags: url, text_title, author, category, views, comments.
 * When enabling the Display author option, author's name will link to his/her profile page.
 * Improved database queries for speed.
 * Fixed bug preventing PostRating to show.
 * Removed Timthumb (again) in favor of the vt_resize function by Victor Teixeira to generate thumbnails.
 * Cron now also removes from cache all posts that have been trashed or eliminated.
 * Added "the title filter fix" that affected some themes. (Thank you, jeremyers1!)
-* Added Dutch translation (Thank you, Jeroen!)
+* Added Dutch translation. (Thank you, Jeroen!)
 */
 
 /*
 TODO
+* template tag / widget: Post type(s):post, but there are pages showing in the widget.
 * Add info on W3 Total Cache on readme or forum
 */

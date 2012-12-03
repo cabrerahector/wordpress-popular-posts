@@ -634,9 +634,9 @@
                                 <tr>
                                     <td><strong>pattern_form</strong></td>
                                     <td><?php _e('If set, you can decide the order of each content inside a single item on the list. For example, setting it to "{title}: {summary}" would output something like "Your Post Title: summary here". This attribute requires do_pattern to be true.', 'wordpress-popular-posts'); ?></td>
-                                    <td><?php _e('Available tags', 'wordpress-popular-posts'); ?>: {image}, {title}, {summary}, {stats}, {rating}</td>
-                                    <td>{image} {title}: {summary} {stats}</td>
-                                    <td>pattern_form="{image} {title}: {summary} {stats}"</td>
+                                    <td><?php _e('Available tags', 'wordpress-popular-posts'); ?>: {thumb}, {title}, {summary}, {stats}, {rating}, {url}, {text_title}, {author}, {category}, {views}, {comments}</td>
+                                    <td>{image} {thumb}: {summary} {stats}</td>
+                                    <td>pattern_form="{thumb} {title}: {summary} {stats}"</td>
                                 </tr>
 							</tbody>
                         </table>
@@ -689,7 +689,7 @@
         
         <h3 class="wmpp-subtitle"><?php _e("Data tools", "wordpress-popular-posts"); ?></h3>
                 
-        <p><?php _e("AJAX update. If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached.", "wordpress-popular-posts"); ?> (NOT AVAILABLE)</p>
+        <p><?php _e("AJAX update. If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached.", "wordpress-popular-posts"); ?> (NOT AVAILABLE, ENABLED BY DEFAULT)</p>
         <div class="tablenav top">
         	<div class="alignleft actions">
                 <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
