@@ -881,12 +881,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $instance['order_by'] == "views" ) {
 				
 						$fields .= ", v.pageviews AS 'pageviews' ";						
-						$from = " {$table} v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID AND {$post_types} {$authors} {$cats} AND p.comment_count > 0 AND p.post_password = '' AND p.post_status = 'publish' ORDER BY pageviews DESC LIMIT {$instance['limit']} ";
+						//$from = " {$table} v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID WHERE {$post_types} {$authors} {$cats} AND p.comment_count > 0 AND p.post_password = '' AND p.post_status = 'publish' ORDER BY pageviews DESC LIMIT {$instance['limit']} ";
+						$from = " {$table} v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID WHERE {$post_types} {$authors} {$cats} AND p.post_password = '' AND p.post_status = 'publish' ORDER BY pageviews DESC LIMIT {$instance['limit']} ";
 						
 					} else if ( $instance['order_by'] == "avg" ) {
 						
 						$fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$this->now()}', MIN(v.day)) > 0, DATEDIFF('{$this->now()}', MIN(v.day)), 1) ) ) AS 'avg_views' ";						
-						$from = " {$table} v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID AND {$post_types} {$authors} {$cats} AND p.comment_count > 0 AND p.post_password = '' AND p.post_status = 'publish' GROUP BY p.ID ORDER BY avg_views DESC LIMIT {$instance['limit']} ";
+						//$from = " {$table} v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID WHERE {$post_types} {$authors} {$cats} AND p.comment_count > 0 AND p.post_password = '' AND p.post_status = 'publish' GROUP BY p.ID ORDER BY avg_views DESC LIMIT {$instance['limit']} ";
+						$from = " {$table} v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID WHERE {$post_types} {$authors} {$cats} AND p.post_password = '' AND p.post_status = 'publish' GROUP BY p.ID ORDER BY avg_views DESC LIMIT {$instance['limit']} ";
 						
 					}
 					
@@ -1050,6 +1052,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							$excerpt = ": <span class=\"wpp-excerpt\">" . $this->get_summary($p->id, $instance) . "...</span>";
 						}
 					}
+					
+					//the_content_by_id
 					
 					// STATS
 					// comments
@@ -1751,6 +1755,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				)
 			);
 			
+			//print_r( $shortcode_ops );
+			
 			$shortcode_content = "<!-- Wordpress Popular Posts Plugin v". $this->version ." [SC] [".$shortcode_ops['range']."] [".$shortcode_ops['order_by']."]". (($shortcode_ops['markup']['custom_html']) ? ' [custom]' : ' [regular]') ." -->"."\n";
 				
 			// is there a title defined by user?
@@ -1909,6 +1915,8 @@ function get_mostpopular($args = NULL) {
 
 /*
 TODO
+* Verify compatibility with WPP 3.5
+* Check WP-Ratings, seems to be broken
 * template tag / widget: Post type(s):post, but there are pages showing in the widget.
 * Add info on W3 Total Cache on readme or forum
 */
