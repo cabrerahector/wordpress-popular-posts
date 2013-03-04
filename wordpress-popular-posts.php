@@ -39,7 +39,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		var $default_thumbnail = "";
 		var $user_ops = array();
 		
-		// constructor
+		/**
+		 * WPP's Constructor
+		 * Since 1.4.0
+		 */
 		function WordpressPopularPosts() {
 			global $wp_version;
 				
@@ -160,7 +163,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			add_filter('plugin_action_links', array(&$this, 'wpp_action_links'), 10, 2);
 		}
 
-		// builds Wordpress Popular Posts' widgets
+		/**
+		 * Builds WPP's widget
+		 * Since 2.0.0
+		 */
 		function widget($args, $instance) {
 			//$args['widget_id'];
 			extract($args);
@@ -183,8 +189,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			echo $after_widget . "\n";
 			echo "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
 		}
-
-		// updates each widget instance when user clicks the "save" button
+		
+		/**
+		 * Updates each widget instance when user clicks the "save" button
+		 * Since 2.0.0
+		 */
 		function update($new_instance, $old_instance) {
 			
 			$instance = $old_instance;
@@ -251,7 +260,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $instance;
 		}
 
-		// widget's form
+		/**
+		 * WPP widget's form
+		 * Since 2.0.0
+		 */
 		function form($instance) {
 			
 			// set default values			
@@ -421,7 +433,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
             <?php
 		}
 		
-		// RRR Added to get local time as per WP settings		
+		/**
+		 * RRR Added to get local time as per WP settings
+		 * Since 2.1.6
+		 */	
 		function curdate() {			
 			return gmdate( 'Y-m-d', ( time() + ( get_option( 'gmt_offset' ) * 3600 ) ));
 		}
@@ -430,14 +445,20 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return current_time('mysql');
 		}
 		
-		// Function to calculate script execution time.
+		/**
+		 * Calculate script execution time
+		 * Since 2.3.0
+		 */
 		function microtime_float() {
 			list( $msec, $sec ) = explode( ' ', microtime() );
 			$microtime = (float) $msec + (float) $sec;
 			return $microtime;
 		}
 		
-		// updates popular posts data table via ajax
+		/**
+		 * Updates popular posts data table via AJAX on post/page view
+		 * Since 2.0.0
+		 */
 		function wpp_ajax_update() {		
 			$nonce = $_POST['token'];
 			
@@ -480,8 +501,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 		}
 		
-		// Updates popular posts data table on post/page view
-		// Since 2.3.0
+		/**
+		 * Updates popular posts data table on post/page view
+		 * Since 2.3.0
+		 */
 		function wpp_update($content) {
 			if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
 				
@@ -513,7 +536,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $content;
 		}
 		
-		// clears Wordpress Popular Posts' data
+		/**
+		 * Clears WPP datacache table
+		 * Since 2.0.0
+		 */
 		function wpp_clear_data() {
 			$token = $_POST['token'];
 			$clear = isset($_POST['clear']) ? $_POST['clear'] : '';
@@ -550,7 +576,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			die();
 		}
 		
-		// database install
+		/**
+		 * Installs WPP DB tables
+		 * Since 2.0.0
+		 */
 		function wpp_install() {
 			global $wpdb;
 			
@@ -623,8 +652,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			dbDelta($sql);
 		}
 		
-		// Checks for stuff that needs updating on plugin reactivation
-		// Since 2.3.1
+		/**
+		 * Checks for stuff that needs updating on plugin (re)activation
+		 * Since 2.3.1
+		 */
 		function wpp_upgrade() {
 			
 			update_option('wpp_ver', $this->version); // update wpp version in db
@@ -689,7 +720,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 		}
 		
-		// prints ajax script to theme's header
+		/**
+		 * Prints AJAX script to wp_head()
+		 * Since 2.0.0
+		 */
 		function wpp_print_ajax() {			
 			// if we're on a page or post, load the script
 			if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {			
@@ -716,7 +750,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 		}		
 		
-		// prints popular posts
+		/**
+		 * Builds popular posts list
+		 * Since 1.4.0
+		 */
 		function get_popular_posts($instance, $return = false) {
 			
 			// set default values			
@@ -1124,7 +1161,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 					
 					// POST THUMBNAIL
-					if ($instance['thumbnail']['active'] && $this->thumb) {
+					/*if ($instance['thumbnail']['active'] && $this->thumb) {
 						$tbWidth = $instance['thumbnail']['width'];
 						$tbHeight = $instance['thumbnail']['height'];
 						
@@ -1140,11 +1177,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_fi_def\" />";
 							}
 						} else if ($this->user_ops['tools']['thumbnail']['source'] == "first_image") { // get first image on post
-							$attachment_id = $this->get_img($p->id, "first_image");
+							$attachment_url = $this->get_img($p->id, "first_image");
 								
-							if ($attachment_id) {
+							if ($attachment_url) {
 								
-								$image = $this->vt_resize( '', $attachment_id, $tbWidth, $tbHeight, true );
+								$image = $this->vt_resize( '', $attachment_url, $tbWidth, $tbHeight, true );
 								$thumb .= "<img src=\"{$image['url']}\" width=\"{$image['width']}\" height=\"{$image['height']}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_fp\" />";
 								
 							} else {
@@ -1158,6 +1195,30 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							} else {
 								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_cf_def\" />";
 							}
+						}
+						
+						$thumb .= "</a>";
+					}*/
+					
+					if ($instance['thumbnail']['active'] && $this->thumb) {
+
+						$tbWidth = $instance['thumbnail']['width'];
+						$tbHeight = $instance['thumbnail']['height'];
+						
+						$thumb = "<a href=\"". $permalink ."\" class=\"wpp-thumbnail\" title=\"{$title}\">";
+						
+						if ( $this->user_ops['tools']['thumbnail']['source'] == "custom_field" ) { // get image from custom field
+							
+							$path = get_post_meta($p->id, $this->user_ops['tools']['thumbnail']['field'], true);
+							
+							if ( $path != "" ) {
+								$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_cf\" />";
+							} else {
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_cf_def\" />";
+							}
+							
+						} else { // get image from post / Featured Image
+							$thumb .= $this->get_img( $p->id, array($tbWidth, $tbHeight), $this->user_ops['tools']['thumbnail']['source'] );							
 						}
 						
 						$thumb .= "</a>";
@@ -1204,7 +1265,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 		}		
 		
-		// builds posts' excerpt
+		/**
+		 * Builds post's excerpt
+		 * Since 1.4.6
+		 */
 		function get_summary($id, $instance){
 			if (!is_numeric($id)) return false;
 			global $wpdb;			
@@ -1244,36 +1308,106 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $excerpt;
 		}
 		
-		// gets the first image of post / page
-		function get_img($id = "", $source = "featured") {
+		/**
+		 * Retrieves post's image
+		 * Since 1.4.6
+		 * Last modified: 2.3.3
+		 */
+		function get_img( $id = NULL, $dim = array(80, 80), $source = "featured" ) {			
+			if ( !$id || empty($id) || !is_numeric($id) ) return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noID\" />";
 			
-			if ( empty($id) || !is_numeric($id)) return false;
+			$file_path = '';
 			
-			if ($source == "featured") {
-				$thumbnail_id = get_post_thumbnail_id($id);
+			if ( $source == "featured" ) { // get thumbnail path from the Featured Image
 				
-				if ($thumbnail_id) {
-					$thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
+				$thumbnail_id = get_post_thumbnail_id( $id ); // thumb attachment ID
+				
+				if ( $thumbnail_id ) {
+
+					$thumbnail = wp_get_attachment_image_src( $thumbnail_id, 'full' ); // full size image
+					$file_path = get_attached_file( $thumbnail_id ); // image path
+
+				}
+				
+			} else if ( $source == "first_image" ) { // get thumbnail path from post content
+				
+				global $wpdb;
+				
+				$content = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);			
+				$count = substr_count($content[0]['post_content'], '<img');
+				
+				if ($count > 0) { // images have been found
 					
-					if ($thumbnail) {
-						return $thumbnail[0];
+					$p = substr( $content[0]['post_content'], strpos($content[0]['post_content'], "<img", 0), (strpos($content[0]['post_content'], '>') - strpos($content[0]['post_content'], "<img", 0) + 1) );
+					
+					$img_pattern = '/<\s*img [^\>]*src\s*=\s*[\""\']?([^\""\'\s>]*)/i';			
+					preg_match($img_pattern, $p, $imgm);
+					
+					if ( isset($imgm[1]) ) {
+						
+						$thumbnail[0] = $imgm[1];
+						$query = "SELECT ID FROM {$wpdb->posts} WHERE guid='{$thumbnail[0]}'";
+						$tid = $wpdb->get_var($query);
+						
+						if ( $tid ) { // got a valid image uploaded to WP using the Media Library
+							$file_path = get_attached_file( $tid );
+						}
+						
 					}
-				}			
+					
+				}
 				
-				return false;
-			} else if ($source == "first_image") {
-				// get post attachments
-				$attachments = get_children(array('post_parent' => $id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order'));
+			}
+			
+			if ( $file_path == '' ) {
+				return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noPath wpp_{$source}\" />";
+			}
+			
+			$file_info = pathinfo( $file_path );
+			$extension = '.'. $file_info['extension'];
+			
+			$cropped_thumb = $file_info['dirname'].'/'.$file_info['filename'].'-'.$dim[0].'x'.$dim[1].$extension;
+			
+			//return print_r($thumbnail);
+			
+			if ( file_exists( $cropped_thumb ) ) { // there is a thumbnail already
+			
+				$new_img = str_replace( basename( $thumbnail[0] ), basename( $cropped_thumb ), $thumbnail[0] );
+				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
 				
-				// no image has been found
-				if ( !$attachments ) return false;
-				
-				//$image = array_shift($attachments);				
-				//return $image->guid;
-				
-				$attachment = array_reverse(array_keys($attachments));
-				
-				return $attachment[0];
+			} else { // no thumbnail or image file missing, attempt to create it
+			
+				if ( function_exists('wp_get_image_editor') ) { // if supported, use WP_Image_Editor Class	
+					
+					$image = wp_get_image_editor( $file_path );
+
+					if ( ! is_wp_error( $image ) ) { // valid image, create thumbnail
+						
+						$new_img = str_replace( basename( $thumbnail[0] ), basename( $image ), $thumbnail[0] );
+						
+						$image->resize( $dim[0], $dim[1], true );
+						$image->save( $new_img );
+						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_thumb wpp_{$source}\" />";
+						
+					} else { // image file path is invalid
+						return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_error wpp_{$source}\" />";
+					}
+					
+				} else { // create thumb using image_resize()
+					
+					$new_img_path = image_resize( $file_path, $dim[0], $dim[1], true );
+					
+					if ( ! is_wp_error( $image ) ) { // valid image, create thumbnail
+						
+						$new_img_size = getimagesize( $new_img_path );
+						$new_img = str_replace( basename( $thumbnail[0] ), basename( $new_img_path ), $thumbnail[0] );
+						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
+						
+					} else { // image file path is invalid
+						return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_error wpp_{$source}\" />";
+					}
+									
+				}
 				
 			}
 			
@@ -1425,24 +1559,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $vt_image;
 		}
 		
-		/*
-		// gets the first image of post / page
-		function get_img($id = "", $print = false) {
-			if ( empty($id) || !is_numeric($id) ) return false;
-			
-			// get post attachments
-			$attachments = get_children(array('post_parent' => $id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => 'menu_order'));
-			
-			// no image has been found
-			if ( !$attachments ) return false;
-			
-			$image = array_shift($attachments);			
-			return $image->guid;
-		}
-		*/
-		
-		// parses content structure defined by user
-		function format_content ($string, $data = array(), $rating) {
+		/**
+		 * Parses content tags
+		 * Since 1.4.6
+		 */
+		function format_content($string, $data = array(), $rating) {
 			if (empty($string) || (empty($data) || !is_array($data))) return false;
 			
 			$params = array();
@@ -1620,12 +1741,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $truncate;
 		}
 		
-		// plugin localization (Credits: Aleksey Timkov at@uadeveloper.com)
+		/**
+		 * Loads translations
+		 * Since 2.0.0
+		 */
 		function wpp_textdomain() {
 			load_plugin_textdomain('wordpress-popular-posts', false, dirname(plugin_basename( __FILE__ )));
 		}
 		
-		// insert Wordpress Popular Posts' stylesheet in theme's head section, just in case someone needs it		
+		/**
+		 * Loads WPP stylesheet into wp_head()
+		 * Since 2.0.0
+		 */
 		function wpp_print_stylesheet() {
 			if (!is_admin()) {
 				if ( @file_exists(TEMPLATEPATH.'/wpp.css') ) { // user stored a custom wpp.css on theme's directory, so use it
@@ -1638,7 +1765,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 		}
 		
-		// create Wordpress Popular Posts' admin page		
+		/**
+		 * WPP Admin page
+		 * Since 2.3.0
+		 */
 		function wpp_admin() {
 			require (dirname(__FILE__) . '/admin.php');
 		}	
@@ -1646,33 +1776,45 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			add_options_page('Wordpress Popular Posts', 'Wordpress Popular Posts', 'manage_options', 'wpp_admin', array(&$this, 'wpp_admin'));
 		}
 		
-		// version update warning
+		/**
+		 * WPP Update warning - lets the user know that his WP setup is too old
+		 * Since 2.0.0
+		 */
 		function wpp_update_warning() {
 			$msg = '<div id="wpp-message" class="error fade"><p>'.__('Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 2.8 to function correctly. Please update your blog via Tools &gt; Upgrade.', 'wordpress-popular-posts').'</p></div>';
 			echo trim($msg);
 		}
 		
-		// cache maintenance
+		/**
+		 * WPP cache maintenance
+		 * Since 2.0.0
+		 */
 		function wpp_cache_maintenance() {
 			global $wpdb;
 			
 			// delete posts that have not been seen in the past 30 days
 			$wpdb->query( "DELETE FROM ".$wpdb->prefix."popularpostsdatacache WHERE day < DATE_SUB('".$this->curdate()."', INTERVAL 30 DAY);" );
 			
-			// delete posts that have been deleted or trashed
+			// delete posts that have been deleted or trashed - added on ver 2.3.3
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostsdata WHERE postid IN (SELECT c.id FROM (SELECT id FROM {$wpdb->prefix}popularpostsdatacache GROUP BY id) c LEFT JOIN {$wpdb->posts} p ON c.id = p.ID WHERE p.ID IS NULL OR p.post_status = 'trash');" );
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostsdatacache WHERE id IN (SELECT c.id FROM (SELECT id FROM {$wpdb->prefix}popularpostsdatacache GROUP BY id) c LEFT JOIN {$wpdb->posts} p ON c.id = p.ID WHERE p.ID IS NULL OR p.post_status = 'trash');" );
 			
 		}
 		
-		// plugin deactivation
+		/**
+		 * WPP plugin deactivation
+		 * Since 2.0.0
+		 */
 		function wpp_deactivation() {
 			wp_clear_scheduled_hook('wpp_cache_event');
 			remove_shortcode('wpp');
 			remove_shortcode('WPP');
 		}
-		
-		// shortcode handler
+				
+		/**
+		 * WPP shortcode handler
+		 * Since 2.0.0
+		 */
 		function wpp_shortcode($atts = NULL, $content = NULL) {
 			
 			extract( shortcode_atts( array(
@@ -1778,18 +1920,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $shortcode_content;
 		}
 		
-		// stats page
-		// Since 2.0.3
-		function wpp_stats() {
-			if ( function_exists('add_submenu_page') ) add_submenu_page('index.php', __('Wordpress Popular Posts Stats'), __('Wordpress Popular Posts Stats'), 'manage_options', 'wpp-stats-display', array(&$this, 'wpp_stats_display'));
-		}
-		
-		function wpp_stats_display() {
-			require (dirname(__FILE__) . '/stats.php');
-        }
-		
-		// WPP action links
-		// Since 2.3.3
+		/**
+		 * WPP action links
+		 * Since 2.3.3
+		 */
 		function wpp_action_links( $links, $file ){
 			static $this_plugin;
 
@@ -1805,8 +1939,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $links;
 		}
 		
-		// stats page
-		// Since 2.3.0
+		/**
+		 * Template tag - gets popular posts
+		 * Deprecated in 2.0.3.
+		 * Use wpp_get_mostpopular instead.
+		 */
 		function sorter($a, $b) {
 			if ($a > 0 && $b > 0) {
 				return $a - $b;
