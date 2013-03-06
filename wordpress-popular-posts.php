@@ -1338,19 +1338,29 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 				if ($count > 0) { // images have been found
 					
-					$p = substr( $content[0]['post_content'], strpos($content[0]['post_content'], "<img", 0), (strpos($content[0]['post_content'], '>') - strpos($content[0]['post_content'], "<img", 0) + 1) );
+					$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content[0]['post_content'], $ContentImages );
 					
-					$img_pattern = '/<\s*img [^\>]*src\s*=\s*[\""\']?([^\""\'\s>]*)/i';			
-					preg_match($img_pattern, $p, $imgm);
+					/*$attachment_id = $wpdb->get_var( $wpdb->prepare(
+						"SELECT DISTINCT ID FROM $wpdb->posts WHERE guid LIKE %s",
+						'%'. basename( $ContentImages[1][0] ) .'%')
+					);
 					
-					if ( isset($imgm[1]) ) {
+					if ( $attachment_id ) {
 						
-						$thumbnail[0] = $imgm[1];
-						$query = "SELECT ID FROM {$wpdb->posts} WHERE guid='{$thumbnail[0]}'";
-						$tid = $wpdb->get_var($query);
+						$thumbnail[0] = $ContentImages[1][0];						
+						$file_path = get_attached_file( $attachment_id );
 						
-						if ( $tid ) { // got a valid image uploaded to WP using the Media Library
-							$file_path = get_attached_file( $tid );
+					}*/
+					
+					if ( isset($ContentImages[1][0]) ) {
+						
+						$attachment_id = $this->wpp_get_attachment_id( $ContentImages[1][0] );
+						
+						if ( $attachment_id ) {
+								
+							$thumbnail[0] = $ContentImages[1][0];
+							$file_path = get_attached_file( $attachment_id );
+							
 						}
 						
 					}
@@ -1368,14 +1378,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$cropped_thumb = $file_info['dirname'].'/'.$file_info['filename'].'-'.$dim[0].'x'.$dim[1].$extension;
 			
-			//return print_r($thumbnail);
-			
 			if ( file_exists( $cropped_thumb ) ) { // there is a thumbnail already
 			
 				$new_img = str_replace( basename( $thumbnail[0] ), basename( $cropped_thumb ), $thumbnail[0] );
-				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
+				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_cached_thumb wpp_{$source}\" />";
 				
-			} else { // no thumbnail or image file missing, attempt to create it
+			} else { // no thumbnail or image file missing, try to create it
 			
 				if ( function_exists('wp_get_image_editor') ) { // if supported, use WP_Image_Editor Class	
 					
@@ -1383,10 +1391,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					if ( ! is_wp_error( $image ) ) { // valid image, create thumbnail
 						
-						$new_img = str_replace( basename( $thumbnail[0] ), basename( $image ), $thumbnail[0] );
-						
 						$image->resize( $dim[0], $dim[1], true );
-						$image->save( $new_img );
+						//$image->save( $new_img );
+						$new_img = $image->save();						
+						$new_img = str_replace( basename( $thumbnail[0] ), $new_img['file'], $thumbnail[0] );
+						
 						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_thumb wpp_{$source}\" />";
 						
 					} else { // image file path is invalid
@@ -1411,6 +1420,71 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 			}
 			
+		}
+		
+		/**
+		* Get the Attachment ID for a given image URL.
+		* Source: http://wordpress.stackexchange.com/a/7094
+		* @param  string $url
+		* @return boolean|integer
+		*/
+		function wpp_get_attachment_id( $url ) {
+		
+			$dir = wp_upload_dir();
+			
+			// baseurl never has a trailing slash
+			if ( false === strpos( $url, $dir['baseurl'] . '/' ) ) {
+				// URL points to a place outside of upload directory
+				return false;
+			}
+			
+			$file  = basename( $url );
+			$query = array(
+				'post_type'  => 'attachment',
+				'fields'     => 'ids',
+				'meta_query' => array(
+					array(
+						'value'   => $file,
+						'compare' => 'LIKE',
+					),
+				)
+			);
+			
+			$query['meta_query'][0]['key'] = '_wp_attached_file';
+			
+			// query attachments
+			$ids = get_posts( $query );
+			
+			if ( ! empty( $ids ) ) {
+			
+				foreach ( $ids as $id ) {
+			
+					// first entry of returned array is the URL
+					if ( $url === array_shift( wp_get_attachment_image_src( $id, 'full' ) ) )
+						return $id;
+				}
+			}
+			
+			$query['meta_query'][0]['key'] = '_wp_attachment_metadata';
+			
+			// query attachments again
+			$ids = get_posts( $query );
+			
+			if ( empty( $ids) )
+				return false;
+			
+			foreach ( $ids as $id ) {
+			
+				$meta = wp_get_attachment_metadata( $id );
+			
+				foreach ( $meta['sizes'] as $size => $values ) {
+			
+					if ( $values['file'] === $file && $url === array_shift( wp_get_attachment_image_src( $id, $size ) ) )
+						return $id;
+				}
+			}
+			
+			return false;
 		}
 		
 		/**
