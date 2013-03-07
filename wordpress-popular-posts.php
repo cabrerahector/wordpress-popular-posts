@@ -38,6 +38,55 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		var $magicquotes = false;
 		var $default_thumbnail = "";
 		var $user_ops = array();
+		var $defaults = array(
+			'title' => '',
+			'limit' => 10,
+			'range' => 'daily',
+			'order_by' => 'views',
+			'post_type' => 'post,page',
+			'pid' => '',
+			'author' => '',
+			'cat' => '',
+			'shorten_title' => array(
+				'active' => false,
+				'length' => 25,
+				'keep_format' => false
+			),
+			'post-excerpt' => array(
+				'active' => false,
+				'length' => 55
+			),				
+			'thumbnail' => array(
+				'active' => false,
+				'width' => 15,
+				'height' => 15
+			),
+			'rating' => false,
+			'stats_tag' => array(
+				'comment_count' => true,
+				'views' => false,
+				'author' => false,
+				'date' => array(
+					'active' => false,
+					'format' => 'F j, Y'
+				),
+				'category' => false
+			),
+			'markup' => array(
+				'custom_html' => false,
+				'wpp-start' => '&lt;ul&gt;',
+				'wpp-end' => '&lt;/ul&gt;',
+				'post-html' => '',
+				'post-start' => '&lt;li&gt;',
+				'post-end' => '&lt;/li&gt;',
+				'title-start' => '&lt;h2&gt;',
+				'title-end' => '&lt;/h2&gt;',
+				'pattern' => array(
+					'active' => false,
+					'form' => '{thumb} {title}: {summary} {stats}'
+				)
+			)
+		);
 		
 		/**
 		 * WPP's Constructor
@@ -45,7 +94,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		function WordpressPopularPosts() {
 			global $wp_version;
-				
+			
+			// Set default title
+			$this->defaults['title'] = __('Popular Posts', 'wordpress-popular-posts');
+			
 			// widget settings
 			$widget_ops = array( 'classname' => 'popular-posts', 'description' => __('The most Popular Posts on your blog.', 'wordpress-popular-posts') );
 	
@@ -170,6 +222,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function widget($args, $instance) {
 			//$args['widget_id'];
 			extract($args);
+			
+			$instance = wp_parse_args( (array) $instance, $this->defaults );
+			$instance = $this->check_vars( $instance );
+			
 			echo "<!-- Wordpress Popular Posts Plugin v". $this->version ." [W] [".$instance['range']."] [".$instance['order_by']."]". (($instance['markup']['custom_html']) ? ' [custom]' : ' [regular]') ." -->"."\n";
 			echo $before_widget . "\n";
 			
@@ -249,6 +305,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance['markup']['custom_html'] = $new_instance['custom_html'];
 			$instance['markup']['wpp-start'] = empty($new_instance['wpp-start']) ? '&lt;ul&gt;' : htmlspecialchars( $new_instance['wpp-start'], ENT_QUOTES );
 			$instance['markup']['wpp-end'] = empty($new_instance['wpp-end']) ? '&lt;/ul&gt;' : htmlspecialchars( $new_instance['wpp-end'], ENT_QUOTES );
+			$instance['markup']['post-html'] = empty ($new_instance['post-html']) ? '&lt;li&gt;{thumb} {title} {stats}&lt;/li&gt;' : htmlspecialchars( $new_instance['post-html'], ENT_QUOTES );
 			$instance['markup']['post-start'] = empty ($new_instance['post-start']) ? '&lt;li&gt;' : htmlspecialchars( $new_instance['post-start'], ENT_QUOTES );
 			$instance['markup']['post-end'] = empty ($new_instance['post-end']) ? '&lt;/li&gt;' : htmlspecialchars( $new_instance['post-end'], ENT_QUOTES );
 			$instance['markup']['title-start'] = empty($new_instance['title-start']) ? '' : htmlspecialchars( $new_instance['title-start'], ENT_QUOTES );
@@ -266,62 +323,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		function form($instance) {
 			
-			// set default values			
-			$defaults = array(
-				'title' => __('Popular Posts', 'wordpress-popular-posts'),
-				'limit' => 10,
-				'range' => 'daily',
-				'order_by' => 'views',
-				'post_type' => 'post,page',
-				'pid' => '',
-				'author' => '',
-				'cat' => '',
-				'shorten_title' => array(
-					'active' => false,
-					'length' => 25,
-					'keep_format' => false
-				),
-				'post-excerpt' => array(
-					'active' => false,
-					'length' => 55
-				),				
-				'thumbnail' => array(
-					'active' => false,
-					'width' => 15,
-					'height' => 15
-				),
-				'rating' => false,
-				'stats_tag' => array(
-					'comment_count' => true,
-					'views' => false,
-					'author' => false,
-					'date' => array(
-						'active' => false,
-						'format' => 'F j, Y'
-					),
-					'category' => false
-				),
-				'markup' => array(
-					'custom_html' => false,
-					'wpp-start' => '&lt;ul&gt;',
-					'wpp-end' => '&lt;/ul&gt;',
-					'post-start' => '&lt;li&gt;',
-					'post-end' => '&lt;/li&gt;',
-					'title-start' => '&lt;h2&gt;',
-					'title-end' => '&lt;/h2&gt;',
-					'pattern' => array(
-						'active' => false,
-						'form' => '{thumb} {title}: {summary} {stats}'
-					)
-				)
-			);
-			
-			//echo "<pre>"; print_r( $defaults ); echo "</pre>";
-			
 			// update instance's default options
-			$instance = wp_parse_args( (array) $instance, $defaults );
-			
-			//echo "<pre>"; print_r( $instance ); echo "</pre>";
+			$instance = wp_parse_args( (array) $instance, $this->defaults );
+			$instance = $this->check_vars( $instance );
 			
 			// form
 			?>
@@ -419,6 +423,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <input type="text" id="<?php echo $this->get_field_id( 'title-start' ); ?>" name="<?php echo $this->get_field_name( 'title-start' ); ?>" value="<?php echo $instance['markup']['title-start']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /> <input type="text" id="<?php echo $this->get_field_id( 'title-end' ); ?>" name="<?php echo $this->get_field_name( 'title-end' ); ?>" value="<?php echo $instance['markup']['title-end']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /></p>
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'wpp_start' ); ?>"><?php _e('Before / after Popular Posts:', 'wordpress-popular-posts'); ?></label> <br />
                 <input type="text" id="<?php echo $this->get_field_id( 'wpp-start' ); ?>" name="<?php echo $this->get_field_name( 'wpp-start' ); ?>" value="<?php echo $instance['markup']['wpp-start']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /> <input type="text" id="<?php echo $this->get_field_id( 'wpp-end' ); ?>" name="<?php echo $this->get_field_name( 'wpp-end' ); ?>" value="<?php echo $instance['markup']['wpp-end']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /></p>
+                
+                <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'post-html' ); ?>"><?php _e('Post HTML Markup:', 'wordpress-popular-posts'); ?></label> <br />
+                <textarea class="widefat" rows="10" id="<?php echo $this->get_field_id( 'post-html' ); ?>" name="<?php echo $this->get_field_name( 'post-html' ); ?>"><?php echo $instance['markup']['post-html']; ?></textarea>
+                
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'post-start' ); ?>"><?php _e('Before / after each post:', 'wordpress-popular-posts'); ?></label> <br />
                 <input type="text" id="<?php echo $this->get_field_id( 'post-start' ); ?>" name="<?php echo $this->get_field_name( 'post-start' ); ?>" value="<?php echo $instance['markup']['post-start']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /> <input type="text" id="<?php echo $this->get_field_id( 'post-end' ); ?>" name="<?php echo $this->get_field_name( 'post-end' ); ?>" value="<?php echo $instance['markup']['post-end']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /></p>
                 <hr />
@@ -434,6 +442,43 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		}
 		
 		/**
+		 * Checks variables and sets values if undefined
+		 * Since 2.3.3
+		 */
+		function check_vars( $instance ) {
+			
+			// make sure all variables are defined
+			if ( !isset($instance['title']) ) $instance['title'] = $this->defaults['title'];
+			if ( !isset($instance['limit']) ) $instance['limit'] = $this->defaults['limit'];
+			if ( !isset($instance['range']) ) $instance['range'] = $this->defaults['range'];
+			if ( !isset($instance['order_by']) ) $instance['order_by'] = $this->defaults['order_by'];
+			if ( !isset($instance['post_type']) ) $instance['post_type'] = $this->defaults['post_type'];
+			if ( !isset($instance['pid']) ) $instance['pid'] = $this->defaults['pid'];
+			if ( !isset($instance['cat']) ) $instance['cat'] = $this->defaults['cat'];
+			if ( !isset($instance['author']) ) $instance['author'] = $this->defaults['author'];
+			if ( !isset($instance['shorten_title']) ) $instance['shorten_title'] = $this->defaults['shorten_title'];
+			if ( !isset($instance['post-excerpt']) ) $instance['post-excerpt'] = $this->defaults['post-excerpt'];
+			if ( !isset($instance['thumbnail']) ) $instance['thumbnail'] = $this->defaults['thumbnail'];
+			if ( !isset($instance['rating']) ) $instance['rating'] = $this->defaults['rating'];
+			if ( !isset($instance['stats_tag']) ) $instance['stats_tag'] = $this->defaults['stats_tag'];
+			if ( !isset($instance['markup']) ) $instance['markup'] = $this->defaults['markup'];
+			
+			// new fields here
+			if ( !isset($instance['markup']['post-html']) ) {
+				
+				if ( $instance['markup']['pattern']['active'] ) {				
+					$instance['markup']['post-html'] = $instance['markup']['post-start'] . $instance['markup']['pattern']['form'] . $instance['markup']['post-end'];
+				} else {
+					$instance['markup']['post-html'] = $instance['markup']['post-start'] . '{thumb} {title} {stats}' . $instance['markup']['post-end'];
+				}
+				
+			}
+			
+			return $instance;
+			
+		}
+		
+		/**
 		 * RRR Added to get local time as per WP settings
 		 * Since 2.1.6
 		 */	
@@ -446,7 +491,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		}
 		
 		/**
-		 * Calculate script execution time
+		 * Calculates script execution time
 		 * Since 2.3.0
 		 */
 		function microtime_float() {
@@ -756,58 +801,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		function get_popular_posts($instance, $return = false) {
 			
-			// set default values			
-			$defaults = array(
-				'title' => __('Popular Posts', 'wordpress-popular-posts'),
-				'limit' => 10,
-				'range' => 'daily',
-				'order_by' => 'views',
-				'post_type' => 'post,page',
-				'pid' => '',
-				'author' => '',
-				'cat' => '',
-				'shorten_title' => array(
-					'active' => false,
-					'length' => 25,
-					'keep_format' => false
-				),
-				'post-excerpt' => array(
-					'active' => false,
-					'length' => 55
-				),				
-				'thumbnail' => array(
-					'active' => false,
-					'width' => 15,
-					'height' => 15
-				),
-				'rating' => false,
-				'stats_tag' => array(
-					'comment_count' => true,
-					'views' => false,
-					'author' => false,
-					'date' => array(
-						'active' => false,
-						'format' => 'F j, Y'
-					),
-					'category' => false
-				),
-				'markup' => array(
-					'custom_html' => false,
-					'wpp-start' => '&lt;ul&gt;',
-					'wpp-end' => '&lt;/ul&gt;',
-					'post-start' => '&lt;li&gt;',
-					'post-end' => '&lt;/li&gt;',
-					'title-start' => '&lt;h2&gt;',
-					'title-end' => '&lt;/h2&gt;',
-					'pattern' => array(
-						'active' => false,
-						'form' => '{thumb} {title}: {summary} {stats}'
-					)
-				)
-			);
-			
 			// update instance's default options
-			$instance = wp_parse_args( (array) $instance, $defaults );
+			$instance = wp_parse_args( (array) $instance, $this->defaults );
+			$instance = $this->check_vars( $instance );
 			
 			/*
 			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
@@ -1227,7 +1223,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// PUTTING IT ALL TOGETHER					
 					if ($instance['markup']['custom_html']) { // build custom layout
 						
-						if ($instance['markup']['pattern']['active']) { // full custom layout
+						/*if ($instance['markup']['pattern']['active']) { // full custom layout
 							
 							$data = array(
 								'title' => '<a href="'.$permalink.'" title="'.$title.'">'.$title_sub.'</a>',
@@ -1247,7 +1243,24 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							
 						} else { // semi custom layout
 							$content .= htmlspecialchars_decode($instance['markup']['post-start'], ENT_QUOTES) . "{$thumb}<a href=\"{$permalink}\" title=\"{$title}\" class=\"wpp-post-title\">{$title_sub}</a> {$excerpt}{$stats}{$rating}" . htmlspecialchars_decode($instance['markup']['post-end'], ENT_QUOTES) . "\n";
-						}
+						}*/
+							
+						$data = array(
+							'title' => '<a href="'.$permalink.'" title="'.$title.'">'.$title_sub.'</a>',
+							'summary' => $excerpt,
+							'stats' => $stats,
+							'img' => $thumb,
+							'id' => $p->id,
+							'url' => $permalink,
+							'text_title' => $title,
+							'category' => $post_cat,
+							'author' => "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>",
+							'views' => $pageviews,
+							'comments' => $comments
+						);
+						
+						$content .= htmlspecialchars_decode( $this->format_content($instance['markup']['post-html'], $data, $instance['rating']), ENT_QUOTES ) . "\n";						
+						
 					} else { // build regular layout
 						$content .= "<li>{$thumb}<a href=\"{$permalink}\" title=\"{$title}\" class=\"wpp-post-title\">{$title_sub}</a> {$excerpt}<span class=\"post-stats\">{$stats}</span>{$rating}</li>" . "\n";
 					}
@@ -1312,6 +1325,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Retrieves post's image
 		 * Since 1.4.6
 		 * Last modified: 2.3.3
+		 * Borrowed some ideas from Victor Teixeira's VT function http://core.trac.wordpress.org/ticket/15311
+		 * and added a check for the WP_Image_Editor Class
 		 */
 		function get_img( $id = NULL, $dim = array(80, 80), $source = "featured" ) {			
 			if ( !$id || empty($id) || !is_numeric($id) ) return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noID\" />";
@@ -1353,6 +1368,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}*/
 					
 					if ( isset($ContentImages[1][0]) ) {
+						
+						//return $ContentImages[1][0];
 						
 						$attachment_id = $this->wpp_get_attachment_id( $ContentImages[1][0] );
 						
@@ -1915,6 +1932,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'stats_category' => false,
 				'wpp_start' => '<ul>',
 				'wpp_end' => '</ul>',
+				'post_html' => '',
 				'post_start' => '<li>',
 				'post_end' => '</li>',
 				'header_start' => '<h2>',
@@ -1967,7 +1985,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'custom_html' => true,
 					'wpp-start' => empty($wpp_start) ? '<ul>' : $wpp_start,
 					'wpp-end' => empty($wpp_end) ? '</ul>' : $wpp_end,
-					'post-start' => empty($post_start) ? '<li>;' : $post_start,
+					'post_html' => empty($post_html) ? '<li>{thumb} {title} {stats}</li>' : $post_html,
+					'post-start' => empty($post_start) ? '<li>' : $post_start,
 					'post-end' => empty($post_end) ? '</li>' : $post_end,
 					'title-start' => empty($header_start) ? '' : $header_start,
 					'title-end' => empty($header_end) ? '' : $header_end,
@@ -2134,15 +2153,15 @@ function get_mostpopular($args = NULL) {
 
 /*
 = 2.3.3 =
+* Improved Custom HTML feature! It's more flexible now & new Content Tags added: {url}, {text_title}, {author}, {category}, {views}, {comments}!
 * Added ability to exclude posts by ID (similar to the category filter).
 * Added Category to the Stats Tag settings options.
 * Added range parameter to wpp_get_views().
 * Added numeric formatting to the wpp_get_views() function.
-* Added new Content Formatting Tags: url, text_title, author, category, views, comments.
 * When enabling the Display author option, author's name will link to his/her profile page.
 * Improved database queries for speed.
 * Fixed bug preventing PostRating to show.
-* Removed Timthumb (again) in favor of the vt_resize function by Victor Teixeira to generate thumbnails.
+* Removed Timthumb (again) in favor of the updated get_img() function based on Victor Teixeira's vt_resize function.
 * Cron now removes from cache all posts that have been trashed or eliminated.
 * Added "the title filter fix" that affected some themes. (Thank you, jeremyers1!)
 * Added Dutch translation. (Thank you, Jeroen!)
@@ -2152,7 +2171,7 @@ function get_mostpopular($args = NULL) {
 
 /*
 TODO
-* Verify compatibility with WPP 3.5
 * Check WP-Ratings, seems to be broken
 * Add info on W3 Total Cache on readme or forum
+* Integrate resize custom field image option to code
 */
