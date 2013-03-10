@@ -419,6 +419,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <input type="checkbox" class="checkbox" <?php echo ($instance['markup']['custom_html']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'custom_html' ); ?>" name="<?php echo $this->get_field_name( 'custom_html' ); ?>" /> <label for="<?php echo $this->get_field_id( 'custom_html' ); ?>"><?php _e('Use custom HTML Markup', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('wpurl'); ?>/wp-admin/options-general.php?page=wpp_admin" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small><br />
                 <?php if ($instance['markup']['custom_html']) : ?>
                 <br />
+                <p class="description" style="font-size:0.9em;"><?php _e('Remember to enable the corresponding option(s) in Thumbnail settings / Stats Tag settings when using the Content Tags', 'wordpress-popular-posts'); ?>.</p>
+                
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'title-start' ); ?>"><?php _e('Before / after title:', 'wordpress-popular-posts'); ?></label> <br />
                 <input type="text" id="<?php echo $this->get_field_id( 'title-start' ); ?>" name="<?php echo $this->get_field_name( 'title-start' ); ?>" value="<?php echo $instance['markup']['title-start']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /> <input type="text" id="<?php echo $this->get_field_id( 'title-end' ); ?>" name="<?php echo $this->get_field_name( 'title-end' ); ?>" value="<?php echo $instance['markup']['title-end']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /></p>
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'wpp_start' ); ?>"><?php _e('Before / after Popular Posts:', 'wordpress-popular-posts'); ?></label> <br />
@@ -427,7 +429,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'post-html' ); ?>"><?php _e('Post HTML Markup:', 'wordpress-popular-posts'); ?></label> <br />
                 <textarea class="widefat" rows="10" id="<?php echo $this->get_field_id( 'post-html' ); ?>" name="<?php echo $this->get_field_name( 'post-html' ); ?>"><?php echo $instance['markup']['post-html']; ?></textarea>
                 
-                <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'post-start' ); ?>"><?php _e('Before / after each post:', 'wordpress-popular-posts'); ?></label> <br />
+                <!--<p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'post-start' ); ?>"><?php _e('Before / after each post:', 'wordpress-popular-posts'); ?></label> <br />
                 <input type="text" id="<?php echo $this->get_field_id( 'post-start' ); ?>" name="<?php echo $this->get_field_name( 'post-start' ); ?>" value="<?php echo $instance['markup']['post-start']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /> <input type="text" id="<?php echo $this->get_field_id( 'post-end' ); ?>" name="<?php echo $this->get_field_name( 'post-end' ); ?>" value="<?php echo $instance['markup']['post-end']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /></p>
                 <hr />
                 <?php endif; ?>
@@ -436,7 +438,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <br />
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'pattern_form' ); ?>"><?php _e('Content format:', 'wordpress-popular-posts'); ?></label>
                 <input type="text" id="<?php echo $this->get_field_id( 'pattern_form' ); ?>" name="<?php echo $this->get_field_name( 'pattern_form' ); ?>" value="<?php echo htmlspecialchars($instance['markup']['pattern']['form'], ENT_QUOTES); ?>" style="width:204px" <?php echo ($instance['markup']['pattern']['active']) ? '' : 'disabled="disabled"' ?> /></p>
-                <?php endif; ?>
+                <?php endif; ?> -->
             </fieldset>
             <?php
 		}
@@ -1134,8 +1136,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					//author
 					if ( $instance['stats_tag']['author'] ) {
 						//$display_name = get_the_author_meta('display_name', $p->uid);
-						$display_name = "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>";
-						$stats .= ($stats == "") ? "<span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts')." {$display_name}</span>" : " | <span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts') . " {$display_name}</span>";
+						$author = "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>";
+						$stats .= ($stats == "") ? "<span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts')." {$author}</span>" : " | <span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts') . " {$author}</span>";
 					}
 					// date
 					if ( $instance['stats_tag']['date']['active'] ) {						
@@ -1201,21 +1203,99 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$tbWidth = $instance['thumbnail']['width'];
 						$tbHeight = $instance['thumbnail']['height'];
 						
-						$thumb = "<a href=\"". $permalink ."\" class=\"wpp-thumbnail\" title=\"{$title}\">";
+						$thumb = "<a href=\"". $permalink ."\" class=\"wpp-thumbnail\" title=\"{$title}\">" . $this->get_img( $p->id, array($tbWidth, $tbHeight), $this->user_ops['tools']['thumbnail']['source'] ) . "</a>";
 						
-						if ( $this->user_ops['tools']['thumbnail']['source'] == "custom_field" ) { // get image from custom field
+						//$thumb .= $this->get_img( $p->id, array($tbWidth, $tbHeight), $this->user_ops['tools']['thumbnail']['source'] );
+						
+						/*if ( $this->user_ops['tools']['thumbnail']['source'] == "custom_field" ) { // get image from custom field
 							
 							$path = get_post_meta($p->id, $this->user_ops['tools']['thumbnail']['field'], true);
 							
-							if ( $path != "" ) {
-								$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_cf\" />";
+							if ( $path != "" ) { // custom field has URL
+							
+								$thumbnail = NULL;
+								$file_path = NULL;
+							
+								$file_info = pathinfo($path);
+	
+								// check for external image
+								$dir = wp_upload_dir();			
+								
+								if ( false === strpos( $path, $dir['baseurl'] . '/' ) ) { // image from external URL
+									
+									$validate = wp_check_filetype_and_ext( $path, $file_info['basename'], array(
+										'jpg' => 'image/jpg',
+										'jpeg' => 'image/jpeg',
+										'gif' => 'image/gif',
+										'png' =>'image/png')
+									);
+									
+									if ( !empty($validate['ext']) ) {
+										
+										$path = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $path );
+										
+										$attachment_id = $this->wpp_get_attachment_id( $path, true );
+										
+										if ( !$attachment_id ) {
+										
+											// required libraries for media_sideload_image
+											require_once(ABSPATH . 'wp-admin/includes/file.php');
+											require_once(ABSPATH . 'wp-admin/includes/media.php');
+											require_once(ABSPATH . 'wp-admin/includes/image.php');
+											
+											$tmp = download_url( $path );
+											$file_array = array(
+												'name' => basename( $path ),
+												'tmp_name' => $tmp
+											);
+										
+											// Check for download errors
+											if ( is_wp_error( $tmp ) ) {
+												@unlink( $file_array[ 'tmp_name' ] );												
+											}
+										
+											$attachment_id = media_handle_sideload( $file_array, 0 );
+											// Check for handle sideload errors.
+											if ( is_wp_error( $attachment_id ) ) {												
+												@unlink( $file_array['tmp_name'] );																								
+											} else {
+												
+												$thumbnail = wp_get_attachment_url( $attachment_id );
+												$file_path = get_attached_file( $attachment_id );
+											}
+											
+										}										
+										
+									}
+									
+								} else { // image from Media Library
+								
+									// If this is the URL of an auto-generated thumbnail, get the URL of the original image
+									$file = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $file );
+									$attachment_id = $this->wpp_get_attachment_id( $path );
+													
+									if ( $attachment_id ) { // attachment id exists in Media Library
+											
+										$thumbnail = $path;
+										$file_path = get_attached_file( $attachment_id );
+										
+									}
+									
+								}
+								
+								if ( $file_path ) {
+									
+									
+									
+								}
+								
 							} else {
-								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_cf_def\" />";
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_cf_noPath\" />";
 							}
 							
 						} else { // get image from post / Featured Image
 							$thumb .= $this->get_img( $p->id, array($tbWidth, $tbHeight), $this->user_ops['tools']['thumbnail']['source'] );							
-						}
+						}*/
 						
 						$thumb .= "</a>";
 					}
@@ -1254,7 +1334,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							'url' => $permalink,
 							'text_title' => $title,
 							'category' => $post_cat,
-							'author' => "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>",
+							'author' => $author,
 							'views' => $pageviews,
 							'comments' => $comments
 						);
@@ -1329,6 +1409,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * and added a check for the WP_Image_Editor Class
 		 */
 		function get_img( $id = NULL, $dim = array(80, 80), $source = "featured" ) {			
+			
 			if ( !$id || empty($id) || !is_numeric($id) ) return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noID\" />";
 			
 			$file_path = '';
@@ -1355,28 +1436,23 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 					$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content[0]['post_content'], $ContentImages );
 					
-					/*$attachment_id = $wpdb->get_var( $wpdb->prepare(
-						"SELECT DISTINCT ID FROM $wpdb->posts WHERE guid LIKE %s",
-						'%'. basename( $ContentImages[1][0] ) .'%')
-					);
-					
-					if ( $attachment_id ) {
-						
-						$thumbnail[0] = $ContentImages[1][0];						
-						$file_path = get_attached_file( $attachment_id );
-						
-					}*/
-					
-					if ( isset($ContentImages[1][0]) ) {
-						
-						//return $ContentImages[1][0];
+					if ( isset($ContentImages[1][0]) ) { // we have a valid image url
 						
 						$attachment_id = $this->wpp_get_attachment_id( $ContentImages[1][0] );
 						
-						if ( $attachment_id ) {
+						if ( $attachment_id ) { // attachment id exists in Media Library
 								
 							$thumbnail[0] = $ContentImages[1][0];
 							$file_path = get_attached_file( $attachment_id );
+							
+							//Check for MultiSite blogs and str_replace the absolute image locations
+							if ( function_exists('is_multisite') && is_multisite() ) { // is_multisite() since WP 3.0.0
+							
+								global $blog_id;
+								$blog_details = get_blog_details($blog_id);
+								$file_path = str_replace($blog_details->path . 'files/', '/wp-content/blogs.dir/'. $blog_id .'/files/', $file_path);
+								
+							}
 							
 						}
 						
@@ -1384,10 +1460,96 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 				}
 				
+			} else if ( $source == "custom_field" ) { // get thumb from custom field
+				
+				$file = get_post_meta( $id, $this->user_ops['tools']['thumbnail']['field'], true );
+				
+				if ( isset($this->user_ops['tools']['thumbnail']['resize']) && $this->user_ops['tools']['thumbnail']['resize'] && $file != '' ) {				
+				
+					$file_info = pathinfo($file);
+		
+					// check for external image
+					$dir = wp_upload_dir();
+					
+					if ( false === strpos( $file, $dir['baseurl'] . '/' ) ) { // image from external URL
+						
+						$validate = wp_check_filetype_and_ext( $file, $file_info['basename'], array(
+							'jpg' => 'image/jpg',
+							'jpeg' => 'image/jpeg',
+							'gif' => 'image/gif',
+							'png' =>'image/png')
+						);
+						
+						if ( !empty($validate['ext']) ) { // valid image, proceed to upload
+							
+							$file = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $file );
+							
+							$attachment_id = $this->wpp_get_attachment_id( $file, true );
+							
+							if ( !$attachment_id ) { // file has not been uploaded
+							
+								// required libraries for media_sideload_image
+								require_once(ABSPATH . 'wp-admin/includes/file.php');
+								require_once(ABSPATH . 'wp-admin/includes/media.php');
+								require_once(ABSPATH . 'wp-admin/includes/image.php');
+								
+								// fetch file
+								$tmp = download_url( $file );
+								$file_array = array(
+									'name' => basename( $file ),
+									'tmp_name' => $tmp
+								);
+							
+								// Check for download errors
+								if ( is_wp_error( $tmp ) ) {								
+									@unlink( $file_array['tmp_name'] );								
+								}
+								
+								$attachment_id = media_handle_sideload( $file_array, 0 );
+								// Check for handle sideload errors.
+								if ( is_wp_error( $attachment_id ) ) {								
+									@unlink( $file_array['tmp_name'] );
+									$attachment_id = NULL;
+								}
+								
+							}
+							
+							if ( $attachment_id ) { // attachment id exists in Media Library
+								
+								$thumbnail[0] = wp_get_attachment_url( $attachment_id );
+								$file_path = get_attached_file( $attachment_id );
+								
+							}
+							
+						}
+						
+					} else { // image from Media Library
+					
+						// If this is the URL of an auto-generated thumbnail, get the URL of the original image
+						$file = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $file );
+						$attachment_id = $this->wpp_get_attachment_id( $file );
+										
+						if ( $attachment_id ) { // attachment id exists in Media Library
+								
+							$thumbnail[0] = $file;
+							$file_path = get_attached_file( $attachment_id );
+							
+						}
+						
+					}
+				
+				} else {
+					
+					if ( $file != '' ) {						
+						return "<img src=\"". $file ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_cf_noResize\" />";						
+					}
+					
+				}
+				
 			}
 			
 			if ( $file_path == '' ) {
-				return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noPath wpp_{$source}\" />";
+				return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_def_noPath wpp_{$source}\" />";
 			}
 			
 			$file_info = pathinfo( $file_path );
@@ -1398,7 +1560,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( file_exists( $cropped_thumb ) ) { // there is a thumbnail already
 			
 				$new_img = str_replace( basename( $thumbnail[0] ), basename( $cropped_thumb ), $thumbnail[0] );
-				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_cached_thumb wpp_{$source}\" />";
+				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" class=\"wpp_cached_thumb wpp_{$source}\" />";
 				
 			} else { // no thumbnail or image file missing, try to create it
 			
@@ -1413,21 +1575,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$new_img = $image->save();						
 						$new_img = str_replace( basename( $thumbnail[0] ), $new_img['file'], $thumbnail[0] );
 						
-						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_thumb wpp_{$source}\" />";
+						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" class=\"wpp_imgeditor_thumb wpp_{$source}\" />";
 						
 					} else { // image file path is invalid
 						return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_error wpp_{$source}\" />";
 					}
 					
-				} else { // create thumb using image_resize()
+				} else { // create thumb using image_resize() - deprecated in WP 3.5.0!
 					
 					$new_img_path = image_resize( $file_path, $dim[0], $dim[1], true );
 					
-					if ( ! is_wp_error( $image ) ) { // valid image, create thumbnail
+					if ( ! is_wp_error( $new_img_path ) ) { // valid image, create thumbnail
 						
 						$new_img_size = getimagesize( $new_img_path );
 						$new_img = str_replace( basename( $thumbnail[0] ), basename( $new_img_path ), $thumbnail[0] );
-						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
+						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
 						
 					} else { // image file path is invalid
 						return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_error wpp_{$source}\" />";
@@ -1445,15 +1607,19 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		* @param  string $url
 		* @return boolean|integer
 		*/
-		function wpp_get_attachment_id( $url ) {
+		function wpp_get_attachment_id( $url, $allow_external = false ) {
 		
-			$dir = wp_upload_dir();
+			/*$dir = wp_upload_dir();
 			
 			// baseurl never has a trailing slash
 			if ( false === strpos( $url, $dir['baseurl'] . '/' ) ) {
 				// URL points to a place outside of upload directory
 				return false;
 			}
+			
+			// Added by Hector Cabrera: if this is the URL of an auto-generated thumbnail,
+			// get the URL of the original image
+			$url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $url );
 			
 			$file  = basename( $url );
 			$query = array(
@@ -1498,6 +1664,76 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 					if ( $values['file'] === $file && $url === array_shift( wp_get_attachment_image_src( $id, $size ) ) )
 						return $id;
+				}
+			}
+			
+			return false;*/
+			
+			$dir = wp_upload_dir();
+			
+			// baseurl never has a trailing slash
+			if ( false === strpos( $url, $dir['baseurl'] . '/' ) && $allow_external == false ) {
+				// URL points to a place outside of upload directory
+				return false;
+			}
+			
+			// If this is the URL of an auto-generated thumbnail, get the URL of the original image
+			$url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $url );
+			
+			$file = basename( $url );
+			
+			$query = array(
+				'post_type'  => 'attachment',
+				'fields'     => 'ids',
+				'meta_query' => array(
+					array(
+						'value'   => $file,
+						'compare' => 'LIKE',
+					),
+				)
+			);
+			
+			$query['meta_query'][0]['key'] = '_wp_attached_file';
+			
+			// query attachments
+			$ids = get_posts( $query );
+			
+			if ( ! empty( $ids ) ) {
+			
+				foreach ( $ids as $id ) {
+					
+					if ( $allow_external ) {
+						if ( $file === basename(array_shift( wp_get_attachment_image_src( $id, 'full' ) )) ) return $id;
+					} else {			
+						// first entry of returned array is the URL					
+						if ( $url === array_shift( wp_get_attachment_image_src( $id, 'full' ) ) ) return $id;
+					
+					}
+				}
+			}
+			
+			$query['meta_query'][0]['key'] = '_wp_attachment_metadata';
+			
+			// query attachments again
+			$ids = get_posts( $query );
+			
+			if ( empty( $ids) )
+				return false;
+			
+			foreach ( $ids as $id ) {
+			
+				$meta = wp_get_attachment_metadata( $id );
+			
+				foreach ( $meta['sizes'] as $size => $values ) {
+					
+					if ( $allow_external ) {
+						if ( $values['file'] === $file )
+							return $id;
+					} else {
+						if ( $values['file'] === $file && $url === array_shift( wp_get_attachment_image_src( $id, $size ) ) )
+							return $id;
+					}
+					
 				}
 			}
 			

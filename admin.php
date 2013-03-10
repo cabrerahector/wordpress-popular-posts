@@ -237,9 +237,9 @@
 		// TOOLS
 		jQuery("#thumb_source").change(function() {
 			if (jQuery(this).val() == "custom_field") {
-				jQuery("#lbl_field, #thumb_field").show();
+				jQuery("#lbl_field, #thumb_field, #custom_field_options_resize, #custom_field_options_name").show();
 			} else {
-				jQuery("#lbl_field, #thumb_field").hide();
+				jQuery("#lbl_field, #thumb_field, #custom_field_options_resize, #custom_field_options_name").hide();
 			}
 		});
 	});
@@ -677,13 +677,13 @@
                                     </select>
                                 </td>
                             </tr>
-                            <tr valign="top" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?>>
+                            <tr valign="top" id="custom_field_options_name" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?>>
                             	<th scope="row"><label for="thumb_field"><?php _e("Custom field name", "wordpress-popular-posts"); ?>:</label></th>
                                 <td>
                                 	<input type="text" id="thumb_field" name="thumb_field" value="<?php echo $ops['tools']['thumbnail']['field']; ?>" size="10" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> />
 								</td>
 							</tr>
-                            <tr valign="top" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?>>
+                            <tr valign="top" id="custom_field_options_resize" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?>>
                             	<th scope="row"><label for="thumb_field_resize"><?php _e("Resize image from Custom field?", "wordpress-popular-posts"); ?>:</label></th>
                                 <td>
                                 	<select name="thumb_field_resize" id="thumb_field_resize">
