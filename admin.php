@@ -40,6 +40,7 @@
 			} else {				
 				$ops['tools']['thumbnail']['source'] = $_POST['thumb_source'];
 				$ops['tools']['thumbnail']['field'] = $_POST['thumb_field'];
+				$ops['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
 				
 				update_option('wpp_settings_config', $ops);				
 				echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";

@@ -131,7 +131,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'stylesheet' => true,
 					'thumbnail' => array(
 						'source' => 'featured',
-						'field' => ''
+						'field' => '',
+						'resize' => false
 					)
 				)
 			);
@@ -1464,6 +1465,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 				$file = get_post_meta( $id, $this->user_ops['tools']['thumbnail']['field'], true );
 				
+				/*$this->user_ops = get_option('wpp_settings_config');
+				
+				if ( $this->user_ops['tools']['thumbnail']['resize'] ) {
+					echo "resize, dammit!";
+				}*/
+				
 				if ( isset($this->user_ops['tools']['thumbnail']['resize']) && $this->user_ops['tools']['thumbnail']['resize'] && $file != '' ) {				
 				
 					$file_info = pathinfo($file);
@@ -1518,6 +1525,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								
 								$thumbnail[0] = wp_get_attachment_url( $attachment_id );
 								$file_path = get_attached_file( $attachment_id );
+								
+								//Check for MultiSite blogs and str_replace the absolute image locations
+								if ( function_exists('is_multisite') && is_multisite() ) { // is_multisite() since WP 3.0.0
+								
+									global $blog_id;
+									$blog_details = get_blog_details($blog_id);
+									$file_path = str_replace($blog_details->path . 'files/', '/wp-content/blogs.dir/'. $blog_id .'/files/', $file_path);
+									
+								}
 								
 							}
 							
@@ -2409,5 +2425,5 @@ function get_mostpopular($args = NULL) {
 TODO
 * Check WP-Ratings, seems to be broken
 * Add info on W3 Total Cache on readme or forum
-* Integrate resize custom field image option to code
+* Shorten post summary by number of words
 */
