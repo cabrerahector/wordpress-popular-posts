@@ -131,8 +131,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'stylesheet' => true,
 					'thumbnail' => array(
 						'source' => 'featured',
-						'field' => '',
-						'resize' => false
+						'field' => ''
 					)
 				)
 			);
@@ -149,19 +148,29 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				add_action('get_header', array(&$this, 'wpp_print_stylesheet'));
 			}
 			
-			/*
-			if ($this->user_ops['tools']['ajax']) {
+			//wpp_ajax_get_popular
+			add_action('wp_ajax_wpp_ajax_get_popular', array(&$this, 'ajax_getpopular'));
+			add_action('wp_ajax_nopriv_wpp_ajax_get_popular', array(&$this, 'ajax_getpopular'));
+			
+			if ($this->user_ops['tools']['ajax']) {				
+				remove_action('the_content', array(&$this,'wpp_update') );
 				// add ajax update to wp_ajax_ hook
 				add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
-				add_action('wp_head', array(&$this, 'wpp_print_ajax'));
+				add_action('wp_head', array(&$this, 'wpp_print_ajax'));				
+				
 			} else {
+				// stop Wordpress from preloading next post and thus calling single.php twice!
+				remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
+				
+				remove_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
+				remove_action('wp_head', array(&$this, 'wpp_print_ajax'));
 				// add update action, no ajax
 				add_action('the_content', array(&$this,'wpp_update') );
 			}
-			*/
 			
-			add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
-			add_action('wp_head', array(&$this, 'wpp_print_ajax'));
+			
+			//add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
+			//add_action('wp_head', array(&$this, 'wpp_print_ajax'));
 			
 			// add ajax table truncation to wp_ajax_ hook
 			add_action('wp_ajax_wpp_clear_cache', array(&$this, 'wpp_clear_data'));
@@ -220,14 +229,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Builds WPP's widget
 		 * Since 2.0.0
 		 */
-		function widget($args, $instance) {
-			//$args['widget_id'];
-			extract($args);
+		function widget($args, $instance) {			
+			extract($args);			
+			//echo $widget_id;
 			
 			$instance = wp_parse_args( (array) $instance, $this->defaults );
 			$instance = $this->check_vars( $instance );
 			
 			echo "<!-- Wordpress Popular Posts Plugin v". $this->version ." [W] [".$instance['range']."] [".$instance['order_by']."]". (($instance['markup']['custom_html']) ? ' [custom]' : ' [regular]') ." -->"."\n";
+			
 			echo $before_widget . "\n";
 			
 			// has user set a title?
@@ -242,9 +252,41 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				}
 			}
 			
-			echo $this->get_popular_posts($instance);			
+			if ( $this->user_ops['tools']['ajax'] ) {				
+				?>
+                <script type="text/javascript">
+                    /* <![CDATA[ */				
+                    jQuery(document).ready(function(){
+                        jQuery.get('<?php echo admin_url('admin-ajax.php'); ?>', {action: 'wpp_ajax_get_popular', id: '<?php echo $this->number; ?>'}, function(data){
+							jQuery('#<?php echo $widget_id; ?>').append(data);
+						});
+                    });                
+                    /* ]]> */
+                </script>                
+                <?php				
+			} else {
+				echo $this->get_popular_posts( $instance );
+			}
+			
+			/*echo $before_widget . "\n";
+			
+			// has user set a title?
+			if ($instance['title'] != '') {
+				
+				$title = apply_filters( 'widget_title', $instance['title'] );
+				
+				if ($instance['markup']['custom_html'] && $instance['markup']['title-start'] != "" && $instance['markup']['title-end'] != "" ) {
+					echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
+				} else {
+					echo $before_title . $title . $after_title;
+				}
+			}
+			
+			echo $this->get_popular_posts($instance);
+			echo $after_widget . "\n";*/
+			
 			echo $after_widget . "\n";
-			echo "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
+			echo "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";			
 		}
 		
 		/**
@@ -420,8 +462,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <input type="checkbox" class="checkbox" <?php echo ($instance['markup']['custom_html']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'custom_html' ); ?>" name="<?php echo $this->get_field_name( 'custom_html' ); ?>" /> <label for="<?php echo $this->get_field_id( 'custom_html' ); ?>"><?php _e('Use custom HTML Markup', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('wpurl'); ?>/wp-admin/options-general.php?page=wpp_admin" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small><br />
                 <?php if ($instance['markup']['custom_html']) : ?>
                 <br />
-                <p class="description" style="font-size:0.9em;"><?php _e('Remember to enable the corresponding option(s) in Thumbnail settings / Stats Tag settings when using the Content Tags', 'wordpress-popular-posts'); ?>.</p>
-                
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'title-start' ); ?>"><?php _e('Before / after title:', 'wordpress-popular-posts'); ?></label> <br />
                 <input type="text" id="<?php echo $this->get_field_id( 'title-start' ); ?>" name="<?php echo $this->get_field_name( 'title-start' ); ?>" value="<?php echo $instance['markup']['title-start']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /> <input type="text" id="<?php echo $this->get_field_id( 'title-end' ); ?>" name="<?php echo $this->get_field_name( 'title-end' ); ?>" value="<?php echo $instance['markup']['title-end']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /></p>
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'wpp_start' ); ?>"><?php _e('Before / after Popular Posts:', 'wordpress-popular-posts'); ?></label> <br />
@@ -430,7 +470,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'post-html' ); ?>"><?php _e('Post HTML Markup:', 'wordpress-popular-posts'); ?></label> <br />
                 <textarea class="widefat" rows="10" id="<?php echo $this->get_field_id( 'post-html' ); ?>" name="<?php echo $this->get_field_name( 'post-html' ); ?>"><?php echo $instance['markup']['post-html']; ?></textarea>
                 
-                <!--<p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'post-start' ); ?>"><?php _e('Before / after each post:', 'wordpress-popular-posts'); ?></label> <br />
+                <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'post-start' ); ?>"><?php _e('Before / after each post:', 'wordpress-popular-posts'); ?></label> <br />
                 <input type="text" id="<?php echo $this->get_field_id( 'post-start' ); ?>" name="<?php echo $this->get_field_name( 'post-start' ); ?>" value="<?php echo $instance['markup']['post-start']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /> <input type="text" id="<?php echo $this->get_field_id( 'post-end' ); ?>" name="<?php echo $this->get_field_name( 'post-end' ); ?>" value="<?php echo $instance['markup']['post-end']; ?>" class="widefat" style="width:80px!important" <?php echo ($instance['markup']['custom_html']) ? '' : 'disabled="disabled"' ?> /></p>
                 <hr />
                 <?php endif; ?>
@@ -439,7 +479,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <br />
                 <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'pattern_form' ); ?>"><?php _e('Content format:', 'wordpress-popular-posts'); ?></label>
                 <input type="text" id="<?php echo $this->get_field_id( 'pattern_form' ); ?>" name="<?php echo $this->get_field_name( 'pattern_form' ); ?>" value="<?php echo htmlspecialchars($instance['markup']['pattern']['form'], ENT_QUOTES); ?>" style="width:204px" <?php echo ($instance['markup']['pattern']['active']) ? '' : 'disabled="disabled"' ?> /></p>
-                <?php endif; ?> -->
+                <?php endif; ?>
             </fieldset>
             <?php
 		}
@@ -556,7 +596,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function wpp_update($content) {
 			if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
 				
-				global $wpdb, $wp_query;
+				
+				
+				/*global $wpdb, $wp_query;
 				
 				$wpdb->show_errors();
 				
@@ -568,20 +610,53 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 				$result = $wpdb->query("INSERT INTO {$table} (postid, day, last_viewed) VALUES ({$id}, '{$this->now()}', '{$this->now()}') ON DUPLICATE KEY UPDATE last_viewed = '{$this->now()}', pageviews = pageviews + 1;");
 				
-				$result2 = $wpdb->query("INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$id}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';");
-				
-				
-				echo "INSERT INTO {$table} (postid, day, last_viewed) VALUES ({$id}, '{$this->now()}', '{$this->now()}') ON DUPLICATE KEY UPDATE last_viewed = '{$this->now()}', pageviews = pageviews + 1;" . "<br />";
-				
-				echo "INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$id}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';" . "<br />";
+				$result2 = $wpdb->query("INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$id}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';");				
 				
 				if (!$result || !$result2) {
 					die($wpdb->print_error);
+				}*/
+				
+				global $wpdb, $post;
+				
+				$table = $wpdb->prefix . 'popularpostsdata';				
+				$result = $wpdb->query("INSERT INTO {$table} (postid, day, last_viewed) VALUES ({$post->ID}, '{$this->now()}', '{$this->now()}') ON DUPLICATE KEY UPDATE last_viewed = '{$this->now()}', pageviews = pageviews + 1;");				
+				$result2 = $wpdb->query("INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$post->ID}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';");
+				
+				if (!$result || !$result2) {
+					print_r( $wpdb->print_error );
 				}
 				
 			}
 			
 			return $content;
+		}
+		
+		/**
+		 * Builds list via AJAX
+		 * Since 2.3.3
+		 */
+		function ajax_getpopular() {
+			
+			if (is_numeric($_GET['id']) && (intval($_GET['id']) == floatval($_GET['id'])) && ($_GET['id'] != '')) {
+				$id = $_GET['id'];
+			} else {
+				die("Invalid ID");
+			}
+			
+			//global $wp_registered_widgets;			
+			//echo 'here is the global variable '; print_r( $wp_registered_widgets );
+			
+			$settings = $this->get_settings();
+			
+			if ( isset($settings[$id]) ) {
+							
+				$instance = $settings[$id];			
+				echo $this->get_popular_posts( $instance );
+				
+			}
+			
+			die();
+			
 		}
 		
 		/**
@@ -772,11 +847,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Prints AJAX script to wp_head()
 		 * Since 2.0.0
 		 */
-		function wpp_print_ajax() {			
+		function wpp_print_ajax() {
+			
+			wp_print_scripts('jquery');
+			
 			// if we're on a page or post, load the script
 			if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {			
 				// let's add jQuery
-				wp_print_scripts('jquery');
+				//wp_print_scripts('jquery');
+				
 					
 				// create security token
 				$nonce = wp_create_nonce('wpp-token');
@@ -1137,8 +1216,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					//author
 					if ( $instance['stats_tag']['author'] ) {
 						//$display_name = get_the_author_meta('display_name', $p->uid);
-						$author = "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>";
-						$stats .= ($stats == "") ? "<span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts')." {$author}</span>" : " | <span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts') . " {$author}</span>";
+						$display_name = "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>";
+						$stats .= ($stats == "") ? "<span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts')." {$display_name}</span>" : " | <span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts') . " {$display_name}</span>";
 					}
 					// date
 					if ( $instance['stats_tag']['date']['active'] ) {						
@@ -1156,7 +1235,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 					// RATING
 					if ($instance['rating'] && $this->postRating) {
-						$rating = '<span class="wpp-rating">'.the_ratings_results( $p->id ).'</span>';
+						//$rating = '<span class="wpp-rating">'.the_ratings_results( $p->id ).'</span>';
+						$rating = '<span class="wpp-rating">'.the_ratings( 'span', $p->id ).'</span>';
 					}
 					
 					// POST THUMBNAIL
@@ -1204,99 +1284,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$tbWidth = $instance['thumbnail']['width'];
 						$tbHeight = $instance['thumbnail']['height'];
 						
-						$thumb = "<a href=\"". $permalink ."\" class=\"wpp-thumbnail\" title=\"{$title}\">" . $this->get_img( $p->id, array($tbWidth, $tbHeight), $this->user_ops['tools']['thumbnail']['source'] ) . "</a>";
+						$thumb = "<a href=\"". $permalink ."\" class=\"wpp-thumbnail\" title=\"{$title}\">";
 						
-						//$thumb .= $this->get_img( $p->id, array($tbWidth, $tbHeight), $this->user_ops['tools']['thumbnail']['source'] );
-						
-						/*if ( $this->user_ops['tools']['thumbnail']['source'] == "custom_field" ) { // get image from custom field
+						if ( $this->user_ops['tools']['thumbnail']['source'] == "custom_field" ) { // get image from custom field
 							
 							$path = get_post_meta($p->id, $this->user_ops['tools']['thumbnail']['field'], true);
 							
-							if ( $path != "" ) { // custom field has URL
-							
-								$thumbnail = NULL;
-								$file_path = NULL;
-							
-								$file_info = pathinfo($path);
-	
-								// check for external image
-								$dir = wp_upload_dir();			
-								
-								if ( false === strpos( $path, $dir['baseurl'] . '/' ) ) { // image from external URL
-									
-									$validate = wp_check_filetype_and_ext( $path, $file_info['basename'], array(
-										'jpg' => 'image/jpg',
-										'jpeg' => 'image/jpeg',
-										'gif' => 'image/gif',
-										'png' =>'image/png')
-									);
-									
-									if ( !empty($validate['ext']) ) {
-										
-										$path = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $path );
-										
-										$attachment_id = $this->wpp_get_attachment_id( $path, true );
-										
-										if ( !$attachment_id ) {
-										
-											// required libraries for media_sideload_image
-											require_once(ABSPATH . 'wp-admin/includes/file.php');
-											require_once(ABSPATH . 'wp-admin/includes/media.php');
-											require_once(ABSPATH . 'wp-admin/includes/image.php');
-											
-											$tmp = download_url( $path );
-											$file_array = array(
-												'name' => basename( $path ),
-												'tmp_name' => $tmp
-											);
-										
-											// Check for download errors
-											if ( is_wp_error( $tmp ) ) {
-												@unlink( $file_array[ 'tmp_name' ] );												
-											}
-										
-											$attachment_id = media_handle_sideload( $file_array, 0 );
-											// Check for handle sideload errors.
-											if ( is_wp_error( $attachment_id ) ) {												
-												@unlink( $file_array['tmp_name'] );																								
-											} else {
-												
-												$thumbnail = wp_get_attachment_url( $attachment_id );
-												$file_path = get_attached_file( $attachment_id );
-											}
-											
-										}										
-										
-									}
-									
-								} else { // image from Media Library
-								
-									// If this is the URL of an auto-generated thumbnail, get the URL of the original image
-									$file = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $file );
-									$attachment_id = $this->wpp_get_attachment_id( $path );
-													
-									if ( $attachment_id ) { // attachment id exists in Media Library
-											
-										$thumbnail = $path;
-										$file_path = get_attached_file( $attachment_id );
-										
-									}
-									
-								}
-								
-								if ( $file_path ) {
-									
-									
-									
-								}
-								
+							if ( $path != "" ) {
+								$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_cf\" />";
 							} else {
-								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp_cf_noPath\" />";
+								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_cf_def\" />";
 							}
 							
 						} else { // get image from post / Featured Image
 							$thumb .= $this->get_img( $p->id, array($tbWidth, $tbHeight), $this->user_ops['tools']['thumbnail']['source'] );							
-						}*/
+						}
 						
 						$thumb .= "</a>";
 					}
@@ -1335,7 +1337,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							'url' => $permalink,
 							'text_title' => $title,
 							'category' => $post_cat,
-							'author' => $author,
+							'author' => "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>",
 							'views' => $pageviews,
 							'comments' => $comments
 						);
@@ -1410,7 +1412,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * and added a check for the WP_Image_Editor Class
 		 */
 		function get_img( $id = NULL, $dim = array(80, 80), $source = "featured" ) {			
-			
 			if ( !$id || empty($id) || !is_numeric($id) ) return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noID\" />";
 			
 			$file_path = '';
@@ -1437,127 +1438,31 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 					$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content[0]['post_content'], $ContentImages );
 					
-					if ( isset($ContentImages[1][0]) ) { // we have a valid image url
+					/*$attachment_id = $wpdb->get_var( $wpdb->prepare(
+						"SELECT DISTINCT ID FROM $wpdb->posts WHERE guid LIKE %s",
+						'%'. basename( $ContentImages[1][0] ) .'%')
+					);
+					
+					if ( $attachment_id ) {
+						
+						$thumbnail[0] = $ContentImages[1][0];						
+						$file_path = get_attached_file( $attachment_id );
+						
+					}*/
+					
+					if ( isset($ContentImages[1][0]) ) {
+						
+						//return $ContentImages[1][0];
 						
 						$attachment_id = $this->wpp_get_attachment_id( $ContentImages[1][0] );
 						
-						if ( $attachment_id ) { // attachment id exists in Media Library
+						if ( $attachment_id ) {
 								
 							$thumbnail[0] = $ContentImages[1][0];
 							$file_path = get_attached_file( $attachment_id );
 							
-							//Check for MultiSite blogs and str_replace the absolute image locations
-							if ( function_exists('is_multisite') && is_multisite() ) { // is_multisite() since WP 3.0.0
-							
-								global $blog_id;
-								$blog_details = get_blog_details($blog_id);
-								$file_path = str_replace($blog_details->path . 'files/', '/wp-content/blogs.dir/'. $blog_id .'/files/', $file_path);
-								
-							}
-							
 						}
 						
-					}
-					
-				}
-				
-			} else if ( $source == "custom_field" ) { // get thumb from custom field
-				
-				$file = get_post_meta( $id, $this->user_ops['tools']['thumbnail']['field'], true );
-				
-				/*$this->user_ops = get_option('wpp_settings_config');
-				
-				if ( $this->user_ops['tools']['thumbnail']['resize'] ) {
-					echo "resize, dammit!";
-				}*/
-				
-				if ( isset($this->user_ops['tools']['thumbnail']['resize']) && $this->user_ops['tools']['thumbnail']['resize'] && $file != '' ) {				
-				
-					$file_info = pathinfo($file);
-		
-					// check for external image
-					$dir = wp_upload_dir();
-					
-					if ( false === strpos( $file, $dir['baseurl'] . '/' ) ) { // image from external URL
-						
-						$validate = wp_check_filetype_and_ext( $file, $file_info['basename'], array(
-							'jpg' => 'image/jpg',
-							'jpeg' => 'image/jpeg',
-							'gif' => 'image/gif',
-							'png' =>'image/png')
-						);
-						
-						if ( !empty($validate['ext']) ) { // valid image, proceed to upload
-							
-							$file = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $file );
-							
-							$attachment_id = $this->wpp_get_attachment_id( $file, true );
-							
-							if ( !$attachment_id ) { // file has not been uploaded
-							
-								// required libraries for media_sideload_image
-								require_once(ABSPATH . 'wp-admin/includes/file.php');
-								require_once(ABSPATH . 'wp-admin/includes/media.php');
-								require_once(ABSPATH . 'wp-admin/includes/image.php');
-								
-								// fetch file
-								$tmp = download_url( $file );
-								$file_array = array(
-									'name' => basename( $file ),
-									'tmp_name' => $tmp
-								);
-							
-								// Check for download errors
-								if ( is_wp_error( $tmp ) ) {								
-									@unlink( $file_array['tmp_name'] );								
-								}
-								
-								$attachment_id = media_handle_sideload( $file_array, 0 );
-								// Check for handle sideload errors.
-								if ( is_wp_error( $attachment_id ) ) {								
-									@unlink( $file_array['tmp_name'] );
-									$attachment_id = NULL;
-								}
-								
-							}
-							
-							if ( $attachment_id ) { // attachment id exists in Media Library
-								
-								$thumbnail[0] = wp_get_attachment_url( $attachment_id );
-								$file_path = get_attached_file( $attachment_id );
-								
-								//Check for MultiSite blogs and str_replace the absolute image locations
-								if ( function_exists('is_multisite') && is_multisite() ) { // is_multisite() since WP 3.0.0
-								
-									global $blog_id;
-									$blog_details = get_blog_details($blog_id);
-									$file_path = str_replace($blog_details->path . 'files/', '/wp-content/blogs.dir/'. $blog_id .'/files/', $file_path);
-									
-								}
-								
-							}
-							
-						}
-						
-					} else { // image from Media Library
-					
-						// If this is the URL of an auto-generated thumbnail, get the URL of the original image
-						$file = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $file );
-						$attachment_id = $this->wpp_get_attachment_id( $file );
-										
-						if ( $attachment_id ) { // attachment id exists in Media Library
-								
-							$thumbnail[0] = $file;
-							$file_path = get_attached_file( $attachment_id );
-							
-						}
-						
-					}
-				
-				} else {
-					
-					if ( $file != '' ) {						
-						return "<img src=\"". $file ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_cf_noResize\" />";						
 					}
 					
 				}
@@ -1565,7 +1470,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			if ( $file_path == '' ) {
-				return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_def_noPath wpp_{$source}\" />";
+				return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noPath wpp_{$source}\" />";
 			}
 			
 			$file_info = pathinfo( $file_path );
@@ -1576,7 +1481,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( file_exists( $cropped_thumb ) ) { // there is a thumbnail already
 			
 				$new_img = str_replace( basename( $thumbnail[0] ), basename( $cropped_thumb ), $thumbnail[0] );
-				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" class=\"wpp_cached_thumb wpp_{$source}\" />";
+				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_cached_thumb wpp_{$source}\" />";
 				
 			} else { // no thumbnail or image file missing, try to create it
 			
@@ -1591,21 +1496,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$new_img = $image->save();						
 						$new_img = str_replace( basename( $thumbnail[0] ), $new_img['file'], $thumbnail[0] );
 						
-						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" class=\"wpp_imgeditor_thumb wpp_{$source}\" />";
+						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_thumb wpp_{$source}\" />";
 						
 					} else { // image file path is invalid
 						return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_error wpp_{$source}\" />";
 					}
 					
-				} else { // create thumb using image_resize() - deprecated in WP 3.5.0!
+				} else { // create thumb using image_resize()
 					
 					$new_img_path = image_resize( $file_path, $dim[0], $dim[1], true );
 					
-					if ( ! is_wp_error( $new_img_path ) ) { // valid image, create thumbnail
+					if ( ! is_wp_error( $image ) ) { // valid image, create thumbnail
 						
 						$new_img_size = getimagesize( $new_img_path );
 						$new_img = str_replace( basename( $thumbnail[0] ), basename( $new_img_path ), $thumbnail[0] );
-						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
+						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
 						
 					} else { // image file path is invalid
 						return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_error wpp_{$source}\" />";
@@ -1623,19 +1528,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		* @param  string $url
 		* @return boolean|integer
 		*/
-		function wpp_get_attachment_id( $url, $allow_external = false ) {
+		function wpp_get_attachment_id( $url ) {
 		
-			/*$dir = wp_upload_dir();
+			$dir = wp_upload_dir();
 			
 			// baseurl never has a trailing slash
 			if ( false === strpos( $url, $dir['baseurl'] . '/' ) ) {
 				// URL points to a place outside of upload directory
 				return false;
 			}
-			
-			// Added by Hector Cabrera: if this is the URL of an auto-generated thumbnail,
-			// get the URL of the original image
-			$url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $url );
 			
 			$file  = basename( $url );
 			$query = array(
@@ -1680,76 +1581,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 					if ( $values['file'] === $file && $url === array_shift( wp_get_attachment_image_src( $id, $size ) ) )
 						return $id;
-				}
-			}
-			
-			return false;*/
-			
-			$dir = wp_upload_dir();
-			
-			// baseurl never has a trailing slash
-			if ( false === strpos( $url, $dir['baseurl'] . '/' ) && $allow_external == false ) {
-				// URL points to a place outside of upload directory
-				return false;
-			}
-			
-			// If this is the URL of an auto-generated thumbnail, get the URL of the original image
-			$url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $url );
-			
-			$file = basename( $url );
-			
-			$query = array(
-				'post_type'  => 'attachment',
-				'fields'     => 'ids',
-				'meta_query' => array(
-					array(
-						'value'   => $file,
-						'compare' => 'LIKE',
-					),
-				)
-			);
-			
-			$query['meta_query'][0]['key'] = '_wp_attached_file';
-			
-			// query attachments
-			$ids = get_posts( $query );
-			
-			if ( ! empty( $ids ) ) {
-			
-				foreach ( $ids as $id ) {
-					
-					if ( $allow_external ) {
-						if ( $file === basename(array_shift( wp_get_attachment_image_src( $id, 'full' ) )) ) return $id;
-					} else {			
-						// first entry of returned array is the URL					
-						if ( $url === array_shift( wp_get_attachment_image_src( $id, 'full' ) ) ) return $id;
-					
-					}
-				}
-			}
-			
-			$query['meta_query'][0]['key'] = '_wp_attachment_metadata';
-			
-			// query attachments again
-			$ids = get_posts( $query );
-			
-			if ( empty( $ids) )
-				return false;
-			
-			foreach ( $ids as $id ) {
-			
-				$meta = wp_get_attachment_metadata( $id );
-			
-				foreach ( $meta['sizes'] as $size => $values ) {
-					
-					if ( $allow_external ) {
-						if ( $values['file'] === $file )
-							return $id;
-					} else {
-						if ( $values['file'] === $file && $url === array_shift( wp_get_attachment_image_src( $id, $size ) ) )
-							return $id;
-					}
-					
 				}
 			}
 			
@@ -2411,6 +2242,8 @@ function get_mostpopular($args = NULL) {
 * Added range parameter to wpp_get_views().
 * Added numeric formatting to the wpp_get_views() function.
 * When enabling the Display author option, author's name will link to his/her profile page.
+* Fixed AJAX update feature (finally!)
+* Fixed WP Post Ratings not displaying on the list (and while it works, there are errors from the plugin itself: http://wordpress.org/support/topic/plugin-wp-postratings-undefined-indexes)
 * Improved database queries for speed.
 * Fixed bug preventing PostRating to show.
 * Removed Timthumb (again) in favor of the updated get_img() function based on Victor Teixeira's vt_resize function.
@@ -2423,7 +2256,6 @@ function get_mostpopular($args = NULL) {
 
 /*
 TODO
-* Check WP-Ratings, seems to be broken
 * Add info on W3 Total Cache on readme or forum
-* Shorten post summary by number of words
+* Allow shorting title by number of words / characters
 */

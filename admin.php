@@ -40,7 +40,6 @@
 			} else {				
 				$ops['tools']['thumbnail']['source'] = $_POST['thumb_source'];
 				$ops['tools']['thumbnail']['field'] = $_POST['thumb_field'];
-				$ops['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
 				
 				update_option('wpp_settings_config', $ops);				
 				echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
@@ -238,9 +237,9 @@
 		// TOOLS
 		jQuery("#thumb_source").change(function() {
 			if (jQuery(this).val() == "custom_field") {
-				jQuery("#lbl_field, #thumb_field, #custom_field_options_resize, #custom_field_options_name").show();
+				jQuery("#lbl_field, #thumb_field").show();
 			} else {
-				jQuery("#lbl_field, #thumb_field, #custom_field_options_resize, #custom_field_options_name").hide();
+				jQuery("#lbl_field, #thumb_field").hide();
 			}
 		});
 	});
@@ -678,13 +677,13 @@
                                     </select>
                                 </td>
                             </tr>
-                            <tr valign="top" id="custom_field_options_name" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?>>
+                            <tr valign="top" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?>>
                             	<th scope="row"><label for="thumb_field"><?php _e("Custom field name", "wordpress-popular-posts"); ?>:</label></th>
                                 <td>
                                 	<input type="text" id="thumb_field" name="thumb_field" value="<?php echo $ops['tools']['thumbnail']['field']; ?>" size="10" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> />
 								</td>
 							</tr>
-                            <tr valign="top" id="custom_field_options_resize" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?>>
+                            <tr valign="top" <?php if ($ops['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?>>
                             	<th scope="row"><label for="thumb_field_resize"><?php _e("Resize image from Custom field?", "wordpress-popular-posts"); ?>:</label></th>
                                 <td>
                                 	<select name="thumb_field_resize" id="thumb_field_resize">
@@ -725,11 +724,12 @@
         
         <h3 class="wmpp-subtitle"><?php _e("Data tools", "wordpress-popular-posts"); ?></h3>
                 
-        <p><?php _e("AJAX update. If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached.", "wordpress-popular-posts"); ?> (NOT AVAILABLE, ENABLED BY DEFAULT)</p>
+        <p><?php _e("AJAX update. If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached. Available only for widget users!", "wordpress-popular-posts"); ?></p>
         <div class="tablenav top">
         	<div class="alignleft actions">
                 <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
-                    <select name="ajax" id="ajax" disabled="disabled">
+                    <!--<select name="ajax" id="ajax" disabled="disabled">-->
+                    <select name="ajax" id="ajax">
                         <option <?php if ($ops['tools']['ajax']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", "wordpress-popular-posts"); ?></option>
                         <option <?php if (!$ops['tools']['ajax']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", "wordpress-popular-posts"); ?></option>
                     </select>

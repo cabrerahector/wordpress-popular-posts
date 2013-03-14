@@ -2,801 +2,928 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-31 11:31-0430\n"
+"POT-Creation-Date: 2013-03-14 18:28-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Hector Cabrera <me@cabrerahector.com>\n"
 "Language-Team: Héctor Cabrera <admin@rauru.com>\n"
+"Language: en_VE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_VE\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin.php:33
-#: admin.php:44
-#: admin.php:50
-#: admin.php:57
+#: admin.php:34 admin.php:45 admin.php:51 admin.php:58
 msgid "Settings saved."
 msgstr ""
 
-#: admin.php:38
+#: admin.php:39
 msgid "Please provide the name of your custom field."
 msgstr ""
 
-#: admin.php:247
-msgid "This operation will delete all entries from Wordpress Popular Posts' cache table and cannot be undone."
+#: admin.php:249
+msgid ""
+"This operation will delete all entries from Wordpress Popular Posts' cache "
+"table and cannot be undone."
 msgstr ""
 
-#: admin.php:247
-#: admin.php:255
+#: admin.php:249 admin.php:257
 msgid "Do you want to continue?"
 msgstr ""
 
-#: admin.php:255
-msgid "This operation will delete all stored info from Wordpress Popular Posts' data tables and cannot be undone."
-msgstr ""
-
-#: admin.php:269
-msgid "Stats"
-msgstr ""
-
-#: admin.php:270
-msgid "FAQ"
+#: admin.php:257
+msgid ""
+"This operation will delete all stored info from Wordpress Popular Posts' "
+"data tables and cannot be undone."
 msgstr ""
 
 #: admin.php:271
+msgid "Stats"
+msgstr ""
+
+#: admin.php:272
+msgid "FAQ"
+msgstr ""
+
+#: admin.php:273
 msgid "Tools"
 msgstr ""
 
-#: admin.php:275
-msgid "Click on each tab to see what are the most popular entries on your blog today, this week, last 30 days or all time since Wordpress Popular Posts was installed."
-msgstr ""
-
-#: admin.php:281
-msgid "Order by comments"
-msgstr ""
-
-#: admin.php:282
-msgid "Order by views"
+#: admin.php:277
+msgid ""
+"Click on each tab to see what are the most popular entries on your blog "
+"today, this week, last 30 days or all time since Wordpress Popular Posts was "
+"installed."
 msgstr ""
 
 #: admin.php:283
-msgid "Order by avg. daily views"
+msgid "Order by comments"
+msgstr ""
+
+#: admin.php:284
+msgid "Order by views"
 msgstr ""
 
 #: admin.php:285
-msgid "Limit"
+msgid "Order by avg. daily views"
 msgstr ""
 
 #: admin.php:287
-#: admin.php:667
-#: admin.php:683
-#: admin.php:700
+msgid "Limit"
+msgstr ""
+
+#: admin.php:289 admin.php:698 admin.php:719 admin.php:737
 msgid "Apply"
 msgstr ""
 
-#: admin.php:293
-#: wordpress-popular-posts.php:307
+#: admin.php:295 wordpress-popular-posts.php:381
 msgid "Last 24 hours"
 msgstr ""
 
-#: admin.php:294
-#: wordpress-popular-posts.php:308
+#: admin.php:296 wordpress-popular-posts.php:382
 msgid "Last 7 days"
 msgstr ""
 
-#: admin.php:295
-#: wordpress-popular-posts.php:309
+#: admin.php:297 wordpress-popular-posts.php:383
 msgid "Last 30 days"
 msgstr ""
 
-#: admin.php:296
-#: wordpress-popular-posts.php:310
+#: admin.php:298 wordpress-popular-posts.php:384
 msgid "All-time"
 msgstr ""
 
-#: admin.php:317
+#: admin.php:319
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: admin.php:321
+#: admin.php:323
 msgid "What does \"Title\" do?"
 msgstr ""
 
-#: admin.php:323
-msgid "It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all."
-msgstr ""
-
-#: admin.php:326
-msgid "What is Time Range for?"
+#: admin.php:325
+msgid ""
+"It allows you to show a heading for your most popular posts listing. If left "
+"empty, no heading will be displayed at all."
 msgstr ""
 
 #: admin.php:328
-msgid "It will tell Wordpress Popular Posts to retrieve all posts with most views / comments within the selected time range."
+msgid "What is Time Range for?"
 msgstr ""
 
-#: admin.php:331
-msgid "What is \"Sort post by\" for?"
+#: admin.php:330
+msgid ""
+"It will tell Wordpress Popular Posts to retrieve all posts with most views / "
+"comments within the selected time range."
 msgstr ""
 
 #: admin.php:333
-msgid "It allows you to decide whether to order your popular posts listing by total views, comments, or average views per day."
+msgid "What is \"Sort post by\" for?"
 msgstr ""
 
-#: admin.php:336
-msgid "What does \"Display post rating\" do?"
+#: admin.php:335
+msgid ""
+"It allows you to decide whether to order your popular posts listing by total "
+"views, comments, or average views per day."
 msgstr ""
 
 #: admin.php:338
-msgid "If checked, Wordpress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work."
+msgid "What does \"Display post rating\" do?"
 msgstr ""
 
-#: admin.php:341
-msgid "What does \"Shorten title\" do?"
+#: admin.php:340
+msgid ""
+"If checked, Wordpress Popular Posts will show how your readers are rating "
+"your most popular posts. This feature requires having WP-PostRatings plugin "
+"installed and enabled on your blog for it to work."
 msgstr ""
 
 #: admin.php:343
-msgid "If checked, all posts titles will be shortened to \"n\" characters. A new \"Shorten title to\" option will appear so you can set it to whatever you like."
+msgid "What does \"Shorten title\" do?"
 msgstr ""
 
-#: admin.php:346
-msgid "What does \"Display post excerpt\" do?"
+#: admin.php:345
+msgid ""
+"If checked, all posts titles will be shortened to \"n\" characters. A new "
+"\"Shorten title to\" option will appear so you can set it to whatever you "
+"like."
 msgstr ""
 
 #: admin.php:348
-msgid "If checked, Wordpress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be."
+msgid "What does \"Display post excerpt\" do?"
 msgstr ""
 
-#: admin.php:351
-msgid "What does \"Keep text format and links\" do?"
+#: admin.php:350
+msgid ""
+"If checked, Wordpress Popular Posts will also include a small extract of "
+"your posts in the list. Similarly to the previous option, you will be able "
+"to decide how long the post excerpt should be."
 msgstr ""
 
 #: admin.php:353
-msgid "If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too."
+msgid "What does \"Keep text format and links\" do?"
 msgstr ""
 
-#: admin.php:356
-msgid "What is \"Post type\" for?"
+#: admin.php:355
+msgid ""
+"If checked, and if the Post Excerpt feature is enabled, Wordpress Popular "
+"Posts will keep the styling tags (eg. bold, italic, etc) that were found in "
+"the excerpt. Hyperlinks will remain intact, too."
 msgstr ""
 
 #: admin.php:358
-msgid "This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases)."
+msgid "What is \"Post type\" for?"
 msgstr ""
 
-#: admin.php:361
-msgid "What is \"Category(ies) ID(s)\" for?"
+#: admin.php:360
+msgid ""
+"This filter allows you to decide which post types to show on the listing. By "
+"default, it will retrieve only posts and pages (which should be fine for "
+"most cases)."
 msgstr ""
 
 #: admin.php:363
-msgid "This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list."
+msgid "What is \"Category(ies) ID(s)\" for?"
 msgstr ""
 
-#: admin.php:366
-msgid "What is \"Author(s) ID(s)\" for?"
+#: admin.php:365
+msgid ""
+"This filter allows you to select which categories should be included or "
+"excluded from the listing. A negative sign in front of the category ID "
+"number will exclude posts belonging to it from the list, for example. You "
+"can specify more than one ID with a comma separated list."
 msgstr ""
 
 #: admin.php:368
-msgid "Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list."
+msgid "What is \"Author(s) ID(s)\" for?"
 msgstr ""
 
-#: admin.php:371
-msgid "What does \"Display post thumbnail\" do?"
+#: admin.php:370
+msgid ""
+"Just like the Category filter, this one lets you filter posts by author ID. "
+"You can specify more than one ID with a comma separated list."
 msgstr ""
 
 #: admin.php:373
-msgid "If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - Wordpress Popular Posts - Tools."
+msgid "What does \"Display post thumbnail\" do?"
 msgstr ""
 
-#: admin.php:376
-msgid "What does \"Display comment count\" do?"
+#: admin.php:375
+msgid ""
+"If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail "
+"of each post. You can set up the source of the thumbnail via Settings - "
+"Wordpress Popular Posts - Tools."
 msgstr ""
 
 #: admin.php:378
-msgid "If checked, Wordpress Popular Posts will display how many comments each popular post has got in the selected Time Range."
+msgid "What does \"Display comment count\" do?"
 msgstr ""
 
-#: admin.php:381
-msgid "What does \"Display views\" do?"
+#: admin.php:380
+msgid ""
+"If checked, Wordpress Popular Posts will display how many comments each "
+"popular post has got in the selected Time Range."
 msgstr ""
 
 #: admin.php:383
-msgid "If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range."
+msgid "What does \"Display views\" do?"
 msgstr ""
 
-#: admin.php:386
-msgid "What does \"Display author\" do?"
+#: admin.php:385
+msgid ""
+"If checked, Wordpress Popular Posts will show how many pageviews a single "
+"post has gotten in the selected Time Range."
 msgstr ""
 
 #: admin.php:388
-msgid "If checked, Wordpress Popular Posts will display the name of the author of each entry listed."
+msgid "What does \"Display author\" do?"
 msgstr ""
 
-#: admin.php:391
-msgid "What does \"Display date\" do?"
+#: admin.php:390
+msgid ""
+"If checked, Wordpress Popular Posts will display the name of the author of "
+"each entry listed."
 msgstr ""
 
 #: admin.php:393
-msgid "If checked, Wordpress Popular Posts will display the date when each popular posts was published."
+msgid "What does \"Display date\" do?"
 msgstr ""
 
-#: admin.php:396
-msgid "What does \"Use custom HTML Markup\" do?"
+#: admin.php:395
+msgid ""
+"If checked, Wordpress Popular Posts will display the date when each popular "
+"posts was published."
 msgstr ""
 
 #: admin.php:398
-msgid "If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!"
+msgid "What does \"Use custom HTML Markup\" do?"
 msgstr ""
 
-#: admin.php:401
-msgid "What does \"Use content formatting tags\" do?"
+#: admin.php:400
+msgid ""
+"If checked, you will be able to customize the HTML markup of your popular "
+"posts listing. For example, you can decide whether to wrap your posts in an "
+"unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is "
+"for you!"
 msgstr ""
 
 #: admin.php:403
-msgid "If checked, you can decide the order of the items displayed on each entry. For example, setting it to \"{title}: {summary}\" (without the quotes) would display \"Post title: excerpt of the post here\". Available tags: {image}, {title}, {summary}, {stats} and {rating}."
+msgid "What does \"Use content formatting tags\" do?"
 msgstr ""
 
-#: admin.php:406
-msgid "What are \"Template Tags\"?"
+#: admin.php:405
+msgid ""
+"If checked, you can decide the order of the items displayed on each entry. "
+"For example, setting it to \"{title}: {summary}\" (without the quotes) would "
+"display \"Post title: excerpt of the post here\". Available tags: {image}, "
+"{title}, {summary}, {stats} and {rating}."
 msgstr ""
 
 #: admin.php:408
-msgid "Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views()."
+msgid "What are \"Template Tags\"?"
 msgstr ""
 
-#: admin.php:411
-msgid "What are the template tags that Wordpress Popular Posts supports?"
+#: admin.php:410
+msgid ""
+"Template Tags are simply php functions that allow you to perform certain "
+"actions. For example, Wordpress Popular Posts currently supports two "
+"different template tags: wpp_get_mostpopular() and wpp_get_views()."
 msgstr ""
 
 #: admin.php:413
-msgid "The following are the template tags supported by Wordpress Popular Posts"
+msgid "What are the template tags that Wordpress Popular Posts supports?"
 msgstr ""
 
-#: admin.php:417
-msgid "Template tag"
-msgstr ""
-
-#: admin.php:418
-#: admin.php:451
-msgid "What it does "
+#: admin.php:415
+msgid ""
+"The following are the template tags supported by Wordpress Popular Posts"
 msgstr ""
 
 #: admin.php:419
+msgid "Template tag"
+msgstr ""
+
+#: admin.php:420 admin.php:453
+msgid "What it does "
+msgstr ""
+
+#: admin.php:421
 msgid "Parameters"
 msgstr ""
 
-#: admin.php:420
-#: admin.php:454
+#: admin.php:422 admin.php:456
 msgid "Example"
 msgstr ""
 
-#: admin.php:426
-msgid "Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts parameters so you can customize your popular listing, but these are not required."
+#: admin.php:428
+msgid ""
+"Similar to the widget functionality, this tag retrieves the most popular "
+"posts on your blog. This function also accepts parameters so you can "
+"customize your popular listing, but these are not required."
 msgstr ""
 
-#: admin.php:427
-msgid "Please refer to \"List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode\"."
+#: admin.php:429
+msgid ""
+"Please refer to \"List of parameters accepted by wpp_get_mostpopular() and "
+"the [wpp] shortcode\"."
 msgstr ""
 
-#: admin.php:432
-msgid "Displays the number of views of a single post. Post ID is required or it will return false."
+#: admin.php:434
+msgid ""
+"Displays the number of views of a single post. Post ID is required or it "
+"will return false."
 msgstr ""
 
-#: admin.php:433
+#: admin.php:435
 msgid "Post ID"
 msgstr ""
 
-#: admin.php:440
+#: admin.php:442
 msgid "What are \"shortcodes\"?"
 msgstr ""
 
-#: admin.php:442
-msgid "Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit"
-msgstr ""
-
 #: admin.php:444
-msgid "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode"
+msgid ""
+"Shortcodes are similar to BB Codes, these allow us to call a php function by "
+"simply typing something like [shortcode]. With Wordpress Popular Posts, the "
+"shortcode [wpp] will let you insert a list of the most popular posts in "
+"posts content and pages too! For more information about shortcodes, please "
+"visit"
 msgstr ""
 
 #: admin.php:446
-msgid "These parameters can be used by both the template tag wpp_get_most_popular() and the shortcode [wpp]."
+msgid ""
+"List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode"
 msgstr ""
 
-#: admin.php:450
-msgid "Parameter"
+#: admin.php:448
+msgid ""
+"These parameters can be used by both the template tag wpp_get_most_popular() "
+"and the shortcode [wpp]."
 msgstr ""
 
 #: admin.php:452
+msgid "Parameter"
+msgstr ""
+
+#: admin.php:454
 msgid "Possible values"
 msgstr ""
 
-#: admin.php:453
+#: admin.php:455
 msgid "Defaults to"
 msgstr ""
 
-#: admin.php:460
+#: admin.php:462
 msgid "Sets a heading for the list"
 msgstr ""
 
-#: admin.php:461
-#: admin.php:468
-#: admin.php:475
-#: admin.php:503
-#: admin.php:510
-#: admin.php:517
-#: admin.php:594
-#: admin.php:601
-#: admin.php:608
-#: admin.php:615
-#: admin.php:622
+#: admin.php:463 admin.php:470 admin.php:477 admin.php:505 admin.php:512
+#: admin.php:519 admin.php:596 admin.php:603 admin.php:610 admin.php:624
+#: admin.php:631
 msgid "Text string"
 msgstr ""
 
-#: admin.php:462
-#: wordpress-popular-posts.php:250
+#: admin.php:464 wordpress-popular-posts.php:99
 msgid "Popular Posts"
 msgstr ""
 
-#: admin.php:467
+#: admin.php:469
 msgid "Set the opening tag for the heading of the list"
 msgstr ""
 
-#: admin.php:474
+#: admin.php:476
 msgid "Set the closing tag for the heading of the list"
 msgstr ""
 
-#: admin.php:481
+#: admin.php:483
 msgid "Sets the maximum number of popular posts to be shown on the listing"
 msgstr ""
 
-#: admin.php:482
-#: admin.php:524
-#: admin.php:531
-#: admin.php:545
-#: admin.php:552
+#: admin.php:484 admin.php:526 admin.php:533 admin.php:547 admin.php:554
 msgid "Positive integer"
 msgstr ""
 
-#: admin.php:488
-msgid "Tells Wordpress Popular Posts to retrieve the most popular entries within the time range specified by you"
+#: admin.php:490
+msgid ""
+"Tells Wordpress Popular Posts to retrieve the most popular entries within "
+"the time range specified by you"
 msgstr ""
 
-#: admin.php:495
+#: admin.php:497
 msgid "Sets the sorting option of the popular posts"
 msgstr ""
 
-#: admin.php:496
+#: admin.php:498
 msgid "(for average views per day)"
 msgstr ""
 
-#: admin.php:502
+#: admin.php:504
 msgid "Defines the type of posts to show on the listing"
 msgstr ""
 
-#: admin.php:509
-msgid "If set, Wordpress Popular Posts will retrieve all entries that belong to the specified category(ies) ID(s). If a minus sign is used, the category(ies) will be excluded instead."
+#: admin.php:511
+msgid ""
+"If set, Wordpress Popular Posts will retrieve all entries that belong to the "
+"specified category(ies) ID(s). If a minus sign is used, the category(ies) "
+"will be excluded instead."
 msgstr ""
 
-#: admin.php:511
-#: admin.php:518
+#: admin.php:513 admin.php:520
 msgid "None"
 msgstr ""
 
-#: admin.php:516
-msgid "If set, Wordpress Popular Posts will retrieve all entries created by specified author(s) ID(s)."
+#: admin.php:518
+msgid ""
+"If set, Wordpress Popular Posts will retrieve all entries created by "
+"specified author(s) ID(s)."
 msgstr ""
 
-#: admin.php:523
-msgid "If set, Wordpress Popular Posts will shorten each post title to \"n\" characters whenever possible"
+#: admin.php:525
+msgid ""
+"If set, Wordpress Popular Posts will shorten each post title to \"n\" "
+"characters whenever possible"
 msgstr ""
 
-#: admin.php:530
-msgid "If set, Wordpress Popular Posts will build and include an excerpt of \"n\" characters long from the content of each post listed as popular"
+#: admin.php:532
+msgid ""
+"If set, Wordpress Popular Posts will build and include an excerpt of \"n\" "
+"characters long from the content of each post listed as popular"
 msgstr ""
 
-#: admin.php:537
-msgid "If set, Wordpress Popular Posts will maintaing all styling tags (strong, italic, etc) and hyperlinks found in the excerpt"
+#: admin.php:539
+msgid ""
+"If set, Wordpress Popular Posts will maintaing all styling tags (strong, "
+"italic, etc) and hyperlinks found in the excerpt"
 msgstr ""
 
-#: admin.php:544
-msgid "If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails"
+#: admin.php:546
+msgid ""
+"If set, and if your current server configuration allows it, you will be able "
+"to display thumbnails of your posts. This attribute sets the width for "
+"thumbnails"
 msgstr ""
 
-#: admin.php:551
-msgid "If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the height for thumbnails"
+#: admin.php:553
+msgid ""
+"If set, and if your current server configuration allows it, you will be able "
+"to display thumbnails of your posts. This attribute sets the height for "
+"thumbnails"
 msgstr ""
 
-#: admin.php:558
-msgid "If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries"
+#: admin.php:560
+msgid ""
+"If set, and if the WP-PostRatings plugin is installed and enabled on your "
+"blog, Wordpress Popular Posts will show how your visitors are rating your "
+"entries"
 msgstr ""
 
-#: admin.php:565
-msgid "If set, Wordpress Popular Posts will show how many comments each popular post has got until now"
+#: admin.php:567
+msgid ""
+"If set, Wordpress Popular Posts will show how many comments each popular "
+"post has got until now"
 msgstr ""
 
-#: admin.php:572
-msgid "If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed"
+#: admin.php:574
+msgid ""
+"If set, Wordpress Popular Posts will show how many views each popular post "
+"has got since it was installed"
 msgstr ""
 
-#: admin.php:579
-msgid "If set, Wordpress Popular Posts will show who published each popular post on the list"
+#: admin.php:581
+msgid ""
+"If set, Wordpress Popular Posts will show who published each popular post on "
+"the list"
 msgstr ""
 
-#: admin.php:586
-msgid "If set, Wordpress Popular Posts will display the date when each popular post on the list was published"
+#: admin.php:588
+msgid ""
+"If set, Wordpress Popular Posts will display the date when each popular post "
+"on the list was published"
 msgstr ""
 
-#: admin.php:593
+#: admin.php:595
 msgid "Sets the date format"
 msgstr ""
 
-#: admin.php:600
+#: admin.php:602
 msgid "Sets the opening tag for the listing"
 msgstr ""
 
-#: admin.php:607
+#: admin.php:609
 msgid "Sets the closing tag for the listing"
 msgstr ""
 
-#: admin.php:614
+#: admin.php:616
+msgid "Sets the HTML structure of each post"
+msgstr ""
+
+#: admin.php:617
+msgid "Text string, custom HTML"
+msgstr ""
+
+#: admin.php:617
+msgid "Available Content Tags"
+msgstr ""
+
+#: admin.php:623
 msgid "Sets the opening tag for each item on the list"
 msgstr ""
 
-#: admin.php:621
+#: admin.php:630
 msgid "Sets the closing tag for each item on the list"
 msgstr ""
 
-#: admin.php:628
-msgid "If set, this option will allow you to decide the order of the contents within each item on the list."
+#: admin.php:637
+msgid ""
+"If set, this option will allow you to decide the order of the contents "
+"within each item on the list."
 msgstr ""
 
-#: admin.php:635
-msgid "If set, you can decide the order of each content inside a single item on the list. For example, setting it to \"{title}: {summary}\" would output something like \"Your Post Title: summary here\". This attribute requires do_pattern to be true."
+#: admin.php:644
+msgid ""
+"If set, you can decide the order of each content inside a single item on the "
+"list. For example, setting it to \"{title}: {summary}\" would output "
+"something like \"Your Post Title: summary here\". This attribute requires "
+"do_pattern to be true."
 msgstr ""
 
-#: admin.php:636
+#: admin.php:645
 msgid "Available tags"
 msgstr ""
 
-#: admin.php:651
-msgid "Here you will find a handy group of options to tweak Wordpress Popular Posts."
+#: admin.php:660
+msgid ""
+"Here you will find a handy group of options to tweak Wordpress Popular Posts."
 msgstr ""
 
-#: admin.php:653
+#: admin.php:662
 msgid "Thumbnail source"
 msgstr ""
 
-#: admin.php:654
+#: admin.php:663
 msgid "Tell Wordpress Popular Posts where it should get thumbnails from"
 msgstr ""
 
-#: admin.php:659
-msgid "Featured image"
-msgstr ""
-
-#: admin.php:660
-msgid "First image on post"
-msgstr ""
-
-#: admin.php:661
-msgid "Custom field"
-msgstr ""
-
-#: admin.php:664
-msgid "Custom field name"
-msgstr ""
-
-#: admin.php:673
-msgid "Wordpress Popular Posts Stylesheet"
+#: admin.php:671
+msgid "Pick image from"
 msgstr ""
 
 #: admin.php:674
-msgid "By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this."
+msgid "Featured image"
 msgstr ""
 
-#: admin.php:679
-#: admin.php:696
-msgid "Enabled"
+#: admin.php:675
+msgid "First image on post"
 msgstr ""
 
-#: admin.php:680
-#: admin.php:697
-msgid "Disabled"
+#: admin.php:676
+msgid "Custom field"
 msgstr ""
 
-#: admin.php:689
-msgid "Data tools"
+#: admin.php:681
+msgid "Custom field name"
+msgstr ""
+
+#: admin.php:687
+msgid "Resize image from Custom field?"
+msgstr ""
+
+#: admin.php:690
+msgid "No, I will upload my own thumbnail"
 msgstr ""
 
 #: admin.php:691
-msgid "AJAX update. If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached."
+msgid "Yes"
 msgstr ""
 
-#: admin.php:706
-msgid "Wordpress Popular Posts keeps historical data of your most popular entries for up to 30 days. If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so."
+#: admin.php:709
+msgid "Wordpress Popular Posts Stylesheet"
 msgstr ""
 
-#: admin.php:707
+#: admin.php:710
+msgid ""
+"By default, the plugin includes a stylesheet called wpp.css which you can "
+"use to style your popular posts listing. If you wish to use your own "
+"stylesheet or do not want it to have it included in the header section of "
+"your site, use this."
+msgstr ""
+
+#: admin.php:715 admin.php:733
+msgid "Enabled"
+msgstr ""
+
+#: admin.php:716 admin.php:734
+msgid "Disabled"
+msgstr ""
+
+#: admin.php:725
+msgid "Data tools"
+msgstr ""
+
+#: admin.php:727
+msgid ""
+"AJAX update. If you are using a caching plugin such as WP Super Cache, "
+"enabling this feature will keep the popular list from being cached. "
+"Available only for widget users!"
+msgstr ""
+
+#: admin.php:743
+msgid ""
+"Wordpress Popular Posts keeps historical data of your most popular entries "
+"for up to 30 days. If for some reason you need to clear the cache table, or "
+"even both historical and cache tables, please use the buttons below to do so."
+msgstr ""
+
+#: admin.php:744
 msgid "Empty cache"
 msgstr ""
 
-#: admin.php:707
+#: admin.php:744
 msgid "Use this button to manually clear entries from WPP cache only"
 msgstr ""
 
-#: admin.php:708
+#: admin.php:745
 msgid "Clear all data"
 msgstr ""
 
-#: admin.php:708
+#: admin.php:745
 msgid "Use this button to manually clear entries from all WPP data tables"
 msgstr ""
 
-#: admin.php:714
+#: admin.php:751
 msgid "Do you like this plugin?"
 msgstr ""
 
-#: admin.php:714
+#: admin.php:751
 msgid "Rate Wordpress Popular Posts!"
 msgstr ""
 
-#: admin.php:714
+#: admin.php:751
 msgid "Rate it"
 msgstr ""
 
-#: admin.php:714
+#: admin.php:751
 msgid "on the official Plugin Directory!"
 msgstr ""
 
-#: admin.php:715
+#: admin.php:752
 msgid "Do you love this plugin?"
 msgstr ""
 
-#: admin.php:715
-#: admin.php:716
+#: admin.php:752 admin.php:753
 msgid "Buy me a beer!"
 msgstr ""
 
-#: admin.php:715
-msgid "Each donation motivates me to keep releasing free stuff for the Wordpress community!"
+#: admin.php:752
+msgid ""
+"Each donation motivates me to keep releasing free stuff for the Wordpress "
+"community!"
 msgstr ""
 
-#: wordpress-popular-posts.php:47
+#: wordpress-popular-posts.php:102
 msgid "The most Popular Posts on your blog."
 msgstr ""
 
-#: wordpress-popular-posts.php:301
+#: wordpress-popular-posts.php:375
 msgid "Title:"
 msgstr ""
 
-#: wordpress-popular-posts.php:301
-#: wordpress-popular-posts.php:303
-#: wordpress-popular-posts.php:305
-#: wordpress-popular-posts.php:313
-#: wordpress-popular-posts.php:324
-#: wordpress-popular-posts.php:326
-#: wordpress-popular-posts.php:330
-#: wordpress-popular-posts.php:334
-#: wordpress-popular-posts.php:343
-#: wordpress-popular-posts.php:355
-#: wordpress-popular-posts.php:367
-#: wordpress-popular-posts.php:368
-#: wordpress-popular-posts.php:369
-#: wordpress-popular-posts.php:370
-#: wordpress-popular-posts.php:385
-#: wordpress-popular-posts.php:396
+#: wordpress-popular-posts.php:375 wordpress-popular-posts.php:377
+#: wordpress-popular-posts.php:379 wordpress-popular-posts.php:387
+#: wordpress-popular-posts.php:398 wordpress-popular-posts.php:400
+#: wordpress-popular-posts.php:404 wordpress-popular-posts.php:408
+#: wordpress-popular-posts.php:417 wordpress-popular-posts.php:431
+#: wordpress-popular-posts.php:443 wordpress-popular-posts.php:444
+#: wordpress-popular-posts.php:445 wordpress-popular-posts.php:446
+#: wordpress-popular-posts.php:456 wordpress-popular-posts.php:462
+#: wordpress-popular-posts.php:477
 msgid "What is this?"
 msgstr ""
 
-#: wordpress-popular-posts.php:303
+#: wordpress-popular-posts.php:377
 msgid "Show up to:"
 msgstr ""
 
-#: wordpress-popular-posts.php:304
+#: wordpress-popular-posts.php:378
 msgid "posts"
 msgstr ""
 
-#: wordpress-popular-posts.php:305
+#: wordpress-popular-posts.php:379
 msgid "Time Range:"
 msgstr ""
 
-#: wordpress-popular-posts.php:313
+#: wordpress-popular-posts.php:387
 msgid "Sort posts by:"
 msgstr ""
 
-#: wordpress-popular-posts.php:315
+#: wordpress-popular-posts.php:389
 msgid "Comments"
 msgstr ""
 
-#: wordpress-popular-posts.php:316
+#: wordpress-popular-posts.php:390
 msgid "Total views"
 msgstr ""
 
-#: wordpress-popular-posts.php:317
+#: wordpress-popular-posts.php:391
 msgid "Avg. daily views"
 msgstr ""
 
-#: wordpress-popular-posts.php:322
+#: wordpress-popular-posts.php:396
 msgid "Posts settings"
 msgstr ""
 
-#: wordpress-popular-posts.php:324
+#: wordpress-popular-posts.php:398
 msgid "Display post rating"
 msgstr ""
 
-#: wordpress-popular-posts.php:326
+#: wordpress-popular-posts.php:400
 msgid "Shorten title"
 msgstr ""
 
-#: wordpress-popular-posts.php:328
+#: wordpress-popular-posts.php:402
 msgid "Shorten title to"
 msgstr ""
 
-#: wordpress-popular-posts.php:328
-#: wordpress-popular-posts.php:335
+#: wordpress-popular-posts.php:402 wordpress-popular-posts.php:409
 msgid "characters"
 msgstr ""
 
-#: wordpress-popular-posts.php:330
+#: wordpress-popular-posts.php:404
 msgid "Display post excerpt"
 msgstr ""
 
-#: wordpress-popular-posts.php:333
+#: wordpress-popular-posts.php:407
 msgid "Excerpt Properties"
 msgstr ""
 
-#: wordpress-popular-posts.php:334
+#: wordpress-popular-posts.php:408
 msgid "Keep text format and links"
 msgstr ""
 
-#: wordpress-popular-posts.php:335
+#: wordpress-popular-posts.php:409
 msgid "Excerpt length:"
 msgstr ""
 
-#: wordpress-popular-posts.php:343
+#: wordpress-popular-posts.php:417
 msgid "Filters:"
 msgstr ""
 
-#: wordpress-popular-posts.php:344
+#: wordpress-popular-posts.php:418
 msgid "Post type(s):"
 msgstr ""
 
-#: wordpress-popular-posts.php:346
+#: wordpress-popular-posts.php:420
+msgid "Post(s) ID(s) to exclude:"
+msgstr ""
+
+#: wordpress-popular-posts.php:422
 msgid "Category(ies) ID(s):"
 msgstr ""
 
-#: wordpress-popular-posts.php:348
+#: wordpress-popular-posts.php:424
 msgid "Author(s) ID(s):"
 msgstr ""
 
-#: wordpress-popular-posts.php:354
+#: wordpress-popular-posts.php:430
 msgid "Thumbnail settings"
 msgstr ""
 
-#: wordpress-popular-posts.php:355
+#: wordpress-popular-posts.php:431
 msgid "Display post thumbnail"
 msgstr ""
 
-#: wordpress-popular-posts.php:357
+#: wordpress-popular-posts.php:433
 msgid "Width:"
 msgstr ""
 
-#: wordpress-popular-posts.php:358
-#: wordpress-popular-posts.php:360
+#: wordpress-popular-posts.php:434 wordpress-popular-posts.php:436
 msgid "px"
 msgstr ""
 
-#: wordpress-popular-posts.php:359
+#: wordpress-popular-posts.php:435
 msgid "Height:"
 msgstr ""
 
-#: wordpress-popular-posts.php:366
+#: wordpress-popular-posts.php:442
 msgid "Stats Tag settings"
 msgstr ""
 
-#: wordpress-popular-posts.php:367
+#: wordpress-popular-posts.php:443
 msgid "Display comment count"
 msgstr ""
 
-#: wordpress-popular-posts.php:368
+#: wordpress-popular-posts.php:444
 msgid "Display views"
 msgstr ""
 
-#: wordpress-popular-posts.php:369
+#: wordpress-popular-posts.php:445
 msgid "Display author"
 msgstr ""
 
-#: wordpress-popular-posts.php:370
+#: wordpress-popular-posts.php:446
 msgid "Display date"
 msgstr ""
 
-#: wordpress-popular-posts.php:373
+#: wordpress-popular-posts.php:449
 msgid "Date Format"
 msgstr ""
 
-#: wordpress-popular-posts.php:384
+#: wordpress-popular-posts.php:456
+msgid "Display category"
+msgstr ""
+
+#: wordpress-popular-posts.php:461
 msgid "HTML Markup settings"
 msgstr ""
 
-#: wordpress-popular-posts.php:385
+#: wordpress-popular-posts.php:462
 msgid "Use custom HTML Markup"
 msgstr ""
 
-#: wordpress-popular-posts.php:388
+#: wordpress-popular-posts.php:465
 msgid "Before / after title:"
 msgstr ""
 
-#: wordpress-popular-posts.php:390
+#: wordpress-popular-posts.php:467
 msgid "Before / after Popular Posts:"
 msgstr ""
 
-#: wordpress-popular-posts.php:392
+#: wordpress-popular-posts.php:470
+msgid "Post HTML Markup:"
+msgstr ""
+
+#: wordpress-popular-posts.php:473
 msgid "Before / after each post:"
 msgstr ""
 
-#: wordpress-popular-posts.php:396
+#: wordpress-popular-posts.php:477
 msgid "Use content formatting tags"
 msgstr ""
 
-#: wordpress-popular-posts.php:399
+#: wordpress-popular-posts.php:480
 msgid "Content format:"
 msgstr ""
 
-#: wordpress-popular-posts.php:505
+#: wordpress-popular-posts.php:680
 msgid "Success! The cache table has been cleared!"
 msgstr ""
 
-#: wordpress-popular-posts.php:507
+#: wordpress-popular-posts.php:682
 msgid "Error: cache table does not exist."
 msgstr ""
 
-#: wordpress-popular-posts.php:513
+#: wordpress-popular-posts.php:688
 msgid "Success! All data have been cleared!"
 msgstr ""
 
-#: wordpress-popular-posts.php:515
+#: wordpress-popular-posts.php:690
 msgid "Error: one or both data tables are missing."
 msgstr ""
 
-#: wordpress-popular-posts.php:518
+#: wordpress-popular-posts.php:693
 msgid "Invalid action."
 msgstr ""
 
-#: wordpress-popular-posts.php:521
-msgid "Sorry, you do not have enough permissions to do this. Please contact the site administrator for support."
+#: wordpress-popular-posts.php:696
+msgid ""
+"Sorry, you do not have enough permissions to do this. Please contact the "
+"site administrator for support."
 msgstr ""
 
-#: wordpress-popular-posts.php:852
+#: wordpress-popular-posts.php:1125
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: wordpress-popular-posts.php:928
+#: wordpress-popular-posts.php:1204
 msgid "comment(s)"
 msgstr ""
 
-#: wordpress-popular-posts.php:932
+#: wordpress-popular-posts.php:1208
 msgid "view(s)"
 msgstr ""
 
-#: wordpress-popular-posts.php:935
+#: wordpress-popular-posts.php:1211
 msgid "view(s) per day"
 msgstr ""
 
-#: wordpress-popular-posts.php:943
+#: wordpress-popular-posts.php:1220
 msgid "by"
 msgstr ""
 
-#: wordpress-popular-posts.php:947
+#: wordpress-popular-posts.php:1224
 msgid "posted on"
 msgstr ""
 
-#: wordpress-popular-posts.php:1292
-msgid "Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 2.8 to function correctly. Please update your blog via Tools &gt; Upgrade."
+#: wordpress-popular-posts.php:1232
+msgid "under"
 msgstr ""
 
-#: wordpress-popular-posts.php:1416
-msgid "Wordpress Popular Posts Stats"
+#: wordpress-popular-posts.php:1958
+msgid ""
+"Your Wordpress version is too old. Wordpress Popular Posts Plugin requires "
+"at least version 2.8 to function correctly. Please update your blog via "
+"Tools &gt; Upgrade."
 msgstr ""
-

@@ -23,6 +23,7 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 * Check the **statistics** on your most popular posts from wp-admin.
 
 = Other Features =
+* Order your popular list by comments, views (default) or average views per day!
 * **Shortcode support** - use the [wpp] shortcode to showcase your most popular posts on pages, too! For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
 * **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the *wpp_get_mostpopular()* template tag. Additionally, the *wpp_gets_views()* template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
 * **Localizable** to your own language (*See the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for more info*).
@@ -93,7 +94,7 @@ The **wpp_get_views** template tag retrieves the views count of a single post/pa
 == Frequently Asked Questions ==
 
 = I need help with your plugin! What should I do? =
-First thing to do is read both FAQ and [Installation](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/) sections as they should address most of the questions you might have about this plugin (and even more info can be found via *wp-admin > Settings > Wordpress Popular Posts > FAQ*). If you're having problems with WPP, my first suggestion would be try disabling all other plugins and then re-enable each one to make sure there are no conflicts. Checking the [Support Forum](http://wordpress.org/support/plugin/wordpress-popular-posts) is also a good idea as chances are that someone else has already posted something about it (and if not, you are always welcome to create a new thread). **Remember:** *read first*. It'll save you (and me) time.
+First thing to do is read both FAQ and [Installation](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/) sections as they should address most of the questions you might have about this plugin (and even more info can be found via *wp-admin > Settings > Wordpress Popular Posts > FAQ*). If you're having problems with WPP, my first suggestion would be try disabling all other plugins and then re-enable each one to make sure there are no conflicts. Also, try switching to a different theme. Checking the [Support Forum](http://wordpress.org/support/plugin/wordpress-popular-posts) is also a good idea as chances are that someone else has already posted something about it (and if not, you are always welcome to create a new thread). **Remember:** *read first*. It'll save you (and me) time.
 
 = -FUNCTIONALITY- =
 
