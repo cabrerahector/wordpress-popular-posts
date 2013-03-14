@@ -1234,9 +1234,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 					
 					// RATING
-					if ($instance['rating'] && $this->postRating) {
+					if ( $instance['rating'] && $this->postRating && function_exists('the_ratings') ) {
 						//$rating = '<span class="wpp-rating">'.the_ratings_results( $p->id ).'</span>';
-						$rating = '<span class="wpp-rating">'.the_ratings( 'span', $p->id ).'</span>';
+						$rating = '<span class="wpp-rating">'.the_ratings( 'span', $p->id, false ).'</span>';
 					}
 					
 					// POST THUMBNAIL
