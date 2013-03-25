@@ -1726,11 +1726,66 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function format_content($string, $data = array(), $rating) {
 			if (empty($string) || (empty($data) || !is_array($data))) return false;
 			
+			$string = htmlentities( $string );
+			
 			$params = array();
 			$pattern = '/\{(summary|stats|title|image|thumb|rating|url|text_title|author|category|views|comments)\}/i';		
 			preg_match_all($pattern, $string, $matches);
 			
-			for ($i=0; $i < count($matches[0]); $i++) {		
+			array_map('strtolower', $matches[0]);		
+			
+			if ( in_array("{title}", $matches[0]) ) {
+				$string = str_replace( "{title}", $data['title'], $string );
+			}
+			
+			if ( in_array("{stats}", $matches[0]) ) {
+				$string = str_replace( "{stats}", $data['stats'], $string );
+			}
+			
+			if ( in_array("{summary}", $matches[0]) ) {
+				$string = str_replace( "{summary}", htmlentities($data['summary'], ENT_QUOTES), $string );
+			}
+			
+			if ( in_array("{image}", $matches[0]) ) {
+				$string = str_replace( "{image}", $data['img'], $string );
+			}
+			
+			if ( in_array("{thumb}", $matches[0]) ) {
+				$string = str_replace( "{thumb}", $data['img'], $string );
+			}
+			
+			// WP-PostRatings check
+			if ($rating) {
+				if ( in_array("{rating}", $matches[0]) ) {
+					$string = str_replace( "{rating}", the_ratings_results($data['id']), $string );
+				}
+			}
+			
+			if ( in_array("{url}", $matches[0]) ) {
+				$string = str_replace( "{url}", $data['url'], $string );
+			}
+			
+			if ( in_array("{text_title}", $matches[0]) ) {
+				$string = str_replace( "{text_title}", $data['text_title'], $string );
+			}
+			
+			if ( in_array("{author}", $matches[0]) ) {
+				$string = str_replace( "{author}", $data['author'], $string );
+			}
+			
+			if ( in_array("{category}", $matches[0]) ) {
+				$string = str_replace( "{category}", $data['category'], $string );
+			}
+			
+			if ( in_array("{views}", $matches[0]) ) {
+				$string = str_replace( "{views}", $data['views'], $string );
+			}
+			
+			if ( in_array("{comments}", $matches[0]) ) {
+				$string = str_replace( "{comments}", $data['comments'], $string );
+			}
+			
+			/*for ($i=0; $i < count($matches[0]); $i++) {		
 				if (strtolower($matches[0][$i]) == "{title}") {
 					$params[$matches[0][$i]] = $data['title'];
 					continue;
@@ -1790,7 +1845,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$string = str_replace($matches[0][$i], $params[$matches[0][$i]], $string);
 			}
 			
-			return $string;
+			return $string;*/
+			return html_entity_decode( $string );
 		}		
 		
 		// code seen at http://www.gsdesign.ro/blog/cut-html-string-without-breaking-the-tags/
