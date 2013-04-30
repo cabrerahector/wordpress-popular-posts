@@ -1247,18 +1247,25 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// STATS
 					// comments
 					if ( $instance['stats_tag']['comment_count'] ) {						
-						$stats .= "<span class=\"wpp-comments\">{$comments} " . __('comment(s)', 'wordpress-popular-posts') . "</span>";
-					} else {
-					}
+						//$stats .= "<span class=\"wpp-comments\">{$comments} " . __('comment(s)', 'wordpress-popular-posts') . "</span>";
+						$stats .= "<span class=\"wpp-comments\">" . sprintf( _n( "%d comment", "%d comments", $comments, "wordpress-popular-posts" ), $comments ) . "</span>";
+					}					
 					// views
 					if ( $instance['stats_tag']['views'] ) {
-						$views_text = ' ' . __('view(s)', 'wordpress-popular-posts');							
+						/*$views_text = ' ' . __('view(s)', 'wordpress-popular-posts');							
 						
 						if ($instance['order_by'] == 'avg') {
 							if ($instance['range'] != 'daily') $views_text = ' ' . __('view(s) per day', 'wordpress-popular-posts');
 						}
 						
-						$stats .= ($stats == "") ? "<span class=\"wpp-views\">{$pageviews} {$views_text}</span>" : " | <span class=\"wpp-views\">{$pageviews} {$views_text}</span>";
+						$stats .= ($stats == "") ? "<span class=\"wpp-views\">{$pageviews} {$views_text}</span>" : " | <span class=\"wpp-views\">{$pageviews} {$views_text}</span>";*/
+						
+						if ( $instance['order_by'] == 'avg' ) {
+							$stats .= ( $stats == "" ) ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view per day", "%d views per day", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view per day", "%d views per day", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>";
+						} else {
+							$stats .= ( $stats == "" ) ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>";
+						}
+						
 					}
 					//author
 					if ( $instance['stats_tag']['author'] ) {
