@@ -3,7 +3,7 @@
 	
 	$wpp_settings_def = array(
 		'stats' => array(
-			'order_by' => 'comments',
+			'order_by' => 'views',
 			'limit' => 10
 		),
 		'tools' => array(
@@ -13,8 +13,10 @@
 			'thumbnail' => array(
 				'source' => 'featured',
 				'field' => '',
-				'resize' => false
+				'resize' => false,
+				'default' => ''
 			),
+			'log_loggedin' => false,
 			'cache' => array(
 				'active' => false,
 				'interval' => array(
@@ -38,6 +40,12 @@
 			$ops['stats']['limit'] = (is_numeric($_POST['stats_limit']) && $_POST['stats_limit'] > 0) ? $_POST['stats_limit'] : 10;
 			
 			update_option('wpp_settings_config', $ops);			
+			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+			
+		} else if ($_POST['section'] == "logging") {
+			
+			$ops['tools']['log_loggedin'] = $_POST['log_option'];				
+			update_option('wpp_settings_config', $ops);				
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 			
 		} else if ($_POST['section'] == "tools") {
@@ -218,14 +226,14 @@
 		});
 		
 		// STATISTICS TABS		
-		jQuery("#wpp-stats-tabs a").click(function(){
+		jQuery("#wpp-stats-tabs a").click(function(e){
 			var activeTab = jQuery(this).attr("rel");
 			jQuery(this).removeClass("button-secondary").addClass("button-primary").siblings().removeClass("button-primary").addClass("button-secondary");
 			jQuery(".wpp-stats:visible").fadeOut("fast", function(){
 				jQuery("#"+activeTab).slideDown("fast");
 			});
 			
-			return false;
+			e.preventDefault();
 		});
 			
 		jQuery(".wpp-stats").each(function(){
@@ -290,8 +298,6 @@
 			var value = parseInt( jQuery(this).val() );
 			var time = jQuery("#cache_interval_time").val();
 			
-			console.log(time + " " + value);
-			
 			if ( time == "hour" && value > 72 ) {				
 				jQuery("#cache_too_long").show();				
 			} else if ( time == "day" && value > 3 ) {				
@@ -335,7 +341,7 @@
     <ul class="subsubsub">
     	<li id="btn_stats"><a href="#" <?php if (!isset($_POST['section']) || (isset($_POST['section']) && $_POST['section'] == "stats") ) {?>class="current"<?php } ?> rel="wpp_stats"><?php _e("Stats", "wordpress-popular-posts"); ?></a> |</li>
         <li id="btn_faq"><a href="#" rel="wpp_faq"><?php _e("FAQ", "wordpress-popular-posts"); ?></a> |</li>
-        <li id="btn_tools"><a href="#" rel="wpp_tools"<?php if (isset($_POST['section']) && ($_POST['section'] == "tools" || $_POST['section'] == "ajax" || $_POST['section'] == "css") ) {?> class="current"<?php } ?>><?php _e("Tools", "wordpress-popular-posts"); ?></a></li>
+        <li id="btn_tools"><a href="#" rel="wpp_tools"<?php if (isset($_POST['section']) && ($_POST['section'] == "logging" || $_POST['section'] == "tools" || $_POST['section'] == "ajax" || $_POST['section'] == "css") ) {?> class="current"<?php } ?>><?php _e("Tools", "wordpress-popular-posts"); ?></a></li>
     </ul>
     <!-- Start stats -->
     <div id="wpp_stats" class="wpp_boxes"<?php if (!isset($_POST['section']) || (isset($_POST['section']) && $_POST['section'] == "stats") ) {?> style="display:block;"<?php } ?>>
@@ -364,16 +370,16 @@
         </div>
         <div id="wpp-stats-canvas">            
             <div class="wpp-stats wpp-stats-active" id="wpp-daily">            	
-                <?php echo do_shortcode("[wpp range='daily' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' do_pattern=1 pattern_form='{title} <span class=\"post-stats\">{stats}</span>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='daily' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-weekly">
-                <?php echo do_shortcode("[wpp range='weekly' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' do_pattern=1 pattern_form='{title} <span class=\"post-stats\">{stats}</span>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='weekly' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-monthly">
-                <?php echo do_shortcode("[wpp range='monthly' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' do_pattern=1 pattern_form='{title} <span class=\"post-stats\">{stats}</span>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='monthly' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-all">
-                <?php echo do_shortcode("[wpp range='all' stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' do_pattern=1 pattern_form='{title} <span class=\"post-stats\">{stats}</span>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='all' stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
         </div>
     </div>
@@ -735,9 +741,36 @@
     <!-- End faq -->
     
     <!-- Start tools -->
-    <div id="wpp_tools" class="wpp_boxes"<?php if (isset($_POST['section']) && ($_POST['section'] == "tools" || $_POST['section'] == "ajax" || $_POST['section'] == "css") ) {?> style="display:block;"<?php } ?>>
+    <div id="wpp_tools" class="wpp_boxes"<?php if (isset($_POST['section']) && ($_POST['section'] == "logging" || $_POST['section'] == "tools" || $_POST['section'] == "ajax" || $_POST['section'] == "css") ) {?> style="display:block;"<?php } ?>>
     	<p><?php _e("Here you will find a handy group of options to tweak Wordpress Popular Posts.", "wordpress-popular-posts"); ?></p><br />
                        
+        <h3 class="wmpp-subtitle"><?php _e("Views logging behavior", "wordpress-popular-posts"); ?></h3>
+        	
+        <form action="" method="post" id="wpp_log_options" name="wpp_log_options">            
+            <table class="form-table">
+                <tbody>
+                    <tr valign="top">
+                        <th scope="row"><label for="log_option"><?php _e("Log views from", "wordpress-popular-posts"); ?>:</label></th>
+                        <td>
+                            <select name="log_option" id="log_option">
+                                <option <?php if (!isset($ops['tools']['log_loggedin']) || $ops['tools']['log_loggedin'] == 0) {?>selected="selected"<?php } ?> value="0"><?php _e("Visitors only", "wordpress-popular-posts"); ?></option>
+                                <option <?php if (isset($ops['tools']['log_loggedin']) && $ops['tools']['log_loggedin'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Everyone", "wordpress-popular-posts"); ?></option>
+                            </select>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr valign="top">                            	
+                        <td colspan="2">
+                            <input type="hidden" name="section" value="logging" />
+                            <input type="submit" class="button-secondary action" id="btn_log_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <br />
+        <p style="display:block; float:none; clear:both">&nbsp;</p>
+        
         <h3 class="wmpp-subtitle"><?php _e("Thumbnail source", "wordpress-popular-posts"); ?></h3>
         	
         <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">            
@@ -812,7 +845,7 @@
                             </select>
                     
                             <br />
-                            <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached", "wordpress-popular-posts"); ?></p>
+                            <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", "wordpress-popular-posts"); ?></p>
                         </td>
                     </tr>
                     <tr valign="top" style="display:none;">

@@ -86,6 +86,31 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'form' => '{thumb} {title}: {summary} {stats}'
 				)
 			)
+		);		
+		var $wpp_user_settings_def = array(
+			'stats' => array(
+				'order_by' => 'views',
+				'limit' => 10
+			),
+			'tools' => array(
+				'ajax' => false,
+				'css' => true,
+				'stylesheet' => true,
+				'thumbnail' => array(
+					'source' => 'featured',
+					'field' => '',
+					'resize' => false,
+					'default' => ''
+				),
+				'log_loggedin' => false,
+				'cache' => array(
+					'active' => false,
+					'interval' => array(
+						'time' => 'hour',
+						'value' => 1
+					)
+				)
+			)
 		);
 		
 		/**
@@ -112,6 +137,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// set default thumbnail
 			$this->default_thumbnail = $this->pluginDir . "/no_thumb.jpg";
+			$this->wpp_user_settings_def['tools']['thumbnail']['default'] = $this->default_thumbnail;
 			
 			// set charset
 			$this->charset = get_bloginfo('charset');
@@ -120,34 +146,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$this->magicquotes = get_magic_quotes_gpc();
 			
 			// get user options
-			$wpp_settings_def = array(
-				'stats' => array(
-					'order_by' => 'views',
-					'limit' => 10
-				),
-				'tools' => array(
-					'ajax' => false,
-					'css' => true,
-					'stylesheet' => true,
-					'thumbnail' => array(
-						'source' => 'featured',
-						'field' => ''
-					)
-				),
-				'cache' => array(
-					'active' => false,
-					'interval' => array(
-						'time' => 'hour',
-						'value' => 1
-					)
-				)
-			);
-			
-			$this->user_ops = get_option('wpp_settings_config');
-			
+			$this->user_ops = get_option('wpp_settings_config');			
 			if (!$this->user_ops) {
-				add_option('wpp_settings_config', $wpp_settings_def);
-				$this->user_ops = $wpp_settings_def;
+				add_option('wpp_settings_config', $this->wpp_user_settings_def);
+				$this->user_ops = $this->wpp_user_settings_def;
 			}
 			
 			// print stylesheet
@@ -162,6 +164,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ($this->user_ops['tools']['ajax']) {				
 				remove_action('the_content', array(&$this,'wpp_update') );
 				// add ajax update to wp_ajax_ hook
+				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 1 ) {
+					add_action('wp_ajax_wpp_update', array(&$this, 'wpp_ajax_update'));
+				}
 				add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
 				add_action('wp_head', array(&$this, 'wpp_print_ajax'));				
 				
@@ -169,6 +174,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				// stop Wordpress from preloading next post and thus calling single.php twice!
 				remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
 				
+				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 1 ) {
+					remove_action('wp_ajax_wpp_update', array(&$this, 'wpp_ajax_update'));
+				}
 				remove_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
 				remove_action('wp_head', array(&$this, 'wpp_print_ajax'));
 				// add update action, no ajax
@@ -547,7 +555,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$nonce = $_POST['token'];
 			
 			// is this a valid request?
-			if (! wp_verify_nonce($nonce, 'wpp-token') ) die("Invalid token");
+			if ( !wp_verify_nonce($nonce, 'wpp-token') ) die("Invalid token");
 			
 			if (is_numeric($_POST['id']) && (intval($_POST['id']) == floatval($_POST['id'])) && ($_POST['id'] != '')) {
 				$id = $_POST['id'];
@@ -581,7 +589,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ($result && $result2) {
 				die("OK. Execution time: " . $exec_time . " seconds");
 			} else {
-				die($wpdb->print_error);
+				die("Oops: " . $wpdb->print_error);
 			}
 		}
 		
@@ -590,27 +598,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Since 2.3.0
 		 */
 		function wpp_update($content) {
-			if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
+			
+			//if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
+			if ( (is_single() || is_page()) && !is_front_page() ) {
 				
-				
-				
-				/*global $wpdb, $wp_query;
-				
-				$wpdb->show_errors();
-				
-				$id = $wp_query->post->ID; // get post ID
-				$table = $wpdb->prefix . 'popularpostsdata';
-				
-				// update popularpostsdata table
-				
-				
-				$result = $wpdb->query("INSERT INTO {$table} (postid, day, last_viewed) VALUES ({$id}, '{$this->now()}', '{$this->now()}') ON DUPLICATE KEY UPDATE last_viewed = '{$this->now()}', pageviews = pageviews + 1;");
-				
-				$result2 = $wpdb->query("INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$id}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';");				
-				
-				if (!$result || !$result2) {
-					die($wpdb->print_error);
-				}*/
+				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
+					return $content;
 				
 				global $wpdb, $post;
 				
@@ -625,6 +618,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $content;
+			
 		}
 		
 		/**
@@ -633,14 +627,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		function ajax_getpopular() {
 			
-			if (is_numeric($_GET['id']) && (intval($_GET['id']) == floatval($_GET['id'])) && ($_GET['id'] != '')) {
+			if ( is_numeric($_GET['id']) && (intval($_GET['id']) == floatval($_GET['id'])) && ($_GET['id'] != '') ) {
 				$id = $_GET['id'];
 			} else {
 				die("Invalid ID");
 			}
-			
-			//global $wp_registered_widgets;			
-			//echo 'here is the global variable '; print_r( $wp_registered_widgets );
 			
 			$settings = $this->get_settings();
 			
@@ -648,6 +639,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							
 				$instance = $settings[$id];			
 				echo $this->get_popular_posts( $instance );
+				
+			} else {
+				
+				die("Invalid Widget ID");
 				
 			}
 			
@@ -848,10 +843,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			wp_print_scripts('jquery');
 			
 			// if we're on a page or post, load the script
-			if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {			
+			//if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
+			if ( (is_single() || is_page()) && !is_front_page() ) {
+				
+				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
+					die();
+				
 				// let's add jQuery
 				//wp_print_scripts('jquery');
-				
 					
 				// create security token
 				$nonce = wp_create_nonce('wpp-token');
@@ -1113,53 +1112,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			//echo $query;
 			//return $content;
-
-			/* REQUIRES CACHING ALL QUERIES...
-			if ( isset($this->user_ops['cache']['active']) && $this->user_ops['cache']['active'] && defined('HOUR_IN_SECONDS') ) {
-								
-				$cache_expiry = NULL;
-				
-				// here magically check if the query has been cached
-				// and exists in an array
-				
-				if ( false === ( $mostpopular = get_transient( 'wpp_query_results' ) ) ) { // It wasn't there, so regenerate the data and save the transient
-				
-					switch( $this->user_ops['cache']['interval']['time'] ) {
-						
-						case 'hour':
-							$cache_expiry = HOUR_IN_SECONDS * $this->user_ops['cache']['interval']['value'];
-						break;
-						
-						case 'day':
-							$cache_expiry = DAY_IN_SECONDS * $this->user_ops['cache']['interval']['value'];
-						break;
-						
-						case 'week':
-							$cache_expiry = WEEK_IN_SECONDS * $this->user_ops['cache']['interval']['value'];
-						break;
-						
-						case 'month':
-							$cache_expiry = DAY_IN_SECONDS * 30 * $this->user_ops['cache']['interval']['value'];
-						break;
-						
-						case 'year':
-							$cache_expiry = YEAR_IN_SECONDS * $this->user_ops['cache']['interval']['value'];
-						break;
-						
-						default:
-							$cache_expiry = HOUR_IN_SECONDS * $this->user_ops['cache']['interval']['value'];
-						break;
-					}
-					
-					$mostpopular = $wpdb->get_results($query);
-					set_transient( 'wpp_query_results', $mostpopular, $cache_expiry ); //(or get_site_transient for a network)
-					
-				}
-				
-			} else {						
-				$mostpopular = $wpdb->get_results($query);
-			}
-			*/
 			
 			$mostpopular = $wpdb->get_results($query);
 			
@@ -1170,29 +1122,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$content .= "<p>".__('Sorry. No data so far.', 'wordpress-popular-posts')."</p>"."\n";
 			} else { // list posts
 				
-				// THUMBNAIL SOURCE
-				$user_def_settings = array(
-					'stats' => array(
-						'order_by' => 'views',
-						'limit' => 10
-					),
-					'tools' => array(
-						'ajax' => false,
-						'css' => true,
-						'stylesheet' => true,
-						'thumbnail' => array(
-							'source' => 'featured',
-							'field' => ''
-						)
-					)
-				);
-				
-				$this->user_ops = get_option('wpp_settings_config');
-				
+				// Get thumbnail source
+				/*$this->user_ops = get_option('wpp_settings_config');				
 				if (!$this->user_ops || empty($this->user_ops)) {
-					add_option('wpp_settings_config', $user_def_settings);
-					$this->user_ops = $user_def_settings;
-				}
+					add_option('wpp_settings_config', $this->wpp_user_settings_def);
+					$this->user_ops = $this->wpp_user_settings_def;
+				}*/
 				
 				// HTML wrapper
 				if ($instance['markup']['custom_html']) {
@@ -1249,7 +1184,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $instance['stats_tag']['comment_count'] ) {						
 						//$stats .= "<span class=\"wpp-comments\">{$comments} " . __('comment(s)', 'wordpress-popular-posts') . "</span>";
 						$stats .= "<span class=\"wpp-comments\">" . sprintf( _n( "%d comment", "%d comments", $comments, "wordpress-popular-posts" ), $comments ) . "</span>";
-					}					
+					} else {
+					}
 					// views
 					if ( $instance['stats_tag']['views'] ) {
 						/*$views_text = ' ' . __('view(s)', 'wordpress-popular-posts');							
@@ -1260,10 +1196,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						
 						$stats .= ($stats == "") ? "<span class=\"wpp-views\">{$pageviews} {$views_text}</span>" : " | <span class=\"wpp-views\">{$pageviews} {$views_text}</span>";*/
 						
-						if ( $instance['order_by'] == 'avg' ) {
-							$stats .= ( $stats == "" ) ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view per day", "%d views per day", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view per day", "%d views per day", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>";
+						if ($instance['order_by'] == 'avg') {
+							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . " per day</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . " per day</span>";
 						} else {
-							$stats .= ( $stats == "" ) ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>";
+							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>";
 						}
 						
 					}
@@ -1289,7 +1225,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 					// RATING
 					if ( $instance['rating'] && $this->postRating && function_exists('the_ratings') ) {
-						//$rating = '<span class="wpp-rating">'.the_ratings_results( $p->id ).'</span>';
 						$rating = '<span class="wpp-rating">'.the_ratings( 'span', $p->id, false ).'</span>';
 					}
 					
@@ -2285,18 +2220,20 @@ function get_mostpopular($args = NULL) {
 
 /*
 = 2.3.3 =
-* Improved Custom HTML feature! It's more flexible now + new Content Tags added: {url}, {text_title}, {author}, {category}, {views}, {comments}!
+* Improved Custom HTML feature! It's more flexible now + new Content Tags added: {url}, {text_title}, {author}, {category}, {views}, {comments}!.
 * Added ability to exclude posts by ID (similar to the category filter).
+* Added ability to enable / disable logging visits from logged-in users.
 * Added Category to the Stats Tag settings options.
 * Added range parameter to wpp_get_views().
 * Added numeric formatting to the wpp_get_views() function.
 * When enabling the Display author option, author's name will link to his/her profile page.
-* Fixed AJAX update feature (finally!)
-* Fixed WP Post Ratings not displaying on the list (and while it works, there are errors coming from the WP Post Ratings plugin itself: http://wordpress.org/support/topic/plugin-wp-postratings-undefined-indexes)
+* Fixed AJAX update feature (finally!).
+* Fixed WP Post Ratings not displaying on the list (and while it works, there are errors coming from the WP Post Ratings plugin itself: http://wordpress.org/support/topic/plugin-wp-postratings-undefined-indexes).
 * Improved database queries for speed.
 * Fixed bug preventing PostRating to show.
 * Removed Timthumb (again) in favor of the updated get_img() function based on Victor Teixeira's vt_resize function.
 * Cron now removes from cache all posts that have been trashed or eliminated.
+* Added proper numeric formatting for views / comments count. (Thank you, )
 * Added "the title filter fix" that affected some themes. (Thank you, jeremyers1!)
 * Added dutch translation. (Thank you, Jeroen!)
 * Added german translation. (Thank you, Martin!)
@@ -2309,7 +2246,6 @@ TODO
 * Add info on W3 Total Cache on readme or forum
 * Allow shorting title by number of words / characters
 * Allow changing default image from wp-admin
-* Allow enabling/disabling counting visits from logged-in users
 * Enable / disable checkboxes and fields via javascript
 * Use Transients to cache query results: http://codex.wordpress.org/Transients_API - http://www.wpbeginner.com/wp-tutorials/speed-up-your-wordpress-by-caching-custom-queries-using-transients-api/
 */
