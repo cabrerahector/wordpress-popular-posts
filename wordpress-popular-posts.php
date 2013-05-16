@@ -210,7 +210,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			// Wordpress version check
-			if (version_compare($wp_version, '2.8.0', '<')) add_action('admin_notices', array(&$this, 'wpp_update_warning'));
+			if (version_compare($wp_version, '3.3', '<')) add_action('admin_notices', array(&$this, 'wpp_update_warning'));
 			
 			// qTrans plugin support
 			if (function_exists('qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage')) $this->qTrans = true;
@@ -218,9 +218,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// WP-Post Ratings plugin support
 			if (function_exists('the_ratings_results')) $this->postRating = true;
 			
-			// Can we create thumbnails?
-			//if (extension_loaded('gd') && function_exists('gd_info') && version_compare(phpversion(), '4.3.0', '>=') && function_exists('add_theme_support')) $this->thumb = true;
+			// Can we create thumbnails?			
 			if (extension_loaded('gd') && function_exists('gd_info') && version_compare(phpversion(), '5.2.0', '>=')) $this->thumb = true;
+			
+			// PHP version check
+			if ( version_compare(phpversion(), '5.2.0', '<') ) add_action('admin_notices', array(&$this, 'php_update_warning'));
 			
 			// shortcode
 			if( function_exists('add_shortcode') ){
@@ -847,7 +849,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( (is_single() || is_page()) && !is_front_page() ) {
 				
 				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
-					die();
+					return;
 				
 				// let's add jQuery
 				//wp_print_scripts('jquery');
@@ -1339,8 +1341,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Borrowed some ideas from Victor Teixeira's VT function http://core.trac.wordpress.org/ticket/15311
 		 * and added a check for the WP_Image_Editor Class
 		 */
-		function get_img( $id = NULL, $dim = array(80, 80), $source = "featured" ) {			
-			if ( !$id || empty($id) || !is_numeric($id) ) return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noID\" />";
+		function get_img( $id = NULL, $dim = array(80, 80), $source = "featured" ) {
+			
+			if ( !$id || empty($id) || !is_numeric($id) )
+				return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_def_noID\" />";
 			
 			$file_path = '';
 			
@@ -1365,18 +1369,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ($count > 0) { // images have been found
 					
 					$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content[0]['post_content'], $ContentImages );
-					
-					/*$attachment_id = $wpdb->get_var( $wpdb->prepare(
-						"SELECT DISTINCT ID FROM $wpdb->posts WHERE guid LIKE %s",
-						'%'. basename( $ContentImages[1][0] ) .'%')
-					);
-					
-					if ( $attachment_id ) {
-						
-						$thumbnail[0] = $ContentImages[1][0];						
-						$file_path = get_attached_file( $attachment_id );
-						
-					}*/
 					
 					if ( isset($ContentImages[1][0]) ) {
 						
@@ -1513,152 +1505,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return false;
-		}
-		
-		/**
-		 * Resize images dynamically using wp built in functions
-		 * Victor Teixeira
-		 *
-		 * Modified by Foxinni, 23-07-2012 (Added multisite support)
-		 *
-		 * Seen at: http://core.trac.wordpress.org/ticket/15311
-		 *
-		 * php 5.2+
-		 *
-		 * Exemplo de uso:
-		 * 
-		 * <?php 
-		 * $thumb = get_post_thumbnail_id(); 
-		 * $image = vt_resize( $thumb, '', 140, 110, true );
-		 * ?>
-		 * <img src="<?php echo $image[url]; ?>" width="<?php echo $image[width]; ?>" height="<?php echo $image[height]; ?>" />
-		 * 
-		 * @global int $blog_id
-		 * @param int $attach_id
-		 * @param string $img_url
-		 * @param int $width
-		 * @param int $height
-		 * @param bool $crop
-		 * @return array
-		 */
-		function vt_resize( $attach_id = null, $img_url = null, $width, $height, $crop = false ) {
-		
-			global $blog_id;
-			
-			// this is an attachment, so we have the ID
-			if ( $attach_id ) {
-			
-				$image_src = wp_get_attachment_image_src( $attach_id, 'full' );
-				$file_path = get_attached_file( $attach_id );
-			
-			// this is not an attachment, let's use the image url
-			} else if ( $img_url ) {
-				
-				//$file_path = parse_url( $img_url );
-				//$file_path = $_SERVER['DOCUMENT_ROOT'] . $file_path['path'];
-				
-				/* Mod by Hector Cabrera */
-				$upload_dir = wp_upload_dir();
-				$file_path = trailingslashit($upload_dir['basedir']) . get_post_meta( $img_url, '_wp_attached_file', true);
-				$img_url = wp_get_attachment_image_src($img_url, 'full');
-				/* Mod by Hector Cabrera */
-				
-				//Check for MultiSite blogs and str_replace the absolute image locations
-				if ( function_exists('is_multisite') && is_multisite() ) { // is_multisite() since WP 3.0.0
-					$blog_details = get_blog_details($blog_id);
-					$file_path = str_replace($blog_details->path . 'files/', '/wp-content/blogs.dir/'. $blog_id .'/files/', $file_path);
-				}
-				
-				//$file_path = ltrim( $file_path['path'], '/' );
-				//$file_path = rtrim( ABSPATH, '/' ).$file_path['path'];
-				
-				$orig_size = getimagesize( $file_path );
-				
-				//$image_src[0] = $img_url; /* Mod by Hector Cabrera */
-				$image_src[0] = $img_url[0]; /* Mod by Hector Cabrera */
-				$image_src[1] = $orig_size[0];
-				$image_src[2] = $orig_size[1];
-			}
-			
-			$file_info = pathinfo( $file_path );
-			$extension = '.'. $file_info['extension'];
-		
-			// the image path without the extension
-			$no_ext_path = $file_info['dirname'].'/'.$file_info['filename'];
-			
-			/* Calculate the eventual height and width for accurate file name */
-		
-			if ( $crop == false ) {
-				$proportional_size = wp_constrain_dimensions( $image_src[1], $image_src[2], $width, $height );
-				$width = $proportional_size[0];
-				$height = $proportional_size[1];
-			}
-			
-			$cropped_img_path = $no_ext_path.'-'.$width.'x'.$height.$extension;
-		
-			// checking if the file size is larger than the target size
-			// if it is smaller or the same size, stop right here and return
-			if ( $image_src[1] > $width || $image_src[2] > $height ) {
-		
-				// the file is larger, check if the resized version already exists (for $crop = true but will also work for $crop = false if the sizes match)
-				if ( file_exists( $cropped_img_path ) ) {
-		
-					$cropped_img_url = str_replace( basename( $image_src[0] ), basename( $cropped_img_path ), $image_src[0] );
-					
-					$vt_image = array (
-						'url' => $cropped_img_url,
-						'width' => $width,
-						'height' => $height
-					);
-					
-					return $vt_image;
-				}
-		
-				// $crop = false
-				if ( $crop == false ) {
-				
-					// calculate the size proportionaly
-					$proportional_size = wp_constrain_dimensions( $image_src[1], $image_src[2], $width, $height );
-					$resized_img_path = $no_ext_path.'-'.$proportional_size[0].'x'.$proportional_size[1].$extension;			
-		
-					// checking if the file already exists
-					if ( file_exists( $resized_img_path ) ) {
-					
-						$resized_img_url = str_replace( basename( $image_src[0] ), basename( $resized_img_path ), $image_src[0] );
-		
-						$vt_image = array (
-							'url' => $resized_img_url,
-							'width' => $proportional_size[0],
-							'height' => $proportional_size[1]
-						);
-						
-						return $vt_image;
-					}
-				}
-		
-				// no cache files - let's finally resize it
-				$new_img_path = image_resize( $file_path, $width, $height, $crop );
-				$new_img_size = getimagesize( $new_img_path );
-				$new_img = str_replace( basename( $image_src[0] ), basename( $new_img_path ), $image_src[0] );
-		
-				// resized output
-				$vt_image = array (
-					'url' => $new_img,
-					'width' => $new_img_size[0],
-					'height' => $new_img_size[1]
-				);
-				
-				return $vt_image;
-			}
-		
-			// default output - without resizing
-			$vt_image = array (
-				'url' => $image_src[0],
-				'width' => $image_src[1],
-				'height' => $image_src[2]
-			);
-			
-			return $vt_image;
 		}
 		
 		/**
@@ -1935,11 +1781,20 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		}
 		
 		/**
-		 * WPP Update warning - lets the user know that his WP setup is too old
+		 * WPP Update warning - lets the user know that the current WP version is too old
 		 * Since 2.0.0
 		 */
 		function wpp_update_warning() {
 			$msg = '<div id="wpp-message" class="error fade"><p>'.__('Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 2.8 to function correctly. Please update your blog via Tools &gt; Upgrade.', 'wordpress-popular-posts').'</p></div>';
+			echo trim($msg);
+		}
+		
+		/**
+		 * PHP Update warning - lets the user know that the PHP version is too old
+		 * Since 2.3.3
+		 */
+		function php_update_warning() {
+			$msg = '<div id="wpp-php-message" class="error fade"><p>'.__('Your PHP installation is too old. Wordpress Popular Posts Plugin requires at least PHP v5.2.0 to function correctly. Please contact your hosting provider and ask them to upgrade PHP to 5.2.x or higher.', 'wordpress-popular-posts').'</p></div>';
 			echo trim($msg);
 		}
 		
@@ -2220,6 +2075,8 @@ function get_mostpopular($args = NULL) {
 
 /*
 = 2.3.3 =
+* Minimum Wordpress version requirement changed to 3.3.
+* Minimum PHP version requirement changed to 5.2.0.
 * Improved Custom HTML feature! It's more flexible now + new Content Tags added: {url}, {text_title}, {author}, {category}, {views}, {comments}!.
 * Added ability to exclude posts by ID (similar to the category filter).
 * Added ability to enable / disable logging visits from logged-in users.
