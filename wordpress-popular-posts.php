@@ -1378,14 +1378,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( ! is_wp_error( $image ) ) { // valid image, create thumbnail
 						
 						$image->resize( $dim[0], $dim[1], true );
-						//$image->save( $new_img );
-						$new_img = $image->save();						
-						$new_img = str_replace( basename( $thumbnail[0] ), $new_img['file'], $thumbnail[0] );
+						$new_img = $image->save();
+						
+						if ( ! is_wp_error( $new_img ) ) {						
+							$new_img = str_replace( basename( $thumbnail[0] ), $new_img['file'], $thumbnail[0] );
+						} else {
+							return "<!-- " . $new_img->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_error wpp_{$source}\" />";
+						}
 						
 						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_thumb wpp_{$source}\" />";
 						
 					} else { // image file path is invalid
-						return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_error wpp_{$source}\" />";
+						return "<!-- " . $image->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_error wpp_{$source}\" />";
 					}
 					
 				} else { // create thumb using image_resize()
@@ -1399,7 +1403,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
 						
 					} else { // image file path is invalid
-						return "<img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_error wpp_{$source}\" />";
+						return "<!-- " . $image->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_error wpp_{$source}\" />";
 					}
 									
 				}
@@ -1478,7 +1482,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Since 1.4.6
 		 */
 		function format_content($string, $data = array(), $rating) {
-			if (empty($string) || (empty($data) || !is_array($data))) return false;
+			
+			if (empty($string) || (empty($data) || !is_array($data)))
+				return false;
 			
 			$string = htmlentities( $string );
 			
@@ -1539,67 +1545,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$string = str_replace( "{comments}", $data['comments'], $string );
 			}
 			
-			/*for ($i=0; $i < count($matches[0]); $i++) {		
-				if (strtolower($matches[0][$i]) == "{title}") {
-					$params[$matches[0][$i]] = $data['title'];
-					continue;
-				}
-				if (strtolower($matches[0][$i]) == "{stats}") {
-					$params[$matches[0][$i]] = $data['stats'];
-					continue;
-				}
-				if (strtolower($matches[0][$i]) == "{summary}") {
-					$params[$matches[0][$i]] = $data['summary'];
-					continue;
-				}
-				if (strtolower($matches[0][$i]) == "{image}" || strtolower($matches[0][$i]) == "{thumb}") {
-					$params[$matches[0][$i]] = $data['img'];
-					continue;
-				}
-				// WP-PostRatings check
-				if ($rating) {
-					if (strtolower($matches[0][$i]) == "{rating}") {
-						$params[$matches[0][$i]] = the_ratings_results($data['id']);
-						continue;
-					}
-				}
-				
-				if (strtolower($matches[0][$i]) == "{url}") {
-					$params[$matches[0][$i]] = $data['url'];
-					continue;
-				}
-				
-				if (strtolower($matches[0][$i]) == "{text_title}") {
-					$params[$matches[0][$i]] = $data['text_title'];
-					continue;
-				}
-				
-				if (strtolower($matches[0][$i]) == "{author}") {
-					$params[$matches[0][$i]] = $data['author'];
-					continue;
-				}
-				
-				if (strtolower($matches[0][$i]) == "{category}") {
-					$params[$matches[0][$i]] = $data['category'];
-					continue;
-				}
-				
-				if (strtolower($matches[0][$i]) == "{views}") {
-					$params[$matches[0][$i]] = $data['views'];
-					continue;
-				}
-				
-				if (strtolower($matches[0][$i]) == "{comments}") {
-					$params[$matches[0][$i]] = $data['comments'];
-					continue;
-				}
-			}
-			
-			for ($i=0; $i < count($params); $i++) {		
-				$string = str_replace($matches[0][$i], $params[$matches[0][$i]], $string);
-			}
-			
-			return $string;*/
 			return html_entity_decode( $string );
 		}		
 		
