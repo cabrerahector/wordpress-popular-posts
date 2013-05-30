@@ -12,7 +12,7 @@
 			'stylesheet' => true,
 			'thumbnail' => array(
 				'source' => 'featured',
-				'field' => '',
+				'field' => '_wpp_thumbnail',
 				'resize' => false,
 				'default' => ''
 			),
@@ -54,7 +54,7 @@
 				echo '<div id="wpp-message" class="error fade"><p>'.__('Please provide the name of your custom field.', 'wordpress-popular-posts').'</p></div>';
 			} else {				
 				$ops['tools']['thumbnail']['source'] = $_POST['thumb_source'];
-				$ops['tools']['thumbnail']['field'] = $_POST['thumb_field'];
+				$ops['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "_wpp_thumbnail";
 				
 				update_option('wpp_settings_config', $ops);				
 				echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
@@ -345,7 +345,7 @@
     </ul>
     <!-- Start stats -->
     <div id="wpp_stats" class="wpp_boxes"<?php if (!isset($_POST['section']) || (isset($_POST['section']) && $_POST['section'] == "stats") ) {?> style="display:block;"<?php } ?>>
-    	<p><?php _e("Click on each tab to see what are the most popular entries on your blog today, this week, last 30 days or all time since Wordpress Popular Posts was installed.", "wordpress-popular-posts"); ?></p>
+    	<p><?php _e("Click on each tab to see what are the most popular entries on your blog in the last 24 hours, this week, last 30 days or all time since Wordpress Popular Posts was installed.", "wordpress-popular-posts"); ?></p>
         
         <div class="tablenav top">
             <div class="alignleft actions">
@@ -426,63 +426,63 @@
                         <p><?php _e('If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-7"><?php _e('What is "Post type" for?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-7">
+                    <h4>&raquo; <a href="#" rel="q-8"><?php _e('What is "Post type" for?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-8">
                         <p><?php _e('This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases).', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-8"><?php _e('What is "Category(ies) ID(s)" for?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-8">
+                    <h4>&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-9">
                         <p><?php _e('This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-9"><?php _e('What is "Author(s) ID(s)" for?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-9">
+                    <h4>&raquo; <a href="#" rel="q-10"><?php _e('What is "Author(s) ID(s)" for?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-10">
                         <p><?php _e('Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-10"><?php _e('What does "Display post thumbnail" do?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-10">
+                    <h4>&raquo; <a href="#" rel="q-11"><?php _e('What does "Display post thumbnail" do?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-11">
                         <p><?php _e('If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - Wordpress Popular Posts - Tools.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-11"><?php _e('What does "Display comment count" do?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-11">
+                    <h4>&raquo; <a href="#" rel="q-12"><?php _e('What does "Display comment count" do?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-12">
                         <p><?php _e('If checked, Wordpress Popular Posts will display how many comments each popular post has got in the selected Time Range.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-12"><?php _e('What does "Display views" do?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-12">
+                    <h4>&raquo; <a href="#" rel="q-13"><?php _e('What does "Display views" do?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-13">
                         <p><?php _e('If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-13"><?php _e('What does "Display author" do?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-13">
+                    <h4>&raquo; <a href="#" rel="q-14"><?php _e('What does "Display author" do?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-14">
                         <p><?php _e('If checked, Wordpress Popular Posts will display the name of the author of each entry listed.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-14"><?php _e('What does "Display date" do?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-14">
+                    <h4>&raquo; <a href="#" rel="q-15"><?php _e('What does "Display date" do?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-15">
                         <p><?php _e('If checked, Wordpress Popular Posts will display the date when each popular posts was published.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-15"><?php _e('What does "Use custom HTML Markup" do?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-15">
+                    <h4>&raquo; <a href="#" rel="q-16"><?php _e('What does "Use custom HTML Markup" do?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-16">
                         <p><?php _e('If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-16"><?php _e('What does "Use content formatting tags" do?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-16">
-                        <p><?php _e('If checked, you can decide the order of the items displayed on each entry. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". Available tags: {image}, {title}, {summary}, {stats} and {rating}.', 'wordpress-popular-posts'); ?></p>
+                    <h4>&raquo; <a href="#" rel="q-17"><?php _e('What are "Content Tags"?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-17">
+                        <p><?php _e('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-17"><?php _e('What are "Template Tags"?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-17">
+                    <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are "Template Tags"?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-18">
                         <p><?php _e('Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views().', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are the template tags that Wordpress Popular Posts supports?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-18">
+                    <h4>&raquo; <a href="#" rel="q-19"><?php _e('What are the template tags that Wordpress Popular Posts supports?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-19">
                         <p><?php _e('The following are the template tags supported by Wordpress Popular Posts', 'wordpress-popular-posts'); ?>:</p>
                         <table cellspacing="0" class="wp-list-table widefat fixed posts">
                         	<thead>
@@ -510,12 +510,12 @@
                         </table>
                     </div>
                     
-                    <h4>&raquo; <a href="#" rel="q-19"><?php _e('What are "shortcodes"?', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-19">
+                    <h4>&raquo; <a href="#" rel="q-20"><?php _e('What are "shortcodes"?', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-20">
                         <p><?php _e('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', 'wordpress-popular-posts', 'wordpress-popular-posts'); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
                     </div>
-                    <h4>&raquo; <a href="#" rel="q-20"><?php _e('List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode', 'wordpress-popular-posts'); ?></a></h4>
-                    <div class="wpp-ans" id="q-20" style="display:block;">
+                    <h4>&raquo; <a href="#" rel="q-21"><?php _e('List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode', 'wordpress-popular-posts'); ?></a></h4>
+                    <div class="wpp-ans" id="q-21" style="display:block;">
                         <p><?php _e('These parameters can be used by both the template tag wpp_get_most_popular() and the shortcode [wpp].', 'wordpress-popular-posts'); ?>:</p>
                         <table cellspacing="0" class="wp-list-table widefat fixed posts">
                         	<thead>
@@ -887,7 +887,7 @@
         
         <br /><br />
         
-        <p><?php _e('Wordpress Popular Posts keeps historical data of your most popular entries for up to 30 days. If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p>
+        <p><?php _e('Wordpress Popular Posts maintains data in two separate tables: one for storing the most popular entries in the past 30 days (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p>
         <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", "wordpress-popular-posts"); ?>" onclick="confirm_reset_cache()" /> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
         <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", "wordpress-popular-posts"); ?>" onclick="confirm_reset_all()" /> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
     </div>

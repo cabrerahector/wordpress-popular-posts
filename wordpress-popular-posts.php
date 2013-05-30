@@ -24,12 +24,11 @@ function load_wpp() {
 /**
  * Wordpress Popular Posts class.
  */
-
 if ( !class_exists('WordpressPopularPosts') ) {
 	
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.3.2";
+		var $version = "2.3.3";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -183,10 +182,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				add_action('the_content', array(&$this,'wpp_update') );
 			}
 			
-			
-			//add_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
-			//add_action('wp_head', array(&$this, 'wpp_print_ajax'));
-			
 			// add ajax table truncation to wp_ajax_ hook
 			add_action('wp_ajax_wpp_clear_cache', array(&$this, 'wpp_clear_data'));
 			add_action('wp_ajax_wpp_clear_all', array(&$this, 'wpp_clear_data'));
@@ -212,6 +207,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Wordpress version check
 			if (version_compare($wp_version, '3.3', '<')) add_action('admin_notices', array(&$this, 'wpp_update_warning'));
 			
+			// PHP version check
+			if ( version_compare(phpversion(), '5.2.0', '<') ) add_action('admin_notices', array(&$this, 'php_update_warning'));
+			
 			// qTrans plugin support
 			if (function_exists('qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage')) $this->qTrans = true;
 			
@@ -220,9 +218,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// Can we create thumbnails?			
 			if (extension_loaded('gd') && function_exists('gd_info') && version_compare(phpversion(), '5.2.0', '>=')) $this->thumb = true;
-			
-			// PHP version check
-			if ( version_compare(phpversion(), '5.2.0', '<') ) add_action('admin_notices', array(&$this, 'php_update_warning'));
 			
 			// shortcode
 			if( function_exists('add_shortcode') ){
@@ -284,23 +279,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			} else {
 				echo $this->get_popular_posts( $instance );
 			}
-			
-			/*echo $before_widget . "\n";
-			
-			// has user set a title?
-			if ($instance['title'] != '') {
-				
-				$title = apply_filters( 'widget_title', $instance['title'] );
-				
-				if ($instance['markup']['custom_html'] && $instance['markup']['title-start'] != "" && $instance['markup']['title-end'] != "" ) {
-					echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
-				} else {
-					echo $before_title . $title . $after_title;
-				}
-			}
-			
-			echo $this->get_popular_posts($instance);
-			echo $after_widget . "\n";*/
 			
 			echo $after_widget . "\n";
 			echo "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";			
@@ -938,8 +916,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				} else if ($len == 1) { // exclude one post only
 					$pids = " AND p.ID <> '".$instance['pid']."' ";
 				}
-			}
-			
+			}			
 			
 			// * categories
 			if ( !empty($instance['cat']) ) {
@@ -1124,13 +1101,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$content .= "<p>".__('Sorry. No data so far.', 'wordpress-popular-posts')."</p>"."\n";
 			} else { // list posts
 				
-				// Get thumbnail source
-				/*$this->user_ops = get_option('wpp_settings_config');				
-				if (!$this->user_ops || empty($this->user_ops)) {
-					add_option('wpp_settings_config', $this->wpp_user_settings_def);
-					$this->user_ops = $this->wpp_user_settings_def;
-				}*/
-				
 				// HTML wrapper
 				if ($instance['markup']['custom_html']) {
 					$content .= htmlspecialchars_decode($instance['markup']['wpp-start'], ENT_QUOTES) ."\n";
@@ -1142,6 +1112,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$posts_data = array();
 			
 				foreach($mostpopular as $p) {
+					
 					$stats = "";
 					$thumb = "";
 					$title = "";
@@ -1149,8 +1120,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$permalink = get_permalink( $p->id );
 					$author = ($instance['stats_tag']['author']) ? get_the_author_meta('display_name', $p->uid) : "";
 					$date = date_i18n( $instance['stats_tag']['date']['format'], strtotime($p->date) );
-					$pageviews = ($instance['order_by'] == "views" || $instance['order_by'] == "avg" || $instance['stats_tag']['views']) ? (($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format($p->pageviews) : number_format($p->avg_views, 2) ) : 0;
-					$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count']) ? $p->comment_count : 0;
+					
+					$pageviews = ($instance['order_by'] == "views" || $instance['order_by'] == "avg" || $instance['stats_tag']['views']) ? (($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n($p->pageviews) : number_format_i18n( $p->avg_views, 2) ) : 0;
+					
+					$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count']) ? number_format_i18n($p->comment_count) : 0;
 					$post_cat = "";
 					$excerpt = "";
 					$rating = "";
@@ -1165,15 +1138,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset) . "...";
 					}
 					
-					//$title = apply_filters('the_title', $title);
-					//$title_sub = apply_filters('the_title', $title_sub);
-					
 					$title = apply_filters('the_title', $title, $p->id);
 					$title_sub = apply_filters('the_title', $title_sub, $p->id);
 					
 					// EXCERPT					
 					if ( $instance['post-excerpt']['active'] ) {
-						//if ($instance['markup']['pattern']['active']) {
 						if ( $instance['markup']['custom_html'] ) {
 							$excerpt = $this->get_summary($p->id, $instance) . "...";
 						} else {
@@ -1183,31 +1152,28 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 					// STATS
 					// comments
-					if ( $instance['stats_tag']['comment_count'] ) {						
-						//$stats .= "<span class=\"wpp-comments\">{$comments} " . __('comment(s)', 'wordpress-popular-posts') . "</span>";
-						$stats .= "<span class=\"wpp-comments\">" . sprintf( _n( "%d comment", "%d comments", $comments, "wordpress-popular-posts" ), $comments ) . "</span>";
+					if ( $instance['stats_tag']['comment_count'] ) {
+						//$stats .= "<span class=\"wpp-comments\">" . sprintf( _n( "%d comment", "%d comments", $comments, "wordpress-popular-posts" ), $comments ) . "</span>";
+						$comments_text = ( $comments == 1 ) ? "$comments " . __('comment', 'wordpress-popular-posts') : "$comments " . __('comments', 'wordpress-popular-posts');
+						$stats .= "<span class=\"wpp-comments\">" . $comments_text . "</span>";
 					} else {
 					}
 					// views
-					if ( $instance['stats_tag']['views'] ) {
-						/*$views_text = ' ' . __('view(s)', 'wordpress-popular-posts');							
+					if ( $instance['stats_tag']['views'] ) {						
 						
 						if ($instance['order_by'] == 'avg') {
-							if ($instance['range'] != 'daily') $views_text = ' ' . __('view(s) per day', 'wordpress-popular-posts');
-						}
-						
-						$stats .= ($stats == "") ? "<span class=\"wpp-views\">{$pageviews} {$views_text}</span>" : " | <span class=\"wpp-views\">{$pageviews} {$views_text}</span>";*/
-						
-						if ($instance['order_by'] == 'avg') {
-							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . " per day</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . " per day</span>";
+							$views_text = ( (int)$pageviews == 1 ) ? "$pageviews " . __('view per day', 'wordpress-popular-posts') : "$pageviews " . __('views per day', 'wordpress-popular-posts');
+							//$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . sprintf( _n( "%f view per day", "%f views per day", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%F view", "%F views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . " per day</span>";
+							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
 						} else {
-							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>";
+							$views_text = ( $pageviews == 1 ) ? "$pageviews " . __('view', 'wordpress-popular-posts') : "$pageviews " . __('views', 'wordpress-popular-posts');
+							//$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>";
+							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
 						}
 						
 					}
 					//author
-					if ( $instance['stats_tag']['author'] ) {
-						//$display_name = get_the_author_meta('display_name', $p->uid);
+					if ( $instance['stats_tag']['author'] ) {						
 						$display_name = "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>";
 						$stats .= ($stats == "") ? "<span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts')." {$display_name}</span>" : " | <span class=\"wpp-author\">" . __('by', 'wordpress-popular-posts') . " {$display_name}</span>";
 					}
@@ -2084,13 +2050,14 @@ function get_mostpopular($args = NULL) {
 * Added range parameter to wpp_get_views().
 * Added numeric formatting to the wpp_get_views() function.
 * When enabling the Display author option, author's name will link to his/her profile page.
+* Fixed bad numeric formatting in Stats showing truncated views count.
 * Fixed AJAX update feature (finally!).
 * Fixed WP Post Ratings not displaying on the list (and while it works, there are errors coming from the WP Post Ratings plugin itself: http://wordpress.org/support/topic/plugin-wp-postratings-undefined-indexes).
 * Improved database queries for speed.
 * Fixed bug preventing PostRating to show.
 * Removed Timthumb (again) in favor of the updated get_img() function based on Victor Teixeira's vt_resize function.
 * Cron now removes from cache all posts that have been trashed or eliminated.
-* Added proper numeric formatting for views / comments count. (Thank you, )
+* Added proper numeric formatting for views / comments count. (Thank you for the tip, dimagsv!)
 * Added "the title filter fix" that affected some themes. (Thank you, jeremyers1!)
 * Added dutch translation. (Thank you, Jeroen!)
 * Added german translation. (Thank you, Martin!)
