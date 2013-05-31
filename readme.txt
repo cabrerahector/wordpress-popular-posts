@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, popular posts, widget, seo, wordpress, custom post type
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.3
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
