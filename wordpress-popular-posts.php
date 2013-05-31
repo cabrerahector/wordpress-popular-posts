@@ -864,16 +864,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			/*echo "<pre>"; print_r($instance); echo "</pre>";*/
 			
-			/*
-			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-			if ( is_plugin_active("w3-total-cache/w3-total-cache.php") ) {
-				echo "";
-				$plugin_totalcacheadmin = & w3_instance('W3_Plugin_TotalCacheAdmin');
-				$plugin_totalcacheadmin->flush_all();
-				//$plugin_totalcacheadmin->flush_pgcache();
-			}
-			*/
-			
 			global $wpdb;
 			$table = $wpdb->prefix . "popularpostsdata";
 			$fields = "";
@@ -937,35 +927,35 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$out_cats = preg_replace( '|[^0-9,]|', '', $out_cats );
 				
 				if ($in_cats != "" && $out_cats == "") { // get posts from from given cats only
-					$cats = " AND p.ID IN (
+					$cats = " OR (p.post_type = 'post' AND p.ID IN (
 						SELECT object_id
 						FROM $wpdb->term_relationships AS r
 							 JOIN $wpdb->term_taxonomy AS x ON x.term_taxonomy_id = r.term_taxonomy_id
 							 JOIN $wpdb->terms AS t ON t.term_id = x.term_id
 						WHERE x.taxonomy = 'category' AND t.term_id IN($in_cats)
-						) ";
+						)) ";
 				} else if ($in_cats == "" && $out_cats != "") { // exclude posts from given cats only
-					$cats = " AND p.ID NOT IN (
+					$cats = " OR (p.post_type = 'post' AND p.ID NOT IN (
 						SELECT object_id
 						FROM $wpdb->term_relationships AS r
 							 JOIN $wpdb->term_taxonomy AS x ON x.term_taxonomy_id = r.term_taxonomy_id
 							 JOIN $wpdb->terms AS t ON t.term_id = x.term_id
 						WHERE x.taxonomy = 'category' AND t.term_id IN($out_cats)
-						) ";
+						)) ";
 				} else { // mixed, and possibly a heavy load on the DB
-					$cats = " AND p.ID IN (
+					$cats = " OR (p.post_type = 'post' AND p.ID IN (
 						SELECT object_id
 						FROM $wpdb->term_relationships AS r
 							 JOIN $wpdb->term_taxonomy AS x ON x.term_taxonomy_id = r.term_taxonomy_id
 							 JOIN $wpdb->terms AS t ON t.term_id = x.term_id
 						WHERE x.taxonomy = 'category' AND t.term_id IN($in_cats) 
-						) AND p.ID NOT IN (
+						)) OR (p.post_type = 'post' AND p.ID NOT IN (
 						SELECT object_id
 						FROM $wpdb->term_relationships AS r
 							 JOIN $wpdb->term_taxonomy AS x ON x.term_taxonomy_id = r.term_taxonomy_id
 							 JOIN $wpdb->terms AS t ON t.term_id = x.term_id
 						WHERE x.taxonomy = 'category' AND t.term_id IN($out_cats)
-						) ";
+						)) ";
 				}
 			}
 			
@@ -1094,7 +1084,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$mostpopular = $wpdb->get_results($query);
 			
-			//print_r($mostpopular);
+			/*echo "<pre>"; print_r($mostpopular); echo "</pre>";*/
 			//return $content;
 			
 			if ( !is_array($mostpopular) || empty($mostpopular) ) { // no posts to show
@@ -1697,14 +1687,23 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Since 2.0.0
 		 */
 		function wpp_print_stylesheet() {
-			if (!is_admin()) {
-				if ( @file_exists(TEMPLATEPATH.'/wpp.css') ) { // user stored a custom wpp.css on theme's directory, so use it
-					$css_path = get_template_directory_uri() . "/wpp.css";
-				} else { // no custom wpp.css, use plugin's instead
-					$css_path = plugins_url('style/wpp.css', __FILE__);
+			
+			$css_path = NULL;
+			
+			if ( !is_admin() ) {
+				
+				$theme_file = get_stylesheet_directory() . '/wpp.css';
+				$plugin_file = plugin_dir_path(__FILE__) . 'style/wpp.css';
+				
+				if ( @file_exists($theme_file) ) { // user stored a custom wpp.css on theme's directory, so use it
+					$css_path = get_stylesheet_directory_uri() . "/wpp.css";
+				} elseif ( @file_exists($plugin_file) ) { // no custom wpp.css, use plugin's instead
+					$css_path = plugin_dir_url(__FILE__) . 'style/wpp.css';
 				}
 				
-				wp_enqueue_style('wordpress-popular-posts', $css_path, false);
+				if ( $css_path )
+					wp_enqueue_style('wordpress-popular-posts', $css_path, false);
+				
 			}
 		}
 		
@@ -2014,7 +2013,10 @@ function get_mostpopular($args = NULL) {
 
 /*
 = 2.3.4 =
-* Updated get_summary() to use API functions instead querying directly to DB
+* Fixed bug with category feature excluding paqes and custom post types.
+* Updated get_summary() to use API functions instead querying directly to DB.
+* Added ability to set post_type on Stats page.
+* Updated wpp_print_stylesheet() to get the wpp.css file from the right path (thanks, Martin!).
 */
 
 /*
