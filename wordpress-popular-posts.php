@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.3.3
+Version: 2.3.4
 Author: H&eacute;ctor Cabrera
 Author URI: http://cabrerahector.com
 License: GPL2
@@ -1144,9 +1144,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// EXCERPT					
 					if ( $instance['post-excerpt']['active'] ) {
 						if ( $instance['markup']['custom_html'] ) {
-							$excerpt = $this->get_summary($p->id, $instance) . "...";
+							$excerpt = $this->get_summary($p->id, $instance);
 						} else {
-							$excerpt = ": <span class=\"wpp-excerpt\">" . $this->get_summary($p->id, $instance) . "...</span>";
+							$excerpt = ": <span class=\"wpp-excerpt\">" . $this->get_summary($p->id, $instance) . "</span>";
 						}
 					}
 					
@@ -1262,20 +1262,47 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Since 1.4.6
 		 */
 		function get_summary($id, $instance){
-			if (!is_numeric($id)) return false;
+			
+			if ( !is_numeric($id) )
+				return false;
+			
 			global $wpdb;			
 			$excerpt = "";
-			$result = "";
 			
-			$result = $wpdb->get_results("SELECT post_excerpt FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
+			$the_post = get_post( $id );			
+			$excerpt = ( empty($the_post->post_excerpt) ) ? $the_post->post_content : $the_post->post_excerpt;
+			
+			// RRR added call to the_content filters, allows qTranslate to hook in.
+            if ( $this->qTrans )
+				$excerpt = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage( $excerpt );
+			
+			// remove WP shortcodes (and HTML tags if requested)
+			if ( $instance['post-excerpt']['keep_format'] ) {
+				$excerpt = strip_shortcodes( strip_tags($excerpt, '<a><b><i><em><strong>') );
+			} else {
+				$excerpt = strip_shortcodes( strip_tags($excerpt) );
+			}
+			
+			// remove caption tags
+			$excerpt = preg_replace( "/\[caption.*\[\/caption\]/", "", $excerpt );
+			
+			// remove Flash objects
+			$excerpt = preg_replace( "/<object[0-9 a-z_?*=\":\-\/\.#\,\\n\\r\\t]+/smi", "", $excerpt );
+			
+			// truncate excerpt
+			if ( strlen($excerpt) > $instance['post-excerpt']['length'] ) {
+				$excerpt = mb_substr( $excerpt, 0, $instance['post-excerpt']['length'] ) . "...";
+			}			
+			
+			/*$result = $wpdb->get_results("SELECT post_excerpt FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
 			
 			if (empty($result[0]['post_excerpt'])) {
 				// no custom excerpt defined, how lazy of you!				
 				$result = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
-				$excerpt = preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_content']);				
+				$excerpt = " post_content " . preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_content']);				
 			} else {
 				// user has defined a custom excerpt, yay!
-				$excerpt = preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_excerpt']);
+				$excerpt = " post_excerpt " .preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_excerpt']);
 			}					
 			
 			// RRR added call to the_content filters, allows qTranslate to hook in.
@@ -1294,10 +1321,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			if (strlen($excerpt) > $instance['post-excerpt']['length']) {
-				$excerpt = $this->truncate($excerpt, $instance['post-excerpt']['length'], '', true, true);
-			}
+				$excerpt = $this->truncate($excerpt, $instance['post-excerpt']['length'], '', true, true) . "...";
+			}*/
 			
 			return $excerpt;
+			
 		}
 		
 		/**
@@ -1981,34 +2009,13 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.3.3 Changelog.
+ * Wordpress Popular Posts 2.3.4 Changelog.
  */
 
 /*
-= 2.3.3 =
-* Minimum Wordpress version requirement changed to 3.3.
-* Minimum PHP version requirement changed to 5.2.0.
-* Improved Custom HTML feature! It's more flexible now + new Content Tags added: {url}, {text_title}, {author}, {category}, {views}, {comments}!.
-* Added ability to exclude posts by ID (similar to the category filter).
-* Added ability to enable / disable logging visits from logged-in users.
-* Added Category to the Stats Tag settings options.
-* Added range parameter to wpp_get_views().
-* Added numeric formatting to the wpp_get_views() function.
-* When enabling the Display author option, author's name will link to his/her profile page.
-* Fixed bad numeric formatting in Stats showing truncated views count.
-* Fixed AJAX update feature (finally!).
-* Fixed WP Post Ratings not displaying on the list (and while it works, there are errors coming from the WP Post Ratings plugin itself: http://wordpress.org/support/topic/plugin-wp-postratings-undefined-indexes).
-* Improved database queries for speed.
-* Fixed bug preventing PostRating to show.
-* Removed Timthumb (again) in favor of the updated get_img() function based on Victor Teixeira's vt_resize function.
-* Cron now removes from cache all posts that have been trashed or eliminated.
-* Added proper numeric formatting for views / comments count. (Thank you for the tip, dimagsv!)
-* Added "the title filter fix" that affected some themes. (Thank you, jeremyers1!)
-* Added dutch translation. (Thank you, Jeroen!)
-* Added german translation. (Thank you, Martin!)
+= 2.3.4 =
+* Updated get_summary() to use API functions instead querying directly to DB
 */
-
-// requirements: http://codex.wordpress.org/Version_3.2
 
 /*
 TODO
