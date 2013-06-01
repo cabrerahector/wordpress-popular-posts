@@ -1,10 +1,32 @@
 <?php
 	if (basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__)) exit('Please do not load this page directly');
 	
+	/**
+	 * Merges two associative arrays recursively
+	 * array_merge_recursive_distinct(array('key' => 'org value'), array('key' => 'new value'));
+	 * => array('key' => array('new value'));
+	 * Source: http://www.php.net/manual/en/function.array-merge-recursive.php#92195
+	 * Since 2.3.4
+	 */
+	function array_merge_recursive_distinct( array &$array1, array &$array2 ) {
+		$merged = $array1;
+		
+		foreach ( $array2 as $key => &$value ) {
+			if ( is_array( $value ) && isset ( $merged[$key] ) && is_array( $merged[$key] ) ) {
+				$merged[$key] = array_merge_recursive_distinct ( $merged[$key], $value );
+			} else {
+				$merged[$key] = $value;
+			}
+		}
+		
+		return $merged;
+	}
+	
 	$wpp_settings_def = array(
 		'stats' => array(
 			'order_by' => 'views',
-			'limit' => 10
+			'limit' => 10,
+			'post_type' => 'post,page'
 		),
 		'tools' => array(
 			'ajax' => false,
@@ -28,16 +50,18 @@
 	);
 	
 	$ops = get_option('wpp_settings_config');
-	
-	if (!$ops) {
+	if ( !$ops ) {
 		add_option('wpp_settings_config', $wpp_settings_def);
 		$ops = $wpp_settings_def;
+	} else {
+		$ops = array_merge_recursive_distinct( $wpp_settings_def, $ops );
 	}
 	
 	if ( isset($_POST['section']) ) {
 		if ($_POST['section'] == "stats") {
 			$ops['stats']['order_by'] = $_POST['stats_order'];
 			$ops['stats']['limit'] = (is_numeric($_POST['stats_limit']) && $_POST['stats_limit'] > 0) ? $_POST['stats_limit'] : 10;
+			$ops['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
 			
 			update_option('wpp_settings_config', $ops);			
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
@@ -55,6 +79,7 @@
 			} else {				
 				$ops['tools']['thumbnail']['source'] = $_POST['thumb_source'];
 				$ops['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "_wpp_thumbnail";
+				$ops['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
 				
 				update_option('wpp_settings_config', $ops);				
 				echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
@@ -355,6 +380,7 @@
                         <option <?php if ($ops['stats']['order_by'] == "views") {?>selected="selected"<?php } ?> value="views"><?php _e("Order by views", "wordpress-popular-posts"); ?></option>
                         <option <?php if ($ops['stats']['order_by'] == "avg") {?>selected="selected"<?php } ?> value="avg"><?php _e("Order by avg. daily views", "wordpress-popular-posts"); ?></option>
                     </select>
+                    <label for="stats_type"><?php _e("Post type", "wordpress-popular-posts"); ?>:</label> <input type="text" name="stats_type" value="<?php echo $ops['stats']['post_type']; ?>" size="15" />
                     <label for="stats_limits"><?php _e("Limit", "wordpress-popular-posts"); ?>:</label> <input type="text" name="stats_limit" value="<?php echo $ops['stats']['limit']; ?>" size="5" />
                     <input type="hidden" name="section" value="stats" />
                     <input type="submit" class="button-secondary action" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
@@ -370,16 +396,16 @@
         </div>
         <div id="wpp-stats-canvas">            
             <div class="wpp-stats wpp-stats-active" id="wpp-daily">            	
-                <?php echo do_shortcode("[wpp range='daily' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='daily' post_type='".$ops['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-weekly">
-                <?php echo do_shortcode("[wpp range='weekly' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='weekly' post_type='".$ops['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-monthly">
-                <?php echo do_shortcode("[wpp range='monthly' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='monthly post_type='".$ops['stats']['post_type']."'' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-all">
-                <?php echo do_shortcode("[wpp range='all' stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='all' post_type='".$ops['stats']['post_type']."' stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
         </div>
     </div>
@@ -776,6 +802,21 @@
         <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">            
             <table class="form-table">
                 <tbody>
+                	<tr valign="top">
+                        <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", "wordpress-popular-posts"); ?>:</label></th>
+                        <td>
+                            <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", "wordpress-popular-posts" ); ?>" />
+                            <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
+                            <br />
+                            <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", "wordpress-popular-posts"); ?></p>
+                            <div style="display:<?php if ( !empty($ops['tools']['thumbnail']['default']) ) : ?>block<?php else: ?>none<?php endif; ?>;">
+                            	<label><?php _e("Preview", "wordpress-popular-posts"); ?>:</label>
+                                <div id="thumb-review">
+                                    <img src="<?php echo $ops['tools']['thumbnail']['default']; ?>" alt="" border="0" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>                    
                     <tr valign="top">
                         <th scope="row"><label for="thumb_source"><?php _e("Pick image from", "wordpress-popular-posts"); ?>:</label></th>
                         <td>
