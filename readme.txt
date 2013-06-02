@@ -123,6 +123,9 @@ Wordpress Popular Posts has three different thumbnail options to choose from ava
 = I'm seeing a "No thumbnail" image, where's my post thumbnail? =
 Make sure you have assigned one to your posts (see previous question).
 
+= Is there any way I can change that ugly "No thumbnail" image for one of my own? =
+Fortunately, yes. Go to *wp-admin > Settings > Wordpress Popular Posts > Tools* and check under *Thumbnail source*. Ideally, the thumbnail you're going to use should be set already with your desired width and height - however, the uploader will give you other size options as configured by your current theme.
+
 = Where can I find the list of parameters accepted by the wpp_get_mostpopular() template tag / [wpp] shortcode? =
 You can find it via *wp-admin > Settings > Wordpress Popular Posts > FAQ*, under the section *"List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode"*.
 
