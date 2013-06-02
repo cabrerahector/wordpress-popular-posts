@@ -402,7 +402,7 @@
                 <?php echo do_shortcode("[wpp range='weekly' post_type='".$ops['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-monthly">
-                <?php echo do_shortcode("[wpp range='monthly post_type='".$ops['stats']['post_type']."'' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='monthly' post_type='".$ops['stats']['post_type']."'' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-all">
                 <?php echo do_shortcode("[wpp range='all' post_type='".$ops['stats']['post_type']."' stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
