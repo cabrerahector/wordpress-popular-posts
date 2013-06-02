@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, popular posts, widget, seo, wordpress, custom post type
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -183,6 +183,11 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 2.3.5 =
+* Fixed minor bugs on admin page.
+* Fixed query bug preventing some results from being listed.
+* Added a check to avoid using the terms tables if not necessary (eg. listing pages only).
+
 = 2.3.4 =
 * Added ability to shorten title/excerpt by number of words.
 * Updated excerpt code, don't show it if empty.

@@ -28,7 +28,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 	
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.3.4";
+		var $version = "2.3.5";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -2076,7 +2076,7 @@ function get_mostpopular($args = NULL) {
 = 2.3.5 =
 * Fixed minor bugs on admin page.
 * Fixed query bug preventing some results from being listed.
-* Added a check to avoid using the terms tables if not necessary (eg. listing pages).
+* Added a check to avoid using the terms tables if not necessary (eg. listing pages only).
 */
 
 /*
