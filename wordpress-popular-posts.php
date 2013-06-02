@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.3.4
+Version: 2.3.5
 Author: H&eacute;ctor Cabrera
 Author URI: http://cabrerahector.com
 License: GPL2
@@ -841,7 +841,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			global $wpdb;
 			$table = $wpdb->prefix . "popularpostsdata";
 			$fields = "";
-			$limit_views = " LIMIT {$instance['limit']} ";
 			$from = "";
 			$where = "";
 			$post_types = "";
@@ -856,6 +855,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$i = 0;
 			$len = count($types);
 			$sql_post_types = "";
+			$join_cats = true;
 					
 			if ($len > 1) { // we are getting posts from more that one ctp				
 				foreach ( $types as $post_type ) {
@@ -868,7 +868,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				$post_types = " p.post_type IN({$sql_post_types}) ";
 			} else if ($len == 1) { // post from one ctp only
+			
 				$post_types = " p.post_type = '".$instance['post_type']."' ";
+				
+				// if we're getting just pages, why join the categories table?
+				if ( strtolower($instance['post_type']) == 'page' )
+					$join_cats = false;
+				
 			}
 			
 			// * posts exclusion
@@ -884,13 +890,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}			
 			
 			// * categories
-			if ( !empty($instance['cat']) ) {
+			if ( !empty($instance['cat']) && $join_cats ) {
 				$cat_ids = explode(",", $instance['cat']);
 				$in = array();
 				$out = array();
 				$not_in = "";
-				
-				$limit_views = "";
 				
 				usort($cat_ids, array(&$this, 'sorter'));					
 				
@@ -1010,12 +1014,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ($instance['order_by'] == "comments") { // ordered by comments
 					
 					$fields .= ", c.comment_count AS 'comment_count' ";
-					$from = " (SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count', MAX(comment_date) AS comment_date FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$this->now()}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC, comment_date DESC $limit_views) c LEFT JOIN {$wpdb->posts} p ON p.ID = c.id ";
+					$from = " (SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count', MAX(comment_date) AS comment_date FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$this->now()}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC, comment_date DESC) c LEFT JOIN {$wpdb->posts} p ON p.ID = c.id ";
 				
 					if ($instance['stats_tag']['views']) { // get views, too
 					
 						$fields .= ", IFNULL(v.pageviews, 0) AS 'pageviews' ";
-						$from .= " LEFT JOIN (SELECT id, SUM(pageviews) AS pageviews, MAX(day) AS day FROM {$table}cache WHERE day > DATE_SUB('{$this->now()}', INTERVAL {$interval}) GROUP BY id ORDER BY pageviews DESC, day DESC $limit_views ) v ON p.ID = v.id ";
+						$from .= " LEFT JOIN (SELECT id, SUM(pageviews) AS pageviews, MAX(day) AS day FROM {$table}cache WHERE day > DATE_SUB('{$this->now()}', INTERVAL {$interval}) GROUP BY id ORDER BY pageviews DESC, day DESC) v ON p.ID = v.id ";
 						
 					}
 					
@@ -1026,19 +1030,19 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $instance['order_by'] == "views" ) {
 				
 						$fields .= ", v.pageviews AS 'pageviews' ";
-						$from = " (SELECT id, SUM(pageviews) AS pageviews, MAX(day) AS day FROM {$table}cache WHERE day > DATE_SUB('{$this->now()}', INTERVAL {$interval}) GROUP BY id ORDER BY pageviews DESC, day DESC $limit_views ) v LEFT JOIN {$wpdb->posts} p ON v.id = p.ID ";
+						$from = " (SELECT id, SUM(pageviews) AS pageviews, MAX(day) AS day FROM {$table}cache WHERE day > DATE_SUB('{$this->now()}', INTERVAL {$interval}) GROUP BY id ORDER BY pageviews DESC, day DESC) v LEFT JOIN {$wpdb->posts} p ON v.id = p.ID ";
 						
 					} else if ( $instance['order_by'] == "avg" ) {
 					
 						$fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$this->now()}', DATE_SUB('{$this->now()}', INTERVAL {$interval})) > 0, DATEDIFF('{$this->now()}', DATE_SUB('{$this->now()}', INTERVAL {$interval})), 1) ) ) AS 'avg_views' ";
-						$from = " (SELECT id, SUM(pageviews) AS pageviews, MAX(day) AS day FROM {$table}cache WHERE day > DATE_SUB('{$this->now()}', INTERVAL {$interval}) GROUP BY id ORDER BY pageviews DESC, day DESC $limit_views ) v LEFT JOIN {$wpdb->posts} p ON v.id = p.ID ";
+						$from = " (SELECT id, SUM(pageviews) AS pageviews, MAX(day) AS day FROM {$table}cache WHERE day > DATE_SUB('{$this->now()}', INTERVAL {$interval}) GROUP BY id ORDER BY pageviews DESC, day DESC) v LEFT JOIN {$wpdb->posts} p ON v.id = p.ID ";
 						
 					}
 					
 					if ( $instance['stats_tag']['comment_count'] ) { // get comments, too
 					
 						$fields .= ", IFNULL(c.comment_count, 0) AS 'comment_count' ";
-						$from .= " LEFT JOIN (SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count', MAX(comment_date) AS comment_date FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$this->now()}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC, comment_date DESC $limit_views) c ON p.ID = c.id ";
+						$from .= " LEFT JOIN (SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count', MAX(comment_date) AS comment_date FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$this->now()}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC, comment_date DESC) c ON p.ID = c.id ";
 						
 					}
 					
@@ -1054,15 +1058,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 			}
 			
-			$query = "SELECT {$fields} FROM {$from}";
-			
+			$query = "SELECT {$fields} FROM {$from}";			
 			//echo $query;
-			//return $content;
 			
-			$mostpopular = $wpdb->get_results($query);
-			
+			$mostpopular = $wpdb->get_results($query);			
 			/*echo "<pre>"; print_r($mostpopular); echo "</pre>";*/
-			//return $content;
 			
 			if ( !is_array($mostpopular) || empty($mostpopular) ) { // no posts to show
 				$content .= "<p>".__('Sorry. No data so far.', 'wordpress-popular-posts')."</p>"."\n";
@@ -2069,21 +2069,14 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.3.4 Changelog.
+ * Wordpress Popular Posts 2.3.5 Changelog.
  */
 
 /*
-= 2.3.4 =
-* Added ability to shorten title/excerpt by number of words.
-* Updated excerpt code, don't show it if empty.
-* Added ability to set post_type on Stats page.
-* Added check for is_preview() to avoid updating views count when editing and previewing a post / page (thanks, Partisk!).
-* Added ability to change default thumbnail via admin (thanks for the suggestion, Martin!).
-* Fixed bug in query when getting popular posts from category returning no results if it didn't have any post on the top viewed / commented.
-* Added function for better handling changes/updates in settings.
-* Updated get_summary() to use API functions instead querying directly to DB.
-* Updated wpp_print_stylesheet() to get the wpp.css file from the right path (thanks, Martin!).
-* Moved translations to lang folder.
+= 2.3.5 =
+* Fixed minor bugs on admin page.
+* Fixed query bug preventing some results from being listed.
+* Added a check to avoid using the terms tables if not necessary (eg. listing pages).
 */
 
 /*
