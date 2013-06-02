@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-01 18:40-0430\n"
+"POT-Creation-Date: 2013-06-02 11:08-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Hector Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <admin@rauru.com>\n"
@@ -83,19 +83,19 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: admin.php:392 wordpress-popular-posts.php:380
+#: admin.php:392 wordpress-popular-posts.php:382
 msgid "Last 24 hours"
 msgstr ""
 
-#: admin.php:393 wordpress-popular-posts.php:381
+#: admin.php:393 wordpress-popular-posts.php:383
 msgid "Last 7 days"
 msgstr ""
 
-#: admin.php:394 wordpress-popular-posts.php:382
+#: admin.php:394 wordpress-popular-posts.php:384
 msgid "Last 30 days"
 msgstr ""
 
-#: admin.php:395 wordpress-popular-posts.php:383
+#: admin.php:395 wordpress-popular-posts.php:385
 msgid "All-time"
 msgstr ""
 
@@ -150,9 +150,9 @@ msgstr ""
 
 #: admin.php:442
 msgid ""
-"If checked, all posts titles will be shortened to \"n\" characters. A new "
-"\"Shorten title to\" option will appear so you can set it to whatever you "
-"like."
+"If checked, all posts titles will be shortened to \"n\" characters/words. A "
+"new \"Shorten title to\" option will appear so you can set it to whatever "
+"you like."
 msgstr ""
 
 #: admin.php:445
@@ -391,7 +391,7 @@ msgstr ""
 msgid "Text string"
 msgstr ""
 
-#: admin.php:561 wordpress-popular-posts.php:125
+#: admin.php:561 wordpress-popular-posts.php:126
 msgid "Popular Posts"
 msgstr ""
 
@@ -832,255 +832,259 @@ msgid ""
 "community!"
 msgstr ""
 
-#: wordpress-popular-posts.php:128
+#: wordpress-popular-posts.php:129
 msgid "The most Popular Posts on your blog."
 msgstr ""
 
-#: wordpress-popular-posts.php:374
+#: wordpress-popular-posts.php:376
 msgid "Title:"
 msgstr ""
 
-#: wordpress-popular-posts.php:374 wordpress-popular-posts.php:376
-#: wordpress-popular-posts.php:378 wordpress-popular-posts.php:386
-#: wordpress-popular-posts.php:397 wordpress-popular-posts.php:399
-#: wordpress-popular-posts.php:403 wordpress-popular-posts.php:407
-#: wordpress-popular-posts.php:416 wordpress-popular-posts.php:430
-#: wordpress-popular-posts.php:442 wordpress-popular-posts.php:443
-#: wordpress-popular-posts.php:444 wordpress-popular-posts.php:445
-#: wordpress-popular-posts.php:455 wordpress-popular-posts.php:461
+#: wordpress-popular-posts.php:376 wordpress-popular-posts.php:378
+#: wordpress-popular-posts.php:380 wordpress-popular-posts.php:388
+#: wordpress-popular-posts.php:399 wordpress-popular-posts.php:401
+#: wordpress-popular-posts.php:408 wordpress-popular-posts.php:412
+#: wordpress-popular-posts.php:425 wordpress-popular-posts.php:439
+#: wordpress-popular-posts.php:451 wordpress-popular-posts.php:452
+#: wordpress-popular-posts.php:453 wordpress-popular-posts.php:454
+#: wordpress-popular-posts.php:464 wordpress-popular-posts.php:470
 msgid "What is this?"
 msgstr ""
 
-#: wordpress-popular-posts.php:376
+#: wordpress-popular-posts.php:378
 msgid "Show up to:"
 msgstr ""
 
-#: wordpress-popular-posts.php:377
+#: wordpress-popular-posts.php:379
 msgid "posts"
 msgstr ""
 
-#: wordpress-popular-posts.php:378
+#: wordpress-popular-posts.php:380
 msgid "Time Range:"
 msgstr ""
 
-#: wordpress-popular-posts.php:386
+#: wordpress-popular-posts.php:388
 msgid "Sort posts by:"
 msgstr ""
 
-#: wordpress-popular-posts.php:388
+#: wordpress-popular-posts.php:390
 msgid "Comments"
 msgstr ""
 
-#: wordpress-popular-posts.php:389
+#: wordpress-popular-posts.php:391
 msgid "Total views"
 msgstr ""
 
-#: wordpress-popular-posts.php:390
+#: wordpress-popular-posts.php:392
 msgid "Avg. daily views"
 msgstr ""
 
-#: wordpress-popular-posts.php:395
+#: wordpress-popular-posts.php:397
 msgid "Posts settings"
 msgstr ""
 
-#: wordpress-popular-posts.php:397
+#: wordpress-popular-posts.php:399
 msgid "Display post rating"
 msgstr ""
 
-#: wordpress-popular-posts.php:399
+#: wordpress-popular-posts.php:401
 msgid "Shorten title"
 msgstr ""
 
-#: wordpress-popular-posts.php:401
+#: wordpress-popular-posts.php:404
 msgid "Shorten title to"
 msgstr ""
 
-#: wordpress-popular-posts.php:401 wordpress-popular-posts.php:408
+#: wordpress-popular-posts.php:405 wordpress-popular-posts.php:415
 msgid "characters"
 msgstr ""
 
-#: wordpress-popular-posts.php:403
-msgid "Display post excerpt"
-msgstr ""
-
-#: wordpress-popular-posts.php:406
-msgid "Excerpt Properties"
-msgstr ""
-
-#: wordpress-popular-posts.php:407
-msgid "Keep text format and links"
+#: wordpress-popular-posts.php:406 wordpress-popular-posts.php:416
+msgid "words"
 msgstr ""
 
 #: wordpress-popular-posts.php:408
+msgid "Display post excerpt"
+msgstr ""
+
+#: wordpress-popular-posts.php:411
+msgid "Excerpt Properties"
+msgstr ""
+
+#: wordpress-popular-posts.php:412
+msgid "Keep text format and links"
+msgstr ""
+
+#: wordpress-popular-posts.php:413
 msgid "Excerpt length:"
 msgstr ""
 
-#: wordpress-popular-posts.php:416
+#: wordpress-popular-posts.php:425
 msgid "Filters:"
 msgstr ""
 
-#: wordpress-popular-posts.php:417
+#: wordpress-popular-posts.php:426
 msgid "Post type(s):"
 msgstr ""
 
-#: wordpress-popular-posts.php:419
+#: wordpress-popular-posts.php:428
 msgid "Post(s) ID(s) to exclude:"
 msgstr ""
 
-#: wordpress-popular-posts.php:421
+#: wordpress-popular-posts.php:430
 msgid "Category(ies) ID(s):"
 msgstr ""
 
-#: wordpress-popular-posts.php:423
+#: wordpress-popular-posts.php:432
 msgid "Author(s) ID(s):"
 msgstr ""
 
-#: wordpress-popular-posts.php:429
+#: wordpress-popular-posts.php:438
 msgid "Thumbnail settings"
 msgstr ""
 
-#: wordpress-popular-posts.php:430
+#: wordpress-popular-posts.php:439
 msgid "Display post thumbnail"
 msgstr ""
 
-#: wordpress-popular-posts.php:432
+#: wordpress-popular-posts.php:441
 msgid "Width:"
 msgstr ""
 
-#: wordpress-popular-posts.php:433 wordpress-popular-posts.php:435
+#: wordpress-popular-posts.php:442 wordpress-popular-posts.php:444
 msgid "px"
 msgstr ""
 
-#: wordpress-popular-posts.php:434
+#: wordpress-popular-posts.php:443
 msgid "Height:"
 msgstr ""
 
-#: wordpress-popular-posts.php:441
+#: wordpress-popular-posts.php:450
 msgid "Stats Tag settings"
 msgstr ""
 
-#: wordpress-popular-posts.php:442
+#: wordpress-popular-posts.php:451
 msgid "Display comment count"
 msgstr ""
 
-#: wordpress-popular-posts.php:443
+#: wordpress-popular-posts.php:452
 msgid "Display views"
 msgstr ""
 
-#: wordpress-popular-posts.php:444
+#: wordpress-popular-posts.php:453
 msgid "Display author"
 msgstr ""
 
-#: wordpress-popular-posts.php:445
+#: wordpress-popular-posts.php:454
 msgid "Display date"
 msgstr ""
 
-#: wordpress-popular-posts.php:448
+#: wordpress-popular-posts.php:457
 msgid "Date Format"
 msgstr ""
 
-#: wordpress-popular-posts.php:455
+#: wordpress-popular-posts.php:464
 msgid "Display category"
 msgstr ""
 
-#: wordpress-popular-posts.php:460
+#: wordpress-popular-posts.php:469
 msgid "HTML Markup settings"
 msgstr ""
 
-#: wordpress-popular-posts.php:461
+#: wordpress-popular-posts.php:470
 msgid "Use custom HTML Markup"
 msgstr ""
 
-#: wordpress-popular-posts.php:464
+#: wordpress-popular-posts.php:473
 msgid "Before / after title:"
 msgstr ""
 
-#: wordpress-popular-posts.php:466
+#: wordpress-popular-posts.php:475
 msgid "Before / after Popular Posts:"
 msgstr ""
 
-#: wordpress-popular-posts.php:469
+#: wordpress-popular-posts.php:478
 msgid "Post HTML Markup:"
 msgstr ""
 
-#: wordpress-popular-posts.php:619
+#: wordpress-popular-posts.php:628
 msgid "Success! The cache table has been cleared!"
 msgstr ""
 
-#: wordpress-popular-posts.php:621
+#: wordpress-popular-posts.php:630
 msgid "Error: cache table does not exist."
 msgstr ""
 
-#: wordpress-popular-posts.php:627
+#: wordpress-popular-posts.php:636
 msgid "Success! All data have been cleared!"
 msgstr ""
 
-#: wordpress-popular-posts.php:629
+#: wordpress-popular-posts.php:638
 msgid "Error: one or both data tables are missing."
 msgstr ""
 
-#: wordpress-popular-posts.php:632
+#: wordpress-popular-posts.php:641
 msgid "Invalid action."
 msgstr ""
 
-#: wordpress-popular-posts.php:635
+#: wordpress-popular-posts.php:644
 msgid ""
 "Sorry, you do not have enough permissions to do this. Please contact the "
 "site administrator for support."
 msgstr ""
 
-#: wordpress-popular-posts.php:1058
+#: wordpress-popular-posts.php:1068
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: wordpress-popular-posts.php:1114
+#: wordpress-popular-posts.php:1150
 msgid "comment"
 msgstr ""
 
-#: wordpress-popular-posts.php:1114
+#: wordpress-popular-posts.php:1150
 msgid "comments"
 msgstr ""
 
-#: wordpress-popular-posts.php:1122
+#: wordpress-popular-posts.php:1158
 msgid "view per day"
 msgstr ""
 
-#: wordpress-popular-posts.php:1122
+#: wordpress-popular-posts.php:1158
 msgid "views per day"
 msgstr ""
 
-#: wordpress-popular-posts.php:1126
+#: wordpress-popular-posts.php:1162
 msgid "view"
 msgstr ""
 
-#: wordpress-popular-posts.php:1126
+#: wordpress-popular-posts.php:1162
 msgid "views"
 msgstr ""
 
-#: wordpress-popular-posts.php:1135
+#: wordpress-popular-posts.php:1171
 msgid "by"
 msgstr ""
 
-#: wordpress-popular-posts.php:1139
+#: wordpress-popular-posts.php:1175
 msgid "posted on"
 msgstr ""
 
-#: wordpress-popular-posts.php:1147
+#: wordpress-popular-posts.php:1183
 msgid "under"
 msgstr ""
 
-#: wordpress-popular-posts.php:1715
+#: wordpress-popular-posts.php:1753
 msgid "Upload"
 msgstr ""
 
-#: wordpress-popular-posts.php:1727
+#: wordpress-popular-posts.php:1765
 msgid ""
 "Your Wordpress version is too old. Wordpress Popular Posts Plugin requires "
 "at least version 2.8 to function correctly. Please update your blog via "
 "Tools &gt; Upgrade."
 msgstr ""
 
-#: wordpress-popular-posts.php:1736
+#: wordpress-popular-posts.php:1774
 msgid ""
 "Your PHP installation is too old. Wordpress Popular Posts Plugin requires at "
 "least PHP v5.2.0 to function correctly. Please contact your hosting provider "

@@ -28,7 +28,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 	
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.3.3";
+		var $version = "2.3.4";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;		
@@ -48,7 +48,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			'cat' => '',
 			'shorten_title' => array(
 				'active' => false,
-				'length' => 25				
+				'length' => 25,
+				'words'	=> false
 			),
 			'post-excerpt' => array(
 				'active' => false,
@@ -317,6 +318,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			$instance['shorten_title']['active'] = $new_instance['shorten_title-active'];
 			$instance['shorten_title']['length'] = is_numeric($new_instance['shorten_title-length']) ? $new_instance['shorten_title-length'] : 25;
+			$instance['shorten_title']['words'] = $new_instance['shorten_title-words'];
 			$instance['post-excerpt']['active'] = $new_instance['post-excerpt-active'];
 			$instance['post-excerpt']['length'] = is_numeric($new_instance['post-excerpt-length']) ? $new_instance['post-excerpt-length'] : 55;
 			$instance['post-excerpt']['keep_format'] = $new_instance['post-excerpt-format'];
@@ -398,14 +400,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <?php endif; ?>
                 <input type="checkbox" class="checkbox" <?php echo ($instance['shorten_title']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'shorten_title-active' ); ?>" name="<?php echo $this->get_field_name( 'shorten_title-active' ); ?>" /> <label for="<?php echo $this->get_field_id( 'shorten_title-active' ); ?>"><?php _e('Shorten title', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('wpurl'); ?>/wp-admin/options-general.php?page=wpp_admin" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small><br />
                 <?php if ($instance['shorten_title']['active']) : ?>
-                <label for="<?php echo $this->get_field_id( 'shorten_title-length' ); ?>"><?php _e('Shorten title to', 'wordpress-popular-posts'); ?> <input id="<?php echo $this->get_field_id( 'shorten_title-length' ); ?>" name="<?php echo $this->get_field_name( 'shorten_title-length' ); ?>" value="<?php echo $instance['shorten_title']['length']; ?>" class="widefat" style="width:50px!important" /> <?php _e('characters', 'wordpress-popular-posts'); ?></label><br /><br />
+                <br />
+                <label for="<?php echo $this->get_field_id( 'shorten_title-length' ); ?>"><?php _e('Shorten title to', 'wordpress-popular-posts'); ?> <input id="<?php echo $this->get_field_id( 'shorten_title-length' ); ?>" name="<?php echo $this->get_field_name( 'shorten_title-length' ); ?>" value="<?php echo $instance['shorten_title']['length']; ?>" class="widefat" style="width:50px!important" /></label><br />
+                <label for="<?php echo $this->get_field_id( 'shorten_title-words' ); ?>"><input type="radio" name="<?php echo $this->get_field_name( 'shorten_title-words' ); ?>" value="0" <?php echo (!isset($instance['shorten_title']['words']) || !$instance['shorten_title']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('characters', 'wordpress-popular-posts'); ?></label><br />
+                <label for="<?php echo $this->get_field_id( 'shorten_title-words' ); ?>"><input type="radio" name="<?php echo $this->get_field_name( 'shorten_title-words' ); ?>" value="1" <?php echo (isset($instance['shorten_title']['words']) && $instance['shorten_title']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('words', 'wordpress-popular-posts'); ?></label><br /><br />
                 <?php endif; ?>
                 <input type="checkbox" class="checkbox" <?php echo ($instance['post-excerpt']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'post-excerpt-active' ); ?>" name="<?php echo $this->get_field_name( 'post-excerpt-active' ); ?>" /> <label for="<?php echo $this->get_field_id( 'post-excerpt-active' ); ?>"><?php _e('Display post excerpt', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('wpurl'); ?>/wp-admin/options-general.php?page=wpp_admin" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small><br />
                 <?php if ($instance['post-excerpt']['active']) : ?>
                 <fieldset class="widefat">
-                    <legend><?php _e('Excerpt Properties', 'wordpress-popular-posts'); ?></legend>
-                    &nbsp;&nbsp;<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'post-excerpt-format' ); ?>" name="<?php echo $this->get_field_name( 'post-excerpt-format' ); ?>" <?php echo ($instance['post-excerpt']['keep_format']) ? 'checked="checked"' : ''; ?> /> <label for="<?php echo $this->get_field_id( 'post-excerpt-format' ); ?>"><?php _e('Keep text format and links', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('wpurl'); ?>/wp-admin/options-general.php?page=wpp_admin" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small><br />
-                    &nbsp;&nbsp;<label for="<?php echo $this->get_field_id( 'post-excerpt-length' ); ?>"><?php _e('Excerpt length:', 'wordpress-popular-posts'); ?> <input id="<?php echo $this->get_field_id( 'post-excerpt-length' ); ?>" name="<?php echo $this->get_field_name( 'post-excerpt-length' ); ?>" value="<?php echo $instance['post-excerpt']['length']; ?>" class="widefat" style="width:30px!important" /> <?php _e('characters', 'wordpress-popular-posts'); ?></label>
+                    <legend><?php _e('Excerpt Properties', 'wordpress-popular-posts'); ?></legend><br />
+                    &nbsp;&nbsp;<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'post-excerpt-format' ); ?>" name="<?php echo $this->get_field_name( 'post-excerpt-format' ); ?>" <?php echo ($instance['post-excerpt']['keep_format']) ? 'checked="checked"' : ''; ?> /> <label for="<?php echo $this->get_field_id( 'post-excerpt-format' ); ?>"><?php _e('Keep text format and links', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo bloginfo('wpurl'); ?>/wp-admin/options-general.php?page=wpp_admin" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small><br /><br />
+                    &nbsp;&nbsp;<label for="<?php echo $this->get_field_id( 'post-excerpt-length' ); ?>"><?php _e('Excerpt length:', 'wordpress-popular-posts'); ?> <input id="<?php echo $this->get_field_id( 'post-excerpt-length' ); ?>" name="<?php echo $this->get_field_name( 'post-excerpt-length' ); ?>" value="<?php echo $instance['post-excerpt']['length']; ?>" class="widefat" style="width:50px!important" /></label><br  />
+                    
+                    &nbsp;&nbsp;<label for="<?php echo $this->get_field_id( 'post-excerpt-words' ); ?>"><input type="radio" name="<?php echo $this->get_field_name( 'post-excerpt-words' ); ?>" value="0" <?php echo (!isset($instance['post-excerpt']['words']) || !$instance['post-excerpt']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('characters', 'wordpress-popular-posts'); ?></label><br />
+                	&nbsp;&nbsp;<label for="<?php echo $this->get_field_id( 'post-excerpt-words' ); ?>"><input type="radio" name="<?php echo $this->get_field_name( 'post-excerpt-words' ); ?>" value="1" <?php echo (isset($instance['post-excerpt']['words']) && $instance['post-excerpt']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('words', 'wordpress-popular-posts'); ?></label><br /><br />
+                    
                 </fieldset>
                 <br />
                 <?php endif; ?>                
@@ -548,7 +557,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function wpp_update($content) {
 			
 			//if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
-			if ( (is_single() || is_page()) && !is_front_page() ) {
+			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() ) {
 				
 				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
 					return $content;
@@ -791,7 +800,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// if we're on a page or post, load the script
 			//if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
-			if ( (is_single() || is_page()) && !is_front_page() ) {
+			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() ) {
 				
 				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
 					return;
@@ -826,7 +835,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function get_popular_posts($instance, $return = false) {
 						
 			// update instance's settings			
-			$instance = $this->array_merge_recursive_distinct($this->defaults, $instance);
+			$instance = $this->array_merge_recursive_distinct($this->defaults, $instance);			
+			/*echo "<pre>"; print_r($instance); echo "</pre>";*/
 			
 			global $wpdb;
 			$table = $wpdb->prefix . "popularpostsdata";
@@ -1091,20 +1101,46 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$title = strip_tags($title);
 					$title_sub = strip_tags($title);
 					
-					if ( $instance['shorten_title']['active'] && (strlen($title) > $instance['shorten_title']['length'])) {
-						$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset) . "...";
-					}
-					
 					$title = apply_filters('the_title', $title, $p->id);
 					$title_sub = apply_filters('the_title', $title_sub, $p->id);
 					
+					// truncate title
+					if ( $instance['shorten_title']['active'] ) {
+						
+						if ( isset($instance['shorten_title']['words']) && $instance['shorten_title']['words'] ) { // by words
+					
+							$words = explode(" ", $title, $instance['shorten_title']['length'] + 1);
+							
+							if ( count($words) > $instance['shorten_title']['length'] ) {
+								
+								array_pop($words);								
+								$title_sub = implode(" ", $words) . "...";
+								
+							}
+						
+						} else { // by characters
+						
+							if ( strlen($title) > $instance['shorten_title']['length'] ) {				
+								$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset) . "...";
+							}
+						
+						}
+						
+					}
+					
 					// EXCERPT					
 					if ( $instance['post-excerpt']['active'] ) {
-						if ( $instance['markup']['custom_html'] ) {
-							$excerpt = $this->get_summary($p->id, $instance);
-						} else {
-							$excerpt = ": <span class=\"wpp-excerpt\">" . $this->get_summary($p->id, $instance) . "</span>";
+						
+						$excerpt = trim( $this->get_summary($p->id, $instance) );
+						
+						if ( !empty($excerpt) ) {
+							
+							if ( !$instance['markup']['custom_html'] ) {
+								$excerpt = ": <span class=\"wpp-excerpt\">" . $excerpt . "</span>";
+							}
+							
 						}
+						
 					}
 					
 					// STATS
@@ -1223,15 +1259,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( !is_numeric($id) )
 				return false;
 			
-			global $wpdb;			
-			$excerpt = "";
+			global $wpdb;
 			
+			$excerpt = "";			
 			$the_post = get_post( $id );			
-			$excerpt = ( empty($the_post->post_excerpt) ) ? $the_post->post_content : $the_post->post_excerpt;
+			$excerpt = ( $the_post->post_excerpt == "" ) ? $the_post->post_content : $the_post->post_excerpt;
 			
 			// RRR added call to the_content filters, allows qTranslate to hook in.
             if ( $this->qTrans )
 				$excerpt = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage( $excerpt );
+				
+			//$excerpt = apply_filters('get_the_excerpt', $excerpt);
 			
 			// remove WP shortcodes (and HTML tags if requested)
 			if ( $instance['post-excerpt']['keep_format'] ) {
@@ -1246,40 +1284,36 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// remove Flash objects
 			$excerpt = preg_replace( "/<object[0-9 a-z_?*=\":\-\/\.#\,\\n\\r\\t]+/smi", "", $excerpt );
 			
-			// truncate excerpt
-			if ( strlen($excerpt) > $instance['post-excerpt']['length'] ) {
-				$excerpt = mb_substr( $excerpt, 0, $instance['post-excerpt']['length'] ) . "...";
-			}			
+			// remove Iframes
+			$excerpt = preg_replace( "/<iframe.*?\/iframe>/i", "", $excerpt);
 			
-			/*$result = $wpdb->get_results("SELECT post_excerpt FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
+			// remove URLs
+			$excerpt = preg_replace( '_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS', '', $excerpt );
 			
-			if (empty($result[0]['post_excerpt'])) {
-				// no custom excerpt defined, how lazy of you!				
-				$result = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);
-				$excerpt = " post_content " . preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_content']);				
-			} else {
-				// user has defined a custom excerpt, yay!
-				$excerpt = " post_excerpt " .preg_replace("/\[caption.*\[\/caption\]/", "", $result[0]['post_excerpt']);
-			}					
+			// do we still have something to display?
+			if ( !empty($excerpt) ) {
 			
-			// RRR added call to the_content filters, allows qTranslate to hook in.
-            if ($this->qTrans) $excerpt = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($excerpt);
+				// truncate excerpt
+				if ( isset($instance['post-excerpt']['words']) && $instance['post-excerpt']['words'] ) { // by words
+				
+					$words = explode(" ", $excerpt, $instance['post-excerpt']['length'] + 1);
+					
+					if ( count($words) > $instance['post-excerpt']['length'] ) {
+						
+						array_pop($words);								
+						$excerpt = implode(" ", $words) . "...";
+						
+					}
+				
+				} else { // by characters
+				
+					if ( strlen($excerpt) > $instance['post-excerpt']['length'] ) {				
+						$excerpt = mb_substr( $excerpt, 0, $instance['post-excerpt']['length'] ) . "...";
+					}
+				
+				}
 			
-			// remove flash objects
-			$excerpt = preg_replace("/<object[0-9 a-z_?*=\":\-\/\.#\,\\n\\r\\t]+/smi", "", $excerpt);
-			
-			// remove shortcodes
-			$excerpt = strip_shortcodes($excerpt);
-			
-			if ($instance['post-excerpt']['keep_format']) {
-				$excerpt = strip_tags($excerpt, '<a><b><i><strong><em>');
-			} else {
-				$excerpt = strip_tags($excerpt);
 			}
-			
-			if (strlen($excerpt) > $instance['post-excerpt']['length']) {
-				$excerpt = $this->truncate($excerpt, $instance['post-excerpt']['length'], '', true, true) . "...";
-			}*/
 			
 			return $excerpt;
 			
@@ -1684,6 +1718,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function add_wpp_admin() {			
 			add_options_page('Wordpress Popular Posts', 'Wordpress Popular Posts', 'manage_options', 'wpp_admin', array(&$this, 'wpp_admin'));
 		}
+		/**
+		 * Upload scripts for the admin section
+		 * Since 2.3.4
+		 */
 		function wpp_admin_enqueue_scripts() {
 			
 			wp_register_script( 'wpp-upload', plugin_dir_url(__FILE__) .'js/wpp-upload.js', array('jquery','media-upload','thickbox') );
@@ -1779,6 +1817,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'cat' => '',
 				'author' => '',
 				'title_length' => 0,
+				'title_by_words' => 0,
 				'excerpt_length' => 0,
 				'excerpt_format' => 0,
 				'excerpt_by_words' => 0,
@@ -1819,7 +1858,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'author' => preg_replace( '|[^0-9,]|', '', $author ),
 				'shorten_title' => array(
 					'active' => empty($title_length) ? false : (is_numeric($title_length)) ? (($title_length > 0) ? true : false) : false,
-					'length' => empty($title_length) ? 0 : (is_numeric($title_length)) ? $title_length : 0 
+					'length' => empty($title_length) ? 0 : (is_numeric($title_length)) ? $title_length : 0,
+					'words' => empty($title_by_words) ? false : (is_numeric($title_by_words) && $title_by_words > 0) ? true : false
 				),
 				'post-excerpt' => array(
 					'active' => empty($excerpt_length) ? false : (is_numeric($excerpt_length)) ? (($excerpt_length > 0) ? true : false) : false,
@@ -2034,19 +2074,20 @@ function get_mostpopular($args = NULL) {
 
 /*
 = 2.3.4 =
+* Added ability to shorten title/excerpt by number of words.
+* Updated excerpt code, don't show it if empty.
+* Added ability to set post_type on Stats page.
+* Added check for is_preview() to avoid updating views count when editing and previewing a post / page (thanks, Partisk!).
+* Added ability to change default thumbnail via admin (thanks for the suggestion, Martin!).
 * Fixed bug in query when getting popular posts from category returning no results if it didn't have any post on the top viewed / commented.
 * Added function for better handling changes/updates in settings.
 * Updated get_summary() to use API functions instead querying directly to DB.
-* Added ability to set post_type on Stats page.
-* Added ability to change default thumbnail via admin (thanks for the suggestion, Martin!).
 * Updated wpp_print_stylesheet() to get the wpp.css file from the right path (thanks, Martin!).
 * Moved translations to lang folder.
 */
 
 /*
 TODO
-* Add info on W3 Total Cache on readme or forum
-* Allow shorting title by number of words / characters
 * Enable / disable checkboxes and fields via javascript
 * Use Transients to cache query results: http://codex.wordpress.org/Transients_API - http://www.wpbeginner.com/wp-tutorials/speed-up-your-wordpress-by-caching-custom-queries-using-transients-api/
 */

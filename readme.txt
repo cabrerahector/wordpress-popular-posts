@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadsl
 Tags: popular, posts, popular posts, widget, seo, wordpress, custom post type
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2.3.2
+Stable tag: 2.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,8 +31,8 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 * **Automatic maintenance** - Wordpress Popular Posts will wipe out from its cache automatically all those posts that have not been viewed more than 30 days from the current date, keeping just the popular ones on the list! This ensures that your cache table will remain as compact as possible! (You can also clear it manually if you like, [look here for instructions](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/)!).
 
 = Notices =
-* The custom HTML layout functionality [has changed](http://wordpress.org/extend/plugins/wordpress-popular-posts/changelog/) on v2.3.3! WPP will attempt to use the markup you set on previous versions, but in case it breaks please check the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/) to learn how to set it up again.
 * Minimum requirements changed: version 2.3.3 (and on) requires **PHP 5.2+** and **Wordpress 3.3** (or greater).
+* The custom HTML layout functionality [has changed](http://wordpress.org/extend/plugins/wordpress-popular-posts/changelog/) on v2.3.3! WPP will attempt to use the markup you set on previous versions, but in case it breaks please check the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/) to learn how to set it up again.
 * From version 2.0 and on, Wordpress Popular Posts requires Wordpress 2.8 at least in order to function correctly. If you're not running Wordpress 2.8 (or newer) please use [Wordpress Popular Posts v.1.5.1](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.5.1.zip) instead.
 * If you are upgrading from any version prior to Wordpress Popular Posts 1.4.6, please [update to 1.4.6](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.4.6.zip) first!
 
@@ -146,11 +146,11 @@ While **it's not officially supported**, users have reported that my plugin runs
 = Does your plugin include any CSS stylesheets? =
 Yes, *but* there are no predefined styles (well, almost). Wordpress Popular Posts will first look into your current theme's folder for the wpp.css file and use it if found so that any custom CSS styles made by you are not overwritten, otherwise will use the one bundled with the plugin.
 
-= How can I style my list to look like [insert your desired look here]? =
-Since this plugin does not include any predefined designs, it's up to you to style your most popular posts list as you like. You might need to hire someone for this if you don't know HTML/CSS, though.
-
 = Each time Wordpress Popular Posts is updated the wpp.css stylesheet gets reset and I lose all changes I made to it. How can I keep my custom CSS? =
 Copy your modified wpp.css file to your theme's folder, otherwise my plugin will use the one bundled with it by default.
+
+= How can I style my list to look like [insert your desired look here]? =
+Since this plugin does not include any predefined designs, it's up to you to style your most popular posts list as you like. You might need to hire someone for this if you don't know HTML/CSS, though.
 
 = I want to remove WPP's stylesheet. How can I do that? =
 Simply add the following code to your theme's functions.php file: `<?php wp_dequeue_style('wordpress-popular-posts') ?>` (or disable the stylesheet via *wp-admin > Settings > Wordpress Popular Posts > Tools*).
@@ -158,7 +158,7 @@ Simply add the following code to your theme's functions.php file: `<?php wp_dequ
 = -OTHER STUFF THAT YOU SHOULD KNOW- =
 
 = I want to translate your plugin into my language / help you update a translation. What do I need to do? =
-There's a PO file included with Wordpress Popular Posts. If your language is not already supported by my plugin, you can use a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. If you want to, you can send me your resulting PO and MO files to *hcabrerab at gmail dot com* so I can include them on the next release of my plugin.
+There's a PO file included with Wordpress Popular Posts. If your language is not already supported by my plugin, you can use a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. If you want to, you can send me your resulting PO and MO files to *hcabrerab at gmail dot com* so I can include them on the next release of my plugin (and would be really grateful if you can also help keep it updated on future releases).
 
 = I want your plugin to have X or Y functionality. Can it be done? =
 If it fits the nature of my plugin and it sounds like something others would like to have, there's a pretty good chance that I will implement it (and if you actually provide some sample code with useful comments, much better hehe).
@@ -183,6 +183,18 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 2.3.4 =
+* Added ability to shorten title/excerpt by number of words.
+* Updated excerpt code, don't show it if empty.
+* Added ability to set post_type on Stats page.
+* Added check for is_preview() to avoid updating views count when editing and previewing a post / page (thanks, Partisk!).
+* Added ability to change default thumbnail via admin (thanks for the suggestion, Martin!).
+* Fixed bug in query when getting popular posts from category returning no results if it didn't have any post on the top viewed / commented.
+* Added function for better handling changes/updates in settings.
+* Updated get_summary() to use API functions instead querying directly to DB.
+* Updated wpp_print_stylesheet() to get the wpp.css file from the right path (thanks, Martin!).
+* Moved translations to lang folder.
+
 = 2.3.3 =
 * Minimum Wordpress version requirement changed to 3.3.
 * Minimum PHP version requirement changed to 5.2.0.

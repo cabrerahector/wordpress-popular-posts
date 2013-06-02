@@ -439,7 +439,7 @@
                     
                     <h4>&raquo; <a href="#" rel="q-5"><?php _e('What does "Shorten title" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-5">
-                        <p><?php _e('If checked, all posts titles will be shortened to "n" characters. A new "Shorten title to" option will appear so you can set it to whatever you like.', 'wordpress-popular-posts'); ?></p>
+                        <p><?php _e('If checked, all posts titles will be shortened to "n" characters/words. A new "Shorten title to" option will appear so you can set it to whatever you like.', 'wordpress-popular-posts'); ?></p>
                     </div>
                     
                     <h4>&raquo; <a href="#" rel="q-6"><?php _e('What does "Display post excerpt" do?', 'wordpress-popular-posts'); ?></a></h4>
