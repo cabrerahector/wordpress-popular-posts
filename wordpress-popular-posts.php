@@ -2088,6 +2088,9 @@ function get_mostpopular($args = NULL) {
 
 /*
 TODO
+* Create a popular posts feed http://wordpress.org/support/topic/plugin-wordpress-popular-posts-how-to-create-an-rss-feed-for-most-popular-posts
+* Add post freshness as an option when filtering entries.
+* Sort posts by category when is_category() returns true.
 * Enable / disable checkboxes and fields via javascript
 * Use Transients to cache query results: http://codex.wordpress.org/Transients_API - http://www.wpbeginner.com/wp-tutorials/speed-up-your-wordpress-by-caching-custom-queries-using-transients-api/
 */
