@@ -631,6 +631,13 @@
                                     <td>25</td>
                                     <td>title_length=25</td>
                                 </tr>
+                                <tr>
+                                    <td><strong>title_by_words</strong></td>
+                                    <td><?php _e('If set to 1, Wordpress Popular Posts will shorten each post title to "n" words instead of characters', 'wordpress-popular-posts'); ?></td>
+                                    <td>1 (true), (0) false</td>
+                                    <td>0</td>
+                                    <td>title_by_words=1</td>
+                                </tr>
                                 <tr class="alternate">
                                     <td><strong>excerpt_length</strong></td>
                                     <td><?php _e('If set, Wordpress Popular Posts will build and include an excerpt of "n" characters long from the content of each post listed as popular', 'wordpress-popular-posts'); ?></td>
@@ -644,7 +651,14 @@
                                     <td>1 (true), (0) false</td>
                                     <td>0</td>
                                     <td>excerpt_format=1</td>
-                                </tr>                                
+                                </tr>
+                                <tr>
+                                    <td><strong>excerpt_by_words</strong></td>
+                                    <td><?php _e('If set to 1, Wordpress Popular Posts will shorten the excerpt to "n" words instead of characters', 'wordpress-popular-posts'); ?></td>
+                                    <td>1 (true), (0) false</td>
+                                    <td>0</td>
+                                    <td>excerpt_by_words=1</td>
+                                </tr>
                                 <tr class="alternate">
                                     <td><strong>thumbnail_width</strong></td>
                                     <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails', 'wordpress-popular-posts'); ?></td>
