@@ -11,6 +11,7 @@ Use the following classes to style your popular posts list as you like.
 
 	.wpp-list li { /* LI - post container */
 		overflow:auto;
+		display:block;
 		float:none;
 		clear:both;
 	}
