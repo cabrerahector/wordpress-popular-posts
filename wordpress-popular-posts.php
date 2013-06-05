@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: Showcases your most popular posts to your visitors on your blog's sidebar. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
-Version: 2.3.5
+Version: 2.3.6
 Author: H&eacute;ctor Cabrera
 Author URI: http://cabrerahector.com
 License: GPL2
@@ -544,9 +544,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$exec_time += round($end - $start, 6);
 			
 			if ($result && $result2) {
-				die("OK. Execution time: " . $exec_time . " seconds");
+				die( "OK. Execution time: " . $exec_time . " seconds" );
 			} else {
-				die("Oops: " . $wpdb->print_error);
+				die( "Oops: " . $wpdb->print_error() );
 			}
 		}
 		
@@ -569,7 +569,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$result2 = $wpdb->query("INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$post->ID}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';");
 				
 				if (!$result || !$result2) {
-					print_r( $wpdb->print_error );
+					print_r( $wpdb->print_error() );
 				}
 				
 			}
@@ -1072,7 +1072,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ($instance['markup']['custom_html']) {
 					$content .= htmlspecialchars_decode($instance['markup']['wpp-start'], ENT_QUOTES) ."\n";
 				} else {					
-					$content .= "<ul>" . "\n";
+					$content .= "<ul class=\"wpp-list\">" . "\n";
 				}
 				
 				// posts array
@@ -1195,7 +1195,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$tbWidth = $instance['thumbnail']['width'];
 						$tbHeight = $instance['thumbnail']['height'];
 						
-						$thumb = "<a href=\"". $permalink ."\" class=\"wpp-thumbnail\" title=\"{$title}\">";
+						$thumb = "<a href=\"". $permalink ."\" title=\"{$title}\">";
 						
 						if ( $this->user_ops['tools']['thumbnail']['source'] == "custom_field" ) { // get image from custom field
 							
@@ -2069,21 +2069,23 @@ function get_mostpopular($args = NULL) {
 
 
 /**
- * Wordpress Popular Posts 2.3.5 Changelog.
+ * Wordpress Popular Posts 2.3.6 Changelog.
  */
 
 /*
-= 2.3.5 =
-* Fixed minor bugs on admin page.
-* Fixed query bug preventing some results from being listed.
-* Added a check to avoid using the terms tables if not necessary (eg. listing pages only).
+= 2.3.6 =
+* Removed unnecesary wpp-thumbnail class from link tag, the image already has it.
+* Added wpp-list class to the UL tag, this should help style the popular list better.
+* Updated wpp.css with text floating next to thumbnails - this sets a predefined style for the plugin for the first time.
 */
 
 /*
 TODO
-* Create a popular posts feed http://wordpress.org/support/topic/plugin-wordpress-popular-posts-how-to-create-an-rss-feed-for-most-popular-posts
-* Add post freshness as an option when filtering entries.
-* Sort posts by category when is_category() returns true.
-* Enable / disable checkboxes and fields via javascript
-* Use Transients to cache query results: http://codex.wordpress.org/Transients_API - http://www.wpbeginner.com/wp-tutorials/speed-up-your-wordpress-by-caching-custom-queries-using-transients-api/
+* [FIX] Excerpt messing with HTML tags http://wordpress.org/support/topic/problem-with-limit-and-range?replies=10#post-4267946
+* [ADD] Option to log views from logged-in only.
+* [ADD] Popular posts feed http://wordpress.org/support/topic/plugin-wordpress-popular-posts-how-to-create-an-rss-feed-for-most-popular-posts
+* [ADD] Post freshness as an option when filtering entries.
+* [ADD] Sort posts by category when is_category() returns true.
+* [ADD] Enable / disable checkboxes and fields via javascript.
+* [ADD] Use Transients to cache query results: http://codex.wordpress.org/Transients_API - http://www.wpbeginner.com/wp-tutorials/speed-up-your-wordpress-by-caching-custom-queries-using-transients-api/
 */

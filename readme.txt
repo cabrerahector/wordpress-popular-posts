@@ -155,7 +155,7 @@ Since this plugin does not include any predefined designs, it's up to you to sty
 = I want to remove WPP's stylesheet. How can I do that? =
 Simply add the following code to your theme's functions.php file: `<?php wp_dequeue_style('wordpress-popular-posts') ?>` (or disable the stylesheet via *wp-admin > Settings > Wordpress Popular Posts > Tools*).
 
-= -OTHER STUFF THAT YOU SHOULD KNOW- =
+= -OTHER STUFF THAT YOU (PROBABLY) WANT TO KNOW- =
 
 = I want to translate your plugin into my language / help you update a translation. What do I need to do? =
 There's a PO file included with Wordpress Popular Posts. If your language is not already supported by my plugin, you can use a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. If you want to, you can send me your resulting PO and MO files to *hcabrerab at gmail dot com* so I can include them on the next release of my plugin (and would be really grateful if you can also help keep it updated on future releases).

@@ -5,38 +5,53 @@ Developed by Hector Cabrera
 Use the following classes to style your popular posts list as you like.
 */
 
-/* title styles */
-.wpp-post-title {
+.wpp-list { /* UL element */
+	
 }
 
-/* thumbnail styles */
-img.wpp-thumbnail {
-	border:none;
-}
-
-/* excerpt styles */
-.wpp-excerpt {
-}
-
-/* Stats tag styles */
-.post-stats {
-	font-size:9px;
-	font-weight:bold;
-}
-	
-	.wpp-comments {
-	}
-	
-	.wpp-views {
-	}
-	
-	.wpp-author {
-		font-style:italic;
-	}
-	
-	.wpp-date {
+	.wpp-list li { /* LI - post container */
+		overflow:auto;
+		float:none;
+		clear:both;
 	}
 
-/* WP-PostRatings styles */
-.wpp-rating {
-}
+		/* title styles */
+		.wpp-post-title {
+		}
+		
+		/* thumbnail styles */
+		.wpp-thumbnail {
+			display:inline;
+			float:left;
+			margin:0 5px 0 0;
+			border:none;
+		}
+		
+		/* excerpt styles */
+		.wpp-excerpt {
+		}
+		
+		/* Stats tag styles */
+		.post-stats {
+			font-size:9px;
+			font-weight:bold;
+		}
+			
+			.wpp-comments {
+			}
+			
+			.wpp-views {
+			}
+			
+			.wpp-author {
+				font-style:italic;
+			}
+			
+			.wpp-date {
+				display:block;
+				clear:right;
+			}
+		
+		/* WP-PostRatings styles */
+		.wpp-rating {
+		}
