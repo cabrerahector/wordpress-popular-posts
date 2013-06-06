@@ -1762,7 +1762,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Since 2.0.0
 		 */
 		function wpp_update_warning() {
-			$msg = '<div id="wpp-message" class="error fade"><p>'.__('Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 2.8 to function correctly. Please update your blog via Tools &gt; Upgrade.', 'wordpress-popular-posts').'</p></div>';
+			$msg = '<div id="wpp-message" class="error fade"><p>'.__('Your Wordpress version is too old. Wordpress Popular Posts Plugin requires at least version 3.3 to function correctly. Please update your blog via Tools &gt; Upgrade.', 'wordpress-popular-posts').'</p></div>';
 			echo trim($msg);
 		}
 		
