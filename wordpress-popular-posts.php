@@ -77,15 +77,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'custom_html' => false,
 				'wpp-start' => '&lt;ul class="wpp-list"&gt;',
 				'wpp-end' => '&lt;/ul&gt;',
-				'post-html' => '',
+				'post-html' => '&lt;li&gt;{thumb} {title} {stats}&lt;/li&gt;',
 				'post-start' => '&lt;li&gt;',
 				'post-end' => '&lt;/li&gt;',
 				'title-start' => '&lt;h2&gt;',
-				'title-end' => '&lt;/h2&gt;',
-				'pattern' => array(
-					'active' => false,
-					'form' => '{thumb} {title}: {summary} {stats}'
-				)
+				'title-end' => '&lt;/h2&gt;'
 			)
 		);		
 		var $wpp_user_settings_def = array(
@@ -359,8 +355,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance['markup']['post-end'] = empty ($new_instance['post-end']) ? '&lt;/li&gt;' : htmlspecialchars( $new_instance['post-end'], ENT_QUOTES );
 			$instance['markup']['title-start'] = empty($new_instance['title-start']) ? '' : htmlspecialchars( $new_instance['title-start'], ENT_QUOTES );
 			$instance['markup']['title-end'] = empty($new_instance['title-end']) ? '' : htmlspecialchars( $new_instance['title-end'], ENT_QUOTES );
-			$instance['markup']['pattern']['active'] = $new_instance['pattern_active'];
-			$instance['markup']['pattern']['form'] = empty($new_instance['pattern_form']) ? '{thumb} {title}: {summary} {stats}' : $new_instance['pattern_form'];
 	
 			return $instance;
 		}
@@ -1156,7 +1150,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// STATS
 					// comments
 					if ( $instance['stats_tag']['comment_count'] ) {
-						//$stats .= "<span class=\"wpp-comments\">" . sprintf( _n( "%d comment", "%d comments", $comments, "wordpress-popular-posts" ), $comments ) . "</span>";
 						$comments_text = ( $comments == 1 ) ? "$comments " . __('comment', 'wordpress-popular-posts') : "$comments " . __('comments', 'wordpress-popular-posts');
 						$stats .= "<span class=\"wpp-comments\">" . $comments_text . "</span>";
 					} else {
@@ -1166,11 +1159,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						
 						if ($instance['order_by'] == 'avg') {
 							$views_text = ( (int)$pageviews == 1 ) ? "$pageviews " . __('view per day', 'wordpress-popular-posts') : "$pageviews " . __('views per day', 'wordpress-popular-posts');
-							//$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . sprintf( _n( "%f view per day", "%f views per day", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%F view", "%F views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . " per day</span>";
 							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
 						} else {
 							$views_text = ( $pageviews == 1 ) ? "$pageviews " . __('view', 'wordpress-popular-posts') : "$pageviews " . __('views', 'wordpress-popular-posts');
-							//$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>" : " | <span class=\"wpp-views\">" . sprintf( _n( "%d view", "%d views", $pageviews, "wordpress-popular-posts" ), $pageviews ) . "</span>";
 							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
 						}
 						
@@ -1899,17 +1890,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				),
 				'markup' => array(
 					'custom_html' => true,
-					'wpp-start' => empty($wpp_start) ? '<ul class="wpp-list">' : $wpp_start,
-					'wpp-end' => empty($wpp_end) ? '</ul>' : $wpp_end,
-					'post-html' => empty($post_html) ? '<li>{thumb} {title} {stats}</li>' : $post_html,
-					'post-start' => empty($post_start) ? '<li>' : $post_start,
-					'post-end' => empty($post_end) ? '</li>' : $post_end,
+					'wpp-start' => empty($wpp_start) ? '&lt;ul class="wpp-list"&gt;' : $wpp_start,
+					'wpp-end' => empty($wpp_end) ? '&lt;/ul&gt;' : $wpp_end,
+					'post-html' => empty($post_html) ? '&lt;li&gt;{thumb} {title} {stats}&lt;/li&gt;' : $post_html,
+					'post-start' => empty($post_start) ? '&lt;li&gt;' : $post_start,
+					'post-end' => empty($post_end) ? '&lt;/li&gt;' : $post_end,
 					'title-start' => empty($header_start) ? '' : $header_start,
-					'title-end' => empty($header_end) ? '' : $header_end,
-					'pattern' => array(
-						'active' => empty($do_pattern) ? false : (bool)$do_pattern,
-						'form' => empty($pattern_form) ? '{thumb} {title}: {summary} {stats}' : $pattern_form
-					)
+					'title-end' => empty($header_end) ? '' : $header_end
 				)
 			);
 			
@@ -2091,7 +2078,7 @@ function get_mostpopular($args = NULL) {
 * Removed unnecesary wpp-thumbnail class from link tag, the image already has it.
 * Added wpp-list class to the UL tag, this should help style the popular list better.
 * Updated wpp.css with text floating next to thumbnails - this sets a predefined style for the plugin for the first time.
-* Added plugin version to wp_enqueue_*
+* Added plugin version to wp_enqueue_* calls.
 * Fixed typo in wpp_update_warning. Minimun Wordpress version required is 3.3.
 */
 
@@ -2103,6 +2090,6 @@ TODO
 * [ADD] Popular posts feed http://wordpress.org/support/topic/plugin-wordpress-popular-posts-how-to-create-an-rss-feed-for-most-popular-posts
 * [ADD] Post freshness as an option when filtering entries.
 * [ADD] Sort posts by category when is_category() returns true.
-* [ADD] Enable / disable checkboxes and fields via javascript.
+* [ADD] Enable / disable checkboxes and fields via javascript. http://stackoverflow.com/questions/4315171/loading-custom-javascript-files-in-the-wordpress-widgets-admin-panel
 * [ADD] Use Transients to cache query results: http://codex.wordpress.org/Transients_API - http://www.wpbeginner.com/wp-tutorials/speed-up-your-wordpress-by-caching-custom-queries-using-transients-api/
 */
