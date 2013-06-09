@@ -1366,7 +1366,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						
 						if ( $attachment_id ) { // image comes from Media library
 								
-							$thumbnail = $image_url;
+							$thumbnail[0] = $image_url;
 							$file_path = get_attached_file( $attachment_id );
 							
 						} else { // image not found in Media library, maybe external image?
@@ -1381,7 +1381,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								if ( is_array($image_data) ) { // we got a valid image, process it
 									
 									$uploads = wp_upload_dir();
-									$thumbnail = trailingslashit( $uploads['baseurl'] ) . "{$id}_". wp_basename( $image_url );
+									$thumbnail[0] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". wp_basename( $image_url );
 									$file_path = trailingslashit( $uploads['basedir'] ) . "{$id}_". wp_basename( $image_url );
 									
 									if ( !file_exists($file_path) ) { // file has not been cached yet, cache it
@@ -1437,7 +1437,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			if ( file_exists( $cropped_thumb ) ) { // there is a thumbnail already, use it
 			
-				$new_img = str_replace( wp_basename( $thumbnail ), wp_basename( $cropped_thumb ), $thumbnail );
+				$new_img = str_replace( wp_basename( $thumbnail[0] ), wp_basename( $cropped_thumb ), $thumbnail[0] );
 				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_cached_thumb wpp_{$source}\" />";
 				
 			} else { // no thumbnail or image file missing, try to create it
@@ -1457,7 +1457,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						return "<!-- " . $new_img->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_imgeditor_error wpp_{$source}\" />";
 					}
 					
-					$new_img = str_replace( basename( $thumbnail ), $new_img['file'], $thumbnail );						
+					$new_img = str_replace( wp_basename( $thumbnail[0] ), $new_img['file'], $thumbnail[0] );						
 					return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_imgeditor_thumb wpp_{$source}\" />";
 					
 				} else { // create thumb using image_resize()
@@ -1469,7 +1469,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 					
 					$new_img_size = getimagesize( $new_img_path );
-					$new_img = str_replace( wp_basename( $thumbnail ), wp_basename( $new_img_path ), $thumbnail );
+					$new_img = str_replace( wp_basename( $thumbnail[0] ), wp_basename( $new_img_path ), $thumbnail[0] );
 					return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_image_resize_thumb wpp_{$source}\" />";
 									
 				}
