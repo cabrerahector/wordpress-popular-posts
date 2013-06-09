@@ -147,7 +147,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			// set default thumbnail
-			$this->default_thumbnail = $this->pluginDir . "/no_thumb.jpg";
+			$this->default_thumbnail = $this->pluginDir . "no_thumb.jpg";
 			$this->wpp_user_settings_def['tools']['thumbnail']['default'] = $this->default_thumbnail;
 			
 			if ( !empty($this->user_ops['tools']['thumbnail']['default']) ) {
@@ -1349,23 +1349,74 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 				global $wpdb;
 				
-				$content = $wpdb->get_results("SELECT post_content FROM $wpdb->posts WHERE ID = " . $id, ARRAY_A);			
-				$count = substr_count($content[0]['post_content'], '<img');
+				$content = $wpdb->get_var( "SELECT post_content FROM $wpdb->posts WHERE ID = {$id}" );
+				$count = substr_count($content, '<img');
 				
 				if ($count > 0) { // images have been found
 					
-					$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content[0]['post_content'], $ContentImages );
+					$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $ContentImages );
 					
 					if ( isset($ContentImages[1][0]) ) {
 						
-						//return $ContentImages[1][0];
+						$image_url = esc_url( $ContentImages[1][0] ); // sanitize URL, just in case
+						preg_match('/[^\?]+\.(jpg|JPG|jpe|JPE|jpeg|JPEG|gif|GIF|png|PNG)/', $image_url, $matches); // remove querystring
+						$image_url = $matches[0];
 						
-						$attachment_id = $this->wpp_get_attachment_id( $ContentImages[1][0] );
+						$attachment_id = $this->wpp_get_attachment_id( $image_url );
 						
-						if ( $attachment_id ) {
+						if ( $attachment_id ) { // image comes from Media library
 								
-							$thumbnail[0] = $ContentImages[1][0];
+							$thumbnail = $image_url;
 							$file_path = get_attached_file( $attachment_id );
+							
+						} else { // image not found in Media library, maybe external image?
+							
+							$accepted_status_codes = array( 200, 301, 302 );
+							$response = wp_remote_head( $image_url, array( 'timeout' => 5 ) );
+							
+							if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
+								
+								$image_data = getimagesize($image_url);
+								
+								if ( is_array($image_data) ) { // we got a valid image, process it
+									
+									$uploads = wp_upload_dir();
+									$thumbnail = trailingslashit( $uploads['baseurl'] ) . "{$id}_". wp_basename( $image_url );
+									$file_path = trailingslashit( $uploads['basedir'] ) . "{$id}_". wp_basename( $image_url );
+									
+									if ( !file_exists($file_path) ) { // file has not been cached yet, cache it
+									
+										require_once( ABSPATH . 'wp-admin/includes/file.php' );
+										//require_once( ABSPATH . 'wp-admin/includes/image.php' );
+										//require_once( ABSPATH . 'wp-admin/includes/media.php' );
+										
+										$tmp = download_url( $image_url );
+										
+										// tmp file could not be created
+										if ( is_wp_error( $tmp ) ) {
+											
+											@unlink( $tmp );
+											$tmp = NULL;
+											
+										}
+										
+										// move file to Uploads
+										if ( false === rename($tmp, $file_path) ) {
+											$file_path = '';
+										} else {
+										
+											// borrowed from WP - set correct file permissions											
+											$stat = stat( dirname( $file_path ));
+											$perms = $stat['mode'] & 0000666;
+											@chmod( $file_path, $perms );
+										
+										}
+										
+									}
+									
+								}
+								
+							}
 							
 						}
 						
@@ -1384,10 +1435,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$cropped_thumb = $file_info['dirname'].'/'.$file_info['filename'].'-'.$dim[0].'x'.$dim[1].$extension;
 			
-			if ( file_exists( $cropped_thumb ) ) { // there is a thumbnail already
+			if ( file_exists( $cropped_thumb ) ) { // there is a thumbnail already, use it
 			
-				$new_img = str_replace( basename( $thumbnail[0] ), basename( $cropped_thumb ), $thumbnail[0] );
-				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_cached_thumb wpp_{$source}\" />";
+				$new_img = str_replace( wp_basename( $thumbnail ), wp_basename( $cropped_thumb ), $thumbnail );
+				return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_cached_thumb wpp_{$source}\" />";
 				
 			} else { // no thumbnail or image file missing, try to create it
 			
@@ -1395,36 +1446,31 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 					$image = wp_get_image_editor( $file_path );
 
-					if ( ! is_wp_error( $image ) ) { // valid image, create thumbnail
-						
-						$image->resize( $dim[0], $dim[1], true );
-						$new_img = $image->save();
-						
-						if ( ! is_wp_error( $new_img ) ) {						
-							$new_img = str_replace( basename( $thumbnail[0] ), $new_img['file'], $thumbnail[0] );
-						} else {
-							return "<!-- " . $new_img->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_error wpp_{$source}\" />";
-						}
-						
-						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_thumb wpp_{$source}\" />";
-						
-					} else { // image file path is invalid
-						return "<!-- " . $image->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_imgeditor_error wpp_{$source}\" />";
+					if ( is_wp_error( $image ) ) { // image file path is invalid
+						return "<!-- " . $image->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_imgeditor_error wpp_{$source}\" />";
 					}
+					
+					$image->resize( $dim[0], $dim[1], true );
+					$new_img = $image->save();
+					
+					if ( is_wp_error( $new_img ) ) {						
+						return "<!-- " . $new_img->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_imgeditor_error wpp_{$source}\" />";
+					}
+					
+					$new_img = str_replace( basename( $thumbnail ), $new_img['file'], $thumbnail );						
+					return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_imgeditor_thumb wpp_{$source}\" />";
 					
 				} else { // create thumb using image_resize()
 					
 					$new_img_path = image_resize( $file_path, $dim[0], $dim[1], true );
 					
-					if ( ! is_wp_error( $image ) ) { // valid image, create thumbnail
-						
-						$new_img_size = getimagesize( $new_img_path );
-						$new_img = str_replace( basename( $thumbnail[0] ), basename( $new_img_path ), $thumbnail[0] );
-						return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_thumb wpp_{$source}\" />";
-						
-					} else { // image file path is invalid
-						return "<!-- " . $image->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp_image_resize_error wpp_{$source}\" />";
+					if ( is_wp_error( $image ) ) { // image file path is invalid
+						return "<!-- " . $image->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_image_resize_error wpp_{$source}\" />";
 					}
+					
+					$new_img_size = getimagesize( $new_img_path );
+					$new_img = str_replace( wp_basename( $thumbnail ), wp_basename( $new_img_path ), $thumbnail );
+					return "<img src=\"". $new_img ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_image_resize_thumb wpp_{$source}\" />";
 									
 				}
 				
@@ -1448,7 +1494,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				return false;
 			}
 			
-			$file  = basename( $url );
+			$file  = wp_basename( $url );
 			$query = array(
 				'post_type'  => 'attachment',
 				'fields'     => 'ids',
@@ -2075,16 +2121,17 @@ function get_mostpopular($args = NULL) {
 
 /*
 = 2.3.6 =
+* Updated thumbnail feature to handle external images.
 * Removed unnecesary wpp-thumbnail class from link tag, the image already has it.
 * Added wpp-list class to the UL tag, this should help style the popular list better.
 * Updated wpp.css with text floating next to thumbnails - this sets a predefined style for the plugin for the first time.
 * Added plugin version to wp_enqueue_* calls.
-* Fixed typo in wpp_update_warning. Minimun Wordpress version required is 3.3.
+* Fixed typo in wpp_update_warning. From v2.3.3, minimun Wordpress version required is 3.3.
 */
 
 /*
 TODO
-* [FIX] External thumbails are broken, WTC 3 and Amazon's CDN http://wordpress.org/support/topic/my-thumbnails-keep-dissapearing-after-upgrade
+* [FIX-ED] External thumbails are broken, WTC 3 and Amazon's CDN http://wordpress.org/support/topic/my-thumbnails-keep-dissapearing-after-upgrade
 * [FIX] Excerpt messing with HTML tags http://wordpress.org/support/topic/problem-with-limit-and-range?replies=10#post-4267946
 * [ADD] Option to log views from logged-in only.
 * [ADD] Popular posts feed http://wordpress.org/support/topic/plugin-wordpress-popular-posts-how-to-create-an-rss-feed-for-most-popular-posts
