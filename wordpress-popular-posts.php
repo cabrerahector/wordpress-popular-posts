@@ -1101,9 +1101,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$title = strip_tags($title);
 					$title_sub = strip_tags($title);
 					
-					$title = apply_filters('the_title', $title, $p->id);
-					//$title_sub = apply_filters('the_title', $title_sub, $p->id);
-					
 					// truncate title
 					if ( $instance['shorten_title']['active'] ) {
 						
@@ -1114,23 +1111,27 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							if ( count($words) > $instance['shorten_title']['length'] ) {
 								
 								array_pop($words);								
-								//$title_sub = implode(" ", $words) . "...";
-								$title_sub = implode(" ", $words);
-								$title_sub = apply_filters('the_title', $title_sub, $p->id) . "...";
+								$title_sub = implode(" ", $words) . "...";
+								//$title_sub = implode(" ", $words);
+								//$title_sub = apply_filters('the_title', $title_sub, $p->id) . "...";
 								
 							}
 						
 						} else { // by characters
 						
+							//$title_sub = apply_filters('the_title', $title_sub, $p->id) . "...";
+						
 							if ( strlen($title) > $instance['shorten_title']['length'] ) {				
-								$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset);
+								$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset) . "...";
+								//$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset);
 							}
-							
-							$title_sub = apply_filters('the_title', $title_sub, $p->id) . "...";
 						
 						}
 						
 					}
+					
+					$title = apply_filters('the_title', $title, $p->id);
+					$title_sub = apply_filters('the_title', $title_sub, $p->id);
 					
 					// EXCERPT					
 					if ( $instance['post-excerpt']['active'] ) {
