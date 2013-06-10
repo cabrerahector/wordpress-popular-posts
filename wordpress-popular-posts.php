@@ -1130,7 +1130,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						
 					}
 					
-					$title = apply_filters('the_title', $title, $p->id);
+					$title = htmlspecialchars( $title, ENT_QUOTES, $this->charset );
+					$title_sub = htmlspecialchars( $title_sub, ENT_QUOTES, $this->charset );
+					//$title = htmlentities( $title, ENT_QUOTES, $this->charset );
+					//$title_sub = htmlentities( $title_sub, ENT_QUOTES, $this->charset );
+					
+					$title = apply_filters('the_title', $title, $p->id) . "<!-- {$this->charset} -->";
 					$title_sub = apply_filters('the_title', $title_sub, $p->id);
 					
 					// EXCERPT					
@@ -1216,10 +1221,26 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$thumb .= "</a>";
 					}
 					
+					$data = array(
+						'id' => $p->id,
+						'title' => '<a href="'.$permalink.'" title="'.$title.'">'.$title_sub.'</a>',
+						'summary' => $excerpt,
+						'stats' => $stats,
+						'img' => $thumb,						
+						'url' => $permalink,
+						'text_title' => $title,
+						'category' => $post_cat,
+						'author' => "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>",
+						'views' => $pageviews,
+						'comments' => $comments
+					);
+					
+					$posts_data[] = (object) $data;
+					
 					// PUTTING IT ALL TOGETHER					
 					if ($instance['markup']['custom_html']) { // build custom layout
 							
-						$data = array(
+						/*$data = array(
 							'title' => '<a href="'.$permalink.'" title="'.$title.'">'.$title_sub.'</a>',
 							'summary' => $excerpt,
 							'stats' => $stats,
@@ -1231,7 +1252,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							'author' => "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>",
 							'views' => $pageviews,
 							'comments' => $comments
-						);
+						);*/
 						
 						$content .= htmlspecialchars_decode( $this->format_content($instance['markup']['post-html'], $data, $instance['rating']), ENT_QUOTES ) . "\n";						
 						
@@ -1248,7 +1269,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				}
 			}
 			
-			return $content;
+			//return $content;
+			return apply_filters( 'wpp_html', $content, $posts_data );			
+			die();
 			
 		}		
 		
@@ -1373,17 +1396,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						} else { // image not found in Media library, maybe external image?
 							
 							$accepted_status_codes = array( 200, 301, 302 );
-							$response = wp_remote_head( $image_url, array( 'timeout' => 5 ) );
+							$response = wp_remote_head( $image_url, array( 'timeout' => 5, 'sslverify' => false ) );
 							
 							if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
 								
 								$image_data = getimagesize($image_url);
 								
-								if ( is_array($image_data) ) { // we got a valid image, process it
+								if ( is_array($image_data) && !empty($image_data) ) { // we got a valid image, process it
 									
 									$uploads = wp_upload_dir();
-									$thumbnail[0] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". wp_basename( $image_url );
-									$file_path = trailingslashit( $uploads['basedir'] ) . "{$id}_". wp_basename( $image_url );
+									$thumbnail[0] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $image_url )) );
+									$file_path = trailingslashit( $uploads['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $image_url )) );
 									
 									if ( !file_exists($file_path) ) { // file has not been cached yet, cache it
 									
@@ -1391,6 +1414,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 										//require_once( ABSPATH . 'wp-admin/includes/image.php' );
 										//require_once( ABSPATH . 'wp-admin/includes/media.php' );
 										
+										$image_url = str_replace( 'https://', 'http://', $image_url );
 										$tmp = download_url( $image_url );
 										
 										// tmp file could not be created
@@ -1402,7 +1426,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 										}
 										
 										// move file to Uploads
-										if ( false === rename($tmp, $file_path) ) {
+										if ( NULL !== $tmp && false === rename($tmp, $file_path) ) {
 											$file_path = '';
 										} else {
 										
@@ -2122,6 +2146,8 @@ function get_mostpopular($args = NULL) {
 
 /*
 = 2.3.6 =
+* Added wpp_html filter to allow total control of the HTML output.
+* Added sanitization for external thumbnail filenames to avoid weird characters.
 * Updated thumbnail feature to handle external images.
 * Removed unnecesary wpp-thumbnail class from link tag, the image already has it.
 * Added wpp-list class to the UL tag, this should help style the popular list better.
@@ -2132,6 +2158,8 @@ function get_mostpopular($args = NULL) {
 
 /*
 TODO
+* [CHECK] http://wp.tutsplus.com/tutorials/plugins/writing-extensible-plugins-with-actions-and-filters/
+* [FIX] Clean up invalid characters from filenames when creating thumbnails with sanitize_file_name() http://codex.wordpress.org/Function_Reference/sanitize_file_name
 * [FIX-ED] External thumbails are broken, WTC 3 and Amazon's CDN http://wordpress.org/support/topic/my-thumbnails-keep-dissapearing-after-upgrade
 * [FIX] Excerpt messing with HTML tags http://wordpress.org/support/topic/problem-with-limit-and-range?replies=10#post-4267946
 * [ADD] Option to log views from logged-in only.
