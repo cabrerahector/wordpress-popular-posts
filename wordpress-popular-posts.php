@@ -1088,9 +1088,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$author = ($instance['stats_tag']['author']) ? get_the_author_meta('display_name', $p->uid) : "";
 					$date = date_i18n( $instance['stats_tag']['date']['format'], strtotime($p->date) );
 					
-					$pageviews = ($instance['order_by'] == "views" || $instance['order_by'] == "avg" || $instance['stats_tag']['views']) ? (($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n($p->pageviews) : number_format_i18n( $p->avg_views, 2) ) : 0;
+					//$pageviews = ($instance['order_by'] == "views" || $instance['order_by'] == "avg" || $instance['stats_tag']['views']) ? (($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n($p->pageviews) : number_format_i18n( $p->avg_views, 2) ) : 0;
+					$pageviews = ($instance['order_by'] == "views" || $instance['order_by'] == "avg" || $instance['stats_tag']['views']) ? (($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? $p->pageviews : $p->avg_views ) : 0;					
+					//$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count']) ? number_format_i18n($p->comment_count) : 0;
+					$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count']) ? $p->comment_count : 0;
 					
-					$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count']) ? number_format_i18n($p->comment_count) : 0;
 					$post_cat = "";
 					$excerpt = "";
 					$rating = "";
@@ -1135,7 +1137,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					//$title = htmlentities( $title, ENT_QUOTES, $this->charset );
 					//$title_sub = htmlentities( $title_sub, ENT_QUOTES, $this->charset );
 					
-					$title = apply_filters('the_title', $title, $p->id) . "<!-- {$this->charset} -->";
+					$title = apply_filters('the_title', $title, $p->id);
 					$title_sub = apply_filters('the_title', $title_sub, $p->id);
 					
 					// EXCERPT					
@@ -1156,20 +1158,38 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// STATS
 					// comments
 					if ( $instance['stats_tag']['comment_count'] ) {
-						$comments_text = ( $comments == 1 ) ? "$comments " . __('comment', 'wordpress-popular-posts') : "$comments " . __('comments', 'wordpress-popular-posts');
+						//$comments_text = ( $comments == 1 ) ? "$comments " . __('comment', 'wordpress-popular-posts') : "$comments " . __('comments', 'wordpress-popular-posts');
+						$comments_text =sprintf(
+						_n('1 comment', '%s comments', $comments, 'wordpress-popular-posts'), 
+						number_format_i18n($comments));
 						$stats .= "<span class=\"wpp-comments\">" . $comments_text . "</span>";
 					} else {
 					}
 					// views
 					if ( $instance['stats_tag']['views'] ) {						
 						
-						if ($instance['order_by'] == 'avg') {
+						/*if ($instance['order_by'] == 'avg') {
 							$views_text = ( (int)$pageviews == 1 ) ? "$pageviews " . __('view per day', 'wordpress-popular-posts') : "$pageviews " . __('views per day', 'wordpress-popular-posts');
 							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
 						} else {
 							$views_text = ( $pageviews == 1 ) ? "$pageviews " . __('view', 'wordpress-popular-posts') : "$pageviews " . __('views', 'wordpress-popular-posts');
 							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
+						}*/
+						
+						if ($instance['order_by'] == 'avg') {
+							$views_text = sprintf(
+							_n('1 view per day', '%s views per day', intval($pageviews), 'wordpress-popular-posts'),
+							number_format_i18n($pageviews, 2)
+							);
 						}
+						else {					
+							$views_text = sprintf(
+							_n('1 view', '%s views', intval($pageviews), 'wordpress-popular-posts'),
+							number_format_i18n($pageviews)
+							);
+						}
+						
+						$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
 						
 					}
 					//author
@@ -1270,7 +1290,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			//return $content;
-			return apply_filters( 'wpp_html', $content, $posts_data );			
+			return apply_filters( 'wpp_html', $content, $posts_data );
 			die();
 			
 		}		
@@ -1339,6 +1359,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				}
 			
 			}
+			
+			// remove HTML tags if requested
+			if ( $instance['post-excerpt']['keep_format'] ) {
+				$excerpt = force_balance_tags(strip_tags($excerpt, '<a><b><i><em><strong>'));				
+			} else {
+				$excerpt = strip_tags($excerpt);
+			}
+			
+			// remove WP shortcodes
+			$excerpt = strip_shortcodes( $excerpt );
 			
 			return $excerpt;
 			
