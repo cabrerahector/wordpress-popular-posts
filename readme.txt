@@ -31,7 +31,7 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 * **Automatic maintenance** - Wordpress Popular Posts will wipe out from its cache automatically all those posts that have not been viewed more than 30 days from the current date, keeping just the popular ones on the list! This ensures that your cache table will remain as compact as possible! (You can also clear it manually if you like, [look here for instructions](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/)!).
 
 = Notices =
-* Minimum requirements changed: version 2.3.3 (and on) requires **PHP 5.2+** and **Wordpress 3.3** (or greater).
+* Minimum requirements changed: from version 2.3.3 (and on), Wordpress Popular Posts requires **PHP 5.2+** and **Wordpress 3.3** (or greater).
 * The custom HTML layout functionality [has changed](http://wordpress.org/extend/plugins/wordpress-popular-posts/changelog/) on v2.3.3! WPP will attempt to use the markup you set on previous versions, but in case it breaks please check the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/) to learn how to set it up again.
 * From version 2.0 and on, Wordpress Popular Posts requires Wordpress 2.8 at least in order to function correctly. If you're not running Wordpress 2.8 (or newer) please use [Wordpress Popular Posts v.1.5.1](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.5.1.zip) instead.
 * If you are upgrading from any version prior to Wordpress Popular Posts 1.4.6, please [update to 1.4.6](http://downloads.wordpress.org/plugin/wordpress-popular-posts.1.4.6.zip) first!
