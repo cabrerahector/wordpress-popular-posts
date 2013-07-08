@@ -27,15 +27,15 @@ Wordpress Popular Posts (from now on, just *WPP*) is a [plugin](http://codex.wor
 * **Multi-widget capable**. That is, you can have several widgets of Wordpress Popular Posts on your blog - each with its own settings!
 * **Time Range** - list those posts of your blog that have been the most popular ones within a specific time range (eg. last 24 hours, last 7 days, last 30 days, etc.)!
 * **Custom Post-type support**. Wanna show other stuff than just posts and pages?
-* Display a **thumbnail** of your posts! (*see the [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts#frequently-asked-questions) for technical requirements*).
+* Display a **thumbnail** of your posts! (*see [technical requirements](https://github.com/cabrerahector/wordpress-popular-posts#im-unable-to-activate-the-display-post-thumbnail-option-why) *).
 * Use **your own layout**! Control how your most popular posts are shown on your theme. *Updated! See [changelog](https://github.com/cabrerahector/wordpress-popular-posts#changelog) for more!*
 * Check the **statistics** on your most popular posts from wp-admin.
 * Order your popular list by comments, views (default) or average views per day!
 * **Shortcode support** - use the [wpp] shortcode to showcase your most popular posts on pages, too! For usage and instructions, please refer to the [usage section](https://github.com/cabrerahector/wordpress-popular-posts#usage).
 * **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the `wpp_get_mostpopular()` template tag. Additionally, the `wpp_gets_views()` template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [usage section](https://github.com/cabrerahector/wordpress-popular-posts#usage).
-* **Localizable** to your own language (*See the [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts#frequently-asked-questions) for more info*).
+* **Localizable** to your own language (*See [here](https://github.com/cabrerahector/wordpress-popular-posts#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do) for more info*).
 * **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support**. Show your visitors how your readers are rating your posts!
-* **Automatic maintenance** - Wordpress Popular Posts will wipe out from its cache automatically all those posts that have not been viewed more than 30 days from the current date, keeping just the popular ones on the list! This ensures that your cache table will remain as compact as possible! (You can also clear it manually if you like, [look here for instructions](https://github.com/cabrerahector/wordpress-popular-posts#frequently-asked-questions)!).
+* **Automatic maintenance** - Wordpress Popular Posts will wipe out from its cache automatically all those posts that have not been viewed more than 30 days from the current date, keeping just the popular ones on the list! This ensures that your cache table will remain as compact as possible! (You can also clear it manually if you like, [look here for instructions](https://github.com/cabrerahector/wordpress-popular-posts#i-would-like-to-clear-all-data-gathered-by-wordpress-popular-posts-and-start-over-how-can-i-do-that)!).
 
 
 ## Requirements
@@ -114,7 +114,7 @@ Since Wordpress doesn't store views count (only comments count), this plugin sto
 There are a number of reasons that might explain why you are seeing this message: no one has seen or commented on your posts/pages since Wordpress Popular Posts activation, you should give it some time; your current theme does not have the [wp_head()](http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks) tag in its &lt;head&gt; section, required by my plugin to keep track of what your visitors are viewing on your site; Wordpress Popular Posts was unable to create the necessary DB tables to work, make sure your hosting has granted you permission to create / update / modify tables in the database.
 
 #### My current theme does not support widgets (booooo!). Can I show my most popular posts in any other way? ####
-Yes, there are other choices: you can use the [wpp shortcode](https://github.com/cabrerahector/wordpress-popular-posts#usage), which allows you to embed your popular listing directly in the content of your posts and/or pages; or you can use the [`wpp_get_mostpopular()` template tag](https://github.com/cabrerahector/wordpress-popular-posts#usage). Both options are highly customizable via parameters, check them out via *wp-admin > Settings > Wordpress Popular Posts > FAQ*.
+Yes, there are other choices: you can use the [wpp shortcode](https://github.com/cabrerahector/wordpress-popular-posts#shortcode), which allows you to embed your popular listing directly in the content of your posts and/or pages; or you can use the [`wpp_get_mostpopular()` template tag](https://github.com/cabrerahector/wordpress-popular-posts#template-tags). Both options are highly customizable via parameters, check them out via *wp-admin > Settings > Wordpress Popular Posts > FAQ*.
 
 #### Wordpress Popular Posts is not counting my own visits, why? ####
 By default, Wordpress Popular Posts won't count views generated by logged in users. If your blog requires readers to be logged in to access its contents (or just want WPP to count your own views) please go to *wp-admin > Settings > Wordpress Popular Posts > Tools* and set *Log views from* to *Everyone*.
