@@ -1064,6 +1064,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$mostpopular = $wpdb->get_results($query);			
 			/*echo "<pre>"; print_r($mostpopular); echo "</pre>";*/
 			
+			// posts array
+			$posts_data = array();
+			
 			if ( !is_array($mostpopular) || empty($mostpopular) ) { // no posts to show
 				$content .= "<p>".__('Sorry. No data so far.', 'wordpress-popular-posts')."</p>"."\n";
 			} else { // list posts
@@ -1074,9 +1077,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				} else {					
 					$content .= "<ul class=\"wpp-list\">" . "\n";
 				}
-				
-				// posts array
-				$posts_data = array();
 			
 				foreach($mostpopular as $p) {
 					
