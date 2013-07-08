@@ -1519,8 +1519,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 					$new_img_path = image_resize( $file_path, $dim[0], $dim[1], true );
 					
-					if ( is_wp_error( $image ) ) { // image file path is invalid
-						return "<!-- " . $image->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_image_resize_error wpp_{$source}\" />";
+					if ( is_wp_error( $new_img_path ) ) { // image file path is invalid
+						return "<!-- " . $new_img_path->get_error_message() ." --> <img src=\"". $this->default_thumbnail ."\" alt=\"\" border=\"0\" width=\"{$dim[0]}\" height=\"{$dim[1]}\" class=\"wpp-thumbnail wpp_image_resize_error wpp_{$source}\" />";
 					}
 					
 					$new_img_size = getimagesize( $new_img_path );
