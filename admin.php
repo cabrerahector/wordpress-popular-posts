@@ -1,6 +1,6 @@
 <?php
 	if (basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__)) exit('Please do not load this page directly');
-	
+
 	/**
 	 * Merges two associative arrays recursively
 	 * array_merge_recursive_distinct(array('key' => 'org value'), array('key' => 'new value'));
@@ -10,7 +10,7 @@
 	 */
 	function array_merge_recursive_distinct( array &$array1, array &$array2 ) {
 		$merged = $array1;
-		
+
 		foreach ( $array2 as $key => &$value ) {
 			if ( is_array( $value ) && isset ( $merged[$key] ) && is_array( $merged[$key] ) ) {
 				$merged[$key] = array_merge_recursive_distinct ( $merged[$key], $value );
@@ -18,10 +18,10 @@
 				$merged[$key] = $value;
 			}
 		}
-		
+
 		return $merged;
 	}
-	
+
 	$wpp_settings_def = array(
 		'stats' => array(
 			'order_by' => 'views',
@@ -48,7 +48,7 @@
 			)
 		)
 	);
-	
+
 	$ops = get_option('wpp_settings_config');
 	if ( !$ops ) {
 		add_option('wpp_settings_config', $wpp_settings_def);
@@ -56,63 +56,63 @@
 	} else {
 		$ops = array_merge_recursive_distinct( $wpp_settings_def, $ops );
 	}
-	
+
 	if ( isset($_POST['section']) ) {
 		if ($_POST['section'] == "stats") {
 			$ops['stats']['order_by'] = $_POST['stats_order'];
 			$ops['stats']['limit'] = (is_numeric($_POST['stats_limit']) && $_POST['stats_limit'] > 0) ? $_POST['stats_limit'] : 10;
 			$ops['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
-			
-			update_option('wpp_settings_config', $ops);			
+
+			update_option('wpp_settings_config', $ops);
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
-			
+
 		} else if ($_POST['section'] == "logging") {
-			
-			$ops['tools']['log_loggedin'] = $_POST['log_option'];				
-			update_option('wpp_settings_config', $ops);				
+
+			$ops['tools']['log_loggedin'] = $_POST['log_option'];
+			update_option('wpp_settings_config', $ops);
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
-			
+
 		} else if ($_POST['section'] == "tools") {
-			
+
 			if ($_POST['thumb_source'] == "custom_field" && (!isset($_POST['thumb_field']) || empty($_POST['thumb_field']))) {
 				echo '<div id="wpp-message" class="error fade"><p>'.__('Please provide the name of your custom field.', 'wordpress-popular-posts').'</p></div>';
-			} else {				
+			} else {
 				$ops['tools']['thumbnail']['source'] = $_POST['thumb_source'];
 				$ops['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "_wpp_thumbnail";
 				$ops['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
-				
-				update_option('wpp_settings_config', $ops);				
+
+				update_option('wpp_settings_config', $ops);
 				echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 			}
 		} else if  ($_POST['section'] == "ajax") {
-			
+
 			$ops['tools']['ajax'] = $_POST['ajax'];
-			
-			$ops['tools']['cache']['active'] = $_POST['cache'];			
+
+			$ops['tools']['cache']['active'] = $_POST['cache'];
 			$ops['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
 			$ops['tools']['cache']['interval']['value'] = $_POST['cache_interval_value'];
-			
+
 			update_option('wpp_settings_config', $ops);
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
-			
-		} else if  ($_POST['section'] == "css") {									
+
+		} else if  ($_POST['section'] == "css") {
 			$ops['tools']['css'] = $_POST['css'];
-			
+
 			//print_r($ops);
-			
-			update_option('wpp_settings_config', $ops);				
+
+			update_option('wpp_settings_config', $ops);
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 		}
 	}
-	
-	$rand = md5(uniqid(rand(), true));	
-	$wpp_rand = get_option("wpp_rand");	
+
+	$rand = md5(uniqid(rand(), true));
+	$wpp_rand = get_option("wpp_rand");
 	if (empty($wpp_rand)) {
 		add_option("wpp_rand", $rand);
 	} else {
 		update_option("wpp_rand", $rand);
 	}
-	
+
 ?>
 
 
@@ -120,11 +120,11 @@
 	#wmpp-title {
 		color:#666;
 		font-family:Georgia, "Times New Roman", Times, serif;
-		font-weight:100;		
+		font-weight:100;
 		font-size:24px;
 		font-style:italic;
 	}
-	
+
 	.wmpp-subtitle {
 		margin:8px 0 15px 0;
 		color:#666;
@@ -132,39 +132,39 @@
 		font-size:16px;
 		font-weight:100;
 	}
-	
+
 	.wpp_boxes {
 		display:none;
 		overflow:hidden;
 		width:100%;
 	}
-	
+
 	#wpp-options {
 		width:100%;
 	}
-	
+
 		#wpp-options fieldset {
 			margin:0 0 15px 0;
-			width:99%;				
+			width:99%;
 		}
-		
+
 			#wpp-options fieldset legend { font-weight:bold; }
-	
+
 			#wpp-options fieldset .lbl_wpp_stats {
 				display:block;
 				margin:0 0 8px 0;
 			}
-	
+
 	#wpp-stats-tabs {
 		padding:2px 0;
 	}
-		
+
 	#wpp-stats-canvas {
 		overflow:hidden;
 		padding:2px 0;
 		width:100%;
 	}
-	
+
 		.wpp-stats {
 			display:none;
 			width:96%px;
@@ -173,16 +173,16 @@
 			background:#fff;
 			border:#999 3px solid;
 		}
-		
+
 		.wpp-stats-active {
 			display:block;
 		}
-		
+
 			.wpp-stats ol {
 				margin:0;
 				padding:0;
 			}
-			
+
 				.wpp-stats ol li {
 					overflow:hidden;
 					margin:0 8px 10px 8px!important;
@@ -192,14 +192,14 @@
 					color:#999;
 					border-bottom:#eee 1px solid;
 				}
-				
+
 					.wpp-post-title {
 						/*display:block;*/
 						display:inline;
 						float:left;
 						font-weight:bold;
 					}
-					
+
 					.post-stats {
 						display:inline;
 						float:right;
@@ -207,7 +207,7 @@
 						text-align:right;
 						color:#999;
 					}
-				
+
 			.wpp-stats-unique-item, .wpp-stats-last-item {
 				margin:0!important;
 				padding:0!important;
@@ -219,48 +219,48 @@
 				padding:0 8px;
 				font-size:12px;
 			}
-			
+
 	.wp-list-table h4 {
 		margin:0 0 0 0;
 	}
-	
+
 	.wpp-ans {
 		display:none;
 		width:100%;
 	}
-	
+
 		.wpp-ans p {
 			margin:0 0 0 0;
 			padding:0;
 		}
-	
+
 </style>
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		
+
 		// TABS
 		jQuery(".subsubsub li a").click(function(e){
 			var tab = jQuery(this);
 			tab.addClass("current").parent().siblings().children("a").removeClass("current");
-			
+
 			jQuery(".wpp_boxes:visible").hide();
 			jQuery("#" + tab.attr("rel")).fadeIn();
-			
+
 			e.preventDefault();
 		});
-		
-		// STATISTICS TABS		
+
+		// STATISTICS TABS
 		jQuery("#wpp-stats-tabs a").click(function(e){
 			var activeTab = jQuery(this).attr("rel");
 			jQuery(this).removeClass("button-secondary").addClass("button-primary").siblings().removeClass("button-primary").addClass("button-secondary");
 			jQuery(".wpp-stats:visible").fadeOut("fast", function(){
 				jQuery("#"+activeTab).slideDown("fast");
 			});
-			
+
 			e.preventDefault();
 		});
-			
+
 		jQuery(".wpp-stats").each(function(){
 			if (jQuery("li", this).length == 1) {
 				jQuery("li", this).addClass("wpp-stats-last-item");
@@ -268,18 +268,18 @@
 				jQuery("li:last", this).addClass("wpp-stats-last-item");
 			}
 		});
-		
+
 		// FAQ
 		jQuery(".wp-list-table a").click(function(e){
 			var ans = jQuery(this).attr("rel");
-			
-			jQuery(".wpp-ans:visible").hide();			
+
+			jQuery(".wpp-ans:visible").hide();
 			//jQuery("#"+ans).slideToggle();
 			jQuery("#"+ans).show();
-			
+
 			e.preventDefault();
 		});
-		
+
 		// TOOLS
 		// thumb source selection
 		jQuery("#thumb_source").change(function() {
@@ -288,8 +288,8 @@
 			} else {
 				jQuery("#lbl_field, #thumb_field, #row_custom_field, #row_custom_field_resize").hide();
 			}
-		});		
-		// cache interval 
+		});
+		// cache interval
 		jQuery("#cache").change(function() {
 			if (jQuery(this).val() == 1) {
 				jQuery("#cache_refresh_interval").show();
@@ -298,48 +298,48 @@
 			}
 		});
 		// interval
-		jQuery("#cache_interval_time").change(function() {			
+		jQuery("#cache_interval_time").change(function() {
 			var value = parseInt( jQuery("#cache_interval_value").val() );
 			var time = jQuery(this).val();
-			
+
 			console.log(time + " " + value);
-			
-			if ( time == "hour" && value > 72 ) {				
-				jQuery("#cache_too_long").show();				
-			} else if ( time == "day" && value > 3 ) {				
-				jQuery("#cache_too_long").show();				
-			} else if ( time == "week" && value > 1 ) {				
-				jQuery("#cache_too_long").show();				
-			} else if ( time == "month" && value >= 1 ) {				
-				jQuery("#cache_too_long").show();				
-			} else if ( time == "year" && value >= 1 ) {				
+
+			if ( time == "hour" && value > 72 ) {
+				jQuery("#cache_too_long").show();
+			} else if ( time == "day" && value > 3 ) {
+				jQuery("#cache_too_long").show();
+			} else if ( time == "week" && value > 1 ) {
+				jQuery("#cache_too_long").show();
+			} else if ( time == "month" && value >= 1 ) {
+				jQuery("#cache_too_long").show();
+			} else if ( time == "year" && value >= 1 ) {
 				jQuery("#cache_too_long").show();
 			} else {
 				jQuery("#cache_too_long").hide();
-			}			
+			}
 		});
-		
-		jQuery("#cache_interval_value").change(function() {			
+
+		jQuery("#cache_interval_value").change(function() {
 			var value = parseInt( jQuery(this).val() );
 			var time = jQuery("#cache_interval_time").val();
-			
-			if ( time == "hour" && value > 72 ) {				
-				jQuery("#cache_too_long").show();				
-			} else if ( time == "day" && value > 3 ) {				
-				jQuery("#cache_too_long").show();				
-			} else if ( time == "week" && value > 1 ) {				
-				jQuery("#cache_too_long").show();				
-			} else if ( time == "month" && value >= 1 ) {				
-				jQuery("#cache_too_long").show();				
-			} else if ( time == "year" && value >= 1 ) {				
+
+			if ( time == "hour" && value > 72 ) {
+				jQuery("#cache_too_long").show();
+			} else if ( time == "day" && value > 3 ) {
+				jQuery("#cache_too_long").show();
+			} else if ( time == "week" && value > 1 ) {
+				jQuery("#cache_too_long").show();
+			} else if ( time == "month" && value >= 1 ) {
+				jQuery("#cache_too_long").show();
+			} else if ( time == "year" && value >= 1 ) {
 				jQuery("#cache_too_long").show();
 			} else {
 				jQuery("#cache_too_long").hide();
-			}			
+			}
 		});
-		
+
 	});
-	
+
 	// TOOLS
 	function confirm_reset_cache() {
 		if (confirm("<?php _e("This operation will delete all entries from Wordpress Popular Posts' cache table and cannot be undone.", "wordpress-popular-posts"); ?> \n" + "<?php _e("Do you want to continue?", "wordpress-popular-posts"); ?>")) {
@@ -348,7 +348,7 @@
 			});
 		}
 	}
-	
+
 	function confirm_reset_all() {
 		if (confirm("<?php _e("This operation will delete all stored info from Wordpress Popular Posts' data tables and cannot be undone.", "wordpress-popular-posts"); ?> \n" + "<?php _e("Do you want to continue?", "wordpress-popular-posts"); ?>")) {
 			jQuery.post(ajaxurl, {action: 'wpp_clear_all', token: '<?php echo get_option("wpp_rand"); ?>', clear: 'all'}, function(data){
@@ -356,13 +356,13 @@
 			});
 		}
 	}
-	
+
 </script>
 
 <div class="wrap">
     <div id="icon-options-general" class="icon32"><br /></div>
     <h2 id="wmpp-title">Wordpress Popular Posts</h2>
-    
+
     <ul class="subsubsub">
     	<li id="btn_stats"><a href="#" <?php if (!isset($_POST['section']) || (isset($_POST['section']) && $_POST['section'] == "stats") ) {?>class="current"<?php } ?> rel="wpp_stats"><?php _e("Stats", "wordpress-popular-posts"); ?></a> |</li>
         <li id="btn_faq"><a href="#" rel="wpp_faq"><?php _e("FAQ", "wordpress-popular-posts"); ?></a> |</li>
@@ -371,7 +371,7 @@
     <!-- Start stats -->
     <div id="wpp_stats" class="wpp_boxes"<?php if (!isset($_POST['section']) || (isset($_POST['section']) && $_POST['section'] == "stats") ) {?> style="display:block;"<?php } ?>>
     	<p><?php _e("Click on each tab to see what are the most popular entries on your blog in the last 24 hours, this week, last 30 days or all time since Wordpress Popular Posts was installed.", "wordpress-popular-posts"); ?></p>
-        
+
         <div class="tablenav top">
             <div class="alignleft actions">
                 <form action="" method="post" id="wpp_stats_options" name="wpp_stats_options">
@@ -388,14 +388,14 @@
             </div>
         </div>
         <br />
-        <div id="wpp-stats-tabs">            
+        <div id="wpp-stats-tabs">
             <a href="#" class="button-primary" rel="wpp-daily"><?php _e("Last 24 hours", "wordpress-popular-posts"); ?></a>
             <a href="#" class="button-secondary" rel="wpp-weekly"><?php _e("Last 7 days", "wordpress-popular-posts"); ?></a>
             <a href="#" class="button-secondary" rel="wpp-monthly"><?php _e("Last 30 days", "wordpress-popular-posts"); ?></a>
             <a href="#" class="button-secondary" rel="wpp-all"><?php _e("All-time", "wordpress-popular-posts"); ?></a>
         </div>
-        <div id="wpp-stats-canvas">            
-            <div class="wpp-stats wpp-stats-active" id="wpp-daily">            	
+        <div id="wpp-stats-canvas">
+            <div class="wpp-stats wpp-stats-active" id="wpp-daily">
                 <?php echo do_shortcode("[wpp range='daily' post_type='".$ops['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$ops['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$ops['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-weekly">
@@ -410,7 +410,7 @@
         </div>
     </div>
     <!-- End stats -->
-    
+
     <!-- Start faq -->
     <div id="wpp_faq" class="wpp_boxes">
     	<h3 class="wmpp-subtitle"><?php _e("Frequently Asked Questions", "wordpress-popular-posts"); ?></h3>
@@ -421,92 +421,92 @@
                     <div class="wpp-ans" id="q-1">
                         <p><?php _e('It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                 	<h4>&raquo; <a href="#" rel="q-2"><?php _e('What is Time Range for?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-2">
                         <p><?php _e('It will tell Wordpress Popular Posts to retrieve all posts with most views / comments within the selected time range.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-3"><?php _e('What is "Sort post by" for?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-3">
                         <p><?php _e('It allows you to decide whether to order your popular posts listing by total views, comments, or average views per day.', 'wordpress-popular-posts'); ?></p>
-                    </div>                    
-                    
+                    </div>
+
                     <h4>&raquo; <a href="#" rel="q-4"><?php _e('What does "Display post rating" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-4">
                         <p><?php _e('If checked, Wordpress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-5"><?php _e('What does "Shorten title" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-5">
                         <p><?php _e('If checked, all posts titles will be shortened to "n" characters/words. A new "Shorten title to" option will appear so you can set it to whatever you like.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-6"><?php _e('What does "Display post excerpt" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-6">
                         <p><?php _e('If checked, Wordpress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-7"><?php _e('What does "Keep text format and links" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-7">
                         <p><?php _e('If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-8"><?php _e('What is "Post type" for?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-8">
                         <p><?php _e('This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases).', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-9">
                         <p><?php _e('This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-10"><?php _e('What is "Author(s) ID(s)" for?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-10">
                         <p><?php _e('Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-11"><?php _e('What does "Display post thumbnail" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-11">
                         <p><?php _e('If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - Wordpress Popular Posts - Tools.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-12"><?php _e('What does "Display comment count" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-12">
                         <p><?php _e('If checked, Wordpress Popular Posts will display how many comments each popular post has got in the selected Time Range.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-13"><?php _e('What does "Display views" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-13">
                         <p><?php _e('If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-14"><?php _e('What does "Display author" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-14">
                         <p><?php _e('If checked, Wordpress Popular Posts will display the name of the author of each entry listed.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-15"><?php _e('What does "Display date" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-15">
                         <p><?php _e('If checked, Wordpress Popular Posts will display the date when each popular posts was published.', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-16"><?php _e('What does "Use custom HTML Markup" do?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-16">
                         <p><?php _e('If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-17"><?php _e('What are "Content Tags"?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-17">
                         <p><?php _e('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are "Template Tags"?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-18">
                         <p><?php _e('Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views().', 'wordpress-popular-posts'); ?></p>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-19"><?php _e('What are the template tags that Wordpress Popular Posts supports?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-19">
                         <p><?php _e('The following are the template tags supported by Wordpress Popular Posts', 'wordpress-popular-posts'); ?>:</p>
@@ -535,7 +535,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <h4>&raquo; <a href="#" rel="q-20"><?php _e('What are "shortcodes"?', 'wordpress-popular-posts'); ?></a></h4>
                     <div class="wpp-ans" id="q-20">
                         <p><?php _e('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', 'wordpress-popular-posts', 'wordpress-popular-posts'); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
@@ -739,7 +739,7 @@
                                 <tr>
                                     <td><strong>post_html</strong></td>
                                     <td><?php _e('Sets the HTML structure of each post', 'wordpress-popular-posts'); ?></td>
-                                    <td><?php _e('Text string, custom HTML', 'wordpress-popular-posts'); ?>.<br /><br /><strong><?php _e('Available Content Tags', 'wordpress-popular-posts'); ?>:</strong> <br /><em>{thumb}</em> (<?php _e('displays thumbnail linked to post/page', 'wordpress-popular-posts'); ?>)<br /> <em>{title}</em> (<?php _e('displays linked post/page title', 'wordpress-popular-posts'); ?>)<br /> <em>{summary}</em> (<?php _e('displays post/page excerpt, and requires excerpt_length to be greater than 0', 'wordpress-popular-posts'); ?>)<br /> <em>{stats}</em> (<?php _e('displays the default stats tags', 'wordpress-popular-posts'); ?>)<br /> <em>{rating}</em> (<?php _e('displays post/page current rating, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /> <em>{url}</em> (<?php _e('outputs the URL of the post/page', 'wordpress-popular-posts'); ?>)<br /> <em>{text_title}</em> (<?php _e('displays post/page title, no link', 'wordpress-popular-posts'); ?>)<br /> <em>{author}</em> (<?php _e('displays linked author name, requires stats_author=1', 'wordpress-popular-posts'); ?>)<br /> <em>{category}</em> (<?php _e('displays linked category name, requires stats_category=1', 'wordpress-popular-posts'); ?>)<br /> <em>{views}</em> (<?php _e('displays views count only, no text', 'wordpress-popular-posts'); ?>)<br /> <em>{comments}</em> (<?php _e('displays comments count only, no text, requires stats_comments=1', 'wordpress-popular-posts'); ?>)</td>
+                                    <td><?php _e('Text string, custom HTML', 'wordpress-popular-posts'); ?>.<br /><br /><strong><?php _e('Available Content Tags', 'wordpress-popular-posts'); ?>:</strong> <br /><em>{thumb}</em> (<?php _e('displays thumbnail linked to post/page', 'wordpress-popular-posts'); ?>)<br /> <em>{title}</em> (<?php _e('displays linked post/page title', 'wordpress-popular-posts'); ?>)<br /> <em>{summary}</em> (<?php _e('displays post/page excerpt, and requires excerpt_length to be greater than 0', 'wordpress-popular-posts'); ?>)<br /> <em>{stats}</em> (<?php _e('displays the default stats tags', 'wordpress-popular-posts'); ?>)<br /> <em>{rating}</em> (<?php _e('displays post/page current rating, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /> <em>{score}</em> (<?php _e('displays post/page current rating as an integer, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /> <em>{url}</em> (<?php _e('outputs the URL of the post/page', 'wordpress-popular-posts'); ?>)<br /> <em>{text_title}</em> (<?php _e('displays post/page title, no link', 'wordpress-popular-posts'); ?>)<br /> <em>{author}</em> (<?php _e('displays linked author name, requires stats_author=1', 'wordpress-popular-posts'); ?>)<br /> <em>{category}</em> (<?php _e('displays linked category name, requires stats_category=1', 'wordpress-popular-posts'); ?>)<br /> <em>{views}</em> (<?php _e('displays views count only, no text', 'wordpress-popular-posts'); ?>)<br /> <em>{comments}</em> (<?php _e('displays comments count only, no text, requires stats_comments=1', 'wordpress-popular-posts'); ?>)</td>
                                     <td>&lt;li&gt;{thumb} {title} {stats}&lt;/li&gt;</td>
                                     <td>post_html="&lt;li&gt;{thumb} &lt;a href='{url}'&gt;{text_title}&lt;/a&gt; &lt;/li&gt;"</td>
                                 </tr>
@@ -756,7 +756,7 @@
                                     <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
                                     <td>&lt;/li&gt;</td>
                                     <td>post_end="&lt;/li&gt;"</td>
-                                </tr>                        
+                                </tr>
                                 <tr class="alternate">
                                     <td><strong>do_pattern</strong></td>
                                     <td><?php _e('If set, this option will allow you to decide the order of the contents within each item on the list.', 'wordpress-popular-posts'); ?></td>
@@ -779,14 +779,14 @@
         </table>
     </div>
     <!-- End faq -->
-    
+
     <!-- Start tools -->
     <div id="wpp_tools" class="wpp_boxes"<?php if (isset($_POST['section']) && ($_POST['section'] == "logging" || $_POST['section'] == "tools" || $_POST['section'] == "ajax" || $_POST['section'] == "css") ) {?> style="display:block;"<?php } ?>>
     	<p><?php _e("Here you will find a handy group of options to tweak Wordpress Popular Posts.", "wordpress-popular-posts"); ?></p><br />
-                       
+
         <h3 class="wmpp-subtitle"><?php _e("Views logging behavior", "wordpress-popular-posts"); ?></h3>
-        	
-        <form action="" method="post" id="wpp_log_options" name="wpp_log_options">            
+
+        <form action="" method="post" id="wpp_log_options" name="wpp_log_options">
             <table class="form-table">
                 <tbody>
                     <tr valign="top">
@@ -799,7 +799,7 @@
                             <br />
                         </td>
                     </tr>
-                    <tr valign="top">                            	
+                    <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="logging" />
                             <input type="submit" class="button-secondary action" id="btn_log_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
@@ -810,10 +810,10 @@
         </form>
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
-        
+
         <h3 class="wmpp-subtitle"><?php _e("Thumbnail source", "wordpress-popular-posts"); ?></h3>
-        	
-        <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">            
+
+        <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">
             <table class="form-table">
                 <tbody>
                 	<tr valign="top">
@@ -830,7 +830,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>                    
+                    </tr>
                     <tr valign="top">
                         <th scope="row"><label for="thumb_source"><?php _e("Pick image from", "wordpress-popular-posts"); ?>:</label></th>
                         <td>
@@ -854,11 +854,11 @@
                         <td>
                             <select name="thumb_field_resize" id="thumb_field_resize">
                                 <option <?php if ( !isset($ops['tools']['thumbnail']['resize']) || !$ops['tools']['thumbnail']['resize'] ) {?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ( isset($ops['tools']['thumbnail']['resize'] ) && $ops['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", "wordpress-popular-posts"); ?></option>                        
+                                <option <?php if ( isset($ops['tools']['thumbnail']['resize'] ) && $ops['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", "wordpress-popular-posts"); ?></option>
                             </select>
                         </td>
                     </tr>
-                    <tr valign="top">                            	
+                    <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="tools" />
                             <input type="submit" class="button-secondary action" id="btn_th_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
@@ -867,10 +867,10 @@
                 </tbody>
             </table>
         </form>
-                
+
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
-        
+
         <h3 class="wmpp-subtitle"><?php _e("Wordpress Popular Posts Stylesheet", "wordpress-popular-posts"); ?></h3>
         <p><?php _e("By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.", "wordpress-popular-posts"); ?></p>
         <div class="tablenav top">
@@ -882,11 +882,11 @@
                     </select>
                     <input type="hidden" name="section" value="css" />
                     <input type="submit" class="button-secondary action" id="btn_css_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
-                </form>                
+                </form>
             </div>
         </div>
         <br /><br />
-        
+
         <h3 class="wmpp-subtitle"><?php _e("Data tools", "wordpress-popular-posts"); ?></h3>
         <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
         	<table class="form-table">
@@ -894,11 +894,11 @@
                     <tr valign="top">
                         <th scope="row"><label for="thumb_source"><?php _e("Ajaxify widget", "wordpress-popular-posts"); ?>:</label></th>
                         <td>
-                            <select name="ajax" id="ajax">                                
+                            <select name="ajax" id="ajax">
                                 <option <?php if (!$ops['tools']['ajax']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", "wordpress-popular-posts"); ?></option>
                                 <option <?php if ($ops['tools']['ajax']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", "wordpress-popular-posts"); ?></option>
                             </select>
-                    
+
                             <br />
                             <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", "wordpress-popular-posts"); ?></p>
                         </td>
@@ -910,7 +910,7 @@
                                 <option <?php if ( !isset($ops['tools']['cache']['active']) || !$ops['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Live", "wordpress-popular-posts"); ?></option>
                                 <option <?php if ( isset($ops['tools']['cache']['active']) && $ops['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Custom interval", "wordpress-popular-posts"); ?></option>
                             </select>
-                    
+
                             <br />
                             <p class="description"><?php _e("Sets how often the listing should be updated. For most sites the Live option should be fine, however if you are experiencing slowdowns or your blog gets a lot of visitors then you might want to change the refresh rate", "wordpress-popular-posts"); ?></p>
                         </td>
@@ -921,16 +921,16 @@
                         	<input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($ops['tools']['cache']['interval']['value']) ) ? (int) $ops['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
                             <select name="cache_interval_time" id="cache_interval_time">
                                 <option <?php if ($ops['tools']['cache']['interval']['time'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($ops['tools']['cache']['interval']['time'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", "wordpress-popular-posts"); ?></option>                                
+                                <option <?php if ($ops['tools']['cache']['interval']['time'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", "wordpress-popular-posts"); ?></option>
                                 <option <?php if ($ops['tools']['cache']['interval']['time'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", "wordpress-popular-posts"); ?></option>
                                 <option <?php if ($ops['tools']['cache']['interval']['time'] == "month") {?>selected="selected"<?php } ?> value="month"><?php _e("Month(s)", "wordpress-popular-posts"); ?></option>
                                 <option <?php if ($ops['tools']['cache']['interval']['time'] == "year") {?>selected="selected"<?php } ?> value="month"><?php _e("Year(s)", "wordpress-popular-posts"); ?></option>
-                            </select>                            
+                            </select>
                             <br />
                             <p class="description" style="display:none;" id="cache_too_long"><?php _e("Really? That long?", "wordpress-popular-posts"); ?></p>
                         </td>
                     </tr>
-                    <tr valign="top">                            	
+                    <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="ajax" />
                     		<input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
@@ -939,15 +939,15 @@
                 </tbody>
             </table>
         </form>
-        
+
         <br /><br />
-        
+
         <p><?php _e('Wordpress Popular Posts maintains data in two separate tables: one for storing the most popular entries in the past 30 days (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p>
         <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", "wordpress-popular-posts"); ?>" onclick="confirm_reset_cache()" /> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
         <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", "wordpress-popular-posts"); ?>" onclick="confirm_reset_all()" /> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
     </div>
     <!-- End tools -->
-    
+
     <br />
     <hr />
     <p><?php _e('Do you like this plugin?', 'wordpress-popular-posts'); ?> <a title="<?php _e('Rate Wordpress Popular Posts!', 'wordpress-popular-posts'); ?>" href="http://wordpress.org/extend/plugins/wordpress-popular-posts/#rate-response" target="_blank"><strong><?php _e('Rate it', 'wordpress-popular-posts'); ?></strong></a> <?php _e('on the official Plugin Directory!', 'wordpress-popular-posts'); ?></p>
