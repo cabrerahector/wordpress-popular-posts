@@ -80,6 +80,7 @@
 				$ops['tools']['thumbnail']['source'] = $_POST['thumb_source'];
 				$ops['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "_wpp_thumbnail";
 				$ops['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
+				$ops['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
 
 				update_option('wpp_settings_config', $ops);
 				echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";

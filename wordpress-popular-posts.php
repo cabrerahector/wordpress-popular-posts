@@ -1229,7 +1229,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							$path = get_post_meta($p->id, $this->user_ops['tools']['thumbnail']['field'], true);
 
 							if ( $path != "" ) {
-								$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_cf\" />";
+								
+								if ( $this->user_ops['tools']['thumbnail']['resize'] ) {
+									
+									$thumb .= $this->get_img( $p->id, array($tbWidth, $tbHeight), $this->user_ops['tools']['thumbnail']['source'] );
+																		
+								} else {
+									$thumb .= "<img src=\"{$path}\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" alt=\"{$title}\" border=\"0\" class=\"wpp-thumbnail wpp_cf\" />";
+								}
+								
 							} else {
 								$thumb .= "<img src=\"". $this->default_thumbnail ."\" alt=\"{$title}\" border=\"0\" width=\"{$tbWidth}\" height=\"{$tbHeight}\" class=\"wpp-thumbnail wpp_cf_def\" />";
 							}
@@ -1424,59 +1432,36 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							$file_path = get_attached_file( $attachment_id );
 
 						} else { // image not found in Media library, maybe external image?
-
-							$accepted_status_codes = array( 200, 301, 302 );
-							$response = wp_remote_head( $image_url, array( 'timeout' => 5, 'sslverify' => false ) );
-
-							if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
-
-								$image_data = getimagesize($image_url);
-
-								if ( is_array($image_data) && !empty($image_data) ) { // we got a valid image, process it
-
-									$uploads = wp_upload_dir();
-									$thumbnail[0] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $image_url )) );
-									$file_path = trailingslashit( $uploads['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $image_url )) );
-
-									if ( !file_exists($file_path) ) { // file has not been cached yet, cache it
-
-										require_once( ABSPATH . 'wp-admin/includes/file.php' );
-										//require_once( ABSPATH . 'wp-admin/includes/image.php' );
-										//require_once( ABSPATH . 'wp-admin/includes/media.php' );
-
-										$image_url = str_replace( 'https://', 'http://', $image_url );
-										$tmp = download_url( $image_url );
-
-										// tmp file could not be created
-										if ( is_wp_error( $tmp ) ) {
-
-											@unlink( $tmp );
-											$tmp = NULL;
-
-										}
-
-										// move file to Uploads
-										if ( NULL !== $tmp && false === rename($tmp, $file_path) ) {
-											$file_path = '';
-										} else {
-
-											// borrowed from WP - set correct file permissions
-											$stat = stat( dirname( $file_path ));
-											$perms = $stat['mode'] & 0000666;
-											@chmod( $file_path, $perms );
-
-										}
-
-									}
-
-								}
-
+						
+							$result = $this->download_image( $image_url, $id );
+							
+							if ( is_array($result) && !empty($result) ) {
+								
+								$thumbnail[0] = $result[0];
+								$file_path = $result[1];
+								
 							}
 
 						}
 
 					}
 
+				}
+
+			} else if ( $source == "custom_field" ) { // get thumbnail path from custom field
+
+				$image_url = get_post_meta($id, $this->user_ops['tools']['thumbnail']['field'], true);
+				$image_url = esc_url( $image_url ); // sanitize URL, just in case
+				preg_match('/[^\?]+\.(jpg|JPG|jpe|JPE|jpeg|JPEG|gif|GIF|png|PNG)/', $image_url, $matches); // remove querystring
+				$image_url = $matches[0];
+				
+				$result = $this->download_image( $image_url, $id );
+							
+				if ( is_array($result) && !empty($result) ) {
+					
+					$thumbnail[0] = $result[0];
+					$file_path = $result[1];
+					
 				}
 
 			}
@@ -1532,6 +1517,118 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 		}
+		
+		function is_external_image( $url ){
+			
+			$dir = wp_upload_dir();
+
+			// baseurl never has a trailing slash
+			if ( false === strpos( $url, $dir['baseurl'] . '/' ) ) {
+				// URL points to a place outside of upload directory
+				return true;
+			}
+			
+			return false;
+			
+		}
+		
+		function download_image( $url, $id ){
+			
+			$image = array();
+			
+			$uploads = wp_upload_dir();
+			$image[0] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
+			$image[1] = trailingslashit( $uploads['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
+			
+			// if the file exists already, return URL and path
+			if ( file_exists($image[1]) ) 
+				return $image;
+				
+			$accepted_status_codes = array( 200, 301, 302 );
+			$response = wp_remote_head( $url, array( 'timeout' => 5, 'sslverify' => false ) );
+			
+			if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
+				
+				$image_data = getimagesize( $url );
+				
+				if ( is_array($image_data) && !empty($image_data) ) {
+					
+					require_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+					$url = str_replace( 'https://', 'http://', $url );
+					$tmp = download_url( $url );
+
+					// move file to Uploads
+					if ( !is_wp_error( $tmp ) && rename($tmp, $image[1]) ) {
+						
+						// borrowed from WP - set correct file permissions
+						$stat = stat( dirname( $image[1] ));
+						$perms = $stat['mode'] & 0000666;
+						@chmod( $image[1], $perms );
+						
+						return $image;
+						
+					}
+					
+				}
+				
+			}
+			
+			return false;
+			
+			/*$accepted_status_codes = array( 200, 301, 302 );
+			$response = wp_remote_head( $url, array( 'timeout' => 5, 'sslverify' => false ) );
+
+			if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
+
+				$image_data = getimagesize( $url );
+				
+				// we got a valid image, process it
+				if ( is_array($image_data) && !empty($image_data) ) {
+
+					$uploads = wp_upload_dir();
+					$image[0] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
+					$image[1] = trailingslashit( $uploads['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
+					
+					// file has not been cached yet, cache it
+					if ( !file_exists($image[1]) ) {
+
+						require_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+						$url = str_replace( 'https://', 'http://', $url );
+						$tmp = download_url( $url );
+
+						// tmp file could not be created
+						if ( is_wp_error( $tmp ) ) {
+
+							@unlink( $tmp );
+							$tmp = NULL;
+
+						}
+
+						// move file to Uploads
+						if ( NULL !== $tmp && false === rename($tmp, $image[1]) ) {
+							$image[1] = '';
+						} else {
+
+							// borrowed from WP - set correct file permissions
+							$stat = stat( dirname( $image[1] ));
+							$perms = $stat['mode'] & 0000666;
+							@chmod( $image[1], $perms );
+
+						}
+
+					}
+					
+					return $image;
+
+				}
+
+			}
+			
+			return false;*/
+			
+		}
 
 		/**
 		* Get the Attachment ID for a given image URL.
@@ -1541,13 +1638,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		*/
 		function wpp_get_attachment_id( $url ) {
 
-			$dir = wp_upload_dir();
+			/*$dir = wp_upload_dir();
 
 			// baseurl never has a trailing slash
 			if ( false === strpos( $url, $dir['baseurl'] . '/' ) ) {
 				// URL points to a place outside of upload directory
 				return false;
-			}
+			}*/
+			
+			if ( $this->is_external_image($url) )
+				return false;
 
 			$file  = wp_basename( $url );
 			$query = array(
