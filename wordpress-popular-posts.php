@@ -1740,7 +1740,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			// WP-PostRatings check
-			if ($rating) {
+			if ($rating && $this->postRating) {
 				if ( in_array("{rating}", $matches[0]) ) {
 					$string = str_replace( "{rating}", the_ratings_results($data['id']), $string );
 				}
