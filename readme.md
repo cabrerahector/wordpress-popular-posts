@@ -211,13 +211,13 @@ When submitting an issue, please answer the following questions:
 * Fixed typo in wpp_update_warning. From v2.3.3, minimun Wordpress version required is 3.3.
 * Fixed minor bugs.
 
-= 2.3.5 =
+#### 2.3.5 ####
 
 * Fixed minor bugs on admin page.
 * Fixed query bug preventing some results from being listed.
 * Added a check to avoid using the terms tables if not necessary (eg. listing pages only).
 
-= 2.3.4 =
+#### 2.3.4 ####
 
 * Added ability to shorten title/excerpt by number of words.
 * Updated excerpt code, don't show it if empty.
@@ -230,7 +230,7 @@ When submitting an issue, please answer the following questions:
 * Updated `wpp_print_stylesheet()` to get the wpp.css file from the right path (thanks, Martin!).
 * Moved translations to lang folder.
 
-= 2.3.3 =
+#### 2.3.3 ####
 
 * Minimum Wordpress version requirement changed to 3.3.
 * Minimum PHP version requirement changed to 5.2.0.
@@ -253,14 +253,14 @@ When submitting an issue, please answer the following questions:
 * Added dutch translation. (Thank you, Jeroen!)
 * Added german translation. (Thank you, Martin!)
 
-= 2.3.2 =
+#### 2.3.2 ####
 
 * The ability to enable / disable the Ajax Update has been removed. It introduced a random bug that doubled the views count of some posts / pages. Will be added back when a fix is ready.
 * Fixed a bug preventing the cat parameter from excluding categories (widget was not affected by this).
 * FAQ section (Settings / Wordpress Popular Posts / FAQ) updated.
 * Added french translation. (Thanks, Le Raconteur!)
 
-= 2.3.1 =
+#### 2.3.1 ####
 
 * Fixed bug caused by the sorter function when there are multiple instances of the widget.
 * Added check for new options in the get_popular_posts function.
@@ -268,7 +268,7 @@ When submitting an issue, please answer the following questions:
 * Fixed bug preventing some site from fetching images from subdomains or external sites.
 * Fixed bug that prevented excluding more than one category using the Category filter.
 
-= 2.3.0 =
+#### 2.3.0 ####
 
 * Merged all pages into Settings/Wordpress Popular Posts.
 * Added new options to the Wordpress Popular Posts Stats dashboard.
@@ -282,11 +282,11 @@ When submitting an issue, please answer the following questions:
 * Improved the category filtering feature.
 * Added the ability to get popular posts from given author IDs.
 
-= 2.2.1 =
+#### 2.2.1 ####
 
 * Quick update to fix error with All-time combined with views breaking the plugin.
 
-= 2.2.0 =
+#### 2.2.0 ####
 
 * Featured Image is generated for the user automatically if not present and if there's an image attached to the post.
 * Range feature Today option changed. Replaced with Last 24 hours.
@@ -297,11 +297,11 @@ When submitting an issue, please answer the following questions:
 * Fixed bug keeping db tables from being created. Thanks northlake!
 * Fixed bug on the shortcode which was showing pages even if turned off. Thanks danpkraus!
 
-= 2.1.7 =
+#### 2.1.7 ####
 
 * Added stylesheet detection. If wpp.css is on theme's folder, will use that instead the one bundled with the plugin.
 
-= 2.1.6 =
+#### 2.1.6 ####
 
 * Added DB character set and collate detection.
 * Fixed excerpt translation issue when the qTrans plugin is present. Thanks r3df!.
@@ -310,30 +310,30 @@ When submitting an issue, please answer the following questions:
 * Fixed widget title encoding bug.
 * Fixed deprecated errors on load_plugin_textdomain and add_submenu_page.
 
-= 2.1.5 =
+#### 2.1.5 ####
 
 * Dropped TimThumb support in favor of Wordpress's Featured Image function.
 
-= 2.1.4 =
+#### 2.1.4 ####
 
 * Added italian localization. Thanks Gianni!
 * Added charset detection.
 * Fixed bug preventing HTML View / Visual View on Edit Post page from working.
 
-= 2.1.1 =
+#### 2.1.1 ####
 * Fixed bug preventing widget title from being saved.
 * Fixed bug affecting blogs with Wordpress installed somewhere else than domain's root.
 * Added htmlentities to post titles.
 * Added default thumbnail image if none is found in the post.
 
-= 2.1.0 =
+#### 2.1.0 ####
 
 * Title special HTML entities bug fixed.
 * Thumbnail feature improved! Wordpress Popular Posts now supports The Post Thumbnail feature. You can choose whether to select your own thumbnails, or let Wordpress Popular Posts create them for you!
 * Shortcode bug fixed. Thanks Krokkodriljo!
 * Category exclusion feature improved. Thanks raamdev!
 
-= 2.0.3 =
+#### 2.0.3 ####
 
 * Added a Statistics Dashboard to Admin panel so users can view what's popular directly from there.
 * Users can now select a different date format.
@@ -341,13 +341,13 @@ When submitting an issue, please answer the following questions:
 * Cache maintenance bug fixed.
 * Several UI enhancements were applied to this version.
 
-= 2.0.2 =
+#### 2.0.2 ####
 
 * "Keep text format and links" feature introduced. If selected, formatting tags and hyperlinks won't be removed from excerpt.
 * Post title excerpt html entities bug fixed. It was causing the excerpt function to display more characters than the requested by user.
 * Several shortcode bugs fixed (range, order_by, do_pattern, pattern_form were not working as expected).
 
-= 2.0.1 =
+#### 2.0.1 ####
 
 * Post title excerpt now includes html entities. Characters like `ÅÄÖ` should display properly now.
 * Post excerpt has been improved. Now it supports the following HTML tags: a, b, i, strong, em.
@@ -355,7 +355,7 @@ When submitting an issue, please answer the following questions:
 * Template tag `get_mostpopular()` re-added. Parameter support included.
 * Shortcode bug fixed (range was always "daily" no matter what option was being selected by the user).
 
-= 2.0.0 =
+#### 2.0.0 ####
 
 * Plugin rewritten to support Multi-Widget capabilities
 * Cache table implemented
@@ -365,72 +365,72 @@ When submitting an issue, please answer the following questions:
 * Thumbnail feature improved - some bugs were fixed, too
 * Maintenance page added
 
-= 1.5.1 =
+#### 1.5.1 ####
 
 * Widget bug fixed
 
-= 1.5.0 =
+#### 1.5.0 ####
 
 * Database improvements implemented
 * WP-PostRatings support added
 * Thumbnail feature added
 
-= 1.4.6 =
+#### 1.4.6 ####
 
 * Bug in get_mostpopular function affected comments on single.php
 * "Show pageviews" option bug fixed
 * Added "content formatting tags" functionality
 
-= 1.4.5 =
+#### 1.4.5 ####
 
 * Added new localizable strings
 * Fixed Admin page coding bug that was affecting the styling of WPP
 
-= 1.4.4 =
+#### 1.4.4 ####
 
 * HTML Markup customizer added
 * Removed some unnessesary files
 
-= 1.4.3 =
+#### 1.4.3 ####
 
 * Korean and Swedish are supported
 
-= 1.4.2 =
+#### 1.4.2 ####
 
 * Code snippet bug found
 
-= 1.4.1 =
+#### 1.4.1 ####
 
 * Found database bug affecting only new installations
 
-= 1.4 =
+#### 1.4 ####
 
 * Massive code enhancement
 * CSS bugs fixed
 * Features added: Time Range; author and date (stats tag); separate settings for Widget and Code Snippet
 
-= 1.3.2 =
+#### 1.3.2 ####
 
 * Permalink bug fixed
 
-= 1.3.1 =
+#### 1.3.1 ####
 
 * Admin panel styling bug fixed
 
-= 1.3 =
+#### 1.3 ####
 
 * Added an Admin page for a better management of the plugin
 * New sorting options (sort posts by comment count, by pageviews, or by average daily views) added
 
-= 1.2 =
+#### 1.2 ####
 
 * Added extra functionalities to Wordpress Popular Post plugin core
 
-= 1.1  =
+#### 1.1  ####
 
 * Fixed comment count bug
 
-= 1.0 =
+#### 1.0 ####
 
 * Public release
 
