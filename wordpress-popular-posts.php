@@ -798,14 +798,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			wp_print_scripts('jquery');
 
 			// if we're on a page or post, load the script
-			//if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
 			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() ) {
 
 				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
 					return;
-
-				// let's add jQuery
-				//wp_print_scripts('jquery');
 
 				// create security token
 				$nonce = wp_create_nonce('wpp-token');
@@ -1087,10 +1083,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$permalink = get_permalink( $p->id );
 					$author = ($instance['stats_tag']['author']) ? get_the_author_meta('display_name', $p->uid) : "";
 					$date = date_i18n( $instance['stats_tag']['date']['format'], strtotime($p->date) );
-
-					//$pageviews = ($instance['order_by'] == "views" || $instance['order_by'] == "avg" || $instance['stats_tag']['views']) ? (($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n($p->pageviews) : number_format_i18n( $p->avg_views, 2) ) : 0;
 					$pageviews = ($instance['order_by'] == "views" || $instance['order_by'] == "avg" || $instance['stats_tag']['views']) ? (($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? $p->pageviews : $p->avg_views ) : 0;
-					//$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count']) ? number_format_i18n($p->comment_count) : 0;
 					$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count']) ? $p->comment_count : 0;
 
 					$post_cat = "";
@@ -1114,18 +1107,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 								array_pop($words);
 								$title_sub = implode(" ", $words) . "...";
-								//$title_sub = implode(" ", $words);
-								//$title_sub = apply_filters('the_title', $title_sub, $p->id) . "...";
 
 							}
 
 						} else { // by characters
 
-							//$title_sub = apply_filters('the_title', $title_sub, $p->id) . "...";
-
 							if ( strlen($title) > $instance['shorten_title']['length'] ) {
 								$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset) . "...";
-								//$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset);
 							}
 
 						}
@@ -1134,8 +1122,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					$title = htmlspecialchars( $title, ENT_QUOTES, $this->charset );
 					$title_sub = htmlspecialchars( $title_sub, ENT_QUOTES, $this->charset );
-					//$title = htmlentities( $title, ENT_QUOTES, $this->charset );
-					//$title_sub = htmlentities( $title_sub, ENT_QUOTES, $this->charset );
 
 					$title = apply_filters('the_title', $title, $p->id);
 					$title_sub = apply_filters('the_title', $title_sub, $p->id);
@@ -1158,7 +1144,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// STATS
 					// comments
 					if ( $instance['stats_tag']['comment_count'] ) {
-						//$comments_text = ( $comments == 1 ) ? "$comments " . __('comment', 'wordpress-popular-posts') : "$comments " . __('comments', 'wordpress-popular-posts');
 						$comments_text =sprintf(
 						_n('1 comment', '%s comments', $comments, 'wordpress-popular-posts'),
 						number_format_i18n($comments));
@@ -1167,14 +1152,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 					// views
 					if ( $instance['stats_tag']['views'] ) {
-
-						/*if ($instance['order_by'] == 'avg') {
-							$views_text = ( (int)$pageviews == 1 ) ? "$pageviews " . __('view per day', 'wordpress-popular-posts') : "$pageviews " . __('views per day', 'wordpress-popular-posts');
-							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
-						} else {
-							$views_text = ( $pageviews == 1 ) ? "$pageviews " . __('view', 'wordpress-popular-posts') : "$pageviews " . __('views', 'wordpress-popular-posts');
-							$stats .= ($stats == "") ? "<span class=\"wpp-views\">" . $views_text . "</span>" : " | <span class=\"wpp-views\">" . $views_text . "</span>";
-						}*/
 
 						if ($instance['order_by'] == 'avg') {
 							$views_text = sprintf(
@@ -1268,20 +1245,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// PUTTING IT ALL TOGETHER
 					if ($instance['markup']['custom_html']) { // build custom layout
 
-						/*$data = array(
-							'title' => '<a href="'.$permalink.'" title="'.$title.'">'.$title_sub.'</a>',
-							'summary' => $excerpt,
-							'stats' => $stats,
-							'img' => $thumb,
-							'id' => $p->id,
-							'url' => $permalink,
-							'text_title' => $title,
-							'category' => $post_cat,
-							'author' => "<a href=\"".get_author_posts_url($p->uid)."\">{$author}</a>",
-							'views' => $pageviews,
-							'comments' => $comments
-						);*/
-
 						$content .= htmlspecialchars_decode( $this->format_content($instance['markup']['post-html'], $data, $instance['rating']), ENT_QUOTES ) . "\n";
 
 					} else { // build regular layout
@@ -1321,8 +1284,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// RRR added call to the_content filters, allows qTranslate to hook in.
             if ( $this->qTrans )
 				$excerpt = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage( $excerpt );
-
-			//$excerpt = apply_filters('get_the_excerpt', $excerpt);
 
 			// remove WP shortcodes (and HTML tags if requested)
 			if ( $instance['post-excerpt']['keep_format'] ) {
@@ -1576,58 +1537,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			return false;
 			
-			/*$accepted_status_codes = array( 200, 301, 302 );
-			$response = wp_remote_head( $url, array( 'timeout' => 5, 'sslverify' => false ) );
-
-			if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
-
-				$image_data = getimagesize( $url );
-				
-				// we got a valid image, process it
-				if ( is_array($image_data) && !empty($image_data) ) {
-
-					$uploads = wp_upload_dir();
-					$image[0] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
-					$image[1] = trailingslashit( $uploads['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
-					
-					// file has not been cached yet, cache it
-					if ( !file_exists($image[1]) ) {
-
-						require_once( ABSPATH . 'wp-admin/includes/file.php' );
-
-						$url = str_replace( 'https://', 'http://', $url );
-						$tmp = download_url( $url );
-
-						// tmp file could not be created
-						if ( is_wp_error( $tmp ) ) {
-
-							@unlink( $tmp );
-							$tmp = NULL;
-
-						}
-
-						// move file to Uploads
-						if ( NULL !== $tmp && false === rename($tmp, $image[1]) ) {
-							$image[1] = '';
-						} else {
-
-							// borrowed from WP - set correct file permissions
-							$stat = stat( dirname( $image[1] ));
-							$perms = $stat['mode'] & 0000666;
-							@chmod( $image[1], $perms );
-
-						}
-
-					}
-					
-					return $image;
-
-				}
-
-			}
-			
-			return false;*/
-			
 		}
 
 		/**
@@ -1637,14 +1546,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		* @return boolean|integer
 		*/
 		function wpp_get_attachment_id( $url ) {
-
-			/*$dir = wp_upload_dir();
-
-			// baseurl never has a trailing slash
-			if ( false === strpos( $url, $dir['baseurl'] . '/' ) ) {
-				// URL points to a place outside of upload directory
-				return false;
-			}*/
 			
 			if ( $this->is_external_image($url) )
 				return false;
@@ -2290,18 +2191,4 @@ function get_mostpopular($args = NULL) {
 * Updated wpp.css with text floating next to thumbnails - this sets a predefined style for the plugin for the first time.
 * Added plugin version to wp_enqueue_* calls.
 * Fixed typo in wpp_update_warning. From v2.3.3, minimun Wordpress version required is 3.3.
-*/
-
-/*
-TODO
-* [CHECK] http://wp.tutsplus.com/tutorials/plugins/writing-extensible-plugins-with-actions-and-filters/
-* [FIX] Clean up invalid characters from filenames when creating thumbnails with sanitize_file_name() http://codex.wordpress.org/Function_Reference/sanitize_file_name
-* [FIX-ED] External thumbails are broken, WTC 3 and Amazon's CDN http://wordpress.org/support/topic/my-thumbnails-keep-dissapearing-after-upgrade
-* [FIX] Excerpt messing with HTML tags http://wordpress.org/support/topic/problem-with-limit-and-range?replies=10#post-4267946
-* [ADD] Option to log views from logged-in only.
-* [ADD] Popular posts feed http://wordpress.org/support/topic/plugin-wordpress-popular-posts-how-to-create-an-rss-feed-for-most-popular-posts
-* [ADD] Post freshness as an option when filtering entries.
-* [ADD] Sort posts by category when is_category() returns true.
-* [ADD] Enable / disable checkboxes and fields via javascript. http://stackoverflow.com/questions/4315171/loading-custom-javascript-files-in-the-wordpress-widgets-admin-panel
-* [ADD] Use Transients to cache query results: http://codex.wordpress.org/Transients_API - http://www.wpbeginner.com/wp-tutorials/speed-up-your-wordpress-by-caching-custom-queries-using-transients-api/
 */
