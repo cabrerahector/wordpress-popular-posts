@@ -28,7 +28,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 	class WordpressPopularPosts extends WP_Widget {
 		// plugin global variables
-		var $version = "2.3.5";
+		var $version = "2.3.6";
 		var $qTrans = false;
 		var $postRating = false;
 		var $thumb = false;

@@ -198,6 +198,19 @@ When submitting an issue, please answer the following questions:
 
 ## Changelog
 
+#### 2.3.6 ####
+* Added ability to set links' target attribute (thanks, Pedro!).
+* Added sanitization for external thumbnail filenames to avoid weird characters.
+* Added a new content tag, {score}, to display the post rating as a simple integer (thanks, Artem!).
+* Added japanese and persian translations (thanks kjmtsh and Tatar).
+* Added wpp-list class to the UL tag, this should help style the popular list better.
+* Added plugin version to wp_enqueue_* calls.
+* Updated thumbnail feature to handle external images.
+* Updated wpp.css with text floating next to thumbnails - this sets a predefined style for the plugin for the first time.
+* Removed unnecesary wpp-thumbnail class from link tag, the image already has it.
+* Fixed typo in wpp_update_warning. From v2.3.3, minimun Wordpress version required is 3.3.
+* Fixed minor bugs.
+
 = 2.3.5 =
 
 * Fixed minor bugs on admin page.
