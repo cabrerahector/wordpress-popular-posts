@@ -32,6 +32,9 @@
 			'ajax' => false,
 			'css' => true,
 			'stylesheet' => true,
+			'link' => array(
+				'target' => '_self'
+			),
 			'thumbnail' => array(
 				'source' => 'featured',
 				'field' => '_wpp_thumbnail',
@@ -66,7 +69,13 @@
 			update_option('wpp_settings_config', $ops);
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
-		} else if ($_POST['section'] == "logging") {
+		} else if ($_POST['section'] == "linking") {
+			
+			$ops['tools']['link']['target'] = $_POST['link_target'];
+			update_option('wpp_settings_config', $ops);
+			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+			
+		}else if ($_POST['section'] == "logging") {
 
 			$ops['tools']['log_loggedin'] = $_POST['log_option'];
 			update_option('wpp_settings_config', $ops);
@@ -782,8 +791,35 @@
     <!-- End faq -->
 
     <!-- Start tools -->
-    <div id="wpp_tools" class="wpp_boxes"<?php if (isset($_POST['section']) && ($_POST['section'] == "logging" || $_POST['section'] == "tools" || $_POST['section'] == "ajax" || $_POST['section'] == "css") ) {?> style="display:block;"<?php } ?>>
+    <div id="wpp_tools" class="wpp_boxes"<?php if (isset($_POST['section']) && ($_POST['section'] == "linking" || $_POST['section'] == "logging" || $_POST['section'] == "tools" || $_POST['section'] == "ajax" || $_POST['section'] == "css") ) {?> style="display:block;"<?php } ?>>
     	<p><?php _e("Here you will find a handy group of options to tweak Wordpress Popular Posts.", "wordpress-popular-posts"); ?></p><br />
+        
+        <h3 class="wmpp-subtitle"><?php _e("Popular Posts links behavior", "wordpress-popular-posts"); ?></h3>
+
+        <form action="" method="post" id="wpp_link_options" name="wpp_link_options">
+            <table class="form-table">
+                <tbody>
+                    <tr valign="top">
+                        <th scope="row"><label for="link_target"><?php _e("Open links in", "wordpress-popular-posts"); ?>:</label></th>
+                        <td>
+                            <select name="link_target" id="link_target">
+                                <option <?php if (!isset($ops['tools']['link']['target']) || $ops['tools']['link']['target'] == '_self') {?>selected="selected"<?php } ?> value="_self"><?php _e("Current window", "wordpress-popular-posts"); ?></option>
+                                <option <?php if (isset($ops['tools']['link']['target']) && $ops['tools']['link']['target'] == '_blank') {?>selected="selected"<?php } ?> value="_blank"><?php _e("New tab/window", "wordpress-popular-posts"); ?></option>
+                            </select>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <td colspan="2">
+                            <input type="hidden" name="section" value="linking" />
+                            <input type="submit" class="button-secondary action" id="btn_link_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <br />
+        <p style="display:block; float:none; clear:both">&nbsp;</p>
 
         <h3 class="wmpp-subtitle"><?php _e("Views logging behavior", "wordpress-popular-posts"); ?></h3>
 

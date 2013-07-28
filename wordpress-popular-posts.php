@@ -94,6 +94,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'ajax' => false,
 				'css' => true,
 				'stylesheet' => true,
+				'link' => array(
+					'target' => '_self'
+				),
 				'thumbnail' => array(
 					'source' => 'featured',
 					'field' => '',
@@ -1199,7 +1202,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$tbWidth = $instance['thumbnail']['width'];
 						$tbHeight = $instance['thumbnail']['height'];
 
-						$thumb = "<a href=\"". $permalink ."\" title=\"{$title}\">";
+						$thumb = "<a href=\"". $permalink ."\" title=\"{$title}\" target=\"".$this->user_ops['tools']['link']['target']."\">";
 
 						if ( $this->user_ops['tools']['thumbnail']['source'] == "custom_field" ) { // get image from custom field
 
@@ -1248,7 +1251,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$content .= htmlspecialchars_decode( $this->format_content($instance['markup']['post-html'], $data, $instance['rating']), ENT_QUOTES ) . "\n";
 
 					} else { // build regular layout
-						$content .= "<li>{$thumb}<a href=\"{$permalink}\" title=\"{$title}\" class=\"wpp-post-title\">{$title_sub}</a> {$excerpt}<span class=\"post-stats\">{$stats}</span>{$rating}</li>" . "\n";
+						$content .= "<li>{$thumb}<a href=\"{$permalink}\" title=\"{$title}\" class=\"wpp-post-title\" target=\"".$this->user_ops['tools']['link']['target']."\">{$title_sub}</a> {$excerpt}<span class=\"post-stats\">{$stats}</span>{$rating}</li>" . "\n";
 					}
 				}
 
