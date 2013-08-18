@@ -198,6 +198,9 @@ When submitting an issue, please answer the following questions:
 
 ## Changelog
 
+#### 2.3.7 ####
+* Fixed category excluding/including bug.
+
 #### 2.3.6 ####
 * Added ability to set links' target attribute (thanks, Pedro!).
 * Added sanitization for external thumbnail filenames to avoid weird characters.

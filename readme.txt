@@ -3,8 +3,8 @@ Contributors: hcabrera
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dadslayer%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
 Tags: popular, posts, popular posts, widget, seo, wordpress, custom post type
 Requires at least: 3.3
-Tested up to: 3.5.2
-Stable tag: 2.3.6
+Tested up to: 3.6
+Stable tag: 2.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,6 +185,9 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+
+= 2.3.7 =
+* Fixed category excluding/including bug.
 
 = 2.3.6 =
 * Added ability to set links' target attribute (thanks, Pedro!).
