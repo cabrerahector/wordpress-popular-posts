@@ -929,7 +929,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							 JOIN $wpdb->term_taxonomy AS x ON x.term_taxonomy_id = r.term_taxonomy_id
 							 JOIN $wpdb->terms AS t ON t.term_id = x.term_id
 						WHERE x.taxonomy = 'category' AND t.term_id IN($in_cats)
-						)) OR (p.post_type = 'post' AND p.ID NOT IN (
+						) AND p.ID NOT IN (
 						SELECT object_id
 						FROM $wpdb->term_relationships AS r
 							 JOIN $wpdb->term_taxonomy AS x ON x.term_taxonomy_id = r.term_taxonomy_id
