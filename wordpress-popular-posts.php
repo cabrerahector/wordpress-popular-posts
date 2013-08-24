@@ -194,7 +194,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				remove_action('wp_head', array(&$this, 'wpp_print_ajax'));
 				// add update action, no ajax
 				//add_action('the_content', array(&$this,'wpp_update') );
-				add_action('template_redirect', array(&$this,'wpp_update') );
+				add_action('template_redirect', array(&$this,'wpp_update'), 1 );
 			}
 
 			// add ajax table truncation to wp_ajax_ hook
