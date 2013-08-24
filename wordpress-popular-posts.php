@@ -193,7 +193,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				remove_action('wp_ajax_nopriv_wpp_update', array(&$this, 'wpp_ajax_update'));
 				remove_action('wp_head', array(&$this, 'wpp_print_ajax'));
 				// add update action, no ajax
-				//add_action('the_content', array(&$this,'wpp_update') );
 				add_action('template_redirect', array(&$this,'wpp_update'), 1 );
 			}
 
@@ -556,30 +555,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/**
 		 * Updates popular posts data table on post/page view
 		 * Since 2.3.0
-		 */
-		/*function wpp_update($content) {
-
-			//if ( (is_single() || is_page()) && !is_user_logged_in() && !is_front_page() ) {
-			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() ) {
-
-				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
-					return $content;
-
-				global $wpdb, $post;
-
-				$table = $wpdb->prefix . 'popularpostsdata';
-				$result = $wpdb->query("INSERT INTO {$table} (postid, day, last_viewed) VALUES ({$post->ID}, '{$this->now()}', '{$this->now()}') ON DUPLICATE KEY UPDATE last_viewed = '{$this->now()}', pageviews = pageviews + 1;");
-				$result2 = $wpdb->query("INSERT INTO {$table}cache (id, day, day_no_time) VALUES ({$post->ID}, '{$this->now()}', '{$this->curdate()}') ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, day = '{$this->now()}', day_no_time = '{$this->curdate()}';");
-
-				if (!$result || !$result2) {
-					print_r( $wpdb->print_error() );
-				}
-
-			}
-
-			return $content;
-
-		}*/
+		 */		
 		function wpp_update() {
 
 			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
