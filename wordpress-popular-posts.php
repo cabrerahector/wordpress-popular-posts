@@ -582,7 +582,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		}*/
 		function wpp_update() {
 
-			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() ) {
+			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
 
 				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
 					return;
@@ -822,7 +822,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			wp_print_scripts('jquery');
 
 			// if we're on a page or post, load the script
-			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() ) {
+			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
 
 				if ( isset($this->user_ops['tools']['log_loggedin']) && $this->user_ops['tools']['log_loggedin'] == 0 && is_user_logged_in() )
 					return;
