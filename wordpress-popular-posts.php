@@ -1826,7 +1826,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Since 2.3.0
 		 */
 		function wpp_admin() {
-			require (dirname(__FILE__) . '/admin.php');
+			require (dirname(__FILE__) . '/views/admin.php');
 		}
 		function add_wpp_admin() {
 			add_options_page('Wordpress Popular Posts', 'Wordpress Popular Posts', 'manage_options', 'wpp_admin', array(&$this, 'wpp_admin'));
