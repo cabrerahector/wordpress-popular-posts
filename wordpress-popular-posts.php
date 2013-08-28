@@ -1676,8 +1676,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( in_array("{comments}", $matches[0]) ) {
 				$string = str_replace( "{comments}", $data['comments'], $string );
 			}
-
-			return html_entity_decode( $string );
+			
+			return html_entity_decode( $string, ENT_QUOTES, $this->charset );
 		}
 
 		// code seen at http://www.gsdesign.ro/blog/cut-html-string-without-breaking-the-tags/
