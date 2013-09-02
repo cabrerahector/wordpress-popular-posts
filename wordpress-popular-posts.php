@@ -1709,7 +1709,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		protected function _get_pageviews($p, $instance) {
 			
-			$cache = &$this->__cache(__FUNCTION__, array());
+			$cache = &$this->__cache(__FUNCTION__ . md5(json_encode($instance)), array());
 			
 			if (isset($cache[$p->id])) {
 				return $cache[$p->id];
@@ -1740,7 +1740,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		protected function _get_comments($p, $instance) {
 			
-			$cache = &$this->__cache(__FUNCTION__, array());
+			$cache = &$this->__cache(__FUNCTION__ . md5(json_encode($instance)), array());
 			
 			if (isset($cache[$p->id])) {
 				return $cache[$p->id];
@@ -1860,7 +1860,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		protected function _get_stats($p, $instance) {
 			
-			$cache = &$this->__cache(__FUNCTION__, array());
+			$cache = &$this->__cache(__FUNCTION__ . md5(json_encode($instance)), array());
 			
 			if (isset($cache[$p->id])) {
 				return $cache[$p->id];
