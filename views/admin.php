@@ -496,34 +496,6 @@ if ( isset($_POST['section']) ) {
                         <td>&lt;li&gt;{thumb} {title} {stats}&lt;/li&gt;</td>
                         <td>post_html="&lt;li&gt;{thumb} &lt;a href='{url}'&gt;{text_title}&lt;/a&gt; &lt;/li&gt;"</td>
                     </tr>
-                    <!--<tr class="alternate">
-                        <td><strong>post_start</strong></td>
-                        <td><?php _e('Sets the opening tag for each item on the list', $this->plugin_slug); ?></td>
-                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
-                        <td>&lt;li&gt;</td>
-                        <td>post_start="&lt;li&gt;"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>post_end</strong></td>
-                        <td><?php _e('Sets the closing tag for each item on the list', $this->plugin_slug); ?></td>
-                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
-                        <td>&lt;/li&gt;</td>
-                        <td>post_end="&lt;/li&gt;"</td>
-                    </tr>                        
-                    <tr class="alternate">
-                        <td><strong>do_pattern</strong></td>
-                        <td><?php _e('If set, this option will allow you to decide the order of the contents within each item on the list.', $this->plugin_slug); ?></td>
-                        <td>1 (true), (0) false</td>
-                        <td>0</td>
-                        <td>do_pattern=1</td>
-                    </tr>
-                    <tr>
-                        <td><strong>pattern_form</strong></td>
-                        <td><?php _e('If set, you can decide the order of each content inside a single item on the list. For example, setting it to "{title}: {summary}" would output something like "Your Post Title: summary here". This attribute requires do_pattern to be true.', $this->plugin_slug); ?></td>
-                        <td><?php _e('Available tags', $this->plugin_slug); ?>: {thumb}, {title}, {summary}, {stats}, {rating}, {url}, {text_title}, {author}, {category}, {views}, {comments}</td>
-                        <td>{image} {thumb}: {summary} {stats}</td>
-                        <td>pattern_form="{thumb} {title}: {summary} {stats}"</td>
-                    </tr>-->
                 </tbody>
             </table>
         </div>
