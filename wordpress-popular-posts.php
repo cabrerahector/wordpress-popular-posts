@@ -592,7 +592,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function replace_thickbox_text($translated_text, $text, $domain) {
 
 			if ('Insert into Post' == $text) {
-				$referer = strpos( wp_get_referer(), 'wpp_admin' );
+				$referer = strpos( wp_get_referer(), 'wordpress-popular-posts' );
 				if ( $referer != '' ) {
 					return __('Upload', 'wordpress-popular-posts' );
 				}
@@ -663,7 +663,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$this_plugin = plugin_basename(__FILE__);
 
 			if ( is_plugin_active($this_plugin) && $file == $this_plugin ) {
-				$links[] = '<a href="' . admin_url( 'options-general.php?page=wpp_admin' ) . '">Settings</a>';
+				$links[] = '<a href="' . admin_url( 'options-general.php?page=wordpress-popular-posts' ) . '">Settings</a>';
 			}
 
 			return $links;
