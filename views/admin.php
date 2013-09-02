@@ -46,7 +46,7 @@ if ( isset($_POST['section']) ) {
 		$current = 'tools';
 		
 		if ($_POST['thumb_source'] == "custom_field" && (!isset($_POST['thumb_field']) || empty($_POST['thumb_field']))) {
-			echo '<div id="wpp-message" class="error fade"><p>'.__('Please provide the name of your custom field.', 'wordpress-popular-posts').'</p></div>';
+			echo '<div id="wpp-message" class="error fade"><p>'.__('Please provide the name of your custom field.', $this->plugin_slug).'</p></div>';
 		} else {				
 			$this->user_settings['tools']['thumbnail']['source'] = $_POST['thumb_source'];
 			$this->user_settings['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "_wpp_thumbnail";
@@ -112,9 +112,9 @@ if ( isset($_POST['section']) ) {
     <?php
     // build tabs    
     $tabs = array( 
-        'stats' => __('Stats', 'wordpress-popular-posts'),
-        'faq' => __('FAQ', 'wordpress-popular-posts'),
-        'tools' => __('Tools', 'wordpress-popular-posts')
+        'stats' => __('Stats', $this->plugin_slug),
+        'faq' => __('FAQ', $this->plugin_slug),
+        'tools' => __('Tools', $this->plugin_slug)
     );
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
@@ -168,359 +168,359 @@ if ( isset($_POST['section']) ) {
     
     <!-- Start faq -->
     <div id="wpp_faq" class="wpp_boxes"<?php if ( "faq" == $current ) {?> style="display:block;"<?php } ?>>    	
-        <h4>&raquo; <a href="#" rel="q-1"><?php _e('What does "Title" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-1"><?php _e('What does "Title" do?', $this->plugin_slug); ?></a></h4>
         
         <div class="wpp-ans" id="q-1">
-            <p><?php _e('It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-2"><?php _e('What is Time Range for?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-2"><?php _e('What is Time Range for?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-2">
-            <p><?php _e('It will tell Wordpress Popular Posts to retrieve all posts with most views / comments within the selected time range.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('It will tell Wordpress Popular Posts to retrieve all posts with most views / comments within the selected time range.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-3"><?php _e('What is "Sort post by" for?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-3"><?php _e('What is "Sort post by" for?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-3">
-            <p><?php _e('It allows you to decide whether to order your popular posts listing by total views, comments, or average views per day.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('It allows you to decide whether to order your popular posts listing by total views, comments, or average views per day.', $this->plugin_slug); ?></p>
         </div>                    
         
-        <h4>&raquo; <a href="#" rel="q-4"><?php _e('What does "Display post rating" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-4"><?php _e('What does "Display post rating" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-4">
-            <p><?php _e('If checked, Wordpress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, Wordpress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-5"><?php _e('What does "Shorten title" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-5"><?php _e('What does "Shorten title" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-5">
-            <p><?php _e('If checked, all posts titles will be shortened to "n" characters/words. A new "Shorten title to" option will appear so you can set it to whatever you like.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, all posts titles will be shortened to "n" characters/words. A new "Shorten title to" option will appear so you can set it to whatever you like.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-6"><?php _e('What does "Display post excerpt" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-6"><?php _e('What does "Display post excerpt" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-6">
-            <p><?php _e('If checked, Wordpress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, Wordpress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-7"><?php _e('What does "Keep text format and links" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-7"><?php _e('What does "Keep text format and links" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-7">
-            <p><?php _e('If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-8"><?php _e('What is "Post type" for?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-8"><?php _e('What is "Post type" for?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-8">
-            <p><?php _e('This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases).', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases).', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-9">
-            <p><?php _e('This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-10"><?php _e('What is "Author(s) ID(s)" for?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-10"><?php _e('What is "Author(s) ID(s)" for?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-10">
-            <p><?php _e('Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-11"><?php _e('What does "Display post thumbnail" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-11"><?php _e('What does "Display post thumbnail" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-11">
-            <p><?php _e('If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - Wordpress Popular Posts - Tools.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - Wordpress Popular Posts - Tools.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-12"><?php _e('What does "Display comment count" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-12"><?php _e('What does "Display comment count" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-12">
-            <p><?php _e('If checked, Wordpress Popular Posts will display how many comments each popular post has got in the selected Time Range.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, Wordpress Popular Posts will display how many comments each popular post has got in the selected Time Range.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-13"><?php _e('What does "Display views" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-13"><?php _e('What does "Display views" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-13">
-            <p><?php _e('If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-14"><?php _e('What does "Display author" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-14"><?php _e('What does "Display author" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-14">
-            <p><?php _e('If checked, Wordpress Popular Posts will display the name of the author of each entry listed.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, Wordpress Popular Posts will display the name of the author of each entry listed.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-15"><?php _e('What does "Display date" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-15"><?php _e('What does "Display date" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-15">
-            <p><?php _e('If checked, Wordpress Popular Posts will display the date when each popular posts was published.', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, Wordpress Popular Posts will display the date when each popular posts was published.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-16"><?php _e('What does "Use custom HTML Markup" do?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-16"><?php _e('What does "Use custom HTML Markup" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-16">
-            <p><?php _e('If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-17"><?php _e('What are "Content Tags"?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-17"><?php _e('What are "Content Tags"?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-17">
-            <p><?php _e('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are "Template Tags"?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are "Template Tags"?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-18">
-            <p><?php _e('Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views().', 'wordpress-popular-posts'); ?></p>
+            <p><?php _e('Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views().', $this->plugin_slug); ?></p>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-19"><?php _e('What are the template tags that Wordpress Popular Posts supports?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-19"><?php _e('What are the template tags that Wordpress Popular Posts supports?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-19">
-            <p><?php _e('The following are the template tags supported by Wordpress Popular Posts', 'wordpress-popular-posts'); ?>:</p>
+            <p><?php _e('The following are the template tags supported by Wordpress Popular Posts', $this->plugin_slug); ?>:</p>
             <table cellspacing="0" class="wp-list-table widefat fixed posts">
                 <thead>
                     <tr>
-                        <th class="manage-column column-title"><?php _e('Template tag', 'wordpress-popular-posts'); ?></th>
-                        <th class="manage-column column-title"><?php _e('What it does ', 'wordpress-popular-posts'); ?></th>
-                        <th class="manage-column column-title"><?php _e('Parameters', 'wordpress-popular-posts'); ?></th>
-                        <th class="manage-column column-title"><?php _e('Example', 'wordpress-popular-posts'); ?></th>
+                        <th class="manage-column column-title"><?php _e('Template tag', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('What it does ', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('Parameters', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('Example', $this->plugin_slug); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><strong>wpp_get_mostpopular()</strong></td>
-                        <td class="post type-post status-draft format-standard hentry category-js iedit"><?php _e('Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts parameters so you can customize your popular listing, but these are not required.', 'wordpress-popular-posts'); ?></td>
-                        <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><?php _e('Please refer to "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', 'wordpress-popular-posts'); ?></td>
+                        <td class="post type-post status-draft format-standard hentry category-js iedit"><?php _e('Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts parameters so you can customize your popular listing, but these are not required.', $this->plugin_slug); ?></td>
+                        <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><?php _e('Please refer to "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', $this->plugin_slug); ?></td>
                         <td class="post type-post status-draft format-standard hentry category-js iedit">&lt;?php wpp_get_mostpopular(); ?&gt;<br />&lt;?php wpp_get_mostpopular("range=weekly&amp;limit=7"); ?&gt;</td>
                     </tr>
                     <tr>
                         <td><strong>wpp_get_views()</strong></td>
-                        <td><?php _e('Displays the number of views of a single post. Post ID is required or it will return false.', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Post ID', 'wordpress-popular-posts'); ?>, range ("daily", "weekly", "monthly", "all")</td>
+                        <td><?php _e('Displays the number of views of a single post. Post ID is required or it will return false.', $this->plugin_slug); ?></td>
+                        <td><?php _e('Post ID', $this->plugin_slug); ?>, range ("daily", "weekly", "monthly", "all")</td>
                         <td>&lt;?php echo wpp_get_views($post->ID); ?&gt;<br />&lt;?php echo wpp_get_views(15, 'weekly'); ?&gt;</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         
-        <h4>&raquo; <a href="#" rel="q-20"><?php _e('What are "shortcodes"?', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-20"><?php _e('What are "shortcodes"?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-20">
-            <p><?php _e('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', 'wordpress-popular-posts', 'wordpress-popular-posts'); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
+            <p><?php _e('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', $this->plugin_slug, $this->plugin_slug); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
         </div>
-        <h4>&raquo; <a href="#" rel="q-21" class="active"><?php _e('List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode', 'wordpress-popular-posts'); ?></a></h4>
+        <h4>&raquo; <a href="#" rel="q-21" class="active"><?php _e('List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-21" style="display:block;">
-            <p><?php _e('These parameters can be used by both the template tag wpp_get_most_popular() and the shortcode [wpp].', 'wordpress-popular-posts'); ?>:</p>
+            <p><?php _e('These parameters can be used by both the template tag wpp_get_most_popular() and the shortcode [wpp].', $this->plugin_slug); ?>:</p>
             <br />
             <table cellspacing="0" class="wp-list-table widefat fixed posts">
                 <thead>
                     <tr>
-                        <th class="manage-column column-title"><?php _e('Parameter', 'wordpress-popular-posts'); ?></th>
-                        <th class="manage-column column-title"><?php _e('What it does ', 'wordpress-popular-posts'); ?></th>
-                        <th class="manage-column column-title"><?php _e('Possible values', 'wordpress-popular-posts'); ?></th>
-                        <th class="manage-column column-title"><?php _e('Defaults to', 'wordpress-popular-posts'); ?></th>
-                        <th class="manage-column column-title"><?php _e('Example', 'wordpress-popular-posts'); ?></th>
+                        <th class="manage-column column-title"><?php _e('Parameter', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('What it does ', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('Possible values', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('Defaults to', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('Example', $this->plugin_slug); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>header</strong></td>
-                        <td><?php _e('Sets a heading for the list', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Popular Posts', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Sets a heading for the list', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
+                        <td><?php _e('Popular Posts', $this->plugin_slug); ?></td>
                         <td>header="Popular Posts"</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>header_start</strong></td>
-                        <td><?php _e('Set the opening tag for the heading of the list', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Set the opening tag for the heading of the list', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>&lt;h2&gt;</td>
                         <td>header_start="&lt;h2&gt;"</td>
                     </tr>
                     <tr>
                         <td><strong>header_end</strong></td>
-                        <td><?php _e('Set the closing tag for the heading of the list', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Set the closing tag for the heading of the list', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>&lt;/h2&gt;</td>
                         <td>header_end="&lt;/h2&gt;"</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>limit</strong></td>
-                        <td><?php _e('Sets the maximum number of popular posts to be shown on the listing', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Positive integer', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Sets the maximum number of popular posts to be shown on the listing', $this->plugin_slug); ?></td>
+                        <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
                         <td>10</td>
                         <td>limit=10</td>
                     </tr>
                     <tr>
                         <td><strong>range</strong></td>
-                        <td><?php _e('Tells Wordpress Popular Posts to retrieve the most popular entries within the time range specified by you', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Tells Wordpress Popular Posts to retrieve the most popular entries within the time range specified by you', $this->plugin_slug); ?></td>
                         <td>"daily", "weekly", "monthly", "all"</td>
                         <td>daily</td>
                         <td>range="daily"</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>order_by</strong></td>
-                        <td><?php _e('Sets the sorting option of the popular posts', 'wordpress-popular-posts'); ?></td>
-                        <td>"comments", "views", "avg" <?php _e('(for average views per day)', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Sets the sorting option of the popular posts', $this->plugin_slug); ?></td>
+                        <td>"comments", "views", "avg" <?php _e('(for average views per day)', $this->plugin_slug); ?></td>
                         <td>views</td>
                         <td>order_by="comments"</td>
                     </tr>
                     <tr>
                         <td><strong>post_type</strong></td>
-                        <td><?php _e('Defines the type of posts to show on the listing', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Defines the type of posts to show on the listing', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>post,page</td>
                         <td>post_type=post,page,your-custom-post-type</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>pid</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will exclude the specified post(s) ID(s) form the listing.', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('None', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will exclude the specified post(s) ID(s) form the listing.', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
+                        <td><?php _e('None', $this->plugin_slug); ?></td>
                         <td>pid="60,25,31"</td>
                     </tr>
                     <tr>
                         <td><strong>cat</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will retrieve all entries that belong to the specified category(ies) ID(s). If a minus sign is used, the category(ies) will be excluded instead.', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('None', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will retrieve all entries that belong to the specified category(ies) ID(s). If a minus sign is used, the category(ies) will be excluded instead.', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
+                        <td><?php _e('None', $this->plugin_slug); ?></td>
                         <td>cat="1,55,-74"</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>author</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will retrieve all entries created by specified author(s) ID(s).', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('None', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will retrieve all entries created by specified author(s) ID(s).', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
+                        <td><?php _e('None', $this->plugin_slug); ?></td>
                         <td>author="75,8,120"</td>
                     </tr>
                     <tr>
                         <td><strong>title_length</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will shorten each post title to "n" characters whenever possible', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Positive integer', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will shorten each post title to "n" characters whenever possible', $this->plugin_slug); ?></td>
+                        <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
                         <td>25</td>
                         <td>title_length=25</td>
                     </tr>
                     <tr>
                         <td><strong>title_by_words</strong></td>
-                        <td><?php _e('If set to 1, Wordpress Popular Posts will shorten each post title to "n" words instead of characters', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set to 1, Wordpress Popular Posts will shorten each post title to "n" words instead of characters', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>title_by_words=1</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>excerpt_length</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will build and include an excerpt of "n" characters long from the content of each post listed as popular', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Positive integer', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will build and include an excerpt of "n" characters long from the content of each post listed as popular', $this->plugin_slug); ?></td>
+                        <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
                         <td>0</td>
                         <td>excerpt_length=55</td>
                     </tr>
                     <tr>
                         <td><strong>excerpt_format</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will maintaing all styling tags (strong, italic, etc) and hyperlinks found in the excerpt', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will maintaing all styling tags (strong, italic, etc) and hyperlinks found in the excerpt', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>excerpt_format=1</td>
                     </tr>
                     <tr>
                         <td><strong>excerpt_by_words</strong></td>
-                        <td><?php _e('If set to 1, Wordpress Popular Posts will shorten the excerpt to "n" words instead of characters', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set to 1, Wordpress Popular Posts will shorten the excerpt to "n" words instead of characters', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>excerpt_by_words=1</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>thumbnail_width</strong></td>
-                        <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Positive integer', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails', $this->plugin_slug); ?></td>
+                        <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
                         <td>15</td>
                         <td>thumbnail_width=30</td>
                     </tr>
                     <tr>
                         <td><strong>thumbnail_height</strong></td>
-                        <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the height for thumbnails', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Positive integer', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the height for thumbnails', $this->plugin_slug); ?></td>
+                        <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
                         <td>15</td>
                         <td>thumbnail_height=30</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>rating</strong></td>
-                        <td><?php _e('If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>rating=1</td>
                     </tr>
                     <tr>
                         <td><strong>stats_comments</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will show how many comments each popular post has got until now', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will show how many comments each popular post has got until now', $this->plugin_slug); ?></td>
                         <td>1 (true), 0 (false)</td>
                         <td>1</td>
                         <td>stats_comments=1</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>stats_views</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>stats_views=1</td>
                     </tr>
                     <tr>
                         <td><strong>stats_author</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will show who published each popular post on the list', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will show who published each popular post on the list', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>stats_author=1</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>stats_date</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will display the date when each popular post on the list was published', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will display the date when each popular post on the list was published', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>stats_date=1</td>
                     </tr>
                     <tr>
                         <td><strong>stats_date_format</strong></td>
-                        <td><?php _e('Sets the date format', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Sets the date format', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>0</td>
                         <td>stats_date_format='F j, Y'</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>stats_category</strong></td>
-                        <td><?php _e('If set, Wordpress Popular Posts will display the category', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, Wordpress Popular Posts will display the category', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>stats_category=1</td>
                     </tr>
                     <tr>
                         <td><strong>wpp_start</strong></td>
-                        <td><?php _e('Sets the opening tag for the listing', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Sets the opening tag for the listing', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>&lt;ul&gt;</td>
                         <td>wpp_start="&lt;ul&gt;"</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>wpp_end</strong></td>
-                        <td><?php _e('Sets the closing tag for the listing', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Sets the closing tag for the listing', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>&lt;/ul&gt;</td>
                         <td>wpp_end="&lt;/ul&gt;"</td>
                     </tr>
                     <tr>
                         <td><strong>post_html</strong></td>
-                        <td><?php _e('Sets the HTML structure of each post', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string, custom HTML', 'wordpress-popular-posts'); ?>.<br /><br /><strong><?php _e('Available Content Tags', 'wordpress-popular-posts'); ?>:</strong> <br /><em>{thumb}</em> (<?php _e('displays thumbnail linked to post/page', 'wordpress-popular-posts'); ?>)<br /> <em>{title}</em> (<?php _e('displays linked post/page title', 'wordpress-popular-posts'); ?>)<br /> <em>{summary}</em> (<?php _e('displays post/page excerpt, and requires excerpt_length to be greater than 0', 'wordpress-popular-posts'); ?>)<br /> <em>{stats}</em> (<?php _e('displays the default stats tags', 'wordpress-popular-posts'); ?>)<br /> <em>{rating}</em> (<?php _e('displays post/page current rating, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /> <em>{score}</em> (<?php _e('displays post/page current rating as an integer, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /> <em>{url}</em> (<?php _e('outputs the URL of the post/page', 'wordpress-popular-posts'); ?>)<br /> <em>{text_title}</em> (<?php _e('displays post/page title, no link', 'wordpress-popular-posts'); ?>)<br /> <em>{author}</em> (<?php _e('displays linked author name, requires stats_author=1', 'wordpress-popular-posts'); ?>)<br /> <em>{category}</em> (<?php _e('displays linked category name, requires stats_category=1', 'wordpress-popular-posts'); ?>)<br /> <em>{views}</em> (<?php _e('displays views count only, no text', 'wordpress-popular-posts'); ?>)<br /> <em>{comments}</em> (<?php _e('displays comments count only, no text, requires stats_comments=1', 'wordpress-popular-posts'); ?>)</td>
+                        <td><?php _e('Sets the HTML structure of each post', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string, custom HTML', $this->plugin_slug); ?>.<br /><br /><strong><?php _e('Available Content Tags', $this->plugin_slug); ?>:</strong> <br /><em>{thumb}</em> (<?php _e('displays thumbnail linked to post/page', $this->plugin_slug); ?>)<br /> <em>{title}</em> (<?php _e('displays linked post/page title', $this->plugin_slug); ?>)<br /> <em>{summary}</em> (<?php _e('displays post/page excerpt, and requires excerpt_length to be greater than 0', $this->plugin_slug); ?>)<br /> <em>{stats}</em> (<?php _e('displays the default stats tags', $this->plugin_slug); ?>)<br /> <em>{rating}</em> (<?php _e('displays post/page current rating, requires WP-PostRatings installed and enabled', $this->plugin_slug); ?>)<br /> <em>{score}</em> (<?php _e('displays post/page current rating as an integer, requires WP-PostRatings installed and enabled', $this->plugin_slug); ?>)<br /> <em>{url}</em> (<?php _e('outputs the URL of the post/page', $this->plugin_slug); ?>)<br /> <em>{text_title}</em> (<?php _e('displays post/page title, no link', $this->plugin_slug); ?>)<br /> <em>{author}</em> (<?php _e('displays linked author name, requires stats_author=1', $this->plugin_slug); ?>)<br /> <em>{category}</em> (<?php _e('displays linked category name, requires stats_category=1', $this->plugin_slug); ?>)<br /> <em>{views}</em> (<?php _e('displays views count only, no text', $this->plugin_slug); ?>)<br /> <em>{comments}</em> (<?php _e('displays comments count only, no text, requires stats_comments=1', $this->plugin_slug); ?>)</td>
                         <td>&lt;li&gt;{thumb} {title} {stats}&lt;/li&gt;</td>
                         <td>post_html="&lt;li&gt;{thumb} &lt;a href='{url}'&gt;{text_title}&lt;/a&gt; &lt;/li&gt;"</td>
                     </tr>
                     <!--<tr class="alternate">
                         <td><strong>post_start</strong></td>
-                        <td><?php _e('Sets the opening tag for each item on the list', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Sets the opening tag for each item on the list', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>&lt;li&gt;</td>
                         <td>post_start="&lt;li&gt;"</td>
                     </tr>
                     <tr>
                         <td><strong>post_end</strong></td>
-                        <td><?php _e('Sets the closing tag for each item on the list', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Sets the closing tag for each item on the list', $this->plugin_slug); ?></td>
+                        <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>&lt;/li&gt;</td>
                         <td>post_end="&lt;/li&gt;"</td>
                     </tr>                        
                     <tr class="alternate">
                         <td><strong>do_pattern</strong></td>
-                        <td><?php _e('If set, this option will allow you to decide the order of the contents within each item on the list.', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, this option will allow you to decide the order of the contents within each item on the list.', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>do_pattern=1</td>
                     </tr>
                     <tr>
                         <td><strong>pattern_form</strong></td>
-                        <td><?php _e('If set, you can decide the order of each content inside a single item on the list. For example, setting it to "{title}: {summary}" would output something like "Your Post Title: summary here". This attribute requires do_pattern to be true.', 'wordpress-popular-posts'); ?></td>
-                        <td><?php _e('Available tags', 'wordpress-popular-posts'); ?>: {thumb}, {title}, {summary}, {stats}, {rating}, {url}, {text_title}, {author}, {category}, {views}, {comments}</td>
+                        <td><?php _e('If set, you can decide the order of each content inside a single item on the list. For example, setting it to "{title}: {summary}" would output something like "Your Post Title: summary here". This attribute requires do_pattern to be true.', $this->plugin_slug); ?></td>
+                        <td><?php _e('Available tags', $this->plugin_slug); ?>: {thumb}, {title}, {summary}, {stats}, {rating}, {url}, {text_title}, {author}, {category}, {views}, {comments}</td>
                         <td>{image} {thumb}: {summary} {stats}</td>
                         <td>pattern_form="{thumb} {title}: {summary} {stats}"</td>
                     </tr>-->
@@ -720,9 +720,9 @@ if ( isset($_POST['section']) ) {
         
         <br /><br />
         
-        <p><?php _e('Wordpress Popular Posts maintains data in two separate tables: one for storing the most popular entries in the past 30 days (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p>
-        <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", $this->plugin_slug); ?>" onclick="confirm_reset_cache()" /> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
-        <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", $this->plugin_slug); ?>" onclick="confirm_reset_all()" /> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
+        <p><?php _e('Wordpress Popular Posts maintains data in two separate tables: one for storing the most popular entries in the past 30 days (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', $this->plugin_slug) ?></p>
+        <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", $this->plugin_slug); ?>" onclick="confirm_reset_cache()" /> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', $this->plugin_slug); ?></small></label></p>
+        <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", $this->plugin_slug); ?>" onclick="confirm_reset_all()" /> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', $this->plugin_slug); ?></small></label></p>
     </div>
     <!-- End tools -->
         
