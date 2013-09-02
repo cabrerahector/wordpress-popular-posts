@@ -20,7 +20,7 @@ if ( isset($_POST['section']) ) {
 		$this->user_settings['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
 		
 		update_option('wpp_settings_config', $this->user_settings);			
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
 	elseif ( "linking" == $_POST['section'] ) {
@@ -29,7 +29,7 @@ if ( isset($_POST['section']) ) {
 			
 		$this->user_settings['tools']['link']['target'] = $_POST['link_target'];
 		update_option('wpp_settings_config', $this->user_settings);
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
 	elseif ( "logging" == $_POST['section'] ) {
@@ -38,7 +38,7 @@ if ( isset($_POST['section']) ) {
 		
 		$this->user_settings['tools']['log']['level'] = $_POST['log_option'];				
 		update_option('wpp_settings_config', $this->user_settings);				
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
 	elseif ( "tools" == $_POST['section'] ) {
@@ -54,7 +54,7 @@ if ( isset($_POST['section']) ) {
 			$this->user_settings['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
 			
 			update_option('wpp_settings_config', $this->user_settings);				
-			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		}
 	}
 	elseif ( "ajax" == $_POST['section'] ) {
@@ -68,7 +68,7 @@ if ( isset($_POST['section']) ) {
 		$this->user_settings['tools']['cache']['interval']['value'] = $_POST['cache_interval_value'];
 		
 		update_option('wpp_settings_config', $this->user_settings);
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
 	elseif ( "css" == $_POST['section'] ) {
@@ -77,7 +77,7 @@ if ( isset($_POST['section']) ) {
 		$this->user_settings['tools']['css'] = $_POST['css'];
 		
 		update_option('wpp_settings_config', $this->user_settings);
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
 	
@@ -87,7 +87,7 @@ if ( isset($_POST['section']) ) {
 <script type="text/javascript">
 	// TOOLS
 	function confirm_reset_cache() {
-		if (confirm("<?php _e("This operation will delete all entries from Wordpress Popular Posts' cache table and cannot be undone.", "wordpress-popular-posts"); ?> \n" + "<?php _e("Do you want to continue?", "wordpress-popular-posts"); ?>")) {
+		if (confirm("<?php _e("This operation will delete all entries from Wordpress Popular Posts' cache table and cannot be undone.", $this->plugin_slug); ?> \n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
 			jQuery.post(ajaxurl, {action: 'wpp_clear_cache', token: '<?php echo get_option("wpp_rand"); ?>', clear: 'cache'}, function(data){
 				alert(data);
 			});
@@ -95,7 +95,7 @@ if ( isset($_POST['section']) ) {
 	}
 	
 	function confirm_reset_all() {
-		if (confirm("<?php _e("This operation will delete all stored info from Wordpress Popular Posts' data tables and cannot be undone.", "wordpress-popular-posts"); ?> \n" + "<?php _e("Do you want to continue?", "wordpress-popular-posts"); ?>")) {
+		if (confirm("<?php _e("This operation will delete all stored info from Wordpress Popular Posts' data tables and cannot be undone.", $this->plugin_slug); ?> \n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
 			jQuery.post(ajaxurl, {action: 'wpp_clear_all', token: '<?php echo get_option("wpp_rand"); ?>', clear: 'all'}, function(data){
 				alert(data);
 			});
@@ -125,29 +125,29 @@ if ( isset($_POST['section']) ) {
     
     <!-- Start stats -->
     <div id="wpp_stats" class="wpp_boxes"<?php if ( "stats" == $current ) {?> style="display:block;"<?php } ?>>
-    	<p><?php _e("Click on each tab to see what are the most popular entries on your blog in the last 24 hours, this week, last 30 days or all time since Wordpress Popular Posts was installed.", "wordpress-popular-posts"); ?></p>
+    	<p><?php _e("Click on each tab to see what are the most popular entries on your blog in the last 24 hours, this week, last 30 days or all time since Wordpress Popular Posts was installed.", $this->plugin_slug); ?></p>
         
         <div class="tablenav top">
             <div class="alignleft actions">
                 <form action="" method="post" id="wpp_stats_options" name="wpp_stats_options">
                     <select name="stats_order">
-                        <option <?php if ($this->user_settings['stats']['order_by'] == "comments") {?>selected="selected"<?php } ?> value="comments"><?php _e("Order by comments", "wordpress-popular-posts"); ?></option>
-                        <option <?php if ($this->user_settings['stats']['order_by'] == "views") {?>selected="selected"<?php } ?> value="views"><?php _e("Order by views", "wordpress-popular-posts"); ?></option>
-                        <option <?php if ($this->user_settings['stats']['order_by'] == "avg") {?>selected="selected"<?php } ?> value="avg"><?php _e("Order by avg. daily views", "wordpress-popular-posts"); ?></option>
+                        <option <?php if ($this->user_settings['stats']['order_by'] == "comments") {?>selected="selected"<?php } ?> value="comments"><?php _e("Order by comments", $this->plugin_slug); ?></option>
+                        <option <?php if ($this->user_settings['stats']['order_by'] == "views") {?>selected="selected"<?php } ?> value="views"><?php _e("Order by views", $this->plugin_slug); ?></option>
+                        <option <?php if ($this->user_settings['stats']['order_by'] == "avg") {?>selected="selected"<?php } ?> value="avg"><?php _e("Order by avg. daily views", $this->plugin_slug); ?></option>
                     </select>
-                    <label for="stats_type"><?php _e("Post type", "wordpress-popular-posts"); ?>:</label> <input type="text" name="stats_type" value="<?php echo $this->user_settings['stats']['post_type']; ?>" size="15" />
-                    <label for="stats_limits"><?php _e("Limit", "wordpress-popular-posts"); ?>:</label> <input type="text" name="stats_limit" value="<?php echo $this->user_settings['stats']['limit']; ?>" size="5" />
+                    <label for="stats_type"><?php _e("Post type", $this->plugin_slug); ?>:</label> <input type="text" name="stats_type" value="<?php echo $this->user_settings['stats']['post_type']; ?>" size="15" />
+                    <label for="stats_limits"><?php _e("Limit", $this->plugin_slug); ?>:</label> <input type="text" name="stats_limit" value="<?php echo $this->user_settings['stats']['limit']; ?>" size="5" />
                     <input type="hidden" name="section" value="stats" />
-                    <input type="submit" class="button-secondary action" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
+                    <input type="submit" class="button-secondary action" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                 </form>
             </div>
         </div>
         <br />
         <div id="wpp-stats-tabs">            
-            <a href="#" class="button-primary" rel="wpp-daily"><?php _e("Last 24 hours", "wordpress-popular-posts"); ?></a>
-            <a href="#" class="button-secondary" rel="wpp-weekly"><?php _e("Last 7 days", "wordpress-popular-posts"); ?></a>
-            <a href="#" class="button-secondary" rel="wpp-monthly"><?php _e("Last 30 days", "wordpress-popular-posts"); ?></a>
-            <a href="#" class="button-secondary" rel="wpp-all"><?php _e("All-time", "wordpress-popular-posts"); ?></a>
+            <a href="#" class="button-primary" rel="wpp-daily"><?php _e("Last 24 hours", $this->plugin_slug); ?></a>
+            <a href="#" class="button-secondary" rel="wpp-weekly"><?php _e("Last 7 days", $this->plugin_slug); ?></a>
+            <a href="#" class="button-secondary" rel="wpp-monthly"><?php _e("Last 30 days", $this->plugin_slug); ?></a>
+            <a href="#" class="button-secondary" rel="wpp-all"><?php _e("All-time", $this->plugin_slug); ?></a>
         </div>
         <div id="wpp-stats-canvas">            
             <div class="wpp-stats wpp-stats-active" id="wpp-daily">            	
@@ -532,19 +532,19 @@ if ( isset($_POST['section']) ) {
     
     <!-- Start tools -->
     <div id="wpp_tools" class="wpp_boxes"<?php if ( "tools" == $current ) {?> style="display:block;"<?php } ?>>
-    	<p><?php _e("Here you will find a handy group of options to tweak Wordpress Popular Posts.", "wordpress-popular-posts"); ?></p><br />
+    	<p><?php _e("Here you will find a handy group of options to tweak Wordpress Popular Posts.", $this->plugin_slug); ?></p><br />
         
-        <h3 class="wmpp-subtitle"><?php _e("Popular Posts links behavior", "wordpress-popular-posts"); ?></h3>
+        <h3 class="wmpp-subtitle"><?php _e("Popular Posts links behavior", $this->plugin_slug); ?></h3>
 
         <form action="" method="post" id="wpp_link_options" name="wpp_link_options">
             <table class="form-table">
                 <tbody>
                     <tr valign="top">
-                        <th scope="row"><label for="link_target"><?php _e("Open links in", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="link_target"><?php _e("Open links in", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="link_target" id="link_target">
-                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_self' ) {?>selected="selected"<?php } ?> value="_self"><?php _e("Current window", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_blank' ) {?>selected="selected"<?php } ?> value="_blank"><?php _e("New tab/window", "wordpress-popular-posts"); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_self' ) {?>selected="selected"<?php } ?> value="_self"><?php _e("Current window", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_blank' ) {?>selected="selected"<?php } ?> value="_blank"><?php _e("New tab/window", $this->plugin_slug); ?></option>
                             </select>
                             <br />
                         </td>
@@ -552,7 +552,7 @@ if ( isset($_POST['section']) ) {
                     <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="linking" />
-                            <input type="submit" class="button-secondary action" id="btn_link_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
+                            <input type="submit" class="button-secondary action" id="btn_link_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
@@ -561,18 +561,18 @@ if ( isset($_POST['section']) ) {
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
                        
-        <h3 class="wmpp-subtitle"><?php _e("Views logging behavior", "wordpress-popular-posts"); ?></h3>
+        <h3 class="wmpp-subtitle"><?php _e("Views logging behavior", $this->plugin_slug); ?></h3>
         	
         <form action="" method="post" id="wpp_log_options" name="wpp_log_options">            
             <table class="form-table">
                 <tbody>
                     <tr valign="top">
-                        <th scope="row"><label for="log_option"><?php _e("Log views from", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="log_option"><?php _e("Log views from", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="log_option" id="log_option">
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 0) {?>selected="selected"<?php } ?> value="0"><?php _e("Visitors only", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 2) {?>selected="selected"<?php } ?> value="2"><?php _e("Logged-in users only", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Everyone", "wordpress-popular-posts"); ?></option>
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 0) {?>selected="selected"<?php } ?> value="0"><?php _e("Visitors only", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 2) {?>selected="selected"<?php } ?> value="2"><?php _e("Logged-in users only", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Everyone", $this->plugin_slug); ?></option>
                             </select>
                             <br />
                         </td>
@@ -580,7 +580,7 @@ if ( isset($_POST['section']) ) {
                     <tr valign="top">                            	
                         <td colspan="2">
                             <input type="hidden" name="section" value="logging" />
-                            <input type="submit" class="button-secondary action" id="btn_log_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
+                            <input type="submit" class="button-secondary action" id="btn_log_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
@@ -589,20 +589,20 @@ if ( isset($_POST['section']) ) {
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
         
-        <h3 class="wmpp-subtitle"><?php _e("Thumbnail source", "wordpress-popular-posts"); ?></h3>
+        <h3 class="wmpp-subtitle"><?php _e("Thumbnail source", $this->plugin_slug); ?></h3>
         	
         <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">            
             <table class="form-table">
                 <tbody>
                 	<tr valign="top">
-                        <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", $this->plugin_slug); ?>:</label></th>
                         <td>
-                            <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", "wordpress-popular-posts" ); ?>" />
+                            <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", $this->plugin_slug ); ?>" />
                             <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
                             <br />
-                            <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", "wordpress-popular-posts"); ?></p>
+                            <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", $this->plugin_slug); ?></p>
                             <div style="display:<?php if ( !empty($this->user_settings['tools']['thumbnail']['default']) ) : ?>block<?php else: ?>none<?php endif; ?>;">
-                            	<label><?php _e("Preview", "wordpress-popular-posts"); ?>:</label>
+                            	<label><?php _e("Preview", $this->plugin_slug); ?>:</label>
                                 <div id="thumb-review">
                                     <img src="<?php echo $this->user_settings['tools']['thumbnail']['default']; ?>" alt="" border="0" />
                                 </div>
@@ -610,36 +610,36 @@ if ( isset($_POST['section']) ) {
                         </td>
                     </tr>                    
                     <tr valign="top">
-                        <th scope="row"><label for="thumb_source"><?php _e("Pick image from", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="thumb_source"><?php _e("Pick image from", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="thumb_source" id="thumb_source">
-                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "featured") {?>selected="selected"<?php } ?> value="featured"><?php _e("Featured image", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "first_image") {?>selected="selected"<?php } ?> value="first_image"><?php _e("First image on post", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "custom_field") {?>selected="selected"<?php } ?> value="custom_field"><?php _e("Custom field", "wordpress-popular-posts"); ?></option>
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "featured") {?>selected="selected"<?php } ?> value="featured"><?php _e("Featured image", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "first_image") {?>selected="selected"<?php } ?> value="first_image"><?php _e("First image on post", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "custom_field") {?>selected="selected"<?php } ?> value="custom_field"><?php _e("Custom field", $this->plugin_slug); ?></option>
                             </select>
                             <br />
-                            <p class="description"><?php _e("Tell Wordpress Popular Posts where it should get thumbnails from", "wordpress-popular-posts"); ?></p>
+                            <p class="description"><?php _e("Tell Wordpress Popular Posts where it should get thumbnails from", $this->plugin_slug); ?></p>
                         </td>
                     </tr>
                     <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field">
-                        <th scope="row"><label for="thumb_field"><?php _e("Custom field name", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="thumb_field"><?php _e("Custom field name", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <input type="text" id="thumb_field" name="thumb_field" value="<?php echo $this->user_settings['tools']['thumbnail']['field']; ?>" size="10" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> />
                         </td>
                     </tr>
                     <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field_resize">
-                        <th scope="row"><label for="thumb_field_resize"><?php _e("Resize image from Custom field?", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="thumb_field_resize"><?php _e("Resize image from Custom field?", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="thumb_field_resize" id="thumb_field_resize">
-                                <option <?php if ( !$this->user_settings['tools']['thumbnail']['resize'] ) {?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ( $this->user_settings['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", "wordpress-popular-posts"); ?></option>                        
+                                <option <?php if ( !$this->user_settings['tools']['thumbnail']['resize'] ) {?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", $this->plugin_slug); ?></option>                        
                             </select>
                         </td>
                     </tr>
                     <tr valign="top">                            	
                         <td colspan="2">
                             <input type="hidden" name="section" value="tools" />
-                            <input type="submit" class="button-secondary action" id="btn_th_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
+                            <input type="submit" class="button-secondary action" id="btn_th_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
@@ -649,69 +649,69 @@ if ( isset($_POST['section']) ) {
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
         
-        <h3 class="wmpp-subtitle"><?php _e("Wordpress Popular Posts Stylesheet", "wordpress-popular-posts"); ?></h3>
-        <p><?php _e("By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.", "wordpress-popular-posts"); ?></p>
+        <h3 class="wmpp-subtitle"><?php _e("Wordpress Popular Posts Stylesheet", $this->plugin_slug); ?></h3>
+        <p><?php _e("By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.", $this->plugin_slug); ?></p>
         <div class="tablenav top">
         	<div class="alignleft actions">
                 <form action="" method="post" id="wpp_css_options" name="wpp_css_options">
                     <select name="css" id="css">
-                        <option <?php if ($this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", "wordpress-popular-posts"); ?></option>
-                        <option <?php if (!$this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", "wordpress-popular-posts"); ?></option>
+                        <option <?php if ($this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
+                        <option <?php if (!$this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
                     </select>
                     <input type="hidden" name="section" value="css" />
-                    <input type="submit" class="button-secondary action" id="btn_css_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
+                    <input type="submit" class="button-secondary action" id="btn_css_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                 </form>                
             </div>
         </div>
         <br /><br />
         
-        <h3 class="wmpp-subtitle"><?php _e("Data tools", "wordpress-popular-posts"); ?></h3>
+        <h3 class="wmpp-subtitle"><?php _e("Data tools", $this->plugin_slug); ?></h3>
         <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
         	<table class="form-table">
                 <tbody>
                     <tr valign="top">
-                        <th scope="row"><label for="thumb_source"><?php _e("Ajaxify widget", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="thumb_source"><?php _e("Ajaxify widget", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="ajax" id="ajax">                                
-                                <option <?php if (!$this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", "wordpress-popular-posts"); ?></option>
+                                <option <?php if (!$this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
                             </select>
                     
                             <br />
-                            <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", "wordpress-popular-posts"); ?></p>
+                            <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", $this->plugin_slug); ?></p>
                         </td>
                     </tr>
                     <tr valign="top" style="display:none;">
-                        <th scope="row"><label for="thumb_source"><?php _e("Popular posts listing refresh interval", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="thumb_source"><?php _e("Popular posts listing refresh interval", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="cache" id="cache">
-                                <option <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Live", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ( $this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Custom interval", "wordpress-popular-posts"); ?></option>
+                                <option <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Live", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Custom interval", $this->plugin_slug); ?></option>
                             </select>
                     
                             <br />
-                            <p class="description"><?php _e("Sets how often the listing should be updated. For most sites the Live option should be fine, however if you are experiencing slowdowns or your blog gets a lot of visitors then you might want to change the refresh rate", "wordpress-popular-posts"); ?></p>
+                            <p class="description"><?php _e("Sets how often the listing should be updated. For most sites the Live option should be fine, however if you are experiencing slowdowns or your blog gets a lot of visitors then you might want to change the refresh rate", $this->plugin_slug); ?></p>
                         </td>
                     </tr>
                     <tr valign="top" <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>style="display:none;"<?php } ?> id="cache_refresh_interval">
-                        <th scope="row"><label for="thumb_field_resize"><?php _e("Refresh interval", "wordpress-popular-posts"); ?>:</label></th>
+                        <th scope="row"><label for="thumb_field_resize"><?php _e("Refresh interval", $this->plugin_slug); ?>:</label></th>
                         <td>
                         	<input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->user_settings['tools']['cache']['interval']['value']) ) ? (int) $this->user_settings['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
                             <select name="cache_interval_time" id="cache_interval_time">
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", "wordpress-popular-posts"); ?></option>                                
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "month") {?>selected="selected"<?php } ?> value="month"><?php _e("Month(s)", "wordpress-popular-posts"); ?></option>
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "year") {?>selected="selected"<?php } ?> value="month"><?php _e("Year(s)", "wordpress-popular-posts"); ?></option>
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", $this->plugin_slug); ?></option>                                
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "month") {?>selected="selected"<?php } ?> value="month"><?php _e("Month(s)", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "year") {?>selected="selected"<?php } ?> value="month"><?php _e("Year(s)", $this->plugin_slug); ?></option>
                             </select>                            
                             <br />
-                            <p class="description" style="display:none;" id="cache_too_long"><?php _e("Really? That long?", "wordpress-popular-posts"); ?></p>
+                            <p class="description" style="display:none;" id="cache_too_long"><?php _e("Really? That long?", $this->plugin_slug); ?></p>
                         </td>
                     </tr>
                     <tr valign="top">                            	
                         <td colspan="2">
                             <input type="hidden" name="section" value="ajax" />
-                    		<input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", "wordpress-popular-posts"); ?>" name="" />
+                    		<input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
@@ -721,8 +721,8 @@ if ( isset($_POST['section']) ) {
         <br /><br />
         
         <p><?php _e('Wordpress Popular Posts maintains data in two separate tables: one for storing the most popular entries in the past 30 days (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p>
-        <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", "wordpress-popular-posts"); ?>" onclick="confirm_reset_cache()" /> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
-        <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", "wordpress-popular-posts"); ?>" onclick="confirm_reset_all()" /> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
+        <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", $this->plugin_slug); ?>" onclick="confirm_reset_cache()" /> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
+        <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", $this->plugin_slug); ?>" onclick="confirm_reset_all()" /> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
     </div>
     <!-- End tools -->
         
