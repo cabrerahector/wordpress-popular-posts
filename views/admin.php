@@ -77,7 +77,9 @@ if ( isset($_POST['section']) ) {
 		
 		$this->user_settings['tools']['cache']['active'] = $_POST['cache'];			
 		$this->user_settings['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
-		$this->user_settings['tools']['cache']['interval']['value'] = $_POST['cache_interval_value'];
+		$this->user_settings['tools']['cache']['interval']['value'] = ( isset($_POST['cache_interval_value']) && is_numeric($_POST['cache_interval_value']) && $_POST['cache_interval_value'] > 0 ) 
+		  ? $_POST['cache_interval_value']
+		  : 1;
 		
 		update_option('wpp_settings_config', $this->user_settings);
 		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
