@@ -63,6 +63,18 @@ if ( isset($_POST['section']) ) {
 		
 		$this->user_settings['tools']['ajax'] = $_POST['ajax'];
 		
+		// if any of the caching settings was updated, destroy all transients created by the plugin
+		if ( $this->user_settings['tools']['cache']['active'] != $_POST['cache'] || $this->user_settings['tools']['cache']['interval']['time'] != $_POST['cache_interval_time'] || $this->user_settings['tools']['cache']['interval']['value'] != $_POST['cache_interval_value'] ) {
+			$wpp_transients = get_site_option('wpp_transients');
+			
+			if ( $wpp_transients && is_array($wpp_transients) && !empty($wpp_transients) ) {
+				for ($t=0; $t < count($wpp_transients); $t++) 
+					delete_transient( $wpp_transients[$t] );
+					
+				update_site_option('wpp_transients', array());
+			}
+		}
+		
 		$this->user_settings['tools']['cache']['active'] = $_POST['cache'];			
 		$this->user_settings['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
 		$this->user_settings['tools']['cache']['interval']['value'] = $_POST['cache_interval_value'];
@@ -653,7 +665,7 @@ if ( isset($_POST['section']) ) {
                             <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", $this->plugin_slug); ?></p>
                         </td>
                     </tr>
-                    <tr valign="top" style="display:none;">
+                    <tr valign="top">
                         <th scope="row"><label for="thumb_source"><?php _e("Popular posts listing refresh interval", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="cache" id="cache">

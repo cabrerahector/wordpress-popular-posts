@@ -1363,7 +1363,51 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$content = "";
 
 			// Fetch posts
-			$mostpopular = $this->_query_posts( $instance );
+			if ( $this->user_settings['tools']['cache']['active'] ) {
+				echo "new transient";
+				// It wasn't there, so regenerate the data and save the transient
+				if ( false === ( $mostpopular = get_transient( md5(json_encode($instance)) ) ) ) {				  
+					$mostpopular = $this->_query_posts( $instance );
+					
+					switch($this->user_settings['tools']['cache']['interval']['time']){
+						case 'hour':
+							$time = 60 * 60;
+						break;
+						
+						case 'day':
+							$time = 60 * 60 * 24;
+						break;
+						
+						case 'week':
+							$time = 60 * 60 * 24 * 7;
+						break;
+						
+						case 'month':
+							$time = 60 * 60 * 24 * 30;
+						break;
+						
+						case 'year':
+							$time = 60 * 60 * 24 * 365;
+						break;
+					}
+					
+					$expiration = $time * $this->user_settings['tools']['cache']['interval']['value'];					
+					set_transient( md5(json_encode($instance)), $mostpopular, $expiration );
+					
+					$wpp_transients = get_site_option('wpp_transients');
+					
+					if ( !$wpp_transients ) {
+						$wpp_transients = array( md5(json_encode($instance)) );
+						add_site_option('wpp_transients', $wpp_transients);
+					} else {
+						if ( !in_array(md5(json_encode($instance)), $wpp_transients) )
+							update_site_option('wpp_transients', $wpp_transients);
+					}
+				}
+			} else {
+				echo "live update";
+				$mostpopular = $this->_query_posts( $instance );
+			}
 
 			// No posts to show
 			if ( !is_array($mostpopular) || empty($mostpopular) ) {
