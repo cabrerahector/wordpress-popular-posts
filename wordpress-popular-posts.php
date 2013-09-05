@@ -1051,19 +1051,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Update all-time table
 			$result1 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}data
-				(postid, day, last_viewed) VALUES (%d, %s, %s)
+				(postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
 				ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, last_viewed = '%3\$s';",
 				$id,
 				$this->__curdate(),
-				$this->__now()
+				$this->__now(),
+				1
 			));
 			
 			// Update range (summary) table
 			$result2 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}summary
-				(ID_post, view_date, last_viewed) VALUES (%d, %s, %s)
+				(ID_post, views, view_date, last_viewed) VALUES (%d, $d, %s, %s)
 				ON DUPLICATE KEY UPDATE views = views + 1, last_viewed = '%3\$s';",
 				$id,
+				1,
 				$this->__curdate(),
 				$this->__now()
 			));
