@@ -141,7 +141,7 @@ msgid ""
 "table and cannot be undone."
 msgstr ""
 "Esta operaci\\363n borrar\\341 todas las entradas en el cach\\351 de "
-"Wordpress Popular Posts y no puede ser reversado."
+"Wordpress Popular Posts y no se puede deshacer."
 
 #: ../views/admin.php:112 ../views/admin.php:120
 msgid "Do you want to continue?"
