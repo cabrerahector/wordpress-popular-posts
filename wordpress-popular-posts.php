@@ -309,12 +309,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Add shortcode
 			add_shortcode('wpp', array(&$this, 'shortcode'));			
 			
-			// Schedule tables cleanup & update
-			add_action( 'wpp_cache_event', array( $this, 'update_summary' ) );
-			if ( !wp_next_scheduled('wpp_cache_event') ) {			
-				wp_schedule_event( time(), 'hourly', 'wpp_cache_event' );
-			}
-			
 			// Enable Popular Posts feed
 			include_once( plugin_dir_path( __FILE__ ) . 'class-wordpress-popular-posts-feed.php' );
 			$wpp_feed = new WordpressPopularPostsFeed();
@@ -891,15 +885,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					PRIMARY KEY  (postid),
 					KEY day (day)
 				) {$charset_collate};
-				CREATE TABLE {$prefix}log (
-					ID bigint(20) NOT NULL AUTO_INCREMENT,
-					ID_post bigint(20) NOT NULL,
-					view_date date NOT NULL,
-					view_datetime datetime NOT NULL,
-					PRIMARY KEY  (ID),
-					KEY ID_post (ID_post),
-					KEY view_date (view_date)
-				) {$charset_collate};
 				CREATE TABLE {$prefix}summary (
 					ID bigint(20) NOT NULL AUTO_INCREMENT,
 					ID_post bigint(20) NOT NULL,
@@ -979,42 +964,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/* Plugin methods / functions
 		/*--------------------------------------------------*/
 		
-		
-		/**
-		 * Fired at midnight. Update the daily ranking.
-		 *
-		 * @since    1.0.0
-		 */
-		public function update_summary() {
-			
-			global $wpdb;
-			$table = $wpdb->prefix . "popularposts";
-			
-			$result = $wpdb->query("
-				INSERT INTO {$table}summary (ID_post, views, view_date, last_viewed) 
-				SELECT * FROM (SELECT ID_post, COUNT(ID_post) AS views, view_date, MAX(view_datetime) AS last_viewed FROM {$table}log GROUP BY ID_post, view_date ORDER BY view_date DESC) t 
-				ON DUPLICATE KEY UPDATE {$table}summary.views = {$table}summary.views + t.views, {$table}summary.last_viewed = t.last_viewed;"
-			);
-			
-			if ( $result )
-				$this->__clear_log();
-	
-		}
-		
-		/**
-		 * Truncates the log table.
-		 *
-		 * @since    1.0.0
-		 */
-		private function __clear_log() {
-			
-			global $wpdb;
-			$table = $wpdb->prefix . "popularpostslog";
-			
-			$result = $wpdb->query( "TRUNCATE TABLE {$table};" );
-			
-		}
-		
+				
 		public function update_views(){
 			
 			if ( !is_singular() || is_attachment() || is_front_page() || is_preview() || is_trackback() || is_feed() || is_robots() )
@@ -1098,23 +1048,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$table = $wpdb->prefix . "popularposts";			
 			$wpdb->show_errors();
 			
-			// User requested to update list every X hours
-			if ( $log ) {
-				
-				$result = $wpdb->query( $wpdb->prepare(
-					"INSERT INTO {$table}log
-					(ID_post, view_date, view_datetime) VALUES (%d, %s, %s);",
-					$id,
-					$this->__curdate(),
-					$this->__now()
-				));
-				
-				return $result;
-				
-			}
-			
-			// ELSE
-			// User requested to update the list live			
+			// Update all-time table
 			$result1 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}data
 				(postid, day, last_viewed) VALUES (%d, %s, %s)
@@ -1124,6 +1058,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$this->__now()
 			));
 			
+			// Update range (summary) table
 			$result2 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}summary
 				(ID_post, view_date, last_viewed) VALUES (%d, %s, %s)
