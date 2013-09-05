@@ -1364,7 +1364,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Fetch posts
 			if ( $this->user_settings['tools']['cache']['active'] ) {
-				echo "new transient";
 				// It wasn't there, so regenerate the data and save the transient
 				if ( false === ( $mostpopular = get_transient( md5(json_encode($instance)) ) ) ) {				  
 					$mostpopular = $this->_query_posts( $instance );
@@ -1404,8 +1403,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							update_site_option('wpp_transients', $wpp_transients);
 					}
 				}
-			} else {
-				echo "live update";
+			} else {				
 				$mostpopular = $this->_query_posts( $instance );
 			}
 
