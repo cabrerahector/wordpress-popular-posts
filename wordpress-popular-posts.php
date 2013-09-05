@@ -1063,7 +1063,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$result2 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}summary
 				(ID_post, views, view_date, last_viewed) VALUES (%d, $d, %s, %s)
-				ON DUPLICATE KEY UPDATE views = views + 1, last_viewed = '%3\$s';",
+				ON DUPLICATE KEY UPDATE views = views + 1, last_viewed = '%4\$s';",
 				$id,
 				1,
 				$this->__curdate(),
