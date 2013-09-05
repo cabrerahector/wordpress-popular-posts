@@ -241,9 +241,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			);
 			
 			// Get user options
-			$this->user_settings = get_option('wpp_settings_config');
+			$this->user_settings = get_site_option('wpp_settings_config');
 			if ( !$this->user_settings ) {
-				add_option('wpp_settings_config', $this->default_user_settings);
+				add_site_option('wpp_settings_config', $this->default_user_settings);
 				$this->user_settings = $this->default_user_settings;
 			} else {
 				$this->user_settings = $this->__merge_array_r( $this->default_user_settings, $this->user_settings );
@@ -801,10 +801,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		public function upgrade_check(){
 
 			// Get WPP version
-			$wpp_ver = get_option('wpp_ver');
+			$wpp_ver = get_site_option('wpp_ver');
 
 			if ( !$wpp_ver ) {
-				add_option('wpp_ver', $this->version);
+				add_site_option('wpp_ver', $this->version);
 			} elseif ( version_compare($wpp_ver, $this->version, '<') ) {
 				$this->__upgrade();
 			}
@@ -853,7 +853,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			// Update WPP version
-			update_option('wpp_ver', $this->version);
+			update_site_option('wpp_ver', $this->version);
 
 		} // end __upgrade
 
@@ -2542,7 +2542,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @return	string
 		 */
 		private function __curdate() {
-			return gmdate( 'Y-m-d', ( time() + ( get_option( 'gmt_offset' ) * 3600 ) ));
+			return gmdate( 'Y-m-d', ( time() + ( get_site_option( 'gmt_offset' ) * 3600 ) ));
 		} // end __curdate
 
 		/**

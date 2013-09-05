@@ -19,7 +19,7 @@ if ( isset($_POST['section']) ) {
 		$this->user_settings['stats']['limit'] = (is_numeric($_POST['stats_limit']) && $_POST['stats_limit'] > 0) ? $_POST['stats_limit'] : 10;
 		$this->user_settings['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
 		
-		update_option('wpp_settings_config', $this->user_settings);			
+		update_site_option('wpp_settings_config', $this->user_settings);			
 		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
@@ -28,7 +28,7 @@ if ( isset($_POST['section']) ) {
 		$current = 'tools';
 			
 		$this->user_settings['tools']['link']['target'] = $_POST['link_target'];
-		update_option('wpp_settings_config', $this->user_settings);
+		update_site_option('wpp_settings_config', $this->user_settings);
 		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
@@ -37,7 +37,7 @@ if ( isset($_POST['section']) ) {
 		$current = 'tools';
 		
 		$this->user_settings['tools']['log']['level'] = $_POST['log_option'];				
-		update_option('wpp_settings_config', $this->user_settings);				
+		update_site_option('wpp_settings_config', $this->user_settings);				
 		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
@@ -53,7 +53,7 @@ if ( isset($_POST['section']) ) {
 			$this->user_settings['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
 			$this->user_settings['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
 			
-			update_option('wpp_settings_config', $this->user_settings);				
+			update_site_option('wpp_settings_config', $this->user_settings);				
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		}
 	}
@@ -81,7 +81,7 @@ if ( isset($_POST['section']) ) {
 		  ? $_POST['cache_interval_value']
 		  : 1;
 		
-		update_option('wpp_settings_config', $this->user_settings);
+		update_site_option('wpp_settings_config', $this->user_settings);
 		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
@@ -90,7 +90,7 @@ if ( isset($_POST['section']) ) {
 		$current = 'tools';
 		$this->user_settings['tools']['css'] = $_POST['css'];
 		
-		update_option('wpp_settings_config', $this->user_settings);
+		update_site_option('wpp_settings_config', $this->user_settings);
 		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		
 	}
@@ -102,7 +102,7 @@ if ( isset($_POST['section']) ) {
 	// TOOLS
 	function confirm_reset_cache() {
 		if (confirm("<?php _e("This operation will delete all entries from Wordpress Popular Posts' cache table and cannot be undone.", $this->plugin_slug); ?> \n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
-			jQuery.post(ajaxurl, {action: 'wpp_clear_cache', token: '<?php echo get_option("wpp_rand"); ?>', clear: 'cache'}, function(data){
+			jQuery.post(ajaxurl, {action: 'wpp_clear_cache', token: '<?php echo get_site_option("wpp_rand"); ?>', clear: 'cache'}, function(data){
 				alert(data);
 			});
 		}
@@ -110,7 +110,7 @@ if ( isset($_POST['section']) ) {
 	
 	function confirm_reset_all() {
 		if (confirm("<?php _e("This operation will delete all stored info from Wordpress Popular Posts' data tables and cannot be undone.", $this->plugin_slug); ?> \n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
-			jQuery.post(ajaxurl, {action: 'wpp_clear_all', token: '<?php echo get_option("wpp_rand"); ?>', clear: 'all'}, function(data){
+			jQuery.post(ajaxurl, {action: 'wpp_clear_all', token: '<?php echo get_site_option("wpp_rand"); ?>', clear: 'all'}, function(data){
 				alert(data);
 			});
 		}
