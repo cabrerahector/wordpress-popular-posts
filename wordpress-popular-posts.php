@@ -270,6 +270,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Get blog charset
 			$this->charset = get_bloginfo('charset');
 			
+			// Add ajax table truncation to wp_ajax_ hook
+			add_action('wp_ajax_wpp_clear_data', array( $this, 'clear_data' ));
+			
 			// Check if images can be created
 			if ( extension_loaded('ImageMagick') || (extension_loaded('GD') && function_exists('gd_info')) )
 				$this->thumbnailing = true;
@@ -963,6 +966,41 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/*--------------------------------------------------*/
 		/* Plugin methods / functions
 		/*--------------------------------------------------*/
+		
+		public function clear_data() {
+			$token = $_POST['token'];
+			$clear = isset($_POST['clear']) ? $_POST['clear'] : '';
+			$key = get_site_option("wpp_rand");
+			
+			if (current_user_can('manage_options') && ($token === $key) && !empty($clear)) {
+				global $wpdb;
+				// set table name
+				$prefix = $wpdb->prefix . "popularposts";
+				
+				if ($clear == 'cache') {
+					if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
+						$wpdb->query("TRUNCATE TABLE {$prefix}summary;");
+						_e('Success! The cache table has been cleared!', $this->plugin_slug);
+					} else {
+						_e('Error: cache table does not exist.', $this->plugin_slug);
+					}
+				} else if ($clear == 'all') {
+					if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}data'") && $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
+						$wpdb->query("TRUNCATE TABLE {$prefix}data;");
+						$wpdb->query("TRUNCATE TABLE {$prefix}summary;");
+						_e('Success! All data have been cleared!', $this->plugin_slug);
+					} else {
+						_e('Error: one or both data tables are missing.', $this->plugin_slug);
+					}
+				} else {
+					_e('Invalid action.', $this->plugin_slug);
+				}
+			} else {
+				_e('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', $this->plugin_slug);
+			}
+			
+			die();
+		}
 		
 				
 		public function update_views(){

@@ -97,12 +97,20 @@ if ( isset($_POST['section']) ) {
 	
 }
 
+$rand = md5(uniqid(rand(), true));	
+$wpp_rand = get_site_option("wpp_rand");	
+if (empty($wpp_rand)) {
+	add_site_option("wpp_rand", $rand);
+} else {
+	update_site_option("wpp_rand", $rand);
+}
+
 ?>
 <script type="text/javascript">
 	// TOOLS
 	function confirm_reset_cache() {
 		if (confirm("<?php _e("This operation will delete all entries from Wordpress Popular Posts' cache table and cannot be undone.", $this->plugin_slug); ?> \n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
-			jQuery.post(ajaxurl, {action: 'wpp_clear_cache', token: '<?php echo get_site_option("wpp_rand"); ?>', clear: 'cache'}, function(data){
+			jQuery.post(ajaxurl, {action: 'wpp_clear_data', token: '<?php echo get_site_option("wpp_rand"); ?>', clear: 'cache'}, function(data){
 				alert(data);
 			});
 		}
@@ -110,7 +118,7 @@ if ( isset($_POST['section']) ) {
 	
 	function confirm_reset_all() {
 		if (confirm("<?php _e("This operation will delete all stored info from Wordpress Popular Posts' data tables and cannot be undone.", $this->plugin_slug); ?> \n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
-			jQuery.post(ajaxurl, {action: 'wpp_clear_all', token: '<?php echo get_site_option("wpp_rand"); ?>', clear: 'all'}, function(data){
+			jQuery.post(ajaxurl, {action: 'wpp_clear_data', token: '<?php echo get_site_option("wpp_rand"); ?>', clear: 'all'}, function(data){
 				alert(data);
 			});
 		}
