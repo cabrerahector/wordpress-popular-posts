@@ -11,8 +11,7 @@ else
 // Update options on form submission
 if ( isset($_POST['section']) ) {
 	
-	if ( "stats" == $_POST['section'] ) {
-		
+	if ( "stats" == $_POST['section'] ) {		
 		$current = 'stats';
 		
 		$this->user_settings['stats']['order_by'] = $_POST['stats_order'];
@@ -20,29 +19,19 @@ if ( isset($_POST['section']) ) {
 		$this->user_settings['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
 		
 		update_site_option('wpp_settings_config', $this->user_settings);			
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
-		
+		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";		
 	}
-	elseif ( "linking" == $_POST['section'] ) {
-		
+	elseif ( "misc" == $_POST['section'] ) {		
 		$current = 'tools';
 			
 		$this->user_settings['tools']['link']['target'] = $_POST['link_target'];
+		$this->user_settings['tools']['log']['level'] = $_POST['log_option'];
+		$this->user_settings['tools']['css'] = $_POST['css'];
+		
 		update_site_option('wpp_settings_config', $this->user_settings);
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
-		
-	}
-	elseif ( "logging" == $_POST['section'] ) {
-		
-		$current = 'tools';
-		
-		$this->user_settings['tools']['log']['level'] = $_POST['log_option'];				
-		update_site_option('wpp_settings_config', $this->user_settings);				
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
-		
-	}
-	elseif ( "tools" == $_POST['section'] ) {
-		
+		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";		
+	}	
+	elseif ( "thumb" == $_POST['section'] ) {		
 		$current = 'tools';
 		
 		if ($_POST['thumb_source'] == "custom_field" && (!isset($_POST['thumb_field']) || empty($_POST['thumb_field']))) {
@@ -57,8 +46,7 @@ if ( isset($_POST['section']) ) {
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
 		}
 	}
-	elseif ( "ajax" == $_POST['section'] ) {
-		
+	elseif ( "data" == $_POST['section'] ) {		
 		$current = 'tools';
 		
 		$this->user_settings['tools']['ajax'] = $_POST['ajax'];
@@ -82,19 +70,9 @@ if ( isset($_POST['section']) ) {
 		  : 1;
 		
 		update_site_option('wpp_settings_config', $this->user_settings);
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
-		
+		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";		
 	}
-	elseif ( "css" == $_POST['section'] ) {
 		
-		$current = 'tools';
-		$this->user_settings['tools']['css'] = $_POST['css'];
-		
-		update_site_option('wpp_settings_config', $this->user_settings);
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
-		
-	}
-	
 }
 
 $rand = md5(uniqid(rand(), true));	
@@ -526,65 +504,8 @@ if (empty($wpp_rand)) {
     
     <!-- Start tools -->
     <div id="wpp_tools" class="wpp_boxes"<?php if ( "tools" == $current ) {?> style="display:block;"<?php } ?>>
-    	<p><?php _e("Here you will find a handy group of options to tweak Wordpress Popular Posts.", $this->plugin_slug); ?></p><br />
         
-        <h3 class="wmpp-subtitle"><?php _e("Popular Posts links behavior", $this->plugin_slug); ?></h3>
-
-        <form action="" method="post" id="wpp_link_options" name="wpp_link_options">
-            <table class="form-table">
-                <tbody>
-                    <tr valign="top">
-                        <th scope="row"><label for="link_target"><?php _e("Open links in", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="link_target" id="link_target">
-                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_self' ) {?>selected="selected"<?php } ?> value="_self"><?php _e("Current window", $this->plugin_slug); ?></option>
-                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_blank' ) {?>selected="selected"<?php } ?> value="_blank"><?php _e("New tab/window", $this->plugin_slug); ?></option>
-                            </select>
-                            <br />
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <td colspan="2">
-                            <input type="hidden" name="section" value="linking" />
-                            <input type="submit" class="button-secondary action" id="btn_link_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        <br />
-        <p style="display:block; float:none; clear:both">&nbsp;</p>
-                       
-        <h3 class="wmpp-subtitle"><?php _e("Views logging behavior", $this->plugin_slug); ?></h3>
-        	
-        <form action="" method="post" id="wpp_log_options" name="wpp_log_options">            
-            <table class="form-table">
-                <tbody>
-                    <tr valign="top">
-                        <th scope="row"><label for="log_option"><?php _e("Log views from", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="log_option" id="log_option">
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 0) {?>selected="selected"<?php } ?> value="0"><?php _e("Visitors only", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 2) {?>selected="selected"<?php } ?> value="2"><?php _e("Logged-in users only", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Everyone", $this->plugin_slug); ?></option>
-                            </select>
-                            <br />
-                        </td>
-                    </tr>
-                    <tr valign="top">                            	
-                        <td colspan="2">
-                            <input type="hidden" name="section" value="logging" />
-                            <input type="submit" class="button-secondary action" id="btn_log_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        <br />
-        <p style="display:block; float:none; clear:both">&nbsp;</p>
-        
-        <h3 class="wmpp-subtitle"><?php _e("Thumbnail source", $this->plugin_slug); ?></h3>
-        	
+        <h3 class="wmpp-subtitle"><?php _e("Thumbnails", $this->plugin_slug); ?></h3>        	
         <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">            
             <table class="form-table">
                 <tbody>
@@ -632,39 +553,22 @@ if (empty($wpp_rand)) {
                     </tr>
                     <tr valign="top">                            	
                         <td colspan="2">
-                            <input type="hidden" name="section" value="tools" />
+                            <input type="hidden" name="section" value="thumb" />
                             <input type="submit" class="button-secondary action" id="btn_th_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
             </table>
         </form>
-                
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
-        
-        <h3 class="wmpp-subtitle"><?php _e("Wordpress Popular Posts Stylesheet", $this->plugin_slug); ?></h3>
-        <p><?php _e("By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.", $this->plugin_slug); ?></p>
-        <div class="tablenav top">
-        	<div class="alignleft actions">
-                <form action="" method="post" id="wpp_css_options" name="wpp_css_options">
-                    <select name="css" id="css">
-                        <option <?php if ($this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
-                        <option <?php if (!$this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
-                    </select>
-                    <input type="hidden" name="section" value="css" />
-                    <input type="submit" class="button-secondary action" id="btn_css_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
-                </form>                
-            </div>
-        </div>
-        <br /><br />
-        
-        <h3 class="wmpp-subtitle"><?php _e("Data tools", $this->plugin_slug); ?></h3>
+                
+        <h3 class="wmpp-subtitle"><?php _e("Data", $this->plugin_slug); ?></h3>
         <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
         	<table class="form-table">
                 <tbody>
                     <tr valign="top">
-                        <th scope="row"><label for="thumb_source"><?php _e("Ajaxify widget", $this->plugin_slug); ?>:</label></th>
+                        <th scope="row"><label for="ajax"><?php _e("Ajaxify widget", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="ajax" id="ajax">                                
                                 <option <?php if (!$this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
@@ -676,7 +580,7 @@ if (empty($wpp_rand)) {
                         </td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="thumb_source"><?php _e("Popular posts listing refresh interval", $this->plugin_slug); ?>:</label></th>
+                        <th scope="row"><label for="cache"><?php _e("Listing refresh interval", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="cache" id="cache">
                                 <option <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Live", $this->plugin_slug); ?></option>
@@ -688,7 +592,7 @@ if (empty($wpp_rand)) {
                         </td>
                     </tr>
                     <tr valign="top" <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>style="display:none;"<?php } ?> id="cache_refresh_interval">
-                        <th scope="row"><label for="thumb_field_resize"><?php _e("Refresh interval", $this->plugin_slug); ?>:</label></th>
+                        <th scope="row"><label for="cache_interval_value"><?php _e("Refresh list every", $this->plugin_slug); ?>:</label></th>
                         <td>
                         	<input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->user_settings['tools']['cache']['interval']['value']) ) ? (int) $this->user_settings['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
                             <select name="cache_interval_time" id="cache_interval_time">
@@ -704,13 +608,63 @@ if (empty($wpp_rand)) {
                     </tr>
                     <tr valign="top">                            	
                         <td colspan="2">
-                            <input type="hidden" name="section" value="ajax" />
+                            <input type="hidden" name="section" value="data" />
                     		<input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
             </table>
         </form>
+        <br />
+        <p style="display:block; float:none; clear:both">&nbsp;</p>
+        
+        <h3 class="wmpp-subtitle"><?php _e("Miscellaneous", $this->plugin_slug); ?></h3>
+        <form action="" method="post" id="wpp_link_options" name="wpp_link_options">
+            <table class="form-table">
+                <tbody>
+                    <tr valign="top">
+                        <th scope="row"><label for="link_target"><?php _e("Open links in", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="link_target" id="link_target">
+                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_self' ) {?>selected="selected"<?php } ?> value="_self"><?php _e("Current window", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_blank' ) {?>selected="selected"<?php } ?> value="_blank"><?php _e("New tab/window", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="log_option"><?php _e("Log views from", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="log_option" id="log_option">
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 0) {?>selected="selected"<?php } ?> value="0"><?php _e("Visitors only", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 2) {?>selected="selected"<?php } ?> value="2"><?php _e("Logged-in users only", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Everyone", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="css"><?php _e("Use plugin's stylesheet", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="css" id="css">
+                                <option <?php if ($this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
+                                <option <?php if (!$this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                            <p class="description"><?php _e("By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.", $this->plugin_slug); ?></p>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <td colspan="2">
+                            <input type="hidden" name="section" value="misc" />
+                            <input type="submit" class="button-secondary action" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <br />
+        <p style="display:block; float:none; clear:both">&nbsp;</p>
         
         <br /><br />
         
