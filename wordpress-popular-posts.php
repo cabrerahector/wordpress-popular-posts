@@ -36,6 +36,22 @@ if ( basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__) )
  * Wordpress Popular Posts class.
  */
 if ( !class_exists('WordpressPopularPosts') ) {
+	
+	/**
+	 * Register plugin's activation / deactivation functions
+	 * @since 1.3
+	 */
+	register_activation_hook( __FILE__, array( 'WordpressPopularPosts', 'activate' ) );
+	register_deactivation_hook( __FILE__, array( 'WordpressPopularPosts', 'deactivate' ) );
+	
+	/**
+	 * Add function to widgets_init that'll load WPP.
+	 * @since 2.0
+	 */
+	function load_wpp() {
+		register_widget( 'WordpressPopularPosts' );
+	}
+	add_action( 'widgets_init', 'load_wpp' );
 
 	class WordpressPopularPosts extends WP_Widget {
 
@@ -2692,11 +2708,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 	} // end class
 	
 	// Register plugin's activation / deactivation hooks
-	register_activation_hook( __FILE__, array( 'WordpressPopularPosts', 'activate' ) );
-	register_deactivation_hook( __FILE__, array( 'WordpressPopularPosts', 'deactivate' ) );
+	//register_activation_hook( __FILE__, array( 'WordpressPopularPosts', 'activate' ) );
+	//register_deactivation_hook( __FILE__, array( 'WordpressPopularPosts', 'deactivate' ) );
 	
 	// Instantiate plugin
-	add_action( 'plugins_loaded', array( 'WordpressPopularPosts', 'get_instance' ) );
+	//add_action( 'plugins_loaded', array( 'WordpressPopularPosts', 'get_instance' ) );
 
 }
 
