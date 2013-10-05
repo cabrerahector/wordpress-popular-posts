@@ -25,6 +25,14 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	foreach( $blogs_ids as $blog_id ) {
 		
 		switch_to_blog( $blog_id );
+		
+		// Delete plugin's options
+		delete_site_option( 'wpp_ver' );
+		delete_site_option( 'wpp_settings_config' );
+		delete_site_option( 'wpp_rand' );
+		delete_site_option( 'wpp_feed' );
+		
+		// delete tables
 		uninstall();
 
 	}
@@ -32,19 +40,20 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	// Switch back to current blog
 	switch_to_blog( $original_blog_id );
 
-} else {	
+} else {
+	// Delete plugin's options
+	delete_option( 'wpp_ver' );
+	delete_option( 'wpp_settings_config' );
+	delete_option( 'wpp_rand' );
+	delete_option( 'wpp_feed' );
+	
+	// delete tables
 	uninstall();
 }
 
 function uninstall(){
 	
 	global $wpdb;
-	
-	// Delete plugin's options
-	delete_option( 'wpp_ver' );
-	delete_option( 'wpp_settings_config' );
-	delete_option( 'wpp_rand' );
-	delete_option( 'wpp_feed' );
 
 	// Delete db tables
 	$prefix = $wpdb->prefix . "popularposts";
