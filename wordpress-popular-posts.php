@@ -895,7 +895,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					view_date date NOT NULL,
 					last_viewed datetime NOT NULL,
 					PRIMARY KEY  (ID),
-					UNIQUE KEY ID_date (ID_post, view_date)
+					UNIQUE KEY ID_date (ID_post,view_date)
 				) {$charset_collate};";
 
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
