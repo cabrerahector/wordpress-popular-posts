@@ -812,10 +812,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @global	object	wpdb
 		 */
 		private static function __deactivate() {
-
-			wp_clear_scheduled_hook('wpp_cache_event');
 			remove_shortcode('wpp');
-
 		} // end __deactivate
 
 		/**
