@@ -56,6 +56,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		private $plugin_slug = 'wordpress-popular-posts';
 		
 		/**
+		 * Instance of this class.
+		 *
+		 * @since    3.0.0
+		 *
+		 * @var      object
+		 */
+		protected static $instance = NULL;
+		
+		/**
 		 * Slug of the plugin screen.
 		 *
 		 * @since	3.0.0
@@ -219,10 +228,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// Upgrade check
 			add_action( 'init', array( $this, 'upgrade_check' ) );
-
-			// Hooks fired when the Widget is activated and deactivated
-			register_activation_hook( __FILE__, array( $this, 'activate' ) );
-			register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 			
 			// Hook fired when a new blog is activated on WP Multisite
 			add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
@@ -669,6 +674,23 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/*--------------------------------------------------*/
 		/* Install / activation / deactivation methods
 		/*--------------------------------------------------*/
+		
+		/**
+		 * Return an instance of this class.
+		 *
+		 * @since     3.0.0
+		 *
+		 * @return    object    A single instance of this class.
+		 */
+		public static function get_instance() {
+	
+			// If the single instance hasn't been set, set it now.
+			if ( NULL == self::$instance ) {
+				self::$instance = new self;
+			}
+	
+			return self::$instance;
+		}
 
 		/**
 		 * Fired when the plugin is activated.
@@ -677,7 +699,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @global	object	wpdb
 		 * @param	bool	network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
 		 */
-		public function activate( $network_wide ) {
+		public static function activate( $network_wide ) {
 
 			global $wpdb;
 
@@ -691,7 +713,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					foreach( $blogs_ids as $blog_id ) {
 						switch_to_blog( $blog_id );
-						$this->__activate();
+						self::__activate();
 					}
 
 					// switch back to current blog
@@ -703,7 +725,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			}
 
-			$this->__activate();
+			self::__activate();
 
 		} // end activate
 
@@ -720,7 +742,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// run activation for the new blog
 			switch_to_blog( $blog_id );
-			$this->__activate();
+			self::__activate();
 
 			// switch back to current blog
 			restore_current_blog();
@@ -733,7 +755,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	2.4.0
 		 * @global	object	wpdb
 		 */
-		private function __activate() {
+		private static function __activate() {
 
 			global $wpdb;
 
@@ -742,7 +764,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// fresh setup
 			if ( $prefix != $wpdb->get_var("SHOW TABLES LIKE '{$prefix}data'") ) {
-				$this->__do_db_tables( $prefix );
+				self::__do_db_tables( $prefix );
 			}
 
 		} // end __activate
@@ -753,7 +775,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	1.0.0
 		 * @param	bool	network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog
 		 */
-		public function deactivate( $network_wide ) {
+		public static function deactivate( $network_wide ) {
 
 			global $wpdb;
 
@@ -767,7 +789,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					foreach( $blogs_ids as $blog_id ) {
 						switch_to_blog( $blog_id );
-						$this->__deactivate();
+						self::__deactivate();
 					}
 
 					// Switch back to current blog
@@ -779,7 +801,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			}
 
-			$this->__deactivate();
+			self::__deactivate();
 
 		} // end deactivate
 
@@ -789,7 +811,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	2.4.0
 		 * @global	object	wpdb
 		 */
-		private function __deactivate() {
+		private static function __deactivate() {
 
 			wp_clear_scheduled_hook('wpp_cache_event');
 			remove_shortcode('wpp');
@@ -829,7 +851,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$prefix = $wpdb->prefix . "popularposts";
 
 			// validate the structure of the tables and create missing tables
-			$this->__do_db_tables( $prefix );
+			self::__do_db_tables( $prefix );
 
 			// If summary is empty, import data from popularpostsdatacache
 			if ( !$wpdb->get_var("SELECT COUNT(*) FROM {$prefix}summary") ) {
@@ -866,7 +888,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	2.4.0
 		 * @global	object	wpdb
 		 */
-		private function __do_db_tables( $prefix ) {
+		private static function __do_db_tables( $prefix ) {
 
 			global $wpdb;
 
@@ -2671,8 +2693,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		} // end __debug
 
 	} // end class
-
-	add_action( 'widgets_init', create_function( '', 'register_widget("WordpressPopularPosts");' ) );
+	
+	// Register plugin's activation / deactivation hooks
+	register_activation_hook( __FILE__, array( 'WordpressPopularPosts', 'activate' ) );
+	register_deactivation_hook( __FILE__, array( 'WordpressPopularPosts', 'deactivate' ) );
+	
+	// Instantiate plugin
+	add_action( 'plugins_loaded', array( 'WordpressPopularPosts', 'get_instance' ) );
 
 }
 
