@@ -1015,6 +1015,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ($clear == 'cache') {
 					if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
 						$wpdb->query("TRUNCATE TABLE {$prefix}summary;");
+						$this->__flush_transients();
 						_e('Success! The cache table has been cleared!', $this->plugin_slug);
 					} else {
 						_e('Error: cache table does not exist.', $this->plugin_slug);
@@ -1023,6 +1024,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}data'") && $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
 						$wpdb->query("TRUNCATE TABLE {$prefix}data;");
 						$wpdb->query("TRUNCATE TABLE {$prefix}summary;");
+						$this->__flush_transients();
 						_e('Success! All data have been cleared!', $this->plugin_slug);
 					} else {
 						_e('Error: one or both data tables are missing.', $this->plugin_slug);
@@ -1098,7 +1100,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			//]]></script>
             <!-- End Wordpress Popular Posts v<?php echo $this->version; ?> -->
             <?php
-		}		
+		}
+		
+		private function __flush_transients() {
+			$wpp_transients = get_site_option('wpp_transients');
+			
+			if ( $wpp_transients && is_array($wpp_transients) && !empty($wpp_transients) ) {
+				for ($t=0; $t < count($wpp_transients); $t++) 
+					delete_transient( $wpp_transients[$t] );
+					
+				update_site_option('wpp_transients', array());
+			}
+		}
 		
 		/**
 		 * Updates views count.

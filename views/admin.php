@@ -53,14 +53,7 @@ if ( isset($_POST['section']) ) {
 		
 		// if any of the caching settings was updated, destroy all transients created by the plugin
 		if ( $this->user_settings['tools']['cache']['active'] != $_POST['cache'] || $this->user_settings['tools']['cache']['interval']['time'] != $_POST['cache_interval_time'] || $this->user_settings['tools']['cache']['interval']['value'] != $_POST['cache_interval_value'] ) {
-			$wpp_transients = get_site_option('wpp_transients');
-			
-			if ( $wpp_transients && is_array($wpp_transients) && !empty($wpp_transients) ) {
-				for ($t=0; $t < count($wpp_transients); $t++) 
-					delete_transient( $wpp_transients[$t] );
-					
-				update_site_option('wpp_transients', array());
-			}
+			$this->__flush_transients();
 		}
 		
 		$this->user_settings['tools']['cache']['active'] = $_POST['cache'];			
