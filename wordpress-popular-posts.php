@@ -1451,7 +1451,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$content = "";
 
 			// Fetch posts
-			if ( $this->user_settings['tools']['cache']['active'] ) {
+			if ( !is_admin() && $this->user_settings['tools']['cache']['active'] ) {
 				// It wasn't there, so regenerate the data and save the transient
 				if ( false === ( $mostpopular = get_transient( md5(json_encode($instance)) ) ) ) {				  
 					$mostpopular = $this->_query_posts( $instance );
