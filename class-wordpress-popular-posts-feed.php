@@ -33,9 +33,13 @@ if ( class_exists('WordpressPopularPosts') ) {
 		 * Creates the feed.
 		 *
 		 * @since     3.0.0
+		 * @global    object    $wp_rewrite
 		 */
 		public function create_feed() {
-			add_feed( 'popularposts', array( $this, 'popular_posts_feed' ) );
+			global $wp_rewrite;
+			
+			$wp_rewrite->flush_rules();
+			add_feed( 'popular-posts', array( $this, 'popular_posts_feed' ) );
 		}
 		
 		/**
