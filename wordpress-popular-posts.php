@@ -1561,7 +1561,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ($instance['markup']['custom_html']) {
 				
 				$data = array(
-					'title' => '<a href="'.$permalink.'" title="'.$title.'">'.$title_sub.'</a>',
+					'title' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'">'.$title_sub.'</a>',
 					'summary' => $excerpt,
 					'stats' => $_stats,
 					'img' => $thumb,
@@ -1582,7 +1582,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$content =
 			'<li>'
 			. $thumb
-			. '<a href="' . $permalink . '" title="' . $title . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
+			. '<a href="' . $permalink . '" title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
 			. $excerpt . ' <span class="post-stats">' . $_stats . '</span> '
 			. $rating
 			. "</li>\n";
@@ -2200,7 +2200,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $msg .
-			'<img src="' . $src . '" alt="' . $title . '" border="0" width="' . $dimension[0] . '" height="' . $dimension[1] . '" class="' . $class . '" />';
+			'<img src="' . $src . '" alt="' . esc_attr($title) . '" border="0" width="' . $dimension[0] . '" height="' . $dimension[1] . '" class="' . $class . '" />';
 		
 		}
 		
