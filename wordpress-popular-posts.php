@@ -293,6 +293,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// Add ajax table truncation to wp_ajax_ hook
 			add_action('wp_ajax_wpp_clear_data', array( $this, 'clear_data' ));
+			add_action('wp_ajax_nopriv_wpp_ajax_get_popular', array( $this, 'ajax_get_popular') );
+			add_action('wp_ajax_nopriv_wpp_ajax_get_popular', array( $this, 'ajax_get_popular') );
 			
 			// Check if images can be created
 			if ( extension_loaded('ImageMagick') || (extension_loaded('GD') && function_exists('gd_info')) )
@@ -2605,6 +2607,33 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			return html_entity_decode( $string, ENT_QUOTES, $this->charset );
 		}	
+
+
+		/**
+		 * Builds list via AJAX
+		 *
+		 * @since	2.3.3
+		 */
+		function ajax_get_popular( ) {
+
+			if ( is_numeric($_GET['id']) && (intval($_GET['id']) == floatval($_GET['id'])) && ($_GET['id'] != '') ) {
+				$id = $_GET['id'];
+			} else {
+				die("Invalid ID");
+			}
+
+			$widget_instances = $this->get_settings();
+
+			if ( isset($widget_instances[$id]) ) {
+
+				echo $this->__get_popular_posts( $widget_instances[$id] );
+
+			} else {
+
+				echo "Invalid Widget ID";
+			}
+			exit();
+		}
 
 		/*--------------------------------------------------*/
 		/* Helper functions
