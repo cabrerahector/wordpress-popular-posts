@@ -390,7 +390,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				}
 			}
 			
-			if ( $this->user_settings['tools']['ajax'] ) {				
+			if ( $this->user_settings['tools']['ajax'] ) {
+				if ( empty($before_widget) || !preg_match('/id="[^"]*"/', $before_widget) ) {
+				?>
+                <p><?php _e('Error: cannot ajaxify Wordpress Popular Posts on this theme. It\'s missing the <em>id</em> attribute on before_widget (see <a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank" rel="nofollow">register_sidebar</a> for more).', 'wordpress-popular-posts' ); ?>
+                <?php
+				} else {
 				?>
                 <script type="text/javascript">//<![CDATA[
                     jQuery(document).ready(function(){
@@ -402,7 +407,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						});
                     });                    
                 //]]></script>                
-                <?php				
+                <?php
+				}
 			} else {
 				echo $this->__get_popular_posts( $instance );
 			}
