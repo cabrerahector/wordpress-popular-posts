@@ -295,8 +295,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			add_action('wp_ajax_wpp_clear_data', array( $this, 'clear_data' ));
 			
 			// Add ajax hook for widget
-			add_action('wp_ajax_wpp_ajax_get_popular', array( $this, 'ajax_get_popular') );
-			add_action('wp_ajax_nopriv_wpp_ajax_get_popular', array( $this, 'ajax_get_popular') );
+			add_action('wp_ajax_wpp_get_popular', array( $this, 'get_popular') );
+			add_action('wp_ajax_nopriv_wpp_get_popular', array( $this, 'get_popular') );
 			
 			// Check if images can be created
 			if ( extension_loaded('ImageMagick') || (extension_loaded('GD') && function_exists('gd_info')) )
@@ -402,7 +402,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <script type="text/javascript">//<![CDATA[
                     jQuery(document).ready(function(){
                         jQuery.get('<?php echo admin_url('admin-ajax.php'); ?>', {
-							action: 'wpp_ajax_get_popular',
+							action: 'wpp_get_popular',
 							id: '<?php echo $this->number; ?>'
 						}, function(data){
 							jQuery('#<?php echo $widget_id; ?>').append(data);
@@ -2614,15 +2614,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return html_entity_decode( $string, ENT_QUOTES, $this->charset );
-		}	
-
+		}
 
 		/**
-		 * Builds list via AJAX
+		 * Returns HTML list via AJAX
 		 *
 		 * @since	2.3.3
+		 * @return	string
 		 */
-		function ajax_get_popular( ) {
+		public function get_popular( ) {
 
 			if ( is_numeric($_GET['id']) && (intval($_GET['id']) == floatval($_GET['id'])) && ($_GET['id'] != '') ) {
 				$id = $_GET['id'];
