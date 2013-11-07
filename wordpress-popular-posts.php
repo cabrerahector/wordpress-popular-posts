@@ -293,7 +293,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			// Add ajax table truncation to wp_ajax_ hook
 			add_action('wp_ajax_wpp_clear_data', array( $this, 'clear_data' ));
-			add_action('wp_ajax_nopriv_wpp_ajax_get_popular', array( $this, 'ajax_get_popular') );
+			
+			// Add ajax hook for widget
+			add_action('wp_ajax_wpp_ajax_get_popular', array( $this, 'ajax_get_popular') );
 			add_action('wp_ajax_nopriv_wpp_ajax_get_popular', array( $this, 'ajax_get_popular') );
 			
 			// Check if images can be created
