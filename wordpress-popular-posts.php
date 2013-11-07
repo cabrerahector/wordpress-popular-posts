@@ -393,7 +393,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( $this->user_settings['tools']['ajax'] ) {
 				if ( empty($before_widget) || !preg_match('/id="[^"]*"/', $before_widget) ) {
 				?>
-                <p><?php _e('Error: cannot ajaxify Wordpress Popular Posts on this theme. It\'s missing the <em>id</em> attribute on before_widget (see <a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank" rel="nofollow">register_sidebar</a> for more).', 'wordpress-popular-posts' ); ?>
+                <p><?php _e('Error: cannot ajaxify Wordpress Popular Posts on this theme. It\'s missing the <em>id</em> attribute on before_widget (see <a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank" rel="nofollow">register_sidebar</a> for more).', $this->plugin_slug ); ?>
                 <?php
 				} else {
 				?>
@@ -618,9 +618,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function replace_thickbox_text($translated_text, $text, $domain) {
 
 			if ('Insert into Post' == $text) {
-				$referer = strpos( wp_get_referer(), 'wordpress-popular-posts' );
+				$referer = strpos( wp_get_referer(), $this->plugin_slug );
 				if ( $referer != '' ) {
-					return __('Upload', 'wordpress-popular-posts' );
+					return __('Upload', $this->plugin_slug );
 				}
 			}
 
