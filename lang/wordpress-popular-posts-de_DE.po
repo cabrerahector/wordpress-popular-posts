@@ -619,7 +619,7 @@ msgstr "Vorschaubild hochladen"
 
 #: ../views/admin.php:518
 msgid "How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes"
-msgstr "Anleitung: ein Bild hochladen (oder aus existierenden wählen) und \"vollständige Größe\" einstellen. Anschließend \"Alle Änderungen Speichern\" anklicken."
+msgstr "Anleitung: ein Bild hochladen (oder aus existierenden wählen) und \"vollständige Größe\" einstellen. Anschließend \"Anwenden\" anklicken."
 
 #: ../views/admin.php:520
 msgid "Preview"
