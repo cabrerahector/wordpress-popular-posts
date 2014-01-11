@@ -1556,6 +1556,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$author = $this->_get_author($p, $instance);
 			$post_cat = $this->_get_post_cat($p, $instance);
+			$post_cat_nicename = $this->_get_post_cat_nicename($p, $instance);
 			
 			$thumb = $this->_get_thumb($p, $instance);
 			$excerpt = $this->_get_excerpt($p, $instance);
@@ -1579,6 +1580,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'url' => $permalink,
 					'text_title' => $title,
 					'category' => $post_cat,
+					'category_nicename' => $post_cat_nicename,
 					'author' => '<a href="' . get_author_posts_url($p->uid) . '">' . $author . '</a>',
 					'views' => $pageviews,
 					'comments' => $comments
@@ -1923,6 +1925,31 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $cache[$p->id] = $post_cat;
+		}
+
+		/**
+		 * Gets post's category nicename (slug).
+		 *
+		 * @since	3.0.0
+		 * @param	object	p
+		 * @param	array	instance	The current instance of the widget / shortcode parameters
+		 * @return	string
+		 */
+		protected function _get_post_cat_nicename($p, $instance) {
+			
+			$cache = &$this->__cache(__FUNCTION__, array());
+			
+			if (isset($cache[$p->id])) {
+				return $cache[$p->id];
+			}
+			
+            $post_cat_nicename = get_the_category($p->id);
+            $post_cat_nicename = (isset($post_cat_nicename[0]))
+                ? $post_cat_nicename[0]->category_nicename
+                : '';
+				
+			
+			return $cache[$p->id] = $post_cat_nicename;
 		}
 		
 		/**
@@ -2547,7 +2574,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$string = htmlentities( $string );
 			
 			$params = array();
-			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|rating|score|url|text_title|author|category|views|comments)\}/i';		
+			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|rating|score|url|text_title|author|category|category_nicename|views|comments)\}/i';		
 			preg_match_all($pattern, $string, $matches);
 			
 			array_map('strtolower', $matches[0]);		
@@ -2603,6 +2630,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			if ( in_array("{category}", $matches[0]) ) {
 				$string = str_replace( "{category}", $data['category'], $string );
+			}
+
+			if ( in_array("{category_nicename}", $matches[0]) ) {
+				$string = str_replace( "{category_nicename}", $data['category_nicename'], $string );
 			}
 			
 			if ( in_array("{views}", $matches[0]) ) {
