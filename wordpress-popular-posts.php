@@ -2210,7 +2210,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $msg .
-			'<img src="' . $src . '" alt="' . esc_attr($title) . '" border="0" width="' . $dimension[0] . '" height="' . $dimension[1] . '" class="' . $class . '" />';
+			'<img src="' . $src[0] . '" alt="' . esc_attr($title) . '" border="0" width="' . $dimension[0] . '" height="' . $dimension[1] . '" class="' . $class . '" />';
 		
 		}
 		
