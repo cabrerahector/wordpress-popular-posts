@@ -973,7 +973,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			if ( version_compare( $wp_min_version, $wp_version, '>' ) ) {
 				$errors[] = sprintf(
-					__( 'Your Wordpress version is too old. Wordpress Popular Posts requires at least Wordpress version %1$s to function correctly. Please update your blog via Tools &gt; Upgrade.', $this->plugin_slug ),
+					__( 'Your Wordpress version is too old. Wordpress Popular Posts requires at least Wordpress version %1$s to function correctly. Please update your blog via Dashboard &gt; Update.', $this->plugin_slug ),
 					$wp_min_version
 				);
 			}
