@@ -153,7 +153,7 @@ if (empty($wpp_rand)) {
                 <?php echo do_shortcode("[wpp range='monthly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']."]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-all">
-                <?php echo do_shortcode("[wpp range='all' post_type='".$this->user_settings['stats']['post_type']."' stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='all' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']."]"); ?>
             </div>
         </div>
     </div>
