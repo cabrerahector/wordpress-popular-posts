@@ -1095,7 +1095,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			wp_print_scripts('jquery');
 			
-			if ( !is_singular() || is_attachment() || is_front_page() || is_preview() )
+			if ( !is_singular() || is_attachment() || is_front_page() || is_preview() || is_trackback() || is_feed() || is_robots() || $this->__is_bot() )
 				return;
 			
 			global $post;
