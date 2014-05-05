@@ -903,7 +903,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}datacache'") ) {
 
 					$sql = "
-					INSERT INTO {$prefix}summary (postid, views, view_date, last_viewed)
+					INSERT INTO {$prefix}summary (postid, pageviews, view_date, last_viewed)
 					SELECT id, pageviews, day_no_time, day
 					FROM {$prefix}datacache
 					GROUP BY day_no_time, id
@@ -947,20 +947,20 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$sql = "
 				CREATE TABLE {$prefix}data (
 					postid bigint(20) NOT NULL,
-					day datetime NOT NULL default '0000-00-00 00:00:00',
-					last_viewed datetime NOT NULL default '0000-00-00 00:00:00',
-					pageviews int(10) default 1,
-					PRIMARY KEY  (postid),
-					KEY day (day)
+					day datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+					last_viewed datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+					pageviews bigint(20) DEFAULT 1,
+					PRIMARY KEY  (postid)
 				) {$charset_collate};
 				CREATE TABLE {$prefix}summary (
 					ID bigint(20) NOT NULL AUTO_INCREMENT,
 					postid bigint(20) NOT NULL,
-					views bigint(20) NOT NULL DEFAULT 0,
-					view_date date NOT NULL,
-					last_viewed datetime NOT NULL,
+					pageviews bigint(20) NOT NULL DEFAULT 1,
+					view_date date NOT NULL DEFAULT '0000-00-00',
+					last_viewed datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 					PRIMARY KEY  (ID),
-					UNIQUE KEY ID_date (postid,view_date)
+					UNIQUE KEY ID_date (postid,view_date),
+					KEY last_viewed (last_viewed)
 				) {$charset_collate};";
 
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -1191,7 +1191,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				(postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
 				ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, last_viewed = '%3\$s';",
 				$id,
-				$this->__curdate(),
+				$this->__now(),
 				$this->__now(),
 				1
 			));
@@ -1199,8 +1199,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Update range (summary) table
 			$result2 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}summary
-				(postid, views, view_date, last_viewed) VALUES (%d, %d, %s, %s)
-				ON DUPLICATE KEY UPDATE views = views + 1, last_viewed = '%4\$s';",
+				(postid, pageviews, view_date, last_viewed) VALUES (%d, %d, %s, %s)
+				ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, last_viewed = '%4\$s';",
 				$id,
 				1,
 				$this->__curdate(),
@@ -1432,7 +1432,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $instance['stats_tag']['views'] ) { // get views, too
 
 						$fields .= ", IFNULL(v.pageviews, 0) AS 'pageviews'";
-						$from .= " LEFT JOIN (SELECT postid, SUM(views) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v ON p.ID = v.postid";
+						$from .= " LEFT JOIN (SELECT postid, SUM(pageviews) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v ON p.ID = v.postid";
 
 					}
 
@@ -1440,7 +1440,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				// ordered by views / avg
 				else {
 
-					$from = "(SELECT postid, IFNULL(SUM(views), 0) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID";
+					$from = "(SELECT postid, IFNULL(SUM(pageviews), 0) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID";
 					$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
 					// ordered by views
