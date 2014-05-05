@@ -1185,14 +1185,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$table = $wpdb->prefix . "popularposts";			
 			$wpdb->show_errors();
 			
+			$now = $this->__now();
+			$curdate = $this->__curdate();
+			
 			// Update all-time table
 			$result1 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}data
 				(postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
 				ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, last_viewed = '%3\$s';",
 				$id,
-				$this->__now(),
-				$this->__now(),
+				$now,
+				$now,
 				1
 			));
 			
@@ -1203,8 +1206,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, last_viewed = '%4\$s';",
 				$id,
 				1,
-				$this->__curdate(),
-				$this->__now()
+				$curdate,
+				$now
 			));
 			
 			if ( !$result1 || !$result2 )
@@ -1245,6 +1248,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$cats = "";
 			$authors = "";
 			$content = "";
+			
+			$now = $this->__now();
 
 			// post filters
 			// * post types - based on code seen at https://github.com/williamsba/WordPress-Popular-Posts-with-Custom-Post-Type-Support
@@ -1389,7 +1394,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// order by avg views
 					elseif ( "avg" == $instance['order_by'] ) {
 
-						$fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$this->__now()}', MIN(v.day)) > 0, DATEDIFF('{$this->__now()}', MIN(v.day)), 1) ) ) AS 'avg_views'";
+						$fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$now}', MIN(v.day)) > 0, DATEDIFF('{$now}', MIN(v.day)), 1) ) ) AS 'avg_views'";
 						$orderby = "ORDER BY avg_views DESC";
 
 					}
@@ -1426,13 +1431,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ( "comments" == $instance['order_by'] ) {
 
 					$fields .= ", c.comment_count AS 'comment_count'";
-					$from = "(SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC) c LEFT JOIN {$wpdb->posts} p ON c.id = p.ID";
+					$from = "(SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC) c LEFT JOIN {$wpdb->posts} p ON c.id = p.ID";
 					$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
 					if ( $instance['stats_tag']['views'] ) { // get views, too
 
 						$fields .= ", IFNULL(v.pageviews, 0) AS 'pageviews'";
-						$from .= " LEFT JOIN (SELECT postid, SUM(pageviews) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v ON p.ID = v.postid";
+						$from .= " LEFT JOIN (SELECT postid, SUM(pageviews) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v ON p.ID = v.postid";
 
 					}
 
@@ -1440,7 +1445,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				// ordered by views / avg
 				else {
 
-					$from = "(SELECT postid, IFNULL(SUM(pageviews), 0) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID";
+					$from = "(SELECT postid, IFNULL(SUM(pageviews), 0) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID";
 					$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
 					// ordered by views
@@ -1450,7 +1455,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// ordered by avg views
 					elseif ( "avg" == $instance['order_by'] ) {
 						
-						$fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$this->__now()}', DATE_SUB('{$this->__now()}', INTERVAL {$interval})) > 0, DATEDIFF('{$this->__now()}', DATE_SUB('{$this->__now()}', INTERVAL {$interval})), 1) ) ) AS 'avg_views' ";
+						$fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$now}', DATE_SUB('{$now}', INTERVAL {$interval})) > 0, DATEDIFF('{$now}', DATE_SUB('{$now}', INTERVAL {$interval})), 1) ) ) AS 'avg_views' ";
 						$groupby = "GROUP BY v.postid";
 						$orderby = "ORDER BY avg_views DESC";
 						
@@ -1460,7 +1465,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $instance['stats_tag']['comment_count'] ) {
 
 						$fields .= ", IFNULL(c.comment_count, 0) AS 'comment_count'";
-						$from .= " LEFT JOIN (SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC) c ON p.ID = c.id";
+						$from .= " LEFT JOIN (SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC) c ON p.ID = c.id";
 
 					}
 
