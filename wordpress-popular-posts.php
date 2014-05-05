@@ -903,7 +903,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}datacache'") ) {
 
 					$sql = "
-					INSERT INTO {$prefix}summary (ID_post, views, view_date, last_viewed)
+					INSERT INTO {$prefix}summary (postid, views, view_date, last_viewed)
 					SELECT id, pageviews, day_no_time, day
 					FROM {$prefix}datacache
 					GROUP BY day_no_time, id
@@ -955,12 +955,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				) {$charset_collate};
 				CREATE TABLE {$prefix}summary (
 					ID bigint(20) NOT NULL AUTO_INCREMENT,
-					ID_post bigint(20) NOT NULL,
-					views bigint(20) NOT NULL DEFAULT '0',
+					postid bigint(20) NOT NULL,
+					views bigint(20) NOT NULL DEFAULT 0,
 					view_date date NOT NULL,
 					last_viewed datetime NOT NULL,
 					PRIMARY KEY  (ID),
-					UNIQUE KEY ID_date (ID_post,view_date)
+					UNIQUE KEY ID_date (postid,view_date)
 				) {$charset_collate};";
 
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -1199,7 +1199,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Update range (summary) table
 			$result2 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}summary
-				(ID_post, views, view_date, last_viewed) VALUES (%d, %d, %s, %s)
+				(postid, views, view_date, last_viewed) VALUES (%d, %d, %s, %s)
 				ON DUPLICATE KEY UPDATE views = views + 1, last_viewed = '%4\$s';",
 				$id,
 				1,
@@ -1432,7 +1432,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $instance['stats_tag']['views'] ) { // get views, too
 
 						$fields .= ", IFNULL(v.pageviews, 0) AS 'pageviews'";
-						$from .= " LEFT JOIN (SELECT ID_post, SUM(views) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY ID_post ORDER BY pageviews DESC) v ON p.ID = v.ID_post";
+						$from .= " LEFT JOIN (SELECT postid, SUM(views) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v ON p.ID = v.postid";
 
 					}
 
@@ -1440,7 +1440,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				// ordered by views / avg
 				else {
 
-					$from = "(SELECT ID_post, IFNULL(SUM(views), 0) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY ID_post ORDER BY pageviews DESC) v LEFT JOIN {$wpdb->posts} p ON v.ID_post = p.ID";
+					$from = "(SELECT postid, IFNULL(SUM(views), 0) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$this->__now()}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID";
 					$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
 					// ordered by views
@@ -1451,7 +1451,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					elseif ( "avg" == $instance['order_by'] ) {
 						
 						$fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$this->__now()}', DATE_SUB('{$this->__now()}', INTERVAL {$interval})) > 0, DATEDIFF('{$this->__now()}', DATE_SUB('{$this->__now()}', INTERVAL {$interval})), 1) ) ) AS 'avg_views' ";
-						$groupby = "GROUP BY v.ID_post";
+						$groupby = "GROUP BY v.postid";
 						$orderby = "ORDER BY avg_views DESC";
 						
 					}
@@ -1466,7 +1466,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					/*if ( "avg" == $instance['order_by'] ) {
 
-						$groupby = "GROUP BY v.ID_post";
+						$groupby = "GROUP BY v.postid";
 						$orderby = "ORDER BY avg_views DESC";
 
 					}*/
@@ -2877,7 +2877,7 @@ function wpp_get_views($id = NULL, $range = NULL) {
 			
 			$now = current_time('mysql');
 			
-			$query = "SELECT SUM(views) FROM {$table_name}summary WHERE ID_post = '{$id}' AND last_viewed > DATE_SUB('{$now}', INTERVAL {$interval}) LIMIT 1;";
+			$query = "SELECT SUM(views) FROM {$table_name}summary WHERE postid = '{$id}' AND last_viewed > DATE_SUB('{$now}', INTERVAL {$interval}) LIMIT 1;";
 		}
 		
 		$result = $wpdb->get_var($query);
