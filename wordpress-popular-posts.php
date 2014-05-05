@@ -1553,7 +1553,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Allow WP themers / coders access to raw data
 			// so they can build their own output
-			if ( has_filter( 'wpp_custom_html' ) ) {
+			if ( has_filter( 'wpp_custom_html' ) && !is_admin() ) {
 				return apply_filters( 'wpp_custom_html', $mostpopular, $instance );
 			}
 
