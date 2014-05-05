@@ -1794,7 +1794,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ($path != '') {
 					// user has requested to resize cf image
 					if ( $this->user_ops['tools']['thumbnail']['resize'] ) {
-						$thumb .= $this->__get_img($p, null, $path, array($tbWidth, $tbHeight), $this->user_settings['tools']['thumbnail']['source']);
+						$thumb .= $this->__get_img($p, null, $path, array($tbWidth, $tbHeight), $this->user_settings['tools']['thumbnail']['source'], $title);
 					}
 					// use original size
 					else {
@@ -1807,7 +1807,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			// get image from post / Featured Image
 			else {
-				$thumb .= $this->__get_img($p, $p->id, null, array($tbWidth, $tbHeight), $this->user_settings['tools']['thumbnail']['source']);
+				$thumb .= $this->__get_img($p, $p->id, null, array($tbWidth, $tbHeight), $this->user_settings['tools']['thumbnail']['source'], $title);
 			}
 			
 			$thumb .= "</a>";
@@ -2060,10 +2060,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @param	string	source	Image source
 		 * @return	string
 		 */
-		private function __get_img($p, $id = null, $url = null, $dim = array(80, 80), $source = "featured") {
+		private function __get_img($p, $id = null, $url = null, $dim = array(80, 80), $source = "featured", $title) {
 			
 			if ((!$id || empty($id) || !is_numeric($id)) && (!$url || empty($url))) {
-				return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noID');
+				return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noID', $title);
 			}
 			
 			// Get image by post ID (parent)
@@ -2074,7 +2074,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 				// No images found, return default thumbnail
 				if ($file_path == '') {
-					return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noPath wpp_' . $source);
+					return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noPath wpp_' . $source, $title);
 				}
 			}
 			// Get image from URL
@@ -2097,7 +2097,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$external_image = $this->__fetch_external_image($p->id, $image_url);
 					
 					if ( !$external_image ) {
-						return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noPath wpp_no_external');
+						return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noPath wpp_no_external', $title);
 					}
 					
 					$thumbnail = $external_image['thumbnail'];
@@ -2111,7 +2111,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// there is a thumbnail already
 			if (file_exists($cropped_thumb)) {					
 				$new_img = str_replace(basename($thumbnail), basename($cropped_thumb), $thumbnail);
-				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source);					
+				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $title);					
 			}
 			
 			return $this->__image_resize($file_path, $thumbnail, $dim);
@@ -2141,16 +2141,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$new_img = $image->save();
 					
 					if (is_wp_error($new_img)) {
-						return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, $image->get_error_message());
+						return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
 					}
 					
 					$new_img = str_replace(basename($thumbnail[0]), $new_img['file'], $thumbnail[0]);
-					return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source);
+					return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, '');
 				}
 			
 				// ELSE
 				// image file path is invalid
-				return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, $image->get_error_message());
+				return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
 			}
 			
 			
@@ -2160,12 +2160,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// valid image, create thumbnail
 			if (!is_wp_error($new_img_path)) {
 				$new_img = str_replace(basename($thumbnail[0]), basename($new_img_path), $thumbnail[0]);
-				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_image_resize_thumb wpp_' . $source);
+				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_image_resize_thumb wpp_' . $source, '');
 			}
 			
 			// ELSE
 			// image file path is invalid
-			return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_image_resize_error wpp_' . $source, $image->get_error_message());
+			return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_image_resize_error wpp_' . $source, '', $image->get_error_message());
 		
 		}
 		
@@ -2239,6 +2239,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @param	string	src			Image URL
 		 * @param	array	dimension	Image's width and height
 		 * @param	string	class		CSS class
+		 * @param	string	title		Image's title/alt attribute
 		 * @param	string	error		Error, if the image could not be created
 		 * @return	string
 		 */
@@ -2251,7 +2252,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $msg .
-			'<img src="' . $src . '" alt="' . esc_attr($title) . '" border="0" width="' . $dimension[0] . '" height="' . $dimension[1] . '" class="' . $class . '" />';
+			'<img src="' . $src . '" title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" width="' . $dimension[0] . '" height="' . $dimension[1] . '" class="' . $class . '" />';
 		
 		}
 		
