@@ -345,6 +345,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Add shortcode
 			add_shortcode('wpp', array(&$this, 'shortcode'));			
 			
+			// Enable data purging at midnight
+			add_action( 'wpp_cache_event', array($this, 'purge_data') );
+			if ( !wp_next_scheduled('wpp_cache_event') ) {
+				$tomorrow = time() + 86400;
+				$midnight  = mktime(0, 0, 0,
+					date("m", $tomorrow),
+					date("d", $tomorrow),
+					date("Y", $tomorrow));
+				wp_schedule_event( $midnight, 'daily', 'wpp_cache_event' );
+			}
+			
 			// Enable Popular Posts feed
 			include_once( plugin_dir_path( __FILE__ ) . 'class-wordpress-popular-posts-feed.php' );
 			$wpp_feed = new WordpressPopularPostsFeed();
@@ -840,13 +851,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		} // end deactivate
 
 		/**
-		 * On plugin activation, checks that the WPP database tables are present.
+		 * On plugin deactivation, disables the shortcode and removes the scheduled task.
 		 *
 		 * @since	2.4.0
 		 * @global	object	wpdb
 		 */
 		private static function __deactivate() {
 			remove_shortcode('wpp');
+			wp_clear_scheduled_hook('wpp_cache_event');
 		} // end __deactivate
 
 		/**
@@ -1019,6 +1031,28 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/*--------------------------------------------------*/
 		/* Plugin methods / functions
 		/*--------------------------------------------------*/
+		
+		/**
+		 * Purges deleted posts from data/summary tables.
+		 *
+		 * @since	2.0.0
+		 * @global	object	$wpdb
+		 */
+		public function purge_data() {
+			global $wpdb;
+			
+			if ( $missing = $wpdb->get_results( "SELECT v.postid AS id FROM {$wpdb->prefix}popularpostsdata v WHERE NOT EXISTS (SELECT p.ID FROM {$wpdb->posts} p WHERE v.postid = p.ID);" ) ) {
+				$to_be_deleted = '';
+			
+				foreach ( $missing as $deleted )
+					$to_be_deleted .= $deleted->id . ",";
+			
+				$to_be_deleted = rtrim( $to_be_deleted, "," );
+			
+				$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostsdata WHERE postid IN({$to_be_deleted});" );
+				$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostssummary WHERE postid IN({$to_be_deleted});" );
+			}
+		}
 		
 		public function clear_data() {
 			$token = $_POST['token'];
