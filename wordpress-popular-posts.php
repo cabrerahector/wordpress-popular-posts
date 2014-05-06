@@ -919,6 +919,27 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				}
 
 			}
+			
+			// Check indexes and fields
+			$dataFields = $wpdb->get_results( "SHOW FIELDS FROM {$prefix}data;" );
+			
+			// Update fields, if needed
+			foreach ( $dataFields as $column ) {
+				if ( "postid" == $column->Field && "bigint(20)" != $column->Type ) {
+					$wpdb->query("ALTER TABLE {$prefix}data CHANGE postid postid bigint(20) NOT NULL;");
+				}
+			
+				if ( "pageviews" == $column->Field && "bigint(20)" != $column->Type ) {
+					$wpdb->query("ALTER TABLE {$prefix}data CHANGE pageviews pageviews bigint(20) DEFAULT 1;");
+				}
+			}
+			
+			// Update index, if needed
+			$dataIndex = $wpdb->get_results("SHOW INDEX FROM {$prefix}data;", ARRAY_A);
+			
+			if ( "PRIMARY" != $dataIndex[0]['Key_name'] ) {
+				$wpdb->query("ALTER TABLE {$prefix}data DROP INDEX id, ADD PRIMARY KEY (postid);");
+			}
 
 			// Update WPP version
 			update_site_option('wpp_ver', $this->version);
