@@ -2096,7 +2096,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ($id) {
 				$file_paths = $this->__get_image_file_paths($id, $source);
 				$file_path = $file_paths['file_path'];
-				$thumbnail = $file_paths['thumbnail'];
+				$thumbnail = $file_paths['thumbnail'][0];
 				
 				// No images found, return default thumbnail
 				if ($file_path == '') {
