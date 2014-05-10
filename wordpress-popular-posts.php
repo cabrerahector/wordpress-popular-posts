@@ -2874,10 +2874,10 @@ function wpp_get_views($id = NULL, $range = NULL) {
 		global $wpdb;
 		
 		$table_name = $wpdb->prefix . "popularposts";
-		$query = "SELECT pageviews FROM {$table_name}data WHERE postid = '{$id}'";
 		
-		if ( $range ) {
-			
+		if ( !$range || 'all' == $range ) {
+			$query = "SELECT pageviews FROM {$table_name}data WHERE postid = '{$id}'";
+		} else {			
 			$interval = "";
 				
 			switch( $range ){
