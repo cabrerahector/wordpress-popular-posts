@@ -2866,7 +2866,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
  * $range (string) - time frame
  * Since 2.0.3.
  */
-function wpp_get_views($id = NULL, $range = NULL) {
+function wpp_get_views($id = NULL, $range = NULL, $number_format = true) {
 	// have we got an id?
 	if ( empty($id) || is_null($id) || !is_numeric($id) ) {
 		return "-1";
@@ -2913,7 +2913,7 @@ function wpp_get_views($id = NULL, $range = NULL) {
 			return "0";
 		}
 		
-		return number_format( $result );
+		return ($number_format) ? number_format_i18n( intval($result) ) : $result;
 	}
 }
 
