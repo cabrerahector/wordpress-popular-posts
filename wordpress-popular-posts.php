@@ -2815,7 +2815,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			foreach ( $this->botlist as $bot ) {
 				if ( false !== strpos($user_agent, $bot) ) {
-					echo "$bot :: $user_agent";
 					return true; // Bot
 				}
 			}
