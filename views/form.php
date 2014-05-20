@@ -32,7 +32,7 @@
 <legend><strong><?php _e('Posts settings', 'wordpress-popular-posts'); ?></strong></legend>
 <br />
 
-<div style="display:<?php if ($this->postRating) : ?>block<?php else: ?>none<?php endif; ?>;">
+<div style="display:<?php if ( function_exists('the_ratings_results') ) : ?>block<?php else: ?>none<?php endif; ?>;">
     <input type="checkbox" class="checkbox" <?php echo ($instance['rating']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'rating' ); ?>" name="<?php echo $this->get_field_name( 'rating' ); ?>" /> <label for="<?php echo $this->get_field_id( 'rating' ); ?>"><?php _e('Display post rating', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small>
 </div>
 
