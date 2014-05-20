@@ -1206,6 +1206,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$table = $wpdb->prefix . "popularposts";			
 			$wpdb->show_errors();
 			
+			// WPML support, get original post/page ID
+			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
+				global $sitepress;
+				$id = icl_object_id( $id, get_post_type( $id ), false, $sitepress->get_default_language() );				
+			}
+			
 			$now = $this->__now();
 			$curdate = $this->__curdate();
 			
@@ -1616,7 +1622,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		private function __render_popular_post($p, $instance) {
 			
-			$permalink = get_permalink($p->id);
+			// WPML support, based on Serhat Evren's suggestion - see http://wordpress.org/support/topic/wpml-trick#post-5452607
+			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
+				$current_id = icl_object_id( $p->id, get_post_type( $p->id ), true, ICL_LANGUAGE_CODE );
+				$permalink = get_permalink( $current_id );
+			} // Get original permalink
+			else {
+				$permalink = get_permalink($p->id);
+			}
 			
 			$title = $this->_get_title($p, $instance);
 			$title_sub = $this->_get_title_sub($p, $instance);
@@ -1707,8 +1720,19 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				return $cache[$p->id];
 			}
 			
-			// TITLE
-			$title = ($this->qTrans) ? qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($p->title) : $p->title;
+			// WPML support, based on Serhat Evren's suggestion - see http://wordpress.org/support/topic/wpml-trick#post-5452607
+			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
+				$current_id = icl_object_id( $p->id, get_post_type( $p->id ), true, ICL_LANGUAGE_CODE );
+				$title = get_the_title( $current_id );
+			} // Check for qTranslate
+			else if ( $this->qTrans && function_exists('qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage') ) {
+				$title = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage( $p->title );
+			} // Use ol' plain title
+			else {
+				$title = $p->title;
+			}
+			
+			// Strip HTML tags
 			$title = strip_tags($title);
 			
 			return $cache[$p->id] = apply_filters('the_title', $title, $p->id);
@@ -2409,15 +2433,27 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			global $wpdb;
 			
-			$excerpt = "";			
-			$the_post = get_post( $id );			
-			$excerpt = ( empty($the_post->post_excerpt) ) 
-			  ? $the_post->post_content 
-			  : $the_post->post_excerpt;
+			$excerpt = "";
 			
-			// RRR added call to the_content filters, allows qTranslate to hook in.
-            if ( $this->qTrans )
-				$excerpt = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage( $excerpt );
+			// WPML support, get excerpt for current language
+			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
+				$current_id = icl_object_id( $id, get_post_type( $id ), true, ICL_LANGUAGE_CODE );
+				
+				$the_post = get_post( $current_id );			
+				$excerpt = ( empty($the_post->post_excerpt) ) 
+				  ? $the_post->post_content 
+				  : $the_post->post_excerpt;
+			} // Use ol' plain excerpt
+			else {
+				$the_post = get_post( $id );			
+				$excerpt = ( empty($the_post->post_excerpt) ) 
+				  ? $the_post->post_content 
+				  : $the_post->post_excerpt;
+				
+				// RRR added call to the_content filters, allows qTranslate to hook in.
+				if ( $this->qTrans )
+					$excerpt = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage( $excerpt );
+			}
 			
 			// remove caption tags
 			$excerpt = preg_replace( "/\[caption.*\[\/caption\]/", "", $excerpt );
