@@ -138,6 +138,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			'title' => '',
 			'limit' => 10,
 			'range' => 'daily',
+			'freshness' => false,
 			'order_by' => 'views',
 			'post_type' => 'post,page',
 			'pid' => '',
@@ -192,7 +193,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			'stats' => array(
 				'order_by' => 'views',
 				'limit' => 10,
-				'post_type' => 'post,page'
+				'post_type' => 'post,page',
+				'freshness' => false
 			),
 			'tools' => array(
 				'ajax' => false,
@@ -1279,6 +1281,31 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$now = $this->__now();
 
 			// post filters
+			// * freshness - get posts published within the selected time range only
+			if ( $instance['freshness'] ) {	
+				switch( $instance['range'] ){
+					case "yesterday":
+						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 DAY) ";
+					break;
+				
+					case "daily":
+						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 DAY) ";
+					break;
+				
+					case "weekly":
+						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 WEEK) ";
+					break;
+				
+					case "monthly":
+						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 MONTH) ";
+					break;
+				
+					default:
+						$where .= "";
+					break;
+				}
+			}
+			
 			// * post types - based on code seen at https://github.com/williamsba/WordPress-Popular-Posts-with-Custom-Post-Type-Support
 			$types = explode(",", $instance['post_type']);
 			$sql_post_types = "";
@@ -2518,6 +2545,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			* @var String $header
 			* @var Int $limit
 			* @var String $range
+			* @var Bool $freshness
 			* @var String $order_by
 			* @var String $post_type
 			* @var String $pid
@@ -2547,6 +2575,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'header' => '',
 				'limit' => 10,
 				'range' => 'daily',
+				'freshness' => false,
 				'order_by' => 'views',
 				'post_type' => 'post,page',
 				'pid' => '',
@@ -2581,6 +2610,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'title' => strip_tags($header),
 				'limit' => (!empty($limit) && is_numeric($limit) && intval($limit) > 0) ? intval($limit) : 10,
 				'range' => (in_array($range, $range_values)) ? $range : 'daily',
+				'freshness' => empty($freshness) ? false : $freshness,
 				'order_by' => (in_array($order_by, $order_by_values)) ? $order_by : 'views',
 				'post_type' => empty($post_type) ? 'post,page' : $post_type,
 				'pid' => preg_replace('|[^0-9,]|', '', $pid),

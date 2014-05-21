@@ -9,16 +9,6 @@
 </p>
 
 <p>
-	<label for="<?php echo $this->get_field_id( 'range' ); ?>"><?php _e('Time Range', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small><br />
-    <select id="<?php echo $this->get_field_id( 'range' ); ?>" name="<?php echo $this->get_field_name( 'range' ); ?>" class="widefat">
-        <option value="daily" <?php if ( 'daily' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Last 24 hours', 'wordpress-popular-posts'); ?></option>
-        <option value="weekly" <?php if ( 'weekly' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Last 7 days', 'wordpress-popular-posts'); ?></option>
-        <option value="monthly" <?php if ( 'monthly' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Last 30 days', 'wordpress-popular-posts'); ?></option>
-        <option value="all" <?php if ( 'all' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('All-time', 'wordpress-popular-posts'); ?></option>
-    </select>
-</p>
-
-<p>
 	<label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php _e('Sort posts by', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small> <br />
     <select id="<?php echo $this->get_field_id( 'order_by' ); ?>" name="<?php echo $this->get_field_name( 'order_by' ); ?>" class="widefat">
         <option value="comments" <?php if ( 'comments' == $instance['order_by'] ) echo 'selected="selected"'; ?>><?php _e('Comments', 'wordpress-popular-posts'); ?></option>
@@ -31,10 +21,20 @@
 
 <legend><strong><?php _e('Filters', 'wordpress-popular-posts'); ?></strong></legend><br />
 
+<label for="<?php echo $this->get_field_id( 'range' ); ?>"><?php _e('Time Range', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small><br />
+<select id="<?php echo $this->get_field_id( 'range' ); ?>" name="<?php echo $this->get_field_name( 'range' ); ?>" class="widefat" style="margin-bottom:5px;">
+    <option value="daily" <?php if ( 'daily' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Last 24 hours', 'wordpress-popular-posts'); ?></option>
+    <option value="weekly" <?php if ( 'weekly' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Last 7 days', 'wordpress-popular-posts'); ?></option>
+    <option value="monthly" <?php if ( 'monthly' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Last 30 days', 'wordpress-popular-posts'); ?></option>
+    <option value="all" <?php if ( 'all' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('All-time', 'wordpress-popular-posts'); ?></option>
+</select><br />
+
+<input type="checkbox" class="checkbox" <?php echo ($instance['freshness']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'freshness' ); ?>" name="<?php echo $this->get_field_name( 'freshness' ); ?>" /> <label for="<?php echo $this->get_field_id( 'freshness' ); ?>"><small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small></label><br /><br />
+
 <label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e('Post type(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small>
 <input id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>" value="<?php echo $instance['post_type']; ?>" class="widefat" /><br /><br />
 
-<label for="<?php echo $this->get_field_id( 'pid' ); ?>"><?php _e('Post(s) ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small>
+<label for="<?php echo $this->get_field_id( 'pid' ); ?>"><?php _e('Post(s) ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
 <input id="<?php echo $this->get_field_id( 'pid' ); ?>" name="<?php echo $this->get_field_name( 'pid' ); ?>" value="<?php echo $instance['pid']; ?>" class="widefat" /><br /><br />
 
 <label for="<?php echo $this->get_field_id( 'cat' ); ?>"><?php _e('Category(ies) ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small>

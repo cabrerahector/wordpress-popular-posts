@@ -17,6 +17,7 @@ if ( isset($_POST['section']) ) {
 		$this->user_settings['stats']['order_by'] = $_POST['stats_order'];
 		$this->user_settings['stats']['limit'] = (is_numeric($_POST['stats_limit']) && $_POST['stats_limit'] > 0) ? $_POST['stats_limit'] : 10;
 		$this->user_settings['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
+		$this->user_settings['stats']['freshness'] = empty($_POST['stats_freshness']) ? false : $_POST['stats_freshness'];
 		
 		update_site_option('wpp_settings_config', $this->user_settings);			
 		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";		
@@ -130,6 +131,7 @@ if (empty($wpp_rand)) {
                     </select>
                     <label for="stats_type"><?php _e("Post type", $this->plugin_slug); ?>:</label> <input type="text" name="stats_type" value="<?php echo $this->user_settings['stats']['post_type']; ?>" size="15" />
                     <label for="stats_limits"><?php _e("Limit", $this->plugin_slug); ?>:</label> <input type="text" name="stats_limit" value="<?php echo $this->user_settings['stats']['limit']; ?>" size="5" />
+                    &nbsp;&nbsp;&nbsp;<label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->user_settings['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness" /> <?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></label>&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="hidden" name="section" value="stats" />
                     <input type="submit" class="button-secondary action" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                 </form>
@@ -144,16 +146,16 @@ if (empty($wpp_rand)) {
         </div>
         <div id="wpp-stats-canvas">            
             <div class="wpp-stats wpp-stats-active" id="wpp-daily">            	
-                <?php echo do_shortcode("[wpp range='daily' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='daily' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-weekly">
-                <?php echo do_shortcode("[wpp range='weekly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='weekly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-monthly">
-                <?php echo do_shortcode("[wpp range='monthly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='monthly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-all">
-                <?php echo do_shortcode("[wpp range='all' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']."]"); ?>
+                <?php echo do_shortcode("[wpp range='all' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
             </div>
         </div>
     </div>
@@ -336,41 +338,48 @@ if (empty($wpp_rand)) {
                         <td>range="daily"</td>
                     </tr>
                     <tr class="alternate">
+                        <td><strong>freshness</strong></td>
+                        <td><?php _e('Tells Wordpress Popular Posts to retrieve the most popular entries published within the time range specified by you', $this->plugin_slug); ?></td>
+                        <td>1 (true), (0) false</td>
+                        <td>0</td>
+                        <td>freshness=1</td>
+                    </tr>
+                    <tr>
                         <td><strong>order_by</strong></td>
                         <td><?php _e('Sets the sorting option of the popular posts', $this->plugin_slug); ?></td>
                         <td>"comments", "views", "avg" <?php _e('(for average views per day)', $this->plugin_slug); ?></td>
                         <td>views</td>
                         <td>order_by="comments"</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>post_type</strong></td>
                         <td><?php _e('Defines the type of posts to show on the listing', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>post,page</td>
                         <td>post_type=post,page,your-custom-post-type</td>
                     </tr>
-                    <tr class="alternate">
+                    <tr>
                         <td><strong>pid</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will exclude the specified post(s) ID(s) form the listing.', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td><?php _e('None', $this->plugin_slug); ?></td>
                         <td>pid="60,25,31"</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>cat</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will retrieve all entries that belong to the specified category(ies) ID(s). If a minus sign is used, the category(ies) will be excluded instead.', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td><?php _e('None', $this->plugin_slug); ?></td>
                         <td>cat="1,55,-74"</td>
                     </tr>
-                    <tr class="alternate">
+                    <tr>
                         <td><strong>author</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will retrieve all entries created by specified author(s) ID(s).', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td><?php _e('None', $this->plugin_slug); ?></td>
                         <td>author="75,8,120"</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>title_length</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will shorten each post title to "n" characters whenever possible', $this->plugin_slug); ?></td>
                         <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
@@ -398,91 +407,91 @@ if (empty($wpp_rand)) {
                         <td>0</td>
                         <td>excerpt_format=1</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>excerpt_by_words</strong></td>
                         <td><?php _e('If set to 1, Wordpress Popular Posts will shorten the excerpt to "n" words instead of characters', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>excerpt_by_words=1</td>
                     </tr>
-                    <tr class="alternate">
+                    <tr>
                         <td><strong>thumbnail_width</strong></td>
                         <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails', $this->plugin_slug); ?></td>
                         <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
                         <td>15</td>
                         <td>thumbnail_width=30</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>thumbnail_height</strong></td>
                         <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the height for thumbnails', $this->plugin_slug); ?></td>
                         <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
                         <td>15</td>
                         <td>thumbnail_height=30</td>
                     </tr>
-                    <tr class="alternate">
+                    <tr>
                         <td><strong>rating</strong></td>
                         <td><?php _e('If set, and if the WP-PostRatings plugin is installed and enabled on your blog, Wordpress Popular Posts will show how your visitors are rating your entries', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>rating=1</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>stats_comments</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will show how many comments each popular post has got until now', $this->plugin_slug); ?></td>
                         <td>1 (true), 0 (false)</td>
                         <td>1</td>
                         <td>stats_comments=1</td>
                     </tr>
-                    <tr class="alternate">
+                    <tr>
                         <td><strong>stats_views</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will show how many views each popular post has got since it was installed', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>stats_views=1</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>stats_author</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will show who published each popular post on the list', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>stats_author=1</td>
                     </tr>
-                    <tr class="alternate">
+                    <tr>
                         <td><strong>stats_date</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will display the date when each popular post on the list was published', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>stats_date=1</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>stats_date_format</strong></td>
                         <td><?php _e('Sets the date format', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>0</td>
                         <td>stats_date_format='F j, Y'</td>
                     </tr>
-                    <tr class="alternate">
+                    <tr>
                         <td><strong>stats_category</strong></td>
                         <td><?php _e('If set, Wordpress Popular Posts will display the category', $this->plugin_slug); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>0</td>
                         <td>stats_category=1</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>wpp_start</strong></td>
                         <td><?php _e('Sets the opening tag for the listing', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>&lt;ul&gt;</td>
                         <td>wpp_start="&lt;ul&gt;"</td>
                     </tr>
-                    <tr class="alternate">
+                    <tr>
                         <td><strong>wpp_end</strong></td>
                         <td><?php _e('Sets the closing tag for the listing', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>&lt;/ul&gt;</td>
                         <td>wpp_end="&lt;/ul&gt;"</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>post_html</strong></td>
                         <td><?php _e('Sets the HTML structure of each post', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string, custom HTML', $this->plugin_slug); ?>.<br /><br /><strong><?php _e('Available Content Tags', $this->plugin_slug); ?>:</strong> <br /><em>{thumb}</em> (<?php _e('displays thumbnail linked to post/page', $this->plugin_slug); ?>)<br /> <em>{title}</em> (<?php _e('displays linked post/page title', $this->plugin_slug); ?>)<br /> <em>{summary}</em> (<?php _e('displays post/page excerpt, and requires excerpt_length to be greater than 0', $this->plugin_slug); ?>)<br /> <em>{stats}</em> (<?php _e('displays the default stats tags', $this->plugin_slug); ?>)<br /> <em>{rating}</em> (<?php _e('displays post/page current rating, requires WP-PostRatings installed and enabled', $this->plugin_slug); ?>)<br /> <em>{score}</em> (<?php _e('displays post/page current rating as an integer, requires WP-PostRatings installed and enabled', $this->plugin_slug); ?>)<br /> <em>{url}</em> (<?php _e('outputs the URL of the post/page', $this->plugin_slug); ?>)<br /> <em>{text_title}</em> (<?php _e('displays post/page title, no link', $this->plugin_slug); ?>)<br /> <em>{author}</em> (<?php _e('displays linked author name, requires stats_author=1', $this->plugin_slug); ?>)<br /> <em>{category}</em> (<?php _e('displays linked category name, requires stats_category=1', $this->plugin_slug); ?>)<br /> <em>{views}</em> (<?php _e('displays views count only, no text', $this->plugin_slug); ?>)<br /> <em>{comments}</em> (<?php _e('displays comments count only, no text, requires stats_comments=1', $this->plugin_slug); ?>)</td>
