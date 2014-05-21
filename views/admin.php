@@ -25,8 +25,7 @@ if ( isset($_POST['section']) ) {
 	elseif ( "misc" == $_POST['section'] ) {		
 		$current = 'tools';
 			
-		$this->user_settings['tools']['link']['target'] = $_POST['link_target'];
-		$this->user_settings['tools']['log']['level'] = $_POST['log_option'];
+		$this->user_settings['tools']['link']['target'] = $_POST['link_target'];		
 		$this->user_settings['tools']['css'] = $_POST['css'];
 		
 		update_site_option('wpp_settings_config', $this->user_settings);
@@ -50,6 +49,7 @@ if ( isset($_POST['section']) ) {
 	elseif ( "data" == $_POST['section'] ) {		
 		$current = 'tools';
 		
+		$this->user_settings['tools']['log']['level'] = $_POST['log_option'];
 		$this->user_settings['tools']['ajax'] = $_POST['ajax'];
 		
 		// if any of the caching settings was updated, destroy all transients created by the plugin
@@ -107,8 +107,9 @@ if (empty($wpp_rand)) {
     // build tabs    
     $tabs = array( 
         'stats' => __('Stats', $this->plugin_slug),
-        'faq' => __('FAQ', $this->plugin_slug),
-        'tools' => __('Tools', $this->plugin_slug)
+		'tools' => __('Tools', $this->plugin_slug),
+		'params' => __('Parameters', $this->plugin_slug),
+        'faq' => __('FAQ', $this->plugin_slug)
     );
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
@@ -161,135 +162,185 @@ if (empty($wpp_rand)) {
     </div>
     <!-- End stats -->
     
-    <!-- Start faq -->
-    <div id="wpp_faq" class="wpp_boxes"<?php if ( "faq" == $current ) {?> style="display:block;"<?php } ?>>    	
-        <h4>&raquo; <a href="#" rel="q-1"><?php _e('What does "Title" do?', $this->plugin_slug); ?></a></h4>
+    <!-- Start tools -->
+    <div id="wpp_tools" class="wpp_boxes"<?php if ( "tools" == $current ) {?> style="display:block;"<?php } ?>>
         
-        <div class="wpp-ans" id="q-1">
-            <p><?php _e('It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-2"><?php _e('What is Time Range for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-2">
-            <p><?php _e('It will tell Wordpress Popular Posts to retrieve all posts with most views / comments within the selected time range.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-3"><?php _e('What is "Sort post by" for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-3">
-            <p><?php _e('It allows you to decide whether to order your popular posts listing by total views, comments, or average views per day.', $this->plugin_slug); ?></p>
-        </div>                    
-        
-        <h4>&raquo; <a href="#" rel="q-4"><?php _e('What does "Display post rating" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-4">
-            <p><?php _e('If checked, Wordpress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-5"><?php _e('What does "Shorten title" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-5">
-            <p><?php _e('If checked, all posts titles will be shortened to "n" characters/words. A new "Shorten title to" option will appear so you can set it to whatever you like.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-6"><?php _e('What does "Display post excerpt" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-6">
-            <p><?php _e('If checked, Wordpress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-7"><?php _e('What does "Keep text format and links" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-7">
-            <p><?php _e('If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-8"><?php _e('What is "Post type" for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-8">
-            <p><?php _e('This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases).', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-9">
-            <p><?php _e('This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-10"><?php _e('What is "Author(s) ID(s)" for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-10">
-            <p><?php _e('Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-11"><?php _e('What does "Display post thumbnail" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-11">
-            <p><?php _e('If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - Wordpress Popular Posts - Tools.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-12"><?php _e('What does "Display comment count" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-12">
-            <p><?php _e('If checked, Wordpress Popular Posts will display how many comments each popular post has got in the selected Time Range.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-13"><?php _e('What does "Display views" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-13">
-            <p><?php _e('If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-14"><?php _e('What does "Display author" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-14">
-            <p><?php _e('If checked, Wordpress Popular Posts will display the name of the author of each entry listed.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-15"><?php _e('What does "Display date" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-15">
-            <p><?php _e('If checked, Wordpress Popular Posts will display the date when each popular posts was published.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-16"><?php _e('What does "Use custom HTML Markup" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-16">
-            <p><?php _e('If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-17"><?php _e('What are "Content Tags"?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-17">
-            <p><?php _e('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are "Template Tags"?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-18">
-            <p><?php _e('Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views().', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-19"><?php _e('What are the template tags that Wordpress Popular Posts supports?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-19">
-            <p><?php _e('The following are the template tags supported by Wordpress Popular Posts', $this->plugin_slug); ?>:</p>
-            <table cellspacing="0" class="wp-list-table widefat fixed posts">
-                <thead>
-                    <tr>
-                        <th class="manage-column column-title"><?php _e('Template tag', $this->plugin_slug); ?></th>
-                        <th class="manage-column column-title"><?php _e('What it does ', $this->plugin_slug); ?></th>
-                        <th class="manage-column column-title"><?php _e('Parameters', $this->plugin_slug); ?></th>
-                        <th class="manage-column column-title"><?php _e('Example', $this->plugin_slug); ?></th>
-                    </tr>
-                </thead>
+        <h3 class="wmpp-subtitle"><?php _e("Thumbnails", $this->plugin_slug); ?></h3>        	
+        <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">            
+            <table class="form-table">
                 <tbody>
-                    <tr>
-                        <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><strong>wpp_get_mostpopular()</strong></td>
-                        <td class="post type-post status-draft format-standard hentry category-js iedit"><?php _e('Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts parameters so you can customize your popular listing, but these are not required.', $this->plugin_slug); ?></td>
-                        <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><?php _e('Please refer to "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', $this->plugin_slug); ?></td>
-                        <td class="post type-post status-draft format-standard hentry category-js iedit">&lt;?php wpp_get_mostpopular(); ?&gt;<br />&lt;?php wpp_get_mostpopular("range=weekly&amp;limit=7"); ?&gt;</td>
+                	<tr valign="top">
+                        <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", $this->plugin_slug ); ?>" />
+                            <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
+                            <br />
+                            <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", $this->plugin_slug); ?></p>
+                            <div style="display:<?php if ( !empty($this->user_settings['tools']['thumbnail']['default']) ) : ?>block<?php else: ?>none<?php endif; ?>;">
+                            	<label><?php _e("Preview", $this->plugin_slug); ?>:</label>
+                                <div id="thumb-review">
+                                    <img src="<?php echo $this->user_settings['tools']['thumbnail']['default']; ?>" alt="" border="0" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>                    
+                    <tr valign="top">
+                        <th scope="row"><label for="thumb_source"><?php _e("Pick image from", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="thumb_source" id="thumb_source">
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "featured") {?>selected="selected"<?php } ?> value="featured"><?php _e("Featured image", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "first_image") {?>selected="selected"<?php } ?> value="first_image"><?php _e("First image on post", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "custom_field") {?>selected="selected"<?php } ?> value="custom_field"><?php _e("Custom field", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                            <p class="description"><?php _e("Tell Wordpress Popular Posts where it should get thumbnails from", $this->plugin_slug); ?></p>
+                        </td>
                     </tr>
-                    <tr>
-                        <td><strong>wpp_get_views()</strong></td>
-                        <td><?php _e('Displays the number of views of a single post. Post ID is required or it will return false.', $this->plugin_slug); ?></td>
-                        <td><?php _e('Post ID', $this->plugin_slug); ?>, range ("daily", "weekly", "monthly", "all")</td>
-                        <td>&lt;?php echo wpp_get_views($post->ID); ?&gt;<br />&lt;?php echo wpp_get_views(15, 'weekly'); ?&gt;</td>
+                    <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field">
+                        <th scope="row"><label for="thumb_field"><?php _e("Custom field name", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <input type="text" id="thumb_field" name="thumb_field" value="<?php echo $this->user_settings['tools']['thumbnail']['field']; ?>" size="10" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> />
+                        </td>
+                    </tr>
+                    <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field_resize">
+                        <th scope="row"><label for="thumb_field_resize"><?php _e("Resize image from Custom field?", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="thumb_field_resize" id="thumb_field_resize">
+                                <option <?php if ( !$this->user_settings['tools']['thumbnail']['resize'] ) {?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", $this->plugin_slug); ?></option>                        
+                            </select>
+                        </td>
+                    </tr>
+                    <tr valign="top">                            	
+                        <td colspan="2">
+                            <input type="hidden" name="section" value="thumb" />
+                            <input type="submit" class="button-secondary action" id="btn_th_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </form>
+        <br />
+        <p style="display:block; float:none; clear:both">&nbsp;</p>
+                
+        <h3 class="wmpp-subtitle"><?php _e("Data", $this->plugin_slug); ?></h3>
+        <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
+        	<table class="form-table">
+                <tbody>
+                	<tr valign="top">
+                        <th scope="row"><label for="log_option"><?php _e("Log views from", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="log_option" id="log_option">
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 0) {?>selected="selected"<?php } ?> value="0"><?php _e("Visitors only", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 2) {?>selected="selected"<?php } ?> value="2"><?php _e("Logged-in users only", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['log']['level'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Everyone", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="ajax"><?php _e("Ajaxify widget", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="ajax" id="ajax">                                
+                                <option <?php if (!$this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
+                            </select>
+                    
+                            <br />
+                            <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", $this->plugin_slug); ?></p>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="cache"><?php _e("Listing refresh interval", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="cache" id="cache">
+                                <option <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Live", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Custom interval", $this->plugin_slug); ?></option>
+                            </select>
+                    
+                            <br />
+                            <p class="description"><?php _e("Sets how often the listing should be updated. For most sites the Live option should be fine, however if you are experiencing slowdowns or your blog gets a lot of visitors then you might want to change the refresh rate", $this->plugin_slug); ?></p>
+                        </td>
+                    </tr>
+                    <tr valign="top" <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>style="display:none;"<?php } ?> id="cache_refresh_interval">
+                        <th scope="row"><label for="cache_interval_value"><?php _e("Refresh list every", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                        	<input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->user_settings['tools']['cache']['interval']['value']) ) ? (int) $this->user_settings['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
+                            <select name="cache_interval_time" id="cache_interval_time">
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", $this->plugin_slug); ?></option>                                
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "month") {?>selected="selected"<?php } ?> value="month"><?php _e("Month(s)", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "year") {?>selected="selected"<?php } ?> value="month"><?php _e("Year(s)", $this->plugin_slug); ?></option>
+                            </select>                            
+                            <br />
+                            <p class="description" style="display:none;" id="cache_too_long"><?php _e("Really? That long?", $this->plugin_slug); ?></p>
+                        </td>
+                    </tr>
+                    <tr valign="top">                            	
+                        <td colspan="2">
+                            <input type="hidden" name="section" value="data" />
+                    		<input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <br />
+        <p style="display:block; float:none; clear:both">&nbsp;</p>
         
-        <h4>&raquo; <a href="#" rel="q-20"><?php _e('What are "shortcodes"?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-20">
-            <p><?php _e('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', $this->plugin_slug, $this->plugin_slug); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
-        </div>
-        <h4>&raquo; <a href="#" rel="q-21" class="active"><?php _e('List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-21" style="display:block;">
-            <p><?php _e('These parameters can be used by both the template tag wpp_get_most_popular() and the shortcode [wpp].', $this->plugin_slug); ?>:</p>
+        <h3 class="wmpp-subtitle"><?php _e("Miscellaneous", $this->plugin_slug); ?></h3>
+        <form action="" method="post" id="wpp_link_options" name="wpp_link_options">
+            <table class="form-table">
+                <tbody>
+                    <tr valign="top">
+                        <th scope="row"><label for="link_target"><?php _e("Open links in", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="link_target" id="link_target">
+                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_self' ) {?>selected="selected"<?php } ?> value="_self"><?php _e("Current window", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_blank' ) {?>selected="selected"<?php } ?> value="_blank"><?php _e("New tab/window", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                        </td>
+                    </tr>                    
+                    <tr valign="top">
+                        <th scope="row"><label for="css"><?php _e("Use plugin's stylesheet", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="css" id="css">
+                                <option <?php if ($this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
+                                <option <?php if (!$this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                            <p class="description"><?php _e("By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.", $this->plugin_slug); ?></p>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <td colspan="2">
+                            <input type="hidden" name="section" value="misc" />
+                            <input type="submit" class="button-secondary action" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <br />
+        <p style="display:block; float:none; clear:both">&nbsp;</p>
+        
+        <br /><br />
+        
+        <p><?php _e('Wordpress Popular Posts maintains data in two separate tables: one for storing the most popular entries on a daily basis (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', $this->plugin_slug) ?></p>
+        <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", $this->plugin_slug); ?>" onclick="confirm_reset_cache()" /> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', $this->plugin_slug); ?></small></label></p>
+        <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", $this->plugin_slug); ?>" onclick="confirm_reset_all()" /> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', $this->plugin_slug); ?></small></label></p>
+    </div>
+    <!-- End tools -->
+    
+    <!-- Start params -->
+    <div id="wpp_params" class="wpp_boxes"<?php if ( "params" == $current ) {?> style="display:block;"<?php } ?>>        
+        <div>
+            <p><?php printf( __('With the following parameters you can customize the popular posts list when using either the <a href="%1$s">wpp_get_most_popular() template tag</a> or the <a href="%2$s">[wpp] shortcode</a>.', $this->plugin_slug),
+				admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#template-tags'),
+				admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#shortcode')
+			); ?></p>
             <br />
             <table cellspacing="0" class="wp-list-table widefat fixed posts">
                 <thead>
@@ -502,178 +553,140 @@ if (empty($wpp_rand)) {
             </table>
         </div>
     </div>
-    <!-- End faq -->
+    <!-- End params -->
     
-    <!-- Start tools -->
-    <div id="wpp_tools" class="wpp_boxes"<?php if ( "tools" == $current ) {?> style="display:block;"<?php } ?>>
+    <!-- Start faq -->
+    <div id="wpp_faq" class="wpp_boxes"<?php if ( "faq" == $current ) {?> style="display:block;"<?php } ?>>    	
+        <h4 id="widget-title">&raquo; <a href="#" rel="q-1"><?php _e('What does "Title" do?', $this->plugin_slug); ?></a></h4>
         
-        <h3 class="wmpp-subtitle"><?php _e("Thumbnails", $this->plugin_slug); ?></h3>        	
-        <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">            
-            <table class="form-table">
+        <div class="wpp-ans" id="q-1">
+            <p><?php _e('It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="time-range">&raquo; <a href="#" rel="q-2"><?php _e('What is Time Range for?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-2">
+            <p><?php _e('It will tell Wordpress Popular Posts to retrieve all posts with most views / comments within the selected time range.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="sorting">&raquo; <a href="#" rel="q-3"><?php _e('What is "Sort post by" for?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-3">
+            <p><?php _e('It allows you to decide whether to order your popular posts listing by total views, comments, or average views per day.', $this->plugin_slug); ?></p>
+        </div>                    
+        
+        <h4 id="display-rating">&raquo; <a href="#" rel="q-4"><?php _e('What does "Display post rating" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-4">
+            <p><?php _e('If checked, Wordpress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="shorten-title">&raquo; <a href="#" rel="q-5"><?php _e('What does "Shorten title" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-5">
+            <p><?php _e('If checked, all posts titles will be shortened to "n" characters/words. A new "Shorten title to" option will appear so you can set it to whatever you like.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="display-excerpt">&raquo; <a href="#" rel="q-6"><?php _e('What does "Display post excerpt" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-6">
+            <p><?php _e('If checked, Wordpress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="keep-format">&raquo; <a href="#" rel="q-7"><?php _e('What does "Keep text format and links" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-7">
+            <p><?php _e('If checked, and if the Post Excerpt feature is enabled, Wordpress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="filter-post-type">&raquo; <a href="#" rel="q-8"><?php _e('What is "Post type" for?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-8">
+            <p><?php _e('This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases).', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="filter_category">&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-9">
+            <p><?php _e('This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="filter-author">&raquo; <a href="#" rel="q-10"><?php _e('What is "Author(s) ID(s)" for?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-10">
+            <p><?php _e('Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="display-thumb">&raquo; <a href="#" rel="q-11"><?php _e('What does "Display post thumbnail" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-11">
+            <p><?php _e('If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - Wordpress Popular Posts - Tools.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="stats-comments">&raquo; <a href="#" rel="q-12"><?php _e('What does "Display comment count" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-12">
+            <p><?php _e('If checked, Wordpress Popular Posts will display how many comments each popular post has got in the selected Time Range.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="stats-views">&raquo; <a href="#" rel="q-13"><?php _e('What does "Display views" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-13">
+            <p><?php _e('If checked, Wordpress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="stats-author">&raquo; <a href="#" rel="q-14"><?php _e('What does "Display author" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-14">
+            <p><?php _e('If checked, Wordpress Popular Posts will display the name of the author of each entry listed.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="stats-date">&raquo; <a href="#" rel="q-15"><?php _e('What does "Display date" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-15">
+            <p><?php _e('If checked, Wordpress Popular Posts will display the date when each popular posts was published.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="stats-cat">&raquo; <a href="#" rel="q-16"><?php _e('What does "Display category" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-16">
+            <p><?php _e('If checked, Wordpress Popular Posts will display the category of each post.', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="custom-html-markup">&raquo; <a href="#" rel="q-17"><?php _e('What does "Use custom HTML Markup" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-17">
+            <p><?php _e('If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are "Content Tags"?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-18">
+            <p><?php _e('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4 id="template-tags">&raquo; <a href="#" rel="q-19"><?php _e('What are "Template Tags"?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-19">
+            <p><?php _e('Template Tags are simply php functions that allow you to perform certain actions. For example, Wordpress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views().', $this->plugin_slug); ?></p>
+        </div>
+        
+        <h4>&raquo; <a href="#" rel="q-20"><?php _e('What are the template tags that Wordpress Popular Posts supports?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-20">
+            <p><?php _e('The following are the template tags supported by Wordpress Popular Posts', $this->plugin_slug); ?>:</p>
+            <table cellspacing="0" class="wp-list-table widefat fixed posts">
+                <thead>
+                    <tr>
+                        <th class="manage-column column-title"><?php _e('Template tag', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('What it does ', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('Parameters', $this->plugin_slug); ?></th>
+                        <th class="manage-column column-title"><?php _e('Example', $this->plugin_slug); ?></th>
+                    </tr>
+                </thead>
                 <tbody>
-                	<tr valign="top">
-                        <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", $this->plugin_slug ); ?>" />
-                            <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
-                            <br />
-                            <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", $this->plugin_slug); ?></p>
-                            <div style="display:<?php if ( !empty($this->user_settings['tools']['thumbnail']['default']) ) : ?>block<?php else: ?>none<?php endif; ?>;">
-                            	<label><?php _e("Preview", $this->plugin_slug); ?>:</label>
-                                <div id="thumb-review">
-                                    <img src="<?php echo $this->user_settings['tools']['thumbnail']['default']; ?>" alt="" border="0" />
-                                </div>
-                            </div>
-                        </td>
-                    </tr>                    
-                    <tr valign="top">
-                        <th scope="row"><label for="thumb_source"><?php _e("Pick image from", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="thumb_source" id="thumb_source">
-                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "featured") {?>selected="selected"<?php } ?> value="featured"><?php _e("Featured image", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "first_image") {?>selected="selected"<?php } ?> value="first_image"><?php _e("First image on post", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "custom_field") {?>selected="selected"<?php } ?> value="custom_field"><?php _e("Custom field", $this->plugin_slug); ?></option>
-                            </select>
-                            <br />
-                            <p class="description"><?php _e("Tell Wordpress Popular Posts where it should get thumbnails from", $this->plugin_slug); ?></p>
-                        </td>
+                    <tr>
+                        <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><strong>wpp_get_mostpopular()</strong></td>
+                        <td class="post type-post status-draft format-standard hentry category-js iedit"><?php printf( __('Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts <a href="%1$s">parameters</a> so you can customize your popular listing, but these are not required.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></td>
+                        <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><?php printf( __('Please refer to the <a href="%1$s">Parameters section</a> for a complete list of attributes.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></td>
+                        <td class="post type-post status-draft format-standard hentry category-js iedit">&lt;?php wpp_get_mostpopular(); ?&gt;<br />&lt;?php wpp_get_mostpopular("range=weekly&amp;limit=7"); ?&gt;</td>
                     </tr>
-                    <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field">
-                        <th scope="row"><label for="thumb_field"><?php _e("Custom field name", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <input type="text" id="thumb_field" name="thumb_field" value="<?php echo $this->user_settings['tools']['thumbnail']['field']; ?>" size="10" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> />
-                        </td>
-                    </tr>
-                    <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field_resize">
-                        <th scope="row"><label for="thumb_field_resize"><?php _e("Resize image from Custom field?", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="thumb_field_resize" id="thumb_field_resize">
-                                <option <?php if ( !$this->user_settings['tools']['thumbnail']['resize'] ) {?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", $this->plugin_slug); ?></option>
-                                <option <?php if ( $this->user_settings['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", $this->plugin_slug); ?></option>                        
-                            </select>
-                        </td>
-                    </tr>
-                    <tr valign="top">                            	
-                        <td colspan="2">
-                            <input type="hidden" name="section" value="thumb" />
-                            <input type="submit" class="button-secondary action" id="btn_th_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
-                        </td>
+                    <tr>
+                        <td><strong>wpp_get_views()</strong></td>
+                        <td><?php _e('Displays the number of views of a single post. Post ID is required or it will return false.', $this->plugin_slug); ?></td>
+                        <td><?php _e('Post ID', $this->plugin_slug); ?>, range ("daily", "weekly", "monthly", "all")</td>
+                        <td>&lt;?php echo wpp_get_views($post->ID); ?&gt;<br />&lt;?php echo wpp_get_views(15, 'weekly'); ?&gt;</td>
                     </tr>
                 </tbody>
             </table>
-        </form>
-        <br />
-        <p style="display:block; float:none; clear:both">&nbsp;</p>
-                
-        <h3 class="wmpp-subtitle"><?php _e("Data", $this->plugin_slug); ?></h3>
-        <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
-        	<table class="form-table">
-                <tbody>
-                    <tr valign="top">
-                        <th scope="row"><label for="ajax"><?php _e("Ajaxify widget", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="ajax" id="ajax">                                
-                                <option <?php if (!$this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['ajax']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
-                            </select>
-                    
-                            <br />
-                            <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", $this->plugin_slug); ?></p>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><label for="cache"><?php _e("Listing refresh interval", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="cache" id="cache">
-                                <option <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Live", $this->plugin_slug); ?></option>
-                                <option <?php if ( $this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Custom interval", $this->plugin_slug); ?></option>
-                            </select>
-                    
-                            <br />
-                            <p class="description"><?php _e("Sets how often the listing should be updated. For most sites the Live option should be fine, however if you are experiencing slowdowns or your blog gets a lot of visitors then you might want to change the refresh rate", $this->plugin_slug); ?></p>
-                        </td>
-                    </tr>
-                    <tr valign="top" <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>style="display:none;"<?php } ?> id="cache_refresh_interval">
-                        <th scope="row"><label for="cache_interval_value"><?php _e("Refresh list every", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                        	<input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->user_settings['tools']['cache']['interval']['value']) ) ? (int) $this->user_settings['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
-                            <select name="cache_interval_time" id="cache_interval_time">
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", $this->plugin_slug); ?></option>                                
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "month") {?>selected="selected"<?php } ?> value="month"><?php _e("Month(s)", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "year") {?>selected="selected"<?php } ?> value="month"><?php _e("Year(s)", $this->plugin_slug); ?></option>
-                            </select>                            
-                            <br />
-                            <p class="description" style="display:none;" id="cache_too_long"><?php _e("Really? That long?", $this->plugin_slug); ?></p>
-                        </td>
-                    </tr>
-                    <tr valign="top">                            	
-                        <td colspan="2">
-                            <input type="hidden" name="section" value="data" />
-                    		<input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        <br />
-        <p style="display:block; float:none; clear:both">&nbsp;</p>
+        </div>
         
-        <h3 class="wmpp-subtitle"><?php _e("Miscellaneous", $this->plugin_slug); ?></h3>
-        <form action="" method="post" id="wpp_link_options" name="wpp_link_options">
-            <table class="form-table">
-                <tbody>
-                    <tr valign="top">
-                        <th scope="row"><label for="link_target"><?php _e("Open links in", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="link_target" id="link_target">
-                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_self' ) {?>selected="selected"<?php } ?> value="_self"><?php _e("Current window", $this->plugin_slug); ?></option>
-                                <option <?php if ( $this->user_settings['tools']['link']['target'] == '_blank' ) {?>selected="selected"<?php } ?> value="_blank"><?php _e("New tab/window", $this->plugin_slug); ?></option>
-                            </select>
-                            <br />
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><label for="log_option"><?php _e("Log views from", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="log_option" id="log_option">
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 0) {?>selected="selected"<?php } ?> value="0"><?php _e("Visitors only", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 2) {?>selected="selected"<?php } ?> value="2"><?php _e("Logged-in users only", $this->plugin_slug); ?></option>
-                                <option <?php if ($this->user_settings['tools']['log']['level'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Everyone", $this->plugin_slug); ?></option>
-                            </select>
-                            <br />
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><label for="css"><?php _e("Use plugin's stylesheet", $this->plugin_slug); ?>:</label></th>
-                        <td>
-                            <select name="css" id="css">
-                                <option <?php if ($this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
-                                <option <?php if (!$this->user_settings['tools']['css']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
-                            </select>
-                            <br />
-                            <p class="description"><?php _e("By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.", $this->plugin_slug); ?></p>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <td colspan="2">
-                            <input type="hidden" name="section" value="misc" />
-                            <input type="submit" class="button-secondary action" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        <br />
-        <p style="display:block; float:none; clear:both">&nbsp;</p>
-        
-        <br /><br />
-        
-        <p><?php _e('Wordpress Popular Posts maintains data in two separate tables: one for storing the most popular entries on a daily basis (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', $this->plugin_slug) ?></p>
-        <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", $this->plugin_slug); ?>" onclick="confirm_reset_cache()" /> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', $this->plugin_slug); ?></small></label></p>
-        <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", $this->plugin_slug); ?>" onclick="confirm_reset_all()" /> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', $this->plugin_slug); ?></small></label></p>
+        <h4 id="shortcode">&raquo; <a href="#" rel="q-21"><?php _e('What are "shortcodes"?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-21">
+            <p><?php _e('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', $this->plugin_slug, $this->plugin_slug); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
+        </div>        
     </div>
-    <!-- End tools -->
+    <!-- End faq -->
         
 </div>

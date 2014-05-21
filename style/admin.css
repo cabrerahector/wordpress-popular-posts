@@ -80,11 +80,11 @@
 			#wpp_faq h4 a.active { color:#d74e21; }
 	
 		.wpp-ans {
-			display:none;
+			/*display:none;*/
 			margin:5px 0 0 0;
 			width:96%;
 			padding:1% 2%;
-			background:#f0f0f0;
+			background:#e5e5e5;
 		}
 		
 			.wpp-ans p {
