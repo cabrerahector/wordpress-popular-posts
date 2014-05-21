@@ -171,17 +171,14 @@ if (empty($wpp_rand)) {
                 <tbody>
                 	<tr valign="top">
                         <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", $this->plugin_slug); ?>:</label></th>
-                        <td>
+                        <td>                        	
+                            <div id="thumb-review">
+                                <img src="<?php echo $this->user_settings['tools']['thumbnail']['default']; ?>" alt="" border="0" />
+                            </div>
                             <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", $this->plugin_slug ); ?>" />
                             <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
-                            <br />
+                            <br /><br />
                             <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", $this->plugin_slug); ?></p>
-                            <div style="display:<?php if ( !empty($this->user_settings['tools']['thumbnail']['default']) ) : ?>block<?php else: ?>none<?php endif; ?>;">
-                            	<label><?php _e("Preview", $this->plugin_slug); ?>:</label>
-                                <div id="thumb-review">
-                                    <img src="<?php echo $this->user_settings['tools']['thumbnail']['default']; ?>" alt="" border="0" />
-                                </div>
-                            </div>
                         </td>
                     </tr>                    
                     <tr valign="top">

@@ -318,6 +318,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			if ( !empty($this->user_settings['tools']['thumbnail']['default']) )
 				$this->default_thumbnail = $this->user_settings['tools']['thumbnail']['default'];
+			else
+				$this->user_settings['tools']['thumbnail']['default'] = $this->default_thumbnail;
 			
 			// qTrans plugin support
 			if ( function_exists('qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage') )
