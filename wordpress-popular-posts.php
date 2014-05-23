@@ -359,10 +359,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					date("Y", $tomorrow));
 				wp_schedule_event( $midnight, 'daily', 'wpp_cache_event' );
 			}
-			
-			// Enable Popular Posts feed
-			include_once( plugin_dir_path( __FILE__ ) . 'class-wordpress-popular-posts-feed.php' );
-			$wpp_feed = new WordpressPopularPostsFeed();
 
 		} // end constructor
 
