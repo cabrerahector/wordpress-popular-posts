@@ -1588,8 +1588,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$wpp_transients = array( md5(json_encode($instance)) );
 						add_site_option('wpp_transients', $wpp_transients);
 					} else {
-						if ( !in_array(md5(json_encode($instance)), $wpp_transients) )
+						if ( !in_array(md5(json_encode($instance)), $wpp_transients) ) {
+							$wpp_transients[] = md5(json_encode($instance));
 							update_site_option('wpp_transients', $wpp_transients);
+						}
 					}
 				}
 			} else {				
