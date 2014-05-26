@@ -1185,10 +1185,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	1.4.0
 		 * @global	object	$wpdb
 		 * @param	int				Post ID
-		 * @param	bool	$log		Whether to store view in log
 		 * @return	bool|int		FALSE if query failed, number of rows affected on success
 		 */
-		private function __update_views($id, $log = true) {
+		private function __update_views($id) {
 			
 			/*
 			TODO:
