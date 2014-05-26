@@ -682,7 +682,7 @@ if (empty($wpp_rand)) {
         
         <h4 id="shortcode">&raquo; <a href="#" rel="q-21"><?php _e('What are "shortcodes"?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-21">
-            <p><?php _e('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit', $this->plugin_slug, $this->plugin_slug); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
+            <p><?php echo sprintf( __('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit the <a href="%s" target="_blank">Wordpress Shortcode API</a> page.', $this->plugin_slug), 'http://codex.wordpress.org/Shortcode_API' ); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
         </div>        
     </div>
     <!-- End faq -->
@@ -694,9 +694,9 @@ if (empty($wpp_rand)) {
             <h3><?php echo sprintf( __('About Wordpress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
             <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
             <ul>
-            	<li>- WPML support.</li>
-                <li>- Wordpress Multisite support.</li>
             	<li>- Plugin refactoring based on <a href="https://github.com/tikaszvince">@tikaszvince</a>'s work (many thanks, Vince!).</li>
+            	<li>- WPML support.</li>
+                <li>- Wordpress Multisite support.</li>            	
             	<li>- Added bot detection.</li>
                 <li>- Added ability to filter posts by freshness.</li>
                 <li>- Added own data caching method.</li>
