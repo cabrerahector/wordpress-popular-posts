@@ -329,21 +329,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 			// Add the update hooks only if the logging conditions are met
 			if ( (0 == $this->user_settings['tools']['log']['level'] && !is_user_logged_in()) || (1 == $this->user_settings['tools']['log']['level']) || (2 == $this->user_settings['tools']['log']['level'] && is_user_logged_in()) ) {
-				// Log views via AJAX
-				if ( $this->user_settings['tools']['ajax'] ) {				
-					add_action( 'wp_head', array(&$this, 'print_ajax') );
+				// Log views on page load via AJAX
+				add_action( 'wp_head', array(&$this, 'print_ajax') );
 					
-					// Register views from everyone and/or connected users
-					if ( 0 != $this->user_settings['tools']['log']['level'] )
-						add_action( 'wp_ajax_update_views_ajax', array($this, 'update_views_ajax') );				
-					// Register views from everyone and/or visitors only
-					if ( 2 != $this->user_settings['tools']['log']['level'] )
-						add_action( 'wp_ajax_nopriv_update_views_ajax', array($this, 'update_views_ajax') );
-				}
-				// Log views on page load
-				else {				
-					add_action( 'template_redirect', array( $this, 'update_views' ), 1 );					
-				}				
+				// Register views from everyone and/or connected users
+				if ( 0 != $this->user_settings['tools']['log']['level'] )
+					add_action( 'wp_ajax_update_views_ajax', array($this, 'update_views_ajax') );				
+				// Register views from everyone and/or visitors only
+				if ( 2 != $this->user_settings['tools']['log']['level'] )
+					add_action( 'wp_ajax_nopriv_update_views_ajax', array($this, 'update_views_ajax') );
 			}			
 			
 			// Add shortcode
