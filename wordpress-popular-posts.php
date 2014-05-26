@@ -1553,8 +1553,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Fetch posts
 			if ( !is_admin() && $this->user_settings['tools']['cache']['active'] ) {
+				$transient_name = md5(json_encode($instance));
+				$mostpopular = ( function_exists( 'is_multisite' ) && is_multisite() )
+				  ? get_site_transient( $transient_name )
+				  : get_transient( $transient_name );
+				
 				// It wasn't there, so regenerate the data and save the transient
-				if ( false === ( $mostpopular = get_transient( md5(json_encode($instance)) ) ) ) {				  
+				if ( false === $mostpopular ) {				  
 					$mostpopular = $this->_query_posts( $instance );
 					
 					switch($this->user_settings['tools']['cache']['interval']['time']){
@@ -1579,17 +1584,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						break;
 					}
 					
-					$expiration = $time * $this->user_settings['tools']['cache']['interval']['value'];					
-					set_transient( md5(json_encode($instance)), $mostpopular, $expiration );
+					$expiration = $time * $this->user_settings['tools']['cache']['interval']['value'];
+					
+					if ( function_exists( 'is_multisite' ) && is_multisite() )
+						set_site_transient( $transient_name, $mostpopular, $expiration );
+					else
+						set_transient( $transient_name, $mostpopular, $expiration );
 					
 					$wpp_transients = get_site_option('wpp_transients');
 					
 					if ( !$wpp_transients ) {
-						$wpp_transients = array( md5(json_encode($instance)) );
+						$wpp_transients = array( $transient_name );
 						add_site_option('wpp_transients', $wpp_transients);
 					} else {
-						if ( !in_array(md5(json_encode($instance)), $wpp_transients) ) {
-							$wpp_transients[] = md5(json_encode($instance));
+						if ( !in_array($transient_name, $wpp_transients) ) {
+							$wpp_transients[] = $transient_name;
 							update_site_option('wpp_transients', $wpp_transients);
 						}
 					}
