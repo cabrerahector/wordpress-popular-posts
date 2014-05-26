@@ -109,7 +109,8 @@ if (empty($wpp_rand)) {
         'stats' => __('Stats', $this->plugin_slug),
 		'tools' => __('Tools', $this->plugin_slug),
 		'params' => __('Parameters', $this->plugin_slug),
-        'faq' => __('FAQ', $this->plugin_slug)
+        'faq' => __('FAQ', $this->plugin_slug),
+		'about' => __('About', $this->plugin_slug)
     );
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
@@ -685,5 +686,43 @@ if (empty($wpp_rand)) {
         </div>        
     </div>
     <!-- End faq -->
+    
+    <!-- Start about -->
+    <div id="wpp_faq" class="wpp_boxes"<?php if ( "about" == $current ) {?> style="display:block;"<?php } ?>>    	
+        
+        <div style="float:left; width:800px;">
+            <h3><?php echo sprintf( __('About Wordpress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
+            <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
+            <ul>
+            	<li>- WPML support.</li>
+                <li>- Wordpress Multisite support.</li>
+            	<li>- Plugin refactoring based on <a href="https://github.com/tikaszvince">@tikaszvince</a>'s work (many thanks, Vince!).</li>
+            	<li>- Added bot detection.</li>
+                <li>- Added ability to filter posts by freshness.</li>
+                <li>- Added own data caching method.</li>
+                <li>- Added filters <em>wpp_custom_html</em>, <em>wpp_post</em>.</li>
+            	<li>- Several minor fixes and improvements.</li>
+            </ul>
+        </div>
+        
+        <div style="display:inline; float:right; margin:15px 0 0 0; padding:10px; width:230px; background:#f9f9f9; border: 1px solid #ccc;">
+        	<h3 style="margin-top:0; text-align:center;"><?php _e('Do you like this plugin?', $this->plugin_slug); ?></h3>
+        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="RP9SK8KVQHRKS">
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="display:block; margin:0 auto;">
+                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            </form>
+            <p><?php _e( 'Each donation motivates me to keep releasing free stuff for the Wordpress community!', $this->plugin_slug ); ?></p>
+            <p><?php echo sprintf( __('You can <a href="%s" target="_blank">leave a review</a>, too!', $this->plugin_slug), 'http://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts' ); ?></p>
+        </div>
+        
+        <div style="display:inline; float:right; clear:right; margin:15px 0 0 0; padding:10px; width:230px; background:#f9f9f9; border: 1px solid #ccc;">
+        	<h3 style="margin-top:0; text-align:center;"><?php _e('Need help?', $this->plugin_slug); ?></h3>
+            <p><?php echo sprintf( __('Visit <a href="%s" target="_blank">the forum</a> for support, questions and feedback.', $this->plugin_slug), 'http://wordpress.org/support/plugin/wordpress-popular-posts' ); ?></p>
+            <p><?php _e('Let\'s make this plugin even better!', $this->plugin_slug); ?></p>
+        </div>
+    </div>
+    <!-- End about -->
         
 </div>
