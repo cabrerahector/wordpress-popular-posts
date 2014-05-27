@@ -1,11 +1,11 @@
-# Copyright (C) 2013 Wordpress Popular Posts
+# Copyright (C) 2014 Wordpress Popular Posts
 # This file is distributed under the same license as the Wordpress Popular Posts package.
 msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2014-05-27 11:37-0430\n"
-"PO-Revision-Date: 2014-05-27 11:38-0430\n"
+"POT-Creation-Date: 2014-05-27 11:47-0430\n"
+"PO-Revision-Date: 2014-05-27 11:48-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language: en\n"
@@ -14,9 +14,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.6.5\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-KeywordsList: _e;__;_n:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -1099,27 +1098,6 @@ msgstr ""
 #: ../wordpress-popular-posts.php:1612
 msgid "Sorry. No data so far."
 msgstr ""
-
-#: ../wordpress-popular-posts.php:2073
-#, php-format
-msgid "1 comment"
-msgid_plural "%s comments"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../wordpress-popular-posts.php:2087
-#, php-format
-msgid "1 view per day"
-msgid_plural "%s views per day"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../wordpress-popular-posts.php:2093
-#, php-format
-msgid "1 view"
-msgid_plural "%s views"
-msgstr[0] ""
-msgstr[1] ""
 
 #: ../wordpress-popular-posts.php:2106
 #, php-format
