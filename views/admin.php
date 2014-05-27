@@ -642,8 +642,8 @@ if (empty($wpp_rand)) {
         </div>
         
         <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are "Content Tags"?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-18">
-            <p><?php _e('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see "List of parameters accepted by wpp_get_mostpopular() and the [wpp] shortcode".', $this->plugin_slug); ?></p>
+        <div class="wpp-ans" id="q-18">            
+            <p><?php echo sprintf( __('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see the <a href="%s" target="_blank">Parameters</a> section.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></p>
         </div>
         
         <h4 id="template-tags">&raquo; <a href="#" rel="q-19"><?php _e('What are "Template Tags"?', $this->plugin_slug); ?></a></h4>
@@ -682,7 +682,7 @@ if (empty($wpp_rand)) {
         
         <h4 id="shortcode">&raquo; <a href="#" rel="q-21"><?php _e('What are "shortcodes"?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-21">
-            <p><?php echo sprintf( __('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit the <a href="%s" target="_blank">Wordpress Shortcode API</a> page.', $this->plugin_slug), 'http://codex.wordpress.org/Shortcode_API' ); ?> <a href="http://codex.wordpress.org/Shortcode_API" target="_blank">Wordpress Shortcode API</a>.</p>
+            <p><?php echo sprintf( __('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With Wordpress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit the <a href="%s" target="_blank">Wordpress Shortcode API</a> page.', $this->plugin_slug), 'http://codex.wordpress.org/Shortcode_API' ); ?></p>
         </div>        
     </div>
     <!-- End faq -->
@@ -695,8 +695,8 @@ if (empty($wpp_rand)) {
             <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
             <ul>
             	<li>- Plugin refactoring based on <a href="https://github.com/tikaszvince">@tikaszvince</a>'s work (many thanks, Vince!).</li>
-            	<li>- WPML support.</li>
-                <li>- Wordpress Multisite support.</li>            	
+            	<li>- Added WPML support.</li>
+                <li>- Added Wordpress Multisite support.</li>            	
             	<li>- Added bot detection.</li>
                 <li>- Added ability to filter posts by freshness.</li>
                 <li>- Added own data caching method.</li>
