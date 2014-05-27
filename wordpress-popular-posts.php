@@ -75,7 +75,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Instance of this class.
 		 *
 		 * @since    3.0.0
-		 *
 		 * @var      object
 		 */
 		protected static $instance = NULL;
@@ -624,7 +623,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Replaces upload button text when uploader is called by WPP.
 		 *
 		 * @since	2.3.4
-		 *
 		 * @param	string	translated_text
 		 * @param	string	text
 		 * @param	string	domain
@@ -694,7 +692,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Registers Settings link on plugin description.
 		 *
 		 * @since	2.3.3
-		 *
 		 * @param	array	links
 		 * @param	string	file
 		 * @return	array
@@ -718,7 +715,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Return an instance of this class.
 		 *
 		 * @since     3.0.0
-		 *
 		 * @return    object    A single instance of this class.
 		 */
 		public static function get_instance() {
@@ -729,7 +725,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 	
 			return self::$instance;
-		}
+		} // end get_instance
 
 		/**
 		 * Fired when the plugin is activated.
@@ -786,7 +782,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// switch back to current blog
 			restore_current_blog();
 
-		}
+		} // end activate_new_site
 
 		/**
 		 * On plugin activation, checks that the WPP database tables are present.
@@ -812,6 +808,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Fired when the plugin is deactivated.
 		 *
 		 * @since	1.0.0
+		 * @global	object	wpbd
 		 * @param	bool	network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog
 		 */
 		public static function deactivate( $network_wide ) {
@@ -848,7 +845,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * On plugin deactivation, disables the shortcode and removes the scheduled task.
 		 *
 		 * @since	2.4.0
-		 * @global	object	wpdb
 		 */
 		private static function __deactivate() {
 			remove_shortcode('wpp');
@@ -871,7 +867,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$this->__upgrade();
 			}
 
-		}
+		} // end upgrade_check
 
 		/**
 		 * On plugin upgrade, performs a number of actions: update WPP database tables structures (if needed),
@@ -984,7 +980,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		} // end __do_db_tables
 
 		/**
-		 * Check if the technical requirements are met.
+		 * Checks if the technical requirements are met.
 		 *
 		 * @since	2.4.0
 		 * @link	http://wordpress.stackexchange.com/questions/25910/uninstall-activate-deactivate-a-plugin-typical-features-how-to/25979#25979
@@ -1067,8 +1063,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostsdata WHERE postid IN({$to_be_deleted});" );
 				$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostssummary WHERE postid IN({$to_be_deleted});" );
 			}
-		}
+		} // end purge_data
 		
+		/**
+		 * Truncates data and cache on demand.
+		 *
+		 * @since	2.0.0
+		 * @global	object	wpdb
+		 */
 		public function clear_data() {
 			$token = $_POST['token'];
 			$clear = isset($_POST['clear']) ? $_POST['clear'] : '';
@@ -1104,9 +1106,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			die();
-		}
+		} // end clear_data
 		
-				
+		
+		/**
+		 * Updates views count on page load.
+		 *
+		 * @since	1.4.0
+		 * @global	object	post
+		 */		
 		public function update_views(){			
 			if ( !is_singular() || is_attachment() || is_front_page() || is_preview() || is_trackback() || is_feed() || is_robots() || $this->__is_bot() )
 				return;
@@ -1114,8 +1122,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			global $post;
 			$result = $this->__update_views($post->ID);
 			
-		}
+		} // end update_views
 		
+		/**
+		 * Updates views count on page load via AJAX.
+		 *
+		 * @since	2.0.0
+		 */
 		public function update_views_ajax(){
 			
 			if ( !wp_verify_nonce($_GET['token'], 'wpp-token') || !$this->__is_numeric($_GET['id']) ) 
@@ -1138,8 +1151,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			die( "WPP: Oops, could not update the views count!" );
 			
-		}
+		} // end update_views_ajax
 		
+		/**
+		 * Outputs script to update views via AJAX.
+		 *
+		 * @since	2.0.0
+		 * @global	object	post
+		 */
 		public function print_ajax(){
 			
 			wp_print_scripts('jquery');
@@ -1166,8 +1185,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			//]]></script>
             <!-- End Wordpress Popular Posts v<?php echo $this->version; ?> -->
             <?php
-		}
+		} // end print_ajax
 		
+		/**
+		 * Deletes cached (transient) data.
+		 *
+		 * @since	3.0.0
+		 */
 		private function __flush_transients() {
 			$wpp_transients = get_site_option('wpp_transients');
 			
@@ -1177,7 +1201,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					
 				update_site_option('wpp_transients', array());
 			}
-		}
+		} // end __flush_transients
 		
 		/**
 		 * Updates views count.
@@ -1185,7 +1209,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	1.4.0
 		 * @global	object	$wpdb
 		 * @param	int				Post ID
-		 * @return	bool|int		FALSE if query failed, number of rows affected on success
+		 * @return	bool|int		FALSE if query failed, TRUE on success
 		 */
 		private function __update_views($id) {
 			
@@ -1235,13 +1259,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 			return true;
 			
-		}
+		} // end __update_views
 
 		/**
 		 * Queries the database and returns the posts (if any met the criteria set by the user).
 		 *
 		 * @since	1.4.0
-		 * @global	object $wpdb
+		 * @global	object 		$wpdb
 		 * @param	array		Widget instance
 		 * @return	null|array	Array of posts, or null if nothing was found
 		 */
@@ -1537,7 +1561,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/**
 		 * Returns the formatted list of posts.
 		 *
-		 * @since	1.0.0
+		 * @since	3.0.0
 		 * @param	array	instance	The current instance of the widget / shortcode parameters
 		 * @return	string	HTML list of popular posts
 		 */
@@ -1639,12 +1663,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			return $content;
 
-		}
+		} // end __get_popular_posts
 
 		/**
 		 * Returns the formatted post.
 		 *
-		 * @since	1.0.0
+		 * @since	3.0.0
 		 * @param	object	p
 		 * @param	array	instance	The current instance of the widget / shortcode parameters
 		 * @return	string
@@ -1709,7 +1733,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			return apply_filters('wpp_post', $content, $p, $instance);
 			
-		}
+		} // end __render_popular_post
 		
 		/**
 		 * Cache.
@@ -1731,7 +1755,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 		
 			return $cache[$func];
-		}
+		} // end __cache
 		
 		/**
 		 * Gets post title.
@@ -1766,7 +1790,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			return $cache[$p->id] = apply_filters('the_title', $title, $p->id);
 			
-		}
+		} // end _get_title
 		
 		/**
 		 * Gets substring of post title.
@@ -1805,7 +1829,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $cache[$p->id] = $title_sub;
-		}
+		} // end _get_title_sub
 		
 		/**
 		 * Gets post's excerpt.
@@ -1837,7 +1861,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $cache[$p->id] = $excerpt;
-		}
+		} // end _get_excerpt
 		
 		/**
 		 * Gets post's thumbnail.
@@ -1892,7 +1916,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$thumb .= "</a>";
 			
 			return $cache[$p->id] = $thumb;
-		}
+		} // end _get_thumb
 		
 		/**
 		 * Gets post's views.
@@ -1923,7 +1947,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $cache[$p->id] = $pageviews;
-		}
+		} // end _get_pageviews
 		
 		/**
 		 * Gets post's comment count.
@@ -1946,7 +1970,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			  : 0;
 			
 			return $cache[$p->id] = $comments;
-		}
+		} // end _get_comments
 		
 		/**
 		 * Gets post's rating.
@@ -1970,7 +1994,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $cache[$p->id] = $rating;
-		}
+		} // end _get_rating
 		
 		/**
 		 * Gets post's author.
@@ -1993,7 +2017,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			  : "";
 			
 			return $cache[$p->id] = $author;
-		}
+		} // end _get_author
 		
 		/**
 		 * Gets post's date.
@@ -2013,7 +2037,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$date = date_i18n($instance['stats_tag']['date']['format'], strtotime($p->date));
 			return $cache[$p->id] = $date;
-		}
+		} // end _get_date
 		
 		/**
 		 * Gets post's category.
@@ -2043,7 +2067,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $cache[$p->id] = $post_cat;
-		}
+		} // end _get_post_cat
 		
 		/**
 		 * Gets statistics data.
@@ -2127,7 +2151,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $cache[$p->id] = $stats;
-		}
+		} // end _get_stats
 		
 		/**
 		 * Retrieves / creates the post thumbnail.
@@ -2196,7 +2220,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return $this->__image_resize($file_path, $thumbnail, $dim);
-		}
+		} // end __get_img
 		
 		/**
 		 * Resizes image.
@@ -2248,7 +2272,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// image file path is invalid
 			return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_image_resize_error wpp_' . $source, '', $image->get_error_message());
 		
-		}
+		} // end __image_resize
 		
 		/**
 		 * Get image absolute path / URL.
@@ -2311,7 +2335,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'file_path' => $file_path,
 				'thumbnail' => $thumbnail,
 			);
-		}
+		} // end __get_image_file_paths
 		
 		/**
 		 * Render image tag.
@@ -2335,7 +2359,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $msg .
 			'<img src="' . $src . '" title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" width="' . $dimension[0] . '" height="' . $dimension[1] . '" class="' . $class . '" />';
 		
-		}
+		} // _render_image
 		
 		/**
 		* Get the Attachment ID for a given image URL.
@@ -2400,7 +2424,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return false;
-		}
+		} // __get_attachment_id
 		
 		/**
 		* Fetchs external images.
@@ -2445,12 +2469,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return false;
-		}
+		} // end __fetch_external_image
 		
 		/**
 		 * Builds post's excerpt
 		 *
 		 * @since	1.4.6
+		 * @global	object	wpdb
 		 * @param	int	post ID
 		 * @param	array	widget instance
 		 * @return	string
@@ -2536,7 +2561,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			return $excerpt;
 			
-		}
+		} // _get_summary
 		
 		/**
 		 * WPP shortcode handler
@@ -2667,7 +2692,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$shortcode_content .= "\n". "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
 			
 			return $shortcode_content;
-		}
+		} // end shortcode
 		
 		/**
 		 * Parses content tags
@@ -2676,6 +2701,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @param	string	HTML string with content tags
 		 * @param	array	Post data
 		 * @param	bool	Used to display post rating (if functionality is available)
+		 * @return	string
 		 */
 		private function __format_content($string, $data = array(), $rating) {
 			
@@ -2752,7 +2778,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return html_entity_decode( $string, ENT_QUOTES, $this->charset );
-		}
+		} // end __format_content
 
 		/**
 		 * Returns HTML list via AJAX
@@ -2779,7 +2805,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				echo "Invalid Widget ID";
 			}
 			exit();
-		}
+		} // end get_popular
 
 		/*--------------------------------------------------*/
 		/* Helper functions
@@ -2820,7 +2846,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Returns time
 		 *
 		 * @since	2.3.0
-		 *
 		 * @return	string
 		 */
 		private function __microtime_float() {
@@ -2890,7 +2915,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			
 			return false; // Human, I guess...
-		}
+		} // end __is_bot
 
 		/**
 		 * Debug function.
@@ -2930,10 +2955,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
  */
 
 /**
- * Template tag - gets views count
- * $id (int) - post / page ID
- * $range (string) - time frame
- * Since 2.0.3.
+ * Template tag - gets views count.
+ *
+ * @since	2.0.3
+ * @global	object	wpdb
+ * @param	int		id
+ * @param	string	range
+ * @param	bool	number_format
+ * @return	string
  */
 function wpp_get_views($id = NULL, $range = NULL, $number_format = true) {
 	// have we got an id?
@@ -2987,8 +3016,10 @@ function wpp_get_views($id = NULL, $range = NULL, $number_format = true) {
 }
 
 /**
- * Template tag - gets popular posts
- * Since 2.0.3.
+ * Template tag - gets popular posts.
+ *
+ * @since	2.0.3
+ * @param	mixed	args
  */
 function wpp_get_mostpopular($args = NULL) {
 	
@@ -3013,9 +3044,10 @@ function wpp_get_mostpopular($args = NULL) {
 }
 
 /**
- * Template tag - gets popular posts
- * Deprecated in 2.0.3.
- * Use wpp_get_mostpopular instead.
+ * Template tag - gets popular posts. Deprecated in 2.0.3, use wpp_get_mostpopular instead.
+ *
+ * @since	1.0
+ * @param	mixed	args
  */
 function get_mostpopular($args = NULL) {	
 	return wpp_get_mostpopular($args);
