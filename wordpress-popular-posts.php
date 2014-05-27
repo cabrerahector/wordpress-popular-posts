@@ -972,6 +972,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					last_viewed datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 					PRIMARY KEY  (ID),
 					UNIQUE KEY ID_date (postid,view_date),
+					KEY postid (postid),
 					KEY last_viewed (last_viewed)
 				) {$charset_collate};";
 
@@ -2240,45 +2241,26 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @return	string
 		 */
 		private function __image_resize($path, $url, $dimension) {
+			
+			$image = wp_get_image_editor($path);
+			
+			// valid image, create thumbnail
+			if (!is_wp_error($image)) {
 
-			// use wp_get_image_editor() to create the image
-			if (function_exists('wp_get_image_editor')) {
+				$image->resize($dimension[0], $dimension[1], true);
+				$new_img = $image->save();
 
-				// no thumbnail or image file missing, try to create it
-				// if supported, use WP_Image_Editor Class
-				$image = wp_get_image_editor($path);
-				// valid image, create thumbnail
-				if (!is_wp_error($image)) {
-
-					$image->resize($dimension[0], $dimension[1], true);
-					$new_img = $image->save();
-
-					if (is_wp_error($new_img)) {
-						return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
-					}
-
-					$new_img = str_replace(basename($thumbnail[0]), $new_img['file'], $thumbnail[0]);
-					return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, '');
+				if (is_wp_error($new_img)) {
+					return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
 				}
 
-				// ELSE
-				// image file path is invalid
-				return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
-			}
-
-
-			// ELSE
-			// create thumb using image_resize() - deprecated since 3.5.0!
-			$new_img_path = image_resize($file_path, $dim[0], $dim[1], true);
-			// valid image, create thumbnail
-			if (!is_wp_error($new_img_path)) {
-				$new_img = str_replace(basename($thumbnail[0]), basename($new_img_path), $thumbnail[0]);
-				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_image_resize_thumb wpp_' . $source, '');
+				$new_img = str_replace(basename($thumbnail[0]), $new_img['file'], $thumbnail[0]);
+				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, '');
 			}
 
 			// ELSE
 			// image file path is invalid
-			return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_image_resize_error wpp_' . $source, '', $image->get_error_message());
+			return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
 
 		} // end __image_resize
 
