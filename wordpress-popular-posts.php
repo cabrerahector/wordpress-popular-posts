@@ -2,7 +2,7 @@
 /*
 Plugin Name: Wordpress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
-Description: Showcase the most popular posts on your blog to your visitors. Use Wordpress Popular Posts as a widget or place it anywhere on your theme using <strong>&lt;?php wpp_get_mostpopular(); ?&gt;</strong>
+Description: Wordpress Popular Posts is a highly customizable widget that displays the most popular posts on your blog
 Version: 3.0.0
 Author: Hector Cabrera
 Author URI: http://cabrerahector.com
