@@ -389,7 +389,7 @@ if (empty($wpp_rand)) {
                     <tr class="alternate">
                         <td><strong>freshness</strong></td>
                         <td><?php _e('Tells Wordpress Popular Posts to retrieve the most popular entries published within the time range specified by you', $this->plugin_slug); ?></td>
-                        <td>1 (true), (0) false</td>
+                        <td>1 (true), 0 (false)</td>
                         <td>0</td>
                         <td>freshness=1</td>
                     </tr>
