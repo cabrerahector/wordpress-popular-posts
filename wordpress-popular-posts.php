@@ -993,7 +993,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			global $wp_version;
 
 			$php_min_version = '5.2';
-			$wp_min_version = '3.3';
+			$wp_min_version = '3.8';
 			$php_current_version = phpversion();
 			$errors = array();
 
