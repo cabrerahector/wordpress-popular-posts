@@ -1822,15 +1822,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				// by words
 				if (isset($instance['shorten_title']['words']) && $instance['shorten_title']['words']) {
 
-					$words = explode(" ", $title, $instance['shorten_title']['length'] + 1);
+					$words = explode(" ", $title_sub, $instance['shorten_title']['length'] + 1);
 					if (count($words) > $instance['shorten_title']['length']) {
 						array_pop($words);
 						$title_sub = implode(" ", $words) . "...";
 					}
 
 				}
-				elseif (strlen($title) > $instance['shorten_title']['length']) {
-					$title_sub = mb_substr($title, 0, $instance['shorten_title']['length'], $this->charset) . "...";
+				elseif (strlen($title_sub) > $instance['shorten_title']['length']) {
+					$title_sub = mb_substr($title_sub, 0, $instance['shorten_title']['length'], $this->charset) . "...";
 				}
 			}
 
