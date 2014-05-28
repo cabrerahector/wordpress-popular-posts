@@ -1668,6 +1668,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			$thumb = $this->_get_thumb($p, $instance);
 			$excerpt = $this->_get_excerpt($p, $instance);
+			$date = $this->_get_date($p,$instance);
 			
 			$pageviews = $this->_get_pageviews($p, $instance);
 			$comments = $this->_get_comments($p, $instance);
@@ -1680,6 +1681,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ($instance['markup']['custom_html']) {
 				
 				$data = array(
+					'date' => $date,
 					'title' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'">'.$title_sub.'</a>',
 					'summary' => $excerpt,
 					'stats' => $_stats,
@@ -2685,13 +2687,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$string = htmlentities( $string );
 			
 			$params = array();
-			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|rating|score|url|text_title|author|category|views|comments)\}/i';		
+			$pattern = '/\{(excerpt|summary|stats|title|date|image|thumb|rating|score|url|text_title|author|category|views|comments)\}/i';		
 			preg_match_all($pattern, $string, $matches);
 			
 			array_map('strtolower', $matches[0]);		
 			
 			if ( in_array("{title}", $matches[0]) ) {
 				$string = str_replace( "{title}", $data['title'], $string );
+			}
+
+			if ( in_array("{date}", $matches[0]) ) {
+				$string = str_replace( "{date}", $data['date'], $string );
 			}
 			
 			if ( in_array("{stats}", $matches[0]) ) {
