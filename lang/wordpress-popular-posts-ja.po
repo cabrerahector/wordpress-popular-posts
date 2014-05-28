@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-27 10:41-0430\n"
+"POT-Creation-Date: 2014-05-27 18:13-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <hcabrerab@gmail.com>\n"
@@ -853,12 +853,13 @@ msgid "What are \"Content Tags\"?"
 msgstr "「コンテンツ・タグ」って何?"
 
 #: ../views/admin.php:646
+#, fuzzy, php-format
 msgid ""
 "Content Tags are codes to display a variety of items on your popular posts "
 "custom HTML structure. For example, setting it to \"{title}: "
 "{summary}\" (without the quotes) would display \"Post title: excerpt of the "
-"post here\". For more Content Tags, see \"List of parameters accepted by "
-"wpp_get_mostpopular() and the [wpp] shortcode\"."
+"post here\". For more Content Tags, see the <a href=\"%s\" target=\"_blank"
+"\">Parameters</a> section."
 msgstr ""
 "コンテンツ・タグは、カスタムHTMLでいろいろな項目を表示できるようになるコード"
 "です。たとえば、「{title}: {summary}」とすると、「投稿タイトル: 投稿抜粋」と"
@@ -1165,11 +1166,11 @@ msgstr "投稿の前／後:"
 msgid "Post HTML Markup"
 msgstr "投稿用HTMLマークアップ:"
 
-#: ../wordpress-popular-posts.php:270
+#: ../wordpress-popular-posts.php:269
 msgid "The most Popular Posts on your blog."
 msgstr "あなたのブログで最も人気のある投稿。"
 
-#: ../wordpress-popular-posts.php:411
+#: ../wordpress-popular-posts.php:410
 msgid ""
 "Error: cannot ajaxify Wordpress Popular Posts on this theme. It's missing "
 "the <em>id</em> attribute on before_widget (see <a href=\"http://codex."
@@ -1177,11 +1178,11 @@ msgid ""
 "\"nofollow\">register_sidebar</a> for more)."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:638
+#: ../wordpress-popular-posts.php:636
 msgid "Upload"
 msgstr "アップロード"
 
-#: ../wordpress-popular-posts.php:1004
+#: ../wordpress-popular-posts.php:1002
 #, fuzzy, php-format
 msgid ""
 "Your PHP installation is too old. Wordpress Popular Posts requires at least "
@@ -1192,7 +1193,7 @@ msgstr ""
 "上が必須です。お使いのホスティング会社に連絡をとって、PHP 5.2.xかそれ以上に"
 "アップグレードするように要望してください。"
 
-#: ../wordpress-popular-posts.php:1011
+#: ../wordpress-popular-posts.php:1009
 #, fuzzy, php-format
 msgid ""
 "Your Wordpress version is too old. Wordpress Popular Posts requires at least "
@@ -1203,34 +1204,34 @@ msgstr ""
 "ジョン2.8以上が必須です。ツール &gt; 更新 でブログをアップデートしてくださ"
 "い。"
 
-#: ../wordpress-popular-posts.php:1036
+#: ../wordpress-popular-posts.php:1034
 #, php-format
 msgid ""
 "<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</"
 "strong>.</p></div>"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1086
+#: ../wordpress-popular-posts.php:1094
 msgid "Success! The cache table has been cleared!"
 msgstr "成功しました! キャッシュ・テーブルは空になっています!"
 
-#: ../wordpress-popular-posts.php:1088
+#: ../wordpress-popular-posts.php:1096
 msgid "Error: cache table does not exist."
 msgstr "エラー: キャッシュ・テーブルが存在しません。"
 
-#: ../wordpress-popular-posts.php:1095
+#: ../wordpress-popular-posts.php:1103
 msgid "Success! All data have been cleared!"
 msgstr "成功しました! 全てのデータが削除されました!"
 
-#: ../wordpress-popular-posts.php:1097
+#: ../wordpress-popular-posts.php:1105
 msgid "Error: one or both data tables are missing."
 msgstr "エラー: テーブルの1つか、あるいは2つともなくなっています。"
 
-#: ../wordpress-popular-posts.php:1100
+#: ../wordpress-popular-posts.php:1108
 msgid "Invalid action."
 msgstr "不正な操作"
 
-#: ../wordpress-popular-posts.php:1103
+#: ../wordpress-popular-posts.php:1111
 msgid ""
 "Sorry, you do not have enough permissions to do this. Please contact the "
 "site administrator for support."
@@ -1238,36 +1239,36 @@ msgstr ""
 "申し訳ありませんが、この操作を行う権限がありません。サイト管理者にサポートを"
 "お願いしてください。"
 
-#: ../wordpress-popular-posts.php:1612
+#: ../wordpress-popular-posts.php:1639
 msgid "Sorry. No data so far."
 msgstr "申し訳ありませんが、まだデータがありません。"
 
-#: ../wordpress-popular-posts.php:2073
+#: ../wordpress-popular-posts.php:2111
 #, fuzzy
 msgid "1 comment"
 msgstr "コメント"
 
-#: ../wordpress-popular-posts.php:2087
+#: ../wordpress-popular-posts.php:2123
 #, fuzzy
 msgid "1 view per day"
 msgstr "ビュー(本日)"
 
-#: ../wordpress-popular-posts.php:2093
+#: ../wordpress-popular-posts.php:2129
 #, fuzzy
 msgid "1 view"
 msgstr "ビュー"
 
-#: ../wordpress-popular-posts.php:2106
+#: ../wordpress-popular-posts.php:2141
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:2114
+#: ../wordpress-popular-posts.php:2147
 #, fuzzy, php-format
 msgid "posted on %s"
 msgstr "投稿日付"
 
-#: ../wordpress-popular-posts.php:2124
+#: ../wordpress-popular-posts.php:2155
 #, fuzzy, php-format
 msgid "under %s"
 msgstr "カテゴリ:"

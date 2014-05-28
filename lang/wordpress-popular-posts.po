@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2014-05-26 17:41-0430\n"
-"PO-Revision-Date: 2014-05-26 17:41-0430\n"
+"POT-Creation-Date: 2014-05-27 18:11-0430\n"
+"PO-Revision-Date: 2014-05-27 18:11-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Hector Cabrera <hcabrerab@gmail.com>\n"
 "Language: en\n"
@@ -757,12 +757,13 @@ msgid "What are \"Content Tags\"?"
 msgstr ""
 
 #: ../views/admin.php:646
+#, php-format
 msgid ""
 "Content Tags are codes to display a variety of items on your popular posts "
 "custom HTML structure. For example, setting it to \"{title}: "
 "{summary}\" (without the quotes) would display \"Post title: excerpt of the "
-"post here\". For more Content Tags, see \"List of parameters accepted by "
-"wpp_get_mostpopular() and the [wpp] shortcode\"."
+"post here\". For more Content Tags, see the <a href=\"%s\" target=\"_blank"
+"\">Parameters</a> section."
 msgstr ""
 
 #: ../views/admin.php:649
@@ -1032,11 +1033,11 @@ msgstr ""
 msgid "Post HTML Markup"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:270
+#: ../wordpress-popular-posts.php:269
 msgid "The most Popular Posts on your blog."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:411
+#: ../wordpress-popular-posts.php:410
 msgid ""
 "Error: cannot ajaxify Wordpress Popular Posts on this theme. It's missing "
 "the <em>id</em> attribute on before_widget (see <a href=\"http://codex."
@@ -1044,11 +1045,11 @@ msgid ""
 "\"nofollow\">register_sidebar</a> for more)."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:638
+#: ../wordpress-popular-posts.php:636
 msgid "Upload"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1004
+#: ../wordpress-popular-posts.php:1002
 #, php-format
 msgid ""
 "Your PHP installation is too old. Wordpress Popular Posts requires at least "
@@ -1056,7 +1057,7 @@ msgid ""
 "and ask them to upgrade PHP to %1$s or higher."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1011
+#: ../wordpress-popular-posts.php:1009
 #, php-format
 msgid ""
 "Your Wordpress version is too old. Wordpress Popular Posts requires at least "
@@ -1064,75 +1065,75 @@ msgid ""
 "Dashboard &gt; Update."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1036
+#: ../wordpress-popular-posts.php:1034
 #, php-format
 msgid ""
 "<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</"
 "strong>.</p></div>"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1086
+#: ../wordpress-popular-posts.php:1094
 msgid "Success! The cache table has been cleared!"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1088
+#: ../wordpress-popular-posts.php:1096
 msgid "Error: cache table does not exist."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1095
+#: ../wordpress-popular-posts.php:1103
 msgid "Success! All data have been cleared!"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1097
+#: ../wordpress-popular-posts.php:1105
 msgid "Error: one or both data tables are missing."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1100
+#: ../wordpress-popular-posts.php:1108
 msgid "Invalid action."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1103
+#: ../wordpress-popular-posts.php:1111
 msgid ""
 "Sorry, you do not have enough permissions to do this. Please contact the "
 "site administrator for support."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1612
+#: ../wordpress-popular-posts.php:1639
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:2073
+#: ../wordpress-popular-posts.php:2111
 #, php-format
 msgid "1 comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../wordpress-popular-posts.php:2087
+#: ../wordpress-popular-posts.php:2123
 #, php-format
 msgid "1 view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../wordpress-popular-posts.php:2093
+#: ../wordpress-popular-posts.php:2129
 #, php-format
 msgid "1 view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../wordpress-popular-posts.php:2106
+#: ../wordpress-popular-posts.php:2141
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:2114
+#: ../wordpress-popular-posts.php:2147
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:2124
+#: ../wordpress-popular-posts.php:2155
 #, php-format
 msgid "under %s"
 msgstr ""
