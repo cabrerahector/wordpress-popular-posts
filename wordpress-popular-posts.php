@@ -1904,7 +1904,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				if ($path != '') {
 					// user has requested to resize cf image
-					if ( $this->user_ops['tools']['thumbnail']['resize'] ) {
+					if ( $this->user_settings['tools']['thumbnail']['resize'] ) {
 						$thumb .= $this->__get_img($p, null, $path, array($tbWidth, $tbHeight), $this->user_settings['tools']['thumbnail']['source'], $title);
 					}
 					// use original size
@@ -2179,10 +2179,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Get image by post ID (parent)
 			if ( $id ) {
-				$file_paths = $this->__get_image_file_paths($id, $source);
+				$file_paths = $this->__get_image_file_paths($id, $source, $p, $dim, $title);				
 				$file_path = $file_paths['file_path'];
-				$thumbnail = isset( $file_paths['thumbnail'][0] )
-				  ? $file_paths['thumbnail'][0]
+				$thumbnail = isset( $file_paths['thumbnail'] )
+				  ? $file_paths['thumbnail']
 				  : '';
 
 				// No images found, return default thumbnail
@@ -2201,7 +2201,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$attachment_id = $this->__get_attachment_id($image_url);
 
 				// Image is hosted locally
-				if ( $attachment_id ) {
+				if ( $attachment_id ) {					
 					$thumbnail = $image_url;
 					$file_path = get_attached_file($attachment_id);
 				}
@@ -2223,11 +2223,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// there is a thumbnail already
 			if (file_exists($cropped_thumb)) {
-				$new_img = str_replace(basename($thumbnail), basename($cropped_thumb), $thumbnail);
+				$new_img = str_replace(basename($thumbnail), basename($cropped_thumb), $thumbnail);				
 				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $title);
 			}
 
-			return $this->__image_resize($file_path, $thumbnail, $dim);
+			return $this->__image_resize($file_path, $thumbnail, $dim, $source);
 
 		} // end __get_img
 
@@ -2240,7 +2240,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @param	array	dimension	Image's width and height
 		 * @return	string
 		 */
-		private function __image_resize($path, $url, $dimension) {
+		private function __image_resize($path, $thumbnail, $dimension, $source) {
 			
 			$image = wp_get_image_editor($path);
 			
@@ -2251,16 +2251,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$new_img = $image->save();
 
 				if (is_wp_error($new_img)) {
-					return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
+					return $this->_render_image($this->default_thumbnail, $dimension, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
 				}
-
-				$new_img = str_replace(basename($thumbnail[0]), $new_img['file'], $thumbnail[0]);
-				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, '');
+				
+				$new_img = str_replace(basename($thumbnail), $new_img['file'], $thumbnail);
+				
+				return $this->_render_image($new_img, $dimension, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, '');
 			}
 
 			// ELSE
 			// image file path is invalid
-			return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
+			return $this->_render_image($this->default_thumbnail, $dimension, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
 
 		} // end __image_resize
 
@@ -2272,7 +2273,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @param	string	source	Image source
 		 * @return	array
 		 */
-		private function __get_image_file_paths($id, $source) {
+		private function __get_image_file_paths($id, $source, $p = null, $dim = null, $title = '') {
 
 			$file_path = '';
 			$thumbnail = array();
@@ -2287,6 +2288,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					// full size image
 					$thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
+					$thumbnail = $thumbnail[0];
 					// image path
 					$file_path = get_attached_file($thumbnail_id);
 
@@ -2309,12 +2311,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content[0]['post_content'], $content_images);
 
 					if (isset($content_images[1][0])) {
-
 						$attachment_id = $this->__get_attachment_id($content_images[1][0]);
 
-						if ($attachment_id) {
-							$thumbnail[0] = $content_images[1][0];
+						// image from Media Library
+						if ($attachment_id) {							
+							$thumbnail = $content_images[1][0];
+							// If it's a resized image, get the original name
+							$thumbnail = preg_replace( '/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $thumbnail );
+							
 							$file_path = get_attached_file($attachment_id);
+						} // external image?
+						else {
+							$external_image = $this->__fetch_external_image($id, $content_images[1][0]);
+							if ( $external_image ) {
+								return $external_image;
+							}
 						}
 					}
 				}
@@ -2323,7 +2334,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			return array(
 				'file_path' => $file_path,
-				'thumbnail' => $thumbnail,
+				'thumbnail' => $thumbnail
 			);
 
 		} // end __get_image_file_paths
@@ -2355,66 +2366,37 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/**
 		* Get the Attachment ID for a given image URL.
 		*
-		* @since 2.3.3
-		* @link	http://wordpress.stackexchange.com/a/7094
+		* @since	3.0.0
+		* @author	Frankie Jarrett
+		* @link		http://frankiejarrett.com/get-an-attachment-id-by-url-in-wordpress/
 		* @param	string	url
 		* @return	bool|int
 		*/
 		private function __get_attachment_id($url) {
-
-			$dir = wp_upload_dir();
-
-			// baseurl never has a trailing slash
-			if (false === strpos($url, $dir['baseurl'] . '/')) {
-				// URL points to a place outside of upload directory
+			
+			// Split the $url into two parts with the wp-content directory as the separator.
+			$parse_url  = explode( parse_url( WP_CONTENT_URL, PHP_URL_PATH ), $url );
+		 
+			// Get the host of the current site and the host of the $url, ignoring www.
+			$this_host = str_ireplace( 'www.', '', parse_url( home_url(), PHP_URL_HOST ) );
+			$file_host = str_ireplace( 'www.', '', parse_url( $url, PHP_URL_HOST ) );
+		 
+			// Return nothing if there aren't any $url parts or if the current host and $url host do not match.
+			if ( ! isset( $parse_url[1] ) || empty( $parse_url[1] ) || ( $this_host != $file_host ) ) {
 				return false;
 			}
-
-			$file = basename($url);
-			$query = array(
-				'post_type' => 'attachment',
-				'fields' => 'ids',
-				'meta_query' => array(
-					array(
-						'value' => $file,
-						'compare' => 'LIKE',
-					),
-				)
-			);
-
-			$query['meta_query'][0]['key'] = '_wp_attached_file';
-
-			// query attachments
-			$ids = get_posts($query);
-
-			if (!empty($ids)) {
-				foreach ($ids as $id) {
-					// first entry of returned array is the URL
-					if ($url === array_shift(wp_get_attachment_image_src($id, 'full'))) {
-						return $id;
-					}
-				}
-			}
-
-			$query['meta_query'][0]['key'] = '_wp_attachment_metadata';
-
-			// query attachments again
-			$ids = get_posts($query);
-
-			if (empty($ids)) {
-				return false;
-			}
-
-			foreach ($ids as $id) {
-				$meta = wp_get_attachment_metadata($id);
-				foreach ($meta['sizes'] as $size => $values) {
-					if ($values['file'] === $file && $url === array_shift(wp_get_attachment_image_src($id, $size))) {
-						return $id;
-					}
-				}
-			}
-
-			return false;
+		 
+			// Now we're going to quickly search the DB for any attachment GUID with a partial path match.
+			// Example: /uploads/2013/05/test-image.jpg
+			global $wpdb;
+			
+			// If it's a resized image, get the original name
+			$parse_url[1] = preg_replace( '/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $parse_url[1] );
+		 
+			$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1] ) );
+		 
+			// Returns null if no attachment is found.
+			return $attachment[0];
 
 		} // __get_attachment_id
 
@@ -2432,7 +2414,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$uploads = wp_upload_dir();
 			$image['thumbnail'] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
 			$image['file_path'] = trailingslashit( $uploads['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
-
+			
 			// if the file exists already, return URL and path
 			if ( file_exists($image['file_path']) )
 				return $image;
