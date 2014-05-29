@@ -2179,7 +2179,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Get image by post ID (parent)
 			if ( $id ) {
-				$file_paths = $this->__get_image_file_paths($id, $source, $p, $dim, $title);				
+				$file_paths = $this->__get_image_file_paths($id, $source);				
 				$file_path = $file_paths['file_path'];
 				$thumbnail = isset( $file_paths['thumbnail'] )
 				  ? $file_paths['thumbnail']
@@ -2273,7 +2273,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @param	string	source	Image source
 		 * @return	array
 		 */
-		private function __get_image_file_paths($id, $source, $p = null, $dim = null, $title = '') {
+		private function __get_image_file_paths($id, $source) {
 
 			$file_path = '';
 			$thumbnail = array();
