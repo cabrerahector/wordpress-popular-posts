@@ -38,7 +38,7 @@ if ( isset($_POST['section']) ) {
 			echo '<div id="wpp-message" class="error fade"><p>'.__('Please provide the name of your custom field.', $this->plugin_slug).'</p></div>';
 		} else {				
 			$this->user_settings['tools']['thumbnail']['source'] = $_POST['thumb_source'];
-			$this->user_settings['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "_wpp_thumbnail";
+			$this->user_settings['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
 			$this->user_settings['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
 			$this->user_settings['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
 			
