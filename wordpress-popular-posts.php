@@ -1267,6 +1267,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			if ( !$result1 || !$result2 )
 				return false;
+			
+			// Allow WP themers / coders perform an action
+			// after updating views count
+			if ( has_action( 'wpp_update_views' ) )
+				do_action( 'wpp_update_views', $id );
 
 			return true;
 
