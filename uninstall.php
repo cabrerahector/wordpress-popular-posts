@@ -30,7 +30,7 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 		delete_site_option( 'wpp_ver' );
 		delete_site_option( 'wpp_settings_config' );
 		delete_site_option( 'wpp_rand' );
-		delete_site_option( 'wpp_feed' );
+		delete_site_option( 'wpp_transients' );
 		
 		// delete tables
 		uninstall();
@@ -45,7 +45,7 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	delete_option( 'wpp_ver' );
 	delete_option( 'wpp_settings_config' );
 	delete_option( 'wpp_rand' );
-	delete_option( 'wpp_feed' );
+	delete_option( 'wpp_transients' );
 	
 	// delete tables
 	uninstall();
