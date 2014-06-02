@@ -1,16 +1,6 @@
 (function ($) {
 	"use strict";
 	$(function () {
-		// TABS
-		$(".subsubsub li a").click(function(e){
-			var tab = $(this);
-			tab.addClass("current").parent().siblings().children("a").removeClass("current");
-			
-			$(".wpp_boxes:visible").hide();
-			$("#" + tab.attr("rel")).fadeIn();
-			
-			e.preventDefault();
-		});
 		
 		// STATISTICS TABS		
 		$("#wpp-stats-tabs a").click(function(e){
@@ -29,21 +19,6 @@
 			} else {
 				$("li:last", this).addClass("wpp-stats-last-item");
 			}
-		});
-		
-		// FAQ
-		$("#wpp_faq h4 a").click(function(e){
-			
-			var me = $(this);
-			var ans = me.attr("rel");
-			
-			me.addClass("active").parent().siblings().children().removeClass("active");
-			
-			$(".wpp-ans:visible").hide();			
-			//$("#"+ans).slideToggle();
-			$("#"+ans).show();
-			
-			e.preventDefault();
 		});
 		
 		// TOOLS
