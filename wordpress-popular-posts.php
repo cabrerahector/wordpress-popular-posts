@@ -1117,22 +1117,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		} // end clear_data
 
 		/**
-		 * Updates views count on page load.
-		 *
-		 * @since	1.4.0
-		 * @global	object	post
-		 */
-		public function update_views(){
-
-			if ( !is_singular() || is_attachment() || is_front_page() || is_preview() || is_trackback() || is_feed() || is_robots() || $this->__is_bot() )
-				return;
-
-			global $post;
-			$result = $this->__update_views($post->ID);
-
-		} // end update_views
-
-		/**
 		 * Updates views count on page load via AJAX.
 		 *
 		 * @since	2.0.0
