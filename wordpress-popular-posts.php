@@ -407,7 +407,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( $this->user_settings['tools']['ajax'] ) {
 				if ( empty($before_widget) || !preg_match('/id="[^"]*"/', $before_widget) ) {
 				?>
-                <p><?php _e('Error: cannot ajaxify Wordpress Popular Posts on this theme. It\'s missing the <em>id</em> attribute on before_widget (see <a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank" rel="nofollow">register_sidebar</a> for more).', $this->plugin_slug ); ?>
+                <p><?php _e('Error: cannot ajaxify Wordpress Popular Posts on this theme. It\'s missing the <em>id</em> attribute on before_widget (see <a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank" rel="nofollow">register_sidebar</a> for more).', $this->plugin_slug ); ?></p>
                 <?php
 				} else {
 				?>
