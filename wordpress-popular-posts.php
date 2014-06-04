@@ -29,7 +29,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if ( basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__) )
+if ( !defined('ABSPATH') )
 	exit('Please do not load this file directly.');
 
 /**
