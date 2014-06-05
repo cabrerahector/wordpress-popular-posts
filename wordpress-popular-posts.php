@@ -445,7 +445,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance = $old_instance;
 
 			$instance['title'] = htmlspecialchars( stripslashes_deep(strip_tags( $new_instance['title'] )), ENT_QUOTES );
-			$instance['limit'] = is_numeric($new_instance['limit'])
+			$instance['limit'] = ( $this->__is_numeric($new_instance['limit']) && $new_instance['limit'] > 0 )
 			  ? $new_instance['limit']
 			  : 10;
 			$instance['range'] = $new_instance['range'];
@@ -463,14 +463,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			$instance['shorten_title']['words'] = $new_instance['shorten_title-words'];
 			$instance['shorten_title']['active'] = $new_instance['shorten_title-active'];
-			$instance['shorten_title']['length'] = is_numeric($new_instance['shorten_title-length'])
+			$instance['shorten_title']['length'] = ( $this->__is_numeric($new_instance['shorten_title-length']) && $new_instance['shorten_title-length'] > 0 )
 			  ? $new_instance['shorten_title-length']
 			  : 25;
 
 			$instance['post-excerpt']['keep_format'] = $new_instance['post-excerpt-format'];
 			$instance['post-excerpt']['words'] = $new_instance['post-excerpt-words'];
 			$instance['post-excerpt']['active'] = $new_instance['post-excerpt-active'];
-			$instance['post-excerpt']['length'] = is_numeric($new_instance['post-excerpt-length'])
+			$instance['post-excerpt']['length'] = ( $this->__is_numeric($new_instance['post-excerpt-length']) && $new_instance['post-excerpt-length'] > 0 )
 			  ? $new_instance['post-excerpt-length']
 			  : 55;
 
@@ -483,7 +483,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				$instance['thumbnail']['active'] = $new_instance['thumbnail-active'];
 
-				if (is_numeric($new_instance['thumbnail-width']) && is_numeric($new_instance['thumbnail-height'])) {
+				if ($this->__is_numeric($new_instance['thumbnail-width']) && $this->__is_numeric($new_instance['thumbnail-height'])) {
 					$instance['thumbnail']['width'] = $new_instance['thumbnail-width'];
 					$instance['thumbnail']['height'] = $new_instance['thumbnail-height'];
 				}
@@ -2162,7 +2162,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		private function __get_img($p, $id = null, $url = null, $dim = array(80, 80), $source = "featured", $title) {
 
-			if ( (!$id || empty($id) || !is_numeric($id)) && (!$url || empty($url)) ) {
+			if ( (!$id || empty($id) || !$this->__is_numeric($id)) && (!$url || empty($url)) ) {
 				return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noID', $title);
 			}
 
@@ -2447,7 +2447,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		protected function _get_summary($id, $instance){
 
-			if ( !is_numeric($id) )
+			if ( !$this->__is_numeric($id) )
 				return false;
 
 			global $wpdb;
@@ -2600,7 +2600,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			$shortcode_ops = array(
 				'title' => strip_tags($header),
-				'limit' => (!empty($limit) && is_numeric($limit) && intval($limit) > 0) ? intval($limit) : 10,
+				'limit' => (!empty($limit) && $this->__is_numeric($limit) && $limit > 0) ? $limit : 10,
 				'range' => (in_array($range, $range_values)) ? $range : 'daily',
 				'freshness' => empty($freshness) ? false : $freshness,
 				'order_by' => (in_array($order_by, $order_by_values)) ? $order_by : 'views',
@@ -2609,20 +2609,20 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'cat' => preg_replace('|[^0-9,-]|', '', $cat),
 				'author' => preg_replace('|[^0-9,]|', '', $author),
 				'shorten_title' => array(
-					'active' => (!empty($title_length) && is_numeric($title_length) && intval($title_length) > 0),
-					'length' => (!empty($title_length) && is_numeric($title_length)) ? $title_length : 0,
-					'words' => (!empty($title_by_words) && is_numeric($title_by_words) && $title_by_words > 0),
+					'active' => (!empty($title_length) && $this->__is_numeric($title_length) && $title_length > 0),
+					'length' => (!empty($title_length) && $this->__is_numeric($title_length)) ? $title_length : 0,
+					'words' => (!empty($title_by_words) && $this->__is_numeric($title_by_words) && $title_by_words > 0),
 				),
 				'post-excerpt' => array(
-					'active' => (!empty($excerpt_length) && is_numeric($excerpt_length) && ($excerpt_length > 0)),
-					'length' => (!empty($excerpt_length) && is_numeric($excerpt_length)) ? $excerpt_length : 0,
-					'keep_format' => (!empty($excerpt_format) && is_numeric($excerpt_format) && ($excerpt_format > 0)),
-					'words' => (!empty($excerpt_by_words) && is_numeric($excerpt_by_words) && $excerpt_by_words > 0),
+					'active' => (!empty($excerpt_length) && $this->__is_numeric($excerpt_length) && ($excerpt_length > 0)),
+					'length' => (!empty($excerpt_length) && $this->__is_numeric($excerpt_length)) ? $excerpt_length : 0,
+					'keep_format' => (!empty($excerpt_format) && $this->__is_numeric($excerpt_format) && ($excerpt_format > 0)),
+					'words' => (!empty($excerpt_by_words) && $this->__is_numeric($excerpt_by_words) && $excerpt_by_words > 0),
 				),
 				'thumbnail' => array(
-					'active' => (!empty($thumbnail_width) && is_numeric($thumbnail_width) && $thumbnail_width > 0),
-					'width' => (!empty($thumbnail_width) && is_numeric($thumbnail_width) && $thumbnail_width > 0) ? $thumbnail_width : 0,
-					'height' => (!empty($thumbnail_height) && is_numeric($thumbnail_height) && $thumbnail_height > 0) ? $thumbnail_height : 0,
+					'active' => (!empty($thumbnail_width) && $this->__is_numeric($thumbnail_width) && $thumbnail_width > 0),
+					'width' => (!empty($thumbnail_width) && $this->__is_numeric($thumbnail_width) && $thumbnail_width > 0) ? $thumbnail_width : 0,
+					'height' => (!empty($thumbnail_height) && $this->__is_numeric($thumbnail_height) && $thumbnail_height > 0) ? $thumbnail_height : 0,
 				),
 				'rating' => empty($rating) || $rating = "false" ? false : true,
 				'stats_tag' => array(
@@ -2755,7 +2755,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		public function get_popular( ) {
 
-			if ( is_numeric($_GET['id']) && (intval($_GET['id']) == floatval($_GET['id'])) && ($_GET['id'] != '') ) {
+			if ( $this->__is_numeric($_GET['id']) && ($_GET['id'] != '') ) {
 				$id = $_GET['id'];
 			} else {
 				die("Invalid ID");
@@ -2936,7 +2936,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 function wpp_get_views($id = NULL, $range = NULL, $number_format = true) {
 
 	// have we got an id?
-	if ( empty($id) || is_null($id) || !is_numeric($id) ) {
+	if ( empty($id) || is_null($id) || !$this->__is_numeric($id) ) {
 		return "-1";
 	} else {
 		global $wpdb;
