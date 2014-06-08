@@ -665,12 +665,12 @@ if (empty($wpp_rand)) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><strong>wpp_get_mostpopular()</strong></td>
-                        <td class="post type-post status-draft format-standard hentry category-js iedit"><?php printf( __('Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts <a href="%1$s">parameters</a> so you can customize your popular listing, but these are not required.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></td>
-                        <td class="post type-post status-draft format-standard hentry category-js alternate iedit"><?php printf( __('Please refer to the <a href="%1$s">Parameters section</a> for a complete list of attributes.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></td>
-                        <td class="post type-post status-draft format-standard hentry category-js iedit">&lt;?php wpp_get_mostpopular(); ?&gt;<br />&lt;?php wpp_get_mostpopular("range=weekly&amp;limit=7"); ?&gt;</td>
+                        <td><strong>wpp_get_mostpopular()</strong></td>
+                        <td><?php printf( __('Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts <a href="%1$s">parameters</a> so you can customize your popular listing, but these are not required.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></td>
+                        <td><?php printf( __('Please refer to the <a href="%1$s">Parameters section</a> for a complete list of attributes.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></td>
+                        <td>&lt;?php wpp_get_mostpopular(); ?&gt;<br />&lt;?php wpp_get_mostpopular("range=weekly&amp;limit=7"); ?&gt;</td>
                     </tr>
-                    <tr>
+                    <tr class="alternate">
                         <td><strong>wpp_get_views()</strong></td>
                         <td><?php _e('Displays the number of views of a single post. Post ID is required or it will return false.', $this->plugin_slug); ?></td>
                         <td><?php _e('Post ID', $this->plugin_slug); ?>, range ("daily", "weekly", "monthly", "all")</td>
