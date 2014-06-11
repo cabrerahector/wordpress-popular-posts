@@ -2,6 +2,8 @@
 if (basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__))
 	exit('Please do not load this page directly');
 
+define('WPP_ADMIN', true);
+
 // Set active tab
 if ( isset($_GET['tab']) )
 	$current = $_GET['tab'];

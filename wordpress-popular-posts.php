@@ -1569,7 +1569,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$content = "";
 
 			// Fetch posts
-			if ( !is_admin() && $this->user_settings['tools']['cache']['active'] ) {
+			if ( !defined('WPP_ADMIN') && $this->user_settings['tools']['cache']['active'] ) {
 				$transient_name = md5(json_encode($instance));
 				$mostpopular = ( function_exists( 'is_multisite' ) && is_multisite() )
 				  ? get_site_transient( $transient_name )
@@ -1631,7 +1631,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Allow WP themers / coders access to raw data
 			// so they can build their own output
-			if ( has_filter( 'wpp_custom_html' ) && !is_admin() ) {
+			if ( has_filter( 'wpp_custom_html' ) && !defined('WPP_ADMIN') ) {
 				return apply_filters( 'wpp_custom_html', $mostpopular, $instance );
 			}
 
