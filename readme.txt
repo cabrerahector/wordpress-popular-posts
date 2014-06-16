@@ -1,7 +1,7 @@
 === Wordpress Popular Posts ===
 Contributors: hcabrera
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hcabrerab%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
-Tags: popular, posts, widget, seo, wpml, custom post type
+Tags: popular, posts, widget, popularity, top
 Requires at least: 3.8
 Tested up to: 3.9.1
 Stable tag: 3.0.0
@@ -20,8 +20,8 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 * **Custom Post-type support**. Wanna show other stuff than just posts and pages?
 * Display a **thumbnail** of your posts! (*see the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for technical requirements*).
 * Use **your own layout**! Control how your most popular posts are shown on your theme.
-* WPML support!
-* Wordpress Multisite support!
+* **WPML** support!
+* Experimental Wordpress Multisite support!
 
 = Other Features =
 * Check the **statistics** on your most popular posts from wp-admin.
@@ -41,56 +41,18 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 
 That's it!
 
-= -SHORTCODE- =
+= USAGE =
 
-If you want to use Wordpress Popular Posts on your pages (a "Hall of Fame" page, for example) please use the shortcode `[wpp]`. By default, it'll list the **most viewed posts** (up to 10) in the last 24 hours. However, you can change the output and the time range by passing parameters to the shortcode (**optional**). You can find the full list of available parameters via *wp-admin > Settings > Wordpress Popular Posts > Parameters*.
+WPP can be used as a [Wordpress Widget](http://codex.wordpress.org/WordPress_Widgets), which means you can place it on any of your theme's sidebars (and it even supports multiple instances!). However, you can also embed it directly in posts / pages via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages); or anywhere on your theme using the [wpp_get_mostpopular()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular) template tag.
 
-**Usage:**
-
-`[wpp]`
-
-`[wpp attribute='value']`
-
-Example:
-
-`[wpp range=daily stats_views=1 order_by=views wpp_start=<ol> wpp_end=</ol>]`
-
-
-= -TEMPLATE TAGS- =
-
-
-***wpp_get_mostpopular***
-
-With the **wpp_get_mostpopular** template tag you can embed the most popular posts of your blog on your site's sidebar without using a widget. Optionally, you can pass some parameters to this function so you can customize your popular posts (for a complete list of parameters, please go to *wp-admin > Settings > Wordpress Popular Posts > Parameters*).
-
-**Warning:** other users have reported that using this template tag on PHP widgets such as [Linkable Title HTML and PHP widget](http://wordpress.org/extend/plugins/linkable-title-html-and-php-widget/) and others might not render the PHP code correctly, making the wpp_get_mostpopular template tag fail and return "Sorry, no data so far". I suggest using it directly on your theme's sidebar.php file to avoid issues.
-
-
-**Usage:**
-
-Without any parameters, it will list the **most viewed posts** (up to 10) within the last 24 hours:
-
-`<?php if (function_exists('wpp_get_mostpopular')) wpp_get_mostpopular(); ?>`
-
-
-Using parameters:
-
-`<?php if (function_exists('wpp_get_mostpopular')) wpp_get_mostpopular("range=weekly&order_by=comments"); ?>`
-
-
-***wpp_get_views()***
-
-The **wpp_get_views** template tag retrieves the views count of a single post/page. It accepts two parameters: the *post ID* (required), and *time range* (optional). If *time range* isn't provided the function will retrieve the total amount of views, otherwise it'll return the number of views received within the selected time range.
-
-**Usage:**
-
-`<?php if (function_exists('wpp_get_views')) { echo wpp_get_views( get_the_ID() ); } ?>`
-`<?php if (function_exists('wpp_get_views')) { echo wpp_get_views( 15, 'weekly' ); } ?>`
+... and there's even more on the **[Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki)**, so make sure to stop by!
 
 == Frequently Asked Questions ==
 
-= I need help with your plugin! What should I do? =
-First thing to do is read both this FAQ and the [Installation](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/) section as they should address most of the questions you might have about this plugin (and even more info can be found via *wp-admin > Settings > Wordpress Popular Posts > FAQ*). If you're having problems with WPP, my first suggestion would be try disabling all other plugins and then re-enable each one to make sure there are no conflicts. Also, try switching to a different theme and see if the issue persists. Checking the [Support Forum](http://wordpress.org/support/plugin/wordpress-popular-posts) is also a good idea as chances are that someone else has already posted something about it (and if not, you are always welcome to create a new thread). **Remember:** *read first*. It'll save you (and me) time.
+#### I need help with your plugin! What should I do?
+First thing to do is read all the online documentation available ([Installation](http://wordpress.org/plugins/wordpress-popular-posts/installation/), [Usage](https://github.com/cabrerahector/wordpress-popular-posts#usage), [Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki), and of course this section) as they should address most of the questions you might have about this plugin (and even more info can be found via *wp-admin > Settings > Wordpress Popular Posts > FAQ*).
+
+If you're having problems with WPP, my first suggestion would be try disabling all other plugins and then re-enable each one to make sure there are no conflicts. Also, try switching to a different theme and see if the issue persists. Checking the [Support Forum](http://wordpress.org/support/plugin/wordpress-popular-posts) and the [issue tracker](https://github.com/cabrerahector/wordpress-popular-posts/issues) is also a good idea as chances are that someone else has already posted something about it. **Remember:** *read first*. It'll save you (and me) time.
 
 = -FUNCTIONALITY- =
 
@@ -104,7 +66,7 @@ Since Wordpress doesn't store views count (only comments count), this plugin sto
 There are a number of reasons that might explain why you are seeing this message: no one has seen or commented on your posts/pages since Wordpress Popular Posts activation, you should give it some time; your current theme does not have the [wp_head()](http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks) tag in its &lt;head&gt; section, required by my plugin to keep track of what your visitors are viewing on your site; Wordpress Popular Posts was unable to create the necessary DB tables to work, make sure your hosting has granted you permission to create / update / modify tables in the database.
 
 = My current theme does not support widgets (booooo!). Can I show my most popular posts in any other way? =
-Yes, there are other choices: you can use the [wpp shortcode](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/), which allows you to embed your popular listing directly in the content of your posts and/or pages; or you can use the [wpp_get_mostpopular() template tag](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/). Both options are highly customizable via parameters, check them out via *wp-admin > Settings > Wordpress Popular Posts > Parameters*.
+Yes, there are other choices: you can use the [wpp shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages), which allows you to embed your popular listing directly in the content of your posts and/or pages; or you can use the [wpp_get_mostpopular() template tag](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular). Both options are highly customizable via parameters, check them out via *wp-admin > Settings > Wordpress Popular Posts > Parameters*.
 
 = Wordpress Popular Posts is not counting my own visits, why? =
 By default, Wordpress Popular Posts won't count views generated by logged in users. If your blog requires readers to be logged in to access its contents (or just want WPP to count your own views) please go to *wp-admin > Settings > Wordpress Popular Posts > Tools* and set *Log views from* to *Everyone*.
@@ -130,7 +92,7 @@ Simply add your custom post type to the Post Type field in the widget (or if you
 = How can I use my own HTML markup with your plugin? =
 If you're using the widget, simply activate the *Use custom HTML markup* option and set your desired configuration and *Content Tags* (see *wp-admin > Settings > Wordpress Popular Posts > FAQ* for more); or if you're using the template tag / shortcode, use the *wpp_start*, *wpp_end* and *post_html* parameters (see *wp-admin > Settings > Wordpress Popular Posts > Parameters* for more).
 
-A more advanced way to customize the HTML markup is via [Wordpress filters](http://code.tutsplus.com/articles/the-beginners-guide-to-wordpress-actions-and-filters--wp-27373 "The Beginner's guide to Wordpress actions and filters") by hooking into *wpp_custom_html* or *wpp_post*. The *wpp_custom_html* filter receives two parameters: *$mostpopular*, an array of popular posts objects; and *$instance*, an array of options from the widget/shortcode/template tag. The *wpp_post* filter receives three parameters: *$content*, the original single post HTML output; *$p*, the post object; and *$instance* (same array as before).
+A more advanced way to customize the HTML markup is via [Wordpress filters](http://code.tutsplus.com/articles/the-beginners-guide-to-wordpress-actions-and-filters--wp-27373 "The Beginner's guide to Wordpress actions and filters") by hooking into *wpp_custom_html* or *wpp_post*. For details, please check the [Filters page](https://github.com/cabrerahector/wordpress-popular-posts/wiki/Filters) on the Wiki.
 
 = I would like to clear all data gathered by Wordpress Popular Posts and start over. How can I do that? =
 If you go to *wp-admin > Settings > Wordpress Popular Posts > Tools*, you'll find two buttons that should do what you need: **Clear cache** and **Clear all data**. The first one just wipes out what's in cache (Last 24 hours, Last 7 Days, Last 30 Days, etc.), keeping the historical data (All-time) intact. The latter wipes out everything from Wordpress Popular Posts data tables - even the historical data. Note that **this cannot be undone** so proceed with caution.
@@ -147,14 +109,14 @@ Yes, *but* there are no predefined styles (well, almost). Wordpress Popular Post
 Copy your modified wpp.css file to your theme's folder, otherwise my plugin will use the one bundled with it by default.
 
 = How can I style my list to look like [insert your desired look here]? =
-Since this plugin does not include any predefined designs, it's up to you to style your most popular posts list as you like. You might need to hire someone for this if you don't know HTML/CSS, though.
+Since this plugin does not include any predefined designs, it's up to you to style your most popular posts list as you like (you might need to hire someone for this if you don't know HTML/CSS, though). However, I've gathered a few [examples](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) that should get you started.
 
 = I want to remove WPP's stylesheet. How can I do that? =
 Simply add the following code to your theme's functions.php file: `<?php wp_dequeue_style('wordpress-popular-posts') ?>` (or disable the stylesheet via *wp-admin > Settings > Wordpress Popular Posts > Tools*).
 
 = -OTHER STUFF THAT YOU (PROBABLY) WANT TO KNOW- =
 
-= I want to translate your plugin into my language / help you update a translation. What do I need to do? = 
+= I want to translate your plugin into my language / help you update a translation. What do I need to do? =
 First thing you need to do is get a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. When you're done with it, you'll find several .PO files bundled with the plugin under the *lang* folder. If you're planning to add a new language, go grab *wordpress-popular-posts.po* and rename it to add the proper suffix for your language (eg. wordpress-popular-posts*-es_ES*.po, for Spanish). In any case, open the PO file using Poedit (or your preferred gettext editor) and update the strings there. It sounds complicated, I know, but it's not. Check this handy [guide](http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/ "Translating WordPress Plugins & Themes"), in case you get lost at some point. If you're interested in sharing your translation with others (or just helped update a current translation), please [let me know](http://wordpress.org/support/plugin/wordpress-popular-posts).
 
 = I want your plugin to have X or Y functionality. Can it be done? =
@@ -167,7 +129,7 @@ If the theme/plugin you're talking about is a free one that can be downloaded fr
 Updates will come depending on my work projects (I'm a full-time web developer) and the amount of time I have on my hands. Quick releases will happen only when/if critical bugs are spotted.
 
 = I posted a question at the Support Forum and got no answer from the developer. Why is that? =
-Chances are that your question has been already answered either at the [Support Forum](http://wordpress.org/support/plugin/wordpress-popular-posts), the [Installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/) or here in the FAQ section, so I've decided not to answer. It could also happen that I'm just busy at the moment and haven't been able to read your post yet, so please be patient.
+Chances are that your question has been already answered either at the [Support Forum](http://wordpress.org/support/plugin/wordpress-popular-posts), the [Installation section](http://wordpress.org/plugins/wordpress-popular-posts/installation/), the [Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki) or even here in the FAQ section, so I've decided not to answer. It could also happen that I'm just busy at the moment and haven't been able to read your post yet, so please be patient.
 
 = Is there any other way to contact you? =
 For the time being, the [Support Forum](http://wordpress.org/support/plugin/wordpress-popular-posts) is the only way to contact me. Please do not use my email to get in touch with me *unless I authorize you to do so*.
@@ -183,12 +145,14 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 = 3.0.0 =
 * Plugin refactoring based on [@tikaszvince](https://github.com/tikaszvince)'s work (many thanks, Vince!).
 * Added WPML support.
-* Added Wordpress Multisite support.
+* Added experimental Wordpress Multisite support.
 * Added bot detection.
 * Added ability to filter posts by freshness.
 * Added own data caching method.
 * Added filters wpp_custom_html, wpp_post.
-* Several minor fixes and improvements.
+* Added action wpp_update_views.
+* Dropped support on Dutch and Persian languages since the translations were outdated.
+* Several other fixes and improvements.
 
 = 2.3.5 =
 * Fixed minor bugs on admin page.
@@ -313,7 +277,7 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 * Several shortcode bugs fixed (range, order_by, do_pattern, pattern_form were not working as expected).
 
 = 2.0.1 =
-* Post title excerpt now includes html entities. Characters like ÅÄÖ should display properly now.
+* Post title excerpt now includes html entities. Characters like &Aring;&Auml;&Ouml; should display properly now.
 * Post excerpt has been improved. Now it supports the following HTML tags: a, b, i, strong, em.
 * Template tag wpp_get_views() added. Retrieves the views count of a single post.
 * Template tag get_mostpopular() re-added. Parameter support included.
@@ -393,6 +357,9 @@ All translations are community made: people who are nice enough to share their t
 * Japanese - 77% translated (34 fuzzy strings, 18 not translated).
 
 == Upgrade Notice ==
+
+= 3.0.0 =
+This version requires PHP 5.2+ and Wordpress 3.8 or greater.
 
 = 2.3.3 =
 This version requires PHP 5.2+ and Wordpress 3.0.0 or greater to enable post thumbnails.
