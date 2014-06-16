@@ -1,5 +1,16 @@
 Changelog
 =========
+#### 3.0.0 ####
+* Plugin refactoring based on [@tikaszvince](https://github.com/tikaszvince)'s work (many thanks, Vince!).
+* Added WPML support.
+* Added experimental Wordpress Multisite support.
+* Added bot detection.
+* Added ability to filter posts by freshness.
+* Added own data caching method.
+* Added filters wpp_custom_html, wpp_post.
+* Added action wpp_update_views.
+* Dropped support on Dutch and Persian languages since the translations were outdated.
+* Several other fixes and improvements.
 
 #### 2.3.7 ####
 * Fixed category excluding/including bug.
