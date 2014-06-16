@@ -1851,7 +1851,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$excerpt = trim($this->_get_summary($p->id, $instance));
 
 				if (!empty($excerpt) && !$instance['markup']['custom_html']) {
-					$excerpt = ': <span class="wpp-excerpt">' . $excerpt . '</span>';
+					$excerpt = '<span class="wpp-excerpt">' . $excerpt . '</span>';
 				}
 
 			}
