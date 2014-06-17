@@ -696,16 +696,9 @@ if (empty($wpp_rand)) {
             <h3><?php echo sprintf( __('About Wordpress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
             <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
             <ul>
-            	<li>- Plugin refactoring based on <a href="https://github.com/tikaszvince">@tikaszvince</a>'s work (many thanks, Vince!).</li>
-            	<li>- Added WPML support.</li>
-                <li>- Added experimental Wordpress Multisite support.</li>            	
-            	<li>- Added bot detection.</li>
-                <li>- Added ability to filter posts by freshness.</li>
-                <li>- Added own data caching method.</li>
-                <li>- Added filters <em>wpp_custom_html</em>, <em>wpp_post</em>.</li>
-                <li>- Added action <em>wpp_update_views</em>.</li>
-                <li>- Dropped support on Dutch and Persian languages since the translations were outdated.</li>
-            	<li>- Several minor fixes and improvements.</li>
+            	<li>Fixes bug on wpp_get_views.</li>
+                <li>Sustitutes WP_DEBUG with custom debugging constant.</li>
+                <li>Fixes bug that prevented disabling plugin's stylesheet.</li>
             </ul>
         </div>
         

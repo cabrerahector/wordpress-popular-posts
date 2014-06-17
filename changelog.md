@@ -1,5 +1,10 @@
 Changelog
 =========
+#### 3.0.1 ####
+* Fixes bug on wpp_get_views.
+* Sustitutes WP_DEBUG with custom debugging constant.
+* Fixes bug that prevented disabling plugin's stylesheet.
+
 #### 3.0.0 ####
 * Plugin refactoring based on [@tikaszvince](https://github.com/tikaszvince)'s work (many thanks, Vince!).
 * Added WPML support.
