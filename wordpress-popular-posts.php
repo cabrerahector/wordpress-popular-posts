@@ -198,7 +198,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			'tools' => array(
 				'ajax' => false,
 				'css' => true,
-				'stylesheet' => true,
 				'link' => array(
 					'target' => '_self'
 				),
@@ -288,7 +287,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			add_action( 'admin_init', array( $this, 'thickbox_setup' ) );
 
 			// Register site styles and scripts
-			add_action( 'wp_enqueue_scripts', array( $this, 'register_widget_styles' ) );
+			if ( $this->user_settings['tools']['css'] )
+				add_action( 'wp_enqueue_scripts', array( $this, 'register_widget_styles' ) );
+			
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_widget_scripts' ) );
 
 			// Add plugin settings link
