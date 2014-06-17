@@ -61,7 +61,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	1.3.0
 		 * @var		string
 		 */
-		private $version = '3.0.0';
+		private $version = '3.0.1';
 
 		/**
 		 * Plugin identifier.
