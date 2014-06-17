@@ -698,11 +698,13 @@ if (empty($wpp_rand)) {
             <ul>
             	<li>- Plugin refactoring based on <a href="https://github.com/tikaszvince">@tikaszvince</a>'s work (many thanks, Vince!).</li>
             	<li>- Added WPML support.</li>
-                <li>- Added Wordpress Multisite support.</li>            	
+                <li>- Added experimental Wordpress Multisite support.</li>            	
             	<li>- Added bot detection.</li>
                 <li>- Added ability to filter posts by freshness.</li>
                 <li>- Added own data caching method.</li>
                 <li>- Added filters <em>wpp_custom_html</em>, <em>wpp_post</em>.</li>
+                <li>- Added action <em>wpp_update_views</em>.</li>
+                <li>- Dropped support on Dutch and Persian languages since the translations were outdated.</li>
             	<li>- Several minor fixes and improvements.</li>
             </ul>
         </div>
