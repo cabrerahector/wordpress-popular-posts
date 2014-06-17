@@ -112,7 +112,7 @@ Copy your modified wpp.css file to your theme's folder, otherwise my plugin will
 Since this plugin does not include any predefined designs, it's up to you to style your most popular posts list as you like (you might need to hire someone for this if you don't know HTML/CSS, though). However, I've gathered a few [examples](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) that should get you started.
 
 = I want to remove WPP's stylesheet. How can I do that? =
-Simply add the following code to your theme's functions.php file: `<?php wp_dequeue_style('wordpress-popular-posts') ?>` (or disable the stylesheet via *wp-admin > Settings > Wordpress Popular Posts > Tools*).
+You can disable the stylesheet via *wp-admin > Settings > Wordpress Popular Posts > Tools*.
 
 = -OTHER STUFF THAT YOU (PROBABLY) WANT TO KNOW- =
 
