@@ -2902,7 +2902,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		private function __debug($v) {
 
-			if ( !WP_DEBUG )
+			if ( !defined('WPP_DEBUG') || !WPP_DEBUG )
 				return;
 
 			foreach (func_get_args() as $arg) {
