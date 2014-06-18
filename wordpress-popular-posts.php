@@ -630,7 +630,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		function replace_thickbox_text($translated_text, $text, $domain) {
 
 			if ('Insert into Post' == $text) {
-				$referer = strpos( wp_get_referer(), $this->plugin_slug );
+				$referer = strpos( wp_get_referer(), 'wpp_admin' );
 				if ( $referer != '' ) {
 					return __('Upload', $this->plugin_slug );
 				}
