@@ -2937,7 +2937,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 function wpp_get_views($id = NULL, $range = NULL, $number_format = true) {
 
 	// have we got an id?
-	if ( empty($id) || is_null($id) || is_numeric($id) ) {
+	if ( empty($id) || is_null($id) || !is_numeric($id) ) {
 		return "-1";
 	} else {
 		global $wpdb;
