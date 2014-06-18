@@ -289,8 +289,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Register site styles and scripts
 			if ( $this->user_settings['tools']['css'] )
 				add_action( 'wp_enqueue_scripts', array( $this, 'register_widget_styles' ) );
-			
-			add_action( 'wp_enqueue_scripts', array( $this, 'register_widget_scripts' ) );
 
 			// Add plugin settings link
 			add_filter( 'plugin_action_links', array( $this, 'add_plugin_settings_link' ), 10, 2 );
@@ -650,15 +648,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		public function register_widget_styles() {
 			wp_enqueue_style( $this->plugin_slug, plugins_url( 'style/wpp.css', __FILE__ ), array(), $this->version );
 		} // end register_widget_styles
-
-		/**
-		 * Registers and enqueues widget-specific scripts.
-		 *
-		 * @since	1.0.0
-		 */
-		public function register_widget_scripts() {
-			wp_enqueue_script( $this->plugin_slug .'-script', plugins_url( 'js/widget.js', __FILE__ ), array('jquery'), $this->version );
-		} // end register_widget_scripts
 
 		/**
 		 * Register the administration menu for this plugin into the WordPress Dashboard menu.
