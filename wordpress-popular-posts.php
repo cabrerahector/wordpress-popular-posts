@@ -646,7 +646,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	1.0.0
 		 */
 		public function register_widget_styles() {
-			wp_enqueue_style( $this->plugin_slug, plugins_url( 'style/wpp.css', __FILE__ ), array(), $this->version );
+			
+			$theme_file = get_stylesheet_directory() . '/wpp.css';
+			$plugin_file = plugin_dir_path(__FILE__) . 'style/wpp.css';
+
+			if ( @file_exists($theme_file) ) { // user stored a custom wpp.css on theme's directory, so use it
+				wp_enqueue_style( $this->plugin_slug, get_stylesheet_directory_uri() . "/wpp.css", array(), $this->version );
+			} elseif ( @file_exists($plugin_file) ) { // no custom wpp.css, use plugin's instead
+				wp_enqueue_style( $this->plugin_slug, plugins_url( 'style/wpp.css', __FILE__ ), array(), $this->version );
+			}
+			
 		} // end register_widget_styles
 
 		/**
