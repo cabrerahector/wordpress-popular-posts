@@ -1864,12 +1864,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				return '';
 			}
 
-			$cache = &$this->__cache(__FUNCTION__, array());
-
-			if ( isset($cache[$p->id]) ) {
-				return $cache[$p->id];
-			}
-
 			$tbWidth = $instance['thumbnail']['width'];
 			$tbHeight = $instance['thumbnail']['height'];
 			$permalink = get_permalink($p->id);
