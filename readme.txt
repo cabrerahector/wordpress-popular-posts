@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hcabr
 Tags: popular, posts, widget, popularity, top
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,9 @@ You can disable the stylesheet via *wp-admin > Settings > Wordpress Popular Post
 
 = -OTHER STUFF THAT YOU (PROBABLY) WANT TO KNOW- =
 
+= Does Wordpress Popular Posts support other languages than english? =
+Yes, check the [Other Notes](http://wordpress.org/plugins/wordpress-popular-posts/other_notes/) section for more information.
+
 = I want to translate your plugin into my language / help you update a translation. What do I need to do? =
 First thing you need to do is get a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. When you're done with it, you'll find several .PO files bundled with the plugin under the *lang* folder. If you're planning to add a new language, go grab *wordpress-popular-posts.po* and rename it to add the proper suffix for your language (eg. wordpress-popular-posts*-es_ES*.po, for Spanish). In any case, open the PO file using Poedit (or your preferred gettext editor) and update the strings there. It sounds complicated, I know, but it's not. Check this handy [guide](http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/ "Translating WordPress Plugins & Themes"), in case you get lost at some point. If you're interested in sharing your translation with others (or just helped update a current translation), please [let me know](http://wordpress.org/support/plugin/wordpress-popular-posts).
 
@@ -142,6 +145,13 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.0.2 =
+* Fixes an introduced bug on wpp_get_views().
+* Fixes bug where thumbnail size was cached for multiple instances.
+* Adds back stylesheet detection.
+* Removes unused widget.js file.
+* Other minor bug fixes.
+
 = 3.0.1 =
 * Fixes bug on wpp_get_views.
 * Sustitutes WP_DEBUG with custom debugging constant.
@@ -363,11 +373,5 @@ All translations are community made: people who are nice enough to share their t
 
 == Upgrade Notice ==
 
-= 3.0.0 =
-This version requires PHP 5.2+ and Wordpress 3.8 or greater.
-
-= 2.3.3 =
-This version requires PHP 5.2+ and Wordpress 3.0.0 or greater to enable post thumbnails.
-
-= 2.0.0 =
-From version 2.0 and on, Wordpress Popular Posts requires Wordpress 2.8 at least in order to function correctly. If you're not running Wordpress 2.8 (or newer) please use WPP v.1.5.1 instead. Also, if you are upgrading from any version prior to WPP v1.4.6, please update to v1.4.6 first!
+= 3.0.2 =
+This version requires PHP 5.2+ and Wordpress 3.8 or greater. Also, backup the wpp.css file first if you modified it!
