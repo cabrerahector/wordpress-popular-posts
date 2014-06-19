@@ -1,5 +1,12 @@
 Changelog
 =========
+#### 3.0.2 ####
+* Fixes an introduced bug on wpp_get_views().
+* Fixes bug where thumbnail size was cached for multiple instances.
+* Adds back stylesheet detection.
+* Removes unused widget.js file.
+* Other minor bug fixes.
+
 #### 3.0.1 ####
 * Fixes bug on wpp_get_views.
 * Sustitutes WP_DEBUG with custom debugging constant.
