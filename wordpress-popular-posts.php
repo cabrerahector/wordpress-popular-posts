@@ -455,6 +455,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance['post_type'] = ( '' == $new_instance['post_type'] )
 			  ? 'post,page'
 			  : $new_instance['post_type'];
+			
+			$instance['freshness'] = $new_instance['freshness'];
 
 			$instance['pid'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,]|', '', $new_instance['pid'] ))));
 			$instance['cat'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,-]|', '', $new_instance['cat'] ))));
