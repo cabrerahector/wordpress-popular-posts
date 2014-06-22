@@ -2644,7 +2644,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// is there a title defined by user?
 			if (!empty($header) && !empty($header_start) && !empty($header_end)) {
-				$shortcode_content .= $header_start . apply_filters('widget_title', $header) . $header_end;
+				$shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . apply_filters('widget_title', $header) . htmlspecialchars_decode($header_end, ENT_QUOTES);
 			}
 
 			// print popular posts list
@@ -2997,7 +2997,7 @@ function wpp_get_mostpopular($args = NULL) {
 		if( is_array( $args ) ){
 			$atts = '';
 			foreach( $args as $key => $arg ){
-				$atts .= ' ' . $key . '="' . $arg . '"';
+				$atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES) . '"';
 			}
 		} else {
 			$atts = trim( str_replace( "&", " ", $args  ) );
