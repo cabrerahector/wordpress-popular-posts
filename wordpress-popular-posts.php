@@ -2631,12 +2631,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'category' => empty($stats_category) ? false : $stats_category,
 				),
 				'markup' => array(
-				'custom_html' => true,
-				'wpp-start' => empty($wpp_start) ? '<ul class="wpp-list">' : $wpp_start,
-				'wpp-end' => empty($wpp_end) ? '</ul>' : $wpp_end,
-				'title-start' => empty($header_start) ? '' : $header_start,
-				'title-end' => empty($header_end) ? '' : $header_end,
-				'post-html' => empty($post_html) ? '<li>{thumb} {title} {stats}</li>' : $post_html
+					'custom_html' => true,
+					'wpp-start' => empty($wpp_start) ? '<ul class="wpp-list">' : $wpp_start,
+					'wpp-end' => empty($wpp_end) ? '</ul>' : $wpp_end,
+					'title-start' => empty($header_start) ? '' : $header_start,
+					'title-end' => empty($header_end) ? '' : $header_end,
+					'post-html' => empty($post_html) ? '<li>{thumb} {title} {stats}</li>' : $post_html
 				)
 			);
 
@@ -2644,7 +2644,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// is there a title defined by user?
 			if (!empty($header) && !empty($header_start) && !empty($header_end)) {
-			$shortcode_content .= $header_start . apply_filters('widget_title', $header) . $header_end;
+				$shortcode_content .= $header_start . apply_filters('widget_title', $header) . $header_end;
 			}
 
 			// print popular posts list
