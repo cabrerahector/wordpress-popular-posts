@@ -2298,11 +2298,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						$attachment_id = $this->__get_attachment_id($content_images[1][0]);
 
 						// image from Media Library
-						if ($attachment_id) {							
-							$thumbnail = $content_images[1][0];
-							// If it's a resized image, get the original name
-							$thumbnail = preg_replace( '/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $thumbnail );
-							
+						if ($attachment_id) {
+							$thumbnail = $content_images[1][0];							
 							$file_path = get_attached_file($attachment_id);
 						} // external image?
 						else {
@@ -2373,11 +2370,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Now we're going to quickly search the DB for any attachment GUID with a partial path match.
 			// Example: /uploads/2013/05/test-image.jpg
 			global $wpdb;
-			
-			// If it's a resized image, get the original name
-			$parse_url[1] = preg_replace( '/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $parse_url[1] );
-		 
-			$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1] ) );
+
+			if ( !$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1] ) ) ) {
+				// Maybe it's a resized image, so try to get the full one
+				$parse_url[1] = preg_replace( '/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $parse_url[1] );
+				$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1] ) );
+			}			
 		 
 			// Returns null if no attachment is found.
 			return $attachment[0];
