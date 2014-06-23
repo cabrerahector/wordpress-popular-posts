@@ -2475,9 +2475,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// remove Iframes
 			$excerpt = preg_replace( "/<iframe.*?\/iframe>/i", "", $excerpt);
-
-			// remove URLs
-			$excerpt = preg_replace( '_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS', '', $excerpt );
+			
+			// remove WP shortcodes
+			$excerpt = strip_shortcodes( $excerpt );
+			
+			// remove HTML tags if requested
+			if ( $instance['post-excerpt']['keep_format'] ) {
+				$excerpt = strip_tags($excerpt, '<a><b><i><em><strong>');
+			} else {
+				$excerpt = strip_tags($excerpt);				
+				// remove URLs, too
+				$excerpt = preg_replace( '_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS', '', $excerpt );
+			}
 
 			// Fix RSS CDATA tags
 			$excerpt = str_replace( ']]>', ']]&gt;', $excerpt );
@@ -2491,10 +2500,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$words = explode(" ", $excerpt, $instance['post-excerpt']['length'] + 1);
 
 					if ( count($words) > $instance['post-excerpt']['length'] ) {
-
 						array_pop($words);
 						$excerpt = implode(" ", $words) . "...";
-
 					}
 
 				} else { // by characters
@@ -2505,16 +2512,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				}
 
-				// remove HTML tags if requested
-				if ( $instance['post-excerpt']['keep_format'] ) {
-					$excerpt = force_balance_tags(strip_tags($excerpt, '<a><b><i><em><strong>'));
-				} else {
-					$excerpt = strip_tags($excerpt);
-				}
-
-				// remove WP shortcodes
-				$excerpt = strip_shortcodes( $excerpt );
-
+			}
+			
+			// Balance tags, if needed
+			if ( $instance['post-excerpt']['keep_format'] ) {
+				$excerpt = force_balance_tags($excerpt);
 			}
 
 			return $excerpt;
