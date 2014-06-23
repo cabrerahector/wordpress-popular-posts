@@ -31,6 +31,9 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 * **Localizable** to your own language (*See the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for more info*).
 * **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support**. Show your visitors how your readers are rating your posts!
 
+= Notices =
+* Starting version 3.0.0, the way plugin tracks views count switched back to (AJAX)[http://codex.wordpress.org/AJAX]. The reason for this change is to prevent bots / spiders from inflating views count, so if you're using a caching plugin you should clear its cache after installing / upgrading the Wordpress Popular Posts plugin so it can track your posts and pages normally.
+
 == Installation ==
 
 1. Download the plugin and extract its contents.
@@ -63,7 +66,7 @@ The idea of creating this plugin came from the need to know how many people were
 Since Wordpress doesn't store views count (only comments count), this plugin stores that info for you. When you sort your popular posts by *views*, Wordpress Popular Posts will retrieve the views count it started caching from the time you first installed this plugin, and then rank the top posts according to the settings you have configured in the plugin. Wordpress Popular Posts can also rank the popularity of your posts based on comments count as well.
 
 = I'm getting "Sorry. No data so far". What's up with that? =
-There are a number of reasons that might explain why you are seeing this message: no one has seen or commented on your posts/pages since Wordpress Popular Posts activation, you should give it some time; your current theme does not have the [wp_head()](http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks) tag in its &lt;head&gt; section, required by my plugin to keep track of what your visitors are viewing on your site; Wordpress Popular Posts was unable to create the necessary DB tables to work, make sure your hosting has granted you permission to create / update / modify tables in the database.
+There are a number of reasons that might explain why you are seeing this message: no one has seen or commented on your posts/pages since Wordpress Popular Posts activation, you should give it some time; your current theme does not have the [wp_head()](http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks) tag in its &lt;head&gt; section, required by my plugin to keep track of what your visitors are viewing on your site; Wordpress Popular Posts was unable to create the necessary DB tables to work, make sure your hosting has granted you permission to create / update / modify tables in the database; if you're using a caching plugin -such as W3 Total Cache- you need to clear its cache once right after installing/upgrading this plugin.
 
 = My current theme does not support widgets (booooo!). Can I show my most popular posts in any other way? =
 Yes, there are other choices: you can use the [wpp shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages), which allows you to embed your popular listing directly in the content of your posts and/or pages; or you can use the [wpp_get_mostpopular() template tag](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular). Both options are highly customizable via parameters, check them out via *wp-admin > Settings > Wordpress Popular Posts > Parameters*.
