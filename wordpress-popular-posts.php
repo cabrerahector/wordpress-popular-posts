@@ -455,7 +455,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$instance['post_type'] = ( '' == $new_instance['post_type'] )
 			  ? 'post,page'
 			  : $new_instance['post_type'];
-			
+
 			$instance['freshness'] = $new_instance['freshness'];
 
 			$instance['pid'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,]|', '', $new_instance['pid'] ))));
@@ -648,7 +648,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	1.0.0
 		 */
 		public function register_widget_styles() {
-			
+
 			$theme_file = get_stylesheet_directory() . '/wpp.css';
 			$plugin_file = plugin_dir_path(__FILE__) . 'style/wpp.css';
 
@@ -657,7 +657,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			} elseif ( @file_exists($plugin_file) ) { // no custom wpp.css, use plugin's instead
 				wp_enqueue_style( $this->plugin_slug, plugins_url( 'style/wpp.css', __FILE__ ), array(), $this->version );
 			}
-			
+
 		} // end register_widget_styles
 
 		/**
@@ -1252,7 +1252,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			if ( !$result1 || !$result2 )
 				return false;
-			
+
 			// Allow WP themers / coders perform an action
 			// after updating views count
 			if ( has_action( 'wpp_update_views' ) )
@@ -1716,13 +1716,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			// build regular layout
 			else {
-			$content =
-			'<li>'
-			. $thumb
-			. '<a href="' . $permalink . '" title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
-			. $excerpt . ' <span class="post-stats">' . $_stats . '</span> '
-			. $rating
-			. "</li>\n";
+				$content =
+					'<li>'
+					. $thumb
+					. '<a href="' . $permalink . '" title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
+					. $excerpt . ' <span class="post-stats">' . $_stats . '</span> '
+					. $rating
+					. "</li>\n";
 			}
 
 			return apply_filters('wpp_post', $content, $p, $instance);
@@ -2163,7 +2163,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Get image by post ID (parent)
 			if ( $id ) {
-				$file_paths = $this->__get_image_file_paths($id, $source);				
+				$file_paths = $this->__get_image_file_paths($id, $source);
 				$file_path = $file_paths['file_path'];
 				$thumbnail = isset( $file_paths['thumbnail'] )
 				  ? $file_paths['thumbnail']
@@ -2185,7 +2185,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$attachment_id = $this->__get_attachment_id($image_url);
 
 				// Image is hosted locally
-				if ( $attachment_id ) {					
+				if ( $attachment_id ) {
 					$thumbnail = $image_url;
 					$file_path = get_attached_file($attachment_id);
 				}
@@ -2207,7 +2207,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// there is a thumbnail already
 			if (file_exists($cropped_thumb)) {
-				$new_img = str_replace(basename($thumbnail), basename($cropped_thumb), $thumbnail);				
+				$new_img = str_replace(basename($thumbnail), basename($cropped_thumb), $thumbnail);
 				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $title);
 			}
 
@@ -2225,9 +2225,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @return	string
 		 */
 		private function __image_resize($path, $thumbnail, $dimension, $source) {
-			
+
 			$image = wp_get_image_editor($path);
-			
+
 			// valid image, create thumbnail
 			if (!is_wp_error($image)) {
 
@@ -2237,9 +2237,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if (is_wp_error($new_img)) {
 					return $this->_render_image($this->default_thumbnail, $dimension, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
 				}
-				
+
 				$new_img = str_replace(basename($thumbnail), $new_img['file'], $thumbnail);
-				
+
 				return $this->_render_image($new_img, $dimension, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, '');
 			}
 
@@ -2299,7 +2299,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 						// image from Media Library
 						if ($attachment_id) {
-							$thumbnail = $content_images[1][0];							
+							$thumbnail = $content_images[1][0];
 							$file_path = get_attached_file($attachment_id);
 						} // external image?
 						else {
@@ -2354,19 +2354,19 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		* @return	bool|int
 		*/
 		private function __get_attachment_id($url) {
-			
+
 			// Split the $url into two parts with the wp-content directory as the separator.
 			$parse_url  = explode( parse_url( WP_CONTENT_URL, PHP_URL_PATH ), $url );
-		 
+
 			// Get the host of the current site and the host of the $url, ignoring www.
 			$this_host = str_ireplace( 'www.', '', parse_url( home_url(), PHP_URL_HOST ) );
 			$file_host = str_ireplace( 'www.', '', parse_url( $url, PHP_URL_HOST ) );
-		 
+
 			// Return nothing if there aren't any $url parts or if the current host and $url host do not match.
 			if ( ! isset( $parse_url[1] ) || empty( $parse_url[1] ) || ( $this_host != $file_host ) ) {
 				return false;
 			}
-		 
+
 			// Now we're going to quickly search the DB for any attachment GUID with a partial path match.
 			// Example: /uploads/2013/05/test-image.jpg
 			global $wpdb;
@@ -2375,8 +2375,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				// Maybe it's a resized image, so try to get the full one
 				$parse_url[1] = preg_replace( '/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $parse_url[1] );
 				$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1] ) );
-			}			
-		 
+			}
+
 			// Returns null if no attachment is found.
 			return $attachment[0];
 
@@ -2396,7 +2396,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$uploads = wp_upload_dir();
 			$image['thumbnail'] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
 			$image['file_path'] = trailingslashit( $uploads['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
-			
+
 			// if the file exists already, return URL and path
 			if ( file_exists($image['file_path']) )
 				return $image;
@@ -2475,15 +2475,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// remove Iframes
 			$excerpt = preg_replace( "/<iframe.*?\/iframe>/i", "", $excerpt);
-			
+
 			// remove WP shortcodes
 			$excerpt = strip_shortcodes( $excerpt );
-			
+
 			// remove HTML tags if requested
 			if ( $instance['post-excerpt']['keep_format'] ) {
 				$excerpt = strip_tags($excerpt, '<a><b><i><em><strong>');
 			} else {
-				$excerpt = strip_tags($excerpt);				
+				$excerpt = strip_tags($excerpt);
 				// remove URLs, too
 				$excerpt = preg_replace( '_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS', '', $excerpt );
 			}
@@ -2513,7 +2513,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				}
 
 			}
-			
+
 			// Balance tags, if needed
 			if ( $instance['post-excerpt']['keep_format'] ) {
 				$excerpt = force_balance_tags($excerpt);
