@@ -696,9 +696,12 @@ if (empty($wpp_rand)) {
             <h3><?php echo sprintf( __('About Wordpress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
             <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
             <ul>
-            	<li>Fixes bug on wpp_get_views.</li>
-                <li>Sustitutes WP_DEBUG with custom debugging constant.</li>
-                <li>Fixes bug that prevented disabling plugin's stylesheet.</li>
+            	<li>Fixes widget not saving 'freshness' setting.</li>
+                <li>Adds HTMLentities conversion/deconversion on wpp_get_mostpopular().</li>
+                <li>Improves thumbnail detection.</li>
+                <li>Fixes a bug affecting the truncation of excerpts.</li>
+                <li>Fixes yet another bug on wpp_get_views().</li>
+                <li>Other minor changes.</li>
             </ul>
         </div>
         

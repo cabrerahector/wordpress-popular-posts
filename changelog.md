@@ -1,5 +1,13 @@
 Changelog
 =========
+#### 3.0.3 ####
+* Fixes widget not saving 'freshness' setting.
+* Adds HTMLentities conversion/deconversion on wpp_get_mostpopular().
+* Improves thumbnail detection.
+* Fixes a bug affecting the truncation of excerpts.
+* Fixes yet another bug on wpp_get_views().
+* Other minor changes.
+
 #### 3.0.2 ####
 * Fixes an introduced bug on wpp_get_views().
 * Fixes bug where thumbnail size was cached for multiple instances.

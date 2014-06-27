@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hcabr
 Tags: popular, posts, widget, popularity, top
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,7 +32,9 @@ Wordpress Popular Posts is a highly customizable widget that displays the most p
 * **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support**. Show your visitors how your readers are rating your posts!
 
 = Notices =
-* Starting version 3.0.0, the way plugin tracks views count switched back to (AJAX)[http://codex.wordpress.org/AJAX]. The reason for this change is to prevent bots / spiders from inflating views count, so if you're using a caching plugin you should clear its cache after installing / upgrading the Wordpress Popular Posts plugin so it can track your posts and pages normally.
+* Starting version 3.0.0, the way plugin tracks views count switched back to [AJAX](http://codex.wordpress.org/AJAX). The reason for this change is to prevent bots / spiders from inflating views count, so if you're using a caching plugin you should clear its cache after installing / upgrading the Wordpress Popular Posts plugin so it can track your posts and pages normally.
+
+**Wordpress Popular Posts** is now also on [GitHub](https://github.com/cabrerahector/wordpress-popular-posts)!
 
 == Installation ==
 
@@ -148,6 +150,14 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. Wordpress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.0.3 =
+* Fixes widget not saving 'freshness' setting.
+* Adds HTMLentities conversion/deconversion on wpp_get_mostpopular().
+* Improves thumbnail detection.
+* Fixes a bug affecting the truncation of excerpts.
+* Fixes yet another bug on wpp_get_views().
+* Other minor changes.
+
 = 3.0.2 =
 * Fixes an introduced bug on wpp_get_views().
 * Fixes bug where thumbnail size was cached for multiple instances.
@@ -161,6 +171,7 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 * Fixes bug that prevented disabling plugin's stylesheet.
 
 = 3.0.0 =
+* Starting from this version, the way plugin tracks views count switched back to [AJAX](http://codex.wordpress.org/AJAX) to prevent bots / spiders from inflating views count. If you're using a caching plugin you should clear its cache after installing / upgrading the Wordpress Popular Posts plugin so it can track your posts and pages normally.
 * Plugin refactoring based on [@tikaszvince](https://github.com/tikaszvince)'s work (many thanks, Vince!).
 * Added WPML support.
 * Added experimental Wordpress Multisite support.
@@ -376,5 +387,5 @@ All translations are community made: people who are nice enough to share their t
 
 == Upgrade Notice ==
 
-= 3.0.2 =
+= 3.0.3 =
 This version requires PHP 5.2+ and Wordpress 3.8 or greater. Also, backup the wpp.css file first if you modified it!
