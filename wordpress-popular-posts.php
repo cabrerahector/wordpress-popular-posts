@@ -2686,11 +2686,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			if ( in_array("{excerpt}", $matches[0]) ) {
-				$string = str_replace( "{excerpt}", htmlentities($data['summary'], ENT_QUOTES), $string );
+				$string = str_replace( "{excerpt}", htmlentities($data['summary'], ENT_QUOTES, $this->charset), $string );
 			}
 
 			if ( in_array("{summary}", $matches[0]) ) {
-				$string = str_replace( "{summary}", htmlentities($data['summary'], ENT_QUOTES), $string );
+				$string = str_replace( "{summary}", htmlentities($data['summary'], ENT_QUOTES, $this->charset), $string );
 			}
 
 			if ( in_array("{image}", $matches[0]) ) {
