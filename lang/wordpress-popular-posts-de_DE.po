@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Wordpress Popular Posts\n"
+"Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-27 18:12-0430\n"
 "PO-Revision-Date: \n"
@@ -29,7 +29,7 @@ msgstr "Gebe einen Namen für das benutzerdefinierte Feld an."
 
 #: ../views/admin.php:84
 msgid ""
-"This operation will delete all entries from Wordpress Popular Posts' cache "
+"This operation will delete all entries from WordPress Popular Posts' cache "
 "table and cannot be undone."
 msgstr ""
 "Alle Einträge im Cache werden gelöscht und können nicht mehr wieder "
@@ -41,10 +41,10 @@ msgstr "Möchtest du fortfahren?"
 
 #: ../views/admin.php:92
 msgid ""
-"This operation will delete all stored info from Wordpress Popular Posts' "
+"This operation will delete all stored info from WordPress Popular Posts' "
 "data tables and cannot be undone."
 msgstr ""
-"Alle gespeicherten Daten von Wordpress Popular Posts werden gelöscht und "
+"Alle gespeicherten Daten von WordPress Popular Posts werden gelöscht und "
 "können nicht wieder hergestellt werden."
 
 #: ../views/admin.php:109
@@ -70,12 +70,12 @@ msgstr "Über"
 #: ../views/admin.php:124
 msgid ""
 "Click on each tab to see what are the most popular entries on your blog in "
-"the last 24 hours, this week, last 30 days or all time since Wordpress "
+"the last 24 hours, this week, last 30 days or all time since WordPress "
 "Popular Posts was installed."
 msgstr ""
 "Klicke auf jeden Reiter, um die beliebtesten Beiträge deines Blogs von den "
 "letzten 24 Stunden, dieser Woche, den letzten 30 Tagen oder des gesamten "
-"Zeitraums seit der Installation von Wordpress Popular Posts zu sehen."
+"Zeitraums seit der Installation von WordPress Popular Posts zu sehen."
 
 #: ../views/admin.php:130
 msgid "Order by comments"
@@ -159,7 +159,7 @@ msgid "Custom field"
 msgstr "Benutzerdefiniertes Feld"
 
 #: ../views/admin.php:194
-msgid "Tell Wordpress Popular Posts where it should get thumbnails from"
+msgid "Tell WordPress Popular Posts where it should get thumbnails from"
 msgstr "Woher kommen die Vorschaubilder?"
 
 #: ../views/admin.php:198
@@ -304,13 +304,13 @@ msgstr ""
 #: ../views/admin.php:329
 #, fuzzy
 msgid ""
-"Wordpress Popular Posts maintains data in two separate tables: one for "
+"WordPress Popular Posts maintains data in two separate tables: one for "
 "storing the most popular entries on a daily basis (from now on, \"cache\"), "
 "and another one to keep the All-time data (from now on, \"historical data\" "
 "or just \"data\"). If for some reason you need to clear the cache table, or "
 "even both historical and cache tables, please use the buttons below to do so."
 msgstr ""
-"Wordpress Popular Posts speichert Daten in zwei getrennten Tabellen: eine "
+"WordPress Popular Posts speichert Daten in zwei getrennten Tabellen: eine "
 "für die beliebtesten Beiträge der letzten 30 Tage (auch: \"Cache-Tabelle\"), "
 "und die andere für die Allzeit-Daten (auch \"historische Daten\" oder "
 "einfach \"Datentabelle\"). Solltest du aus verschiedenen Gründen die Cache-"
@@ -324,7 +324,7 @@ msgstr "Cache leeren"
 #: ../views/admin.php:330
 msgid "Use this button to manually clear entries from WPP cache only"
 msgstr ""
-"Nutze diese Schaltfläche, um die Cache-Tabelle von Wordpress Popular Posts "
+"Nutze diese Schaltfläche, um die Cache-Tabelle von WordPress Popular Posts "
 "zu leeren."
 
 #: ../views/admin.php:331
@@ -334,7 +334,7 @@ msgstr "Alle Daten löschen"
 #: ../views/admin.php:331
 msgid "Use this button to manually clear entries from all WPP data tables"
 msgstr ""
-"Nutze diese Schaltfläche, um alle Einträge in der Datentabelle von Wordpress "
+"Nutze diese Schaltfläche, um alle Einträge in der Datentabelle von WordPress "
 "Popular Posts zu löschen."
 
 #: ../views/admin.php:338
@@ -399,19 +399,19 @@ msgstr "Positive Ganzzahl"
 
 #: ../views/admin.php:384
 msgid ""
-"Tells Wordpress Popular Posts to retrieve the most popular entries within "
+"Tells WordPress Popular Posts to retrieve the most popular entries within "
 "the time range specified by you"
 msgstr ""
-"Weist Wordpress Popular Posts an, die beliebtesten Beiträge innerhalt der "
+"Weist WordPress Popular Posts an, die beliebtesten Beiträge innerhalt der "
 "eingestellten Zeitspanne anzuzeigen."
 
 #: ../views/admin.php:391
 #, fuzzy
 msgid ""
-"Tells Wordpress Popular Posts to retrieve the most popular entries published "
+"Tells WordPress Popular Posts to retrieve the most popular entries published "
 "within the time range specified by you"
 msgstr ""
-"Weist Wordpress Popular Posts an, die beliebtesten Beiträge innerhalt der "
+"Weist WordPress Popular Posts an, die beliebtesten Beiträge innerhalt der "
 "eingestellten Zeitspanne anzuzeigen."
 
 #: ../views/admin.php:398
@@ -428,10 +428,10 @@ msgstr "Bestimmt die Art der Dokumente, die aufgelistet werden"
 
 #: ../views/admin.php:412
 msgid ""
-"If set, Wordpress Popular Posts will exclude the specified post(s) ID(s) "
+"If set, WordPress Popular Posts will exclude the specified post(s) ID(s) "
 "form the listing."
 msgstr ""
-"Falls gesetzt, zeigt Wordpress Popular Posts die Beiträge und Seiten anhand "
+"Falls gesetzt, zeigt WordPress Popular Posts die Beiträge und Seiten anhand "
 "ihrer angegebener ID(s) in der Liste nicht an."
 
 #: ../views/admin.php:414 ../views/admin.php:421 ../views/admin.php:428
@@ -440,60 +440,60 @@ msgstr "nichts"
 
 #: ../views/admin.php:419
 msgid ""
-"If set, Wordpress Popular Posts will retrieve all entries that belong to the "
+"If set, WordPress Popular Posts will retrieve all entries that belong to the "
 "specified category(ies) ID(s). If a minus sign is used, the category(ies) "
 "will be excluded instead."
 msgstr ""
-"Falls gesetzt, zeigt Wordpress Popular Posts alle Einträge, die den "
+"Falls gesetzt, zeigt WordPress Popular Posts alle Einträge, die den "
 "angegebenen Kategorie-IDs zugeordnet sind, an. Ein Minus-Zeichen vor der ID "
 "schließt die Beiträge dieser Kategorie aus."
 
 #: ../views/admin.php:426
 msgid ""
-"If set, Wordpress Popular Posts will retrieve all entries created by "
+"If set, WordPress Popular Posts will retrieve all entries created by "
 "specified author(s) ID(s)."
 msgstr ""
-"Falls gesetzt, wird Wordpress Popular Posts alle Einträge anhand angegebener "
+"Falls gesetzt, wird WordPress Popular Posts alle Einträge anhand angegebener "
 "Autor(en)-ID(s) ausgeben."
 
 #: ../views/admin.php:433
 msgid ""
-"If set, Wordpress Popular Posts will shorten each post title to \"n\" "
+"If set, WordPress Popular Posts will shorten each post title to \"n\" "
 "characters whenever possible"
 msgstr ""
-"Falls gesetzt, kürzt Wordpress Popular Posts jeden Titel, wenn möglich, auf "
+"Falls gesetzt, kürzt WordPress Popular Posts jeden Titel, wenn möglich, auf "
 "\"n\" Zeichen."
 
 #: ../views/admin.php:440
 msgid ""
-"If set to 1, Wordpress Popular Posts will shorten each post title to \"n\" "
+"If set to 1, WordPress Popular Posts will shorten each post title to \"n\" "
 "words instead of characters"
 msgstr ""
-"Falls gesetzt, kürzt Wordpress Popular Posts jeden Titel, wenn möglich, auf "
+"Falls gesetzt, kürzt WordPress Popular Posts jeden Titel, wenn möglich, auf "
 "\"n\" Wörter anstatt Zeichen."
 
 #: ../views/admin.php:447
 msgid ""
-"If set, Wordpress Popular Posts will build and include an excerpt of \"n\" "
+"If set, WordPress Popular Posts will build and include an excerpt of \"n\" "
 "characters long from the content of each post listed as popular"
 msgstr ""
-"Falls gesetzt, zeigt Wordpress Popular Posts einen Auszug von \"n\" "
+"Falls gesetzt, zeigt WordPress Popular Posts einen Auszug von \"n\" "
 "Buchstaben Länge bei jedem Beitrag an."
 
 #: ../views/admin.php:454
 msgid ""
-"If set, Wordpress Popular Posts will maintaing all styling tags (strong, "
+"If set, WordPress Popular Posts will maintaing all styling tags (strong, "
 "italic, etc) and hyperlinks found in the excerpt"
 msgstr ""
-"Falls gesetzt, behält Wordpress Popular Posts die formatierenden Tags (fett, "
+"Falls gesetzt, behält WordPress Popular Posts die formatierenden Tags (fett, "
 "kursiv usw.) und die Links im Auszug bei."
 
 #: ../views/admin.php:461
 msgid ""
-"If set to 1, Wordpress Popular Posts will shorten the excerpt to \"n\" words "
+"If set to 1, WordPress Popular Posts will shorten the excerpt to \"n\" words "
 "instead of characters"
 msgstr ""
-"Falls gesetzt, kürzt Wordpress Popular Posts jeden Auszug, wenn möglich, auf "
+"Falls gesetzt, kürzt WordPress Popular Posts jeden Auszug, wenn möglich, auf "
 "\"n\" Wörter anstatt Zeichen."
 
 #: ../views/admin.php:468
@@ -519,42 +519,42 @@ msgstr ""
 #: ../views/admin.php:482
 msgid ""
 "If set, and if the WP-PostRatings plugin is installed and enabled on your "
-"blog, Wordpress Popular Posts will show how your visitors are rating your "
+"blog, WordPress Popular Posts will show how your visitors are rating your "
 "entries"
 msgstr ""
 "Falls gesetzt und wenn das Plugin WP-PostRatings in Deinem Blog läuft, zeigt "
-"Wordpress Popular Posts die Bewertungen der Nutzer an."
+"WordPress Popular Posts die Bewertungen der Nutzer an."
 
 #: ../views/admin.php:489
 msgid ""
-"If set, Wordpress Popular Posts will show how many comments each popular "
+"If set, WordPress Popular Posts will show how many comments each popular "
 "post has got until now"
 msgstr ""
-"Falls gesetzt, zeigt Wordpress Popular Posts an, wie viele Kommentare jeder "
+"Falls gesetzt, zeigt WordPress Popular Posts an, wie viele Kommentare jeder "
 "Beitrag bis jetzt erhielt."
 
 #: ../views/admin.php:496
 msgid ""
-"If set, Wordpress Popular Posts will show how many views each popular post "
+"If set, WordPress Popular Posts will show how many views each popular post "
 "has got since it was installed"
 msgstr ""
-"Falls gesetzt, zeigt Wordpress Popular Posts an, wie viele Aufrufe jeder "
+"Falls gesetzt, zeigt WordPress Popular Posts an, wie viele Aufrufe jeder "
 "Beitrag seit der Installation erhielt."
 
 #: ../views/admin.php:503
 msgid ""
-"If set, Wordpress Popular Posts will show who published each popular post on "
+"If set, WordPress Popular Posts will show who published each popular post on "
 "the list"
 msgstr ""
-"Falls gesetzt, zeigt Wordpress Popular Posts an, wer welchen Beitrag "
+"Falls gesetzt, zeigt WordPress Popular Posts an, wer welchen Beitrag "
 "veröffentlicht hat."
 
 #: ../views/admin.php:510
 msgid ""
-"If set, Wordpress Popular Posts will display the date when each popular post "
+"If set, WordPress Popular Posts will display the date when each popular post "
 "on the list was published"
 msgstr ""
-"Falls gesetzt, zeigt Wordpress Popular Posts das Veröffentlichungsdatum "
+"Falls gesetzt, zeigt WordPress Popular Posts das Veröffentlichungsdatum "
 "jeden Beitrags in der Liste an."
 
 #: ../views/admin.php:517
@@ -562,8 +562,8 @@ msgid "Sets the date format"
 msgstr "Bestimmt das Datumsformat"
 
 #: ../views/admin.php:524
-msgid "If set, Wordpress Popular Posts will display the category"
-msgstr "Falls gesetzt, zeigt Wordpress Popular Posts die Kategorie an"
+msgid "If set, WordPress Popular Posts will display the category"
+msgstr "Falls gesetzt, zeigt WordPress Popular Posts die Kategorie an"
 
 #: ../views/admin.php:531
 msgid "Sets the opening tag for the listing"
@@ -665,10 +665,10 @@ msgstr "Für was steht die Zeitspanne?"
 
 #: ../views/admin.php:566
 msgid ""
-"It will tell Wordpress Popular Posts to retrieve all posts with most views / "
+"It will tell WordPress Popular Posts to retrieve all posts with most views / "
 "comments within the selected time range."
 msgstr ""
-"Weist Wordpress Popular Posts an, alle Beiträge mit den meisten Aufrufen "
+"Weist WordPress Popular Posts an, alle Beiträge mit den meisten Aufrufen "
 "bzw. Kommentaren innerhalb der eingestellten Zeitspanne anzuzeigen."
 
 #: ../views/admin.php:569
@@ -690,11 +690,11 @@ msgstr "Was macht \"Zeige Bewertung\"?"
 
 #: ../views/admin.php:576
 msgid ""
-"If checked, Wordpress Popular Posts will show how your readers are rating "
+"If checked, WordPress Popular Posts will show how your readers are rating "
 "your most popular posts. This feature requires having WP-PostRatings plugin "
 "installed and enabled on your blog for it to work."
 msgstr ""
-"Falls aktiviert, zeigt Wordpress Popular Posts an, wie deine Leser deine "
+"Falls aktiviert, zeigt WordPress Popular Posts an, wie deine Leser deine "
 "beliebtesten Beiträge bewertet haben. Diese Funktion erfordert die "
 "Installation und Aktivierung des Plugins WP-PostRatings."
 
@@ -718,11 +718,11 @@ msgstr "Was macht \"Zeige Auszug\"?"
 
 #: ../views/admin.php:586
 msgid ""
-"If checked, Wordpress Popular Posts will also include a small extract of "
+"If checked, WordPress Popular Posts will also include a small extract of "
 "your posts in the list. Similarly to the previous option, you will be able "
 "to decide how long the post excerpt should be."
 msgstr ""
-"Falls aktiviert, zeigt Wordpress Popular Posts zusätzlich einen kurzen "
+"Falls aktiviert, zeigt WordPress Popular Posts zusätzlich einen kurzen "
 "Auszug Deines Beitrags in der Liste an. Wie bei der vorhergehenden Auswahl "
 "ist es dir möglich, die Länge des Auszugs einzustellen."
 
@@ -732,12 +732,12 @@ msgstr "Was macht \"Behalte Textformat und Links bei\"?"
 
 #: ../views/admin.php:591
 msgid ""
-"If checked, and if the Post Excerpt feature is enabled, Wordpress Popular "
+"If checked, and if the Post Excerpt feature is enabled, WordPress Popular "
 "Posts will keep the styling tags (eg. bold, italic, etc) that were found in "
 "the excerpt. Hyperlinks will remain intact, too."
 msgstr ""
 "Falls aktiviert und wenn die Darstellung von Auszügen aktiviert ist, behält "
-"Wordpress Popular Posts die formatierenden Tags (z. B. fett, kursiv usw.) im "
+"WordPress Popular Posts die formatierenden Tags (z. B. fett, kursiv usw.) im "
 "Auszug. Auch Links bleiben unverändert."
 
 #: ../views/admin.php:594
@@ -788,11 +788,11 @@ msgstr "Was macht \"Zeige Vorschaubild\"?"
 
 #: ../views/admin.php:611
 msgid ""
-"If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail "
+"If checked, WordPress Popular Posts will attempt to retrieve the thumbnail "
 "of each post. You can set up the source of the thumbnail via Settings - "
-"Wordpress Popular Posts - Tools."
+"WordPress Popular Posts - Tools."
 msgstr ""
-"Falls aktiviert, versucht Wordpress Popular Posts, das Vorschaubild von "
+"Falls aktiviert, versucht WordPress Popular Posts, das Vorschaubild von "
 "jedem Beitrag darzustellen. Du kannst die Quelle des Vorschaubildes unter "
 "\"Werkzeuge\" einstellen."
 
@@ -802,10 +802,10 @@ msgstr "Was macht \"Zeige Anzahl Kommentare\"?"
 
 #: ../views/admin.php:616
 msgid ""
-"If checked, Wordpress Popular Posts will display how many comments each "
+"If checked, WordPress Popular Posts will display how many comments each "
 "popular post has got in the selected Time Range."
 msgstr ""
-"Falls aktiviert, zeigt Wordpress Popular Posts an, wie viele Kommentare "
+"Falls aktiviert, zeigt WordPress Popular Posts an, wie viele Kommentare "
 "jeder beliebte Beitrag in der eingestellten Zeitspanne erhielt."
 
 #: ../views/admin.php:619
@@ -814,10 +814,10 @@ msgstr "Was macht \"Zeige Aufrufe\"?"
 
 #: ../views/admin.php:621
 msgid ""
-"If checked, Wordpress Popular Posts will show how many pageviews a single "
+"If checked, WordPress Popular Posts will show how many pageviews a single "
 "post has gotten in the selected Time Range."
 msgstr ""
-"Falls aktiviert, zeigt Wordpress Popular Posts an, wie viele Seitenaufrufe "
+"Falls aktiviert, zeigt WordPress Popular Posts an, wie viele Seitenaufrufe "
 "jeder einzelne Beitrag in der eingestellten Zeitspanne erhielt."
 
 #: ../views/admin.php:624
@@ -826,10 +826,10 @@ msgstr "Was macht \"Zeige Autor\"?"
 
 #: ../views/admin.php:626
 msgid ""
-"If checked, Wordpress Popular Posts will display the name of the author of "
+"If checked, WordPress Popular Posts will display the name of the author of "
 "each entry listed."
 msgstr ""
-"Falls aktiviert, zeigt Wordpress Popular Posts den Autorennamen in jedem "
+"Falls aktiviert, zeigt WordPress Popular Posts den Autorennamen in jedem "
 "Listeneintrag an."
 
 #: ../views/admin.php:629
@@ -838,10 +838,10 @@ msgstr "Was macht \"Zeige Datum\"?"
 
 #: ../views/admin.php:631
 msgid ""
-"If checked, Wordpress Popular Posts will display the date when each popular "
+"If checked, WordPress Popular Posts will display the date when each popular "
 "posts was published."
 msgstr ""
-"Falls aktiviert, zeigt Wordpress Popular Posts das Veröffentlichungsdatum "
+"Falls aktiviert, zeigt WordPress Popular Posts das Veröffentlichungsdatum "
 "jeden Beitrags an."
 
 #: ../views/admin.php:634
@@ -850,9 +850,9 @@ msgstr "Was macht \"Zeige Kategorie\"?"
 
 #: ../views/admin.php:636
 msgid ""
-"If checked, Wordpress Popular Posts will display the category of each post."
+"If checked, WordPress Popular Posts will display the category of each post."
 msgstr ""
-"Falls aktiviert, zeigt Wordpress Popular Posts den Kategorie in jedem "
+"Falls aktiviert, zeigt WordPress Popular Posts den Kategorie in jedem "
 "Listeneintrag an."
 
 #: ../views/admin.php:639
@@ -898,21 +898,21 @@ msgstr "Was sind \"Template-Tags\"?"
 #: ../views/admin.php:651
 msgid ""
 "Template Tags are simply php functions that allow you to perform certain "
-"actions. For example, Wordpress Popular Posts currently supports two "
+"actions. For example, WordPress Popular Posts currently supports two "
 "different template tags: wpp_get_mostpopular() and wpp_get_views()."
 msgstr ""
 "Template-Tags sind schlicht und einfach PHP-Funktionen, die bestimmten "
-"Aktionen ausführen. Zum Beispiel unterstützt Wordpress Popular Posts zwei "
+"Aktionen ausführen. Zum Beispiel unterstützt WordPress Popular Posts zwei "
 "verschiedene Template-Tags: wpp_get_mostpopular() und wpp_get_views()."
 
 #: ../views/admin.php:654
-msgid "What are the template tags that Wordpress Popular Posts supports?"
-msgstr "Welche Template-Tags unterstützt Wordpress Popular Posts?"
+msgid "What are the template tags that WordPress Popular Posts supports?"
+msgstr "Welche Template-Tags unterstützt WordPress Popular Posts?"
 
 #: ../views/admin.php:656
 msgid ""
-"The following are the template tags supported by Wordpress Popular Posts"
-msgstr "Die folgenden Template-Tags unterstützt Wordpress Popular Posts"
+"The following are the template tags supported by WordPress Popular Posts"
+msgstr "Die folgenden Template-Tags unterstützt WordPress Popular Posts"
 
 #: ../views/admin.php:660
 msgid "Template tag"
@@ -957,21 +957,21 @@ msgstr "Was sind \"Shortcodes\"?"
 #, php-format
 msgid ""
 "Shortcodes are similar to BB Codes, these allow us to call a php function by "
-"simply typing something like [shortcode]. With Wordpress Popular Posts, the "
+"simply typing something like [shortcode]. With WordPress Popular Posts, the "
 "shortcode [wpp] will let you insert a list of the most popular posts in "
 "posts content and pages too! For more information about shortcodes, please "
-"visit the <a href=\"%s\" target=\"_blank\">Wordpress Shortcode API</a> page."
+"visit the <a href=\"%s\" target=\"_blank\">WordPress Shortcode API</a> page."
 msgstr ""
 "Shortcodes sind vergleichbar mit BB-Codes. Sie erlauben uns, eine PHP-"
 "Funktion aufzurufen durch einen einfachen Text wie [shortcode]. Der "
 "Shortcode [wpp] fügt die Liste der beliebtesten Beiträge in den Text sowohl "
 "von Beiträgen als auch Seiten ein. Für mehr Informationen über Shortcodes "
-"besuche <a href=\"%s\" target=\"_blank\">Wordpress Shortcode API</a>."
+"besuche <a href=\"%s\" target=\"_blank\">WordPress Shortcode API</a>."
 
 #: ../views/admin.php:694
 #, php-format
-msgid "About Wordpress Popular Posts %s"
-msgstr "Über Wordpress Popular Posts %s"
+msgid "About WordPress Popular Posts %s"
+msgstr "Über WordPress Popular Posts %s"
 
 #: ../views/admin.php:695
 msgid "This version includes the following changes"
@@ -983,10 +983,10 @@ msgstr "Gefällt dir dieses Plugin?"
 
 #: ../views/admin.php:716
 msgid ""
-"Each donation motivates me to keep releasing free stuff for the Wordpress "
+"Each donation motivates me to keep releasing free stuff for the WordPress "
 "community!"
 msgstr ""
-"Jede Spende motiviert mich, der Wordpress-Gemeinschaft nützliches Zeugs "
+"Jede Spende motiviert mich, der WordPress-Gemeinschaft nützliches Zeugs "
 "weiterhin kostenlos zur Verfügung zu stellen!"
 
 #: ../views/admin.php:717
@@ -1147,8 +1147,8 @@ msgid "Date Format"
 msgstr "Datumsformat"
 
 #: ../views/form.php:98
-msgid "Wordpress Date Format"
-msgstr "Datumsformat Wordpress"
+msgid "WordPress Date Format"
+msgstr "Datumsformat WordPress"
 
 #: ../views/form.php:105
 msgid "Display category"
@@ -1180,7 +1180,7 @@ msgstr "Die beliebtesten Beiträge deines Blogs."
 
 #: ../wordpress-popular-posts.php:410
 msgid ""
-"Error: cannot ajaxify Wordpress Popular Posts on this theme. It's missing "
+"Error: cannot ajaxify WordPress Popular Posts on this theme. It's missing "
 "the <em>id</em> attribute on before_widget (see <a href=\"http://codex."
 "wordpress.org/Function_Reference/register_sidebar\" target=\"_blank\" rel="
 "\"nofollow\">register_sidebar</a> for more)."
@@ -1193,11 +1193,11 @@ msgstr "Hochladen"
 #: ../wordpress-popular-posts.php:1002
 #, php-format
 msgid ""
-"Your PHP installation is too old. Wordpress Popular Posts requires at least "
+"Your PHP installation is too old. WordPress Popular Posts requires at least "
 "PHP version %1$s to function correctly. Please contact your hosting provider "
 "and ask them to upgrade PHP to %1$s or higher."
 msgstr ""
-"Deine PHP-Version ist zu alt. Das Plugin\"Wordpress Popular Posts\" benötigt "
+"Deine PHP-Version ist zu alt. Das Plugin\"WordPress Popular Posts\" benötigt "
 "mindestens PHP-Version %1$s für die einwandfreie Funktion. Bitte nehme "
 "Kontakt mit deinem Hosting-Provider auf und bitte ihn, PHP auf v%1$s oder "
 "höher zu aktualisieren."
@@ -1205,12 +1205,12 @@ msgstr ""
 #: ../wordpress-popular-posts.php:1009
 #, php-format
 msgid ""
-"Your Wordpress version is too old. Wordpress Popular Posts requires at least "
-"Wordpress version %1$s to function correctly. Please update your blog via "
+"Your WordPress version is too old. WordPress Popular Posts requires at least "
+"WordPress version %1$s to function correctly. Please update your blog via "
 "Dashboard &gt; Update."
 msgstr ""
-"Deine Wordpress-Version ist zu alt. Das Plugin Wordpress Popular Posts "
-"benötigt mindestens Version %1$s. Bitte aktualisiere Wordpress via Dashboard "
+"Deine WordPress-Version ist zu alt. Das Plugin WordPress Popular Posts "
+"benötigt mindestens Version %1$s. Bitte aktualisiere WordPress via Dashboard "
 "&gt; Aktualisieren."
 
 #: ../wordpress-popular-posts.php:1034
@@ -1321,11 +1321,11 @@ msgstr "in %s"
 #~ msgstr "Einstellungen für die Vorschaubilder"
 
 #~ msgid ""
-#~ "Here you will find a handy group of options to tweak Wordpress Popular "
+#~ "Here you will find a handy group of options to tweak WordPress Popular "
 #~ "Posts."
 #~ msgstr ""
 #~ "Hier findest du einen überschaubaren Bereich an Einstellungen, um "
-#~ "Wordpress Popular Posts zu optimieren."
+#~ "WordPress Popular Posts zu optimieren."
 
 #, fuzzy
 #~ msgid "Popular Posts links behavior"
@@ -1334,8 +1334,8 @@ msgstr "in %s"
 #~ msgid "Views logging behavior"
 #~ msgstr "Zählverhalten"
 
-#~ msgid "Wordpress Popular Posts Stylesheet"
-#~ msgstr "Wordpress Popular Posts Stylesheet"
+#~ msgid "WordPress Popular Posts Stylesheet"
+#~ msgstr "WordPress Popular Posts Stylesheet"
 
 #~ msgid "Data tools"
 #~ msgstr "Datenwerkzeuge"
@@ -1410,5 +1410,5 @@ msgstr "in %s"
 #~ msgid "Content format:"
 #~ msgstr "Inhaltsformat:"
 
-#~ msgid "Wordpress Popular Posts Stats"
-#~ msgstr "Wordpress Popular Posts Statistik"
+#~ msgid "WordPress Popular Posts Stats"
+#~ msgstr "WordPress Popular Posts Statistik"

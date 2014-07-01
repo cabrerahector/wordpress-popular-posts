@@ -2,7 +2,7 @@
 /**
  * Fired when the plugin is uninstalled.
  *
- * @package   WordpressPopularPosts
+ * @package   WordPressPopularPosts
  * @author    Hector Cabrera <hcabrerab@gmail.com>
  * @license   GPL-2.0+
  * @link      http://cabrerahector.com

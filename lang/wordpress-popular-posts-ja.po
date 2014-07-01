@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Wordpress Popular Posts\n"
+"Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-27 18:13-0430\n"
 "PO-Revision-Date: \n"
@@ -29,7 +29,7 @@ msgstr "カスタムフィールドの名称を入れてください。"
 
 #: ../views/admin.php:84
 msgid ""
-"This operation will delete all entries from Wordpress Popular Posts' cache "
+"This operation will delete all entries from WordPress Popular Posts' cache "
 "table and cannot be undone."
 msgstr ""
 "この操作は、WordPress Popular Postsのキャッシュ・テーブルにあるデータをすべて"
@@ -41,7 +41,7 @@ msgstr "続けてもいいですか?"
 
 #: ../views/admin.php:92
 msgid ""
-"This operation will delete all stored info from Wordpress Popular Posts' "
+"This operation will delete all stored info from WordPress Popular Posts' "
 "data tables and cannot be undone."
 msgstr ""
 "この操作は、WordPress Popular Postsのデータ・テーブルのデータをすべて削除しま"
@@ -70,7 +70,7 @@ msgstr "約"
 #: ../views/admin.php:124
 msgid ""
 "Click on each tab to see what are the most popular entries on your blog in "
-"the last 24 hours, this week, last 30 days or all time since Wordpress "
+"the last 24 hours, this week, last 30 days or all time since WordPress "
 "Popular Posts was installed."
 msgstr ""
 "タブをクリックすると、24時間、1週間、1か月、WordPress Popular Postsを設置して"
@@ -159,7 +159,7 @@ msgid "Custom field"
 msgstr "カスタム・フィールド"
 
 #: ../views/admin.php:194
-msgid "Tell Wordpress Popular Posts where it should get thumbnails from"
+msgid "Tell WordPress Popular Posts where it should get thumbnails from"
 msgstr "ここからサムネール画像を取得するようにする。"
 
 #: ../views/admin.php:198
@@ -304,7 +304,7 @@ msgstr ""
 #: ../views/admin.php:329
 #, fuzzy
 msgid ""
-"Wordpress Popular Posts maintains data in two separate tables: one for "
+"WordPress Popular Posts maintains data in two separate tables: one for "
 "storing the most popular entries on a daily basis (from now on, \"cache\"), "
 "and another one to keep the All-time data (from now on, \"historical data\" "
 "or just \"data\"). If for some reason you need to clear the cache table, or "
@@ -394,14 +394,14 @@ msgstr "正の整数"
 
 #: ../views/admin.php:384
 msgid ""
-"Tells Wordpress Popular Posts to retrieve the most popular entries within "
+"Tells WordPress Popular Posts to retrieve the most popular entries within "
 "the time range specified by you"
 msgstr "設定された期間内で最も人気のあるエントリを表示する"
 
 #: ../views/admin.php:391
 #, fuzzy
 msgid ""
-"Tells Wordpress Popular Posts to retrieve the most popular entries published "
+"Tells WordPress Popular Posts to retrieve the most popular entries published "
 "within the time range specified by you"
 msgstr "設定された期間内で最も人気のあるエントリを表示する"
 
@@ -419,7 +419,7 @@ msgstr "リストに表示する投稿のタイプを決める"
 
 #: ../views/admin.php:412
 msgid ""
-"If set, Wordpress Popular Posts will exclude the specified post(s) ID(s) "
+"If set, WordPress Popular Posts will exclude the specified post(s) ID(s) "
 "form the listing."
 msgstr "これを設定すると、特定の投稿IDが表示されないようになります。"
 
@@ -429,7 +429,7 @@ msgstr "なし"
 
 #: ../views/admin.php:419
 msgid ""
-"If set, Wordpress Popular Posts will retrieve all entries that belong to the "
+"If set, WordPress Popular Posts will retrieve all entries that belong to the "
 "specified category(ies) ID(s). If a minus sign is used, the category(ies) "
 "will be excluded instead."
 msgstr ""
@@ -438,7 +438,7 @@ msgstr ""
 
 #: ../views/admin.php:426
 msgid ""
-"If set, Wordpress Popular Posts will retrieve all entries created by "
+"If set, WordPress Popular Posts will retrieve all entries created by "
 "specified author(s) ID(s)."
 msgstr ""
 "これを設定すると、指定された投稿者IDのエントリが全て表示されるようになりま"
@@ -446,13 +446,13 @@ msgstr ""
 
 #: ../views/admin.php:433
 msgid ""
-"If set, Wordpress Popular Posts will shorten each post title to \"n\" "
+"If set, WordPress Popular Posts will shorten each post title to \"n\" "
 "characters whenever possible"
 msgstr "これを設定すると、投稿タイトルを\"n\"文字になるようにします。"
 
 #: ../views/admin.php:440
 msgid ""
-"If set to 1, Wordpress Popular Posts will shorten each post title to \"n\" "
+"If set to 1, WordPress Popular Posts will shorten each post title to \"n\" "
 "words instead of characters"
 msgstr ""
 "これを1に設定すると、タイトルを\"n\"文字ではなくて、\"n\"語になるようにします"
@@ -460,14 +460,14 @@ msgstr ""
 
 #: ../views/admin.php:447
 msgid ""
-"If set, Wordpress Popular Posts will build and include an excerpt of \"n\" "
+"If set, WordPress Popular Posts will build and include an excerpt of \"n\" "
 "characters long from the content of each post listed as popular"
 msgstr ""
 "これを設定すると、投稿のコンテンツから\"n\"文字の抜粋を作り、表示に含めます。"
 
 #: ../views/admin.php:454
 msgid ""
-"If set, Wordpress Popular Posts will maintaing all styling tags (strong, "
+"If set, WordPress Popular Posts will maintaing all styling tags (strong, "
 "italic, etc) and hyperlinks found in the excerpt"
 msgstr ""
 "これを設定すると、抜粋に含まれるスタイル・タグ(strongやitalicなど)やハイパー"
@@ -475,7 +475,7 @@ msgstr ""
 
 #: ../views/admin.php:461
 msgid ""
-"If set to 1, Wordpress Popular Posts will shorten the excerpt to \"n\" words "
+"If set to 1, WordPress Popular Posts will shorten the excerpt to \"n\" words "
 "instead of characters"
 msgstr ""
 "これを1に設定すると、抜粋の長さが\"n\"文字ではなくて、\"n\"語の長さになります"
@@ -502,7 +502,7 @@ msgstr ""
 #: ../views/admin.php:482
 msgid ""
 "If set, and if the WP-PostRatings plugin is installed and enabled on your "
-"blog, Wordpress Popular Posts will show how your visitors are rating your "
+"blog, WordPress Popular Posts will show how your visitors are rating your "
 "entries"
 msgstr ""
 "これを設定し、WP-PostRatingsプラグインが有効化されていれば、エントリの評価を"
@@ -510,7 +510,7 @@ msgstr ""
 
 #: ../views/admin.php:489
 msgid ""
-"If set, Wordpress Popular Posts will show how many comments each popular "
+"If set, WordPress Popular Posts will show how many comments each popular "
 "post has got until now"
 msgstr ""
 "これを設定すると、それぞれの投稿にこれまでいくつのコメントがついたかを表示す"
@@ -518,7 +518,7 @@ msgstr ""
 
 #: ../views/admin.php:496
 msgid ""
-"If set, Wordpress Popular Posts will show how many views each popular post "
+"If set, WordPress Popular Posts will show how many views each popular post "
 "has got since it was installed"
 msgstr ""
 "これを設定すると、WordPress Popular Postsをインストールしてからの閲覧数を表示"
@@ -526,7 +526,7 @@ msgstr ""
 
 #: ../views/admin.php:503
 msgid ""
-"If set, Wordpress Popular Posts will show who published each popular post on "
+"If set, WordPress Popular Posts will show who published each popular post on "
 "the list"
 msgstr ""
 "これを設定すると、リストに表示される投稿を公開した作者を表示することができる"
@@ -534,7 +534,7 @@ msgstr ""
 
 #: ../views/admin.php:510
 msgid ""
-"If set, Wordpress Popular Posts will display the date when each popular post "
+"If set, WordPress Popular Posts will display the date when each popular post "
 "on the list was published"
 msgstr ""
 "これを設定すると、それぞれの投稿が公開された日付を表示するようになります。"
@@ -544,7 +544,7 @@ msgid "Sets the date format"
 msgstr "日付フォーマットを設定する"
 
 #: ../views/admin.php:524
-msgid "If set, Wordpress Popular Posts will display the category"
+msgid "If set, WordPress Popular Posts will display the category"
 msgstr "これを設定すると、カテゴリが表示されます。"
 
 #: ../views/admin.php:531
@@ -645,7 +645,7 @@ msgstr "期間は何のためにあるのですか?"
 
 #: ../views/admin.php:566
 msgid ""
-"It will tell Wordpress Popular Posts to retrieve all posts with most views / "
+"It will tell WordPress Popular Posts to retrieve all posts with most views / "
 "comments within the selected time range."
 msgstr ""
 "指定された期間の中で、最も閲覧数の多い投稿、または最もコメントの多い投稿を表"
@@ -669,7 +669,7 @@ msgstr "「投稿評価を表示する」というのは何ですか?"
 
 #: ../views/admin.php:576
 msgid ""
-"If checked, Wordpress Popular Posts will show how your readers are rating "
+"If checked, WordPress Popular Posts will show how your readers are rating "
 "your most popular posts. This feature requires having WP-PostRatings plugin "
 "installed and enabled on your blog for it to work."
 msgstr ""
@@ -697,7 +697,7 @@ msgstr "「投稿抜粋を表示する」は何をするものですか?"
 
 #: ../views/admin.php:586
 msgid ""
-"If checked, Wordpress Popular Posts will also include a small extract of "
+"If checked, WordPress Popular Posts will also include a small extract of "
 "your posts in the list. Similarly to the previous option, you will be able "
 "to decide how long the post excerpt should be."
 msgstr ""
@@ -711,7 +711,7 @@ msgstr ""
 
 #: ../views/admin.php:591
 msgid ""
-"If checked, and if the Post Excerpt feature is enabled, Wordpress Popular "
+"If checked, and if the Post Excerpt feature is enabled, WordPress Popular "
 "Posts will keep the styling tags (eg. bold, italic, etc) that were found in "
 "the excerpt. Hyperlinks will remain intact, too."
 msgstr ""
@@ -766,9 +766,9 @@ msgstr "「投稿サムネールを表示する」というのは、何をする
 
 #: ../views/admin.php:611
 msgid ""
-"If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail "
+"If checked, WordPress Popular Posts will attempt to retrieve the thumbnail "
 "of each post. You can set up the source of the thumbnail via Settings - "
-"Wordpress Popular Posts - Tools."
+"WordPress Popular Posts - Tools."
 msgstr ""
 "これをチェックすると、Popular Postsは投稿のサムネールを取得しようとします。表"
 "示するサムネール画像は、設定 &lt; WordPress Popular Posts &lt; ツール で設定"
@@ -780,7 +780,7 @@ msgstr "「コメント数を表示する」というのは、何をするので
 
 #: ../views/admin.php:616
 msgid ""
-"If checked, Wordpress Popular Posts will display how many comments each "
+"If checked, WordPress Popular Posts will display how many comments each "
 "popular post has got in the selected Time Range."
 msgstr ""
 "これをチェックすると、設定された期間で、投稿にいくつのコメントがついたかを表"
@@ -792,7 +792,7 @@ msgstr "「閲覧数を表示する」というのは何?"
 
 #: ../views/admin.php:621
 msgid ""
-"If checked, Wordpress Popular Posts will show how many pageviews a single "
+"If checked, WordPress Popular Posts will show how many pageviews a single "
 "post has gotten in the selected Time Range."
 msgstr ""
 "これをチェックすると、個別の投稿が指定された期間内で何回閲覧されたかを表示す"
@@ -804,7 +804,7 @@ msgstr "「投稿者を表示する」は何をするのですか?"
 
 #: ../views/admin.php:626
 msgid ""
-"If checked, Wordpress Popular Posts will display the name of the author of "
+"If checked, WordPress Popular Posts will display the name of the author of "
 "each entry listed."
 msgstr ""
 "これをチェックすると、リストのエントリを書いた投稿者名が表示されるようになり"
@@ -816,7 +816,7 @@ msgstr "「日付を表示する」というのは?"
 
 #: ../views/admin.php:631
 msgid ""
-"If checked, Wordpress Popular Posts will display the date when each popular "
+"If checked, WordPress Popular Posts will display the date when each popular "
 "posts was published."
 msgstr "これをチェックすると、投稿が公開された日付を表示するようになります。"
 
@@ -828,7 +828,7 @@ msgstr "「投稿者を表示する」は何をするのですか?"
 #: ../views/admin.php:636
 #, fuzzy
 msgid ""
-"If checked, Wordpress Popular Posts will display the category of each post."
+"If checked, WordPress Popular Posts will display the category of each post."
 msgstr ""
 "これをチェックすると、リストのエントリを書いた投稿者名が表示されるようになり"
 "ます。"
@@ -873,7 +873,7 @@ msgstr "「テンプレート・タグ」というのは?"
 #: ../views/admin.php:651
 msgid ""
 "Template Tags are simply php functions that allow you to perform certain "
-"actions. For example, Wordpress Popular Posts currently supports two "
+"actions. For example, WordPress Popular Posts currently supports two "
 "different template tags: wpp_get_mostpopular() and wpp_get_views()."
 msgstr ""
 "テンプレート・タグは、簡単なPHP関数で、それに対応するアクションをさせることが"
@@ -881,14 +881,14 @@ msgstr ""
 "持っています。wpp_get_mostpopular()とwpp_get_views()です。"
 
 #: ../views/admin.php:654
-msgid "What are the template tags that Wordpress Popular Posts supports?"
+msgid "What are the template tags that WordPress Popular Posts supports?"
 msgstr ""
 "WordPress Popular Postsがサポートするテンプレート・タグにはどんなものがありま"
 "すか?"
 
 #: ../views/admin.php:656
 msgid ""
-"The following are the template tags supported by Wordpress Popular Posts"
+"The following are the template tags supported by WordPress Popular Posts"
 msgstr "次のものが使えます。"
 
 #: ../views/admin.php:660
@@ -934,10 +934,10 @@ msgstr "「ショートコード」とは何ですか?"
 #, fuzzy, php-format
 msgid ""
 "Shortcodes are similar to BB Codes, these allow us to call a php function by "
-"simply typing something like [shortcode]. With Wordpress Popular Posts, the "
+"simply typing something like [shortcode]. With WordPress Popular Posts, the "
 "shortcode [wpp] will let you insert a list of the most popular posts in "
 "posts content and pages too! For more information about shortcodes, please "
-"visit the <a href=\"%s\" target=\"_blank\">Wordpress Shortcode API</a> page."
+"visit the <a href=\"%s\" target=\"_blank\">WordPress Shortcode API</a> page."
 msgstr ""
 "ショートコードはBBコードに似ていて、[shortcode]みたいな書き方をすると、phpの"
 "関数が呼び出されることになっています。WordPress Popular Postsでは、[wpp]とい"
@@ -946,7 +946,7 @@ msgstr ""
 
 #: ../views/admin.php:694
 #, php-format
-msgid "About Wordpress Popular Posts %s"
+msgid "About WordPress Popular Posts %s"
 msgstr "WordPress Popular Posts %s"
 
 #: ../views/admin.php:695
@@ -959,7 +959,7 @@ msgstr "このプラグインが気に入りましたか?"
 
 #: ../views/admin.php:716
 msgid ""
-"Each donation motivates me to keep releasing free stuff for the Wordpress "
+"Each donation motivates me to keep releasing free stuff for the WordPress "
 "community!"
 msgstr ""
 "寄付は、WordPressコミュニティのためにフリー・ソフトをリリースし続けるモチベー"
@@ -1136,7 +1136,7 @@ msgstr "日付フォーマット"
 
 #: ../views/form.php:98
 #, fuzzy
-msgid "Wordpress Date Format"
+msgid "WordPress Date Format"
 msgstr "日付フォーマット"
 
 #: ../views/form.php:105
@@ -1172,7 +1172,7 @@ msgstr "あなたのブログで最も人気のある投稿。"
 
 #: ../wordpress-popular-posts.php:410
 msgid ""
-"Error: cannot ajaxify Wordpress Popular Posts on this theme. It's missing "
+"Error: cannot ajaxify WordPress Popular Posts on this theme. It's missing "
 "the <em>id</em> attribute on before_widget (see <a href=\"http://codex."
 "wordpress.org/Function_Reference/register_sidebar\" target=\"_blank\" rel="
 "\"nofollow\">register_sidebar</a> for more)."
@@ -1185,7 +1185,7 @@ msgstr "アップロード"
 #: ../wordpress-popular-posts.php:1002
 #, fuzzy, php-format
 msgid ""
-"Your PHP installation is too old. Wordpress Popular Posts requires at least "
+"Your PHP installation is too old. WordPress Popular Posts requires at least "
 "PHP version %1$s to function correctly. Please contact your hosting provider "
 "and ask them to upgrade PHP to %1$s or higher."
 msgstr ""
@@ -1196,8 +1196,8 @@ msgstr ""
 #: ../wordpress-popular-posts.php:1009
 #, fuzzy, php-format
 msgid ""
-"Your Wordpress version is too old. Wordpress Popular Posts requires at least "
-"Wordpress version %1$s to function correctly. Please update your blog via "
+"Your WordPress version is too old. WordPress Popular Posts requires at least "
+"WordPress version %1$s to function correctly. Please update your blog via "
 "Dashboard &gt; Update."
 msgstr ""
 "お使いのWordPressは古すぎます。WordPress Popular Postsが正常に働くには、バー"
@@ -1303,7 +1303,7 @@ msgstr "カテゴリ:"
 #~ msgstr "サムネール設定"
 
 #~ msgid ""
-#~ "Here you will find a handy group of options to tweak Wordpress Popular "
+#~ "Here you will find a handy group of options to tweak WordPress Popular "
 #~ "Posts."
 #~ msgstr ""
 #~ "ここでは、WordPress Popular Postsをカスタマイズできるオプションのリストを"
@@ -1316,7 +1316,7 @@ msgstr "カテゴリ:"
 #~ msgid "Views logging behavior"
 #~ msgstr "閲覧数を記録するやり方"
 
-#~ msgid "Wordpress Popular Posts Stylesheet"
+#~ msgid "WordPress Popular Posts Stylesheet"
 #~ msgstr "WordPress Popular Postsのスタイルシート"
 
 #~ msgid "Data tools"
