@@ -23,7 +23,7 @@ Changelog
 #### 3.0.0 ####
 * Plugin refactoring based on [@tikaszvince](https://github.com/tikaszvince)'s work (many thanks, Vince!).
 * Added WPML support.
-* Added experimental Wordpress Multisite support.
+* Added experimental WordPress Multisite support.
 * Added bot detection.
 * Added ability to filter posts by freshness.
 * Added own data caching method.
@@ -45,7 +45,7 @@ Changelog
 * Updated thumbnail feature to handle external images.
 * Updated wpp.css with text floating next to thumbnails - this sets a predefined style for the plugin for the first time.
 * Removed unnecesary wpp-thumbnail class from link tag, the image already has it.
-* Fixed typo in wpp_update_warning. From v2.3.3, minimun Wordpress version required is 3.3.
+* Fixed typo in wpp_update_warning. From v2.3.3, minimun WordPress version required is 3.3.
 * Fixed minor bugs.
 
 #### 2.3.5 ####
@@ -69,7 +69,7 @@ Changelog
 
 #### 2.3.3 ####
 
-* Minimum Wordpress version requirement changed to 3.3.
+* Minimum WordPress version requirement changed to 3.3.
 * Minimum PHP version requirement changed to 5.2.0.
 * Improved Custom HTML feature! It's more flexible now + new Content Tags added: {url}, {text_title}, {author}, {category}, {views}, {comments}!.
 * Added ability to exclude posts by ID (similar to the category filter).
@@ -94,7 +94,7 @@ Changelog
 
 * The ability to enable / disable the Ajax Update has been removed. It introduced a random bug that doubled the views count of some posts / pages. Will be added back when a fix is ready.
 * Fixed a bug preventing the cat parameter from excluding categories (widget was not affected by this).
-* FAQ section (Settings / Wordpress Popular Posts / FAQ) updated.
+* FAQ section (Settings / WordPress Popular Posts / FAQ) updated.
 * Added french translation. (Thanks, Le Raconteur!)
 
 #### 2.3.1 ####
@@ -107,8 +107,8 @@ Changelog
 
 #### 2.3.0 ####
 
-* Merged all pages into Settings/Wordpress Popular Posts.
-* Added new options to the Wordpress Popular Posts Stats dashboard.
+* Merged all pages into Settings/WordPress Popular Posts.
+* Added new options to the WordPress Popular Posts Stats dashboard.
 * Added check for static homepages to avoid printing ajax script there.
 * Database queries re-built from scratch for optimization.
 * Added the ability to remove / enable plugin's stylesheet from the admin.
@@ -149,7 +149,7 @@ Changelog
 
 #### 2.1.5 ####
 
-* Dropped TimThumb support in favor of Wordpress's Featured Image function.
+* Dropped TimThumb support in favor of WordPress's Featured Image function.
 
 #### 2.1.4 ####
 
@@ -159,14 +159,14 @@ Changelog
 
 #### 2.1.1 ####
 * Fixed bug preventing widget title from being saved.
-* Fixed bug affecting blogs with Wordpress installed somewhere else than domain's root.
+* Fixed bug affecting blogs with WordPress installed somewhere else than domain's root.
 * Added htmlentities to post titles.
 * Added default thumbnail image if none is found in the post.
 
 #### 2.1.0 ####
 
 * Title special HTML entities bug fixed.
-* Thumbnail feature improved! Wordpress Popular Posts now supports The Post Thumbnail feature. You can choose whether to select your own thumbnails, or let Wordpress Popular Posts create them for you!
+* Thumbnail feature improved! WordPress Popular Posts now supports The Post Thumbnail feature. You can choose whether to select your own thumbnails, or let WordPress Popular Posts create them for you!
 * Shortcode bug fixed. Thanks Krokkodriljo!
 * Category exclusion feature improved. Thanks raamdev!
 
@@ -261,7 +261,7 @@ Changelog
 
 #### 1.2 ####
 
-* Added extra functionalities to Wordpress Popular Post plugin core
+* Added extra functionalities to WordPress Popular Post plugin core
 
 #### 1.1  ####
 

@@ -1,6 +1,6 @@
-# Wordpress Popular Posts
+# WordPress Popular Posts
 
-A highly customizable Wordpress widget to display the most popular posts on your blog.
+A highly customizable WordPress widget to display the most popular posts on your blog.
 
 ----
 ## Table of contents
@@ -18,15 +18,15 @@ A highly customizable Wordpress widget to display the most popular posts on your
 
 ## Description
 
-Wordpress Popular Posts (from now on, just *WPP*) is a highly customizable [plugin](http://wordpress.org/plugins/wordpress-popular-posts/) to showcase the most commented / viewed entries on your [Wordpress](http://wordpress.org/) powered site.
+WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [plugin](http://wordpress.org/plugins/wordpress-popular-posts/) to showcase the most commented / viewed entries on your [WordPress](http://wordpress.org/) powered site.
 
 
 ## Features
 
-* **Multi-widget capable**. That is, you can have several widgets of Wordpress Popular Posts on your blog - each with its own settings!
+* **Multi-widget capable**. That is, you can have several widgets of WordPress Popular Posts on your blog - each with its own settings!
 * **Time Range** - list those posts of your blog that have been the most popular ones within a specific time range (eg. last 24 hours, last 7 days, last 30 days, etc.)!
 * **WPML support**.
-* **Wordpress Multiuser support**.
+* **WordPress Multiuser support**.
 * **Custom Post-type support**. Wanna show other stuff than just posts and pages?
 * Display a **thumbnail** of your popular posts! (see [technical requirements](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#im-unable-to-activate-the-display-post-thumbnail-option-why)).
 * Use **your own layout**! [Control how your most popular posts are shown on your theme](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-can-i-use-my-own-html-markup-with-your-plugin).
@@ -40,7 +40,7 @@ Wordpress Popular Posts (from now on, just *WPP*) is a highly customizable [plug
 
 ## Requirements
 
-* Wordpress 3.8 or above.
+* WordPress 3.8 or above.
 * PHP 5.2+ or above.
 * Either the [ImageMagik](http://www.php.net/manual/en/intro.imagick.php) or [GD](http://www.php.net/manual/en/intro.image.php) library installed and enabled on your server (not really required, but needed to create thumbnails).
 
@@ -49,14 +49,14 @@ Wordpress Popular Posts (from now on, just *WPP*) is a highly customizable [plug
 
 1. [Download the plugin](http://wordpress.org/plugins/wordpress-popular-posts/) and extract its contents.
 2. Upload the `wordpress-popular-posts` folder to the `/wp-content/plugins/` directory.
-3. Activate **Wordpress Popular Posts** plugin through the 'Plugins' menu in WordPress.
-4. In your admin console, go to Appeareance > Widgets, drag the Wordpress Popular Posts widget to wherever you want it to be and click on Save.
+3. Activate **WordPress Popular Posts** plugin through the 'Plugins' menu in WordPress.
+4. In your admin console, go to Appeareance > Widgets, drag the WordPress Popular Posts widget to wherever you want it to be and click on Save.
 5. (optional) Go to Appeareance > Editor. On "Theme Files", click on `header.php` and make sure that the `<?php wp_head(); ?>` tag is present (should be right before the closing `</head>` tag).
 
 
 ## Usage
 
-WPP can be used as a [Wordpress Widget](http://codex.wordpress.org/WordPress_Widgets), which means you can place it on any of your theme's sidebars (and it even supports multiple instances!). However, you can also embed it directly in posts / pages via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages); or anywhere on your theme using the [wpp_get_mostpopular()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular) template tag.
+WPP can be used as a [WordPress Widget](http://codex.wordpress.org/WordPress_Widgets), which means you can place it on any of your theme's sidebars (and it even supports multiple instances!). However, you can also embed it directly in posts / pages via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages); or anywhere on your theme using the [wpp_get_mostpopular()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular) template tag.
 
 ... and there's even more on the **[Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki)** section, so make sure to stop by!
 
@@ -70,7 +70,7 @@ Before submitting an issue, please:
 
 When submitting an issue, please answer the following questions:
 
-1. Wordpress version?
+1. WordPress version?
 2. WPP version?
 3. Are you using the widget or the shortcode/template tag?
 4. Describe what the issue is (include steps to reproduce it, if necessary).
@@ -89,15 +89,15 @@ When submitting an issue, please answer the following questions:
 
 Copyright (C) 2014  Héctor Cabrera - http://cabrerahector.com
 
-The Wordpress Popular Posts plugin is free software; you can redistribute it and/or
+The WordPress Popular Posts plugin is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
-The Wordpress Popular Posts plugin is distributed in the hope that it will be useful,
+The WordPress Popular Posts plugin is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with the Wordpress Popular Posts plugin; if not, see [http://www.gnu.org/licenses](http://www.gnu.org/licenses/).
+along with the WordPress Popular Posts plugin; if not, see [http://www.gnu.org/licenses](http://www.gnu.org/licenses/).

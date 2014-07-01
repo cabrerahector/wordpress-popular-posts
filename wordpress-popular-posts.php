@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Wordpress Popular Posts
+Plugin Name: WordPress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
-Description: Wordpress Popular Posts is a highly customizable widget that displays the most popular posts on your blog
+Description: WordPress Popular Posts is a highly customizable widget that displays the most popular posts on your blog
 Version: 3.0.3
 Author: Hector Cabrera
 Author URI: http://cabrerahector.com
@@ -33,27 +33,27 @@ if ( !defined('ABSPATH') )
 	exit('Please do not load this file directly.');
 
 /**
- * Wordpress Popular Posts class.
+ * WordPress Popular Posts class.
  */
-if ( !class_exists('WordpressPopularPosts') ) {
+if ( !class_exists('WordPressPopularPosts') ) {
 
 	/**
 	 * Register plugin's activation / deactivation functions
 	 * @since 1.3
 	 */
-	register_activation_hook( __FILE__, array( 'WordpressPopularPosts', 'activate' ) );
-	register_deactivation_hook( __FILE__, array( 'WordpressPopularPosts', 'deactivate' ) );
+	register_activation_hook( __FILE__, array( 'WordPressPopularPosts', 'activate' ) );
+	register_deactivation_hook( __FILE__, array( 'WordPressPopularPosts', 'deactivate' ) );
 
 	/**
 	 * Add function to widgets_init that'll load WPP.
 	 * @since 2.0
 	 */
 	function load_wpp() {
-		register_widget( 'WordpressPopularPosts' );
+		register_widget( 'WordPressPopularPosts' );
 	}
 	add_action( 'widgets_init', 'load_wpp' );
 
-	class WordpressPopularPosts extends WP_Widget {
+	class WordPressPopularPosts extends WP_Widget {
 
 		/**
 		 * Plugin version, used for cache-busting of style and script file references.
@@ -262,7 +262,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Create the widget
 			parent::__construct(
 				'wpp',
-				'Wordpress Popular Posts',
+				'WordPress Popular Posts',
 				array(
 					'classname'		=>	'popular-posts',
 					'description'	=>	__( 'The most Popular Posts on your blog.', $this->plugin_slug )
@@ -387,7 +387,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			  ? 'custom'
 			  : 'regular';
 
-			echo "\n". "<!-- Wordpress Popular Posts Plugin v{$this->version} [W] [{$instance['range']}] [{$instance['order_by']}] [{$markup}] -->" . "\n";
+			echo "\n". "<!-- WordPress Popular Posts Plugin v{$this->version} [W] [{$instance['range']}] [{$instance['order_by']}] [{$markup}] -->" . "\n";
 
 			echo $before_widget . "\n";
 
@@ -406,7 +406,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( $this->user_settings['tools']['ajax'] ) {
 				if ( empty($before_widget) || !preg_match('/id="[^"]*"/', $before_widget) ) {
 				?>
-                <p><?php _e('Error: cannot ajaxify Wordpress Popular Posts on this theme. It\'s missing the <em>id</em> attribute on before_widget (see <a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank" rel="nofollow">register_sidebar</a> for more).', $this->plugin_slug ); ?></p>
+                <p><?php _e('Error: cannot ajaxify WordPress Popular Posts on this theme. It\'s missing the <em>id</em> attribute on before_widget (see <a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank" rel="nofollow">register_sidebar</a> for more).', $this->plugin_slug ); ?></p>
                 <?php
 				} else {
 				?>
@@ -427,7 +427,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			echo $after_widget . "\n";
-			echo "<!-- End Wordpress Popular Posts Plugin v{$this->version} -->"."\n";
+			echo "<!-- End WordPress Popular Posts Plugin v{$this->version} -->"."\n";
 
 		} // end widget
 
@@ -668,8 +668,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		public function add_plugin_admin_menu() {
 
 			$this->plugin_screen_hook_suffix = add_options_page(
-				'Wordpress Popular Posts',
-				'Wordpress Popular Posts',
+				'WordPress Popular Posts',
+				'WordPress Popular Posts',
 				'manage_options',
 				$this->plugin_slug,
 				array( $this, 'display_plugin_admin_page' )
@@ -1001,14 +1001,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			if ( version_compare( $php_min_version, $php_current_version, '>' ) ) {
 				$errors[] = sprintf(
-					__( 'Your PHP installation is too old. Wordpress Popular Posts requires at least PHP version %1$s to function correctly. Please contact your hosting provider and ask them to upgrade PHP to %1$s or higher.', $this->plugin_slug ),
+					__( 'Your PHP installation is too old. WordPress Popular Posts requires at least PHP version %1$s to function correctly. Please contact your hosting provider and ask them to upgrade PHP to %1$s or higher.', $this->plugin_slug ),
 					$php_min_version
 				);
 			}
 
 			if ( version_compare( $wp_min_version, $wp_version, '>' ) ) {
 				$errors[] = sprintf(
-					__( 'Your Wordpress version is too old. Wordpress Popular Posts requires at least Wordpress version %1$s to function correctly. Please update your blog via Dashboard &gt; Update.', $this->plugin_slug ),
+					__( 'Your WordPress version is too old. WordPress Popular Posts requires at least WordPress version %1$s to function correctly. Please update your blog via Dashboard &gt; Update.', $this->plugin_slug ),
 					$wp_min_version
 				);
 			}
@@ -1035,7 +1035,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			printf(
 				__('<div class="error"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</strong>.</p></div>', $this->plugin_slug),
 				join( '</p><p>', $errors ),
-				'Wordpress Popular Posts'
+				'WordPress Popular Posts'
 			);
 
 			deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -1163,7 +1163,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$nonce = wp_create_nonce('wpp-token');
 
 			?>
-            <!-- Wordpress Popular Posts v<?php echo $this->version; ?> -->
+            <!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
             <script type="text/javascript">//<![CDATA[
 				jQuery(document).ready(function(){
 					jQuery.get('<?php echo admin_url('admin-ajax.php'); ?>', {
@@ -1176,7 +1176,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					});
 				});
 			//]]></script>
-            <!-- End Wordpress Popular Posts v<?php echo $this->version; ?> -->
+            <!-- End WordPress Popular Posts v<?php echo $this->version; ?> -->
             <?php
 
 		} // end print_ajax
@@ -2189,7 +2189,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$thumbnail = $image_url;
 					$file_path = get_attached_file($attachment_id);
 				}
-				// Image is hosted outside Wordpress
+				// Image is hosted outside WordPress
 				else {
 					$external_image = $this->__fetch_external_image($p->id, $image_url);
 
@@ -2640,7 +2640,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				)
 			);
 
-			$shortcode_content = "\n". "<!-- Wordpress Popular Posts Plugin v". $this->version ." [SC] [".$shortcode_ops['range']."] [".$shortcode_ops['order_by']."]  [custom] -->"."\n";
+			$shortcode_content = "\n". "<!-- WordPress Popular Posts Plugin v". $this->version ." [SC] [".$shortcode_ops['range']."] [".$shortcode_ops['order_by']."]  [custom] -->"."\n";
 
 			// is there a title defined by user?
 			if (!empty($header) && !empty($header_start) && !empty($header_end)) {
@@ -2649,7 +2649,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// print popular posts list
 			$shortcode_content .= $this->__get_popular_posts($shortcode_ops);
-			$shortcode_content .= "\n". "<!-- End Wordpress Popular Posts Plugin v". $this->version ." -->"."\n";
+			$shortcode_content .= "\n". "<!-- End WordPress Popular Posts Plugin v". $this->version ." -->"."\n";
 
 			return $shortcode_content;
 
@@ -2915,7 +2915,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 }
 
 /**
- * Wordpress Popular Posts template tags for use in themes.
+ * WordPress Popular Posts template tags for use in themes.
  */
 
 /**
