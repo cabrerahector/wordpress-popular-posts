@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
 "POT-Creation-Date: 2014-05-27 18:11-0430\n"
-"PO-Revision-Date: 2014-07-01 14:06-0300\n"
+"PO-Revision-Date: 2014-07-01 14:14-0300\n"
 "Last-Translator: Valério <valeriosza@gmail.com>\n"
 "Language-Team: Valério Souza <valeriosza@gmail.com>\n"
 "Language: pt_BR\n"
@@ -29,7 +29,7 @@ msgstr "Configurações Salvas."
 
 #: ../views/admin.php:38
 msgid "Please provide the name of your custom field."
-msgstr ""
+msgstr "Por favor, forneça o nome do seu campo personalizado."
 
 #: ../views/admin.php:84
 msgid ""
@@ -1036,7 +1036,7 @@ msgstr ""
 
 #: ../wordpress-popular-posts.php:269
 msgid "The most Popular Posts on your blog."
-msgstr ""
+msgstr "Os posts mais populares em seu site."
 
 #: ../wordpress-popular-posts.php:410
 msgid ""
@@ -1045,10 +1045,14 @@ msgid ""
 "wordpress.org/Function_Reference/register_sidebar\" target=\"_blank\" rel="
 "\"nofollow\">register_sidebar</a> for more)."
 msgstr ""
+"Error: cannot ajaxify WordPress Popular Posts on this theme. It's missing "
+"the <em>id</em> attribute on before_widget (see <a href=\"http://codex."
+"wordpress.org/Function_Reference/register_sidebar\" target=\"_blank\" rel="
+"\"nofollow\">register_sidebar</a> for more)."
 
 #: ../wordpress-popular-posts.php:636
 msgid "Upload"
-msgstr ""
+msgstr "Upload"
 
 #: ../wordpress-popular-posts.php:1002
 #, php-format
@@ -1057,6 +1061,10 @@ msgid ""
 "PHP version %1$s to function correctly. Please contact your hosting provider "
 "and ask them to upgrade PHP to %1$s or higher."
 msgstr ""
+"Sua instalação do PHP é muito antiga. WordPress Popular Posts requer no "
+"mínimo a versão %1$s do PHP para funcionar corretamente. Entre em contato "
+"com seu provedor de hospedagem e peça para atualizar o PHP para o %1$s ou "
+"superior."
 
 #: ../wordpress-popular-posts.php:1009
 #, php-format
@@ -1065,6 +1073,9 @@ msgid ""
 "WordPress version %1$s to function correctly. Please update your blog via "
 "Dashboard &gt; Update."
 msgstr ""
+"Sua versão do WordPress é muito antiga. WordPress Popular Posts requer, pelo "
+"menos, WordPress versão %1$s para funcionar corretamente. Por favor, "
+"atualize seu blog através do Dashboard > Atualizações."
 
 #: ../wordpress-popular-posts.php:1034
 #, php-format
@@ -1072,10 +1083,12 @@ msgid ""
 "<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</"
 "strong>.</p></div>"
 msgstr ""
+"<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> foi <strong>desativado</"
+"strong>.</p></div>"
 
 #: ../wordpress-popular-posts.php:1094
 msgid "Success! The cache table has been cleared!"
-msgstr ""
+msgstr "Sucesso! A tabela de cache foi limpo!"
 
 #: ../wordpress-popular-posts.php:1096
 msgid "Error: cache table does not exist."
