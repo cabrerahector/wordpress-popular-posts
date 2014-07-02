@@ -208,7 +208,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'default' => ''
 				),
 				'log' => array(
-					'level' => 0
+					'level' => 1
 				),
 				'cache' => array(
 					'active' => false,
