@@ -2508,7 +2508,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				} else { // by characters
 
 					if ( strlen($excerpt) > $instance['post-excerpt']['length'] ) {
-						$excerpt = mb_substr( $excerpt, 0, $instance['post-excerpt']['length'] ) . "...";
+						$excerpt = mb_substr( $excerpt, 0, $instance['post-excerpt']['length'], $this->charset ) . "...";
 					}
 
 				}
