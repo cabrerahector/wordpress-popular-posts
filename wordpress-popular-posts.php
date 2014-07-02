@@ -1157,28 +1157,28 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			wp_print_scripts('jquery');
 
 			//if ( !is_singular() || is_attachment() || is_front_page() || is_preview() || is_trackback() || is_feed() || is_robots() || $this->__is_bot() )
-			if ( !is_single() || !is_page() || is_attachment() || is_front_page() || is_preview() || is_trackback() || is_feed() || is_robots() )
-				return;
-
-			global $post;
-			$nonce = wp_create_nonce('wpp-token');
-
-			?>
-            <!-- Wordpress Popular Posts v<?php echo $this->version; ?> -->
-            <script type="text/javascript">//<![CDATA[
-				jQuery(document).ready(function(){
-					jQuery.get('<?php echo admin_url('admin-ajax.php'); ?>', {
-						action: 'update_views_ajax',
-						token: '<?php echo $nonce; ?>',
-						id: <?php echo $post->ID; ?>
-					}, function(response){
-						if ( console && console.log )
-							console.log(response);
+			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
+				
+				global $post;
+				$nonce = wp_create_nonce('wpp-token');
+	
+				?>
+				<!-- Wordpress Popular Posts v<?php echo $this->version; ?> -->
+				<script type="text/javascript">//<![CDATA[
+					jQuery(document).ready(function(){
+						jQuery.get('<?php echo admin_url('admin-ajax.php'); ?>', {
+							action: 'update_views_ajax',
+							token: '<?php echo $nonce; ?>',
+							id: <?php echo $post->ID; ?>
+						}, function(response){
+							if ( console && console.log )
+								console.log(response);
+						});
 					});
-				});
-			//]]></script>
-            <!-- End Wordpress Popular Posts v<?php echo $this->version; ?> -->
-            <?php
+				//]]></script>
+				<!-- End Wordpress Popular Posts v<?php echo $this->version; ?> -->
+				<?php
+			}
 
 		} // end print_ajax
 
