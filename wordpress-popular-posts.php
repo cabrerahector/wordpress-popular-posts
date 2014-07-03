@@ -2061,8 +2061,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				$post_cat = get_the_category($p->id);
 				$post_cat = (isset($post_cat[0]))
-				  ? '<a href="' . get_category_link($post_cat[0]->term_id) . '">' . $post_cat[0]->cat_name . '</a>'
-				  : '';
+				  ? '<a href="' . get_category_link($post_cat[0]->term_id) . '" class="cat-id-' . $post_cat[0]->cat_ID . '">' . $post_cat[0]->cat_name . '</a>'
 
 			}
 
