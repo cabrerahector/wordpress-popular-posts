@@ -1158,10 +1158,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			//if ( !is_singular() || is_attachment() || is_front_page() || is_preview() || is_trackback() || is_feed() || is_robots() || $this->__is_bot() )
 			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
-				
+
 				global $post;
 				$nonce = wp_create_nonce('wpp-token');
-	
+
 				?>
 				<!-- Wordpress Popular Posts v<?php echo $this->version; ?> -->
 				<script type="text/javascript">//<![CDATA[
@@ -2062,6 +2062,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$post_cat = get_the_category($p->id);
 				$post_cat = (isset($post_cat[0]))
 				  ? '<a href="' . get_category_link($post_cat[0]->term_id) . '" class="cat-id-' . $post_cat[0]->cat_ID . '">' . $post_cat[0]->cat_name . '</a>'
+				  : '';
 
 			}
 
