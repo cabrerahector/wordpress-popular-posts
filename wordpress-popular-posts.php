@@ -383,7 +383,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		     */
 			extract( $args, EXTR_SKIP );
 
-			$markup = ($instance['markup']['custom_html'])
+			$markup = ( $instance['markup']['custom_html'] || has_filter('wpp_custom_html') || has_filter('wpp_post') )
 			  ? 'custom'
 			  : 'regular';
 
