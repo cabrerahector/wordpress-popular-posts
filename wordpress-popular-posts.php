@@ -456,19 +456,19 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			  ? 'post,page'
 			  : $new_instance['post_type'];
 
-			$instance['freshness'] = $new_instance['freshness'];
+			$instance['freshness'] = isset( $new_instance['freshness'] );
 
 			$instance['pid'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,]|', '', $new_instance['pid'] ))));
 			$instance['cat'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,-]|', '', $new_instance['cat'] ))));
 			$instance['author'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,]|', '', $new_instance['uid'] ))));
 
 			$instance['shorten_title']['words'] = $new_instance['shorten_title-words'];
-			$instance['shorten_title']['active'] = $new_instance['shorten_title-active'];
+			$instance['shorten_title']['active'] = isset( $new_instance['shorten_title-active'] );
 			$instance['shorten_title']['length'] = ( $this->__is_numeric($new_instance['shorten_title-length']) && $new_instance['shorten_title-length'] > 0 )
 			  ? $new_instance['shorten_title-length']
 			  : 25;
 
-			$instance['post-excerpt']['keep_format'] = $new_instance['post-excerpt-format'];
+			$instance['post-excerpt']['keep_format'] = isset( $new_instance['post-excerpt-format'] );
 			$instance['post-excerpt']['words'] = $new_instance['post-excerpt-words'];
 			$instance['post-excerpt']['active'] = $new_instance['post-excerpt-active'];
 			$instance['post-excerpt']['length'] = ( $this->__is_numeric($new_instance['post-excerpt-length']) && $new_instance['post-excerpt-length'] > 0 )
@@ -482,7 +482,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// can create thumbnails
 			if ( $this->thumbnailing ) {
 
-				$instance['thumbnail']['active'] = $new_instance['thumbnail-active'];
+				$instance['thumbnail']['active'] = isset( $new_instance['thumbnail-active'] );
 
 				if ($this->__is_numeric($new_instance['thumbnail-width']) && $this->__is_numeric($new_instance['thumbnail-height'])) {
 					$instance['thumbnail']['width'] = $new_instance['thumbnail-width'];
@@ -494,17 +494,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( isset($instance['thumbnail']['thumb_selection']) )
 				unset( $instance['thumbnail']['thumb_selection'] );
 
-			$instance['rating'] = $new_instance['rating'];
-			$instance['stats_tag']['comment_count'] = $new_instance['comment_count'];
-			$instance['stats_tag']['views'] = $new_instance['views'];
-			$instance['stats_tag']['author'] = $new_instance['author'];
-			$instance['stats_tag']['date']['active'] = $new_instance['date'];
+			$instance['rating'] = isset( $new_instance['rating'] );
+			$instance['stats_tag']['comment_count'] = isset( $new_instance['comment_count'] );
+			$instance['stats_tag']['views'] = isset( $new_instance['views'] );
+			$instance['stats_tag']['author'] = isset( $new_instance['author'] );
+			$instance['stats_tag']['date']['active'] = isset( $new_instance['date'] );
 			$instance['stats_tag']['date']['format'] = empty($new_instance['date_format'])
 			  ? 'F j, Y'
 			  : $new_instance['date_format'];
 
-			$instance['stats_tag']['category'] = $new_instance['category'];
-			$instance['markup']['custom_html'] = $new_instance['custom_html'];
+			$instance['stats_tag']['category'] = isset( $new_instance['category'] );
+			$instance['markup']['custom_html'] = isset( $new_instance['custom_html'] );
 			$instance['markup']['wpp-start'] = empty($new_instance['wpp-start'])
 			  ? htmlspecialchars( '<ul class="wpp-list">', ENT_QUOTES )
 			  : htmlspecialchars( $new_instance['wpp-start'], ENT_QUOTES );
@@ -3018,5 +3018,6 @@ function wpp_get_mostpopular($args = NULL) {
  * @param	mixed	args
  */
 function get_mostpopular($args = NULL) {
+	trigger_error( 'The get_mostpopular() has been deprecated since 2.0.3. Please use wpp_get_mostpopular() instead.', E_USER_WARNING );
 	return wpp_get_mostpopular($args);
 }
