@@ -491,9 +491,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			}
 
-			if ( isset($instance['thumbnail']['thumb_selection']) )
-				unset( $instance['thumbnail']['thumb_selection'] );
-
 			$instance['rating'] = isset( $new_instance['rating'] );
 			$instance['stats_tag']['comment_count'] = isset( $new_instance['comment_count'] );
 			$instance['stats_tag']['views'] = isset( $new_instance['views'] );
