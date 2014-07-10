@@ -2403,9 +2403,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$response = wp_remote_head( $url, array( 'timeout' => 5, 'sslverify' => false ) );
 
 			if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
-				$image_data = getimagesize( $url );
+				$image_type = exif_imagetype( $url );
 
-				if ( is_array($image_data) && !empty($image_data) ) {
+				if ( in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG)) ) {
 					require_once( ABSPATH . 'wp-admin/includes/file.php' );
 
 					$url = str_replace( 'https://', 'http://', $url );
