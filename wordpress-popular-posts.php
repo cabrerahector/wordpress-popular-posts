@@ -2233,7 +2233,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$new_img = $image->save();
 
 				if (is_wp_error($new_img)) {
-					return $this->_render_image($this->default_thumbnail, $dimension, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $image->get_error_message());
+					return $this->_render_image($this->default_thumbnail, $dimension, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $new_img->get_error_message());
 				}
 
 				$new_img = str_replace(basename($thumbnail), $new_img['file'], $thumbnail);
