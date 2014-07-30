@@ -411,7 +411,7 @@ if (empty($wpp_rand)) {
                         <td><?php _e('Defines the type of posts to show on the listing', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
                         <td>post,page</td>
-                        <td>post_type=post,page,your-custom-post-type</td>
+                        <td>post_type="post,page,your-custom-post-type"</td>
                     </tr>
                     <tr>
                         <td><strong>pid</strong></td>
