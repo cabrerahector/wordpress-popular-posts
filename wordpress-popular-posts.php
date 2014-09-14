@@ -1836,12 +1836,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		protected function _get_excerpt($p, $instance) {
 
-			$cache = &$this->__cache(__FUNCTION__, array());
-
-			if ( isset($cache[$p->id]) ) {
-				return $cache[$p->id];
-			}
-
 			$excerpt = '';
 
 			// EXCERPT
@@ -1855,7 +1849,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			}
 
-			return $cache[$p->id] = $excerpt;
+			return $excerpt;
 
 		} // end _get_excerpt
 
