@@ -3,8 +3,8 @@ Contributors: hcabrera
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hcabrerab%40gmail%2ecom&lc=GB&item_name=Wordpress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
 Tags: popular, posts, widget, popularity, top
 Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 3.0.3
+Tested up to: 4.0
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,7 +125,7 @@ You can disable the stylesheet via *wp-admin > Settings > Wordpress Popular Post
 Yes, check the [Other Notes](http://wordpress.org/plugins/wordpress-popular-posts/other_notes/) section for more information.
 
 = I want to translate your plugin into my language / help you update a translation. What do I need to do? =
-First thing you need to do is get a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. When you're done with it, you'll find several .PO files bundled with the plugin under the *lang* folder. If you're planning to add a new language, go grab *wordpress-popular-posts.po* and rename it to add the proper suffix for your language (eg. wordpress-popular-posts*-es_ES*.po, for Spanish). In any case, open the PO file using Poedit (or your preferred gettext editor) and update the strings there. It sounds complicated, I know, but it's not. Check this handy [guide](http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/ "Translating WordPress Plugins & Themes"), in case you get lost at some point. If you're interested in sharing your translation with others (or just helped update a current translation), please [let me know](http://wordpress.org/support/plugin/wordpress-popular-posts).
+First thing you need to do is get a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. When you're done with it, you'll find several .PO files bundled with the plugin under the *lang* folder. If you're planning to add a new language, go grab *wordpress-popular-posts.po* and rename it to add the proper suffix for your language (eg. wordpress-popular-posts-es_ES.po, for Spanish). In any case, open the PO file using Poedit (or your preferred gettext editor) and update the strings there. It sounds complicated, I know, but it's not. Check this handy [guide](http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/ "Translating WordPress Plugins & Themes"), in case you get lost at some point. If you're interested in sharing your translation with others (or just helped update a current translation), please [let me know](http://wordpress.org/support/plugin/wordpress-popular-posts).
 
 = I want your plugin to have X or Y functionality. Can it be done? =
 If it fits the nature of my plugin and it sounds like something others would like to have, there's a pretty good chance that I will implement it (and if you can provide some sample code with useful comments, much better).
@@ -150,6 +150,19 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.0.4 =
+* Adds charset ti mb_substr when truncating excerpt.
+* Sets default logging level to 1 (Everyone).
+* Renders the category link with cat-id-[ID] CSS class.
+* Fixes undefined notices and removes an unused variable from widget_update().
+* Replaces getimagesize() with exif_imagetype().
+* Fixes wrong variable reference in __image_resize().
+* Adds notice to move/copy wpp.css stylesheet into theme's directory to keep custom CSS styles across updates.
+* Fixes issue with jQuery not loading properly under certain circumstances.
+* Fixes issue with custom excerpts not showing up.
+* Drops support on Japanese language since the translations were outdated.
+* Other minor changes.
+
 = 3.0.3 =
 * Fixes widget not saving 'freshness' setting.
 * Adds HTMLentities conversion/deconversion on wpp_get_mostpopular().
@@ -381,9 +394,8 @@ All translations are community made: people who are nice enough to share their t
 
 * English.
 * Spanish.
-* German - 95% translated (4 fuzzy strings, 7 not translated).
-* French - 83% translated (14 fuzzy strings, 25 not translated).
-* Japanese - 77% translated (34 fuzzy strings, 18 not translated).
+* German - 94% translated (4 fuzzy strings, 8 not translated).
+* French - 80% translated (18 fuzzy strings, 27 not translated).
 
 == Upgrade Notice ==
 
