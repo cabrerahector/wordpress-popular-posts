@@ -289,6 +289,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Register site styles and scripts
 			if ( $this->user_settings['tools']['css'] )
 				add_action( 'wp_enqueue_scripts', array( $this, 'register_widget_styles' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'register_widget_scripts' ) );
 
 			// Add plugin settings link
 			add_filter( 'plugin_action_links', array( $this, 'add_plugin_settings_link' ), 10, 2 );
@@ -656,6 +657,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 		} // end register_widget_styles
+		
+		/**
+		 * Registers and enqueues widget-specific scripts.
+		 */
+		public function register_widget_scripts() {	
+			wp_enqueue_script( 'jquery' );	
+		} // end register_widget_scripts
 
 		/**
 		 * Register the administration menu for this plugin into the WordPress Dashboard menu.
@@ -1151,9 +1159,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		public function print_ajax(){
 
-			wp_print_scripts('jquery');
-
-			//if ( !is_singular() || is_attachment() || is_front_page() || is_preview() || is_trackback() || is_feed() || is_robots() || $this->__is_bot() )
 			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
 
 				global $post;
