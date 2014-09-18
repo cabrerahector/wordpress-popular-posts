@@ -1714,7 +1714,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'comments' => $comments
 				);
 
-				$content = htmlspecialchars_decode($this->__format_content($instance['markup']['post-html'], $data, $instance['rating']), ENT_QUOTES) . "\n";
+				$content = $this->__format_content($instance['markup']['post-html'], $data, $instance['rating']) . "\n";
 
 			}
 			// build regular layout
@@ -2666,8 +2666,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if (empty($string) || (empty($data) || !is_array($data)))
 				return false;
 
-			$string = htmlentities( $string );
-
 			$params = array();
 			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|rating|score|url|text_title|author|category|views|comments)\}/i';
 			preg_match_all($pattern, $string, $matches);
@@ -2735,7 +2733,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$string = str_replace( "{comments}", $data['comments'], $string );
 			}
 
-			return html_entity_decode( $string, ENT_QUOTES, $this->charset );
+			return $string;
 
 		} // end __format_content
 
