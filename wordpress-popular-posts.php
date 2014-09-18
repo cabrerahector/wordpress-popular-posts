@@ -2994,7 +2994,7 @@ function wpp_get_mostpopular($args = NULL) {
 		if( is_array( $args ) ){
 			$atts = '';
 			foreach( $args as $key => $arg ){
-				$atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES) . '"';
+				$atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, false) . '"';
 			}
 		} else {
 			$atts = trim( str_replace( "&", " ", $args  ) );
