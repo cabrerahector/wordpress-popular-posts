@@ -94,6 +94,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @var		string
 		 */
 		private $plugin_dir = '';
+		
+		/**
+		 * Plugin uploads directory.
+		 *
+		 * @since	3.0.4
+		 * @var		array
+		 */
+		private $uploads_dir = array();
 
 		/**
 		 * Default thumbnail.
@@ -319,6 +327,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$this->default_thumbnail = $this->user_settings['tools']['thumbnail']['default'];
 			else
 				$this->user_settings['tools']['thumbnail']['default'] = $this->default_thumbnail;
+			
+			// Set uploads folder
+			$wp_upload_dir = wp_upload_dir();
+			$this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . "/" . $this->plugin_slug;
+			$this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . "/" . $this->plugin_slug;
+
+			if ( !is_dir($this->uploads_dir['basedir']) ) {
+				if ( !wp_mkdir_p($this->uploads_dir['basedir']) ) {
+					$this->uploads_dir['basedir'] = $wp_upload_dir['basedir'];
+					$this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'];
+				}
+			}
 
 			// qTrans plugin support
 			if ( function_exists('qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage') )
