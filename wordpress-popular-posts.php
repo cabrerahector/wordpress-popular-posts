@@ -2180,14 +2180,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Get image by post ID (parent)
 			if ( $id ) {
-				$file_paths = $this->__get_image_file_paths($id, $source);
-				$file_path = $file_paths['file_path'];
-				$thumbnail = isset( $file_paths['thumbnail'] )
-				  ? $file_paths['thumbnail']
-				  : '';
+				$file_path = $this->__get_image_file_paths($id, $source);
 
 				// No images found, return default thumbnail
-				if ($file_path == '') {
+				if ( !$file_path ) {
 					return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noPath wpp_' . $source, $title);
 				}
 			}
@@ -2203,7 +2199,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				// Image is hosted locally
 				if ( $attachment_id ) {
-					$thumbnail = $image_url;
 					$file_path = get_attached_file($attachment_id);
 				}
 				// Image is hosted outside WordPress
@@ -2214,21 +2209,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noPath wpp_no_external', $title);
 					}
 
-					$thumbnail = $external_image['thumbnail'];
-					$file_path = $external_image['file_path'];
+					$file_path = $external_image;
 				}
 			}
 
 			$file_info = pathinfo($file_path);
-			$cropped_thumb = $file_info['dirname'] . '/' . $file_info['filename'] . '-' . $dim[0] . 'x' . $dim[1] . '.' . $file_info['extension'];
 
 			// there is a thumbnail already
-			if (file_exists($cropped_thumb)) {
-				$new_img = str_replace(basename($thumbnail), basename($cropped_thumb), $thumbnail);
-				return $this->_render_image($new_img, $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $title);
+			if ( file_exists(trailingslashit($this->uploads_dir['basedir']) . $p->id . '-' . $dim[0] . 'x' . $dim[1] . '.' . $file_info['extension']) ) {
+				return $this->_render_image( trailingslashit($this->uploads_dir['baseurl']) . $p->id . '-' . $dim[0] . 'x' . $dim[1] . '.' . $file_info['extension'], $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $title );
 			}
 
-			return $this->__image_resize($file_path, $thumbnail, $dim, $source);
+			return $this->__image_resize($p, $file_path, $dim, $source);
 
 		} // end __get_img
 
@@ -2236,28 +2228,28 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Resizes image.
 		 *
 		 * @since	3.0.0
-		 * @param	string	path		Image path
-		 * @param	string	url	Original image's URL
+		 * @param	object	p			Post object
+		 * @param	string	path		Image path		 
 		 * @param	array	dimension	Image's width and height
+		 * @param	string	source		Image source
 		 * @return	string
 		 */
-		private function __image_resize($path, $thumbnail, $dimension, $source) {
+		private function __image_resize($p, $path, $dimension, $source) {
 
 			$image = wp_get_image_editor($path);
 
 			// valid image, create thumbnail
-			if (!is_wp_error($image)) {
+			if ( !is_wp_error($image) ) {
+				$file_info = pathinfo($path);
 
 				$image->resize($dimension[0], $dimension[1], true);
-				$new_img = $image->save();
+				$new_img = $image->save( trailingslashit($this->uploads_dir['basedir']) . $p->id . '-' . $dimension[0] . 'x' . $dimension[1] . '.' . $file_info['extension'] );
 
-				if (is_wp_error($new_img)) {
+				if ( is_wp_error($new_img) ) {
 					return $this->_render_image($this->default_thumbnail, $dimension, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $new_img->get_error_message());
 				}
 
-				$new_img = str_replace(basename($thumbnail), $new_img['file'], $thumbnail);
-
-				return $this->_render_image($new_img, $dimension, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, '');
+				return $this->_render_image( trailingslashit($this->uploads_dir['baseurl']) . $new_img['file'], $dimension, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, '');
 			}
 
 			// ELSE
@@ -2277,7 +2269,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		private function __get_image_file_paths($id, $source) {
 
 			$file_path = '';
-			$thumbnail = array();
 
 			// get thumbnail path from the Featured Image
 			if ($source == "featured") {
@@ -2286,13 +2277,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$thumbnail_id = get_post_thumbnail_id($id);
 
 				if ($thumbnail_id) {
-
-					// full size image
-					$thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
-					$thumbnail = $thumbnail[0];
 					// image path
-					$file_path = get_attached_file($thumbnail_id);
-
+					return get_attached_file($thumbnail_id);
 				}
 
 			}
@@ -2316,7 +2302,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 						// image from Media Library
 						if ($attachment_id) {
-							$thumbnail = $content_images[1][0];
 							$file_path = get_attached_file($attachment_id);
 						} // external image?
 						else {
@@ -2330,10 +2315,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			}
 
-			return array(
-				'file_path' => $file_path,
-				'thumbnail' => $thumbnail
-			);
+			return false;
 
 		} // end __get_image_file_paths
 
@@ -2408,15 +2390,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		*/
 		private function __fetch_external_image($id, $url){
 
-			$image = array();
-
-			$uploads = wp_upload_dir();
-			$image['thumbnail'] = trailingslashit( $uploads['baseurl'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
-			$image['file_path'] = trailingslashit( $uploads['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
+			$full_image_path = trailingslashit( $this->uploads_dir['basedir'] ) . "{$id}_". sanitize_file_name( rawurldecode(wp_basename( $url )) );
 
 			// if the file exists already, return URL and path
-			if ( file_exists($image['file_path']) )
-				return $image;
+			if ( file_exists($full_image_path) )
+				return $full_image_path;
 
 			$accepted_status_codes = array( 200, 301, 302 );
 			$response = wp_remote_head( $url, array( 'timeout' => 5, 'sslverify' => false ) );
@@ -2431,13 +2409,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$tmp = download_url( $url );
 
 					// move file to Uploads
-					if ( !is_wp_error( $tmp ) && rename($tmp, $image['file_path']) ) {
+					if ( !is_wp_error( $tmp ) && rename($tmp, $full_image_path) ) {
 						// borrowed from WP - set correct file permissions
-						$stat = stat( dirname( $image['file_path'] ));
-						$perms = $stat['mode'] & 0000666;
-						@chmod( $image['file_path'], $perms );
+						$stat = stat( dirname( $full_image_path ));
+						$perms = $stat['mode'] & 0000644;
+						@chmod( $full_image_path, $perms );
 
-						return $image;
+						return $full_image_path;
 					}
 				}
 			}
