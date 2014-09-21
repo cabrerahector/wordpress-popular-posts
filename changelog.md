@@ -1,5 +1,20 @@
 Changelog
 =========
+#### 3.1.0 ####
+* Fixes invalid HTML title/alt attributes caused by encoding issues.
+* Fixes issue with jQuery not loading properly under certain circumstances.
+* Fixes issue with custom excerpts not showing up.
+* Fixes undefined notices and removes an unused variable from widget_update().
+* Fixes wrong variable reference in __image_resize().
+* Adds charset to mb_substr when truncating excerpt.
+* Sets default logging level to 1 (Everyone).
+* Renders the category link with cat-id-[ID] CSS class.
+* Replaces getimagesize() with exif_imagetype().
+* Adds notice to move/copy wpp.css stylesheet into theme's directory to keep custom CSS styles across updates.
+* Thumbail generation process has been refactored for efficiency.
+* Thumbnails are now stored in a custom folder under Uploads.
+* Drops support on Japanese language since the translations were outdated.
+
 #### 3.0.3 ####
 * Fixes widget not saving 'freshness' setting.
 * Adds HTMLentities conversion/deconversion on wpp_get_mostpopular().
