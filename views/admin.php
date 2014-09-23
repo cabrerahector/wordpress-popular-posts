@@ -87,7 +87,7 @@ if (empty($wpp_rand)) {
 <script type="text/javascript">
 	// TOOLS
 	function confirm_reset_cache() {
-		if (confirm("<?php _e("This operation will delete all entries from WordPress Popular Posts' cache table and cannot be undone.", $this->plugin_slug); ?> \n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
+		if (confirm("<?php _e("This operation will delete all entries from WordPress Popular Posts' cache table and cannot be undone.", $this->plugin_slug); ?> \n\n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
 			jQuery.post(ajaxurl, {action: 'wpp_clear_data', token: '<?php echo get_site_option("wpp_rand"); ?>', clear: 'cache'}, function(data){
 				alert(data);
 			});
@@ -95,7 +95,7 @@ if (empty($wpp_rand)) {
 	}
 	
 	function confirm_reset_all() {
-		if (confirm("<?php _e("This operation will delete all stored info from WordPress Popular Posts' data tables and cannot be undone.", $this->plugin_slug); ?> \n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
+		if (confirm("<?php _e("This operation will delete all stored info from WordPress Popular Posts' data tables and cannot be undone.", $this->plugin_slug); ?> \n\n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
 			jQuery.post(ajaxurl, {action: 'wpp_clear_data', token: '<?php echo get_site_option("wpp_rand"); ?>', clear: 'all'}, function(data){
 				alert(data);
 			});
