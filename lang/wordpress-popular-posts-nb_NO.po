@@ -3,214 +3,244 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2014-05-27 18:11-0430\n"
-"PO-Revision-Date: 2014-06-04 14:09+0200\n"
-"Last-Translator: Hans Fredrik Nordhaug <hans@nordhaug.priv.no>\n"
+"POT-Creation-Date: 2014-09-23 16:57-0430\n"
+"PO-Revision-Date: 2014-09-23 16:57-0430\n"
+"Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.ui.no>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 1.6.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext;_n:1,2;__ngettext_noop;_n_noop;_x;_n"
-"x;_nx_noop;_ex;esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_ht"
-"ml_x;_c;_nc\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext;_n:1,2;__ngettext_noop;_n_noop;_x;"
+"_nx;_nx_noop;_ex;esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;"
+"esc_html_x;_c;_nc\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../views/admin.php:23 ../views/admin.php:32 ../views/admin.php:46
-#: ../views/admin.php:67
+#: ../views/admin.php:25 ../views/admin.php:34 ../views/admin.php:48
+#: ../views/admin.php:69
 msgid "Settings saved."
 msgstr "Innstillinger lagret."
 
-#: ../views/admin.php:38
+#: ../views/admin.php:40
 msgid "Please provide the name of your custom field."
 msgstr "Oppgi navnet på ditt tilpassede felt."
 
-#: ../views/admin.php:84
+#: ../views/admin.php:75
 msgid ""
-"This operation will delete all entries from Wordpress Popular Posts' cache "
+"Any changes made to WPP's default stylesheet will be lost after every plugin "
+"update. In order to prevent this from happening, please copy the wpp.css "
+"file (located at wp-content/plugins/wordpress-popular-posts/style) into your "
+"theme's directory"
+msgstr ""
+
+#: ../views/admin.php:90
+#, fuzzy
+msgid ""
+"This operation will delete all entries from WordPress Popular Posts' cache "
 "table and cannot be undone."
 msgstr ""
 "Denne handlingen vil slette alle oppføringene fra Wordpress Popular Posts "
 "sin mellomlagringstabellen og kan ikke omgjøres."
 
-#: ../views/admin.php:84 ../views/admin.php:92
+#: ../views/admin.php:90 ../views/admin.php:98 ../views/admin.php:106
 msgid "Do you want to continue?"
 msgstr "Vil du fortsette?"
 
-#: ../views/admin.php:92
+#: ../views/admin.php:98
+#, fuzzy
 msgid ""
-"This operation will delete all stored info from Wordpress Popular Posts' "
+"This operation will delete all stored info from WordPress Popular Posts' "
 "data tables and cannot be undone."
 msgstr ""
 "Denne handlingen vil slette all lagret informasjon fra Wordpress Popular "
 "Posts sine datatabeller og kan ikke omgjøres."
 
-#: ../views/admin.php:109
+#: ../views/admin.php:106
+#, fuzzy
+msgid "This operation will delete all cached thumbnails and cannot be undone."
+msgstr ""
+"Denne handlingen vil slette alle oppføringene fra Wordpress Popular Posts "
+"sin mellomlagringstabellen og kan ikke omgjøres."
+
+#: ../views/admin.php:123
 msgid "Stats"
 msgstr "Statistikk"
 
-#: ../views/admin.php:110
+#: ../views/admin.php:124
 msgid "Tools"
 msgstr "Verktøy"
 
-#: ../views/admin.php:111 ../views/admin.php:662
+#: ../views/admin.php:125 ../views/admin.php:689
 msgid "Parameters"
 msgstr "Parametere"
 
-#: ../views/admin.php:112
+#: ../views/admin.php:126
 msgid "FAQ"
 msgstr "FAQ"
 
-#: ../views/admin.php:113
+#: ../views/admin.php:127
 msgid "About"
 msgstr "Om"
 
-#: ../views/admin.php:124
+#: ../views/admin.php:138
+#, fuzzy
 msgid ""
 "Click on each tab to see what are the most popular entries on your blog in "
-"the last 24 hours, this week, last 30 days or all time since Wordpress "
+"the last 24 hours, this week, last 30 days or all time since WordPress "
 "Popular Posts was installed."
 msgstr ""
 "Klikk på hver fane for å se hva som har vært de mest populære oppføringene i "
-"bloggen din de siste 24 timene, denne uka, siste 30 dager eller totalt "
-"siden Wordpress Popular Posts ble installert."
+"bloggen din de siste 24 timene, denne uka, siste 30 dager eller totalt siden "
+"Wordpress Popular Posts ble installert."
 
-#: ../views/admin.php:130
+#: ../views/admin.php:144
 msgid "Order by comments"
 msgstr "Sorter etter kommentarer"
 
-#: ../views/admin.php:131
+#: ../views/admin.php:145
 msgid "Order by views"
 msgstr "Sorter etter visninger"
 
-#: ../views/admin.php:132
+#: ../views/admin.php:146
 msgid "Order by avg. daily views"
 msgstr "Sorter etter gj. daglige visninger"
 
-#: ../views/admin.php:134
+#: ../views/admin.php:148
 msgid "Post type"
 msgstr "Innleggstype"
 
-#: ../views/admin.php:135
+#: ../views/admin.php:149
 msgid "Limit"
 msgstr "Grense"
 
-#: ../views/admin.php:136 ../views/form.php:32
+#: ../views/admin.php:150 ../views/form.php:32
 msgid "Display only posts published within the selected Time Range"
 msgstr "Vis bare innlegg publisert innenfor det valgte tidsintervallet"
 
-#: ../views/admin.php:138 ../views/admin.php:215 ../views/admin.php:281
-#: ../views/admin.php:318
+#: ../views/admin.php:152 ../views/admin.php:242 ../views/admin.php:308
+#: ../views/admin.php:345
 msgid "Apply"
 msgstr "Bruk"
 
-#: ../views/admin.php:144 ../views/form.php:26
+#: ../views/admin.php:158 ../views/form.php:26
 msgid "Last 24 hours"
 msgstr "Siste 24 timer"
 
-#: ../views/admin.php:145 ../views/form.php:27
+#: ../views/admin.php:159 ../views/form.php:27
 msgid "Last 7 days"
 msgstr "Siste 7 dager"
 
-#: ../views/admin.php:146 ../views/form.php:28
+#: ../views/admin.php:160 ../views/form.php:28
 msgid "Last 30 days"
 msgstr "Siste 30 dager"
 
-#: ../views/admin.php:147 ../views/form.php:29
+#: ../views/admin.php:161 ../views/form.php:29
 msgid "All-time"
 msgstr "Totalt"
 
-#: ../views/admin.php:169
+#: ../views/admin.php:183
 msgid "Thumbnails"
 msgstr "Miniatyrbilder"
 
-#: ../views/admin.php:174
+#: ../views/admin.php:188
 msgid "Default thumbnail"
 msgstr "Standard miniatyrbilde"
 
-#: ../views/admin.php:179
+#: ../views/admin.php:193
 msgid "Upload thumbnail"
 msgstr "Last opp miniatyrbilde"
 
-#: ../views/admin.php:182
+#: ../views/admin.php:195
 msgid ""
 "How-to: upload (or select) an image, set Size to Full and click on Upload. "
 "After it's done, hit on Apply to save changes"
 msgstr ""
 
-#: ../views/admin.php:186
+#: ../views/admin.php:199
 msgid "Pick image from"
 msgstr "Velg bilde fra"
 
-#: ../views/admin.php:189
+#: ../views/admin.php:202
 msgid "Featured image"
 msgstr "Fremhevet bilde"
 
-#: ../views/admin.php:190
+#: ../views/admin.php:203
 msgid "First image on post"
 msgstr "Første bilde i innlegg"
 
-#: ../views/admin.php:191
+#: ../views/admin.php:204
 msgid "Custom field"
 msgstr "Tilpasset felt"
 
-#: ../views/admin.php:194
-msgid "Tell Wordpress Popular Posts where it should get thumbnails from"
+#: ../views/admin.php:207
+#, fuzzy
+msgid "Tell WordPress Popular Posts where it should get thumbnails from"
 msgstr "Fortell Wordpress Popular Posts hvor den skal hente miniatyrbilder fra"
 
-#: ../views/admin.php:198
+#: ../views/admin.php:211
 msgid "Custom field name"
 msgstr "Navn på tilpasset felt"
 
-#: ../views/admin.php:204
+#: ../views/admin.php:217
 msgid "Resize image from Custom field?"
 msgstr "Endre størrelse på bilde fra tilpasset felt?"
 
-#: ../views/admin.php:207
+#: ../views/admin.php:220
 msgid "No, I will upload my own thumbnail"
 msgstr "Nei, jeg vil laste opp mitt eget miniatyrbilde."
 
-#: ../views/admin.php:208
+#: ../views/admin.php:221
 msgid "Yes"
 msgstr "Ja"
 
-#: ../views/admin.php:224
+#: ../views/admin.php:232
+#, fuzzy
+msgid "Empty image cache"
+msgstr "Tøm mellomlager"
+
+#: ../views/admin.php:233
+#, fuzzy
+msgid "Use this button to clear WPP's thumbnails cache"
+msgstr ""
+"Bruk denne knappen for å slette alle oppføringer i WPP sitt mellomlager"
+
+#: ../views/admin.php:251
 msgid "Data"
 msgstr "Data"
 
-#: ../views/admin.php:229
+#: ../views/admin.php:256
 msgid "Log views from"
 msgstr "Logg visninger for"
 
-#: ../views/admin.php:232
+#: ../views/admin.php:259
 msgid "Visitors only"
 msgstr "Kun besøkende"
 
-#: ../views/admin.php:233
+#: ../views/admin.php:260
 msgid "Logged-in users only"
 msgstr "Kun innloggede brukere"
 
-#: ../views/admin.php:234
+#: ../views/admin.php:261
 msgid "Everyone"
 msgstr "Alle"
 
-#: ../views/admin.php:240
+#: ../views/admin.php:267
 msgid "Ajaxify widget"
 msgstr "Ajaxifiser widget"
 
-#: ../views/admin.php:243 ../views/admin.php:309
+#: ../views/admin.php:270 ../views/admin.php:336
 msgid "Disabled"
 msgstr "Deaktivert"
 
-#: ../views/admin.php:244 ../views/admin.php:308
+#: ../views/admin.php:271 ../views/admin.php:335
 msgid "Enabled"
 msgstr "Aktivert"
 
-#: ../views/admin.php:248
+#: ../views/admin.php:275
 msgid ""
 "If you are using a caching plugin such as WP Super Cache, enabling this "
 "feature will keep the popular list from being cached by it"
@@ -218,19 +248,19 @@ msgstr ""
 "Hvis du bruker en utvidelse for mellomlagring som WP Super Cache, så vil "
 "aktivering av denne egenskapen hindre at populærlista blir mellomlagret"
 
-#: ../views/admin.php:252
+#: ../views/admin.php:279
 msgid "Listing refresh interval"
 msgstr "Intervall for oppdatering av lista"
 
-#: ../views/admin.php:255
+#: ../views/admin.php:282
 msgid "Live"
 msgstr "Live"
 
-#: ../views/admin.php:256
+#: ../views/admin.php:283
 msgid "Custom interval"
 msgstr "Tilpasset intervall"
 
-#: ../views/admin.php:260
+#: ../views/admin.php:287
 msgid ""
 "Sets how often the listing should be updated. For most sites the Live option "
 "should be fine, however if you are experiencing slowdowns or your blog gets "
@@ -240,55 +270,55 @@ msgstr ""
 "valget helt fint, men hvis du opplever treghet eller bloggen din får mange "
 "besøkende så vil du kanskje endre intervallet."
 
-#: ../views/admin.php:264
+#: ../views/admin.php:291
 msgid "Refresh list every"
 msgstr "Oppdater lista hver"
 
-#: ../views/admin.php:268
+#: ../views/admin.php:295
 msgid "Hour(s)"
 msgstr "Time"
 
-#: ../views/admin.php:269
+#: ../views/admin.php:296
 msgid "Day(s)"
 msgstr "Dag"
 
-#: ../views/admin.php:270
+#: ../views/admin.php:297
 msgid "Week(s)"
 msgstr "Uke"
 
-#: ../views/admin.php:271
+#: ../views/admin.php:298
 msgid "Month(s)"
 msgstr "Måned"
 
-#: ../views/admin.php:272
+#: ../views/admin.php:299
 msgid "Year(s)"
 msgstr "År"
 
-#: ../views/admin.php:275
+#: ../views/admin.php:302
 msgid "Really? That long?"
 msgstr "Virkelig? Så lenge?"
 
-#: ../views/admin.php:290
+#: ../views/admin.php:317
 msgid "Miscellaneous"
 msgstr "Diverse"
 
-#: ../views/admin.php:295
+#: ../views/admin.php:322
 msgid "Open links in"
 msgstr "Åpne lenker i"
 
-#: ../views/admin.php:298
+#: ../views/admin.php:325
 msgid "Current window"
 msgstr "Gjeldende vindu"
 
-#: ../views/admin.php:299
+#: ../views/admin.php:326
 msgid "New tab/window"
 msgstr "Ny fane/nytt vindu"
 
-#: ../views/admin.php:305
+#: ../views/admin.php:332
 msgid "Use plugin's stylesheet"
 msgstr "Bruk utvidelsens stilark"
 
-#: ../views/admin.php:312
+#: ../views/admin.php:339
 msgid ""
 "By default, the plugin includes a stylesheet called wpp.css which you can "
 "use to style your popular posts listing. If you wish to use your own "
@@ -296,33 +326,34 @@ msgid ""
 "your site, use this."
 msgstr ""
 
-#: ../views/admin.php:329
+#: ../views/admin.php:356
 msgid ""
-"Wordpress Popular Posts maintains data in two separate tables: one for "
+"WordPress Popular Posts maintains data in two separate tables: one for "
 "storing the most popular entries on a daily basis (from now on, \"cache\"), "
 "and another one to keep the All-time data (from now on, \"historical data\" "
 "or just \"data\"). If for some reason you need to clear the cache table, or "
 "even both historical and cache tables, please use the buttons below to do so."
 msgstr ""
 
-#: ../views/admin.php:330
+#: ../views/admin.php:357
 msgid "Empty cache"
 msgstr "Tøm mellomlager"
 
-#: ../views/admin.php:330
+#: ../views/admin.php:357
 msgid "Use this button to manually clear entries from WPP cache only"
-msgstr "Bruk denne knappen for å slette alle oppføringer i WPP sitt mellomlager"
+msgstr ""
+"Bruk denne knappen for å slette alle oppføringer i WPP sitt mellomlager"
 
-#: ../views/admin.php:331
+#: ../views/admin.php:358
 msgid "Clear all data"
 msgstr "Slette alle data"
 
-#: ../views/admin.php:331
+#: ../views/admin.php:358
 msgid "Use this button to manually clear entries from all WPP data tables"
 msgstr ""
 "Bruk denne knappen for å slette alle oppføringer i alle WPP datatabeller"
 
-#: ../views/admin.php:338
+#: ../views/admin.php:365
 #, php-format
 msgid ""
 "With the following parameters you can customize the popular posts list when "
@@ -330,357 +361,371 @@ msgid ""
 "the <a href=\"%2$s\">[wpp] shortcode</a>."
 msgstr ""
 
-#: ../views/admin.php:346
+#: ../views/admin.php:373
 msgid "Parameter"
 msgstr "Parameter"
 
-#: ../views/admin.php:347 ../views/admin.php:661
+#: ../views/admin.php:374 ../views/admin.php:688
 msgid "What it does "
 msgstr "Hva gjør den"
 
-#: ../views/admin.php:348
+#: ../views/admin.php:375
 msgid "Possible values"
 msgstr "Mulige verdier"
 
-#: ../views/admin.php:349
+#: ../views/admin.php:376
 msgid "Defaults to"
 msgstr "Standardverdi"
 
-#: ../views/admin.php:350 ../views/admin.php:663
+#: ../views/admin.php:377 ../views/admin.php:690
 msgid "Example"
 msgstr "Eksempel"
 
-#: ../views/admin.php:356
+#: ../views/admin.php:383
 msgid "Sets a heading for the list"
 msgstr "Setter en overskrift for listen"
 
-#: ../views/admin.php:357 ../views/admin.php:364 ../views/admin.php:371
-#: ../views/admin.php:406 ../views/admin.php:413 ../views/admin.php:420
-#: ../views/admin.php:427 ../views/admin.php:518 ../views/admin.php:532
-#: ../views/admin.php:539
+#: ../views/admin.php:384 ../views/admin.php:391 ../views/admin.php:398
+#: ../views/admin.php:433 ../views/admin.php:440 ../views/admin.php:447
+#: ../views/admin.php:454 ../views/admin.php:545 ../views/admin.php:559
+#: ../views/admin.php:566
 msgid "Text string"
 msgstr "Tekststreng"
 
-#: ../views/admin.php:358
+#: ../views/admin.php:385
 msgid "Popular Posts"
 msgstr "Populære innlegg"
 
-#: ../views/admin.php:363
+#: ../views/admin.php:390
 msgid "Set the opening tag for the heading of the list"
 msgstr "Angir start-taggen for listas overskrift"
 
-#: ../views/admin.php:370
+#: ../views/admin.php:397
 msgid "Set the closing tag for the heading of the list"
 msgstr "Angir slutt-taggen for listas overskrift"
 
-#: ../views/admin.php:377
+#: ../views/admin.php:404
 msgid "Sets the maximum number of popular posts to be shown on the listing"
 msgstr "Angir maksimalt antall populære innlegg som skal vises i lista"
 
-#: ../views/admin.php:378 ../views/admin.php:434 ../views/admin.php:448
-#: ../views/admin.php:469 ../views/admin.php:476
+#: ../views/admin.php:405 ../views/admin.php:461 ../views/admin.php:475
+#: ../views/admin.php:496 ../views/admin.php:503
 msgid "Positive integer"
 msgstr "Positivt heltall"
 
-#: ../views/admin.php:384
+#: ../views/admin.php:411
+#, fuzzy
 msgid ""
-"Tells Wordpress Popular Posts to retrieve the most popular entries within "
+"Tells WordPress Popular Posts to retrieve the most popular entries within "
 "the time range specified by you"
 msgstr ""
 "Ber Wordpress Popular Posts om å hente de meste populære oppføringene "
 "innenfor et  tidsintervall angitt av deg"
 
-#: ../views/admin.php:391
+#: ../views/admin.php:418
+#, fuzzy
 msgid ""
-"Tells Wordpress Popular Posts to retrieve the most popular entries published "
+"Tells WordPress Popular Posts to retrieve the most popular entries published "
 "within the time range specified by you"
 msgstr ""
 "Ber Wordpress Popular Posts om å hente de meste populære oppføringene "
 "publisert innenfor et  tidsintervall angitt av deg"
 
-#: ../views/admin.php:398
+#: ../views/admin.php:425
 msgid "Sets the sorting option of the popular posts"
 msgstr ""
 
-#: ../views/admin.php:399
+#: ../views/admin.php:426
 msgid "(for average views per day)"
 msgstr ""
 
-#: ../views/admin.php:405
+#: ../views/admin.php:432
 msgid "Defines the type of posts to show on the listing"
 msgstr ""
 
-#: ../views/admin.php:412
+#: ../views/admin.php:439
+#, fuzzy
 msgid ""
-"If set, Wordpress Popular Posts will exclude the specified post(s) ID(s) "
+"If set, WordPress Popular Posts will exclude the specified post(s) ID(s) "
 "form the listing."
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:414 ../views/admin.php:421 ../views/admin.php:428
+#: ../views/admin.php:441 ../views/admin.php:448 ../views/admin.php:455
 msgid "None"
 msgstr "Ingen"
 
-#: ../views/admin.php:419
+#: ../views/admin.php:446
 msgid ""
-"If set, Wordpress Popular Posts will retrieve all entries that belong to the "
+"If set, WordPress Popular Posts will retrieve all entries that belong to the "
 "specified category(ies) ID(s). If a minus sign is used, the category(ies) "
 "will be excluded instead."
 msgstr ""
 
-#: ../views/admin.php:426
+#: ../views/admin.php:453
+#, fuzzy
 msgid ""
-"If set, Wordpress Popular Posts will retrieve all entries created by "
+"If set, WordPress Popular Posts will retrieve all entries created by "
 "specified author(s) ID(s)."
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:433
+#: ../views/admin.php:460
+#, fuzzy
 msgid ""
-"If set, Wordpress Popular Posts will shorten each post title to \"n\" "
+"If set, WordPress Popular Posts will shorten each post title to \"n\" "
 "characters whenever possible"
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:440
+#: ../views/admin.php:467
+#, fuzzy
 msgid ""
-"If set to 1, Wordpress Popular Posts will shorten each post title to \"n\" "
+"If set to 1, WordPress Popular Posts will shorten each post title to \"n\" "
 "words instead of characters"
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:447
+#: ../views/admin.php:474
 msgid ""
-"If set, Wordpress Popular Posts will build and include an excerpt of \"n\" "
+"If set, WordPress Popular Posts will build and include an excerpt of \"n\" "
 "characters long from the content of each post listed as popular"
 msgstr ""
 
-#: ../views/admin.php:454
+#: ../views/admin.php:481
 msgid ""
-"If set, Wordpress Popular Posts will maintaing all styling tags (strong, "
+"If set, WordPress Popular Posts will maintaing all styling tags (strong, "
 "italic, etc) and hyperlinks found in the excerpt"
 msgstr ""
 
-#: ../views/admin.php:461
+#: ../views/admin.php:488
+#, fuzzy
 msgid ""
-"If set to 1, Wordpress Popular Posts will shorten the excerpt to \"n\" words "
+"If set to 1, WordPress Popular Posts will shorten the excerpt to \"n\" words "
 "instead of characters"
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:468
+#: ../views/admin.php:495
 msgid ""
 "If set, and if your current server configuration allows it, you will be able "
 "to display thumbnails of your posts. This attribute sets the width for "
 "thumbnails"
 msgstr ""
 
-#: ../views/admin.php:475
+#: ../views/admin.php:502
 msgid ""
 "If set, and if your current server configuration allows it, you will be able "
 "to display thumbnails of your posts. This attribute sets the height for "
 "thumbnails"
 msgstr ""
 
-#: ../views/admin.php:482
+#: ../views/admin.php:509
 msgid ""
 "If set, and if the WP-PostRatings plugin is installed and enabled on your "
-"blog, Wordpress Popular Posts will show how your visitors are rating your "
+"blog, WordPress Popular Posts will show how your visitors are rating your "
 "entries"
 msgstr ""
 
-#: ../views/admin.php:489
+#: ../views/admin.php:516
+#, fuzzy
 msgid ""
-"If set, Wordpress Popular Posts will show how many comments each popular "
+"If set, WordPress Popular Posts will show how many comments each popular "
 "post has got until now"
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:496
+#: ../views/admin.php:523
+#, fuzzy
 msgid ""
-"If set, Wordpress Popular Posts will show how many views each popular post "
+"If set, WordPress Popular Posts will show how many views each popular post "
 "has got since it was installed"
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:503
+#: ../views/admin.php:530
+#, fuzzy
 msgid ""
-"If set, Wordpress Popular Posts will show who published each popular post on "
+"If set, WordPress Popular Posts will show who published each popular post on "
 "the list"
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:510
+#: ../views/admin.php:537
+#, fuzzy
 msgid ""
-"If set, Wordpress Popular Posts will display the date when each popular post "
+"If set, WordPress Popular Posts will display the date when each popular post "
 "on the list was published"
-msgstr ""
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:517
+#: ../views/admin.php:544
 msgid "Sets the date format"
 msgstr "Setter datoformatet"
 
-#: ../views/admin.php:524
-msgid "If set, Wordpress Popular Posts will display the category"
+#: ../views/admin.php:551
+#, fuzzy
+msgid "If set, WordPress Popular Posts will display the category"
 msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
 
-#: ../views/admin.php:531
+#: ../views/admin.php:558
 msgid "Sets the opening tag for the listing"
 msgstr "Angir start-taggen for lista"
 
-#: ../views/admin.php:538
+#: ../views/admin.php:565
 msgid "Sets the closing tag for the listing"
 msgstr "Angir slutt-taggen for lista"
 
-#: ../views/admin.php:545
+#: ../views/admin.php:572
 msgid "Sets the HTML structure of each post"
 msgstr "Angir HTML-strukturen for hvert innlegg"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "Text string, custom HTML"
 msgstr "Tekststreng, tilpasset HTML"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "Available Content Tags"
 msgstr "Tilgjengelig innholdstagger"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "displays thumbnail linked to post/page"
 msgstr "viser miniatyrbilde lenket til innlegg/side"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "displays linked post/page title"
 msgstr "viser tittel som lenke til innlegg/side"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid ""
 "displays post/page excerpt, and requires excerpt_length to be greater than 0"
 msgstr ""
-"viser sammendrag for innlegg/side og krever at excerpt_length er større enn "
-"0"
+"viser sammendrag for innlegg/side og krever at excerpt_length er større enn 0"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "displays the default stats tags"
 msgstr "viser standard statistikktagger"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid ""
 "displays post/page current rating, requires WP-PostRatings installed and "
 "enabled"
 msgstr ""
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid ""
 "displays post/page current rating as an integer, requires WP-PostRatings "
 "installed and enabled"
 msgstr ""
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "outputs the URL of the post/page"
 msgstr "viser URL-en for innlegget/siden"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "displays post/page title, no link"
 msgstr "viser tittel for innlegg/side, uten lenke"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "displays linked author name, requires stats_author=1"
 msgstr "viser forfatternavnet som lenke, krever stats_author=1"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "displays linked category name, requires stats_category=1"
 msgstr "viser kategorinavnet som lenke, krever stats_category=1"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "displays views count only, no text"
 msgstr "viser kun antall visninger, ingen tekst"
 
-#: ../views/admin.php:546
+#: ../views/admin.php:573
 msgid "displays comments count only, no text, requires stats_comments=1"
 msgstr "viser kun antall kommentarer, ingen tekst, krever stats_comments=1"
 
-#: ../views/admin.php:558
+#: ../views/admin.php:585
 msgid "What does \"Title\" do?"
 msgstr ""
 
-#: ../views/admin.php:561
+#: ../views/admin.php:588
 msgid ""
 "It allows you to show a heading for your most popular posts listing. If left "
 "empty, no heading will be displayed at all."
 msgstr ""
 
-#: ../views/admin.php:564
+#: ../views/admin.php:591
 msgid "What is Time Range for?"
 msgstr ""
 
-#: ../views/admin.php:566
+#: ../views/admin.php:593
+#, fuzzy
 msgid ""
-"It will tell Wordpress Popular Posts to retrieve all posts with most views / "
+"It will tell WordPress Popular Posts to retrieve all posts with most views / "
 "comments within the selected time range."
 msgstr ""
+"Ber Wordpress Popular Posts om å hente de meste populære oppføringene "
+"innenfor et  tidsintervall angitt av deg"
 
-#: ../views/admin.php:569
+#: ../views/admin.php:596
 msgid "What is \"Sort post by\" for?"
 msgstr ""
 
-#: ../views/admin.php:571
+#: ../views/admin.php:598
 msgid ""
 "It allows you to decide whether to order your popular posts listing by total "
 "views, comments, or average views per day."
 msgstr ""
 
-#: ../views/admin.php:574
+#: ../views/admin.php:601
 msgid "What does \"Display post rating\" do?"
 msgstr ""
 
-#: ../views/admin.php:576
+#: ../views/admin.php:603
 msgid ""
-"If checked, Wordpress Popular Posts will show how your readers are rating "
+"If checked, WordPress Popular Posts will show how your readers are rating "
 "your most popular posts. This feature requires having WP-PostRatings plugin "
 "installed and enabled on your blog for it to work."
 msgstr ""
 
-#: ../views/admin.php:579
+#: ../views/admin.php:606
 msgid "What does \"Shorten title\" do?"
 msgstr ""
 
-#: ../views/admin.php:581
+#: ../views/admin.php:608
 msgid ""
 "If checked, all posts titles will be shortened to \"n\" characters/words. A "
 "new \"Shorten title to\" option will appear so you can set it to whatever "
 "you like."
 msgstr ""
 
-#: ../views/admin.php:584
+#: ../views/admin.php:611
 msgid "What does \"Display post excerpt\" do?"
 msgstr ""
 
-#: ../views/admin.php:586
+#: ../views/admin.php:613
 msgid ""
-"If checked, Wordpress Popular Posts will also include a small extract of "
+"If checked, WordPress Popular Posts will also include a small extract of "
 "your posts in the list. Similarly to the previous option, you will be able "
 "to decide how long the post excerpt should be."
 msgstr ""
 
-#: ../views/admin.php:589
+#: ../views/admin.php:616
 msgid "What does \"Keep text format and links\" do?"
 msgstr ""
 
-#: ../views/admin.php:591
+#: ../views/admin.php:618
 msgid ""
-"If checked, and if the Post Excerpt feature is enabled, Wordpress Popular "
+"If checked, and if the Post Excerpt feature is enabled, WordPress Popular "
 "Posts will keep the styling tags (eg. bold, italic, etc) that were found in "
 "the excerpt. Hyperlinks will remain intact, too."
 msgstr ""
 
-#: ../views/admin.php:594
+#: ../views/admin.php:621
 msgid "What is \"Post type\" for?"
 msgstr ""
 
-#: ../views/admin.php:596
+#: ../views/admin.php:623
 msgid ""
 "This filter allows you to decide which post types to show on the listing. By "
 "default, it will retrieve only posts and pages (which should be fine for "
 "most cases)."
 msgstr ""
 
-#: ../views/admin.php:599
+#: ../views/admin.php:626
 msgid "What is \"Category(ies) ID(s)\" for?"
 msgstr ""
 
-#: ../views/admin.php:601
+#: ../views/admin.php:628
 msgid ""
 "This filter allows you to select which categories should be included or "
 "excluded from the listing. A negative sign in front of the category ID "
@@ -688,81 +733,84 @@ msgid ""
 "can specify more than one ID with a comma separated list."
 msgstr ""
 
-#: ../views/admin.php:604
+#: ../views/admin.php:631
 msgid "What is \"Author(s) ID(s)\" for?"
 msgstr ""
 
-#: ../views/admin.php:606
+#: ../views/admin.php:633
 msgid ""
 "Just like the Category filter, this one lets you filter posts by author ID. "
 "You can specify more than one ID with a comma separated list."
 msgstr ""
 
-#: ../views/admin.php:609
+#: ../views/admin.php:636
 msgid "What does \"Display post thumbnail\" do?"
 msgstr ""
 
-#: ../views/admin.php:611
+#: ../views/admin.php:638
 msgid ""
-"If checked, Wordpress Popular Posts will attempt to retrieve the thumbnail "
+"If checked, WordPress Popular Posts will attempt to retrieve the thumbnail "
 "of each post. You can set up the source of the thumbnail via Settings - "
-"Wordpress Popular Posts - Tools."
-msgstr ""
-
-#: ../views/admin.php:614
-msgid "What does \"Display comment count\" do?"
-msgstr ""
-
-#: ../views/admin.php:616
-msgid ""
-"If checked, Wordpress Popular Posts will display how many comments each "
-"popular post has got in the selected Time Range."
-msgstr ""
-
-#: ../views/admin.php:619
-msgid "What does \"Display views\" do?"
-msgstr ""
-
-#: ../views/admin.php:621
-msgid ""
-"If checked, Wordpress Popular Posts will show how many pageviews a single "
-"post has gotten in the selected Time Range."
-msgstr ""
-
-#: ../views/admin.php:624
-msgid "What does \"Display author\" do?"
-msgstr ""
-
-#: ../views/admin.php:626
-msgid ""
-"If checked, Wordpress Popular Posts will display the name of the author of "
-"each entry listed."
-msgstr ""
-
-#: ../views/admin.php:629
-msgid "What does \"Display date\" do?"
-msgstr ""
-
-#: ../views/admin.php:631
-msgid ""
-"If checked, Wordpress Popular Posts will display the date when each popular "
-"posts was published."
-msgstr ""
-
-#: ../views/admin.php:634
-msgid "What does \"Display category\" do?"
-msgstr ""
-
-#: ../views/admin.php:636
-msgid ""
-"If checked, Wordpress Popular Posts will display the category of each post."
-msgstr ""
-
-#: ../views/admin.php:639
-msgid "What does \"Use custom HTML Markup\" do?"
+"WordPress Popular Posts - Tools."
 msgstr ""
 
 #: ../views/admin.php:641
+msgid "What does \"Display comment count\" do?"
+msgstr ""
+
+#: ../views/admin.php:643
+msgid ""
+"If checked, WordPress Popular Posts will display how many comments each "
+"popular post has got in the selected Time Range."
+msgstr ""
+
+#: ../views/admin.php:646
+msgid "What does \"Display views\" do?"
+msgstr ""
+
+#: ../views/admin.php:648
+msgid ""
+"If checked, WordPress Popular Posts will show how many pageviews a single "
+"post has gotten in the selected Time Range."
+msgstr ""
+
+#: ../views/admin.php:651
+msgid "What does \"Display author\" do?"
+msgstr ""
+
+#: ../views/admin.php:653
+#, fuzzy
+msgid ""
+"If checked, WordPress Popular Posts will display the name of the author of "
+"each entry listed."
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
+
+#: ../views/admin.php:656
+msgid "What does \"Display date\" do?"
+msgstr ""
+
+#: ../views/admin.php:658
+#, fuzzy
+msgid ""
+"If checked, WordPress Popular Posts will display the date when each popular "
+"posts was published."
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
+
+#: ../views/admin.php:661
+msgid "What does \"Display category\" do?"
+msgstr ""
+
+#: ../views/admin.php:663
+#, fuzzy
+msgid ""
+"If checked, WordPress Popular Posts will display the category of each post."
+msgstr "Hvis satt, så vil Wordpress Popular Posts vise kategorien"
+
+#: ../views/admin.php:666
+msgid "What does \"Use custom HTML Markup\" do?"
+msgstr ""
+
+#: ../views/admin.php:668
 msgid ""
 "If checked, you will be able to customize the HTML markup of your popular "
 "posts listing. For example, you can decide whether to wrap your posts in an "
@@ -770,11 +818,11 @@ msgid ""
 "for you!"
 msgstr ""
 
-#: ../views/admin.php:644
+#: ../views/admin.php:671
 msgid "What are \"Content Tags\"?"
 msgstr ""
 
-#: ../views/admin.php:646
+#: ../views/admin.php:673
 #, php-format
 msgid ""
 "Content Tags are codes to display a variety of items on your popular posts "
@@ -784,31 +832,31 @@ msgid ""
 "\">Parameters</a> section."
 msgstr ""
 
-#: ../views/admin.php:649
+#: ../views/admin.php:676
 msgid "What are \"Template Tags\"?"
 msgstr ""
 
-#: ../views/admin.php:651
+#: ../views/admin.php:678
 msgid ""
 "Template Tags are simply php functions that allow you to perform certain "
-"actions. For example, Wordpress Popular Posts currently supports two "
+"actions. For example, WordPress Popular Posts currently supports two "
 "different template tags: wpp_get_mostpopular() and wpp_get_views()."
 msgstr ""
 
-#: ../views/admin.php:654
-msgid "What are the template tags that Wordpress Popular Posts supports?"
+#: ../views/admin.php:681
+msgid "What are the template tags that WordPress Popular Posts supports?"
 msgstr ""
 
-#: ../views/admin.php:656
+#: ../views/admin.php:683
 msgid ""
-"The following are the template tags supported by Wordpress Popular Posts"
+"The following are the template tags supported by WordPress Popular Posts"
 msgstr ""
 
-#: ../views/admin.php:660
+#: ../views/admin.php:687
 msgid "Template tag"
 msgstr ""
 
-#: ../views/admin.php:669
+#: ../views/admin.php:696
 #, php-format
 msgid ""
 "Similar to the widget functionality, this tag retrieves the most popular "
@@ -816,14 +864,14 @@ msgid ""
 "a> so you can customize your popular listing, but these are not required."
 msgstr ""
 
-#: ../views/admin.php:670
+#: ../views/admin.php:697
 #, php-format
 msgid ""
 "Please refer to the <a href=\"%1$s\">Parameters section</a> for a complete "
 "list of attributes."
 msgstr ""
 
-#: ../views/admin.php:675
+#: ../views/admin.php:702
 msgid ""
 "Displays the number of views of a single post. Post ID is required or it "
 "will return false."
@@ -831,55 +879,56 @@ msgstr ""
 "Viser antall visninger for et enkelt innlegg. ID-en for innlegget er "
 "påkrevd. "
 
-#: ../views/admin.php:676
+#: ../views/admin.php:703
 msgid "Post ID"
 msgstr "ID for innlegg"
 
-#: ../views/admin.php:683
+#: ../views/admin.php:710
 msgid "What are \"shortcodes\"?"
 msgstr ""
 
-#: ../views/admin.php:685
+#: ../views/admin.php:712
 #, php-format
 msgid ""
 "Shortcodes are similar to BB Codes, these allow us to call a php function by "
-"simply typing something like [shortcode]. With Wordpress Popular Posts, the "
+"simply typing something like [shortcode]. With WordPress Popular Posts, the "
 "shortcode [wpp] will let you insert a list of the most popular posts in "
 "posts content and pages too! For more information about shortcodes, please "
-"visit the <a href=\"%s\" target=\"_blank\">Wordpress Shortcode API</a> page."
+"visit the <a href=\"%s\" target=\"_blank\">WordPress Shortcode API</a> page."
 msgstr ""
 
-#: ../views/admin.php:694
-#, php-format
-msgid "About Wordpress Popular Posts %s"
+#: ../views/admin.php:721
+#, fuzzy, php-format
+msgid "About WordPress Popular Posts %s"
 msgstr "Om Wordpress Popular Posts %s"
 
-#: ../views/admin.php:695
+#: ../views/admin.php:722
 msgid "This version includes the following changes"
 msgstr "The versjonen inneholder følgende endringer"
 
-#: ../views/admin.php:709
+#: ../views/admin.php:741
 msgid "Do you like this plugin?"
 msgstr "Liker du denne utvidelsen?"
 
-#: ../views/admin.php:716
+#: ../views/admin.php:748
+#, fuzzy
 msgid ""
-"Each donation motivates me to keep releasing free stuff for the Wordpress "
+"Each donation motivates me to keep releasing free stuff for the WordPress "
 "community!"
 msgstr ""
 "En donasjon motiverer meg til å fortsette å lage ting gratis for Wordpress-"
 "fellesskapet!"
 
-#: ../views/admin.php:717
+#: ../views/admin.php:749
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr "Du kan <a href=\"%s\" target=\"_blank\">gi en vurdering</a>, også!"
 
-#: ../views/admin.php:721
+#: ../views/admin.php:753
 msgid "Need help?"
 msgstr "Trenger du hjelp?"
 
-#: ../views/admin.php:722
+#: ../views/admin.php:754
 #, php-format
 msgid ""
 "Visit <a href=\"%s\" target=\"_blank\">the forum</a> for support, questions "
@@ -888,7 +937,7 @@ msgstr ""
 "Besøk <a href=\"%s\" target=\"_blank\">forumet</a> for support, spørsmål og "
 "tilbakemelding."
 
-#: ../views/admin.php:723
+#: ../views/admin.php:755
 msgid "Let's make this plugin even better!"
 msgstr "La oss lage denne utvidelsen enda bedre!"
 
@@ -1030,7 +1079,8 @@ msgid "Date Format"
 msgstr "Vis format"
 
 #: ../views/form.php:98
-msgid "Wordpress Date Format"
+#, fuzzy
+msgid "WordPress Date Format"
 msgstr "Wordpress datoformat"
 
 #: ../views/form.php:105
@@ -1057,68 +1107,68 @@ msgstr "Før / etter Popular Posts"
 msgid "Post HTML Markup"
 msgstr "HTML-kode for innlegg"
 
-#: ../wordpress-popular-posts.php:269
+#: ../wordpress-popular-posts.php:276
 msgid "The most Popular Posts on your blog."
 msgstr "De mest populære innleggene i bloggen din."
 
-#: ../wordpress-popular-posts.php:410
+#: ../wordpress-popular-posts.php:433
 msgid ""
-"Error: cannot ajaxify Wordpress Popular Posts on this theme. It's missing "
+"Error: cannot ajaxify WordPress Popular Posts on this theme. It's missing "
 "the <em>id</em> attribute on before_widget (see <a href=\"http://codex."
 "wordpress.org/Function_Reference/register_sidebar\" target=\"_blank\" rel="
 "\"nofollow\">register_sidebar</a> for more)."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:636
+#: ../wordpress-popular-posts.php:658
 msgid "Upload"
 msgstr "Last opp"
 
-#: ../wordpress-popular-posts.php:1002
+#: ../wordpress-popular-posts.php:1032
 #, php-format
 msgid ""
-"Your PHP installation is too old. Wordpress Popular Posts requires at least "
+"Your PHP installation is too old. WordPress Popular Posts requires at least "
 "PHP version %1$s to function correctly. Please contact your hosting provider "
 "and ask them to upgrade PHP to %1$s or higher."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1009
+#: ../wordpress-popular-posts.php:1039
 #, php-format
 msgid ""
-"Your Wordpress version is too old. Wordpress Popular Posts requires at least "
-"Wordpress version %1$s to function correctly. Please update your blog via "
+"Your WordPress version is too old. WordPress Popular Posts requires at least "
+"WordPress version %1$s to function correctly. Please update your blog via "
 "Dashboard &gt; Update."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1034
+#: ../wordpress-popular-posts.php:1064
 #, php-format
 msgid ""
 "<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</"
 "strong>.</p></div>"
 msgstr ""
-"<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> er "
-"<strong>deakivert</strong>.</p></div>"
+"<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> er <strong>deakivert</strong>."
+"</p></div>"
 
-#: ../wordpress-popular-posts.php:1094
+#: ../wordpress-popular-posts.php:1124
 msgid "Success! The cache table has been cleared!"
 msgstr "Suksess! Mellomlagringstabellen er tømt."
 
-#: ../wordpress-popular-posts.php:1096
+#: ../wordpress-popular-posts.php:1126
 msgid "Error: cache table does not exist."
 msgstr "Feil: Mellomlagringstabellen fins ikke."
 
-#: ../wordpress-popular-posts.php:1103
+#: ../wordpress-popular-posts.php:1133
 msgid "Success! All data have been cleared!"
 msgstr "Suksess! Alle data er slettet."
 
-#: ../wordpress-popular-posts.php:1105
+#: ../wordpress-popular-posts.php:1135
 msgid "Error: one or both data tables are missing."
 msgstr "Feil: En eller begge datatabellene mangler."
 
-#: ../wordpress-popular-posts.php:1108
+#: ../wordpress-popular-posts.php:1138 ../wordpress-popular-posts.php:1176
 msgid "Invalid action."
 msgstr "Ugyldig handling."
 
-#: ../wordpress-popular-posts.php:1111
+#: ../wordpress-popular-posts.php:1141 ../wordpress-popular-posts.php:1179
 msgid ""
 "Sorry, you do not have enough permissions to do this. Please contact the "
 "site administrator for support."
@@ -1126,42 +1176,51 @@ msgstr ""
 "Beklager, du har ikke nok rettigheter til å gjøre dette. Kontakt nettstedets "
 "administrator for support."
 
-#: ../wordpress-popular-posts.php:1639
+#: ../wordpress-popular-posts.php:1171
+#, fuzzy
+msgid "Success! All files have been deleted!"
+msgstr "Suksess! Alle data er slettet."
+
+#: ../wordpress-popular-posts.php:1173
+msgid "The thumbnail cache is already empty!"
+msgstr ""
+
+#: ../wordpress-popular-posts.php:1696
 msgid "Sorry. No data so far."
 msgstr "Beklager. Ingen data så langt."
 
-#: ../wordpress-popular-posts.php:2111
+#: ../wordpress-popular-posts.php:2156
 #, php-format
 msgid "1 comment"
 msgid_plural "%s comments"
 msgstr[0] "1 kommentar"
 msgstr[1] "%s kommentarer"
 
-#: ../wordpress-popular-posts.php:2123
+#: ../wordpress-popular-posts.php:2168
 #, php-format
 msgid "1 view per day"
 msgid_plural "%s views per day"
 msgstr[0] "1 visning per dag"
 msgstr[1] "%s visninger per dag"
 
-#: ../wordpress-popular-posts.php:2129
+#: ../wordpress-popular-posts.php:2174
 #, php-format
 msgid "1 view"
 msgid_plural "%s views"
 msgstr[0] "1 visning"
 msgstr[1] "%s visninger"
 
-#: ../wordpress-popular-posts.php:2141
+#: ../wordpress-popular-posts.php:2186
 #, php-format
 msgid "by %s"
 msgstr "av %s"
 
-#: ../wordpress-popular-posts.php:2147
+#: ../wordpress-popular-posts.php:2192
 #, php-format
 msgid "posted on %s"
 msgstr "skrevet den %s"
 
-#: ../wordpress-popular-posts.php:2155
+#: ../wordpress-popular-posts.php:2200
 #, php-format
 msgid "under %s"
 msgstr "under %s"
