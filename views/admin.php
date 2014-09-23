@@ -102,6 +102,14 @@ if (empty($wpp_rand)) {
 		}
 	}
 	
+	function confirm_clear_image_cache() {
+		if (confirm("<?php _e("This operation will delete all cached thumbnails and cannot be undone.", $this->plugin_slug); ?> \n\n" + "<?php _e("Do you want to continue?", $this->plugin_slug); ?>")) {
+			jQuery.post(ajaxurl, {action: 'wpp_clear_thumbnail', token: '<?php echo get_site_option("wpp_rand"); ?>'}, function(data){
+				alert(data);
+			});
+		}
+	}
+	
 </script>
 
 <div class="wrap">
@@ -184,7 +192,6 @@ if (empty($wpp_rand)) {
                             </div>
                             <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", $this->plugin_slug ); ?>" />
                             <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
-                            <br /><br />
                             <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", $this->plugin_slug); ?></p>
                         </td>
                     </tr>                    
@@ -215,6 +222,20 @@ if (empty($wpp_rand)) {
                             </select>
                         </td>
                     </tr>
+                    <?php
+					$wp_upload_dir = wp_upload_dir();					
+					if ( is_dir( $wp_upload_dir['basedir'] . "/" . $this->plugin_slug ) ) :
+					?>
+                    <tr valign="top">
+                        <th scope="row"></th>
+                        <td>                        	
+                            <input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty image cache", $this->plugin_slug); ?>" onclick="confirm_clear_image_cache()" />                            
+                            <p class="description"><?php _e("Use this button to clear WPP's thumbnails cache", $this->plugin_slug); ?></p>
+                        </td>
+                    </tr>
+                    <?php
+					endif;
+					?>
                     <tr valign="top">                            	
                         <td colspan="2">
                             <input type="hidden" name="section" value="thumb" />

@@ -310,6 +310,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Add ajax table truncation to wp_ajax_ hook
 			add_action('wp_ajax_wpp_clear_data', array( $this, 'clear_data' ));
+			
+			// Add thumbnail cache truncation to wp_ajax_ hook
+			add_action('wp_ajax_wpp_clear_thumbnail', array( $this, 'clear_thumbnails' ));
 
 			// Add ajax hook for widget
 			add_action('wp_ajax_wpp_get_popular', array( $this, 'get_popular') );
@@ -1130,6 +1133,44 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						_e('Success! All data have been cleared!', $this->plugin_slug);
 					} else {
 						_e('Error: one or both data tables are missing.', $this->plugin_slug);
+					}
+				} else {
+					_e('Invalid action.', $this->plugin_slug);
+				}
+			} else {
+				_e('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', $this->plugin_slug);
+			}
+
+			die();
+
+		} // end clear_data
+		
+		/**
+		 * Truncates thumbnails cache on demand.
+		 *
+		 * @since	2.0.0
+		 * @global	object	wpdb
+		 */
+		public function clear_thumbnails() {
+
+			$token = $_POST['token'];			
+			$key = get_site_option("wpp_rand");			
+
+			if ( current_user_can('manage_options') && ($token === $key) ) {
+				$wp_upload_dir = wp_upload_dir();
+				
+				if ( is_dir( $wp_upload_dir['basedir'] . "/" . $this->plugin_slug ) ) {
+					$files = glob( $wp_upload_dir['basedir'] . "/" . $this->plugin_slug . "/*" ); // get all file names
+					
+					if ( is_array($files) && !empty($files) ) {					
+						foreach($files as $file){ // iterate files
+							if ( is_file($file) )
+								unlink($file); // delete file
+						}
+						
+						_e('Success! All files have been deleted!', $this->plugin_slug);
+					} else {
+						_e('The thumbnail cache is already empty!', $this->plugin_slug);
 					}
 				} else {
 					_e('Invalid action.', $this->plugin_slug);
