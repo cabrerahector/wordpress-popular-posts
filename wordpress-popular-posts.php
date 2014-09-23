@@ -1599,6 +1599,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				  ? get_site_transient( $transient_name )
 				  : get_transient( $transient_name );
 
+				$content = "\n" . "<!-- cached -->" . "\n";
+
 				// It wasn't there, so regenerate the data and save the transient
 				if ( false === $mostpopular ) {
 					$mostpopular = $this->_query_posts( $instance );
