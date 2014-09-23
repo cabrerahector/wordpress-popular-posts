@@ -400,7 +400,7 @@ All translations are community made: people who are nice enough to share their t
 * German - 94% translated (4 fuzzy strings, 8 not translated).
 * French - 80% translated (18 fuzzy strings, 27 not translated).
 
-== Licensing notices ==
+== Copyright notices ==
 
 Flame graphic by freevector/Vecteezy.com.
 
