@@ -1165,7 +1165,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( is_array($files) && !empty($files) ) {					
 						foreach($files as $file){ // iterate files
 							if ( is_file($file) )
-								unlink($file); // delete file
+								@unlink($file); // delete file
 						}
 						
 						_e('Success! All files have been deleted!', $this->plugin_slug);
