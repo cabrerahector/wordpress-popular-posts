@@ -2346,6 +2346,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						// image from Media Library
 						if ($attachment_id) {
 							$file_path = get_attached_file($attachment_id);
+							// There's a file path, so return it
+							if ( !empty($file_path) )
+								return $file_path;
 						} // external image?
 						else {
 							$external_image = $this->__fetch_external_image($id, $content_images[1][0]);
