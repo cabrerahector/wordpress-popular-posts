@@ -13,7 +13,7 @@ Changelog
 * Adds notice to move/copy wpp.css stylesheet into theme's directory to keep custom CSS styles across updates.
 * Thumbail generation process has been refactored for efficiency.
 * Thumbnails are now stored in a custom folder under Uploads.
-* Drops support on Japanese language since the translations were outdated.
+* Drops support on Japanese and French languages since the translations were outdated.
 
 #### 3.0.3 ####
 * Fixes widget not saving 'freshness' setting.

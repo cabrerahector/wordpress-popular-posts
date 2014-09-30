@@ -733,7 +733,7 @@ if (empty($wpp_rand)) {
                 <li>Adds notice to move/copy wpp.css stylesheet into theme's directory to keep custom CSS styles across updates.</li>
                 <li>Thumbail generation process has been refactored for efficiency.</li>
                 <li>Thumbnails are now stored in a custom folder under Uploads.</li>
-                <li>Drops support on Japanese language since the translations were outdated.</li>
+                <li>Drops support on Japanese and French languages since the translations were outdated.</li>
             </ul>
         </div>
         
