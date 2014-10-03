@@ -2116,11 +2116,24 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			$post_cat = '';
 
-			if ($instance['stats_tag']['category']) {
+            if ($instance['stats_tag']['category']) {
 
-				$post_cat = get_the_category($p->id);
+                // Try and get parent category
+                $cats = get_the_category($p->id);
+
+                foreach( $cats as $cat ) {
+                    if( $cat->category_parent == 0) {
+                        $post_cat[0] = $cat;
+                    }
+                }
+
+                // Default to first category avaliable
+                if($post_cat == "" && isset($cats[0]) && isset($cats[0]->slug)) {
+                    $post_cat = $cats;
+                }
+
 				$post_cat = (isset($post_cat[0]))
-				  ? '<a href="' . get_category_link($post_cat[0]->term_id) . '" class="cat-id-' . $post_cat[0]->cat_ID . '">' . $post_cat[0]->cat_name . '</a>'
+				  ? '<a href="' . get_category_link($post_cat[0]->term_id) . '">' . $post_cat[0]->cat_name . '</a>'
 				  : '';
 
 			}
