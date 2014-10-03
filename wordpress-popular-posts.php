@@ -2108,37 +2108,39 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		protected function _get_post_cat($p, $instance) {
 
-			$cache = &$this->__cache(__FUNCTION__, array());
-
-			if ( isset($cache[$p->id]) ) {
-				return $cache[$p->id];
-			}
-
 			$post_cat = '';
 
             if ($instance['stats_tag']['category']) {
+				
+				$cache = &$this->__cache(__FUNCTION__, array());
+
+				if ( isset($cache[$p->id]) ) {
+					return $cache[$p->id];
+				}
 
                 // Try and get parent category
                 $cats = get_the_category($p->id);
 
                 foreach( $cats as $cat ) {
                     if( $cat->category_parent == 0) {
-                        $post_cat[0] = $cat;
+                        $post_cat = $cat;
                     }
                 }
 
                 // Default to first category avaliable
-                if($post_cat == "" && isset($cats[0]) && isset($cats[0]->slug)) {
-                    $post_cat = $cats;
+                if ( $post_cat == "" && isset($cats[0]) && isset($cats[0]->slug) ) {
+                    $post_cat = $cats[0];
                 }
 
-				$post_cat = (isset($post_cat[0]))
-				  ? '<a href="' . get_category_link($post_cat[0]->term_id) . '">' . $post_cat[0]->cat_name . '</a>'
+				$post_cat = ( "" != $post_cat )
+				  ? '<a href="' . get_category_link($post_cat->term_id) . '" class="cat-id-' . $post_cat[0]->cat_ID . '">' . $post_cat->cat_name . '</a>'
 				  : '';
+				
+				return $cache[$p->id] = $post_cat;
 
 			}
 
-			return $cache[$p->id] = $post_cat;
+			return $post_cat;
 
 		} // end _get_post_cat
 
