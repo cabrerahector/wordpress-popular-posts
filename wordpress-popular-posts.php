@@ -1777,7 +1777,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'comments' => $comments
 				);
 
-				$content = $this->__format_content($instance['markup']['post-html'], $data, $instance['rating']) . "\n";
+				$content = htmlspecialchars_decode( $this->__format_content($instance['markup']['post-html'], $data, $instance['rating']), ENT_QUOTES ) . "\n";
 
 			}
 			// build regular layout
