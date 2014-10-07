@@ -2133,7 +2133,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 }
 
 				$post_cat = ( "" != $post_cat )
-				  ? '<a href="' . get_category_link($post_cat->term_id) . '" class="cat-id-' . $post_cat[0]->cat_ID . '">' . $post_cat->cat_name . '</a>'
+				  ? '<a href="' . get_category_link($post_cat->term_id) . '" class="cat-id-' . $post_cat->cat_ID . '">' . $post_cat->cat_name . '</a>'
 				  : '';
 				
 				return $cache[$p->id] = $post_cat;
