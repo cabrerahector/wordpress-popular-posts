@@ -1981,12 +1981,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		protected function _get_pageviews($p, $instance) {
 
-			$cache = &$this->__cache(__FUNCTION__ . md5(json_encode($instance)), array());
-
-			if ( isset($cache[$p->id]) ) {
-				return $cache[$p->id];
-			}
-
 			$pageviews = 0;
 
 			if (
@@ -1999,7 +1993,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				: $p->avg_views;
 			}
 
-			return $cache[$p->id] = $pageviews;
+			return $pageviews;
 
 		} // end _get_pageviews
 
