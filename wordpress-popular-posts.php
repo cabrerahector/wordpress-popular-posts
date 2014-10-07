@@ -494,7 +494,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			$instance['post-excerpt']['keep_format'] = isset( $new_instance['post-excerpt-format'] );
 			$instance['post-excerpt']['words'] = $new_instance['post-excerpt-words'];
-			$instance['post-excerpt']['active'] = $new_instance['post-excerpt-active'];
+			$instance['post-excerpt']['active'] = isset( $new_instance['post-excerpt-active'] );
 			$instance['post-excerpt']['length'] = ( $this->__is_numeric($new_instance['post-excerpt-length']) && $new_instance['post-excerpt-length'] > 0 )
 			  ? $new_instance['post-excerpt-length']
 			  : 55;
