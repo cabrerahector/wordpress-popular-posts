@@ -2007,17 +2007,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		protected function _get_comments($p, $instance) {
 
-			$cache = &$this->__cache(__FUNCTION__ . md5(json_encode($instance)), array());
-
-			if ( isset($cache[$p->id]) ) {
-				return $cache[$p->id];
-			}
-
 			$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count'])
 			  ? $p->comment_count
 			  : 0;
 
-			return $cache[$p->id] = $comments;
+			return $comments;
 
 		} // end _get_comments
 
