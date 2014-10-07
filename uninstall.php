@@ -73,7 +73,7 @@ function delete_thumb_cache() {
 		}
 		
 		// Finally, delete wpp's upload directory
-		@unlink( $wp_upload_dir['basedir'] . "/wordpress-popular-posts" );
+		@rmdir( $wp_upload_dir['basedir'] . "/wordpress-popular-posts" );
 	
 	}
 }
