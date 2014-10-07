@@ -34,6 +34,9 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 		
 		// delete tables
 		uninstall();
+		
+		// delete thumbnails cache and its directory
+		delete_thumb_cache();
 
 	}
 
@@ -41,6 +44,7 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	switch_to_blog( $original_blog_id );
 
 } else {
+	
 	// Delete plugin's options
 	delete_option( 'wpp_ver' );
 	delete_option( 'wpp_settings_config' );
@@ -49,6 +53,29 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	
 	// delete tables
 	uninstall();
+	
+	// delete thumbnails cache and its directory
+	delete_thumb_cache();
+
+}
+
+function delete_thumb_cache() {
+	$wp_upload_dir = wp_upload_dir();
+				
+	if ( is_dir( $wp_upload_dir['basedir'] . "/wordpress-popular-posts" ) ) {
+		$files = glob( $wp_upload_dir['basedir'] . "/wordpress-popular-posts/*" ); // get all file names
+		
+		if ( is_array($files) && !empty($files) ) {					
+			foreach($files as $file){ // iterate files
+				if ( is_file($file) )
+					@unlink($file); // delete file
+			}
+		}
+		
+		// Finally, delete wpp's upload directory
+		@unlink( $wp_upload_dir['basedir'] . "/wordpress-popular-posts" );
+	
+	}
 }
 
 function uninstall(){
