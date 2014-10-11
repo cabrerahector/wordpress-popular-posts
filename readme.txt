@@ -21,6 +21,7 @@ WordPress Popular Posts is a highly customizable widget that displays the most p
 * Display a **thumbnail** of your posts! (*see the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for technical requirements*).
 * Use **your own layout**! Control how your most popular posts are shown on your theme.
 * **WPML** support!
+* **WordPress Multisite** support!
 
 = Other Features =
 * Check the **statistics** on your most popular posts from wp-admin.
@@ -165,6 +166,7 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 * Thumbail generation process has been refactored for efficiency.
 * Thumbnails are now stored in a custom folder under Uploads.
 * Drops support on Japanese and French languages since the translations were outdated.
+* Other minor bug fixes and improvements.
 
 = 3.0.3 =
 * Fixes widget not saving 'freshness' setting.

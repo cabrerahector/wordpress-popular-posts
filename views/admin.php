@@ -734,6 +734,7 @@ if (empty($wpp_rand)) {
                 <li>Thumbail generation process has been refactored for efficiency.</li>
                 <li>Thumbnails are now stored in a custom folder under Uploads.</li>
                 <li>Drops support on Japanese and French languages since the translations were outdated.</li>
+                <li>Other minor bug fixes and improvements.</li>
             </ul>
         </div>
         

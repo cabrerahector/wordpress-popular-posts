@@ -14,6 +14,7 @@ Changelog
 * Thumbail generation process has been refactored for efficiency.
 * Thumbnails are now stored in a custom folder under Uploads.
 * Drops support on Japanese and French languages since the translations were outdated.
+* Other minor bug fixes and improvements.
 
 #### 3.0.3 ####
 * Fixes widget not saving 'freshness' setting.
