@@ -326,7 +326,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$this->default_thumbnail = $this->plugin_dir . "no_thumb.jpg";
 			$this->default_user_settings['tools']['thumbnail']['default'] = $this->default_thumbnail;
 
-			if ( !empty($this->user_settings['tools']['thumbnail']['default']) && @getimagesize($this->user_settings['tools']['thumbnail']['default']) )
+			if ( !empty($this->user_settings['tools']['thumbnail']['default']) )
 				$this->default_thumbnail = $this->user_settings['tools']['thumbnail']['default'];
 			else
 				$this->user_settings['tools']['thumbnail']['default'] = $this->default_thumbnail;
