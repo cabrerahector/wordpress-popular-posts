@@ -1,5 +1,9 @@
 Changelog
 =========
+#### 3.1.1 ####
+* Adds check for exif extension availability.
+* Rolls back check for user's default thumbnail.
+
 #### 3.1.0 ####
 * Fixes invalid HTML title/alt attributes caused by encoding issues.
 * Fixes issue with jQuery not loading properly under certain circumstances.

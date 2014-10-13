@@ -721,20 +721,8 @@ if (empty($wpp_rand)) {
             <h3><?php echo sprintf( __('About WordPress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
             <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
             <ul>
-            	<li>Fixes invalid HTML title/alt attributes caused by encoding issues.</li>
-                <li>Fixes issue with jQuery not loading properly under certain circumstances.</li>
-                <li>Fixes issue with custom excerpts not showing up.</li>
-                <li>Fixes undefined notices and removes an unused variable from widget_update().</li>
-                <li>Fixes wrong variable reference in __image_resize().</li>
-                <li>Adds charset to mb_substr when truncating excerpt.</li>
-                <li>Sets default logging level to 1 (Everyone).</li>
-                <li>Renders the category link with cat-id-[ID] CSS class.</li>
-                <li>Replaces getimagesize() with exif_imagetype().</li>
-                <li>Adds notice to move/copy wpp.css stylesheet into theme's directory to keep custom CSS styles across updates.</li>
-                <li>Thumbail generation process has been refactored for efficiency.</li>
-                <li>Thumbnails are now stored in a custom folder under Uploads.</li>
-                <li>Drops support on Japanese and French languages since the translations were outdated.</li>
-                <li>Other minor bug fixes and improvements.</li>
+            	<li>Adds check for exif extension availability.</li>
+                <li>Rolls back check for user's default thumbnail.</li>
             </ul>
         </div>
         
