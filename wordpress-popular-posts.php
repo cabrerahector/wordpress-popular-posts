@@ -1764,7 +1764,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ($instance['markup']['custom_html']) {
 
 				$data = array(
-					'title' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'">'.$title_sub.'</a>',
+					'title' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">'.$title_sub.'</a>',
 					'summary' => $excerpt,
 					'stats' => $_stats,
 					'img' => $thumb,
