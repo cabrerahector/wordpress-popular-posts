@@ -86,6 +86,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @var		string
 		 */
 		protected $plugin_screen_hook_suffix = NULL;
+		
+		/**
+		 * Flag for singular pages.
+		 *
+		 * @since	3.1.2
+		 * @var		int
+		 */
+		private $current_post_id = -1;
 
 		/**
 		 * Plugin directory.
@@ -260,6 +268,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Upgrade check
 			add_action( 'init', array( $this, 'upgrade_check' ) );
+			
+			// Check location on template redirect
+			add_action( 'template_redirect',  array( $this, 'is_single' ) );
 
 			// Hook fired when a new blog is activated on WP Multisite
 			add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
@@ -2838,6 +2849,20 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/*--------------------------------------------------*/
 		/* Helper functions
 		/*--------------------------------------------------*/
+		
+		/**
+		 * Gets post/page ID if current page is singular
+		 *
+		 * @since	3.1.2
+		 */
+		public function is_single() {
+			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
+				global $post;				
+				$this->current_post_id = $post->ID;
+			} else {
+				$this->current_post_id = -1;
+			}
+		} // end is_single
 
 		/**
 		 * Checks for valid number
