@@ -1764,10 +1764,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// WPML support, based on Serhat Evren's suggestion - see http://wordpress.org/support/topic/wpml-trick#post-5452607
 			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
 				$current_id = icl_object_id( $p->id, get_post_type( $p->id ), true, ICL_LANGUAGE_CODE );
-				$permalink = $this->_get_permalink( $current_id );
+				$permalink = get_permalink( $current_id );
 			} // Get original permalink
 			else {
-				$permalink = $this->_get_permalink($p->id);
+				$permalink = get_permalink($p->id);
 			}
 
 			$title = $this->_get_title($p, $instance);
@@ -1844,26 +1844,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $cache[$func];
 
 		} // end __cache
-		
-		/**
-		 * Gets post permalink.
-		 *
-		 * @since	3.1.2
-		 * @param	object	p
-		 * @param	array	instance	The current instance of the widget / shortcode parameters
-		 * @return	string
-		 */
-		protected function _get_permalink($p, $instance) {
-
-			$cache = &$this->__cache(__FUNCTION__, array());
-
-			if ( isset($cache[$p->id]) ) {
-				return $cache[$p->id];
-			}
-
-			return $cache[$p->id] = get_permalink($p->id);
-
-		} // end _get_permalink
 
 		/**
 		 * Gets post title.
@@ -1983,7 +1963,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			$tbWidth = $instance['thumbnail']['width'];
 			$tbHeight = $instance['thumbnail']['height'];
-			$permalink = $this->_get_permalink($p->id);
+			$permalink = get_permalink($p->id);
 			$title = $this->_get_title($p, $instance);
 
 			$thumb = '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">';
