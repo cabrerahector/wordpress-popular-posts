@@ -1239,9 +1239,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		public function print_ajax(){
 
-			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
+			if ( $this->current_post_id ) {
 
-				global $post;
 				$nonce = wp_create_nonce('wpp-token');
 
 				?>
@@ -1254,7 +1253,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							$.post('<?php echo admin_url('admin-ajax.php'); ?>', {
 								action: 'update_views_ajax',
 								token: '<?php echo $nonce; ?>',
-								id: <?php echo $post->ID; ?>
+								id: <?php echo $this->current_post_id; ?>
 							}, function(response){
 								if ( console && console.log )
 									console.log(response);
