@@ -93,7 +93,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	3.1.2
 		 * @var		int
 		 */
-		private $current_post_id = -1;
+		private $current_post_id = 0;
 
 		/**
 		 * Plugin directory.
@@ -2857,9 +2857,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		public function is_single() {
 			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
 				global $post;				
-				$this->current_post_id = $post->ID;
+				$this->current_post_id = ( is_object($post) ) ? $post->ID : 0;
 			} else {
-				$this->current_post_id = -1;
+				$this->current_post_id = 0;
 			}
 		} // end is_single
 
