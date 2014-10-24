@@ -1844,6 +1844,26 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			return $cache[$func];
 
 		} // end __cache
+		
+		/**
+		 * Gets post permalink.
+		 *
+		 * @since	3.1.2
+		 * @param	object	p
+		 * @param	array	instance	The current instance of the widget / shortcode parameters
+		 * @return	string
+		 */
+		protected function _get_permalink($p, $instance) {
+
+			$cache = &$this->__cache(__FUNCTION__, array());
+
+			if ( isset($cache[$p->id]) ) {
+				return $cache[$p->id];
+			}
+
+			return $cache[$p->id] = get_permalink($p->id);
+
+		} // end _get_permalink
 
 		/**
 		 * Gets post title.
