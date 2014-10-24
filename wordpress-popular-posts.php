@@ -1811,7 +1811,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$content =
 					'<li>'
 					. $thumb
-					. '<a href="' . $permalink . '" title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
+					. '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
 					. $excerpt . ' <span class="post-stats">' . $_stats . '</span> '
 					. $rating
 					. "</li>\n";
@@ -1966,7 +1966,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$permalink = get_permalink($p->id);
 			$title = $this->_get_title($p, $instance);
 
-			$thumb = '<a href="' . $permalink . '" title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">';
+			$thumb = '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">';
 
 			// get image from custom field
 			if ($this->user_settings['tools']['thumbnail']['source'] == "custom_field") {
