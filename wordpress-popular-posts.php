@@ -1198,11 +1198,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		public function update_views_ajax(){
 
-			if ( !wp_verify_nonce($_GET['token'], 'wpp-token') || !$this->__is_numeric($_GET['id']) )
+			if ( !wp_verify_nonce($_POST['token'], 'wpp-token') || !$this->__is_numeric($_POST['id']) )
 				die("WPP: Oops, invalid request!");
 
-			$nonce = $_GET['token'];
-			$post_ID = $_GET['id'];
+			$nonce = $_POST['token'];
+			$post_ID = $_POST['id'];
 
 			$exec_time = 0;
 
