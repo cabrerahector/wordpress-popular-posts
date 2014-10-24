@@ -1240,7 +1240,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( window.jQuery ) {
 						
 						jQuery(document).ready(function($){
-							$.get('<?php echo admin_url('admin-ajax.php'); ?>', {
+							$.post('<?php echo admin_url('admin-ajax.php'); ?>', {
 								action: 'update_views_ajax',
 								token: '<?php echo $nonce; ?>',
 								id: <?php echo $post->ID; ?>
