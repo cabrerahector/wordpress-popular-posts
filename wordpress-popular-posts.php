@@ -435,14 +435,22 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				} else {
 				?>
                 <script type="text/javascript">//<![CDATA[
-                    jQuery(document).ready(function(){
-                        jQuery.get('<?php echo admin_url('admin-ajax.php'); ?>', {
-							action: 'wpp_get_popular',
-							id: '<?php echo $this->number; ?>'
-						}, function(data){
-							jQuery('#<?php echo $widget_id; ?>').append(data);
+					// jQuery is available, so proceed
+					if ( window.jQuery ) {
+						
+						jQuery(document).ready(function($){
+							$.get('<?php echo admin_url('admin-ajax.php'); ?>', {
+								action: 'wpp_get_popular',
+								id: '<?php echo $this->number; ?>'
+							}, function(data){
+								$('#<?php echo $widget_id; ?>').append(data);
+							});
 						});
-                    });
+					
+					} else { // jQuery is not defined
+						if ( console && console.log )
+							console.log('WordPress Popular Posts: jQuery is not defined!');						
+					}
                 //]]></script>
                 <?php
 				}
@@ -1228,16 +1236,24 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				?>
 				<!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
 				<script type="text/javascript">//<![CDATA[
-					jQuery(document).ready(function(){
-						jQuery.get('<?php echo admin_url('admin-ajax.php'); ?>', {
-							action: 'update_views_ajax',
-							token: '<?php echo $nonce; ?>',
-							id: <?php echo $post->ID; ?>
-						}, function(response){
-							if ( console && console.log )
-								console.log(response);
+					// jQuery is available, so proceed
+					if ( window.jQuery ) {
+						
+						jQuery(document).ready(function($){
+							$.get('<?php echo admin_url('admin-ajax.php'); ?>', {
+								action: 'update_views_ajax',
+								token: '<?php echo $nonce; ?>',
+								id: <?php echo $post->ID; ?>
+							}, function(response){
+								if ( console && console.log )
+									console.log(response);
+							});
 						});
-					});
+					
+					} else {
+						if ( console && console.log )
+								console.log("WordPress Popular Posts: jQuery is not defined!");
+					}
 				//]]></script>
 				<!-- End WordPress Popular Posts v<?php echo $this->version; ?> -->
 				<?php
