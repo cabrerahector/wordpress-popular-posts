@@ -459,8 +459,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						});
 					
 					} else { // jQuery is not defined
-						if ( console && console.log )
-							console.log('WordPress Popular Posts: jQuery is not defined!');						
+						if ( window.console && window.console.log )
+							window.console.log('WordPress Popular Posts: jQuery is not defined!');						
 					}
                 //]]></script>
                 <?php
@@ -1255,14 +1255,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								token: '<?php echo $nonce; ?>',
 								id: <?php echo $this->current_post_id; ?>
 							}, function(response){
-								if ( console && console.log )
-									console.log(response);
+								if ( window.console && window.console.log )
+									window.console.log(response);
 							});
 						});
 					
 					} else {
-						if ( console && console.log )
-								console.log("WordPress Popular Posts: jQuery is not defined!");
+						if ( window.console && window.console.log )
+								window.console.log("WordPress Popular Posts: jQuery is not defined!");
 					}
 				//]]></script>
 				<!-- End WordPress Popular Posts v<?php echo $this->version; ?> -->
