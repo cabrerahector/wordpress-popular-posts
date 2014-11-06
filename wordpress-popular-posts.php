@@ -1313,7 +1313,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// WPML support, get original post/page ID
 			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
 				global $sitepress;
-				$id = icl_object_id( $id, get_post_type( $id ), false, $sitepress->get_default_language() );
+				$id = icl_object_id( $id, get_post_type( $id ), true, $sitepress->get_default_language() );
 			}
 
 			$now = $this->__now();
