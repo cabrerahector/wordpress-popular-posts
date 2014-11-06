@@ -1245,6 +1245,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				?>
 				<!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
+                <script type="text/javascript">window.jQuery || document.write("<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'>\x3C/script>")</script>
 				<script type="text/javascript">//<![CDATA[
 					// jQuery is available, so proceed
 					if ( window.jQuery ) {
