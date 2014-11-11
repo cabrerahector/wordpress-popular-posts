@@ -35,15 +35,19 @@
 			tb_show('Upload a thumbnail', 'media-upload.php?referer=wpp_admin&type=image&TB_iframe=true&post_id=0', false);
 			e.preventDefault();			
 		});		
-		window.send_to_editor = function(html) {			
-			var image_url = $('img',html).attr('src');
-			$('#upload_thumb_src').val(image_url);
-			
-			var img = new Image();
-			img.src = image_url;
-			
-			$("#thumb-review").html( img );
-			$("#thumb-review").parent().show();
+		window.send_to_editor = function(html) {
+			var regex = /<img[^>]+src="(http:\/\/[^">]+)"/g;
+			var result = regex.exec(html);			
+
+			if ( null != result ) {
+				$('#upload_thumb_src').val(result[1]);
+
+				var img = new Image();
+				img.onload = function() {
+					$("#thumb-review").html( this ).parent().fadeIn();
+				}
+				img.src = result[1];
+			}
 			
 			tb_remove();			
 		};
