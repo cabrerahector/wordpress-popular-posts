@@ -2696,7 +2696,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'width' => (!empty($thumbnail_width) && $this->__is_numeric($thumbnail_width) && $thumbnail_width > 0) ? $thumbnail_width : 0,
 					'height' => (!empty($thumbnail_height) && $this->__is_numeric($thumbnail_height) && $thumbnail_height > 0) ? $thumbnail_height : 0,
 				),
-				'rating' => empty($rating) || $rating = "false" ? false : true,
+				'rating' => empty($rating) ? false : true,
 				'stats_tag' => array(
 					'comment_count' => empty($stats_comments) ? false : $stats_comments,
 					'views' => empty($stats_views) ? false : $stats_views,
