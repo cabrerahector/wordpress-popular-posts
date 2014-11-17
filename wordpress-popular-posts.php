@@ -1567,10 +1567,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$interval = "";
 
 				switch( $instance['range'] ){
-					case "yesterday":
-						$interval = "1 DAY";
-					break;
-
 					case "daily":
 						$interval = "1 DAY";
 					break;
