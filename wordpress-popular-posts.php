@@ -1391,10 +1391,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// * freshness - get posts published within the selected time range only
 			if ( $instance['freshness'] ) {
 				switch( $instance['range'] ){
-					case "yesterday":
-						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 DAY) ";
-					break;
-
 					case "daily":
 						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 DAY) ";
 					break;
