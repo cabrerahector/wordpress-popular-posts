@@ -1592,7 +1592,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ( "comments" == $instance['order_by'] ) {
 
 					$fields .= ", c.comment_count AS 'comment_count'";
-					$from = "(SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC) c LEFT JOIN {$wpdb->posts} p ON c.id = p.ID";
+					$from = "(SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC) c LEFT JOIN {$wpdb->posts} p ON c.id = p.ID";
 					$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
 					if ( $instance['stats_tag']['views'] ) { // get views, too
@@ -1626,7 +1626,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $instance['stats_tag']['comment_count'] ) {
 
 						$fields .= ", IFNULL(c.comment_count, 0) AS 'comment_count'";
-						$from .= " LEFT JOIN (SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id) c ON p.ID = c.id";
+						$from .= " LEFT JOIN (SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id) c ON p.ID = c.id";
 
 					}
 
