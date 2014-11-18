@@ -1778,6 +1778,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$pageviews = $this->_get_pageviews($p, $instance);
 			$comments = $this->_get_comments($p, $instance);
 			$rating = $this->_get_rating($p, $instance);
+			$date = $this->_get_date($p, $instance);
 
 			$_stats = join(' | ', $this->_get_stats($p, $instance));
 
@@ -1796,7 +1797,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'category' => $post_cat,
 					'author' => '<a href="' . get_author_posts_url($p->uid) . '">' . $author . '</a>',
 					'views' => $pageviews,
-					'comments' => $comments
+					'comments' => $comments,
+					'date' => $date
 				);
 
 				$content = htmlspecialchars_decode( $this->__format_content($instance['markup']['post-html'], $data, $instance['rating']), ENT_QUOTES ) . "\n";
@@ -2742,7 +2744,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				return false;
 
 			$params = array();
-			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|rating|score|url|text_title|author|category|views|comments)\}/i';
+			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|rating|score|url|text_title|author|category|views|comments|date)\}/i';
 			preg_match_all($pattern, $string, $matches);
 
 			array_map('strtolower', $matches[0]);
@@ -2806,6 +2808,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			if ( in_array("{comments}", $matches[0]) ) {
 				$string = str_replace( "{comments}", $data['comments'], $string );
+			}
+
+			if ( in_array("{date}", $matches[0]) ) {
+				$string = str_replace( "{date}", $data['date'], $string );
 			}
 
 			return $string;
