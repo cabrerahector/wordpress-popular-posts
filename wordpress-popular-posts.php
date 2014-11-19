@@ -1790,7 +1790,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'title' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">'.$title_sub.'</a>',
 					'summary' => $excerpt,
 					'stats' => $_stats,
-					'img' => $thumb,
+					'img' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a>',
+					'img_no_link' => $thumb,
 					'id' => $p->id,
 					'url' => $permalink,
 					'text_title' => $title,
@@ -1808,7 +1809,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			else {
 				$content =
 					'<li>'
-					. $thumb
+					. '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a> '
 					. '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
 					. $excerpt . ' <span class="post-stats">' . $_stats . '</span> '
 					. $rating
@@ -1964,7 +1965,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$permalink = get_permalink($p->id);
 			$title = $this->_get_title($p, $instance);
 
-			$thumb = '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">';
+			$thumb = '';
 
 			// get image from custom field
 			if ($this->user_settings['tools']['thumbnail']['source'] == "custom_field") {
@@ -1988,8 +1989,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			else {
 				$thumb .= $this->__get_img($p, $p->id, null, array($tbWidth, $tbHeight), $this->user_settings['tools']['thumbnail']['source'], $title);
 			}
-
-			$thumb .= "</a>";
 
 			return $cache[$p->id] = $thumb;
 
@@ -2744,7 +2743,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				return false;
 
 			$params = array();
-			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|rating|score|url|text_title|author|category|views|comments|date)\}/i';
+			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|thumb_img|rating|score|url|text_title|author|category|views|comments|date)\}/i';
 			preg_match_all($pattern, $string, $matches);
 
 			array_map('strtolower', $matches[0]);
@@ -2771,6 +2770,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			if ( in_array("{thumb}", $matches[0]) ) {
 				$string = str_replace( "{thumb}", $data['img'], $string );
+			}
+			
+			if ( in_array("{thumb_img}", $matches[0]) ) {
+				$string = str_replace( "{thumb_img}", $data['img_no_link'], $string );
 			}
 
 			// WP-PostRatings check
