@@ -110,6 +110,23 @@ if (empty($wpp_rand)) {
 		}
 	}
 	
+	jQuery(document).ready(function($){
+		<?php if ( "params" != $current ) : ?>
+		$('.wpp_boxes:visible').css({
+			display: 'inline',
+			float: 'left'
+		}).width( $('.wpp_boxes:visible').parent().width() - $('.wpp_box').outerWidth() - 15 );
+		
+		$(window).on('resize', function(){
+			$('.wpp_boxes:visible').css({
+				display: 'inline',
+				float: 'left'
+			}).width( $('.wpp_boxes:visible').parent().width() - $('.wpp_box').outerWidth() - 15 );
+		});
+		<?php else: ?>
+		$('.wpp_box').hide();
+		<?php endif; ?>
+	});
 </script>
 
 <div class="wrap">
@@ -147,12 +164,15 @@ if (empty($wpp_rand)) {
                     </select>
                     <label for="stats_type"><?php _e("Post type", $this->plugin_slug); ?>:</label> <input type="text" name="stats_type" value="<?php echo $this->user_settings['stats']['post_type']; ?>" size="15" />
                     <label for="stats_limits"><?php _e("Limit", $this->plugin_slug); ?>:</label> <input type="text" name="stats_limit" value="<?php echo $this->user_settings['stats']['limit']; ?>" size="5" />
-                    &nbsp;&nbsp;&nbsp;<label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->user_settings['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness" /> <?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></label>&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="hidden" name="section" value="stats" />
                     <input type="submit" class="button-secondary action" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
+                    
+                    <div class="clear"></div>
+                    <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->user_settings['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness" /> <?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></label>
                 </form>
             </div>
         </div>
+        <div class="clear"></div>
         <br />
         <div id="wpp-stats-tabs">            
             <a href="#" class="button-primary" rel="wpp-daily"><?php _e("Last 24 hours", $this->plugin_slug); ?></a>
@@ -162,16 +182,16 @@ if (empty($wpp_rand)) {
         </div>
         <div id="wpp-stats-canvas">            
             <div class="wpp-stats wpp-stats-active" id="wpp-daily">            	
-                <?php echo do_shortcode("[wpp range='daily' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
+                <?php echo do_shortcode("[wpp range='daily' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li><a href=\"{url}\" target=\"_blank\" class=\"wpp-post-title\">{text_title}</a> <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-weekly">
-                <?php echo do_shortcode("[wpp range='weekly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
+                <?php echo do_shortcode("[wpp range='weekly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li><a href=\"{url}\" target=\"_blank\" class=\"wpp-post-title\">{text_title}</a> <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-monthly">
-                <?php echo do_shortcode("[wpp range='monthly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
+                <?php echo do_shortcode("[wpp range='monthly' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li><a href=\"{url}\" target=\"_blank\" class=\"wpp-post-title\">{text_title}</a> <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
             </div>
             <div class="wpp-stats" id="wpp-all">
-                <?php echo do_shortcode("[wpp range='all' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li>{title} <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
+                <?php echo do_shortcode("[wpp range='all' post_type='".$this->user_settings['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->user_settings['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li><a href=\"{url}\" target=\"_blank\" class=\"wpp-post-title\">{text_title}</a> <span class=\"post-stats\">{stats}</span></li>' limit=".$this->user_settings['stats']['limit']." freshness=" . $this->user_settings['stats']['freshness'] . "]"); ?>
             </div>
         </div>
     </div>
@@ -715,35 +735,35 @@ if (empty($wpp_rand)) {
     <!-- End faq -->
     
     <!-- Start about -->
-    <div id="wpp_faq" class="wpp_boxes"<?php if ( "about" == $current ) {?> style="display:block;"<?php } ?>>    	
+    <div id="wpp_faq" class="wpp_boxes"<?php if ( "about" == $current ) {?> style="display:block;"<?php } ?>>
         
-        <div style="float:left; width:800px;">
-            <h3><?php echo sprintf( __('About WordPress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
-            <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
-            <ul>
-            	<li>Adds check for exif extension availability.</li>
-                <li>Rolls back check for user's default thumbnail.</li>
-            </ul>
-        </div>
+        <h3><?php echo sprintf( __('About WordPress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
+        <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
-        <div style="display:inline; float:right; margin:15px 0 0 0; padding:10px; width:230px; background:#f9f9f9; border: 1px solid #ccc;">
-        	<h3 style="margin-top:0; text-align:center;"><?php _e('Do you like this plugin?', $this->plugin_slug); ?></h3>
-        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="RP9SK8KVQHRKS">
-                <input type="image" src="//www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="display:block; margin:0 auto;">
-                <img alt="" border="0" src="//www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-            </form>
-            <p><?php _e( 'Each donation motivates me to keep releasing free stuff for the WordPress community!', $this->plugin_slug ); ?></p>
-            <p><?php echo sprintf( __('You can <a href="%s" target="_blank">leave a review</a>, too!', $this->plugin_slug), 'http://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts' ); ?></p>
-        </div>
-        
-        <div style="display:inline; float:right; clear:right; margin:15px 0 0 0; padding:10px; width:230px; background:#f9f9f9; border: 1px solid #ccc;">
-        	<h3 style="margin-top:0; text-align:center;"><?php _e('Need help?', $this->plugin_slug); ?></h3>
-            <p><?php echo sprintf( __('Visit <a href="%s" target="_blank">the forum</a> for support, questions and feedback.', $this->plugin_slug), 'http://wordpress.org/support/plugin/wordpress-popular-posts' ); ?></p>
-            <p><?php _e('Let\'s make this plugin even better!', $this->plugin_slug); ?></p>
-        </div>
+        <ul>
+            <li>Adds check for exif extension availability.</li>
+            <li>Rolls back check for user's default thumbnail.</li>
+        </ul>
+                
     </div>
     <!-- End about -->
+    
+    <div id="wpp_donate" class="wpp_box" style="">
+        <h3 style="margin-top:0; text-align:center;"><?php _e('Do you like this plugin?', $this->plugin_slug); ?></h3>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="RP9SK8KVQHRKS">
+            <input type="image" src="//www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="display:block; margin:0 auto;">
+            <img alt="" border="0" src="//www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+        <p><?php _e( 'Each donation motivates me to keep releasing free stuff for the WordPress community!', $this->plugin_slug ); ?></p>
+        <p><?php echo sprintf( __('You can <a href="%s" target="_blank">leave a review</a>, too!', $this->plugin_slug), 'http://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts' ); ?></p>
+    </div>
+    
+    <div id="wpp_support" class="wpp_box" style="">
+        <h3 style="margin-top:0; text-align:center;"><?php _e('Need help?', $this->plugin_slug); ?></h3>
+        <p><?php echo sprintf( __('Visit <a href="%s" target="_blank">the forum</a> for support, questions and feedback.', $this->plugin_slug), 'http://wordpress.org/support/plugin/wordpress-popular-posts' ); ?></p>
+        <p><?php _e('Let\'s make this plugin even better!', $this->plugin_slug); ?></p>
+    </div>
         
 </div>

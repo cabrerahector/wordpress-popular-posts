@@ -4,6 +4,27 @@
 	width:100%;
 }
 
+.wpp_box {
+	overflow:hidden;
+	display:inline;
+	float:right;
+	margin:0 0 15px 0;
+	padding:10px;
+	width:230px;
+	background:#f9f9f9;
+	border: 1px solid #ccc;
+}
+
+#wpp_donate { margin-top:15px; }
+
+#wpp_support { clear:right; }
+
+.clear {
+	float:none;
+	clear:both;
+	width:100%;
+}
+
 	/* Stats */
 	#wpp-stats-tabs {
 		padding:2px 0;
@@ -34,9 +55,9 @@
 			}
 			
 				.wpp-stats ol li {
-					overflow:hidden;
-					margin:0 8px 10px 8px!important;
-					padding:0 0 2px 0!important;
+					/*overflow:hidden;*/
+					margin:0 8px 15px 30px;
+					padding:0;
 					font-size:12px;
 					line-height:12px;
 					color:#999;
@@ -44,24 +65,25 @@
 				}
 				
 					.wpp-post-title {
-						display:inline;
-						float:left;
+						/*display:inline;
+						float:left;*/
 						font-weight:bold;
 					}
 					
 					.post-stats {
-						display:inline;
-						float:right;
+						display:block;
+						padding:5px 0;
 						font-size:0.9em!important;
-						text-align:right;
+						text-align:left;
 						color:#999;
 					}
 				
 			.wpp-stats-unique-item, .wpp-stats-last-item {
-				margin:0!important;
-				padding:0!important;
+				margin-bottom:0!important;
 				border:none!important;
 			}
+			
+				.wpp-stats-unique-item .post-stats, .wpp-stats-last-item .post-stats { padding-bottom:0; }
 			
 			.wpp-stats p {
 				margin:0;
