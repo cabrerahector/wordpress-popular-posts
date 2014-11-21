@@ -65,6 +65,11 @@ if ( isset($_POST['section']) ) {
 		  ? $_POST['cache_interval_value']
 		  : 1;
 		
+		$this->user_settings['tools']['sampling']['active'] = $_POST['sampling'];			
+		$this->user_settings['tools']['sampling']['rate'] = ( isset($_POST['sample_rate']) && is_numeric($_POST['sample_rate']) && $_POST['sample_rate'] > 0 ) 
+		  ? $_POST['sample_rate']
+		  : 100;
+		
 		update_site_option('wpp_settings_config', $this->user_settings);
 		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";		
 	}
@@ -321,6 +326,26 @@ if (empty($wpp_rand)) {
                             </select>                            
                             <br />
                             <p class="description" style="display:none;" id="cache_too_long"><?php _e("Really? That long?", $this->plugin_slug); ?></p>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="sampling"><?php _e("Data Sampling", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="sampling" id="sampling">
+                                <option <?php if ( !$this->user_settings['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
+                            </select>
+                    
+                            <br />
+                            <p class="description"><?php echo sprintf( __('By default, WordPress Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With data sampling, WordPress Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more on <em>data sampling</em>, please <a href="%1$s" target="_blank">read here</a>)', $this->plugin_slug), 'http://en.wikipedia.org/wiki/Sample_%28statistics%29' ); ?>.</p>
+                        </td>
+                    </tr>
+                    <tr valign="top" <?php if ( !$this->user_settings['tools']['sampling']['active'] ) { ?>style="display:none;"<?php } ?>>
+                        <th scope="row"><label for="sample_rate"><?php _e("Sample Rate", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                        	<input name="sample_rate" type="text" id="sample_rate" value="<?php echo ( isset($this->user_settings['tools']['sampling']['rate']) ) ? (int) $this->user_settings['tools']['sampling']['rate'] : 100; ?>" class="small-text">
+                            <br />
+                            <p class="description"><?php echo sprintf( __("A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value", $this->plugin_slug), $this->default_user_settings['tools']['sampling']['rate'] ); ?>.</p>
                         </td>
                     </tr>
                     <tr valign="top">                            	

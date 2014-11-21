@@ -232,6 +232,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						'time' => 'hour',
 						'value' => 1
 					)
+				),
+				'sampling' => array(
+					'active' => false,
+					'rate' => 100
 				)
 			)
 		);
@@ -362,15 +366,38 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 			// Add the update hooks only if the logging conditions are met
 			if ( (0 == $this->user_settings['tools']['log']['level'] && !is_user_logged_in()) || (1 == $this->user_settings['tools']['log']['level']) || (2 == $this->user_settings['tools']['log']['level'] && is_user_logged_in()) ) {
+				
+				$update_views = true;
+				
+				if ( $this->user_settings['tools']['sampling']['active'] ) {
+					$update_views = false;
+					
+					/*
+					 * Data sampling algorithm
+					 * Borrowed from http://stackoverflow.com/a/4762559
+					 *
+					 * @link http://stackoverflow.com/questions/4762527/what-is-the-best-way-to-count-page-views-in-php-mysql/4762559#comment21730393_4762559, http://stackoverflow.com/questions/4762527/what-is-the-best-way-to-count-page-views-in-php-mysql/4762559#comment26582397_4762559, http://stackoverflow.com/a/6005550
+					 *
+					 */
+					
+					if ( 1 == mt_rand(1, $this->user_settings['tools']['sampling']['rate']) ) {
+						$update_views = true;
+					}
+				}
+				
 				// Log views on page load via AJAX
-				add_action( 'wp_head', array(&$this, 'print_ajax') );
+				if ( $update_views ) {
+					add_action( 'wp_head', array(&$this, 'print_ajax') );
 
-				// Register views from everyone and/or connected users
-				if ( 0 != $this->user_settings['tools']['log']['level'] )
-					add_action( 'wp_ajax_update_views_ajax', array($this, 'update_views_ajax') );
-				// Register views from everyone and/or visitors only
-				if ( 2 != $this->user_settings['tools']['log']['level'] )
-					add_action( 'wp_ajax_nopriv_update_views_ajax', array($this, 'update_views_ajax') );
+					// Register views from everyone and/or connected users
+					if ( 0 != $this->user_settings['tools']['log']['level'] )
+						add_action( 'wp_ajax_update_views_ajax', array($this, 'update_views_ajax') );
+					// Register views from everyone and/or visitors only
+					if ( 2 != $this->user_settings['tools']['log']['level'] )
+						add_action( 'wp_ajax_nopriv_update_views_ajax', array($this, 'update_views_ajax') );
+				
+				}
+
 			}
 
 			// Add shortcode
@@ -1318,25 +1345,28 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			$now = $this->__now();
 			$curdate = $this->__curdate();
+			$views = ( $this->user_settings['tools']['sampling']['active'] )
+			  ? $this->user_settings['tools']['sampling']['rate']
+			  : 1;
 
 			// Update all-time table
 			$result1 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}data
 				(postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
-				ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, last_viewed = '%3\$s';",
+				ON DUPLICATE KEY UPDATE pageviews = pageviews + %4\$d, last_viewed = '%3\$s';",
 				$id,
 				$now,
 				$now,
-				1
+				$views
 			));
 
 			// Update range (summary) table
 			$result2 = $wpdb->query( $wpdb->prepare(
 				"INSERT INTO {$table}summary
 				(postid, pageviews, view_date, last_viewed) VALUES (%d, %d, %s, %s)
-				ON DUPLICATE KEY UPDATE pageviews = pageviews + 1, last_viewed = '%4\$s';",
+				ON DUPLICATE KEY UPDATE pageviews = pageviews + %2\$d, last_viewed = '%4\$s';",
 				$id,
-				1,
+				$views,
 				$curdate,
 				$now
 			));
