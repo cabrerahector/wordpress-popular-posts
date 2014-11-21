@@ -312,6 +312,7 @@ if (empty($wpp_rand)) {
                         <td>
                         	<input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->user_settings['tools']['cache']['interval']['value']) ) ? (int) $this->user_settings['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
                             <select name="cache_interval_time" id="cache_interval_time">
+                            	<option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", $this->plugin_slug); ?></option>
                                 <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", $this->plugin_slug); ?></option>
                                 <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", $this->plugin_slug); ?></option>                                
                                 <option <?php if ($this->user_settings['tools']['cache']['interval']['time'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", $this->plugin_slug); ?></option>
