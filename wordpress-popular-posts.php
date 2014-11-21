@@ -1669,6 +1669,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$mostpopular = $this->_query_posts( $instance );
 
 					switch($this->user_settings['tools']['cache']['interval']['time']){
+						case 'minute':
+							$time = 60;
+						break;
+
 						case 'hour':
 							$time = 60 * 60;
 						break;
