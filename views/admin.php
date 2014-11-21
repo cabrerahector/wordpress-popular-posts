@@ -212,7 +212,7 @@ if (empty($wpp_rand)) {
                             </div>
                             <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", $this->plugin_slug ); ?>" />
                             <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
-                            <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", $this->plugin_slug); ?></p>
+                            <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", $this->plugin_slug); ?>.</p>
                         </td>
                     </tr>                    
                     <tr valign="top">
@@ -224,7 +224,7 @@ if (empty($wpp_rand)) {
                                 <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "custom_field") {?>selected="selected"<?php } ?> value="custom_field"><?php _e("Custom field", $this->plugin_slug); ?></option>
                             </select>
                             <br />
-                            <p class="description"><?php _e("Tell WordPress Popular Posts where it should get thumbnails from", $this->plugin_slug); ?></p>
+                            <p class="description"><?php _e("Tell WordPress Popular Posts where it should get thumbnails from", $this->plugin_slug); ?>.</p>
                         </td>
                     </tr>
                     <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field">
@@ -250,7 +250,7 @@ if (empty($wpp_rand)) {
                         <th scope="row"></th>
                         <td>                        	
                             <input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty image cache", $this->plugin_slug); ?>" onclick="confirm_clear_image_cache()" />                            
-                            <p class="description"><?php _e("Use this button to clear WPP's thumbnails cache", $this->plugin_slug); ?></p>
+                            <p class="description"><?php _e("Use this button to clear WPP's thumbnails cache", $this->plugin_slug); ?>.</p>
                         </td>
                     </tr>
                     <?php
@@ -292,23 +292,23 @@ if (empty($wpp_rand)) {
                             </select>
                     
                             <br />
-                            <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", $this->plugin_slug); ?></p>
+                            <p class="description"><?php _e("If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it", $this->plugin_slug); ?>.</p>
                         </td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="cache"><?php _e("Listing refresh interval", $this->plugin_slug); ?>:</label></th>
+                        <th scope="row"><label for="cache"><?php _e("WPP Cache Expiry Policy", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="cache" id="cache">
-                                <option <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Live", $this->plugin_slug); ?></option>
-                                <option <?php if ( $this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Custom interval", $this->plugin_slug); ?></option>
+                                <option <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Never cache", $this->plugin_slug); ?></option>
+                                <option <?php if ( $this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Enable caching", $this->plugin_slug); ?></option>
                             </select>
                     
                             <br />
-                            <p class="description"><?php _e("Sets how often the listing should be updated. For most sites the Live option should be fine, however if you are experiencing slowdowns or your blog gets a lot of visitors then you might want to change the refresh rate", $this->plugin_slug); ?></p>
+                            <p class="description"><?php _e("Sets WPP's cache expiration time. WPP can cache the popular list for a specified amount of time. Recommended for large / high traffic sites", $this->plugin_slug); ?>.</p>
                         </td>
                     </tr>
                     <tr valign="top" <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>style="display:none;"<?php } ?> id="cache_refresh_interval">
-                        <th scope="row"><label for="cache_interval_value"><?php _e("Refresh list every", $this->plugin_slug); ?>:</label></th>
+                        <th scope="row"><label for="cache_interval_value"><?php _e("Refresh cache every", $this->plugin_slug); ?>:</label></th>
                         <td>
                         	<input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->user_settings['tools']['cache']['interval']['value']) ) ? (int) $this->user_settings['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
                             <select name="cache_interval_time" id="cache_interval_time">
