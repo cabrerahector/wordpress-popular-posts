@@ -300,6 +300,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			} else {
 				$this->user_settings = $this->__merge_array_r( $this->default_user_settings, $this->user_settings );
 			}
+			
+			// Allow WP themers / coders to override data sampling status (active/inactive)
+			$this->user_settings['tools']['sampling']['active'] = apply_filters( 'wpp_data_sampling', $this->user_settings['tools']['sampling']['active'] );
 
 			// Add the options page and menu item.
 			add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
