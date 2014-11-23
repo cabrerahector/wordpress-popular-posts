@@ -1280,15 +1280,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					// jQuery is available, so proceed
 					if ( window.jQuery ) {
 						
-						jQuery(document).ready(function($){
-							$.post('<?php echo admin_url('admin-ajax.php'); ?>', {
-								action: 'update_views_ajax',
-								token: '<?php echo $nonce; ?>',
-								id: <?php echo $this->current_post_id; ?>
-							}, function(response){
-								if ( window.console && window.console.log )
-									window.console.log(response);
-							});
+						jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {
+							action: 'update_views_ajax',
+							token: '<?php echo $nonce; ?>',
+							id: <?php echo $this->current_post_id; ?>
+						}, function(response){
+							if ( window.console && window.console.log )
+								window.console.log(response);
 						});
 					
 					} else {
