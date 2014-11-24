@@ -1583,6 +1583,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					elseif ( "avg" == $instance['order_by'] ) {
 
 						$fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$now}', MIN(v.day)) > 0, DATEDIFF('{$now}', MIN(v.day)), 1) ) ) AS 'avg_views'";
+						$groupby = "GROUP BY v.postid";
 						$orderby = "ORDER BY avg_views DESC";
 
 					}
