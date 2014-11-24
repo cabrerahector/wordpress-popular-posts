@@ -733,8 +733,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/**
 		 * Registers and enqueues widget-specific scripts.
 		 */
-		public function register_widget_scripts() {	
-			wp_enqueue_script( 'jquery' );	
+		public function register_widget_scripts() {
+			// We need jQuery in the front-end only when ajaxifying the widget
+			if ( $this->user_settings['tools']['ajax'] )
+				wp_enqueue_script( 'jquery' );
 		} // end register_widget_scripts
 
 		/**
