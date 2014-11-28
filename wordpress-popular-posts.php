@@ -1270,29 +1270,32 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		public function print_ajax(){
 
 			if ( $this->current_post_id ) {
-
-				$nonce = wp_create_nonce('wpp-token');
-
 				?>
 				<!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
                 <script type="text/javascript">window.jQuery || document.write("<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'>\x3C/script>")</script>
 				<script type="text/javascript">//<![CDATA[
-					// jQuery is available, so proceed
-					if ( window.jQuery ) {
-						
-						jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {
-							action: 'update_views_ajax',
-							token: '<?php echo $nonce; ?>',
-							id: <?php echo $this->current_post_id; ?>
-						}, function(response){
-							if ( window.console && window.console.log )
-								window.console.log(response);
-						});
-					
-					} else {
-						if ( window.console && window.console.log )
-								window.console.log("WordPress Popular Posts: jQuery is not defined!");
+
+					// Create XMLHttpRequest object and set variables
+					var xhr = ( window.XMLHttpRequest )
+					  ? new XMLHttpRequest()
+					  : new ActiveXObject( "Microsoft.XMLHTTP" ),
+					url = '<?php echo admin_url('admin-ajax.php'); ?>',
+					params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&id=<?php echo $this->current_post_id; ?>';
+					// Set request method and target URL
+					xhr.open( "POST", url, true );
+					// Set request header
+					xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+					// Hook into onreadystatechange
+					xhr.onreadystatechange = function() {
+						if ( 4 == xhr.readyState && 200 == xhr.status ) {
+							if ( window.console && window.console.log ) {
+								window.console.log( xhr.responseText );
+							}
+						}
 					}
+					// Send request
+					xhr.send( params );
+
 				//]]></script>
 				<!-- End WordPress Popular Posts v<?php echo $this->version; ?> -->
 				<?php
