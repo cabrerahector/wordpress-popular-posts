@@ -1830,7 +1830,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'img_no_link' => $thumb,
 					'id' => $p->id,
 					'url' => $permalink,
-					'text_title' => $title,
+					'text_title' => esc_attr($title),
 					'category' => $post_cat,
 					'author' => '<a href="' . get_author_posts_url($p->uid) . '">' . $author . '</a>',
 					'views' => $pageviews,
