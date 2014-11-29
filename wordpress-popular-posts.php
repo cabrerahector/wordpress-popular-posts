@@ -1272,7 +1272,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( $this->current_post_id ) {
 				?>
 				<!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
-                <script type="text/javascript">window.jQuery || document.write("<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'>\x3C/script>")</script>
 				<script type="text/javascript">//<![CDATA[
 
 					// Create XMLHttpRequest object and set variables
