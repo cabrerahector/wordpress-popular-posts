@@ -2682,6 +2682,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			* @var String $header_start
 			* @var String $header_end
 			* @var String $post_html
+			* @var Bool $php
 			*/
 			extract( shortcode_atts( array(
 				'header' => '',
@@ -2711,7 +2712,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'wpp_end' => '</ul>',
 				'header_start' => '<h2>',
 				'header_end' => '</h2>',
-				'post_html' => ''
+				'post_html' => '',
+				'php' => false
 			),$atts));
 
 			// possible values for "Time Range" and "Order by"
@@ -2773,7 +2775,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			// print popular posts list
-			$shortcode_content .= $this->__get_popular_posts($shortcode_ops);
+			$shortcode_content .= ( $php ) ? $this->__get_popular_posts($shortcode_ops) : htmlspecialchars_decode( $this->__get_popular_posts($shortcode_ops), ENT_QUOTES ); // WP's editor converts shortcode parameters into entities
 			$shortcode_content .= "\n". "<!-- End WordPress Popular Posts Plugin v". $this->version ." -->"."\n";
 
 			return $shortcode_content;
@@ -3148,7 +3150,7 @@ function wpp_get_mostpopular($args = NULL) {
 			$atts = trim( str_replace( "&", " ", $args  ) );
 		}
 
-		$shortcode .= ' ' . $atts . ']';
+		$shortcode .= ' ' . $atts . ' php=true]';
 	}
 
 	echo do_shortcode( $shortcode );
