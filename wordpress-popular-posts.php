@@ -2182,10 +2182,22 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 if ( $post_cat == "" && isset($cats[0]) && isset($cats[0]->slug) ) {
                     $post_cat = $cats[0];
                 }
-
-				$post_cat = ( "" != $post_cat )
-				  ? '<a href="' . get_category_link($post_cat->term_id) . '" class="cat-id-' . $post_cat->cat_ID . '">' . $post_cat->cat_name . '</a>'
-				  : '';
+				
+				// Build category tag
+				if ( "" != $post_cat ) {
+					
+					$category_id = $post_cat->term_id;
+					$category_name = $post_cat->cat_name;
+					
+					// WPML support, based on Serhat Evren's suggestion - see http://wordpress.org/support/topic/wpml-trick#post-5452607
+					if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
+						$category_id = icl_object_id( $category_id, 'category', true, ICL_LANGUAGE_CODE );
+						$category_name = get_the_category_by_ID( $category_id );
+					}
+					
+					$post_cat = '<a href="' . get_category_link( $category_id ) . '" class="cat-id-' . $category_id . '">' . $category_name . '</a>';
+					
+				}
 				
 				return $cache[$p->id] = $post_cat;
 
