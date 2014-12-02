@@ -452,7 +452,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			  ? 'custom'
 			  : 'regular';
 
-			echo "\n". "<!-- WordPress Popular Posts Plugin v{$this->version} [W] [{$instance['range']}] [{$instance['order_by']}] [{$markup}] -->" . "\n";
+			echo "\n". "<!-- WordPress Popular Posts Plugin v{$this->version} [W] [{$instance['range']}] [{$instance['order_by']}] [{$markup}]" . ( !empty($instance['pid']) ? " [PID]" : "" ) . ( !empty($instance['cat']) ? " [CAT]" : "" ) . ( !empty($instance['author']) ? " [UID]" : "" ) . " -->" . "\n";
 
 			echo $before_widget . "\n";
 
@@ -2767,7 +2767,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				)
 			);
 
-			$shortcode_content = "\n". "<!-- WordPress Popular Posts Plugin v". $this->version ." [SC] [".$shortcode_ops['range']."] [".$shortcode_ops['order_by']."]  [custom] -->"."\n";
+			$shortcode_content = "\n". "<!-- WordPress Popular Posts Plugin v". $this->version ." [" . ( $php ? "PHP" : "SC" ) . "] [".$shortcode_ops['range']."] [".$shortcode_ops['order_by']."] [custom]" . ( !empty($shortcode_ops['pid']) ? " [PID]" : "" ) . ( !empty($shortcode_ops['cat']) ? " [CAT]" : "" ) . ( !empty($shortcode_ops['author']) ? " [UID]" : "" ) . " -->"."\n";
 
 			// is there a title defined by user?
 			if (!empty($header) && !empty($header_start) && !empty($header_end)) {
