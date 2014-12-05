@@ -73,6 +73,22 @@
 <input type="checkbox" class="checkbox" <?php echo ($instance['thumbnail']['active'] && $this->thumbnailing) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-active' ); ?>" /> <label for="<?php echo $this->get_field_id( 'thumbnail-active' ); ?>"><?php _e('Display post thumbnail', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#display-thumb'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small>
 
 <div style="display:<?php if ($instance['thumbnail']['active']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
+	<label><input type='radio' id='<?php echo $this->get_field_name( 'thumbnail-size-source' ); ?>' name='<?php echo $this->get_field_name( 'thumbnail-size-source' ); ?>' value='predefined' <?php echo ($instance['thumbnail']['build'] == 'predefined') ? 'checked="checked"' : ''; ?> /><?php _e('Use predefined size', 'wordpress-popular-posts'); ?></label><br />
+    
+    <select id="<?php echo $this->get_field_id( 'thumbnail-size' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-size' ); ?>" class="widefat" style="margin:5px 0;">
+    	<?php
+		$sizes = $this->__get_image_sizes();
+		
+		foreach ( $sizes as $name => $attr ) :
+			echo '<option value="' . $name . '"' . ( ($instance['thumbnail']['build'] == 'predefined' && $attr['width'] == $instance['thumbnail']['width'] && $attr['height'] == $instance['thumbnail']['height'] ) ? ' selected="selected"' : '' ) . '>' . $name . ' (' . $attr['width'] . ' x ' . $attr['height'] . ( $attr['crop'] ? ', hard crop' : ', soft crop' ) . ')</option>';
+		endforeach;
+		?>
+    </select>
+    
+    <hr />
+    
+    <label><input type='radio' id='<?php echo $this->get_field_name( 'thumbnail-size-source' ); ?>' name='<?php echo $this->get_field_name( 'thumbnail-size-source' ); ?>' value='predefined' <?php echo ($instance['thumbnail']['build'] == 'manual') ? 'checked="checked"' : ''; ?> /><?php _e('Set size manually', 'wordpress-popular-posts'); ?></label><br />
+
     <label for="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>"><?php _e('Width', 'wordpress-popular-posts'); ?>:</label> 
     <input id="<?php echo $this->get_field_id( 'thumbnail-width' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-width' ); ?>" value="<?php echo $instance['thumbnail']['width']; ?>"  class="widefat" style="width:50px!important" <?php echo ($this->thumbnailing) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?><br />
     

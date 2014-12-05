@@ -172,8 +172,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			),
 			'thumbnail' => array(
 				'active' => false,
+				'build' => 'manual',
 				'width' => 15,
-				'height' => 15
+				'height' => 15,
+				'crop' => true
 			),
 			'rating' => false,
 			'stats_tag' => array(
@@ -556,10 +558,21 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( $this->thumbnailing ) {
 
 				$instance['thumbnail']['active'] = isset( $new_instance['thumbnail-active'] );
-
-				if ($this->__is_numeric($new_instance['thumbnail-width']) && $this->__is_numeric($new_instance['thumbnail-height'])) {
-					$instance['thumbnail']['width'] = $new_instance['thumbnail-width'];
-					$instance['thumbnail']['height'] = $new_instance['thumbnail-height'];
+				$instance['thumbnail']['build'] = $new_instance['thumbnail-size-source'];
+				
+				// Use predefined thumbnail sizes
+				if ( 'predefined' == $new_instance['thumbnail-size-source'] ) {
+					$size = $this->__get_image_sizes( $new_instance['thumbnail-size'] );
+					$instance['thumbnail']['width'] = $size['width'];
+					$instance['thumbnail']['height'] = $size['height'];
+					$instance['thumbnail']['crop'] = $size['crop'];
+				} // Set thumbnail size manually
+				else {
+					if ($this->__is_numeric($new_instance['thumbnail-width']) && $this->__is_numeric($new_instance['thumbnail-height'])) {
+						$instance['thumbnail']['width'] = $new_instance['thumbnail-width'];
+						$instance['thumbnail']['height'] = $new_instance['thumbnail-height'];
+						$instance['thumbnail']['crop'] = true;
+					}
 				}
 
 			}
@@ -2002,6 +2015,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			$tbWidth = $instance['thumbnail']['width'];
 			$tbHeight = $instance['thumbnail']['height'];
+			$crop = $instance['thumbnail']['crop'];
 			$permalink = get_permalink($p->id);
 			$title = $this->_get_title($p, $instance);
 
@@ -2014,7 +2028,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ($path != '') {
 					// user has requested to resize cf image
 					if ( $this->user_settings['tools']['thumbnail']['resize'] ) {
-						$thumb .= $this->__get_img($p, null, $path, array($tbWidth, $tbHeight), $this->user_settings['tools']['thumbnail']['source'], $title);
+						$thumb .= $this->__get_img($p, null, $path, array($tbWidth, $tbHeight), $crop, $this->user_settings['tools']['thumbnail']['source'], $title);
 					}
 					// use original size
 					else {
@@ -2027,7 +2041,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			// get image from post / Featured Image
 			else {
-				$thumb .= $this->__get_img($p, $p->id, null, array($tbWidth, $tbHeight), $this->user_settings['tools']['thumbnail']['source'], $title);
+				$thumb .= $this->__get_img($p, $p->id, null, array($tbWidth, $tbHeight), $crop, $this->user_settings['tools']['thumbnail']['source'], $title);
 			}
 
 			return $cache[$p->id] = $thumb;
@@ -2293,7 +2307,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @param	string	source	Image source
 		 * @return	string
 		 */
-		private function __get_img($p, $id = null, $url = null, $dim = array(80, 80), $source = "featured", $title) {
+		private function __get_img($p, $id = null, $url = null, $dim = array(80, 80), $crop = true, $source = "featured", $title) {
 
 			if ( (!$id || empty($id) || !$this->__is_numeric($id)) && (!$url || empty($url)) ) {
 				return $this->_render_image($this->default_thumbnail, $dim, 'wpp-thumbnail wpp_def_noID', $title);
@@ -2341,7 +2355,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				return $this->_render_image( trailingslashit($this->uploads_dir['baseurl']) . $p->id . '-' . $dim[0] . 'x' . $dim[1] . '.' . $file_info['extension'], $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $title );
 			}
 
-			return $this->__image_resize($p, $file_path, $dim, $source);
+			return $this->__image_resize($p, $file_path, $dim, $crop, $source);
 
 		} // end __get_img
 
@@ -2355,7 +2369,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @param	string	source		Image source
 		 * @return	string
 		 */
-		private function __image_resize($p, $path, $dimension, $source) {
+		private function __image_resize($p, $path, $dimension, $crop, $source) {
 
 			$image = wp_get_image_editor($path);
 
@@ -2363,7 +2377,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( !is_wp_error($image) ) {
 				$file_info = pathinfo($path);
 
-				$image->resize($dimension[0], $dimension[1], true);
+				$image->resize($dimension[0], $dimension[1], $crop);
 				$new_img = $image->save( trailingslashit($this->uploads_dir['basedir']) . $p->id . '-' . $dimension[0] . 'x' . $dimension[1] . '.' . $file_info['extension'] );
 
 				if ( is_wp_error($new_img) ) {
@@ -2907,6 +2921,56 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/*--------------------------------------------------*/
 		/* Helper functions
 		/*--------------------------------------------------*/
+
+		/**
+		 * Gets list of available thumbnails sizes
+		 *
+		 * @since	3.2.0
+		 * @link	http://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
+		 * @param	string	$size
+		 * @return	array|bool
+		 */
+		private function __get_image_sizes( $size = '' ) {
+
+			global $_wp_additional_image_sizes;
+	
+			$sizes = array();
+			$get_intermediate_image_sizes = get_intermediate_image_sizes();
+	
+			// Create the full array with sizes and crop info
+			foreach( $get_intermediate_image_sizes as $_size ) {
+	
+				if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+
+					$sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
+					$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
+					$sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
+
+				} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+
+					$sizes[ $_size ] = array( 
+						'width' => $_wp_additional_image_sizes[ $_size ]['width'],
+						'height' => $_wp_additional_image_sizes[ $_size ]['height'],
+						'crop' =>  $_wp_additional_image_sizes[ $_size ]['crop']
+					);
+
+				}
+	
+			}
+	
+			// Get only 1 size if found
+			if ( $size ) {
+	
+				if( isset( $sizes[ $size ] ) ) {
+					return $sizes[ $size ];
+				} else {
+					return false;
+				}
+	
+			}
+	
+			return $sizes;
+		}
 		
 		/**
 		 * Gets post/page ID if current page is singular
