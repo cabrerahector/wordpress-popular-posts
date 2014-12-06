@@ -1,5 +1,28 @@
 Changelog
 =========
+#### 3.2.0 ####
+* Adds check for jQuery.
+* Fixes invalid parameter in htmlspecialchars().
+* Switches AJAX update to POST method.
+* Removes href attribute from link when popular post is viewed.
+* Removes unnecesary ORDER BY clause in views/comments subquery.
+* Fixes Javascript console not working under IE8 (thanks, @raphaelsaunier!)
+* Fixes WPML compatibility bug storing post IDs as 0.
+* Removes wpp-upload.js since it was no longer in use.
+* Fixes undefined default thumbnail image (thanks, Lea Cohen!)
+* Fixes rating parameter returning false value.
+* Adds Data Sampling (thanks, @kurtpayne!)
+* Minor query optimizations.
+* Adds {date} (thanks, @matsuoshi!) and {thumb_img} tags to custom html.
+* Adds minute time option for caching.
+* Adds wpp_data_sampling filter.
+* Removes jQuery's DOM ready hook for AJAX views update.
+* Adds back missing GROUP BY clause.
+* Removes unnecesary HTML decoding for custom HTML (thanks, Lea Cohen!)
+* Translates category name when WPML is detected.
+* Adds list of available thumbnail sizes to the widget.
+* Other minor bugfixes and improvements.
+
 #### 3.1.1 ####
 * Adds check for exif extension availability.
 * Rolls back check for user's default thumbnail.
