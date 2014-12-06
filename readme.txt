@@ -424,9 +424,9 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 
 All translations are community made: people who are nice enough to share their translations with me so I can distribute them with the plugin. If you spot an error, or feel like helping improve a translation, please check the [FAQ section](http://wordpress.org/plugins/wordpress-popular-posts/faq/ "FAQ section") for instructions.
 
-* English.
-* Spanish.
-* German - 92% translated (8 fuzzy strings, 9 not translated).
+* English (supported by Hector Cabrera).
+* Spanish (supported by Hector Cabrera).
+* German - 87% translated.
 
 == Credits ==
 
