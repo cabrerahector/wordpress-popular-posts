@@ -1855,7 +1855,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'date' => $date
 				);
 
-				$content = htmlspecialchars_decode( $this->__format_content($instance['markup']['post-html'], $data, $instance['rating']), ENT_QUOTES ). "\n";
+				$content = $this->__format_content( htmlspecialchars_decode($instance['markup']['post-html'], ENT_QUOTES ), $data, $instance['rating'] ). "\n";
 
 			}
 			// build regular layout
