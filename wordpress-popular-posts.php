@@ -1860,11 +1860,19 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			// build regular layout
 			else {
+				$thumb = ( !empty($thumb) ) 
+				  ? '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a> '
+				  : '';
+				
+				$_stats = ( !empty($_stats) ) 
+				  ? ' <span class="post-stats">' . $_stats . '</span> '
+				  : '';
+				
 				$content =
 					'<li>'
-					. '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a> '
+					. $thumb
 					. '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
-					. $excerpt . ' <span class="post-stats">' . $_stats . '</span> '
+					. $excerpt . $_stats
 					. $rating
 					. "</li>\n";
 			}
