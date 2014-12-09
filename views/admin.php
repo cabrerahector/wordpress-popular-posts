@@ -767,27 +767,8 @@ if (empty($wpp_rand)) {
         <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
         <ul>
-            <li>Adds check for jQuery.</li>
-            <li>Fixes invalid parameter in htmlspecialchars().</li>
-            <li>Switches AJAX update to POST method.</li>
-            <li>Removes href attribute from link when popular post is viewed.</li>
-            <li>Removes unnecesary ORDER BY clause in views/comments subquery.</li>
-            <li>Fixes Javascript console not working under IE8 (thanks, <a href="https://github.com/raphaelsaunier" target="_blank">@raphaelsaunier</a>!)</li>
-            <li>Fixes WPML compatibility bug storing post IDs as 0.</li>
-            <li>Removes wpp-upload.js since it was no longer in use.</li>
-            <li>Fixes undefined default thumbnail image (thanks, Lea Cohen!)</li>
-            <li>Fixes rating parameter returning false value.</li>
-            <li>Adds <em>Data Sampling</em> (thanks, <a href="https://github.com/kurtpayne" target="_blank">@kurtpayne</a>!)</li>
-            <li>Minor query optimizations.</li>
-            <li>Adds <em>{date}</em> (thanks, <a href="https://github.com/matsuoshi" target="_blank">@matsuoshi</a>!) and <em>{thumb_img}</em> tags to custom html.</li>
-            <li>Adds minute time option for caching.</li>
-            <li>Adds wpp_data_sampling filter.</li>
-            <li>Removes jQuery's DOM ready hook for AJAX views update.</li>
-            <li>Adds back missing GROUP BY clause.</li>
-            <li>Removes unnecesary HTML decoding for custom HTML (thanks, Lea Cohen!)</li>
-            <li>Translates category name when WPML is detected.</li>
-            <li>Adds list of available thumbnail sizes to the widget.</li>
-            <li>Other minor bugfixes and improvements.</li>
+            <li>Fixes missing HTML decoding for custom HTML in widget.</li>
+            <li>Puts LIMIT clause back to the outer query.</li>
         </ul>
                 
     </div>

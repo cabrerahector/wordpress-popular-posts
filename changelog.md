@@ -1,5 +1,9 @@
 Changelog
 =========
+#### 3.2.1 ####
+* Fixes missing HTML decoding for custom HTML in widget.
+* Puts LIMIT clause back to the outer query.
+
 #### 3.2.0 ####
 * Adds check for jQuery.
 * Fixes invalid parameter in htmlspecialchars().
