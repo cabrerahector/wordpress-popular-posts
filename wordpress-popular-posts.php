@@ -373,23 +373,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( (0 == $this->user_settings['tools']['log']['level'] && !is_user_logged_in()) || (1 == $this->user_settings['tools']['log']['level']) || (2 == $this->user_settings['tools']['log']['level'] && is_user_logged_in()) ) {
 				
 				$update_views = true;
-				
-				if ( $this->user_settings['tools']['sampling']['active'] ) {
-					$update_views = false;
-					
-					/*
-					 * Data sampling algorithm
-					 * Borrowed from http://stackoverflow.com/a/4762559
-					 *
-					 * @link http://stackoverflow.com/questions/4762527/what-is-the-best-way-to-count-page-views-in-php-mysql/4762559#comment21730393_4762559, http://stackoverflow.com/questions/4762527/what-is-the-best-way-to-count-page-views-in-php-mysql/4762559#comment26582397_4762559, http://stackoverflow.com/a/6005550
-					 *
-					 */
-					
-					if ( 1 == mt_rand(1, $this->user_settings['tools']['sampling']['rate']) ) {
-						$update_views = true;
-					}
-				}
-				
+
 				// Log views on page load via AJAX
 				if ( $update_views ) {
 					add_action( 'wp_head', array(&$this, 'print_ajax') );
@@ -1289,26 +1273,41 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				<!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
 				<script type="text/javascript">//<![CDATA[
 
-					// Create XMLHttpRequest object and set variables
-					var xhr = ( window.XMLHttpRequest )
-					  ? new XMLHttpRequest()
-					  : new ActiveXObject( "Microsoft.XMLHTTP" ),
-					url = '<?php echo admin_url('admin-ajax.php'); ?>',
-					params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&id=<?php echo $this->current_post_id; ?>';
-					// Set request method and target URL
-					xhr.open( "POST", url, true );
-					// Set request header
-					xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-					// Hook into onreadystatechange
-					xhr.onreadystatechange = function() {
-						if ( 4 == xhr.readyState && 200 == xhr.status ) {
-							if ( window.console && window.console.log ) {
-								window.console.log( xhr.responseText );
+					sampling_active = <?php echo (bool) $this->user_settings['tools']['sampling']['active']; ?>;
+					sampling_rate   = <?php echo intval( $this->user_settings['tools']['sampling']['rate'] ); ?>;
+
+					do_request = false;
+					if ( !sampling_active ) {
+						do_request = true;
+					} else {
+						num = Math.floor(Math.random() * sampling_rate) + 1;
+						do_request = ( 1 == num );
+					}
+
+					if ( do_request ) {
+
+						// Create XMLHttpRequest object and set variables
+						var xhr = ( window.XMLHttpRequest )
+						  ? new XMLHttpRequest()
+						  : new ActiveXObject( "Microsoft.XMLHTTP" ),
+						url = '<?php echo admin_url('admin-ajax.php'); ?>',
+						params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&id=<?php echo $this->current_post_id; ?>';
+						// Set request method and target URL
+						xhr.open( "POST", url, true );
+						// Set request header
+						xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+						// Hook into onreadystatechange
+						xhr.onreadystatechange = function() {
+							if ( 4 == xhr.readyState && 200 == xhr.status ) {
+								if ( window.console && window.console.log ) {
+									window.console.log( xhr.responseText );
+								}
 							}
 						}
+						// Send request
+						xhr.send( params );
+
 					}
-					// Send request
-					xhr.send( params );
 
 				//]]></script>
 				<!-- End WordPress Popular Posts v<?php echo $this->version; ?> -->
