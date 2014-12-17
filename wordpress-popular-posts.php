@@ -2478,7 +2478,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			return $msg .
-			'<img src="' . $src . '" title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" class="' . $class . '" />';
+			'<img src="' . $src . '" ' . ( $src == $this->default_thumbnail ? 'width=' . $dimension[0] . ' height=' . $dimension[1] : '' ) . ' title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" class="' . $class . '" />';
 
 		} // _render_image
 
