@@ -2790,7 +2790,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			// print popular posts list
-			$shortcode_content .= ( $php ) ? $this->__get_popular_posts($shortcode_ops) : htmlspecialchars_decode( $this->__get_popular_posts($shortcode_ops), ENT_QUOTES ); // WP's editor converts shortcode parameters into entities
+			$shortcode_content .= $this->__get_popular_posts($shortcode_ops);
 			$shortcode_content .= "\n". "<!-- End WordPress Popular Posts Plugin v". $this->version ." -->"."\n";
 
 			return $shortcode_content;
