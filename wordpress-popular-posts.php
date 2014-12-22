@@ -2352,8 +2352,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$file_info = pathinfo($file_path);
 
 			// there is a thumbnail already
-			if ( file_exists(trailingslashit($this->uploads_dir['basedir']) . $p->id . '-' . $dim[0] . 'x' . $dim[1] . '.' . $file_info['extension']) ) {
-				return $this->_render_image( trailingslashit($this->uploads_dir['baseurl']) . $p->id . '-' . $dim[0] . 'x' . $dim[1] . '.' . $file_info['extension'], $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $title );
+			if ( file_exists(trailingslashit($this->uploads_dir['basedir']) . $p->id . '-' . $source . '-' . $dim[0] . 'x' . $dim[1] . '.' . $file_info['extension']) ) {
+				return $this->_render_image( trailingslashit($this->uploads_dir['baseurl']) . $p->id . '-' . $source . '-' . $dim[0] . 'x' . $dim[1] . '.' . $file_info['extension'], $dim, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $title );
 			}
 
 			return $this->__image_resize($p, $file_path, $dim, $crop, $source);
@@ -2379,7 +2379,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$file_info = pathinfo($path);
 
 				$image->resize($dimension[0], $dimension[1], $crop);
-				$new_img = $image->save( trailingslashit($this->uploads_dir['basedir']) . $p->id . '-' . $dimension[0] . 'x' . $dimension[1] . '.' . $file_info['extension'] );
+				$new_img = $image->save( trailingslashit($this->uploads_dir['basedir']) . $p->id . '-' . $source . '-' . $dimension[0] . 'x' . $dimension[1] . '.' . $file_info['extension'] );
 
 				if ( is_wp_error($new_img) ) {
 					return $this->_render_image($this->default_thumbnail, $dimension, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, '', $new_img->get_error_message());
