@@ -1267,7 +1267,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				<!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
 				<script type="text/javascript">//<![CDATA[
 
-					sampling_active = <?php echo (bool) $this->user_settings['tools']['sampling']['active']; ?>;
+					sampling_active = <?php echo ( $this->user_settings['tools']['sampling']['active'] ) ? 1 : 0; ?>;
 					sampling_rate   = <?php echo intval( $this->user_settings['tools']['sampling']['rate'] ); ?>;
 
 					do_request = false;
