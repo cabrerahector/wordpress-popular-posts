@@ -76,10 +76,8 @@
 	<label><input type='radio' id='<?php echo $this->get_field_name( 'thumbnail-size-source' ); ?>' name='<?php echo $this->get_field_name( 'thumbnail-size-source' ); ?>' value='predefined' <?php echo ($instance['thumbnail']['build'] == 'predefined') ? 'checked="checked"' : ''; ?> /><?php _e('Use predefined size', 'wordpress-popular-posts'); ?></label><br />
     
     <select id="<?php echo $this->get_field_id( 'thumbnail-size' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-size' ); ?>" class="widefat" style="margin:5px 0;">
-    	<?php
-		$sizes = $this->__get_image_sizes();
-		
-		foreach ( $sizes as $name => $attr ) :
+    	<?php		
+		foreach ( $this->default_thumbnail_sizes as $name => $attr ) :
 			echo '<option value="' . $name . '"' . ( ($instance['thumbnail']['build'] == 'predefined' && $attr['width'] == $instance['thumbnail']['width'] && $attr['height'] == $instance['thumbnail']['height'] ) ? ' selected="selected"' : '' ) . '>' . $name . ' (' . $attr['width'] . ' x ' . $attr['height'] . ( $attr['crop'] ? ', hard crop' : ', soft crop' ) . ')</option>';
 		endforeach;
 		?>

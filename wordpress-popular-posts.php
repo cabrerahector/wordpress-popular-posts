@@ -552,7 +552,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				
 				// Use predefined thumbnail sizes
 				if ( 'predefined' == $new_instance['thumbnail-size-source'] ) {
-					$size = $this->__get_image_sizes( $new_instance['thumbnail-size'] );
+					$size = $this->default_thumbnail_sizes[ $new_instance['thumbnail-size'] ];
 					$instance['thumbnail']['width'] = $size['width'];
 					$instance['thumbnail']['height'] = $size['height'];
 					$instance['thumbnail']['crop'] = $size['crop'];
