@@ -118,6 +118,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @var		string
 		 */
 		private $default_thumbnail = '';
+		
+		/**
+		 * Default thumbnail sizes
+		 *
+		 * @since	3.2.2
+		 * @var		array
+		 */
+		private $default_thumbnail_sizes = array();
 
 		/**
 		 * Flag to verify if thumbnails can be created or not.
@@ -339,8 +347,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			add_action('wp_ajax_nopriv_wpp_get_popular', array( $this, 'get_popular') );
 
 			// Check if images can be created
-			if ( extension_loaded('ImageMagick') || (extension_loaded('GD') && function_exists('gd_info')) )
-				$this->thumbnailing = true;
+			if ( extension_loaded('ImageMagick') || (extension_loaded('GD') && function_exists('gd_info')) ) {
+				// Enable thumbnail feature
+				$this->thumbnailing = true;				
+				// Get available thumbnail size(s)
+				$this->default_thumbnail_sizes = $this->__get_image_sizes();
+			}
 
 			// Set default thumbnail
 			$this->default_thumbnail = $this->plugin_dir . "no_thumb.jpg";
