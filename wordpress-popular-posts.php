@@ -2029,7 +2029,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$tbWidth = $instance['thumbnail']['width'];
 			$tbHeight = $instance['thumbnail']['height'];
 			$crop = $instance['thumbnail']['crop'];
-			$permalink = get_permalink($p->id);
 			$title = $this->_get_title($p, $instance);
 
 			$thumb = '';
