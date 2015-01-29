@@ -2056,7 +2056,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$thumb .= $this->__get_img($p, $p->id, null, array($tbWidth, $tbHeight), $crop, $this->user_settings['tools']['thumbnail']['source'], $title);
 			}
 
-			return $cache[$p->id] = $thumb;
+			return $thumb;
 
 		} // end _get_thumb
 
