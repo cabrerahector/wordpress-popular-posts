@@ -2053,7 +2053,47 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 			// get image from post / Featured Image
 			else {
-				$thumb .= $this->__get_img($p, $p->id, null, array($tbWidth, $tbHeight), $crop, $this->user_settings['tools']['thumbnail']['source'], $title);
+
+				// User wants to use the Featured Image using the 'stock' sizes, get stock thumbnails
+				if ( 'predefined' == $instance['thumbnail']['build'] && 'featured' == $this->user_settings['tools']['thumbnail']['source'] ) {
+
+					// The has_post_thumbnail() functions requires theme's 'post-thumbnails' support, otherwise an error will be thrown
+					if ( current_theme_supports( 'post-thumbnails' ) ) {
+
+						// Featured image found, retrieve it
+						if ( has_post_thumbnail($p->id) ) {
+							$size = null;
+
+							foreach ( $this->default_thumbnail_sizes as $name => $attr ) :
+								if ( $attr['width'] == $tbWidth && $attr['height'] == $tbHeight ) {
+									$size = $name;
+									break;
+								}
+							endforeach;
+
+							// Couldn't find a matching size (this should like never happen, but...) let's use width & height instead
+							if ( null == $size ) {
+								$size = array( $tbWidth, $tbHeight );
+							}
+
+							$thumb .= get_the_post_thumbnail( $p->id, $size, array( 'class' => 'wpp-thumbnail wpp_featured_stock' ) );
+						}
+						// No featured image found
+						else {
+							$thumb .= $this->_render_image($this->default_thumbnail, array($tbWidth, $tbHeight), 'wpp-thumbnail wpp_featured_def', $title);
+						}
+
+					} // Current theme does not support 'post-thumbnails' feature
+					else {
+						$thumb .= $this->_render_image($this->default_thumbnail, array($tbWidth, $tbHeight), 'wpp-thumbnail wpp_featured_def', $title, 'No post-thumbnail support?');
+					}
+
+				}
+				// Get/generate custom thumbnail
+				else {
+					$thumb .= $this->__get_img($p, $p->id, null, array($tbWidth, $tbHeight), $crop, $this->user_settings['tools']['thumbnail']['source'], $title);
+				}
+
 			}
 
 			return $thumb;
