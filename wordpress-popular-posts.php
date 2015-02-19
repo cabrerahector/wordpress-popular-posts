@@ -1296,7 +1296,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						var xhr = ( window.XMLHttpRequest )
 						  ? new XMLHttpRequest()
 						  : new ActiveXObject( "Microsoft.XMLHTTP" ),
-						url = '<?php echo admin_url('admin-ajax.php'); ?>',
+						url = '<?php echo admin_url('admin-ajax.php', is_ssl() ? 'https' : 'http'); ?>',
 						params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&id=<?php echo $this->current_post_id; ?>';
 						// Set request method and target URL
 						xhr.open( "POST", url, true );
