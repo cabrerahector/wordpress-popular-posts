@@ -248,7 +248,7 @@ if (empty($wpp_rand)) {
                             </select>
                         </td>
                     </tr>
-                    <tr valign="top" id="row_custom_field_responsive">
+                    <tr valign="top">
                         <th scope="row"><label for="thumb_responsive"><?php _e("Responsive support", $this->plugin_slug); ?>:</label></th>
                         <td>
                             <select name="thumb_responsive" id="thumb_responsive">
@@ -256,7 +256,7 @@ if (empty($wpp_rand)) {
                                 <option <?php if (!$this->user_settings['tools']['thumbnail']['responsive']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
                             </select>
                             <br />
-                            <p class="description"><?php _e("If enabled, WordPress Popular Posts will strip height and width attributes from thumbnails' image tags", $this->plugin_slug); ?>.</p>
+                            <p class="description"><?php _e("If enabled, WordPress Popular Posts will strip height and width attributes out of thumbnails' image tags", $this->plugin_slug); ?>.</p>
                         </td>
                     </tr>
                     <?php
