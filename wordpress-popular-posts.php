@@ -231,7 +231,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'source' => 'featured',
 					'field' => '',
 					'resize' => false,
-					'default' => ''
+					'default' => '',
+					'responsive' => false
 				),
 				'log' => array(
 					'level' => 1
@@ -2075,8 +2076,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							if ( null == $size ) {
 								$size = array( $tbWidth, $tbHeight );
 							}
-
-							$thumb .= get_the_post_thumbnail( $p->id, $size, array( 'class' => 'wpp-thumbnail wpp_featured_stock' ) );
+							
+							if ( $this->user_settings['tools']['thumbnail']['responsive'] )
+								$thumb .= preg_replace( '/(width|height)=["\']\d*["\']\s?/', "", get_the_post_thumbnail($p->id, $size, array( 'class' => 'wpp-thumbnail wpp_featured_stock' )) );
+							else
+								$thumb .= get_the_post_thumbnail( $p->id, $size, array( 'class' => 'wpp-thumbnail wpp_featured_stock' ) );
 						}
 						// No featured image found
 						else {
@@ -2529,7 +2533,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			return $msg .
-			'<img src="' . $src . '" ' . ( $src == $this->default_thumbnail ? 'width=' . $dimension[0] . ' height=' . $dimension[1] : '' ) . ' title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" class="' . $class . '" />';
+			'<img src="' . $src . '" ' . ( false == $this->user_settings['tools']['thumbnail']['responsive'] ? 'width=' . $dimension[0] . ' height=' . $dimension[1] : '' ) . ' title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" class="' . $class . '" />';
 
 		} // _render_image
 

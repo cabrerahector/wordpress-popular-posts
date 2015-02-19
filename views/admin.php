@@ -43,6 +43,7 @@ if ( isset($_POST['section']) ) {
 			$this->user_settings['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
 			$this->user_settings['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
 			$this->user_settings['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
+			$this->user_settings['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
 			
 			update_site_option('wpp_settings_config', $this->user_settings);				
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
@@ -245,6 +246,17 @@ if (empty($wpp_rand)) {
                                 <option <?php if ( !$this->user_settings['tools']['thumbnail']['resize'] ) {?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", $this->plugin_slug); ?></option>
                                 <option <?php if ( $this->user_settings['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", $this->plugin_slug); ?></option>                        
                             </select>
+                        </td>
+                    </tr>
+                    <tr valign="top" id="row_custom_field_responsive">
+                        <th scope="row"><label for="thumb_responsive"><?php _e("Responsive support", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="thumb_responsive" id="thumb_responsive">
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['responsive']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
+                                <option <?php if (!$this->user_settings['tools']['thumbnail']['responsive']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                            <p class="description"><?php _e("If enabled, WordPress Popular Posts will strip height and width attributes from thumbnails' image tags", $this->plugin_slug); ?>.</p>
                         </td>
                     </tr>
                     <?php
