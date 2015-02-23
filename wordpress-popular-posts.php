@@ -1310,7 +1310,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 									window.console.log( xhr.responseText );
 								}
 							}
-						}
+						};
 						// Send request
 						xhr.send( params );
 
