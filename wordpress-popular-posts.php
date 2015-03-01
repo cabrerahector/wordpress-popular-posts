@@ -2303,8 +2303,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$comments_text = sprintf(
 				_n('1 comment', '%s comments', $comments, $this->plugin_slug),
 				$comments);
-
-				$stats[] = '<span class="wpp-comments">' . $comments_text . '</span>';
+				
 			}
 
 			// views
@@ -2323,8 +2322,19 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$pageviews
 					);
 				}
-
-				$stats[] = '<span class="wpp-views">' . $views_text . "</span>";
+				
+			}
+			
+			if ( "comments" == $instance['order_by'] ) {
+				if ($instance['stats_tag']['comment_count'])
+					$stats[] = '<span class="wpp-comments">' . $comments_text . '</span>'; // First comments count
+				if ($instance['stats_tag']['views'])
+					$stats[] = '<span class="wpp-views">' . $views_text . "</span>"; // ... then views
+			} else {
+				if ($instance['stats_tag']['views'])
+					$stats[] = '<span class="wpp-views">' . $views_text . "</span>"; // First views count
+				if ($instance['stats_tag']['comment_count'])
+					$stats[] = '<span class="wpp-comments">' . $comments_text . '</span>'; // ... then comments
 			}
 
 			// author
