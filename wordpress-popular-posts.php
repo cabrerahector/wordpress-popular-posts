@@ -1851,7 +1851,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'text_title' => esc_attr($title),
 					'category' => $post_cat,
 					'author' => '<a href="' . get_author_posts_url($p->uid) . '">' . $author . '</a>',
-					'views' => $pageviews,
+					'views' => ($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n( $p->pageviews ) : number_format_i18n( $p->avg_views, 2 ),
 					'comments' => $comments,
 					'date' => $date
 				);
@@ -2117,8 +2117,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				|| $instance['stats_tag']['views']
 			) {
 				$pageviews = ($instance['order_by'] == "views" || $instance['order_by'] == "comments")
-				? number_format_i18n( $p->pageviews )
-				: number_format_i18n( $p->avg_views, 2 );
+				? $p->pageviews
+				: $p->avg_views;
 			}
 
 			return $pageviews;
@@ -2307,14 +2307,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				if ($instance['order_by'] == 'avg') {
 					$views_text = sprintf(
-					_n('1 view per day', '%s views per day', intval($pageviews), $this->plugin_slug),
-					$pageviews
+					_n('1 view per day', '%s views per day', $pageviews, $this->plugin_slug),
+					number_format_i18n( $pageviews, 2 )
 					);
 				}
 				else {
 					$views_text = sprintf(
-					_n('1 view', '%s views', intval($pageviews), $this->plugin_slug),
-					$pageviews
+					_n('1 view', '%s views', $pageviews, $this->plugin_slug),
+					number_format_i18n( $pageviews )
 					);
 				}
 				
