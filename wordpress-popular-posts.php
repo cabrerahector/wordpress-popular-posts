@@ -1851,7 +1851,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'text_title' => esc_attr($title),
 					'category' => $post_cat,
 					'author' => '<a href="' . get_author_posts_url($p->uid) . '">' . $author . '</a>',
-					'views' => ($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n( $p->pageviews ) : number_format_i18n( $p->avg_views, 2 ),
+					'views' => ($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n( $pageviews ) : number_format_i18n( $pageviews, 2 ),
 					'comments' => $comments,
 					'date' => $date
 				);
