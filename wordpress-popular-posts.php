@@ -3299,6 +3299,5 @@ function wpp_get_mostpopular($args = NULL) {
  * @param	mixed	args
  */
 function get_mostpopular($args = NULL) {
-	trigger_error( 'The get_mostpopular() has been deprecated since 2.0.3. Please use wpp_get_mostpopular() instead.', E_USER_WARNING );
-	return wpp_get_mostpopular($args);
+	trigger_error( 'The get_mostpopular() template tag has been deprecated since 2.0.3. Please use wpp_get_mostpopular() instead.', E_USER_WARNING );
 }
