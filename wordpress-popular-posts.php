@@ -2586,7 +2586,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			// Returns null if no attachment is found.
-			return $attachment[0];
+			return isset($attachment[0]) ? $attachment[0] : NULL;
 
 		} // __get_attachment_id
 
