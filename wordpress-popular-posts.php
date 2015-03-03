@@ -1405,8 +1405,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Allow WP themers / coders perform an action
 			// after updating views count
-			if ( has_action( 'wpp_update_views' ) )
-				do_action( 'wpp_update_views', $id );
+			if ( has_action( 'wpp_post_update_views' ) )
+				do_action( 'wpp_post_update_views', $id );
 
 			return true;
 
