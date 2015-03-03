@@ -1372,6 +1372,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$views = ( $this->user_settings['tools']['sampling']['active'] )
 			  ? $this->user_settings['tools']['sampling']['rate']
 			  : 1;
+			
+			// Allow WP themers / coders perform an action
+			// before updating views count
+			if ( has_action( 'wpp_pre_update_views' ) )
+				do_action( 'wpp_pre_update_views', $id, $views );
 
 			// Update all-time table
 			$result1 = $wpdb->query( $wpdb->prepare(
