@@ -1852,7 +1852,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'category' => $post_cat,
 					'author' => '<a href="' . get_author_posts_url($p->uid) . '">' . $author . '</a>',
 					'views' => ($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n( $pageviews ) : number_format_i18n( $pageviews, 2 ),
-					'comments' => $comments,
+					'comments' => number_format_i18n( $comments ),
 					'date' => $date
 				);
 
@@ -2136,7 +2136,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		protected function _get_comments($p, $instance) {
 
 			$comments = ($instance['order_by'] == "comments" || $instance['stats_tag']['comment_count'])
-			  ? number_format_i18n( $p->comment_count )
+			  ? $p->comment_count 
 			  : 0;
 
 			return $comments;
@@ -2297,7 +2297,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				$comments_text = sprintf(
 				_n('1 comment', '%s comments', $comments, $this->plugin_slug),
-				$comments);
+				number_format_i18n( $comments )
+				);
 				
 			}
 
