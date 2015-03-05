@@ -1541,18 +1541,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							 JOIN {$wpdb->term_taxonomy} AS x ON x.term_taxonomy_id = r.term_taxonomy_id
 						WHERE x.taxonomy = 'category' AND x.term_id IN({$out_cats})
 						)";
-				} else { // mixed, and possibly a heavy load on the DB
+				} else { // mixed
 					$where .= " AND p.ID IN (
 						SELECT object_id
 						FROM {$wpdb->term_relationships} AS r
 							 JOIN {$wpdb->term_taxonomy} AS x ON x.term_taxonomy_id = r.term_taxonomy_id
-						WHERE x.taxonomy = 'category' AND x.term_id IN({$in_cats})
-						) AND p.ID NOT IN (
-						SELECT object_id
-						FROM {$wpdb->term_relationships} AS r
-							 JOIN {$wpdb->term_taxonomy} AS x ON x.term_taxonomy_id = r.term_taxonomy_id
-						WHERE x.taxonomy = 'category' AND x.term_id IN({$out_cats})
-						)";
+						WHERE x.taxonomy = 'category' AND x.term_id IN({$in_cats}) AND x.term_id NOT IN({$out_cats})
+						) ";
 				}
 
 			}
