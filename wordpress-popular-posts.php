@@ -1516,11 +1516,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$in = array();
 				$out = array();
 
-				usort($cat_ids, array(&$this, '__sorter'));
-
 				for ($i=0; $i < count($cat_ids); $i++) {
-					if ($cat_ids[$i] >= 0) $in[] = $cat_ids[$i];
-					if ($cat_ids[$i] < 0) $out[] = $cat_ids[$i];
+					if ($cat_ids[$i] >= 0)
+						$in[] = $cat_ids[$i];
+					else
+						$out[] = $cat_ids[$i];
 				}
 
 				$in_cats = implode(",", $in);
