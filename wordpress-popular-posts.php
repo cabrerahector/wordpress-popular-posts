@@ -1515,7 +1515,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$cat_ids = explode(",", $instance['cat']);
 				$in = array();
 				$out = array();
-				$not_in = "";
 
 				usort($cat_ids, array(&$this, '__sorter'));
 
