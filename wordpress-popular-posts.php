@@ -3099,24 +3099,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		} // end __microtime_float
 
 		/**
-		 * Compares values
-		 *
-		 * @since	2.3.4
-		 * @param	int	a
-		 * @param	int	b
-		 * @return	int
-		 */
-		private function __sorter($a, $b) {
-
-			if ($a > 0 && $b > 0) {
-				return $a - $b;
-			} else {
-				return $b - $a;
-			}
-
-		} // end __sorter
-
-		/**
 		 * Merges two associative arrays recursively
 		 *
 		 * @since	2.3.4
