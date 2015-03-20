@@ -1280,15 +1280,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				<!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
 				<script type="text/javascript">//<![CDATA[
 
-					sampling_active = <?php echo ( $this->user_settings['tools']['sampling']['active'] ) ? 1 : 0; ?>;
-					sampling_rate   = <?php echo intval( $this->user_settings['tools']['sampling']['rate'] ); ?>;
+					var sampling_active = <?php echo ( $this->user_settings['tools']['sampling']['active'] ) ? 1 : 0; ?>;
+					var sampling_rate   = <?php echo intval( $this->user_settings['tools']['sampling']['rate'] ); ?>;
+					var do_request = false;
 
-					do_request = false;
 					if ( !sampling_active ) {
 						do_request = true;
 					} else {
-						num = Math.floor(Math.random() * sampling_rate) + 1;
-						do_request = ( 1 == num );
+						var num = Math.floor(Math.random() * sampling_rate) + 1;
+						do_request = ( 1 === num );
 					}
 
 					if ( do_request ) {
@@ -1305,7 +1305,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
 						// Hook into onreadystatechange
 						xhr.onreadystatechange = function() {
-							if ( 4 == xhr.readyState && 200 == xhr.status ) {
+							if ( 4 === xhr.readyState && 200 === xhr.status ) {
 								if ( window.console && window.console.log ) {
 									window.console.log( xhr.responseText );
 								}
