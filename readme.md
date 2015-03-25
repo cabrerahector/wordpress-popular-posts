@@ -52,7 +52,7 @@ WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [plug
 3. Activate **WordPress Popular Posts** plugin through the 'Plugins' menu in WordPress.
 4. In your admin console, go to Appeareance > Widgets, drag the WordPress Popular Posts widget to wherever you want it to be and click on Save.
 5. (optional) Go to Appeareance > Editor. On "Theme Files", click on `header.php` and make sure that the `<?php wp_head(); ?>` tag is present (should be right before the closing `</head>` tag).
-6. (optional, but recommended) If you're running a large / high traffic site, enabling [Data Sampling](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling) and/or [Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) is recommended. Check [here](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more.
+6. (optional, but recommended for large / high traffic sites) Enabling [Data Sampling](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling) and/or [Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) is recommended. Check [here](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more.
 
 
 ## Usage
