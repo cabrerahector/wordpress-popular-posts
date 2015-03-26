@@ -1572,7 +1572,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ( "comments" == $instance['order_by'] ) {
 
 					$from = "{$wpdb->posts} p";
-					$where .= " AND p.comment_count > 0 AND p.post_password = '' AND p.post_status = 'publish'";
+					$where .= " AND p.comment_count > 0 ";
 					$orderby = " ORDER BY p.comment_count DESC";
 
 					// get views, too
@@ -1588,7 +1588,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				else {
 
 					$from = "{$prefix}data v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID";
-					$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
 					// order by views
 					if ( "views" == $instance['order_by'] ) {
@@ -1607,8 +1606,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 
 				}
-
-				$query = "SELECT {$fields} FROM {$from} {$where} {$groupby} {$orderby} {$limit};";
 
 			} else { // CUSTOM RANGE
 
@@ -1637,7 +1634,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					$fields .= ", c.comment_count AS 'comment_count'";
 					$from = "(SELECT comment_post_ID AS 'id', COUNT(comment_post_ID) AS 'comment_count' FROM {$wpdb->comments} WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY id ORDER BY comment_count DESC) c LEFT JOIN {$wpdb->posts} p ON c.id = p.ID";
-					$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
 					if ( $instance['stats_tag']['views'] ) { // get views, too
 
@@ -1651,7 +1647,6 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				else {
 
 					$from = "(SELECT postid, IFNULL(SUM(pageviews), 0) AS pageviews FROM {$prefix}summary WHERE last_viewed > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid ORDER BY pageviews DESC) v LEFT JOIN {$wpdb->posts} p ON v.postid = p.ID";
-					$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
 					// ordered by views
 					if ( "views" == $instance['order_by'] ) {
@@ -1675,10 +1670,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					}
 
 				}
-				
-				$query = "SELECT {$fields} FROM {$from} {$where} {$groupby} {$orderby} {$limit};";
 
 			}
+
+			// List only published, non password-protected posts
+			$where .= " AND p.post_password = '' AND p.post_status = 'publish'";
+
+			// Build query
+			$query = "SELECT {$fields} FROM {$from} {$where} {$groupby} {$orderby} {$limit};";
 
 			$this->__debug( $query );
 
