@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2015-02-26 11:21-0430\n"
-"PO-Revision-Date: 2015-02-26 11:21-0430\n"
+"POT-Creation-Date: 2015-04-08 10:20-0430\n"
+"PO-Revision-Date: 2015-04-08 10:20-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language: en\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-KeywordsList: _e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;"
 "esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
 "X-Poedit-Basepath: .\n"
@@ -891,32 +891,32 @@ msgstr ""
 msgid "This version includes the following changes"
 msgstr ""
 
-#: ../views/admin.php:790
+#: ../views/admin.php:801
 msgid "Do you like this plugin?"
 msgstr ""
 
-#: ../views/admin.php:797
+#: ../views/admin.php:808
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress community!"
 msgstr ""
 
-#: ../views/admin.php:798
+#: ../views/admin.php:809
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 
-#: ../views/admin.php:802
+#: ../views/admin.php:813
 msgid "Need help?"
 msgstr ""
 
-#: ../views/admin.php:803
+#: ../views/admin.php:814
 #, php-format
 msgid ""
 "Visit <a href=\"%s\" target=\"_blank\">the forum</a> for support, questions and "
 "feedback."
 msgstr ""
 
-#: ../views/admin.php:804
+#: ../views/admin.php:815
 msgid "Let's make this plugin even better!"
 msgstr ""
 
@@ -1164,42 +1164,42 @@ msgstr ""
 msgid "The thumbnail cache is already empty!"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:1777
+#: ../wordpress-popular-posts.php:1778
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../wordpress-popular-posts.php:2304
+#: ../wordpress-popular-posts.php:2305
 #, php-format
 msgid "1 comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../wordpress-popular-posts.php:2316
+#: ../wordpress-popular-posts.php:2317
 #, php-format
 msgid "1 view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../wordpress-popular-posts.php:2322
+#: ../wordpress-popular-posts.php:2323
 #, php-format
 msgid "1 view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../wordpress-popular-posts.php:2334
+#: ../wordpress-popular-posts.php:2346
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:2340
+#: ../wordpress-popular-posts.php:2352
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: ../wordpress-popular-posts.php:2348
+#: ../wordpress-popular-posts.php:2360
 #, php-format
 msgid "under %s"
 msgstr ""

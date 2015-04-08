@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-26 11:22-0430\n"
+"POT-Creation-Date: 2015-04-08 10:20-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <hcabrerab@gmail.com>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
@@ -1092,11 +1092,11 @@ msgstr "Acerca de WordPress Popular Posts %s"
 msgid "This version includes the following changes"
 msgstr "Esta versi&oacute;n incluye los siguientes cambios"
 
-#: ../views/admin.php:790
+#: ../views/admin.php:801
 msgid "Do you like this plugin?"
 msgstr "&iquest;Te gusta este plugin?"
 
-#: ../views/admin.php:797
+#: ../views/admin.php:808
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress "
 "community!"
@@ -1104,18 +1104,18 @@ msgstr ""
 "&iexcl;Cada donaci&oacute;n me motiva a seguir publicando cosas gratuitas "
 "para la comunidad de WordPress!"
 
-#: ../views/admin.php:798
+#: ../views/admin.php:809
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 "&iexcl;Puedes <a href=\"%s\" target=\"_blank\">dejar una rese&ntilde;a</a> "
 "tambi&eacute;n!"
 
-#: ../views/admin.php:802
+#: ../views/admin.php:813
 msgid "Need help?"
 msgstr "&iquest;Necesitas ayuda?"
 
-#: ../views/admin.php:803
+#: ../views/admin.php:814
 #, php-format
 msgid ""
 "Visit <a href=\"%s\" target=\"_blank\">the forum</a> for support, questions "
@@ -1124,7 +1124,7 @@ msgstr ""
 "Visita <a href=\"%s\" target=\"_blank\">el foro</a> para obtener soporte, "
 "hacer preguntas y dejar tu feedback."
 
-#: ../views/admin.php:804
+#: ../views/admin.php:815
 msgid "Let's make this plugin even better!"
 msgstr "&iexcl;Hagamos a este plugin inclusive mejor!"
 
@@ -1389,42 +1389,42 @@ msgstr "&iexcl;&Eacute;xito! &iexcl;Todos los archivos han sido borrados!"
 msgid "The thumbnail cache is already empty!"
 msgstr "&iexcl;El cache de miniaturas ya est&aacute; vac&iacute;o!"
 
-#: ../wordpress-popular-posts.php:1777
+#: ../wordpress-popular-posts.php:1778
 msgid "Sorry. No data so far."
 msgstr "Lo lamentamos. No hay nada que mostrar a&uacute;n."
 
-#: ../wordpress-popular-posts.php:2304
+#: ../wordpress-popular-posts.php:2305
 #, php-format
 msgid "1 comment"
 msgid_plural "%s comments"
 msgstr[0] "1 comentario"
 msgstr[1] "%s comentarios"
 
-#: ../wordpress-popular-posts.php:2316
+#: ../wordpress-popular-posts.php:2317
 #, php-format
 msgid "1 view per day"
 msgid_plural "%s views per day"
 msgstr[0] "1 vista por d&iacute;a"
 msgstr[1] "%s vistas por d&iacute;a"
 
-#: ../wordpress-popular-posts.php:2322
+#: ../wordpress-popular-posts.php:2323
 #, php-format
 msgid "1 view"
 msgid_plural "%s views"
 msgstr[0] "1 vista"
 msgstr[1] "%s vistas"
 
-#: ../wordpress-popular-posts.php:2334
+#: ../wordpress-popular-posts.php:2346
 #, php-format
 msgid "by %s"
 msgstr "por %s"
 
-#: ../wordpress-popular-posts.php:2340
+#: ../wordpress-popular-posts.php:2352
 #, php-format
 msgid "posted on %s"
 msgstr "publicado el %s"
 
-#: ../wordpress-popular-posts.php:2348
+#: ../wordpress-popular-posts.php:2360
 #, php-format
 msgid "under %s"
 msgstr "bajo %s"
