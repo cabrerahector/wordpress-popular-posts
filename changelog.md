@@ -1,5 +1,20 @@
 Changelog
 =========
+#### 3.2.2 ####
+**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is recommended.**
+
+* Moves sampling logic into Javascript (thanks, [@kurtpayne](https://github.com/kurtpayne)!)
+* Simplifies category filtering logic.
+* Fixes list sorting issue that some users were experimenting (thanks, sponker!)
+* Widget uses stock thumbnails when using predefined size (some conditions apply).
+* Adds the ability to enable / disable responsive support for thumbails.
+* Adds wpp_pre_update_views action hook, and renames wpp_update_views action hook to wpp_post_update_views.
+* Adds filter wpp_render_image.
+* Drops support for get_mostpopular() template tag.
+* Fixes empty HTML tags (thumbnail, stats).
+* Removes Japanese, French and Norwegian Bokmal translation files from plugin.
+* Many minor bug fixes / enhancements.
+
 #### 3.2.1 ####
 * Fixes missing HTML decoding for custom HTML in widget.
 * Puts LIMIT clause back to the outer query.
