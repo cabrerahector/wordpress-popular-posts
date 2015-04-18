@@ -1850,7 +1850,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'title' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">'.$title_sub.'</a>',
 					'summary' => $excerpt,
 					'stats' => $_stats,
-					'img' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a>',
+					'img' => ( !empty($thumb) ) ? '<a href="'.$permalink.'" title="'. esc_attr($title) .'" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a>' : '',
 					'img_no_link' => $thumb,
 					'id' => $p->id,
 					'url' => $permalink,
