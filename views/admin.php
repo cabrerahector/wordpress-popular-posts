@@ -786,6 +786,7 @@ if (empty($wpp_rand)) {
             <li>Fixes list sorting issue that some users were experimenting (thanks, sponker!)</li>
             <li>Widget uses stock thumbnails when using predefined size (some conditions apply).</li>
             <li>Adds the ability to enable / disable responsive support for thumbails.</li>
+			<li>Renames wpp_update_views action hook to wpp_post_update_views, <strong>update your code!</strong></li>
             <li>Adds wpp_pre_update_views action hook, and renames wpp_update_views action hook to wpp_post_update_views.</li>
             <li>Adds filter wpp_render_image.</li>
             <li>Drops support for get_mostpopular() template tag.</li>
