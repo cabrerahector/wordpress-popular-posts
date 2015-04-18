@@ -162,7 +162,7 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 * Fixes list sorting issue that some users were experimenting (thanks, sponker!)
 * Widget uses stock thumbnails when using predefined size (some conditions apply).
 * Adds the ability to enable / disable responsive support for thumbails.
-* Renames wpp_update_views action hook to wpp_post_update_views, *update your code!*
+* Renames wpp_update_views action hook to wpp_post_update_views, **update your code!**
 * Adds wpp_pre_update_views action hook.
 * Adds filter wpp_render_image.
 * Drops support for get_mostpopular() template tag.
