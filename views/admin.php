@@ -78,7 +78,7 @@ if ( isset($_POST['section']) ) {
 }
 
 if ( $this->user_settings['tools']['css'] && !file_exists( get_stylesheet_directory() . '/wpp.css' ) ) {
-	echo '<div id="wpp-message" class="error fade"><p>'. __('Any changes made to WPP\'s default stylesheet will be lost after every plugin update. In order to prevent this from happening, please copy the wpp.css file (located at wp-content/plugins/wordpress-popular-posts/style) into your theme\'s directory', $this->plugin_slug) .'.</p></div>';
+	echo '<div id="wpp-message" class="update-nag">'. __('Any changes made to WPP\'s default stylesheet will be lost after every plugin update. In order to prevent this from happening, please copy the wpp.css file (located at wp-content/plugins/wordpress-popular-posts/style) into your theme\'s directory', $this->plugin_slug) .'.</div>';
 }
 
 $rand = md5(uniqid(rand(), true));	
