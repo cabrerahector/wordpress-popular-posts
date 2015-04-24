@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress Popular Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 10:20-0430\n"
+"POT-Creation-Date: 2015-04-24 13:30-0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <hcabrerab@gmail.com>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
@@ -263,6 +263,16 @@ msgstr ""
 msgid "WPP Cache Expiry Policy"
 msgstr ""
 
+#: ../views/admin.php:316 ../views/admin.php:344 ../views/form.php:2
+#: ../views/form.php:12 ../views/form.php:24 ../views/form.php:34
+#: ../views/form.php:40 ../views/form.php:43 ../views/form.php:52
+#: ../views/form.php:55 ../views/form.php:63 ../views/form.php:66
+#: ../views/form.php:73 ../views/form.php:101 ../views/form.php:103
+#: ../views/form.php:105 ../views/form.php:107 ../views/form.php:119
+#: ../views/form.php:125
+msgid "What is this?"
+msgstr "Was ist das?"
+
 #: ../views/admin.php:319
 msgid "Never cache"
 msgstr ""
@@ -319,10 +329,10 @@ msgid ""
 "By default, WordPress Popular Posts stores in database every single visit "
 "your site receives. For small / medium sites this is generally OK, but on "
 "large / high traffic sites the constant writing to the database may have an "
-"impact on performance. With data sampling, WordPress Popular Posts will "
-"store only a subset of your traffic and report on the tendencies detected in "
-"that sample set (for more on <em>data sampling</em>, please <a href=\"%1$s\" "
-"target=\"_blank\">read here</a>)"
+"impact on performance. With <a href=\"%1$s\" target=\"_blank\">data "
+"sampling</a>, WordPress Popular Posts will store only a subset of your "
+"traffic and report on the tendencies detected in that sample set (for more, "
+"<a href=\"%2$s\" target=\"_blank\">please read here</a>)"
 msgstr ""
 
 #: ../views/admin.php:356
@@ -1050,11 +1060,11 @@ msgstr "Über WordPress Popular Posts %s"
 msgid "This version includes the following changes"
 msgstr "Diese Version enthält die folgenden Änderungen"
 
-#: ../views/admin.php:801
+#: ../views/admin.php:802
 msgid "Do you like this plugin?"
 msgstr "Gefällt dir dieses Plugin?"
 
-#: ../views/admin.php:808
+#: ../views/admin.php:809
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress "
 "community!"
@@ -1062,38 +1072,29 @@ msgstr ""
 "Jede Spende motiviert mich, der WordPress-Gemeinschaft nützliches Zeugs "
 "weiterhin kostenlos zur Verfügung zu stellen!"
 
-#: ../views/admin.php:809
+#: ../views/admin.php:810
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 
-#: ../views/admin.php:813
+#: ../views/admin.php:814
 msgid "Need help?"
 msgstr "Brauchen Sie Hilfe?"
 
-#: ../views/admin.php:814
+#: ../views/admin.php:815
 #, php-format
 msgid ""
 "Visit <a href=\"%s\" target=\"_blank\">the forum</a> for support, questions "
 "and feedback."
 msgstr ""
 
-#: ../views/admin.php:815
+#: ../views/admin.php:816
 msgid "Let's make this plugin even better!"
 msgstr ""
 
 #: ../views/form.php:2
 msgid "Title"
 msgstr "Titel:"
-
-#: ../views/form.php:2 ../views/form.php:12 ../views/form.php:24
-#: ../views/form.php:34 ../views/form.php:40 ../views/form.php:43
-#: ../views/form.php:52 ../views/form.php:55 ../views/form.php:63
-#: ../views/form.php:66 ../views/form.php:73 ../views/form.php:101
-#: ../views/form.php:103 ../views/form.php:105 ../views/form.php:107
-#: ../views/form.php:119 ../views/form.php:125
-msgid "What is this?"
-msgstr "Was ist das?"
 
 #: ../views/form.php:7
 msgid "Show up to"
