@@ -349,7 +349,7 @@ if (empty($wpp_rand)) {
                             </select>
                     
                             <br />
-                            <p class="description"><?php echo sprintf( __('By default, WordPress Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With data sampling, WordPress Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more on <em>data sampling</em>, please <a href="%1$s" target="_blank">read here</a>)', $this->plugin_slug), 'http://en.wikipedia.org/wiki/Sample_%28statistics%29' ); ?>.</p>
+                            <p class="description"><?php echo sprintf( __('By default, WordPress Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With <a href="%1$s" target="_blank">data sampling</a>, WordPress Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more, <a href="%2$s" target="_blank">please read here</a>)', $this->plugin_slug), 'http://en.wikipedia.org/wiki/Sample_%28statistics%29', 'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling' ); ?>.</p>
                         </td>
                     </tr>
                     <tr valign="top" <?php if ( !$this->user_settings['tools']['sampling']['active'] ) { ?>style="display:none;"<?php } ?>>
