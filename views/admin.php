@@ -440,7 +440,7 @@ if (empty($wpp_rand)) {
                         <td><strong>header</strong></td>
                         <td><?php _e('Sets a heading for the list', $this->plugin_slug); ?></td>
                         <td><?php _e('Text string', $this->plugin_slug); ?></td>
-                        <td><?php _e('Popular Posts', $this->plugin_slug); ?></td>
+                        <td><?php _e('None', $this->plugin_slug); ?></td>
                         <td>&lt;?php wpp_get_mostpopular( 'header="Popular Posts"' ); ?&gt;</td>
                     </tr>
                     <tr class="alternate">
@@ -552,14 +552,14 @@ if (empty($wpp_rand)) {
                         <td><strong>thumbnail_width</strong></td>
                         <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the width for thumbnails', $this->plugin_slug); ?></td>
                         <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
-                        <td>15</td>
+                        <td>0</td>
                         <td>&lt;?php wpp_get_mostpopular( 'thumbnail_width=30&amp;thumbnail_height=30' ); ?&gt;</td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>thumbnail_height</strong></td>
                         <td><?php _e('If set, and if your current server configuration allows it, you will be able to display thumbnails of your posts. This attribute sets the height for thumbnails', $this->plugin_slug); ?></td>
                         <td><?php _e('Positive integer', $this->plugin_slug); ?></td>
-                        <td>15</td>
+                        <td>0</td>
                         <td>&lt;?php wpp_get_mostpopular( 'thumbnail_width=30&amp;thumbnail_height=30' ); ?&gt;</td>
                     </tr>
                     <tr>
