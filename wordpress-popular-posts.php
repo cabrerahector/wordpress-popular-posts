@@ -1047,7 +1047,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					last_viewed datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 					pageviews bigint(20) DEFAULT 1,
 					PRIMARY KEY  (postid)
-				) {$charset_collate};
+				) {$charset_collate} ENGINE=INNODB;
 				CREATE TABLE {$prefix}summary (
 					ID bigint(20) NOT NULL AUTO_INCREMENT,
 					postid bigint(20) NOT NULL,
@@ -1058,7 +1058,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					UNIQUE KEY ID_date (postid,view_date),
 					KEY postid (postid),
 					KEY last_viewed (last_viewed)
-				) {$charset_collate};";
+				) {$charset_collate} ENGINE=INNODB;";
 
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 			dbDelta($sql);
