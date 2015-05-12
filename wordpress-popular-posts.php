@@ -1258,11 +1258,11 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		public function update_views_ajax(){
 
-			if ( !wp_verify_nonce($_POST['token'], 'wpp-token') || !$this->__is_numeric($_POST['id']) )
+			if ( !wp_verify_nonce($_POST['token'], 'wpp-token') || !$this->__is_numeric($_POST['wpp_id']) )
 				die("WPP: Oops, invalid request!");
 
 			$nonce = $_POST['token'];
-			$post_ID = $_POST['id'];
+			$post_ID = $_POST['wpp_id'];
 
 			$exec_time = 0;
 
@@ -1311,7 +1311,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 						  ? new XMLHttpRequest()
 						  : new ActiveXObject( "Microsoft.XMLHTTP" ),
 						url = '<?php echo admin_url('admin-ajax.php', is_ssl() ? 'https' : 'http'); ?>',
-						params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&id=<?php echo $this->current_post_id; ?>';
+						params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&wpp_id=<?php echo $this->current_post_id; ?>';
 						// Set request method and target URL
 						xhr.open( "POST", url, true );
 						// Set request header
