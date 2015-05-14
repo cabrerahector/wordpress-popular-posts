@@ -1049,6 +1049,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					PRIMARY KEY  (ID),
 					UNIQUE KEY ID_date (postid,view_date),
 					KEY postid (postid),
+					KEY view_date (view_date),
 					KEY last_viewed (last_viewed)
 				) {$charset_collate} ENGINE=INNODB;";
 
