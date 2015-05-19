@@ -2060,7 +2060,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							$size = null;
 
 							foreach ( $this->default_thumbnail_sizes as $name => $attr ) :
-								if ( $attr['width'] == $tbWidth && $attr['height'] == $tbHeight ) {
+								if ( $attr['width'] == $tbWidth && $attr['height'] == $tbHeight && $attr['crop'] == $crop ) {
 									$size = $name;
 									break;
 								}
