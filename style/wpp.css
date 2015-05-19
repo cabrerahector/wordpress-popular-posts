@@ -5,6 +5,8 @@ Developed by Hector Cabrera
 Use the following classes to style your popular posts list as you like.
 */
 
+.wpp-no-data {} /* Styles the "Sorry, no data so far" message */
+
 .wpp-list { /* UL element */
 	
 }

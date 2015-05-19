@@ -1768,7 +1768,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// No posts to show
 			if ( !is_array($mostpopular) || empty($mostpopular) ) {
-				return "<p>".__('Sorry. No data so far.', $this->plugin_slug)."</p>";
+				return "<p class=\"wpp-no-data\">".__('Sorry. No data so far.', $this->plugin_slug)."</p>";
 			}
 
 			// Allow WP themers / coders access to raw data
