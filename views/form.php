@@ -92,7 +92,7 @@
     
     <label for="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>"><?php _e('Height', 'wordpress-popular-posts'); ?>:</label> 
     <input type="text" id="<?php echo $this->get_field_id( 'thumbnail-height' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail-height' ); ?>" value="<?php echo $instance['thumbnail']['height']; ?>" class="widefat" style="width:50px!important" <?php echo ($this->thumbnailing) ? '' : 'disabled="disabled"' ?> /> <?php _e('px', 'wordpress-popular-posts'); ?>
-</div>
+</div><br />
     
 <br /><hr /><br />
 
