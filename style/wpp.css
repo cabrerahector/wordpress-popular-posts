@@ -1,35 +1,39 @@
 /*
 Wordpress Popular Posts plugin stylesheet
 Developed by Hector Cabrera
+cabrerahector.com | @cabrerahector
 
 Use the following classes to style your popular posts list as you like.
 */
 
-.wpp-no-data {} /* Styles the "Sorry, no data so far" message */
-
-.wpp-list { /* UL element */
-	
+/* Styles the "Sorry, no data so far" message */
+.wpp-no-data {
 }
 
-	.wpp-list li { /* LI - post container */
-		/*display:inline-block;*/ /* <-- uncommenting this line is recommended when using post thumbnails */
-		float:none;
-		clear:left;
-	}
+/* UL - Popular Posts container styles */
+.wpp-list {	
+}
 
-		/* title styles */
-		.wpp-post-title {
-		}
-		
-		/* thumbnail styles */
+	/* LI - Post container styles */
+	.wpp-list li {
+		overflow:hidden;
+		float:none;
+		clear:both;
+	}
+	
+		/* Thumbnail styles */
 		.wpp-thumbnail {
 			display:inline;
 			float:left;
 			margin:0 5px 0 0;
 			border:none;
 		}
+
+		/* Title styles */
+		.wpp-post-title {
+		}
 		
-		/* excerpt styles */
+		/* Excerpt styles */
 		.wpp-excerpt {
 		}
 		
@@ -40,16 +44,24 @@ Use the following classes to style your popular posts list as you like.
 			font-weight:bold;
 		}
 			
+			/* Comments count styles */
 			.wpp-comments {
 			}
 			
+			/* Views count styles */
 			.wpp-views {
 			}
 			
+			/* Author styles */
 			.wpp-author {
 			}
 			
+			/* Post date styles */
 			.wpp-date {
+			}
+			
+			/* Post category styles */
+			.wpp-category {
 			}
 		
 		/* WP-PostRatings styles */
