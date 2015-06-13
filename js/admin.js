@@ -64,8 +64,6 @@
 			var value = parseInt( $("#cache_interval_value").val() );
 			var time = $(this).val();
 			
-			console.log(time + " " + value);
-			
 			if ( time == "hour" && value > 72 ) {				
 				$("#cache_too_long").show();				
 			} else if ( time == "day" && value > 3 ) {				
