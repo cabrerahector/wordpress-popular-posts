@@ -40,19 +40,23 @@ WordPress Popular Posts is a highly customizable widget that displays the most p
 
 1. Download the plugin and extract its contents.
 2. Upload the `wordpress-popular-posts` folder to the `/wp-content/plugins/` directory.
-3. Activate **WordPress Popular Posts** plugin through the 'Plugins' menu in WordPress.
+3. Activate **WordPress Popular Posts** plugin through the "Plugins" menu in WordPress.
 4. In your admin console, go to Appearance > Widgets, drag the WordPress Popular Posts widget to wherever you want it to be and click on Save.
 5. If you have a caching plugin installed on your site, flush its cache now so WPP can start tracking your site.
-6. (optional) Go to Appearance > Editor. On "Theme Files", click on `header.php` and make sure that the `<?php wp_head(); ?>` tag is present (should be right before the closing `</head>` tag).
+6. Go to Appearance > Editor. On "Theme Files", click on `header.php` and make sure that the `<?php wp_head(); ?>` tag is present (should be right before the closing `</head>` tag).
 7. (optional, but recommended for large / high traffic sites) Enabling [Data Sampling](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling) and/or [Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) is recommended. Check [here](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more.
 
 That's it!
 
 = USAGE =
 
-WPP can be used as a [WordPress Widget](http://codex.wordpress.org/WordPress_Widgets), which means you can place it on any of your theme's sidebars (and it even supports multiple instances!). However, you can also embed it directly in posts / pages via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages); or anywhere on your theme using the [wpp_get_mostpopular()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular) template tag.
+WordPress Popular Posts can be used in three different ways:
 
-... and there's even more on the **[Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki)**, so make sure to stop by!
+1. As a [widget](http://codex.wordpress.org/WordPress_Widgets), simply drag and drop it into your theme's sidebar and configure it.
+2. As a template tag, you can place it anywhere on your theme with [wpp_get_mostpopular()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular).
+3. Via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages), so you can embed it inside a post or a page.
+
+Make sure to stop by the **[Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki)** as well, you'll find even more info there!
 
 == Frequently Asked Questions ==
 
@@ -118,7 +122,7 @@ Copy your modified wpp.css file to your theme's folder, otherwise my plugin will
 = How can I style my list to look like [insert your desired look here]? =
 Since this plugin does not include any predefined designs, it's up to you to style your most popular posts list as you like (you might need to hire someone for this if you don't know HTML/CSS, though). However, I've gathered a few [examples](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) that should get you started.
 
-= I want to remove WPP's stylesheet. How can I do that? =
+= I want to remove WPP's stylesheet from the header of my theme. How can I do that? =
 You can disable the stylesheet via *wp-admin > Settings > WordPress Popular Posts > Tools*.
 
 = -OTHER STUFF THAT YOU (PROBABLY) WANT TO KNOW- =
@@ -127,12 +131,10 @@ You can disable the stylesheet via *wp-admin > Settings > WordPress Popular Post
 Yes, check the [Other Notes](http://wordpress.org/plugins/wordpress-popular-posts/other_notes/) section for more information.
 
 = I want to translate your plugin into my language / help you update a translation. What do I need to do? =
-First thing you need to do is get a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. You'll find several .PO files bundled with the plugin under the *lang* folder. If you're planning to add a new language, grab *wordpress-popular-posts.po* and rename it to add the proper suffix for your language (eg. wordpress-popular-posts-es_ES.po, for Spanish). In any case, open the PO file using Poedit (or your preferred gettext editor) and update the strings there. It sounds complicated, I know, but it's not.
-
-Check this handy [guide](http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/ "Translating WordPress Plugins & Themes"), in case you get lost at some point. If you're interested in sharing your translation with others (or just helped update a current translation), please [let me know](http://wordpress.org/support/plugin/wordpress-popular-posts).
+First thing you need to do is get a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) to translate all texts into your language. You'll find several .PO files bundled with the plugin under the *lang* folder. If you're planning to add a new language, check this handy [guide](http://urbangiraffe.com/articles/translating-wordpress-themes-and-plugins/ "Translating WordPress Plugins & Themes"). If you're interested in sharing your translation with others (or just helped update a current translation), please [let me know](http://wordpress.org/support/plugin/wordpress-popular-posts).
 
 = I want your plugin to have X or Y functionality. Can it be done? =
-If it fits the nature of my plugin and it sounds like something others would like to have, there's a pretty good chance that I will implement it (and if you can provide some sample code with useful comments, much better).
+If it fits the nature of my plugin and it sounds like something other users would like to have too, there's a pretty good chance that I will implement it (and if you can provide some sample code with useful comments, much better).
 
 = Your plugin seems to conflict with my current Theme / this other Plugin. Can you please help me? =
 If the theme/plugin you're talking about is a free one that can be downloaded from somewhere, sure I can try and take a look into it. Premium themes/plugins are out of discussion though, unless you're willing to grant me access to your site (or get me a copy of this theme/plugin) so I can check it out.
