@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hcabr
 Tags: popular, posts, widget, popularity, top
 Requires at least: 3.8
 Tested up to: 4.2.1
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,6 +156,16 @@ For the time being, the [Support Forum](http://wordpress.org/support/plugin/word
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.2.3 =
+**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
+
+- Fixes a potential bug that might affect other plugins & themes (thanks @pippinsplugins).
+- Defines INNODB as default storage engine.
+- Adds the wpp-no-data CSS class to style the "Sorry, no data so far" message.
+- Adds a new index to summary table.
+- Updates plugin's documentation.
+- Other small bug fixes and improvements.
+
 = 3.2.2 =
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is recommended.**
 
