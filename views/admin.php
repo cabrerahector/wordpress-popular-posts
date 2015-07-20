@@ -778,21 +778,15 @@ if (empty($wpp_rand)) {
         <h3><?php echo sprintf( __('About WordPress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
         <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
-        <p><strong>If you're using a caching plugin, flushing its cache after installing / upgrading to this version is recommended.</strong></p>
+        <p><strong>If you're using a caching plugin, flushing its cache after installing / upgrading to this version is strongly recommended.</strong></p>
         
         <ul>
-            <li>Moves sampling logic into Javascript (thanks, @<a href="https://github.com/kurtpayne">kurtpayne</a>!)</li>
-            <li>Simplifies category filtering logic.</li>
-            <li>Fixes list sorting issue that some users were experimenting (thanks, sponker!)</li>
-            <li>Widget uses stock thumbnails when using predefined size (some conditions apply).</li>
-            <li>Adds the ability to enable / disable responsive support for thumbails.</li>
-			<li>Renames wpp_update_views action hook to wpp_post_update_views, <strong>update your code!</strong></li>
-            <li>Adds wpp_pre_update_views action hook, and renames wpp_update_views action hook to wpp_post_update_views.</li>
-            <li>Adds filter wpp_render_image.</li>
-            <li>Drops support for get_mostpopular() template tag.</li>
-            <li>Fixes empty HTML tags (thumbnail, stats).</li>
-            <li>Removes Japanese, French and Norwegian Bokmal translation files from plugin.</li>
-            <li>Many minor bug fixes / enhancements.</li>
+            <li>Fixes a potential bug that might affect other plugins & themes (thanks , @<a href="https://github.com/pippinsplugins">pippinsplugins</a>!)</li>
+            <li>Defines INNODB as default storage engine.</li>
+            <li>Adds the wpp-no-data CSS class to style the "Sorry, no data so far" message.</li>
+            <li>Adds a new index to summary table.</li>
+            <li>Updates plugin's documentation.</li>
+            <li>Other small bug fixes and improvements.</li>
         </ul>
                 
     </div>
