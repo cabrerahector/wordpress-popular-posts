@@ -3,7 +3,7 @@
 Plugin Name: WordPress Popular Posts
 Plugin URI: http://wordpress.org/extend/plugins/wordpress-popular-posts
 Description: WordPress Popular Posts is a highly customizable widget that displays the most popular posts on your blog
-Version: 3.2.2
+Version: 3.2.3
 Author: Hector Cabrera
 Author URI: http://cabrerahector.com
 Author Email: hcabrerab@gmail.com
@@ -61,7 +61,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	1.3.0
 		 * @var		string
 		 */
-		private $version = '3.2.2';
+		private $version = '3.2.3';
 
 		/**
 		 * Plugin identifier.
