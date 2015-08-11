@@ -1479,6 +1479,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				if ( count($types) > 1 ) {
 
 					foreach ( $types as $post_type ) {
+						$post_type = trim($post_type); // required in case user places whitespace between commas
 						$sql_post_types .= "'{$post_type}',";
 					}
 
