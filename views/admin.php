@@ -804,6 +804,8 @@ if (empty($wpp_rand)) {
         <p><?php echo sprintf( __('You can <a href="%s" target="_blank">leave a review</a>, too!', $this->plugin_slug), 'https://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts?rate=5#postform' ); ?></p>
     </div>
     
+    <div id="wpp_advertisement" class="wpp_box" style=""></div>
+    
     <div id="wpp_support" class="wpp_box" style="">
         <h3 style="margin-top:0; text-align:center;"><?php _e('Need help?', $this->plugin_slug); ?></h3>
         <p><?php echo sprintf( __('Visit <a href="%s" target="_blank">the forum</a> for support, questions and feedback.', $this->plugin_slug), 'https://wordpress.org/support/plugin/wordpress-popular-posts' ); ?></p>

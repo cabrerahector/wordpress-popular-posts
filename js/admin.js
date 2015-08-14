@@ -1,6 +1,29 @@
 (function ($) {
 	"use strict";
 	$(function () {
+		// ADS
+		$.ajax({
+			type: "GET",
+			url: "http://cabrerahector.com/ads/get.php",
+			timeout: 5000,
+			dataType: "jsonp",
+			success: function(results){
+				if ( !$.isEmptyObject(results) ) {
+					$("#wpp_advertisement").html( results.ad );
+					
+					// Detect ad blockers
+					setTimeout(function(){
+						if ( "none" != $("#wpp_advertisement img").css('display') ) {
+							$("#wpp_advertisement").show();
+						}
+					}, 250);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				if ( window.console && window.console.log )
+					window.console.log( 'Could not retrieve the ad: ' + textStatus );
+			}
+		});
 		
 		// STATISTICS TABS		
 		$("#wpp-stats-tabs a").click(function(e){

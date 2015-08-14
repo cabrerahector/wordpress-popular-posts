@@ -10,14 +10,16 @@
 	float:right;
 	margin:0 0 15px 0;
 	padding:10px;
-	width:230px;
+	width:250px;
 	background:#f9f9f9;
 	border: 1px solid #ccc;
 }
 
 #wpp_donate { margin-top:15px; }
 
-#wpp_support { clear:right; }
+#wpp_advertisement { display:none; }
+
+#wpp_advertisement, #wpp_support { clear:right; }
 
 .clear {
 	float:none;
