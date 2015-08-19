@@ -398,6 +398,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Add shortcode
 			add_shortcode('wpp', array(&$this, 'shortcode'));
+			
+			// Purge post data from DB on deletion
+			add_action( 'admin_init', array($this, 'purge_post_init') );
 
 			// Enable data purging at midnight
 			add_action( 'wpp_cache_event', array($this, 'purge_data') );
@@ -1122,6 +1125,40 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		/*--------------------------------------------------*/
 		/* Plugin methods / functions
 		/*--------------------------------------------------*/
+
+		/**
+		 * Purges post from data/summary tables.
+		 *
+		 * @since	3.3.0
+		 * @global	object	$wpdb
+		 */
+		public function purge_post_init() {
+
+			if ( current_user_can( 'delete_posts' ) )
+				add_action( 'delete_post', array( $this, 'purge_post' ), 10 );
+
+		} // end purge_data
+
+		/**
+		 * Purges post from data/summary tables.
+		 *
+		 * @since	3.3.0
+		 * @global	object	$wpdb
+		 */
+		public function purge_post( $pID ) {
+
+			global $wpdb;
+
+			if ( $wpdb->get_var( $wpdb->prepare( "SELECT postid FROM {$wpdb->prefix}popularpostsdata WHERE postid = %d", $pID ) ) ) {
+				// Delete from data table
+				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}popularpostsdata WHERE postid = %d;", $pID ) );
+				// Delete from summary table
+				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}popularpostssummary WHERE postid = %d;", $pID ) );				
+			}
+			
+			return true;
+
+		} // end purge_data
 
 		/**
 		 * Purges deleted posts from data/summary tables.
