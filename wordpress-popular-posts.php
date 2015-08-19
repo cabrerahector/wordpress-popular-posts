@@ -2537,6 +2537,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ($error) {
 				$msg = '<!-- ' . $error . ' --> ';
 			}
+			
+			if ( is_ssl() ) {
+				$src = str_ireplace( "http://", "https://", $src );
+			}
 
 			return apply_filters( 'wpp_render_image', $msg .
 			'<img src="' . $src . '" ' . ( false == $this->user_settings['tools']['thumbnail']['responsive'] ? 'width=' . $dimension[0] . ' height=' . $dimension[1] : '' ) . ' title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" class="' . $class . '" />' );
