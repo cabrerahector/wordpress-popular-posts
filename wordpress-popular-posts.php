@@ -989,9 +989,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					$result = $wpdb->query( $sql );
 
-					// Rename old caching table
+					// Deletes old caching table
 					if ( $result ) {
-						$result = $wpdb->query( "RENAME TABLE {$prefix}datacache TO {$prefix}datacache_backup;" );
+						$wpdb->query( "DROP TABLE {$prefix}datacache;" );
 					}
 
 				}
