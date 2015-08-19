@@ -1130,20 +1130,20 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * Purges post from data/summary tables.
 		 *
 		 * @since	3.3.0
-		 * @global	object	$wpdb
 		 */
 		public function purge_post_init() {
 
 			if ( current_user_can( 'delete_posts' ) )
 				add_action( 'delete_post', array( $this, 'purge_post' ), 10 );
 
-		} // end purge_data
+		} // end purge_post_init
 
 		/**
 		 * Purges post from data/summary tables.
 		 *
 		 * @since	3.3.0
 		 * @global	object	$wpdb
+		 * @return	bool
 		 */
 		public function purge_post( $pID ) {
 
@@ -1158,7 +1158,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			
 			return true;
 
-		} // end purge_data
+		} // end purge_post
 
 		/**
 		 * Purges deleted posts from data/summary tables.
