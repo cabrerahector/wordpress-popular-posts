@@ -174,7 +174,7 @@ if (empty($wpp_rand)) {
                     <input type="submit" class="button-secondary action" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                     
                     <div class="clear"></div>
-                    <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->user_settings['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness" /> <?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></label>
+                    <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->user_settings['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness" /> <?php _e('Display only posts published within the selected Time Range', $this->plugin_slug); ?></label>
                 </form>
             </div>
         </div>
@@ -313,7 +313,7 @@ if (empty($wpp_rand)) {
                         </td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="cache"><?php _e("WPP Cache Expiry Policy", $this->plugin_slug); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching" target="_blank" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                        <th scope="row"><label for="cache"><?php _e("WPP Cache Expiry Policy", $this->plugin_slug); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching" target="_blank" title="<?php _e('What is this?', $this->plugin_slug); ?>">?</a>]</small></th>
                         <td>
                             <select name="cache" id="cache">
                                 <option <?php if ( !$this->user_settings['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Never cache", $this->plugin_slug); ?></option>
@@ -341,7 +341,7 @@ if (empty($wpp_rand)) {
                         </td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="sampling"><?php _e("Data Sampling", $this->plugin_slug); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling" target="_blank" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                        <th scope="row"><label for="sampling"><?php _e("Data Sampling", $this->plugin_slug); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling" target="_blank" title="<?php _e('What is this?', $this->plugin_slug); ?>">?</a>]</small></th>
                         <td>
                             <select name="sampling" id="sampling">
                                 <option <?php if ( !$this->user_settings['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
