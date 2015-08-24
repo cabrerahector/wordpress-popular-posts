@@ -74,6 +74,18 @@
 			
 			tb_remove();			
 		};
+		// log limit
+		$("#log_limit").change(function(){
+			var me = $(this);
+			
+			if (me.val() == 1) {
+				me.parent().children("label, .description").show();
+				me.parent().children("br").hide();
+			} else {
+				me.parent().children("label, .description").hide();
+				me.parent().children("br").show();
+			}
+		});
 		// cache interval 
 		$("#cache").change(function() {
 			if ($(this).val() == 1) {

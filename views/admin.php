@@ -53,6 +53,10 @@ if ( isset($_POST['section']) ) {
 		$current = 'tools';
 		
 		$this->user_settings['tools']['log']['level'] = $_POST['log_option'];
+		$this->user_settings['tools']['log']['limit'] = $_POST['log_limit'];
+		$this->user_settings['tools']['log']['expires_after'] = ( $this->__is_numeric($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) 
+		  ? $_POST['log_expire_time'] 
+		  : $this->default_user_settings['tools']['log']['expires_after'];
 		$this->user_settings['tools']['ajax'] = $_POST['ajax'];
 		
 		// if any of the caching settings was updated, destroy all transients created by the plugin
@@ -298,6 +302,21 @@ if (empty($wpp_rand)) {
                                 <option <?php if ($this->user_settings['tools']['log']['level'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Everyone", $this->plugin_slug); ?></option>
                             </select>
                             <br />
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="log_limit"><?php _e("Log limit", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="log_limit" id="log_limit">
+                                <option <?php if ($this->user_settings['tools']['log']['limit'] == 0) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['log']['limit'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Keep data for", $this->plugin_slug); ?></option>
+                            </select>
+                            
+                            <label for="log_expire_time"<?php echo ($this->user_settings['tools']['log']['limit'] == 0) ? ' style="display:none;"' : ''; ?>><input type="text" id="log_expire_time" name="log_expire_time" value="<?php echo $this->user_settings['tools']['log']['expires_after']; ?>" size="3" /> <?php _e("day(s)", $this->plugin_slug); ?></label>
+                            
+                            <p class="description"<?php echo ($this->user_settings['tools']['log']['limit'] == 0) ? ' style="display:none;"' : ''; ?>><?php _e("Data from entries that haven't been viewed within the specified time frame will be automatically discarded", $this->plugin_slug); ?>.</p>
+                            
+                            <br<?php echo ($this->user_settings['tools']['log']['limit'] == 1) ? ' style="display:none;"' : ''; ?> />
                         </td>
                     </tr>
                     <tr valign="top">

@@ -235,7 +235,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					'responsive' => false
 				),
 				'log' => array(
-					'level' => 1
+					'level' => 1,
+					'expires' => 0,
+					'expires_after' => 180
 				),
 				'cache' => array(
 					'active' => false,
@@ -403,14 +405,24 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			add_action( 'admin_init', array($this, 'purge_post_init') );
 
 			// Enable data purging at midnight
-			add_action( 'wpp_cache_event', array($this, 'purge_data') );
-			if ( !wp_next_scheduled('wpp_cache_event') ) {
-				$tomorrow = time() + 86400;
-				$midnight  = mktime(0, 0, 0,
-					date("m", $tomorrow),
-					date("d", $tomorrow),
-					date("Y", $tomorrow));
-				wp_schedule_event( $midnight, 'daily', 'wpp_cache_event' );
+			if ( 1 == $this->user_settings['tools']['log']['limit'] ) {
+				
+				add_action( 'wpp_cache_event', array($this, 'purge_data') );
+				if ( !wp_next_scheduled('wpp_cache_event') ) {
+					$tomorrow = time() + 86400;
+					$midnight  = mktime(0, 0, 0,
+						date("m", $tomorrow),
+						date("d", $tomorrow),
+						date("Y", $tomorrow));
+					wp_schedule_event( $midnight, 'daily', 'wpp_cache_event' );
+				}
+				
+			} else {
+				// Remove the scheduled event if exists
+				if ( $timestamp = wp_next_scheduled('wpp_cache_event') ) {
+					wp_unschedule_event( $timestamp, 'wpp_cache_event' );
+				}
+				
 			}
 
 		} // end constructor
@@ -1161,7 +1173,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		} // end purge_post
 
 		/**
-		 * Purges deleted posts from data/summary tables.
+		 * Purges old post data from summary table.
 		 *
 		 * @since	2.0.0
 		 * @global	object	$wpdb
@@ -1170,17 +1182,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			global $wpdb;
 
-			if ( $missing = $wpdb->get_results( "SELECT v.postid AS id FROM {$wpdb->prefix}popularpostsdata v WHERE NOT EXISTS (SELECT p.ID FROM {$wpdb->posts} p WHERE v.postid = p.ID);" ) ) {
-				$to_be_deleted = '';
-
-				foreach ( $missing as $deleted )
-					$to_be_deleted .= $deleted->id . ",";
-
-				$to_be_deleted = rtrim( $to_be_deleted, "," );
-
-				$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostsdata WHERE postid IN({$to_be_deleted});" );
-				$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostssummary WHERE postid IN({$to_be_deleted});" );
-			}
+			$wpdb->query( "DELETE FROM {$wpdb->prefix}popularpostssummary WHERE view_date < DATE_SUB('{$this->__curdate()}', INTERVAL {$this->user_settings['tools']['log']['expires_after']} DAY);" );
 
 		} // end purge_data
 
