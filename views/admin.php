@@ -439,7 +439,7 @@ if (empty($wpp_rand)) {
     <!-- Start params -->
     <div id="wpp_params" class="wpp_boxes"<?php if ( "params" == $current ) {?> style="display:block;"<?php } ?>>        
         <div>
-            <p><?php printf( __('With the following parameters you can customize the popular posts list when using either the <a href="%1$s">wpp_get_most_popular() template tag</a> or the <a href="%2$s">[wpp] shortcode</a>.', $this->plugin_slug),
+            <p><?php printf( __('With the following parameters you can customize the popular posts list when using either the <a href="%1$s">wpp_get_mostpopular() template tag</a> or the <a href="%2$s">[wpp] shortcode</a>.', $this->plugin_slug),
 				admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#template-tags'),
 				admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#shortcode')
 			); ?></p>
