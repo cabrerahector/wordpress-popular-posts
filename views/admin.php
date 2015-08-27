@@ -797,15 +797,15 @@ if (empty($wpp_rand)) {
         <h3><?php echo sprintf( __('About WordPress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
         <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
-        <p><strong>If you're using a caching plugin, flushing its cache after installing / upgrading to this version is strongly recommended.</strong></p>
-        
         <ul>
-            <li>Fixes a potential bug that might affect other plugins & themes (thanks , @<a href="https://github.com/pippinsplugins">pippinsplugins</a>!)</li>
-            <li>Defines INNODB as default storage engine.</li>
-            <li>Adds the wpp-no-data CSS class to style the "Sorry, no data so far" message.</li>
-            <li>Adds a new index to summary table.</li>
-            <li>Updates plugin's documentation.</li>
-            <li>Other small bug fixes and improvements.</li>
+            <li>Adds the ability to limit the amount of data logged by WPP (see the <a href="?page=wordpress-popular-posts&tab=tools">Tools section</a> for more).</li>
+            <li>Adds Polylang support (thanks, <a href="https://github.com/Chouby">@Chouby</a>!)</li>
+            <li>Removes post data from DB on deletion.</li>
+            <li>Fixes whitespaces from post_type argument (thanks, <a href="https://github.com/Chouby">@getdave</a>!)</li>
+            <li>WPP now handles SSL detection for images.</li>
+            <li>Removes legacy datacache &amp; datacache_backup tables.</li>
+            <li>Adds Settings page advertisement support.</li>
+            <li>FAQ section has been moved over to Github.</li>
         </ul>
                 
     </div>

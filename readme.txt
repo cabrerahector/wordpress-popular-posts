@@ -70,6 +70,16 @@ The [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.3.0 =
+- Adds the ability to limit the amount of data logged by WPP (see Settings > WordPress Popular Posts > Tools for more).
+- Adds Polylang support (thanks, [@Chouby](https://github.com/Chouby)!)
+- Removes post data from DB on deletion.
+- Fixes whitespaces from post_type argument (thanks, [@getdave](https://github.com/getdave)!)
+- WPP now handles SSL detection for images.
+- Removes legacy datacache and datacache_backup tables.
+- Adds Settings page advertisement support.
+- FAQ section has been moved over to Github.
+
 = 3.2.3 =
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
 
