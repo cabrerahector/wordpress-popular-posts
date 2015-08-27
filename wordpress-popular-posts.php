@@ -236,7 +236,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				),
 				'log' => array(
 					'level' => 1,
-					'expires' => 0,
+					'limit' => 0,
 					'expires_after' => 180
 				),
 				'cache' => array(
