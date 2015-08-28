@@ -798,14 +798,8 @@ if (empty($wpp_rand)) {
         <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
         <ul>
-            <li>Adds the ability to limit the amount of data logged by WPP (see the <a href="?page=wordpress-popular-posts&tab=tools">Tools section</a> for more).</li>
-            <li>Adds Polylang support (thanks, <a href="https://github.com/Chouby">@Chouby</a>!)</li>
-            <li>Removes post data from DB on deletion.</li>
-            <li>Fixes whitespaces from post_type argument (thanks, <a href="https://github.com/Chouby">@getdave</a>!)</li>
-            <li>WPP now handles SSL detection for images.</li>
-            <li>Removes legacy datacache &amp; datacache_backup tables.</li>
-            <li>Adds Settings page advertisement support.</li>
-            <li>FAQ section has been moved over to Github.</li>
+            <li>Fixes undefined index notice.</li>
+            <li>Makes sure legacy tables are deleted on plugin upgrade.</li>
         </ul>
                 
     </div>

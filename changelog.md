@@ -1,5 +1,9 @@
 Changelog
 =========
+#### 3.3.1 ####
+- Fixes undefined index notice.
+- Makes sure legacy tables are deleted on plugin upgrade.
+
 #### 3.3.0 ####
 - Adds the ability to limit the amount of data logged by WPP (see Settings > WordPress Popular Posts > Tools for more).
 - Adds Polylang support (thanks, [@Chouby](https://github.com/Chouby)!)

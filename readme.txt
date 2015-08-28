@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hcabr
 Tags: popular, posts, widget, popularity, top
 Requires at least: 3.8
 Tested up to: 4.3
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,10 @@ The [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.3.1 =
+- Fixes undefined index notice.
+- Makes sure legacy tables are deleted on plugin upgrade.
+
 = 3.3.0 =
 - Adds the ability to limit the amount of data logged by WPP (see Settings > WordPress Popular Posts > Tools for more).
 - Adds Polylang support (thanks, [@Chouby](https://github.com/Chouby)!)
@@ -136,22 +140,6 @@ The [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/
 = 3.1.1 =
 * Adds check for exif extension availability.
 * Rolls back check for user's default thumbnail.
-
-= 3.1.0 =
-* Fixes invalid HTML title/alt attributes caused by encoding issues.
-* Fixes issue with jQuery not loading properly under certain circumstances.
-* Fixes issue with custom excerpts not showing up.
-* Fixes undefined notices and removes an unused variable from widget_update().
-* Fixes wrong variable reference in __image_resize().
-* Adds charset to mb_substr when truncating excerpt.
-* Sets default logging level to 1 (Everyone).
-* Renders the category link with cat-id-[ID] CSS class.
-* Replaces getimagesize() with exif_imagetype().
-* Adds notice to move/copy wpp.css stylesheet into theme's directory to keep custom CSS styles across updates.
-* Thumbail generation process has been refactored for efficiency.
-* Thumbnails are now stored in a custom folder under Uploads.
-* Drops support on Japanese and French languages since the translations were outdated.
-* Other minor bug fixes and improvements.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
