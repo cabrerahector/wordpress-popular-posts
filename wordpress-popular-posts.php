@@ -1744,6 +1744,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$this->defaults,
 				$instance
 			);
+			
+			// Pass the widget ID, might come in handy
+			if ( isset($this->id) )
+				$instance['widget_id'] = $this->id;
 
 			$content = "";
 
