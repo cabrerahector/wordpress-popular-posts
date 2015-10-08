@@ -690,7 +690,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				wp_enqueue_script( 'thickbox' );
 				wp_enqueue_style( 'thickbox' );
 				wp_enqueue_script( 'media-upload' );
-				wp_enqueue_script( $this->plugin_slug .'-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array('jquery'), $this->version );
+				wp_enqueue_script( $this->plugin_slug .'-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array('jquery'), $this->version, true );
 			}
 
 		} // end register_admin_scripts
