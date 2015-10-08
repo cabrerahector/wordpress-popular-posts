@@ -658,41 +658,14 @@ if (empty($wpp_rand)) {
     <!-- End params -->
     
     <!-- Start faq -->
-    <div id="wpp_faq" class="wpp_boxes"<?php if ( "faq" == $current ) {?> style="display:block;"<?php } ?>>    	
+    <div id="wpp_faq" class="wpp_boxes"<?php if ( "faq" == $current ) {?> style="display:block;"<?php } ?>>
+    	
+        <p><?php echo sprintf( __('These FAQs are widget specific. For more general FAQs about WordPress Popular Posts, please click <a href="%s" target="_blank">here</a>', $this->plugin_slug), 'https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ' ); ?>.</p>
+        
         <h4 id="widget-title">&raquo; <a href="#" rel="q-1"><?php _e('What does "Title" do?', $this->plugin_slug); ?></a></h4>
         
         <div class="wpp-ans" id="q-1">
             <p><?php _e('It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="time-range">&raquo; <a href="#" rel="q-2"><?php _e('What is Time Range for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-2">
-            <p><?php _e('It will tell WordPress Popular Posts to retrieve all posts with most views / comments within the selected time range.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="sorting">&raquo; <a href="#" rel="q-3"><?php _e('What is "Sort post by" for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-3">
-            <p><?php _e('It allows you to decide whether to order your popular posts listing by total views, comments, or average views per day.', $this->plugin_slug); ?></p>
-        </div>                    
-        
-        <h4 id="display-rating">&raquo; <a href="#" rel="q-4"><?php _e('What does "Display post rating" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-4">
-            <p><?php _e('If checked, WordPress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="shorten-title">&raquo; <a href="#" rel="q-5"><?php _e('What does "Shorten title" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-5">
-            <p><?php _e('If checked, all posts titles will be shortened to "n" characters/words. A new "Shorten title to" option will appear so you can set it to whatever you like.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="display-excerpt">&raquo; <a href="#" rel="q-6"><?php _e('What does "Display post excerpt" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-6">
-            <p><?php _e('If checked, WordPress Popular Posts will also include a small extract of your posts in the list. Similarly to the previous option, you will be able to decide how long the post excerpt should be.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="keep-format">&raquo; <a href="#" rel="q-7"><?php _e('What does "Keep text format and links" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-7">
-            <p><?php _e('If checked, and if the Post Excerpt feature is enabled, WordPress Popular Posts will keep the styling tags (eg. bold, italic, etc) that were found in the excerpt. Hyperlinks will remain intact, too.', $this->plugin_slug); ?></p>
         </div>
         
         <h4 id="filter-post-type">&raquo; <a href="#" rel="q-8"><?php _e('What is "Post type" for?', $this->plugin_slug); ?></a></h4>
@@ -710,84 +683,16 @@ if (empty($wpp_rand)) {
             <p><?php _e('Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
         </div>
         
-        <h4 id="display-thumb">&raquo; <a href="#" rel="q-11"><?php _e('What does "Display post thumbnail" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-11">
-            <p><?php _e('If checked, WordPress Popular Posts will attempt to retrieve the thumbnail of each post. You can set up the source of the thumbnail via Settings - WordPress Popular Posts - Tools.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="stats-comments">&raquo; <a href="#" rel="q-12"><?php _e('What does "Display comment count" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-12">
-            <p><?php _e('If checked, WordPress Popular Posts will display how many comments each popular post has got in the selected Time Range.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="stats-views">&raquo; <a href="#" rel="q-13"><?php _e('What does "Display views" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-13">
-            <p><?php _e('If checked, WordPress Popular Posts will show how many pageviews a single post has gotten in the selected Time Range.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="stats-author">&raquo; <a href="#" rel="q-14"><?php _e('What does "Display author" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-14">
-            <p><?php _e('If checked, WordPress Popular Posts will display the name of the author of each entry listed.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="stats-date">&raquo; <a href="#" rel="q-15"><?php _e('What does "Display date" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-15">
-            <p><?php _e('If checked, WordPress Popular Posts will display the date when each popular posts was published.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="stats-cat">&raquo; <a href="#" rel="q-16"><?php _e('What does "Display category" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-16">
-            <p><?php _e('If checked, WordPress Popular Posts will display the category of each post.', $this->plugin_slug); ?></p>
+        <h4 id="display-rating">&raquo; <a href="#" rel="q-4"><?php _e('What does "Display post rating" do?', $this->plugin_slug); ?></a></h4>
+        <div class="wpp-ans" id="q-4">
+            <p><?php _e('If checked, WordPress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work.', $this->plugin_slug); ?></p>
         </div>
         
         <h4 id="custom-html-markup">&raquo; <a href="#" rel="q-17"><?php _e('What does "Use custom HTML Markup" do?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-17">
             <p><?php _e('If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!', $this->plugin_slug); ?></p>
         </div>
-        
-        <h4>&raquo; <a href="#" rel="q-18"><?php _e('What are "Content Tags"?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-18">            
-            <p><?php echo sprintf( __('Content Tags are codes to display a variety of items on your popular posts custom HTML structure. For example, setting it to "{title}: {summary}" (without the quotes) would display "Post title: excerpt of the post here". For more Content Tags, see the <a href="%s" target="_blank">Parameters</a> section.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></p>
-        </div>
-        
-        <h4 id="template-tags">&raquo; <a href="#" rel="q-19"><?php _e('What are "Template Tags"?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-19">
-            <p><?php _e('Template Tags are simply php functions that allow you to perform certain actions. For example, WordPress Popular Posts currently supports two different template tags: wpp_get_mostpopular() and wpp_get_views().', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4>&raquo; <a href="#" rel="q-20"><?php _e('What are the template tags that WordPress Popular Posts supports?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-20">
-            <p><?php _e('The following are the template tags supported by WordPress Popular Posts', $this->plugin_slug); ?>:</p>
-            <table cellspacing="0" class="wp-list-table widefat fixed posts">
-                <thead>
-                    <tr>
-                        <th class="manage-column column-title"><?php _e('Template tag', $this->plugin_slug); ?></th>
-                        <th class="manage-column column-title"><?php _e('What it does ', $this->plugin_slug); ?></th>
-                        <th class="manage-column column-title"><?php _e('Parameters', $this->plugin_slug); ?></th>
-                        <th class="manage-column column-title"><?php _e('Example', $this->plugin_slug); ?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>wpp_get_mostpopular()</strong></td>
-                        <td><?php printf( __('Similar to the widget functionality, this tag retrieves the most popular posts on your blog. This function also accepts <a href="%1$s">parameters</a> so you can customize your popular listing, but these are not required.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></td>
-                        <td><?php printf( __('Please refer to the <a href="%1$s">Parameters section</a> for a complete list of attributes.', $this->plugin_slug), admin_url('options-general.php?page=wordpress-popular-posts&tab=params') ); ?></td>
-                        <td>&lt;?php wpp_get_mostpopular(); ?&gt;<br />&lt;?php wpp_get_mostpopular("range=weekly&amp;limit=7"); ?&gt;</td>
-                    </tr>
-                    <tr class="alternate">
-                        <td><strong>wpp_get_views()</strong></td>
-                        <td><?php _e('Displays the number of views of a single post. Post ID is required or it will return false.', $this->plugin_slug); ?></td>
-                        <td><?php _e('Post ID', $this->plugin_slug); ?>, range ("daily", "weekly", "monthly", "all")</td>
-                        <td>&lt;?php echo wpp_get_views($post->ID); ?&gt;<br />&lt;?php echo wpp_get_views(15, 'weekly'); ?&gt;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <h4 id="shortcode">&raquo; <a href="#" rel="q-21"><?php _e('What are "shortcodes"?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-21">
-            <p><?php echo sprintf( __('Shortcodes are similar to BB Codes, these allow us to call a php function by simply typing something like [shortcode]. With WordPress Popular Posts, the shortcode [wpp] will let you insert a list of the most popular posts in posts content and pages too! For more information about shortcodes, please visit the <a href="%s" target="_blank">WordPress Shortcode API</a> page.', $this->plugin_slug), 'http://codex.wordpress.org/Shortcode_API' ); ?></p>
-        </div>        
+
     </div>
     <!-- End faq -->
     
