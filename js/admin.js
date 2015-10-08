@@ -12,12 +12,14 @@
 				success: function(results){
 					if ( !$.isEmptyObject(results) ) {
 						$("#wpp_advertisement").html( results.ad );
-						
-						// Detect ad blockers
+												
 						setTimeout(function(){
-							if ( "none" != $("#wpp_advertisement img").css('display') ) {
-								$("#wpp_advertisement").show();
+							// Ad blocker detected :(
+							if ( "none" == $("#wpp_advertisement img").css('display') ) {
+								$("#wpp_advertisement").html('<h3 style="margin-top:0; font-size: 1.7em; text-align:center; line-height: 1em;">An <em>awesome</em> ad would be here...</h3><p style="font-size:1.1em; text-align:center;">... <em>if you weren\'t using an <strong>ad blocker</strong></em> :(</p><p style="font-size:0.8em; line-height: 1.4em;">Showing ads help us developers offer our services for free to everyone, so please consider disabling your ad blocker for this page.</p><p style="font-size:0.8em; line-height: 1.4em;">It won\'t be an annoying one, I promise :)</p>').show();
 							}
+							
+							$("#wpp_advertisement").show();
 						}, 250);
 					}
 				},
@@ -26,6 +28,7 @@
 						window.console.log( 'Could not retrieve the ad: ' + textStatus );
 				}
 			});
+			
 		}
 		
 		// STATISTICS TABS		
