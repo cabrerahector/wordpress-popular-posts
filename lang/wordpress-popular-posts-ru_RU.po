@@ -1,0 +1,1265 @@
+# Copyright (C) 2014 Wordpress Popular Posts
+# This file is distributed under the same license as the Wordpress Popular Posts package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Wordpress Popular Posts\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
+"POT-Creation-Date: 2015-08-27 16:18-0430\n"
+"PO-Revision-Date: 2015-10-31 14:37+0300\n"
+"Last-Translator: Alexander Gruzov <gruz0.mail@gmail.com>\n"
+"Language-Team: Alexander Gruzov <gruz0.mail@gmail.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-KeywordsList: _e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;"
+"_nx_noop;_ex;esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;"
+"esc_html_x;_c;_nc;_n:1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../views/admin.php:25 ../views/admin.php:34 ../views/admin.php:49
+#: ../views/admin.php:79
+msgid "Settings saved."
+msgstr "Настройки сохранены."
+
+#: ../views/admin.php:40
+msgid "Please provide the name of your custom field."
+msgstr "Пожалуйста, укажите имя пользовательского поля"
+
+#: ../views/admin.php:85
+msgid ""
+"Any changes made to WPP's default stylesheet will be lost after every plugin "
+"update. In order to prevent this from happening, please copy the wpp.css "
+"file (located at wp-content/plugins/wordpress-popular-posts/style) into your "
+"theme's directory"
+msgstr ""
+
+#: ../views/admin.php:100
+msgid ""
+"This operation will delete all entries from WordPress Popular Posts' cache "
+"table and cannot be undone."
+msgstr ""
+
+#: ../views/admin.php:100 ../views/admin.php:108 ../views/admin.php:116
+msgid "Do you want to continue?"
+msgstr "Вы хотите продолжить?"
+
+#: ../views/admin.php:108
+msgid ""
+"This operation will delete all stored info from WordPress Popular Posts' "
+"data tables and cannot be undone."
+msgstr ""
+"Эта операция удалит все сохранённые данные плагина WordPress Popular Posts и "
+"не может быть отменена."
+
+#: ../views/admin.php:116
+msgid "This operation will delete all cached thumbnails and cannot be undone."
+msgstr ""
+"Эта операция удалит все закешированные миниатюры и не может быть отменена"
+
+#: ../views/admin.php:150
+msgid "Stats"
+msgstr "Статистика"
+
+#: ../views/admin.php:151
+msgid "Tools"
+msgstr "Инструменты"
+
+#: ../views/admin.php:152 ../views/admin.php:766
+msgid "Parameters"
+msgstr "Параметры"
+
+#: ../views/admin.php:153
+msgid "FAQ"
+msgstr "Вопросы и ответы"
+
+#: ../views/admin.php:154
+msgid "About"
+msgstr "О плагине"
+
+#: ../views/admin.php:165
+msgid ""
+"Click on each tab to see what are the most popular entries on your blog in "
+"the last 24 hours, this week, last 30 days or all time since WordPress "
+"Popular Posts was installed."
+msgstr ""
+
+#: ../views/admin.php:171
+msgid "Order by comments"
+msgstr "Сортировать по комментариям"
+
+#: ../views/admin.php:172
+msgid "Order by views"
+msgstr "Сортировать по просмотрам"
+
+#: ../views/admin.php:173
+msgid "Order by avg. daily views"
+msgstr "Сортировать по среднесуточным просмотрам"
+
+#: ../views/admin.php:175
+msgid "Post type"
+msgstr "Тип контента"
+
+#: ../views/admin.php:176
+msgid "Limit"
+msgstr "Лимит"
+
+#: ../views/admin.php:178 ../views/admin.php:283 ../views/admin.php:385
+#: ../views/admin.php:422
+msgid "Apply"
+msgstr "Применить"
+
+#: ../views/admin.php:181 ../views/form.php:32
+msgid "Display only posts published within the selected Time Range"
+msgstr "Показывать посты опубликованные только за выбранный временной диапазон"
+
+#: ../views/admin.php:188 ../views/form.php:26
+msgid "Last 24 hours"
+msgstr "Последние 24 часа"
+
+#: ../views/admin.php:189 ../views/form.php:27
+msgid "Last 7 days"
+msgstr "Последние 7 дней"
+
+#: ../views/admin.php:190 ../views/form.php:28
+msgid "Last 30 days"
+msgstr "Последние 30 дней"
+
+#: ../views/admin.php:191 ../views/form.php:29
+msgid "All-time"
+msgstr "Всё время"
+
+#: ../views/admin.php:213
+msgid "Thumbnails"
+msgstr "Миниатюры"
+
+#: ../views/admin.php:218
+msgid "Default thumbnail"
+msgstr "Миниатюра по-умолчанию"
+
+#: ../views/admin.php:223
+msgid "Upload thumbnail"
+msgstr "Загрузить миниатюру"
+
+#: ../views/admin.php:225
+msgid ""
+"How-to: upload (or select) an image, set Size to Full and click on Upload. "
+"After it's done, hit on Apply to save changes"
+msgstr ""
+"Как пользоваться: загрузите (или выберите) изображение, установите большой "
+"размер и нажмите на Загрузить. После загрузки нажмите на Применить для "
+"сохранения изменений."
+
+#: ../views/admin.php:229
+msgid "Pick image from"
+msgstr "Взять изображение из"
+
+#: ../views/admin.php:232
+msgid "Featured image"
+msgstr "Миниатюры записи"
+
+#: ../views/admin.php:233
+msgid "First image on post"
+msgstr "Первое изображение записи"
+
+#: ../views/admin.php:234
+msgid "Custom field"
+msgstr "Пользовательского поля"
+
+#: ../views/admin.php:237
+msgid "Tell WordPress Popular Posts where it should get thumbnails from"
+msgstr ""
+"Сообщите плагину WordPress Popular Posts откуда брать миниатюры записей"
+
+#: ../views/admin.php:241
+msgid "Custom field name"
+msgstr "Название пользовательского поля"
+
+#: ../views/admin.php:247
+msgid "Resize image from Custom field?"
+msgstr "Изменить размер изображения из пользовательского поля?"
+
+#: ../views/admin.php:250
+msgid "No, I will upload my own thumbnail"
+msgstr "Нет, я загружу свою миниатюру"
+
+#: ../views/admin.php:251
+msgid "Yes"
+msgstr "Да"
+
+#: ../views/admin.php:256
+msgid "Responsive support"
+msgstr ""
+
+#: ../views/admin.php:259 ../views/admin.php:327 ../views/admin.php:367
+#: ../views/admin.php:412
+msgid "Enabled"
+msgstr "Включено"
+
+#: ../views/admin.php:260 ../views/admin.php:311 ../views/admin.php:326
+#: ../views/admin.php:366 ../views/admin.php:413
+msgid "Disabled"
+msgstr "Выключено"
+
+#: ../views/admin.php:263
+msgid ""
+"If enabled, WordPress Popular Posts will strip height and width attributes "
+"out of thumbnails' image tags"
+msgstr ""
+
+#: ../views/admin.php:273
+msgid "Empty image cache"
+msgstr "Очистить кеш изображений"
+
+#: ../views/admin.php:274
+msgid "Use this button to clear WPP's thumbnails cache"
+msgstr "Используйте эту кнопку для очистки кеша изображений"
+
+#: ../views/admin.php:292
+msgid "Data"
+msgstr "Данные"
+
+#: ../views/admin.php:297
+msgid "Log views from"
+msgstr "Записывать данные по"
+
+#: ../views/admin.php:300
+msgid "Visitors only"
+msgstr "Только по посетителям"
+
+#: ../views/admin.php:301
+msgid "Logged-in users only"
+msgstr "Только по авторизованным пользователям"
+
+#: ../views/admin.php:302
+msgid "Everyone"
+msgstr "Всем"
+
+#: ../views/admin.php:308
+msgid "Log limit"
+msgstr ""
+
+#: ../views/admin.php:312
+msgid "Keep data for"
+msgstr "Хранить данные"
+
+#: ../views/admin.php:315
+msgid "day(s)"
+msgstr "дней"
+
+#: ../views/admin.php:317
+msgid ""
+"Data from entries that haven't been viewed within the specified time frame "
+"will be automatically discarded"
+msgstr ""
+
+#: ../views/admin.php:323
+msgid "Ajaxify widget"
+msgstr ""
+
+#: ../views/admin.php:331
+msgid ""
+"If you are using a caching plugin such as WP Super Cache, enabling this "
+"feature will keep the popular list from being cached by it"
+msgstr ""
+
+#: ../views/admin.php:335
+msgid "WPP Cache Expiry Policy"
+msgstr "Политика срока годности кеша"
+
+#: ../views/admin.php:335 ../views/admin.php:363 ../views/form.php:2
+#: ../views/form.php:12 ../views/form.php:24 ../views/form.php:34
+#: ../views/form.php:40 ../views/form.php:43 ../views/form.php:52
+#: ../views/form.php:55 ../views/form.php:63 ../views/form.php:66
+#: ../views/form.php:73 ../views/form.php:101 ../views/form.php:103
+#: ../views/form.php:105 ../views/form.php:107 ../views/form.php:119
+#: ../views/form.php:125
+msgid "What is this?"
+msgstr "Что это?"
+
+#: ../views/admin.php:338
+msgid "Never cache"
+msgstr "Никогда не кешировать"
+
+#: ../views/admin.php:339
+msgid "Enable caching"
+msgstr "Включить кеширование"
+
+#: ../views/admin.php:343
+msgid ""
+"Sets WPP's cache expiration time. WPP can cache the popular list for a "
+"specified amount of time. Recommended for large / high traffic sites"
+msgstr ""
+"Установите срок действия кеша. WPP может кешировать списка популярных "
+"записей на указанное время. Рекомендуется для больших / высоконагруженных "
+"сайтов."
+
+#: ../views/admin.php:347
+msgid "Refresh cache every"
+msgstr "Обновлять кеш каждый"
+
+#: ../views/admin.php:351
+msgid "Minute(s)"
+msgstr "Минуту(ы)"
+
+#: ../views/admin.php:352
+msgid "Hour(s)"
+msgstr "Час(ы)"
+
+#: ../views/admin.php:353
+msgid "Day(s)"
+msgstr "День(и)"
+
+#: ../views/admin.php:354
+msgid "Week(s)"
+msgstr "Неделю(и)"
+
+#: ../views/admin.php:355
+msgid "Month(s)"
+msgstr "Месяц(ы)"
+
+#: ../views/admin.php:356
+msgid "Year(s)"
+msgstr "Год(а)"
+
+#: ../views/admin.php:359
+msgid "Really? That long?"
+msgstr "Правда? Так долго?"
+
+#: ../views/admin.php:363
+msgid "Data Sampling"
+msgstr ""
+
+#: ../views/admin.php:371
+#, php-format
+msgid ""
+"By default, WordPress Popular Posts stores in database every single visit "
+"your site receives. For small / medium sites this is generally OK, but on "
+"large / high traffic sites the constant writing to the database may have an "
+"impact on performance. With <a href=\"%1$s\" target=\"_blank\">data "
+"sampling</a>, WordPress Popular Posts will store only a subset of your "
+"traffic and report on the tendencies detected in that sample set (for more, "
+"<a href=\"%2$s\" target=\"_blank\">please read here</a>)"
+msgstr ""
+
+#: ../views/admin.php:375
+msgid "Sample Rate"
+msgstr ""
+
+#: ../views/admin.php:379
+#, php-format
+msgid ""
+"A sampling rate of %d is recommended for large / high traffic sites. For "
+"lower traffic sites, you should lower the value"
+msgstr ""
+
+#: ../views/admin.php:394
+msgid "Miscellaneous"
+msgstr "Прочее"
+
+#: ../views/admin.php:399
+msgid "Open links in"
+msgstr "Открывать ссылки в"
+
+#: ../views/admin.php:402
+msgid "Current window"
+msgstr "Текущем окне"
+
+#: ../views/admin.php:403
+msgid "New tab/window"
+msgstr "В новой вкладке/окне"
+
+#: ../views/admin.php:409
+msgid "Use plugin's stylesheet"
+msgstr "Использовать оформление плагина"
+
+#: ../views/admin.php:416
+msgid ""
+"By default, the plugin includes a stylesheet called wpp.css which you can "
+"use to style your popular posts listing. If you wish to use your own "
+"stylesheet or do not want it to have it included in the header section of "
+"your site, use this."
+msgstr ""
+
+#: ../views/admin.php:433
+msgid ""
+"WordPress Popular Posts maintains data in two separate tables: one for "
+"storing the most popular entries on a daily basis (from now on, \"cache\"), "
+"and another one to keep the All-time data (from now on, \"historical data\" "
+"or just \"data\"). If for some reason you need to clear the cache table, or "
+"even both historical and cache tables, please use the buttons below to do so."
+msgstr ""
+"WordPress Popular Posts хранит данные в двух разных таблицах: первая "
+"используется для хранения наиболее популярных записей за день (далее, \"кеш"
+"\"), а другая для хранения данных за всё время (далее, \"исторические данные"
+"\" или просто \"данные\"). Если вам требуется удалить таблицу кеша ли же обе "
+"сразу, используйте кнопки ниже для этого."
+
+#: ../views/admin.php:434
+msgid "Empty cache"
+msgstr "Очистить кеш"
+
+#: ../views/admin.php:434
+msgid "Use this button to manually clear entries from WPP cache only"
+msgstr ""
+"Используйте эту кнопку для ручной очистки всех записей только из кеша WPP"
+
+#: ../views/admin.php:435
+msgid "Clear all data"
+msgstr "Очистить все данные"
+
+#: ../views/admin.php:435
+msgid "Use this button to manually clear entries from all WPP data tables"
+msgstr ""
+"Используйте эту кнопку для ручной очистки всех записей из всех таблиц WPP"
+
+#: ../views/admin.php:442
+#, php-format
+msgid ""
+"With the following parameters you can customize the popular posts list when "
+"using either the <a href=\"%1$s\">wpp_get_mostpopular() template tag</a> or "
+"the <a href=\"%2$s\">[wpp] shortcode</a>."
+msgstr ""
+
+#: ../views/admin.php:450
+msgid "Parameter"
+msgstr ""
+
+#: ../views/admin.php:451 ../views/admin.php:765
+msgid "What it does "
+msgstr ""
+
+#: ../views/admin.php:452
+msgid "Possible values"
+msgstr ""
+
+#: ../views/admin.php:453
+msgid "Defaults to"
+msgstr ""
+
+#: ../views/admin.php:454 ../views/admin.php:767
+msgid "Example"
+msgstr "Пример"
+
+#: ../views/admin.php:460
+msgid "Sets a heading for the list"
+msgstr ""
+
+#: ../views/admin.php:461 ../views/admin.php:468 ../views/admin.php:475
+#: ../views/admin.php:510 ../views/admin.php:517 ../views/admin.php:524
+#: ../views/admin.php:531 ../views/admin.php:622 ../views/admin.php:636
+#: ../views/admin.php:643
+msgid "Text string"
+msgstr ""
+
+#: ../views/admin.php:462 ../views/admin.php:518 ../views/admin.php:525
+#: ../views/admin.php:532
+msgid "None"
+msgstr ""
+
+#: ../views/admin.php:467
+msgid "Set the opening tag for the heading of the list"
+msgstr ""
+
+#: ../views/admin.php:474
+msgid "Set the closing tag for the heading of the list"
+msgstr ""
+
+#: ../views/admin.php:481
+msgid "Sets the maximum number of popular posts to be shown on the listing"
+msgstr ""
+
+#: ../views/admin.php:482 ../views/admin.php:538 ../views/admin.php:552
+#: ../views/admin.php:573 ../views/admin.php:580
+msgid "Positive integer"
+msgstr ""
+
+#: ../views/admin.php:488
+msgid ""
+"Tells WordPress Popular Posts to retrieve the most popular entries within "
+"the time range specified by you"
+msgstr ""
+
+#: ../views/admin.php:495
+msgid ""
+"Tells WordPress Popular Posts to retrieve the most popular entries published "
+"within the time range specified by you"
+msgstr ""
+
+#: ../views/admin.php:502
+msgid "Sets the sorting option of the popular posts"
+msgstr ""
+
+#: ../views/admin.php:503
+msgid "(for average views per day)"
+msgstr ""
+
+#: ../views/admin.php:509
+msgid "Defines the type of posts to show on the listing"
+msgstr ""
+
+#: ../views/admin.php:516
+msgid ""
+"If set, WordPress Popular Posts will exclude the specified post(s) ID(s) "
+"form the listing."
+msgstr ""
+
+#: ../views/admin.php:523
+msgid ""
+"If set, WordPress Popular Posts will retrieve all entries that belong to the "
+"specified category(ies) ID(s). If a minus sign is used, the category(ies) "
+"will be excluded instead."
+msgstr ""
+
+#: ../views/admin.php:530
+msgid ""
+"If set, WordPress Popular Posts will retrieve all entries created by "
+"specified author(s) ID(s)."
+msgstr ""
+
+#: ../views/admin.php:537
+msgid ""
+"If set, WordPress Popular Posts will shorten each post title to \"n\" "
+"characters whenever possible"
+msgstr ""
+
+#: ../views/admin.php:544
+msgid ""
+"If set to 1, WordPress Popular Posts will shorten each post title to \"n\" "
+"words instead of characters"
+msgstr ""
+
+#: ../views/admin.php:551
+msgid ""
+"If set, WordPress Popular Posts will build and include an excerpt of \"n\" "
+"characters long from the content of each post listed as popular"
+msgstr ""
+
+#: ../views/admin.php:558
+msgid ""
+"If set, WordPress Popular Posts will maintaing all styling tags (strong, "
+"italic, etc) and hyperlinks found in the excerpt"
+msgstr ""
+
+#: ../views/admin.php:565
+msgid ""
+"If set to 1, WordPress Popular Posts will shorten the excerpt to \"n\" words "
+"instead of characters"
+msgstr ""
+
+#: ../views/admin.php:572
+msgid ""
+"If set, and if your current server configuration allows it, you will be able "
+"to display thumbnails of your posts. This attribute sets the width for "
+"thumbnails"
+msgstr ""
+
+#: ../views/admin.php:579
+msgid ""
+"If set, and if your current server configuration allows it, you will be able "
+"to display thumbnails of your posts. This attribute sets the height for "
+"thumbnails"
+msgstr ""
+
+#: ../views/admin.php:586
+msgid ""
+"If set, and if the WP-PostRatings plugin is installed and enabled on your "
+"blog, WordPress Popular Posts will show how your visitors are rating your "
+"entries"
+msgstr ""
+
+#: ../views/admin.php:593
+msgid ""
+"If set, WordPress Popular Posts will show how many comments each popular "
+"post has got until now"
+msgstr ""
+
+#: ../views/admin.php:600
+msgid ""
+"If set, WordPress Popular Posts will show how many views each popular post "
+"has got since it was installed"
+msgstr ""
+
+#: ../views/admin.php:607
+msgid ""
+"If set, WordPress Popular Posts will show who published each popular post on "
+"the list"
+msgstr ""
+
+#: ../views/admin.php:614
+msgid ""
+"If set, WordPress Popular Posts will display the date when each popular post "
+"on the list was published"
+msgstr ""
+
+#: ../views/admin.php:621
+msgid "Sets the date format"
+msgstr ""
+
+#: ../views/admin.php:628
+msgid "If set, WordPress Popular Posts will display the category"
+msgstr ""
+
+#: ../views/admin.php:635
+msgid "Sets the opening tag for the listing"
+msgstr ""
+
+#: ../views/admin.php:642
+msgid "Sets the closing tag for the listing"
+msgstr ""
+
+#: ../views/admin.php:649
+msgid "Sets the HTML structure of each post"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "Text string, custom HTML"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "Available Content Tags"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid ""
+"displays thumbnail linked to post/page, requires thumbnail_width & "
+"thumbnail_height"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid ""
+"displays thumbnail image without linking to post/page, requires "
+"thumbnail_width & thumbnail_height"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "displays linked post/page title"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid ""
+"displays post/page excerpt, and requires excerpt_length to be greater than 0"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "displays the default stats tags"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid ""
+"displays post/page current rating, requires WP-PostRatings installed and "
+"enabled"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid ""
+"displays post/page current rating as an integer, requires WP-PostRatings "
+"installed and enabled"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "outputs the URL of the post/page"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "displays post/page title, no link"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "displays linked author name, requires stats_author=1"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "displays linked category name, requires stats_category=1"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "displays views count only, no text"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "displays comments count only, no text, requires stats_comments=1"
+msgstr ""
+
+#: ../views/admin.php:650
+msgid "displays post/page date, requires stats_date=1"
+msgstr ""
+
+#: ../views/admin.php:662
+msgid "What does \"Title\" do?"
+msgstr ""
+
+#: ../views/admin.php:665
+msgid ""
+"It allows you to show a heading for your most popular posts listing. If left "
+"empty, no heading will be displayed at all."
+msgstr ""
+
+#: ../views/admin.php:668
+msgid "What is Time Range for?"
+msgstr ""
+
+#: ../views/admin.php:670
+msgid ""
+"It will tell WordPress Popular Posts to retrieve all posts with most views / "
+"comments within the selected time range."
+msgstr ""
+
+#: ../views/admin.php:673
+msgid "What is \"Sort post by\" for?"
+msgstr ""
+
+#: ../views/admin.php:675
+msgid ""
+"It allows you to decide whether to order your popular posts listing by total "
+"views, comments, or average views per day."
+msgstr ""
+
+#: ../views/admin.php:678
+msgid "What does \"Display post rating\" do?"
+msgstr ""
+
+#: ../views/admin.php:680
+msgid ""
+"If checked, WordPress Popular Posts will show how your readers are rating "
+"your most popular posts. This feature requires having WP-PostRatings plugin "
+"installed and enabled on your blog for it to work."
+msgstr ""
+
+#: ../views/admin.php:683
+msgid "What does \"Shorten title\" do?"
+msgstr ""
+
+#: ../views/admin.php:685
+msgid ""
+"If checked, all posts titles will be shortened to \"n\" characters/words. A "
+"new \"Shorten title to\" option will appear so you can set it to whatever "
+"you like."
+msgstr ""
+
+#: ../views/admin.php:688
+msgid "What does \"Display post excerpt\" do?"
+msgstr ""
+
+#: ../views/admin.php:690
+msgid ""
+"If checked, WordPress Popular Posts will also include a small extract of "
+"your posts in the list. Similarly to the previous option, you will be able "
+"to decide how long the post excerpt should be."
+msgstr ""
+
+#: ../views/admin.php:693
+msgid "What does \"Keep text format and links\" do?"
+msgstr ""
+
+#: ../views/admin.php:695
+msgid ""
+"If checked, and if the Post Excerpt feature is enabled, WordPress Popular "
+"Posts will keep the styling tags (eg. bold, italic, etc) that were found in "
+"the excerpt. Hyperlinks will remain intact, too."
+msgstr ""
+
+#: ../views/admin.php:698
+msgid "What is \"Post type\" for?"
+msgstr ""
+
+#: ../views/admin.php:700
+msgid ""
+"This filter allows you to decide which post types to show on the listing. By "
+"default, it will retrieve only posts and pages (which should be fine for "
+"most cases)."
+msgstr ""
+
+#: ../views/admin.php:703
+msgid "What is \"Category(ies) ID(s)\" for?"
+msgstr ""
+
+#: ../views/admin.php:705
+msgid ""
+"This filter allows you to select which categories should be included or "
+"excluded from the listing. A negative sign in front of the category ID "
+"number will exclude posts belonging to it from the list, for example. You "
+"can specify more than one ID with a comma separated list."
+msgstr ""
+
+#: ../views/admin.php:708
+msgid "What is \"Author(s) ID(s)\" for?"
+msgstr ""
+
+#: ../views/admin.php:710
+msgid ""
+"Just like the Category filter, this one lets you filter posts by author ID. "
+"You can specify more than one ID with a comma separated list."
+msgstr ""
+
+#: ../views/admin.php:713
+msgid "What does \"Display post thumbnail\" do?"
+msgstr ""
+
+#: ../views/admin.php:715
+msgid ""
+"If checked, WordPress Popular Posts will attempt to retrieve the thumbnail "
+"of each post. You can set up the source of the thumbnail via Settings - "
+"WordPress Popular Posts - Tools."
+msgstr ""
+
+#: ../views/admin.php:718
+msgid "What does \"Display comment count\" do?"
+msgstr ""
+
+#: ../views/admin.php:720
+msgid ""
+"If checked, WordPress Popular Posts will display how many comments each "
+"popular post has got in the selected Time Range."
+msgstr ""
+
+#: ../views/admin.php:723
+msgid "What does \"Display views\" do?"
+msgstr ""
+
+#: ../views/admin.php:725
+msgid ""
+"If checked, WordPress Popular Posts will show how many pageviews a single "
+"post has gotten in the selected Time Range."
+msgstr ""
+
+#: ../views/admin.php:728
+msgid "What does \"Display author\" do?"
+msgstr ""
+
+#: ../views/admin.php:730
+msgid ""
+"If checked, WordPress Popular Posts will display the name of the author of "
+"each entry listed."
+msgstr ""
+
+#: ../views/admin.php:733
+msgid "What does \"Display date\" do?"
+msgstr ""
+
+#: ../views/admin.php:735
+msgid ""
+"If checked, WordPress Popular Posts will display the date when each popular "
+"posts was published."
+msgstr ""
+
+#: ../views/admin.php:738
+msgid "What does \"Display category\" do?"
+msgstr ""
+
+#: ../views/admin.php:740
+msgid ""
+"If checked, WordPress Popular Posts will display the category of each post."
+msgstr ""
+
+#: ../views/admin.php:743
+msgid "What does \"Use custom HTML Markup\" do?"
+msgstr ""
+
+#: ../views/admin.php:745
+msgid ""
+"If checked, you will be able to customize the HTML markup of your popular "
+"posts listing. For example, you can decide whether to wrap your posts in an "
+"unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is "
+"for you!"
+msgstr ""
+
+#: ../views/admin.php:748
+msgid "What are \"Content Tags\"?"
+msgstr ""
+
+#: ../views/admin.php:750
+#, php-format
+msgid ""
+"Content Tags are codes to display a variety of items on your popular posts "
+"custom HTML structure. For example, setting it to \"{title}: "
+"{summary}\" (without the quotes) would display \"Post title: excerpt of the "
+"post here\". For more Content Tags, see the <a href=\"%s\" target=\"_blank"
+"\">Parameters</a> section."
+msgstr ""
+
+#: ../views/admin.php:753
+msgid "What are \"Template Tags\"?"
+msgstr ""
+
+#: ../views/admin.php:755
+msgid ""
+"Template Tags are simply php functions that allow you to perform certain "
+"actions. For example, WordPress Popular Posts currently supports two "
+"different template tags: wpp_get_mostpopular() and wpp_get_views()."
+msgstr ""
+
+#: ../views/admin.php:758
+msgid "What are the template tags that WordPress Popular Posts supports?"
+msgstr ""
+
+#: ../views/admin.php:760
+msgid ""
+"The following are the template tags supported by WordPress Popular Posts"
+msgstr ""
+
+#: ../views/admin.php:764
+msgid "Template tag"
+msgstr ""
+
+#: ../views/admin.php:773
+#, php-format
+msgid ""
+"Similar to the widget functionality, this tag retrieves the most popular "
+"posts on your blog. This function also accepts <a href=\"%1$s\">parameters</"
+"a> so you can customize your popular listing, but these are not required."
+msgstr ""
+
+#: ../views/admin.php:774
+#, php-format
+msgid ""
+"Please refer to the <a href=\"%1$s\">Parameters section</a> for a complete "
+"list of attributes."
+msgstr ""
+
+#: ../views/admin.php:779
+msgid ""
+"Displays the number of views of a single post. Post ID is required or it "
+"will return false."
+msgstr ""
+
+#: ../views/admin.php:780
+msgid "Post ID"
+msgstr ""
+
+#: ../views/admin.php:787
+msgid "What are \"shortcodes\"?"
+msgstr ""
+
+#: ../views/admin.php:789
+#, php-format
+msgid ""
+"Shortcodes are similar to BB Codes, these allow us to call a php function by "
+"simply typing something like [shortcode]. With WordPress Popular Posts, the "
+"shortcode [wpp] will let you insert a list of the most popular posts in "
+"posts content and pages too! For more information about shortcodes, please "
+"visit the <a href=\"%s\" target=\"_blank\">WordPress Shortcode API</a> page."
+msgstr ""
+
+#: ../views/admin.php:797
+#, php-format
+msgid "About WordPress Popular Posts %s"
+msgstr "О плагине WordPress Popular Posts %s"
+
+#: ../views/admin.php:798
+msgid "This version includes the following changes"
+msgstr "Эта версия содержит следующие изменения"
+
+#: ../views/admin.php:815
+msgid "Do you like this plugin?"
+msgstr "Вам нравится этот плагин?"
+
+#: ../views/admin.php:822
+msgid ""
+"Each donation motivates me to keep releasing free stuff for the WordPress "
+"community!"
+msgstr ""
+
+#: ../views/admin.php:823
+#, php-format
+msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
+msgstr ""
+
+#: ../views/admin.php:829
+msgid "Need help?"
+msgstr "Необходима помощь?"
+
+#: ../views/admin.php:830
+#, php-format
+msgid ""
+"Visit <a href=\"%s\" target=\"_blank\">the forum</a> for support, questions "
+"and feedback."
+msgstr ""
+
+#: ../views/admin.php:831
+msgid "Let's make this plugin even better!"
+msgstr ""
+
+#: ../views/form.php:2
+msgid "Title"
+msgstr ""
+
+#: ../views/form.php:7
+msgid "Show up to"
+msgstr ""
+
+#: ../views/form.php:8
+msgid "posts"
+msgstr ""
+
+#: ../views/form.php:12
+msgid "Sort posts by"
+msgstr ""
+
+#: ../views/form.php:14
+msgid "Comments"
+msgstr ""
+
+#: ../views/form.php:15
+msgid "Total views"
+msgstr ""
+
+#: ../views/form.php:16
+msgid "Avg. daily views"
+msgstr ""
+
+#: ../views/form.php:22
+msgid "Filters"
+msgstr ""
+
+#: ../views/form.php:24
+msgid "Time Range"
+msgstr ""
+
+#: ../views/form.php:34
+msgid "Post type(s)"
+msgstr ""
+
+#: ../views/form.php:37
+msgid "Post(s) ID(s) to exclude"
+msgstr ""
+
+#: ../views/form.php:40
+msgid "Category(ies) ID(s)"
+msgstr ""
+
+#: ../views/form.php:43
+msgid "Author(s) ID(s)"
+msgstr ""
+
+#: ../views/form.php:48
+msgid "Posts settings"
+msgstr ""
+
+#: ../views/form.php:52
+msgid "Display post rating"
+msgstr ""
+
+#: ../views/form.php:55
+msgid "Shorten title"
+msgstr ""
+
+#: ../views/form.php:58
+msgid "Shorten title to"
+msgstr ""
+
+#: ../views/form.php:59 ../views/form.php:69
+msgid "characters"
+msgstr ""
+
+#: ../views/form.php:60 ../views/form.php:70
+msgid "words"
+msgstr ""
+
+#: ../views/form.php:63
+msgid "Display post excerpt"
+msgstr ""
+
+#: ../views/form.php:66
+msgid "Keep text format and links"
+msgstr ""
+
+#: ../views/form.php:67
+msgid "Excerpt length"
+msgstr ""
+
+#: ../views/form.php:73
+msgid "Display post thumbnail"
+msgstr ""
+
+#: ../views/form.php:76
+msgid "Use predefined size"
+msgstr ""
+
+#: ../views/form.php:88
+msgid "Set size manually"
+msgstr ""
+
+#: ../views/form.php:90
+msgid "Width"
+msgstr ""
+
+#: ../views/form.php:93
+msgid "Height"
+msgstr ""
+
+#: ../views/form.php:99
+msgid "Stats Tag settings"
+msgstr ""
+
+#: ../views/form.php:101
+msgid "Display comment count"
+msgstr ""
+
+#: ../views/form.php:103
+msgid "Display views"
+msgstr ""
+
+#: ../views/form.php:105
+msgid "Display author"
+msgstr ""
+
+#: ../views/form.php:107
+msgid "Display date"
+msgstr ""
+
+#: ../views/form.php:110
+msgid "Date Format"
+msgstr ""
+
+#: ../views/form.php:112
+msgid "WordPress Date Format"
+msgstr ""
+
+#: ../views/form.php:119
+msgid "Display category"
+msgstr ""
+
+#: ../views/form.php:123
+msgid "HTML Markup settings"
+msgstr ""
+
+#: ../views/form.php:125
+msgid "Use custom HTML Markup"
+msgstr ""
+
+#: ../views/form.php:128
+msgid "Before / after title"
+msgstr ""
+
+#: ../views/form.php:131
+msgid "Before / after Popular Posts"
+msgstr ""
+
+#: ../views/form.php:134
+msgid "Post HTML Markup"
+msgstr ""
+
+#: ../wordpress-popular-posts.php:304
+msgid "The most Popular Posts on your blog."
+msgstr ""
+
+#: ../wordpress-popular-posts.php:482
+msgid ""
+"Error: cannot ajaxify WordPress Popular Posts on this theme. It's missing "
+"the <em>id</em> attribute on before_widget (see <a href=\"http://codex."
+"wordpress.org/Function_Reference/register_sidebar\" target=\"_blank\" rel="
+"\"nofollow\">register_sidebar</a> for more)."
+msgstr ""
+
+#: ../wordpress-popular-posts.php:726
+msgid "Upload"
+msgstr "Загрузить"
+
+#: ../wordpress-popular-posts.php:1095
+#, php-format
+msgid ""
+"Your PHP installation is too old. WordPress Popular Posts requires at least "
+"PHP version %1$s to function correctly. Please contact your hosting provider "
+"and ask them to upgrade PHP to %1$s or higher."
+msgstr ""
+"Ваша версия PHP очень старая. Для корректной работы WordPress Popular Posts "
+"требуется версия PHP не ниже %1$s. Пожалуйста, свяжитесь с вашим хостинг-"
+"провайдером и скажите ему обновить PHP до версии %1$s или выше."
+
+#: ../wordpress-popular-posts.php:1102
+#, php-format
+msgid ""
+"Your WordPress version is too old. WordPress Popular Posts requires at least "
+"WordPress version %1$s to function correctly. Please update your blog via "
+"Dashboard &gt; Update."
+msgstr ""
+"Версия вашего WordPress очень старая. Для корректной работы WordPress "
+"Popular Posts требуется WordPress не ниже версии %1$s. Пожалуйста, обновите "
+"WordPress используя Консоль &gt; Обновления."
+
+#: ../wordpress-popular-posts.php:1127
+#, php-format
+msgid ""
+"<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</"
+"strong>.</p></div>"
+msgstr ""
+
+#: ../wordpress-popular-posts.php:1211
+msgid "Success! The cache table has been cleared!"
+msgstr "Успешно! Таблица кеша очищена!"
+
+#: ../wordpress-popular-posts.php:1213
+msgid "Error: cache table does not exist."
+msgstr "Ошибка: таблица кеша не существует."
+
+#: ../wordpress-popular-posts.php:1220
+msgid "Success! All data have been cleared!"
+msgstr "Успешно! Все данные очищены!"
+
+#: ../wordpress-popular-posts.php:1222
+msgid "Error: one or both data tables are missing."
+msgstr "Ошибка: одна или несколько таблиц данных отсутствуют."
+
+#: ../wordpress-popular-posts.php:1225 ../wordpress-popular-posts.php:1263
+msgid "Invalid action."
+msgstr "Некорректное действие."
+
+#: ../wordpress-popular-posts.php:1228 ../wordpress-popular-posts.php:1266
+msgid ""
+"Sorry, you do not have enough permissions to do this. Please contact the "
+"site administrator for support."
+msgstr "Извините, у вас нет прав для этого. Свяжитесь с администратором сайта."
+
+#: ../wordpress-popular-posts.php:1258
+msgid "Success! All files have been deleted!"
+msgstr "Успешно! Все файлы удалены!"
+
+#: ../wordpress-popular-posts.php:1260
+msgid "The thumbnail cache is already empty!"
+msgstr "Кеш миниатюр уже очищен!"
+
+#: ../wordpress-popular-posts.php:1816
+msgid "Sorry. No data so far."
+msgstr ""
+
+#: ../wordpress-popular-posts.php:2343
+#, php-format
+msgid "1 comment"
+msgid_plural "%s comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../wordpress-popular-posts.php:2355
+#, php-format
+msgid "1 view per day"
+msgid_plural "%s views per day"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../wordpress-popular-posts.php:2361
+#, php-format
+msgid "1 view"
+msgid_plural "%s views"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../wordpress-popular-posts.php:2384
+#, php-format
+msgid "by %s"
+msgstr ""
+
+#: ../wordpress-popular-posts.php:2390
+#, php-format
+msgid "posted on %s"
+msgstr ""
+
+#: ../wordpress-popular-posts.php:2398
+#, php-format
+msgid "under %s"
+msgstr ""
