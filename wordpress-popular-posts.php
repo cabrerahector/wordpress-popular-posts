@@ -2937,7 +2937,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			if ( in_array("{excerpt}", $matches[0]) || in_array("{summary}", $matches[0]) ) {
-				$string = str_replace( array("{excerpt}", "{summary}"), htmlentities($data['summary'], ENT_QUOTES, $this->charset), $string );
+				$string = str_replace( array("{excerpt}", "{summary}"), $data['summary'], $string );
 			}
 
 			if ( in_array("{image}", $matches[0]) || in_array("{thumb}", $matches[0]) ) {
