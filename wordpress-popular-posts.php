@@ -2936,20 +2936,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$string = str_replace( "{stats}", $data['stats'], $string );
 			}
 
-			if ( in_array("{excerpt}", $matches[0]) ) {
-				$string = str_replace( "{excerpt}", htmlentities($data['summary'], ENT_QUOTES, $this->charset), $string );
+			if ( in_array("{excerpt}", $matches[0]) || in_array("{summary}", $matches[0]) ) {
+				$string = str_replace( array("{excerpt}", "{summary}"), htmlentities($data['summary'], ENT_QUOTES, $this->charset), $string );
 			}
 
-			if ( in_array("{summary}", $matches[0]) ) {
-				$string = str_replace( "{summary}", htmlentities($data['summary'], ENT_QUOTES, $this->charset), $string );
-			}
-
-			if ( in_array("{image}", $matches[0]) ) {
-				$string = str_replace( "{image}", $data['img'], $string );
-			}
-
-			if ( in_array("{thumb}", $matches[0]) ) {
-				$string = str_replace( "{thumb}", $data['img'], $string );
+			if ( in_array("{image}", $matches[0]) || in_array("{thumb}", $matches[0]) ) {
+				$string = str_replace( array("{image}", "{thumb}"), $data['img'], $string );
 			}
 			
 			if ( in_array("{thumb_img}", $matches[0]) ) {
