@@ -1916,7 +1916,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				  : '';
 				
 				$content =
-					'<li>'
+					'<li' . ( ( $this->current_post_id == $p->id ) ? ' class="current"' : '' ) . '>'
 					. $thumb
 					. '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
 					. $excerpt . $_stats

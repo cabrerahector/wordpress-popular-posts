@@ -21,6 +21,10 @@ Use the following classes to style your popular posts list as you like.
 		clear:both;
 	}
 	
+	/* Styles for the popular post in view */
+	.wpp-list li.current {
+	}
+	
 		/* Thumbnail styles */
 		.wpp-thumbnail {
 			display:inline;
