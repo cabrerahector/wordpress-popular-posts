@@ -8,7 +8,7 @@ Stable tag: 3.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WordPress Popular Posts is a highly customizable widget that displays the most popular posts on your blog.
+A highly customizable, easy-to-use popular posts widget!
 
 == Description ==
 
@@ -31,9 +31,6 @@ WordPress Popular Posts is a highly customizable widget that displays the most p
 * **Localizable** to your own language (*See the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for more info*).
 * **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support**. Show your visitors how your readers are rating your posts!
 
-= Notices =
-* Starting version 3.0.0, the way plugin tracks views count switched back to [AJAX](http://codex.wordpress.org/AJAX). The reason for this change is to prevent bots / spiders from inflating views count, so if you're using a caching plugin you should clear its cache after installing / upgrading the WordPress Popular Posts plugin so it can track your posts and pages normally.
-
 **WordPress Popular Posts** is now also on [GitHub](https://github.com/cabrerahector/wordpress-popular-posts)!
 
 == Installation ==
@@ -52,8 +49,8 @@ That's it!
 
 WordPress Popular Posts can be used in three different ways:
 
-1. As a [widget](http://codex.wordpress.org/WordPress_Widgets), simply drag and drop it into your theme's sidebar and configure it.
-2. As a template tag, you can place it anywhere on your theme with [wpp_get_mostpopular()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular).
+1. As a [widget](http://codex.wordpress.org/WordPress_Widgets): simply drag and drop it into your theme's sidebar and configure it.
+2. As a template tag: you can place it anywhere on your theme with [wpp_get_mostpopular()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular).
 3. Via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages), so you can embed it inside a post or a page.
 
 Make sure to stop by the **[Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki)** as well, you'll find even more info there!
