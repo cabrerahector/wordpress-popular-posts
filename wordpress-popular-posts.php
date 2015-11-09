@@ -2530,33 +2530,36 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				/** @var wpdb $wpdb */
 				global $wpdb;
+				
+				if ( $content = $wpdb->get_var( "SELECT post_content FROM {$wpdb->posts} WHERE ID = {$id};" ) ) {
 
-				$content = $wpdb->get_results("SELECT post_content FROM {$wpdb->posts} WHERE ID = " . $id, ARRAY_A);
-				$count = substr_count($content[0]['post_content'], '<img');
-
-				// images have been found
-				// TODO: try to merge these conditions into one IF.
-				if ($count > 0) {
-
-					preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content[0]['post_content'], $content_images);
-
-					if (isset($content_images[1][0])) {
-						$attachment_id = $this->__get_attachment_id($content_images[1][0]);
-
-						// image from Media Library
-						if ($attachment_id) {
-							$file_path = get_attached_file($attachment_id);
-							// There's a file path, so return it
-							if ( !empty($file_path) )
-								return $file_path;
-						} // external image?
-						else {
-							$external_image = $this->__fetch_external_image($id, $content_images[1][0]);
-							if ( $external_image ) {
-								return $external_image;
+					// at least one image has been found
+					if ( preg_match( '/<img[^>]+>/i', $content, $img ) ) {
+						
+						// get img src attribute from the first image found
+						preg_match( '/(src)="([^"]*)"/i', $img[0], $src_attr );
+						
+						if ( isset($src_attr[2]) && !empty($src_attr[2]) ) {
+						
+							// image from Media Library
+							if ( $attachment_id = $this->__get_attachment_id( $src_attr[2] ) ) {
+								
+								$file_path = get_attached_file($attachment_id);
+								
+								// There's a file path, so return it
+								if ( !empty($file_path) ) {
+									return $file_path;
+								}
+								
+							} // external image?
+							else {
+								return $this->__fetch_external_image($id, $src_attr[2]);
 							}
+						
 						}
+						
 					}
+					
 				}
 
 			}
