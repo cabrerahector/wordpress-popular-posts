@@ -2651,29 +2651,38 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
 				
-				if ( function_exists('exif_imagetype') ) {
-					$image_type = exif_imagetype( $url );
-				} else {
-					$image_type = getimagesize( $url );
-					$image_type = ( isset($image_type[2]) ) ? $image_type[2] : NULL;
-				}
-
-				if ( in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG)) ) {
-					require_once( ABSPATH . 'wp-admin/includes/file.php' );
-
-					$url = str_replace( 'https://', 'http://', $url );
-					$tmp = download_url( $url );
-
-					// move file to Uploads
-					if ( !is_wp_error( $tmp ) && rename($tmp, $full_image_path) ) {
-						// borrowed from WP - set correct file permissions
-						$stat = stat( dirname( $full_image_path ));
-						$perms = $stat['mode'] & 0000644;
-						@chmod( $full_image_path, $perms );
-
-						return $full_image_path;
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				$url = str_replace( 'https://', 'http://', $url );
+				$tmp = download_url( $url );
+				
+				if ( !is_wp_error( $tmp ) ) {
+					
+					if ( function_exists('exif_imagetype') ) {
+						$image_type = exif_imagetype( $tmp );
+					} else {
+						$image_type = getimagesize( $tmp );
+						$image_type = ( isset($image_type[2]) ) ? $image_type[2] : NULL;
 					}
+	
+					if ( in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG)) ) {
+	
+						// move file to Uploads
+						if ( @rename($tmp, $full_image_path) ) {
+							// borrowed from WP - set correct file permissions
+							$stat = stat( dirname( $full_image_path ));
+							$perms = $stat['mode'] & 0000644;
+							@chmod( $full_image_path, $perms );
+	
+							return $full_image_path;
+						}
+						
+					}
+					
+					// remove temp file
+					@unlink( $tmp );
+					
 				}
+				
 			}
 
 			return false;
