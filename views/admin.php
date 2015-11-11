@@ -703,8 +703,12 @@ if (empty($wpp_rand)) {
         <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
         <ul>
-            <li>Fixes undefined index notice.</li>
-            <li>Makes sure legacy tables are deleted on plugin upgrade.</li>
+            <li>Fixes warning message: 'stream does not support seeking in...'</li>
+			<li>Removes excerpt HTML encoding.</li>
+			<li>Passes widget ID to the instance variable for customization.</li>
+			<li>Adds CSS class current.</li>
+			<li>Documentation cleanup.</li>
+			<li>Other minor bug fixes / improvements.</li>
         </ul>
                 
     </div>

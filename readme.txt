@@ -67,6 +67,14 @@ The [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.3.2 =
+- Fixes warning message: 'stream does not support seeking in...'
+- Removes excerpt HTML encoding.
+- Passes widget ID to the instance variable for customization.
+- Adds CSS class current.
+- Documentation cleanup.
+- Other minor bug fixes / improvements.
+
 = 3.3.1 =
 - Fixes undefined index notice.
 - Makes sure legacy tables are deleted on plugin upgrade.
@@ -133,10 +141,6 @@ The [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/
 * Translates category name when WPML is detected.
 * Adds list of available thumbnail sizes to the widget.
 * Other minor bugfixes and improvements.
-
-= 3.1.1 =
-* Adds check for exif extension availability.
-* Rolls back check for user's default thumbnail.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 

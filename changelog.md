@@ -1,5 +1,13 @@
 Changelog
 =========
+#### 3.3.2 ####
+- Fixes warning message: 'stream does not support seeking in...'
+- Removes excerpt HTML encoding.
+- Passes widget ID to the instance variable for customization.
+- Adds CSS class current.
+- Documentation cleanup.
+- Other minor bug fixes / improvements.
+
 #### 3.3.1 ####
 - Fixes undefined index notice.
 - Makes sure legacy tables are deleted on plugin upgrade.
