@@ -3,7 +3,7 @@ Contributors: hcabrera
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hcabrerab%40gmail%2ecom&lc=GB&item_name=WordPress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
 Tags: popular, posts, widget, popularity, top
 Requires at least: 3.8
-Tested up to: 4.3
+Tested up to: 4.3.1
 Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -157,6 +157,3 @@ All translations are community made: people who are nice enough to share their t
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
-
-= 3.2.3 =
-If you're using a caching plugin, flushing its cache after upgrading is highly recommended.
