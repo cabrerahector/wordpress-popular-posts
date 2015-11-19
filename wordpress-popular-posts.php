@@ -3094,7 +3094,16 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 * @since	3.1.2
 		 */
 		public function is_single() {
-			if ( (is_single() || is_page()) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
+			$trackable = array();
+			$registered_post_types = get_post_types( array('public' => true), 'names' );
+			
+			foreach ( $registered_post_types as $post_type ) {
+				$trackable[] = $post_type;
+			}
+			
+			$trackable = apply_filters( 'wpp_trackable_post_types', $trackable );
+			
+			if ( is_singular($trackable) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
 				global $post;				
 				$this->current_post_id = ( is_object($post) ) ? $post->ID : 0;
 			} else {
