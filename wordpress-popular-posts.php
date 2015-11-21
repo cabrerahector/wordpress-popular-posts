@@ -2529,14 +2529,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			elseif ($source == "first_attachment") {
 
 				$post_attachments = get_children(
-										array(
-											'numberposts' => 1,
-											'order' => 'ASC',
-											'post_parent' => $id,
-											'post_type' => 'attachment',
-											'post_mime_type' => 'image'
-											)
-									);
+							array( 'numberposts' => 1,
+								'order' => 'ASC',
+								'post_parent' => $id,
+								'post_type' => 'attachment',
+								'post_mime_type' => 'image'
+								));
 				if ( !empty($post_attachments) ) {
 					$first_img = array_shift( $post_attachments );
 					return get_attached_file($first_img->ID);
