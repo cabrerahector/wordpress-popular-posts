@@ -231,6 +231,7 @@ if (empty($wpp_rand)) {
                             <select name="thumb_source" id="thumb_source">
                                 <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "featured") {?>selected="selected"<?php } ?> value="featured"><?php _e("Featured image", $this->plugin_slug); ?></option>
                                 <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "first_image") {?>selected="selected"<?php } ?> value="first_image"><?php _e("First image on post", $this->plugin_slug); ?></option>
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "first_attachment") {?>selected="selected"<?php } ?> value="first_attachment"><?php _e("First attachment", $this->plugin_slug); ?></option>
                                 <option <?php if ($this->user_settings['tools']['thumbnail']['source'] == "custom_field") {?>selected="selected"<?php } ?> value="custom_field"><?php _e("Custom field", $this->plugin_slug); ?></option>
                             </select>
                             <br />
