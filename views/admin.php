@@ -14,69 +14,91 @@ else
 if ( isset($_POST['section']) ) {
 	
 	if ( "stats" == $_POST['section'] ) {		
+		
 		$current = 'stats';
 		
-		$this->user_settings['stats']['order_by'] = $_POST['stats_order'];
-		$this->user_settings['stats']['limit'] = (is_numeric($_POST['stats_limit']) && $_POST['stats_limit'] > 0) ? $_POST['stats_limit'] : 10;
-		$this->user_settings['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
-		$this->user_settings['stats']['freshness'] = empty($_POST['stats_freshness']) ? false : $_POST['stats_freshness'];
+		if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-stats-options' ) ) {
+			
+			$this->user_settings['stats']['order_by'] = $_POST['stats_order'];
+			$this->user_settings['stats']['limit'] = (is_numeric($_POST['stats_limit']) && $_POST['stats_limit'] > 0) ? $_POST['stats_limit'] : 10;
+			$this->user_settings['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
+			$this->user_settings['stats']['freshness'] = empty($_POST['stats_freshness']) ? false : $_POST['stats_freshness'];
+			
+			update_site_option('wpp_settings_config', $this->user_settings);
+			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
+			
+		}
 		
-		update_site_option('wpp_settings_config', $this->user_settings);			
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";		
 	}
 	elseif ( "misc" == $_POST['section'] ) {		
-		$current = 'tools';
-			
-		$this->user_settings['tools']['link']['target'] = $_POST['link_target'];		
-		$this->user_settings['tools']['css'] = $_POST['css'];
 		
-		update_site_option('wpp_settings_config', $this->user_settings);
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";		
+		$current = 'tools';
+		
+		if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-misc-options' ) ) {
+			
+			$this->user_settings['tools']['link']['target'] = $_POST['link_target'];
+			$this->user_settings['tools']['css'] = $_POST['css'];
+			
+			update_site_option('wpp_settings_config', $this->user_settings);
+			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
+		
+		}
 	}	
 	elseif ( "thumb" == $_POST['section'] ) {		
+	
 		$current = 'tools';
 		
-		if ($_POST['thumb_source'] == "custom_field" && (!isset($_POST['thumb_field']) || empty($_POST['thumb_field']))) {
-			echo '<div id="wpp-message" class="error fade"><p>'.__('Please provide the name of your custom field.', $this->plugin_slug).'</p></div>';
-		} else {				
-			$this->user_settings['tools']['thumbnail']['source'] = $_POST['thumb_source'];
-			$this->user_settings['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
-			$this->user_settings['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
-			$this->user_settings['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
-			$this->user_settings['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
-			
-			update_site_option('wpp_settings_config', $this->user_settings);				
-			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
+		if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-thumbnail-options' ) ) {
+		
+			if ($_POST['thumb_source'] == "custom_field" && (!isset($_POST['thumb_field']) || empty($_POST['thumb_field']))) {
+				echo '<div id="wpp-message" class="error fade"><p>'.__('Please provide the name of your custom field.', $this->plugin_slug).'</p></div>';
+			} else {				
+				$this->user_settings['tools']['thumbnail']['source'] = $_POST['thumb_source'];
+				$this->user_settings['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
+				$this->user_settings['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
+				$this->user_settings['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
+				$this->user_settings['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
+				
+				update_site_option('wpp_settings_config', $this->user_settings);				
+				echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
+			}
+		
 		}
+		
 	}
-	elseif ( "data" == $_POST['section'] ) {		
+	elseif ( "data" == $_POST['section'] ) {	
+		
 		$current = 'tools';
 		
-		$this->user_settings['tools']['log']['level'] = $_POST['log_option'];
-		$this->user_settings['tools']['log']['limit'] = $_POST['log_limit'];
-		$this->user_settings['tools']['log']['expires_after'] = ( $this->__is_numeric($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) 
-		  ? $_POST['log_expire_time'] 
-		  : $this->default_user_settings['tools']['log']['expires_after'];
-		$this->user_settings['tools']['ajax'] = $_POST['ajax'];
+		if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-data-options' ) ) {
 		
-		// if any of the caching settings was updated, destroy all transients created by the plugin
-		if ( $this->user_settings['tools']['cache']['active'] != $_POST['cache'] || $this->user_settings['tools']['cache']['interval']['time'] != $_POST['cache_interval_time'] || $this->user_settings['tools']['cache']['interval']['value'] != $_POST['cache_interval_value'] ) {
-			$this->__flush_transients();
+			$this->user_settings['tools']['log']['level'] = $_POST['log_option'];
+			$this->user_settings['tools']['log']['limit'] = $_POST['log_limit'];
+			$this->user_settings['tools']['log']['expires_after'] = ( $this->__is_numeric($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) 
+			  ? $_POST['log_expire_time'] 
+			  : $this->default_user_settings['tools']['log']['expires_after'];
+			$this->user_settings['tools']['ajax'] = $_POST['ajax'];
+			
+			// if any of the caching settings was updated, destroy all transients created by the plugin
+			if ( $this->user_settings['tools']['cache']['active'] != $_POST['cache'] || $this->user_settings['tools']['cache']['interval']['time'] != $_POST['cache_interval_time'] || $this->user_settings['tools']['cache']['interval']['value'] != $_POST['cache_interval_value'] ) {
+				$this->__flush_transients();
+			}
+			
+			$this->user_settings['tools']['cache']['active'] = $_POST['cache'];			
+			$this->user_settings['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
+			$this->user_settings['tools']['cache']['interval']['value'] = ( isset($_POST['cache_interval_value']) && is_numeric($_POST['cache_interval_value']) && $_POST['cache_interval_value'] > 0 ) 
+			  ? $_POST['cache_interval_value']
+			  : 1;
+			
+			$this->user_settings['tools']['sampling']['active'] = $_POST['sampling'];			
+			$this->user_settings['tools']['sampling']['rate'] = ( isset($_POST['sample_rate']) && is_numeric($_POST['sample_rate']) && $_POST['sample_rate'] > 0 ) 
+			  ? $_POST['sample_rate']
+			  : 100;
+			
+			update_site_option('wpp_settings_config', $this->user_settings);
+			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
+		
 		}
-		
-		$this->user_settings['tools']['cache']['active'] = $_POST['cache'];			
-		$this->user_settings['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
-		$this->user_settings['tools']['cache']['interval']['value'] = ( isset($_POST['cache_interval_value']) && is_numeric($_POST['cache_interval_value']) && $_POST['cache_interval_value'] > 0 ) 
-		  ? $_POST['cache_interval_value']
-		  : 1;
-		
-		$this->user_settings['tools']['sampling']['active'] = $_POST['sampling'];			
-		$this->user_settings['tools']['sampling']['rate'] = ( isset($_POST['sample_rate']) && is_numeric($_POST['sample_rate']) && $_POST['sample_rate'] > 0 ) 
-		  ? $_POST['sample_rate']
-		  : 100;
-		
-		update_site_option('wpp_settings_config', $this->user_settings);
-		echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";		
 	}
 		
 }
@@ -172,13 +194,15 @@ if (empty($wpp_rand)) {
                         <option <?php if ($this->user_settings['stats']['order_by'] == "views") {?>selected="selected"<?php } ?> value="views"><?php _e("Order by views", $this->plugin_slug); ?></option>
                         <option <?php if ($this->user_settings['stats']['order_by'] == "avg") {?>selected="selected"<?php } ?> value="avg"><?php _e("Order by avg. daily views", $this->plugin_slug); ?></option>
                     </select>
-                    <label for="stats_type"><?php _e("Post type", $this->plugin_slug); ?>:</label> <input type="text" name="stats_type" value="<?php echo $this->user_settings['stats']['post_type']; ?>" size="15" />
+                    <label for="stats_type"><?php _e("Post type", $this->plugin_slug); ?>:</label> <input type="text" name="stats_type" value="<?php echo esc_attr( $this->user_settings['stats']['post_type'] ); ?>" size="15" />
                     <label for="stats_limits"><?php _e("Limit", $this->plugin_slug); ?>:</label> <input type="text" name="stats_limit" value="<?php echo $this->user_settings['stats']['limit']; ?>" size="5" />
                     <input type="hidden" name="section" value="stats" />
                     <input type="submit" class="button-secondary action" value="<?php _e("Apply", $this->plugin_slug); ?>" name="" />
                     
                     <div class="clear"></div>
                     <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->user_settings['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness" /> <?php _e('Display only posts published within the selected Time Range', $this->plugin_slug); ?></label>
+                    
+                    <?php wp_nonce_field( 'wpp-update-stats-options', 'wpp-admin-token' ); ?>
                 </form>
             </div>
         </div>
@@ -241,7 +265,7 @@ if (empty($wpp_rand)) {
                     <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field">
                         <th scope="row"><label for="thumb_field"><?php _e("Custom field name", $this->plugin_slug); ?>:</label></th>
                         <td>
-                            <input type="text" id="thumb_field" name="thumb_field" value="<?php echo $this->user_settings['tools']['thumbnail']['field']; ?>" size="10" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> />
+                            <input type="text" id="thumb_field" name="thumb_field" value="<?php echo esc_attr( $this->user_settings['tools']['thumbnail']['field'] ); ?>" size="10" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> />
                         </td>
                     </tr>
                     <tr valign="top" <?php if ($this->user_settings['tools']['thumbnail']['source'] != "custom_field") {?>style="display:none;"<?php } ?> id="row_custom_field_resize">
@@ -286,6 +310,8 @@ if (empty($wpp_rand)) {
                     </tr>
                 </tbody>
             </table>
+            
+            <?php wp_nonce_field( 'wpp-update-thumbnail-options', 'wpp-admin-token' ); ?>
         </form>
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
@@ -313,7 +339,7 @@ if (empty($wpp_rand)) {
                                 <option <?php if ($this->user_settings['tools']['log']['limit'] == 1) {?>selected="selected"<?php } ?> value="1"><?php _e("Keep data for", $this->plugin_slug); ?></option>
                             </select>
                             
-                            <label for="log_expire_time"<?php echo ($this->user_settings['tools']['log']['limit'] == 0) ? ' style="display:none;"' : ''; ?>><input type="text" id="log_expire_time" name="log_expire_time" value="<?php echo $this->user_settings['tools']['log']['expires_after']; ?>" size="3" /> <?php _e("day(s)", $this->plugin_slug); ?></label>
+                            <label for="log_expire_time"<?php echo ($this->user_settings['tools']['log']['limit'] == 0) ? ' style="display:none;"' : ''; ?>><input type="text" id="log_expire_time" name="log_expire_time" value="<?php echo esc_attr( $this->user_settings['tools']['log']['expires_after'] ); ?>" size="3" /> <?php _e("day(s)", $this->plugin_slug); ?></label>
                             
                             <p class="description"<?php echo ($this->user_settings['tools']['log']['limit'] == 0) ? ' style="display:none;"' : ''; ?>><?php _e("Data from entries that haven't been viewed within the specified time frame will be automatically discarded", $this->plugin_slug); ?>.</p>
                             
@@ -388,6 +414,8 @@ if (empty($wpp_rand)) {
                     </tr>
                 </tbody>
             </table>
+            
+            <?php wp_nonce_field( 'wpp-update-data-options', 'wpp-admin-token' ); ?>
         </form>
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
@@ -425,6 +453,8 @@ if (empty($wpp_rand)) {
                     </tr>
                 </tbody>
             </table>
+            
+            <?php wp_nonce_field( 'wpp-update-misc-options', 'wpp-admin-token' ); ?>
         </form>
         <br />
         <p style="display:block; float:none; clear:both">&nbsp;</p>
