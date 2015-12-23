@@ -734,12 +734,9 @@ if (empty($wpp_rand)) {
         <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
         <ul>
-            <li>Fixes warning message: 'stream does not support seeking in...'</li>
-			<li>Removes excerpt HTML encoding.</li>
-			<li>Passes widget ID to the instance variable for customization.</li>
-			<li>Adds CSS class current.</li>
-			<li>Documentation cleanup.</li>
-			<li>Other minor bug fixes / improvements.</li>
+            <li>Fixes potential XSS exploit in WPP's admin dashboard.</li>
+            <li>Adds filter to set which post types should be tracked by WPP (details).</li>
+			<li>Adds ability to select first attached image as thumbnail source (thanks, <a href="https://github.com/serglopatin">@serglopatin</a>!)</li>
         </ul>
                 
     </div>

@@ -1,5 +1,10 @@
 Changelog
 =========
+#### 3.3.3 ####
+- Fixes potential XSS exploit in WPP's admin dashboard.
+- Adds filter to set which post types should be tracked by WPP (details).
+- Adds ability to select first attached image as thumbnail source (thanks, [@serglopatin](https://github.com/serglopatin)!)
+
 #### 3.3.2 ####
 - Fixes warning message: 'stream does not support seeking in...'
 - Removes excerpt HTML encoding.

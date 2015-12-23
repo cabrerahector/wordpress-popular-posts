@@ -67,6 +67,11 @@ The [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.3.3 =
+- Fixes potential XSS exploit in WPP's admin dashboard.
+- Adds filter to set which post types should be tracked by WPP (details).
+- Adds ability to select first attached image as thumbnail source (thanks, [@serglopatin](https://github.com/serglopatin)!)
+
 = 3.3.2 =
 - Fixes warning message: 'stream does not support seeking in...'
 - Removes excerpt HTML encoding.
@@ -118,29 +123,6 @@ The [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/
 = 3.2.1 =
 * Fixes missing HTML decoding for custom HTML in widget.
 * Puts LIMIT clause back to the outer query.
-
-= 3.2.0 =
-* Adds check for jQuery.
-* Fixes invalid parameter in htmlspecialchars().
-* Switches AJAX update to POST method.
-* Removes href attribute from link when popular post is viewed.
-* Removes unnecesary ORDER BY clause in views/comments subquery.
-* Fixes Javascript console not working under IE8 (thanks, @[raphaelsaunier](https://github.com/raphaelsaunier)!)
-* Fixes WPML compatibility bug storing post IDs as 0.
-* Removes wpp-upload.js since it was no longer in use.
-* Fixes undefined default thumbnail image (thanks, Lea Cohen!)
-* Fixes rating parameter returning false value.
-* Adds Data Sampling (thanks, @[kurtpayne](https://github.com/kurtpayne)!)
-* Minor query optimizations.
-* Adds {date} (thanks, @[matsuoshi](https://github.com/matsuoshi)!) and {thumb_img} tags to custom html.
-* Adds minute time option for caching.
-* Adds wpp_data_sampling filter.
-* Removes jQuery's DOM ready hook for AJAX views update.
-* Adds back missing GROUP BY clause.
-* Removes unnecesary HTML decoding for custom HTML (thanks, Lea Cohen!)
-* Translates category name when WPML is detected.
-* Adds list of available thumbnail sizes to the widget.
-* Other minor bugfixes and improvements.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
