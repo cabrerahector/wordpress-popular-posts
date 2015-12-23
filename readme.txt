@@ -69,7 +69,7 @@ The [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/
 == Changelog ==
 = 3.3.3 =
 - Fixes potential XSS exploit in WPP's admin dashboard.
-- Adds filter to set which post types should be tracked by WPP (details).
+- Adds filter to set which post types should be tracked by WPP ([details](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_trackable_post_types)).
 - Adds ability to select first attached image as thumbnail source (thanks, [@serglopatin](https://github.com/serglopatin)!)
 
 = 3.3.2 =
@@ -139,3 +139,5 @@ All translations are community made: people who are nice enough to share their t
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
+= 3.3.3 =
+This version fixes a potential security issue. You should upgrade as soon as possible.
