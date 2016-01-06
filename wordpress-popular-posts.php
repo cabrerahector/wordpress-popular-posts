@@ -1011,13 +1011,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Check storage engine
 			$storage_engine_data = $wpdb->get_var("SELECT `ENGINE` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='{$wpdb->dbname}' AND `TABLE_NAME`='{$prefix}data';");
 			
-			if ( 'MyISAM' == $storage_engine_data ) {
+			if ( 'InnoDB' != $storage_engine_data ) {
 				$wpdb->query("ALTER TABLE {$prefix}data ENGINE=INNODB;");
 			}
 			
 			$storage_engine_summary = $wpdb->get_var("SELECT `ENGINE` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='{$wpdb->dbname}' AND `TABLE_NAME`='{$prefix}summary';");
 			
-			if ( 'MyISAM' == $storage_engine_summary ) {
+			if ( 'InnoDB' != $storage_engine_summary ) {
 				$wpdb->query("ALTER TABLE {$prefix}summary ENGINE=INNODB;");
 			}
 
