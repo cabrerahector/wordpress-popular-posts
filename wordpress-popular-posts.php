@@ -978,6 +978,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		 */
 		private function __upgrade() {
 
+			// Keep the upgrade process from running too many times
+			if ( defined('WPP_UPGRADE') )
+				return;
+
+			define( 'WPP_UPGRADE', true );
+
 			global $wpdb;
 
 			// set table name
