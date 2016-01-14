@@ -1,5 +1,5 @@
 <p>
-	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#widget-title'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small> <br />
+	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-does-title-do" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small> <br />
     <input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
 </p>
 
@@ -31,16 +31,16 @@
 
 <input type="checkbox" class="checkbox" <?php echo ($instance['freshness']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'freshness' ); ?>" name="<?php echo $this->get_field_name( 'freshness' ); ?>" /> <label for="<?php echo $this->get_field_id( 'freshness' ); ?>"><small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small></label><br /><br />
 
-<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e('Post type(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#filter-post-type'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
+<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e('Post type(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-post-type-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
 <input type="text" id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>" value="<?php echo $instance['post_type']; ?>" class="widefat" /><br /><br />
 
 <label for="<?php echo $this->get_field_id( 'pid' ); ?>"><?php _e('Post(s) ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
 <input type="text" id="<?php echo $this->get_field_id( 'pid' ); ?>" name="<?php echo $this->get_field_name( 'pid' ); ?>" value="<?php echo $instance['pid']; ?>" class="widefat" /><br /><br />
 
-<label for="<?php echo $this->get_field_id( 'cat' ); ?>"><?php _e('Category(ies) ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#filter-category'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
+<label for="<?php echo $this->get_field_id( 'cat' ); ?>"><?php _e('Category(ies) ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-categoryies-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
 <input type="text" id="<?php echo $this->get_field_id( 'cat' ); ?>" name="<?php echo $this->get_field_name( 'cat' ); ?>" value="<?php echo $instance['cat']; ?>" class="widefat" /><br /><br />
 
-<label for="<?php echo $this->get_field_id( 'uid' ); ?>"><?php _e('Author(s) ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#filter-author'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
+<label for="<?php echo $this->get_field_id( 'uid' ); ?>"><?php _e('Author(s) ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-authors-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
 <input type="text" id="<?php echo $this->get_field_id( 'uid' ); ?>" name="<?php echo $this->get_field_name( 'uid' ); ?>" value="<?php echo $instance['author']; ?>" class="widefat" /><br /><br />
 
 <br /><hr /><br />
@@ -49,7 +49,7 @@
 <br />
 
 <div style="display:<?php if ( function_exists('the_ratings_results') ) : ?>block<?php else: ?>none<?php endif; ?>;">
-    <input type="checkbox" class="checkbox" <?php echo ($instance['rating']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'rating' ); ?>" name="<?php echo $this->get_field_name( 'rating' ); ?>" /> <label for="<?php echo $this->get_field_id( 'rating' ); ?>"><?php _e('Display post rating', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#display-rating'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
+    <input type="checkbox" class="checkbox" <?php echo ($instance['rating']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'rating' ); ?>" name="<?php echo $this->get_field_name( 'rating' ); ?>" /> <label for="<?php echo $this->get_field_id( 'rating' ); ?>"><?php _e('Display post rating', 'wordpress-popular-posts'); ?></label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-does-display-post-rating-do" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
 </div>
 
 <input type="checkbox" class="checkbox" <?php echo ($instance['shorten_title']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'shorten_title-active' ); ?>" name="<?php echo $this->get_field_name( 'shorten_title-active' ); ?>" /> <label for="<?php echo $this->get_field_id( 'shorten_title-active' ); ?>"><?php _e('Shorten title', 'wordpress-popular-posts'); ?></label><br />
@@ -122,7 +122,7 @@
 
 <legend><strong><?php _e('HTML Markup settings', 'wordpress-popular-posts'); ?></strong></legend><br />
 
-<input type="checkbox" class="checkbox" <?php echo ($instance['markup']['custom_html']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'custom_html' ); ?>" name="<?php echo $this->get_field_name( 'custom_html' ); ?>" /> <label for="<?php echo $this->get_field_id( 'custom_html' ); ?>"><?php _e('Use custom HTML Markup', 'wordpress-popular-posts'); ?></label> <small>[<a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#custom-html-markup'); ?>" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br />
+<input type="checkbox" class="checkbox" <?php echo ($instance['markup']['custom_html']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'custom_html' ); ?>" name="<?php echo $this->get_field_name( 'custom_html' ); ?>" /> <label for="<?php echo $this->get_field_id( 'custom_html' ); ?>"><?php _e('Use custom HTML Markup', 'wordpress-popular-posts'); ?></label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-does-use-custom-html-markup-do" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br />
 
 <div style="display:<?php if ($instance['markup']['custom_html']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id( 'title-start' ); ?>"><?php _e('Before / after title', 'wordpress-popular-posts'); ?>:</label> <br />

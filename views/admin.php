@@ -244,7 +244,6 @@ if (empty($wpp_rand)) {
         'stats' => __('Stats', $this->plugin_slug),
 		'tools' => __('Tools', $this->plugin_slug),
 		'params' => __('Parameters', $this->plugin_slug),
-        'faq' => __('FAQ', $this->plugin_slug),
 		'about' => __('About', $this->plugin_slug)
     );
     foreach( $tabs as $tab => $name ){
@@ -759,45 +758,6 @@ if (empty($wpp_rand)) {
         </div>
     </div>
     <!-- End params -->
-    
-    <!-- Start faq -->
-    <div id="wpp_faq" class="wpp_boxes"<?php if ( "faq" == $current ) {?> style="display:block;"<?php } ?>>
-    	
-        <p><?php echo sprintf( __('These FAQs are widget specific. For more general FAQs about WordPress Popular Posts, please click <a href="%s" target="_blank">here</a>', $this->plugin_slug), 'https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ' ); ?>.</p>
-        
-        <h4 id="widget-title">&raquo; <a href="#" rel="q-1"><?php _e('What does "Title" do?', $this->plugin_slug); ?></a></h4>
-        
-        <div class="wpp-ans" id="q-1">
-            <p><?php _e('It allows you to show a heading for your most popular posts listing. If left empty, no heading will be displayed at all.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="filter-post-type">&raquo; <a href="#" rel="q-8"><?php _e('What is "Post type" for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-8">
-            <p><?php _e('This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases).', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="filter-category">&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-9">
-            <p><?php _e('This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="filter-author">&raquo; <a href="#" rel="q-10"><?php _e('What is "Author(s) ID(s)" for?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-10">
-            <p><?php _e('Just like the Category filter, this one lets you filter posts by author ID. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="display-rating">&raquo; <a href="#" rel="q-4"><?php _e('What does "Display post rating" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-4">
-            <p><?php _e('If checked, WordPress Popular Posts will show how your readers are rating your most popular posts. This feature requires having WP-PostRatings plugin installed and enabled on your blog for it to work.', $this->plugin_slug); ?></p>
-        </div>
-        
-        <h4 id="custom-html-markup">&raquo; <a href="#" rel="q-17"><?php _e('What does "Use custom HTML Markup" do?', $this->plugin_slug); ?></a></h4>
-        <div class="wpp-ans" id="q-17">
-            <p><?php _e('If checked, you will be able to customize the HTML markup of your popular posts listing. For example, you can decide whether to wrap your posts in an unordered list, an ordered list, a div, etc. If you know xHTML/CSS, this is for you!', $this->plugin_slug); ?></p>
-        </div>
-
-    </div>
-    <!-- End faq -->
     
     <!-- Start about -->
     <div id="wpp_faq" class="wpp_boxes"<?php if ( "about" == $current ) {?> style="display:block;"<?php } ?>>
