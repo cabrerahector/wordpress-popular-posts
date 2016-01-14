@@ -1212,24 +1212,26 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
 						$wpdb->query("TRUNCATE TABLE {$prefix}summary;");
 						$this->__flush_transients();
-						_e('Success! The cache table has been cleared!', $this->plugin_slug);
+						
+						echo 1;
 					} else {
-						_e('Error: cache table does not exist.', $this->plugin_slug);
+						echo 2;
 					}
 				} else if ($clear == 'all') {
 					if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}data'") && $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
 						$wpdb->query("TRUNCATE TABLE {$prefix}data;");
 						$wpdb->query("TRUNCATE TABLE {$prefix}summary;");
 						$this->__flush_transients();
-						_e('Success! All data have been cleared!', $this->plugin_slug);
+						
+						echo 1;
 					} else {
-						_e('Error: one or both data tables are missing.', $this->plugin_slug);
+						echo 2;
 					}
 				} else {
-					_e('Invalid action.', $this->plugin_slug);
+					echo 3;
 				}
 			} else {
-				_e('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', $this->plugin_slug);
+				echo 4;
 			}
 
 			die();
@@ -1259,15 +1261,15 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								@unlink($file); // delete file
 						}
 						
-						_e('Success! All files have been deleted!', $this->plugin_slug);
+						echo 1;
 					} else {
-						_e('The thumbnail cache is already empty!', $this->plugin_slug);
+						echo 2;
 					}
 				} else {
-					_e('Invalid action.', $this->plugin_slug);
+					echo 3;
 				}
 			} else {
-				_e('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', $this->plugin_slug);
+				echo 4;
 			}
 
 			die();
