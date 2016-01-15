@@ -2958,10 +2958,14 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				return false;
 
 			$params = array();
-			$pattern = '/\{(excerpt|summary|stats|title|image|thumb|thumb_img|rating|score|url|text_title|author|category|views|comments|date)\}/i';
+			$pattern = '/\{(pid|excerpt|summary|stats|title|image|thumb|thumb_img|rating|score|url|text_title|author|category|views|comments|date)\}/i';
 			preg_match_all($pattern, $string, $matches);
 
 			array_map('strtolower', $matches[0]);
+
+			if ( in_array("{pid}", $matches[0]) ) {
+				$string = str_replace( "{pid}", $data['id'], $string );
+			}
 
 			if ( in_array("{title}", $matches[0]) ) {
 				$string = str_replace( "{title}", $data['title'], $string );
