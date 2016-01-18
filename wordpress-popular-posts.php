@@ -979,10 +979,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		private function __upgrade() {
 
 			// Keep the upgrade process from running too many times
-			if ( defined('WPP_UPGRADE') )
+			if ( get_site_option('wpp_update') )
 				return;
-
-			define( 'WPP_UPGRADE', true );
+			
+			add_site_option( 'wpp_update', 1 );
 
 			global $wpdb;
 
@@ -1029,6 +1029,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// Update WPP version
 			update_site_option('wpp_ver', $this->version);
+			
+			// Remove upgrade flag
+			delete_site_option('wpp_update');
 
 		} // end __upgrade
 
