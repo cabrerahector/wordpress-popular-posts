@@ -1870,71 +1870,72 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// WPML support, based on Serhat Evren's suggestion - see http://wordpress.org/support/topic/wpml-trick#post-5452607
       if ( defined('ICL_LANGUAGE_CODE') && array_key_exists('wpml_object_id', $GLOBALS['wp_filter']) ) {
-        $current_id = apply_filters( 'wpml_object_id', $p->id, get_post_type( $p->id ), true, ICL_LANGUAGE_CODE );
-				$permalink = get_permalink( $current_id );
+        $current_id = apply_filters( 'wpml_object_id', $p->id, get_post_type( $p->id ), false, ICL_LANGUAGE_CODE );
+				$permalink = $current_id ? get_permalink( $current_id ) : false;
 			} // Get original permalink
 			else {
 				$permalink = get_permalink($p->id);
 			}
-
-			$title = $this->_get_title($p, $instance);
-			$title_sub = $this->_get_title_sub($p, $instance);
-
-			$author = $this->_get_author($p, $instance);
-			$post_cat = $this->_get_post_cat($p, $instance);
-
-			$thumb = $this->_get_thumb($p, $instance);
-			$excerpt = $this->_get_excerpt($p, $instance);
-
-			$pageviews = $this->_get_pageviews($p, $instance);
-			$comments = $this->_get_comments($p, $instance);
-			$rating = $this->_get_rating($p, $instance);
-			$date = $this->_get_date($p, $instance);
-
-			$_stats = join(' | ', $this->_get_stats($p, $instance));
-
-			// PUTTING IT ALL TOGETHER
-			// build custom layout
-			if ($instance['markup']['custom_html']) {
-
-				$data = array(
-					'title' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">'.$title_sub.'</a>',
-					'summary' => $excerpt,
-					'stats' => $_stats,
-					'img' => ( !empty($thumb) ) ? '<a href="'.$permalink.'" title="'. esc_attr($title) .'" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a>' : '',
-					'img_no_link' => $thumb,
-					'id' => $p->id,
-					'url' => $permalink,
-					'text_title' => esc_attr($title),
-					'category' => $post_cat,
-					'author' => '<a href="' . get_author_posts_url($p->uid) . '">' . $author . '</a>',
-					'views' => ($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n( $pageviews ) : number_format_i18n( $pageviews, 2 ),
-					'comments' => number_format_i18n( $comments ),
-					'date' => $date
-				);
-
-				$content = $this->__format_content( htmlspecialchars_decode($instance['markup']['post-html'], ENT_QUOTES ), $data, $instance['rating'] ). "\n";
-
-			}
-			// build regular layout
-			else {
-				$thumb = ( !empty($thumb) ) 
-				  ? '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a> '
-				  : '';
-				
-				$_stats = ( !empty($_stats) ) 
-				  ? ' <span class="post-stats">' . $_stats . '</span> '
-				  : '';
-				
-				$content =
-					'<li' . ( ( $this->current_post_id == $p->id ) ? ' class="current"' : '' ) . '>'
-					. $thumb
-					. '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
-					. $excerpt . $_stats
-					. $rating
-					. "</li>\n";
-			}
-
+			
+      if( $permalink ) {
+  			$title = $this->_get_title($p, $instance);
+  			$title_sub = $this->_get_title_sub($p, $instance);
+  
+  			$author = $this->_get_author($p, $instance);
+  			$post_cat = $this->_get_post_cat($p, $instance);
+  
+  			$thumb = $this->_get_thumb($p, $instance);
+  			$excerpt = $this->_get_excerpt($p, $instance);
+  
+  			$pageviews = $this->_get_pageviews($p, $instance);
+  			$comments = $this->_get_comments($p, $instance);
+  			$rating = $this->_get_rating($p, $instance);
+  			$date = $this->_get_date($p, $instance);
+  
+  			$_stats = join(' | ', $this->_get_stats($p, $instance));
+  
+  			// PUTTING IT ALL TOGETHER
+  			// build custom layout
+  			if ($instance['markup']['custom_html']) {
+  
+  				$data = array(
+  					'title' => '<a href="'.$permalink.'" title="'. esc_attr($title) .'" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">'.$title_sub.'</a>',
+  					'summary' => $excerpt,
+  					'stats' => $_stats,
+  					'img' => ( !empty($thumb) ) ? '<a href="'.$permalink.'" title="'. esc_attr($title) .'" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a>' : '',
+  					'img_no_link' => $thumb,
+  					'id' => $p->id,
+  					'url' => $permalink,
+  					'text_title' => esc_attr($title),
+  					'category' => $post_cat,
+  					'author' => '<a href="' . get_author_posts_url($p->uid) . '">' . $author . '</a>',
+  					'views' => ($instance['order_by'] == "views" || $instance['order_by'] == "comments") ? number_format_i18n( $pageviews ) : number_format_i18n( $pageviews, 2 ),
+  					'comments' => number_format_i18n( $comments ),
+  					'date' => $date
+  				);
+  
+  				$content = $this->__format_content( htmlspecialchars_decode($instance['markup']['post-html'], ENT_QUOTES ), $data, $instance['rating'] ). "\n";
+  
+  			}
+  			// build regular layout
+  			else {
+  				$thumb = ( !empty($thumb) ) 
+  				  ? '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" target="' . $this->user_settings['tools']['link']['target'] . '">' . $thumb . '</a> '
+  				  : '';
+  				
+  				$_stats = ( !empty($_stats) ) 
+  				  ? ' <span class="post-stats">' . $_stats . '</span> '
+  				  : '';
+  				
+  				$content =
+  					'<li' . ( ( $this->current_post_id == $p->id ) ? ' class="current"' : '' ) . '>'
+  					. $thumb
+  					. '<a ' . ( ( $this->current_post_id == $p->id ) ? '' : 'href="' . $permalink . '"' ) . ' title="' . esc_attr($title) . '" class="wpp-post-title" target="' . $this->user_settings['tools']['link']['target'] . '">' . $title_sub . '</a> '
+  					. $excerpt . $_stats
+  					. $rating
+  					. "</li>\n";
+  			}
+  		}
 			return apply_filters('wpp_post', $content, $p, $instance);
 
 		} // end __render_popular_post
