@@ -2618,7 +2618,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			return apply_filters( 'wpp_render_image', $msg .
-			'<img src="' . $src . '" ' . ( false == $this->user_settings['tools']['thumbnail']['responsive'] ? 'width=' . $dimension[0] . ' height=' . $dimension[1] : '' ) . ' title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" class="' . $class . '" />' );
+			'<img src="' . $src . '" ' . ( false == $this->user_settings['tools']['thumbnail']['responsive'] ? 'width="' . $dimension[0] . '" height="' . $dimension[1] . '"' : '' ) . ' title="' . esc_attr($title) . '" alt="' . esc_attr($title) . '" class="' . $class . '" />' );
 
 		} // _render_image
 
