@@ -355,6 +355,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$this->thumbnailing = true;				
 				// Get available thumbnail size(s)
 				$this->default_thumbnail_sizes = $this->__get_image_sizes();
+				// Add hook to flush cached thumbnail when image is changed
+				add_action( 'update_postmeta', array( $this, 'flush_post_thumbnail'), 10, 4 );
 			}
 
 			// Set default thumbnail
@@ -1240,6 +1242,34 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			die();
 
 		} // end clear_data
+		
+		/**
+		 * Flushes post's cached thumbnail(s) when the image is changed.
+		 *
+		 * @since	3.3.4
+		 *
+		 * @param	integer		$meta_id     ID of the meta data field
+		 * @param	integer		$object_id   Object ID
+		 * @param	string		$meta_key    Name of meta field
+		 * @param	string		$meta_value  Value of meta field
+		 */
+		public function flush_post_thumbnail( $meta_id, $object_id, $meta_key, $meta_value ) {
+			
+			$files = null;
+			
+			// User changed the featured image
+			if ( '_thumbnail_id' == $meta_key ) {
+				$files = glob( "{$this->uploads_dir['basedir']}/{$object_id}-featured-*.*" ); // get all related images
+			}
+			
+			if ( is_array($files) && !empty($files) ) {					
+				foreach( $files as $file ){ // iterate files
+					if ( is_file($file) )
+						@unlink($file); // delete file
+				}
+			}
+			
+		}
 		
 		/**
 		 * Truncates thumbnails cache on demand.
