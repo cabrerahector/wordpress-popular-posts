@@ -35,6 +35,8 @@ WordPress Popular Posts is a highly customizable widget that displays the most p
 
 == Installation ==
 
+Please make sure your site meets the [minimum requirements](https://github.com/cabrerahector/wordpress-popular-posts#requirements) before proceeding.
+
 = Automatic installation =
 
 1. Log in into your WordPress dashboard.
