@@ -485,8 +485,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
                 <?php
 				} else {
 				?>
-                <script type="text/javascript">//<![CDATA[
-					// jQuery is available, so proceed
+                <script type="text/javascript">
+					/* jQuery is available, so proceed */
 					if ( window.jQuery ) {
 						
 						jQuery(document).ready(function($){
@@ -498,11 +498,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 							});
 						});
 					
-					} else { // jQuery is not defined
-						if ( window.console && window.console.log )
-							window.console.log('WordPress Popular Posts: jQuery is not defined!');						
+					} /* jQuery is not defined */
+					else {
+						if ( window.console && window.console.log ) {
+							window.console.log('WordPress Popular Posts: jQuery is not defined!');
+						}
 					}
-                //]]></script>
+                </script>
                 <?php
 				}
 			} else {
