@@ -2799,6 +2799,9 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 			// remove WP shortcodes
 			$excerpt = strip_shortcodes( $excerpt );
+			
+			// remove style/script tags
+			$excerpt = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $excerpt );
 
 			// remove HTML tags if requested
 			if ( $instance['post-excerpt']['keep_format'] ) {
