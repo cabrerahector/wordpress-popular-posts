@@ -1351,7 +1351,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			if ( 0 != $this->current_post_id ) {
 				?>
 				<!-- WordPress Popular Posts v<?php echo $this->version; ?> -->
-				<script type="text/javascript">//<![CDATA[
+				<script type="text/javascript">
 
 					var sampling_active = <?php echo ( $this->user_settings['tools']['sampling']['active'] ) ? 1 : 0; ?>;
 					var sampling_rate   = <?php echo intval( $this->user_settings['tools']['sampling']['rate'] ); ?>;
@@ -1366,17 +1366,17 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					if ( do_request ) {
 
-						// Create XMLHttpRequest object and set variables
+						/* Create XMLHttpRequest object and set variables */
 						var xhr = ( window.XMLHttpRequest )
 						  ? new XMLHttpRequest()
 						  : new ActiveXObject( "Microsoft.XMLHTTP" ),
 						url = '<?php echo admin_url('admin-ajax.php', is_ssl() ? 'https' : 'http'); ?>',
 						params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&wpp_id=<?php echo $this->current_post_id; ?>';
-						// Set request method and target URL
+						/* Set request method and target URL */
 						xhr.open( "POST", url, true );
-						// Set request header
+						/* Set request header */
 						xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-						// Hook into onreadystatechange
+						/* Hook into onreadystatechange */
 						xhr.onreadystatechange = function() {
 							if ( 4 === xhr.readyState && 200 === xhr.status ) {
 								if ( window.console && window.console.log ) {
@@ -1384,12 +1384,12 @@ if ( !class_exists('WordpressPopularPosts') ) {
 								}
 							}
 						};
-						// Send request
+						/* Send request */
 						xhr.send( params );
 
 					}
 
-				//]]></script>
+				</script>
 				<!-- End WordPress Popular Posts v<?php echo $this->version; ?> -->
 				<?php
 			}
