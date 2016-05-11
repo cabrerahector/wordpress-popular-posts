@@ -2913,7 +2913,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'header_end' => '</h2>',
 				'post_html' => '',
 				'php' => false
-			),$atts));
+			), $atts, 'wpp'));
 
 			// possible values for "Time Range" and "Order by"
 			$range_values = array("yesterday", "daily", "weekly", "monthly", "all");
