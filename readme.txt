@@ -81,6 +81,12 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 3.3.4 =
+- Attempt to convert tables to InnoDB during upgrade if other engine is being used.
+- Adds a check to prevent the upgrade process from running too many times.
+- Minor improvements and bug fixes.
+- Documentation updated.
+
 = 3.3.3 =
 - Fixes potential XSS exploit in WPP's admin dashboard.
 - Adds filter to set which post types should be tracked by WPP ([details](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_trackable_post_types)).
@@ -133,10 +139,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 * Fixes empty HTML tags (thumbnail, stats).
 * Removes Japanese, French and Norwegian Bokmal translation files from plugin.
 * Many minor bug fixes / enhancements.
-
-= 3.2.1 =
-* Fixes missing HTML decoding for custom HTML in widget.
-* Puts LIMIT clause back to the outer query.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 

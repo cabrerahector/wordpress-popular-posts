@@ -1,5 +1,11 @@
 Changelog
 =========
+#### 3.3.4 ####
+- Attempt to convert tables to InnoDB during upgrade if other engine is being used.
+- Adds a check to prevent the upgrade process from running too many times.
+- Minor improvements and bug fixes.
+- Documentation updated.
+
 #### 3.3.3 ####
 - Fixes potential XSS exploit in WPP's admin dashboard.
 - Adds filter to set which post types should be tracked by WPP (details).

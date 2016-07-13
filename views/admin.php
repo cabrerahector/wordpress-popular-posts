@@ -766,9 +766,10 @@ if (empty($wpp_rand)) {
         <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
         <ul>
-            <li>Fixes potential XSS exploit in WPP's admin dashboard.</li>
-            <li>Adds filter to set which post types should be tracked by WPP (details).</li>
-			<li>Adds ability to select first attached image as thumbnail source (thanks, <a href="https://github.com/serglopatin">@serglopatin</a>!)</li>
+            <li>Attempt to convert tables to InnoDB during upgrade if other engine is being used.</li>
+            <li>Adds a check to prevent the upgrade process from running too many times.</li>
+            <li>Minor improvements and bug fixes.</li>
+            <li>Documentation updated.</li>
         </ul>
                 
     </div>
