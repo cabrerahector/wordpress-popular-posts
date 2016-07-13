@@ -3,7 +3,7 @@ Contributors: hcabrera
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hcabrerab%40gmail%2ecom&lc=GB&item_name=WordPress%20Popular%20Posts%20Plugin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted
 Tags: popular, posts, widget, popularity, top
 Requires at least: 3.8
-Tested up to: 4.4
+Tested up to: 4.6
 Stable tag: 3.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -27,7 +27,7 @@ WordPress Popular Posts is a highly customizable widget that displays the most p
 * Check the **statistics** on your most popular posts from the dashboard.
 * Order your popular list by comments, views (default) or average views per day!
 * **Shortcode support** - use the [wpp] shortcode to showcase your most popular posts on pages, too! For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
-* **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the *wpp_get_mostpopular()* template tag. Additionally, the *wpp_gets_views()* template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
+* **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the *wpp_get_mostpopular()* template tag. Additionally, the *wpp_get_views()* template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
 * **Localizable** to your own language (*See the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for more info*).
 * **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support**. Show your visitors how your readers are rating your posts!
 
@@ -142,18 +142,10 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
-== Language support ==
-
-All translations are community made: people who are nice enough to share their translations with me so I can distribute them with the plugin. If you spot an error, or feel like helping improve a translation, please check the [FAQ section](http://wordpress.org/plugins/wordpress-popular-posts/faq/ "FAQ section") for instructions.
-
-* English (maintained by Hector Cabrera).
-* Spanish (maintained by Hector Cabrera).
-* German - 86% translated.
-
 == Credits ==
 
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
-= 3.3.3 =
-This version fixes a potential security issue. You should upgrade as soon as possible.
+= 3.3.4 =
+If you're using a caching plugin, clearing its cache before upgrading to v.3.3.4 is recommended.
