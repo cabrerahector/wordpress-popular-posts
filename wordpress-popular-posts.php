@@ -1435,13 +1435,13 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$wpdb->show_errors();
 
 			// WPML support, get original post/page ID
-			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
+      if ( defined('ICL_LANGUAGE_CODE') && array_key_exists('wpml_object_id', $GLOBALS['wp_filter']) ) {
 				global $sitepress;
 				if ( isset( $sitepress )) { // avoids a fatal error with Polylang
-					$id = icl_object_id( $id, get_post_type( $id ), true, $sitepress->get_default_language() );
+					$id = apply_filters( 'wpml_object_id', $id, get_post_type( $id ), true, $sitepress->get_default_language() );
 				}
 				else if ( function_exists( 'pll_default_language' ) ) { // adds Polylang support
-					$id = icl_object_id( $id, get_post_type( $id ), true, pll_default_language() );
+					$id = apply_filters( 'wpml_object_id', $id, get_post_type( $id ), true, pll_default_language() );
 				}
 			}
 
@@ -1901,8 +1901,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 		private function __render_popular_post($p, $instance) {
 
 			// WPML support, based on Serhat Evren's suggestion - see http://wordpress.org/support/topic/wpml-trick#post-5452607
-			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
-				$current_id = icl_object_id( $p->id, get_post_type( $p->id ), true, ICL_LANGUAGE_CODE );
+      if ( defined('ICL_LANGUAGE_CODE') && array_key_exists('wpml_object_id', $GLOBALS['wp_filter']) ) {
+        $current_id = apply_filters( 'wpml_object_id', $p->id, get_post_type( $p->id ), true, ICL_LANGUAGE_CODE );
 				$permalink = get_permalink( $current_id );
 			} // Get original permalink
 			else {
@@ -2012,8 +2012,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			// WPML support, based on Serhat Evren's suggestion - see http://wordpress.org/support/topic/wpml-trick#post-5452607
-			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
-				$current_id = icl_object_id( $p->id, get_post_type( $p->id ), true, ICL_LANGUAGE_CODE );
+			if ( defined('ICL_LANGUAGE_CODE') && array_key_exists('wpml_object_id', $GLOBALS['wp_filter']) ) {
+        $current_id = apply_filters( 'wpml_object_id', $p->id, get_post_type( $p->id ), true, ICL_LANGUAGE_CODE );
 				$title = get_the_title( $current_id );
 			} // Check for qTranslate
 			else if ( $this->qTrans && function_exists('qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage') ) {
@@ -2344,8 +2344,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 					$category_name = $post_cat->cat_name;
 					
 					// WPML support, based on Serhat Evren's suggestion - see http://wordpress.org/support/topic/wpml-trick#post-5452607
-					if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
-						$category_id = icl_object_id( $category_id, 'category', true, ICL_LANGUAGE_CODE );
+					if ( defined('ICL_LANGUAGE_CODE') && array_key_exists('wpml_object_id', $GLOBALS['wp_filter']) ) {
+            $category_id = apply_filters( 'wpml_object_id', $category_id, 'category', true, ICL_LANGUAGE_CODE );
 						$category_name = get_the_category_by_ID( $category_id );
 					}
 					
@@ -2769,8 +2769,8 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$excerpt = "";
 
 			// WPML support, get excerpt for current language
-			if ( defined('ICL_LANGUAGE_CODE') && function_exists('icl_object_id') ) {
-				$current_id = icl_object_id( $id, get_post_type( $id ), true, ICL_LANGUAGE_CODE );
+			if ( defined('ICL_LANGUAGE_CODE') && array_key_exists('wpml_object_id', $GLOBALS['wp_filter']) ) {
+        $current_id = apply_filters( 'wpml_object_id', $id, get_post_type( $id ), true, ICL_LANGUAGE_CODE );
 
 				$the_post = get_post( $current_id );
 				$excerpt = ( empty($the_post->post_excerpt) )
