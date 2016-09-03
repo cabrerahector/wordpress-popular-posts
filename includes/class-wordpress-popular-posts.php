@@ -56,6 +56,11 @@ class WordPressPopularPosts {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-helper.php';
 		
 		/**
+		 * Template functions.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-template.php';
+		
+		/**
 		 * The class responsible for handling the actions and filters of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-loader.php';
