@@ -39,7 +39,7 @@ register_activation_hook( __FILE__, array('WPP_Activator', 'activate') );
  * The code that runs during plugin activation.
  */
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-popular-posts-deactivator.php';
-register_deactivation_hook( __FILE__, array('WordPressPopularPosts_Deactivator', 'deactivate') );
+register_deactivation_hook( __FILE__, array('WPP_Deactivator', 'deactivate') );
 
 /*
  * The core plugins class.
