@@ -264,10 +264,8 @@ class WPP_Admin {
 	 * @return	array
 	 */
 	public function add_plugin_settings_link( $links, $file ){
-		
-		// TODO
-		//$plugin_file = 'wordpress-popular-posts/wordpress-popular-posts.php';
-		$plugin_file = 'wpp-solid/wpp-solid.php';
+
+		$plugin_file = 'wordpress-popular-posts/wordpress-popular-posts.php';
 
 		if (
 			is_plugin_active( $plugin_file ) 
@@ -662,9 +660,7 @@ class WPP_Admin {
 			'WordPress Popular Posts'
 		);
 
-		// TODO
-		//$plugin_file = 'wordpress-popular-posts/wordpress-popular-posts.php';
-		$plugin_file = 'wpp-solid/wpp-solid.php';
+		$plugin_file = 'wordpress-popular-posts/wordpress-popular-posts.php';
 		deactivate_plugins( $plugin_file );
 
 	} // end check_admin_notices
