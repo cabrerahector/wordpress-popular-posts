@@ -1527,22 +1527,26 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// post filters
 			// * freshness - get posts published within the selected time range only
 			if ( $instance['freshness'] ) {
-				switch( $instance['range'] ){
-					case "daily":
-						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 DAY) ";
-					break;
+				if (preg_match('/^([1-9][0-9]*)days$/', $instance['range'], $matches)) {
+					$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL {$matches[1]} DAY) ";
+				} else {
+					switch( $instance['range'] ){
+						case "daily":
+							$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 DAY) ";
+						break;
 
-					case "weekly":
-						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 WEEK) ";
-					break;
+						case "weekly":
+							$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 WEEK) ";
+						break;
 
-					case "monthly":
-						$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 MONTH) ";
-					break;
+						case "monthly":
+							$where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL 1 MONTH) ";
+						break;
 
-					default:
-						$where .= "";
-					break;
+						default:
+							$where .= "";
+						break;
+					}
 				}
 			}
 
@@ -1690,22 +1694,26 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 				$interval = "";
 
-				switch( $instance['range'] ){
-					case "daily":
-						$interval = "1 DAY";
-					break;
+				if (preg_match('/^([1-9][0-9]*)days$/', $instance['range'], $matches)) {
+					$interval = $matches[1]." DAY";
+				} else {
+					switch( $instance['range'] ){
+						case "daily":
+							$interval = "1 DAY";
+						break;
 
-					case "weekly":
-						$interval = "1 WEEK";
-					break;
+						case "weekly":
+							$interval = "1 WEEK";
+						break;
 
-					case "monthly":
-						$interval = "1 MONTH";
-					break;
+						case "monthly":
+							$interval = "1 MONTH";
+						break;
 
-					default:
-						$interval = "1 DAY";
-					break;
+						default:
+							$interval = "1 DAY";
+						break;
+					}
 				}
 
 				// order by comments
@@ -2922,7 +2930,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			$shortcode_ops = array(
 				'title' => strip_tags($header),
 				'limit' => (!empty($limit) && $this->__is_numeric($limit) && $limit > 0) ? $limit : 10,
-				'range' => (in_array($range, $range_values)) ? $range : 'daily',
+				'range' => (in_array($range, $range_values) || preg_match('/^([1-9][0-9]*)days$/', $range)) ? $range : 'daily',
 				'freshness' => empty($freshness) ? false : $freshness,
 				'order_by' => (in_array($order_by, $order_by_values)) ? $order_by : 'views',
 				'post_type' => empty($post_type) ? 'post,page' : $post_type,
@@ -3326,26 +3334,30 @@ function wpp_get_views($id = NULL, $range = NULL, $number_format = true) {
 		} else {
 			$interval = "";
 
-			switch( $range ){
-				case "yesterday":
-					$interval = "1 DAY";
-				break;
+			if (preg_match('/^([1-9][0-9]*)days$/', $range, $matches)) {
+				$interval = $matches[1]." DAY";
+			} else {
+				switch( $range ){
+					case "yesterday":
+						$interval = "1 DAY";
+					break;
 
-				case "daily":
-					$interval = "1 DAY";
-				break;
+					case "daily":
+						$interval = "1 DAY";
+					break;
 
-				case "weekly":
-					$interval = "1 WEEK";
-				break;
+					case "weekly":
+						$interval = "1 WEEK";
+					break;
 
-				case "monthly":
-					$interval = "1 MONTH";
-				break;
+					case "monthly":
+						$interval = "1 MONTH";
+					break;
 
-				default:
-					$interval = "1 DAY";
-				break;
+					default:
+						$interval = "1 DAY";
+					break;
+				}
 			}
 
 			$now = current_time('mysql');
