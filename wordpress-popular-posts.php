@@ -3000,6 +3000,10 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			preg_match_all($pattern, $string, $matches);
 
 			array_map('strtolower', $matches[0]);
+			
+			if ( in_array("{pid}", $matches[0]) ) {
+				$string = str_replace( "{pid}", $data['id'], $string );
+			}
 
 			if ( in_array("{pid}", $matches[0]) ) {
 				$string = str_replace( "{pid}", $data['id'], $string );
