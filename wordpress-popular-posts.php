@@ -1886,7 +1886,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				$content .= "\n". "</ul>". "\n";
 			}
 
-			return $content;
+			return __($content,'wppp');
 
 		} // end __get_popular_posts
 
