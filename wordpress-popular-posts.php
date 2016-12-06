@@ -2930,18 +2930,18 @@ if ( !class_exists('WordpressPopularPosts') ) {
 				'cat' => preg_replace('|[^0-9,-]|', '', $cat),
 				'author' => preg_replace('|[^0-9,]|', '', $author),
 				'shorten_title' => array(
-					'active' => (!empty($title_length) && $this->__is_numeric($title_length) && $title_length > 0),
+					'active' => (!empty($title_length) && $this->__is_numeric($title_length) && $title_length > 0)? true : false,
 					'length' => (!empty($title_length) && $this->__is_numeric($title_length)) ? $title_length : 0,
 					'words' => (!empty($title_by_words) && $this->__is_numeric($title_by_words) && $title_by_words > 0),
 				),
 				'post-excerpt' => array(
-					'active' => (!empty($excerpt_length) && $this->__is_numeric($excerpt_length) && ($excerpt_length > 0)),
+					'active' => (!empty($excerpt_length) && $this->__is_numeric($excerpt_length) && ($excerpt_length > 0))? true : false,
 					'length' => (!empty($excerpt_length) && $this->__is_numeric($excerpt_length)) ? $excerpt_length : 0,
 					'keep_format' => (!empty($excerpt_format) && $this->__is_numeric($excerpt_format) && ($excerpt_format > 0)),
 					'words' => (!empty($excerpt_by_words) && $this->__is_numeric($excerpt_by_words) && $excerpt_by_words > 0),
 				),
 				'thumbnail' => array(
-					'active' => (!empty($thumbnail_width) && $this->__is_numeric($thumbnail_width) && $thumbnail_width > 0),
+					'active' => (!empty($thumbnail_width) && $this->__is_numeric($thumbnail_width) && $thumbnail_width > 0)? true : false,
 					'width' => (!empty($thumbnail_width) && $this->__is_numeric($thumbnail_width) && $thumbnail_width > 0) ? $thumbnail_width : 0,
 					'height' => (!empty($thumbnail_height) && $this->__is_numeric($thumbnail_height) && $thumbnail_height > 0) ? $thumbnail_height : 0,
 				),
