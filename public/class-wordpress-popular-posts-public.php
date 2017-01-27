@@ -138,7 +138,7 @@ class WPP_Public {
 		$exec_time = 0;
 
 		$start = WPP_helper::microtime_float();
-		$result = $this->__update_views( $post_ID );
+		$result = $this->update_views_count( $post_ID );
 		$end = WPP_helper::microtime_float();
 
 		$exec_time += round( $end - $start, 6 );
@@ -160,7 +160,7 @@ class WPP_Public {
 	 * @param    int       $post_ID
 	 * @return   bool|int  FALSE if query failed, TRUE on success
 	 */
-	private function __update_views( $post_ID ) {
+	private function update_views_count( $post_ID ) {
 
 		/*
 		TODO:
@@ -218,7 +218,7 @@ class WPP_Public {
 
 		return true;
 
-	} // end __update_views
+	} // end update_views_count
 	
 	/**
 	 * WPP shortcode handler.

@@ -42,7 +42,7 @@ class WPP_Activator {
 
 				foreach( $blogs_ids as $blog_id ) {
 					switch_to_blog( $blog_id );
-					self::__activate();
+					self::plugin_activate();
 				}
 
 				// switch back to current blog
@@ -54,7 +54,7 @@ class WPP_Activator {
 
 		}
 
-		self::__activate();		
+		self::plugin_activate();		
 
 	} // end activate
 	
@@ -64,7 +64,7 @@ class WPP_Activator {
 	 * @since    4.0.0
 	 */
 	public static function track_new_site() {
-		self::__activate();
+		self::plugin_activate();
 	} // end track_new_site
 	
 	/**
@@ -73,7 +73,7 @@ class WPP_Activator {
 	 * @since    2.4.0
 	 * @global   object   wpdb
 	 */
-	private static function __activate() {
+	private static function plugin_activate() {
 
 		global $wpdb;
 
@@ -85,7 +85,7 @@ class WPP_Activator {
 			self::do_db_tables( $prefix );
 		}
 
-	} // end __activate
+	} // end plugin_activate
 	
 	/**
 	 * Creates/updates the WPP database tables.

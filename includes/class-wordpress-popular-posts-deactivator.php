@@ -43,7 +43,7 @@ class WPP_Deactivator {
 
 				foreach( $blogs_ids as $blog_id ) {
 					switch_to_blog( $blog_id );
-					self::__deactivate();
+					self::plugin_deactivate();
 				}
 
 				// Switch back to current blog
@@ -55,7 +55,7 @@ class WPP_Deactivator {
 
 		}
 
-		self::__deactivate();
+		self::plugin_deactivate();
 
 	} // end deactivate
 
@@ -64,11 +64,11 @@ class WPP_Deactivator {
 	 *
 	 * @since	2.4.0
 	 */
-	private static function __deactivate() {
+	private static function plugin_deactivate() {
 
 		remove_shortcode( 'wpp' );
 		wp_clear_scheduled_hook( 'wpp_cache_event' );
 
-	} // end __deactivate
+	} // end plugin_deactivate
 
 } // end WPP_Activator class
