@@ -580,7 +580,7 @@ class WPP_Output {
 			return false;
 
 		$params = array();
-		$pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|rating|score|url|text_title|author|category|views|comments|date)\}/i';
+		$pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|category|views|comments|date)\}/i';
 		preg_match_all( $pattern, $string, $matches );
 
 		array_map( 'strtolower', $matches[0] );
@@ -607,6 +607,28 @@ class WPP_Output {
 		
 		if ( in_array( "{thumb_img}", $matches[0] ) ) {
 			$string = str_replace( "{thumb_img}", $data['img_no_link'], $string );
+		}
+
+		if ( in_array( "{thumb_url}", $matches[0] ) && !empty( $data['img_no_link'] ) ) {
+
+			$dom = new DOMDocument;
+			
+			if ( $dom->loadHTML( $data['img_no_link'] ) ) {
+
+				$img_tag = $dom->getElementsByTagName( 'img' );
+
+				if ( $img_tag->length ) {
+
+					foreach( $img_tag as $node ) {
+						if ( $node->hasAttribute( 'src' ) ) {
+							$string = str_replace( "{thumb_url}", $node->getAttribute( 'src' ), $string );
+						}
+					}
+
+				}
+
+			}
+
 		}
 
 		// WP-PostRatings check
