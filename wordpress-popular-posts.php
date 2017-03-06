@@ -1797,9 +1797,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// Fetch posts
 			if ( !defined('WPP_ADMIN') && $this->user_settings['tools']['cache']['active'] ) {
 				$transient_name = md5(json_encode($instance));
-				$mostpopular = ( function_exists( 'is_multisite' ) && is_multisite() )
-				  ? get_site_transient( $transient_name )
-				  : get_transient( $transient_name );
+				$mostpopular = get_transient( $transient_name );
 
 				$content = "\n" . "<!-- cached -->" . "\n";
 
@@ -1835,10 +1833,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 
 					$expiration = $time * $this->user_settings['tools']['cache']['interval']['value'];
 
-					if ( function_exists( 'is_multisite' ) && is_multisite() )
-						set_site_transient( $transient_name, $mostpopular, $expiration );
-					else
-						set_transient( $transient_name, $mostpopular, $expiration );
+					set_transient( $transient_name, $mostpopular, $expiration );
 
 					$wpp_transients = get_site_option('wpp_transients');
 
