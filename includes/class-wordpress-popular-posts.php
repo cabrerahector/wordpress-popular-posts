@@ -49,6 +49,11 @@ class WordPressPopularPosts {
 		 * The class responsible for defining internationalization functionality of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-i18n.php';
+
+		/**
+		 * Settings class.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-settings.php';
 		
 		/**
 		 * Helper class.

@@ -30,7 +30,7 @@ class WPP_Output {
 		// Get admin options
 		if ( !$this->admin_options = get_site_option( 'wpp_settings_config' ) ) {
 			
-			$defaults = WPP_Helper::get_default_options( 'admin_options' );			
+			$defaults = WPP_Settings::$defaults[ 'admin_options' ];			
 			add_site_option( 'wpp_settings_config', $defaults );
 			$this->admin_options = $defaults;
 			
@@ -51,7 +51,7 @@ class WPP_Output {
 		if ( !empty($this->data) ) {
 			
 			$this->options = WPP_Helper::merge_array_r(
-				WPP_Helper::get_default_options( 'widget_options' ),
+				WPP_Settings::$defaults[ 'widget_options' ],
 				$this->options
 			);
 			

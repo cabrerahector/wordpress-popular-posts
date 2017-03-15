@@ -501,7 +501,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                         <td>
                         	<input name="sample_rate" type="text" id="sample_rate" value="<?php echo ( isset($this->options['tools']['sampling']['rate']) ) ? (int) $this->options['tools']['sampling']['rate'] : 100; ?>" class="small-text">
                             <br />
-                            <?php $defaults = WPP_Helper::get_default_options( 'admin_options' ); ?>
+                            <?php $defaults = WPP_Settings::$defaults[ 'admin_options' ]; ?>
                             <p class="description"><?php echo sprintf( __("A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value", 'wordpress-popular-posts'), $defaults['tools']['sampling']['rate'] ); ?>.</p>
                         </td>
                     </tr>

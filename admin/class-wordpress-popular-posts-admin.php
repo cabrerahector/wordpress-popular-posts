@@ -69,7 +69,7 @@ class WPP_Admin {
 		$this->version = $version;
 		
 		// Get/Set admin options
-		$defaults = WPP_Helper::get_default_options( 'admin_options' );
+		$defaults = WPP_Settings::$defaults[ 'admin_options' ];
 		
 		if ( !$this->options = get_site_option( 'wpp_settings_config' ) ) {
 			add_site_option( 'wpp_settings_config', $defaults );

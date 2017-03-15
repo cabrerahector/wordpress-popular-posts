@@ -70,7 +70,7 @@ class WPP_Query {
 		if ( isset($wpdb) ) {
 			
 			$this->options = WPP_Helper::merge_array_r(
-				WPP_Helper::get_default_options( 'widget_options' ),
+				WPP_Settings::$defaults[ 'widget_options' ],
 				(array) $this->options
 			);
 			
