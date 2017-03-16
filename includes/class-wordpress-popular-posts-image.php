@@ -7,7 +7,7 @@ class WPP_Image {
      *
      * @since    4.0.0
      * @access   private
-     * @var      object|WPP_Loader
+     * @var      object|WPP_Image
      */
     private static $instance;
 
@@ -19,7 +19,7 @@ class WPP_Image {
      * @var      bool    $can_create_thumbnails    Checks if WPP is able to build thumbnails.
      */
     private $can_create_thumbnails;
-    
+
     /**
      * Default thumbnail.
      *
@@ -27,7 +27,7 @@ class WPP_Image {
      * @var		string
      */
     private $default_thumbnail = '';
-    
+
     /**
      * Plugin uploads directory.
      *
@@ -43,31 +43,31 @@ class WPP_Image {
      * @access   private
      */
     private function __construct() {
-        
+
         // Check if WPP can create images
         $this->can_create_thumbnails = ( extension_loaded('ImageMagick') || (extension_loaded('GD') && function_exists('gd_info')) );
-        
+
         if ( $this->can_create_thumbnails ) {
-        
-            // Set default thumbnail			
+
+            // Set default thumbnail
             $this->default_thumbnail = $this->get_plugin_dir_url() . "public/images/no_thumb.jpg";
-            
+
             // Set uploads folder
             $wp_upload_dir = ( function_exists('wp_get_upload_dir') ) ? wp_get_upload_dir() : wp_upload_dir(); // wp_get_upload_dir() was introduced in WP 4.5!
             $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts';
             $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . "/" . 'wordpress-popular-posts';
-    
+
             if ( !is_dir($this->uploads_dir['basedir']) ) {
                 if ( !wp_mkdir_p($this->uploads_dir['basedir']) ) {
                     $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'];
                     $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'];
                 }
             }
-        
+
         }
-        
+
     }
-    
+
     /**
      * Get an instance of this class.
      *
@@ -75,15 +75,15 @@ class WPP_Image {
      * @return object|\WPP_Image
      */
     public static function get_instance() {
-        
+
         if ( is_null(self::$instance) ) {
             self::$instance = new WPP_Image();
         }
-        
+
         return self::$instance;
-        
+
     }
-    
+
     /**
      * Tells whether WPP can create thumbnails or not.
      *
@@ -94,15 +94,15 @@ class WPP_Image {
     public function can_create_thumbnails() {
         return $this->can_create_thumbnails;
     }
-    
+
     public function get_plugin_dir() {
         return WP_PLUGIN_DIR . '/wordpress-popular-posts/';
     }
-    
+
     public function get_plugin_dir_url() {
         return plugins_url() . '/wordpress-popular-posts/';
     }
-    
+
     /**
      * Get WPP's uploads folder.
      *
@@ -111,14 +111,14 @@ class WPP_Image {
      * @return	array|bool
      */
     public function get_plugin_uploads_dir() {
-        
+
         if ( is_array($this->uploads_dir) && !empty($this->uploads_dir) )
             return $this->uploads_dir;
-        
+
         return false;
 
     }
-    
+
     /**
      * Retrieves / creates the post thumbnail.
      *
@@ -131,17 +131,23 @@ class WPP_Image {
      * @return	string
      */
     public function get_img( $post_object = null, $url = null, $size = array(80, 80), $crop = true, $source = "featured" ) {
-        
+
         // WPP cannot create thumbnails
         if ( !$this->can_create_thumbnails )
             return '';
 
-        if ( ( false === $post_object instanceof stdClass || !isset($post_object->id) || !isset($post_object->title) ) && !filter_var($url, FILTER_VALIDATE_URL) ) {
+        if (
+            ( false === $post_object instanceof stdClass || !isset($post_object->id) || !isset($post_object->title) ) 
+            && !filter_var( $url, FILTER_VALIDATE_URL ) 
+        ) {
             return $this->render_image( $this->default_thumbnail, $size, 'wpp-thumbnail wpp_def_noID', $post_object );
         }
 
         // Get image by post ID (parent)
-        if ( isset($post_object->id) && !$url ) {
+        if (
+            isset( $post_object->id ) 
+            && !$url 
+        ) {
             $file_path = $this->get_image_file_paths( $post_object->id, $source );
 
             // No images found, return default thumbnail
@@ -192,7 +198,7 @@ class WPP_Image {
      * @since	3.0.0
      * @access  private
      * @param	object   $post_object   Post object
-     * @param	string   $path          Image path		 
+     * @param	string   $path          Image path
      * @param	array    $size          Image's width and height
      * @param	string   $source        Image source
      * @return	string
@@ -203,7 +209,7 @@ class WPP_Image {
 
         // valid image, create thumbnail
         if ( !is_wp_error($image) ) {
-            
+
             $file_info = pathinfo( $path );
 
             $image->resize( $size[0], $size[1], $crop );
@@ -214,7 +220,7 @@ class WPP_Image {
             }
 
             return $this->render_image( trailingslashit($this->uploads_dir['baseurl']) . $new_img['file'], $size, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, $post_object );
-            
+
         }
 
         // ELSE
@@ -256,48 +262,48 @@ class WPP_Image {
                 'post_mime_type' => 'image'
             );
             $post_attachments = get_children( $args );
-            
+
             if ( !empty($post_attachments) ) {
                 $first_img = array_shift( $post_attachments );
                 return get_attached_file( $first_img->ID );
             }
-            
+
         }
         // get thumbnail path from post content
         elseif ( "first_image" == $source ) {
 
             /** @var wpdb $wpdb */
             global $wpdb;
-            
+
             if ( $content = $wpdb->get_var( "SELECT post_content FROM {$wpdb->posts} WHERE ID = {$id};" ) ) {
 
                 // at least one image has been found
                 if ( preg_match( '/<img[^>]+>/i', $content, $img ) ) {
-                    
+
                     // get img src attribute from the first image found
                     preg_match( '/(src)="([^"]*)"/i', $img[0], $src_attr );
-                    
+
                     if ( isset($src_attr[2]) && !empty($src_attr[2]) ) {
-                    
+
                         // image from Media Library
                         if ( $attachment_id = $this->get_attachment_id( $src_attr[2] ) ) {
-                            
+
                             $file_path = get_attached_file( $attachment_id );
-                            
+
                             // There's a file path, so return it
                             if ( !empty($file_path) ) {
                                 return $file_path;
                             }
-                            
+
                         } // external image?
                         else {
                             return $this->fetch_external_image( $id, $src_attr[2] );
                         }
-                    
+
                     }
-                    
+
                 }
-                
+
             }
 
         }
@@ -325,7 +331,7 @@ class WPP_Image {
         if ( $error ) {
             $img_tag = '<!-- ' . $error . ' --> ';
         }
-        
+
         $img_tag .= '<img src="' . ( is_ssl() ? str_ireplace( "http://", "https://", $src ) : $src ) . '" width="' . $size[0] . '" height="' . $size[1] . '" alt="' . esc_attr( wp_strip_all_tags($post_object->title) ) . '" class="' . $class . '" />';
 
         return apply_filters( 'wpp_render_image', $img_tag );
@@ -352,7 +358,11 @@ class WPP_Image {
         $file_host = str_ireplace( 'www.', '', parse_url( $url, PHP_URL_HOST ) );
 
         // Return nothing if there aren't any $url parts or if the current host and $url host do not match.
-        if ( ! isset( $parse_url[1] ) || empty( $parse_url[1] ) || ( $this_host != $file_host ) ) {
+        if (
+            !isset( $parse_url[1] ) 
+            || empty( $parse_url[1] ) 
+            || ( $this_host != $file_host ) 
+        ) {
             return false;
         }
 
@@ -391,14 +401,17 @@ class WPP_Image {
         $accepted_status_codes = array( 200, 301, 302 );
         $response = wp_remote_head( $url, array( 'timeout' => 5, 'sslverify' => false ) );
 
-        if ( !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes) ) {
-            
+        if (
+            !is_wp_error($response) 
+            && in_array( wp_remote_retrieve_response_code($response), $accepted_status_codes )
+        ) {
+
             require_once( ABSPATH . 'wp-admin/includes/file.php' );
             $url = str_replace( 'https://', 'http://', $url );
             $tmp = download_url( $url );
-            
+
             if ( !is_wp_error( $tmp ) ) {
-                
+
                 if ( function_exists('exif_imagetype') ) {
                     $image_type = exif_imagetype( $tmp );
                 } else {
@@ -417,14 +430,14 @@ class WPP_Image {
 
                         return $full_image_path;
                     }
-                    
+
                 }
-                
+
                 // remove temp file
                 @unlink( $tmp );
-                
+
             }
-            
+
         }
 
         return false;
@@ -457,7 +470,7 @@ class WPP_Image {
 
             } elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
 
-                $sizes[ $_size ] = array( 
+                $sizes[ $_size ] = array(
                     'width' => $_wp_additional_image_sizes[ $_size ]['width'],
                     'height' => $_wp_additional_image_sizes[ $_size ]['height'],
                     'crop' =>  $_wp_additional_image_sizes[ $_size ]['crop']
