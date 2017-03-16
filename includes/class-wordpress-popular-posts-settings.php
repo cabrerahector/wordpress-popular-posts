@@ -76,7 +76,7 @@ class WPP_Settings {
                 'wpp-start' => '<ul class="wpp-list">',
                 'wpp-end' => '</ul>',
                 'post-html' => '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>'
-                
+
             )
         ),
         'admin_options' => array(

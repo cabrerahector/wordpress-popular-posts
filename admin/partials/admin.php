@@ -1,263 +1,263 @@
 <?php
 if ( basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__) )
-	exit( 'Please do not load this page directly' );
+    exit( 'Please do not load this page directly' );
 
 // Set active tab
 if ( isset( $_GET['tab'] ) )
-	$current = $_GET['tab'];
+    $current = $_GET['tab'];
 else
-	$current = 'stats';
+    $current = 'stats';
 
 // Update options on form submission
 if ( isset($_POST['section']) ) {
 
-	if ( "stats" == $_POST['section'] ) {
+    if ( "stats" == $_POST['section'] ) {
 
-		$current = 'stats';
+        $current = 'stats';
 
-		if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-stats-options' ) ) {
+        if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-stats-options' ) ) {
 
-			$this->options['stats']['order_by'] = $_POST['stats_order'];
-			$this->options['stats']['limit'] = ( WPP_Helper::is_number( $_POST['stats_limit'] ) && $_POST['stats_limit'] > 0 ) ? $_POST['stats_limit'] : 10;
-			$this->options['stats']['post_type'] = empty( $_POST['stats_type'] ) ? "post,page" : $_POST['stats_type'];
-			$this->options['stats']['freshness'] = empty( $_POST['stats_freshness'] ) ? false : $_POST['stats_freshness'];
+            $this->options['stats']['order_by'] = $_POST['stats_order'];
+            $this->options['stats']['limit'] = ( WPP_Helper::is_number( $_POST['stats_limit'] ) && $_POST['stats_limit'] > 0 ) ? $_POST['stats_limit'] : 10;
+            $this->options['stats']['post_type'] = empty( $_POST['stats_type'] ) ? "post,page" : $_POST['stats_type'];
+            $this->options['stats']['freshness'] = empty( $_POST['stats_freshness'] ) ? false : $_POST['stats_freshness'];
 
-			update_site_option( 'wpp_settings_config', $this->options );
-			echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+            update_site_option( 'wpp_settings_config', $this->options );
+            echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
-		}
+        }
 
-	}
-	elseif ( "misc" == $_POST['section'] ) {
+    }
+    elseif ( "misc" == $_POST['section'] ) {
 
-		$current = 'tools';
+        $current = 'tools';
 
-		if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-misc-options' ) ) {
+        if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-misc-options' ) ) {
 
-			$this->options['tools']['link']['target'] = $_POST['link_target'];
-			$this->options['tools']['css'] = $_POST['css'];
+            $this->options['tools']['link']['target'] = $_POST['link_target'];
+            $this->options['tools']['css'] = $_POST['css'];
 
-			update_site_option( 'wpp_settings_config', $this->options );
-			echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+            update_site_option( 'wpp_settings_config', $this->options );
+            echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
-		}
-	}
-	elseif ( "thumb" == $_POST['section'] ) {
+        }
+    }
+    elseif ( "thumb" == $_POST['section'] ) {
 
-		$current = 'tools';
+        $current = 'tools';
 
-		if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-thumbnail-options' ) ) {
+        if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-thumbnail-options' ) ) {
 
-			if (
-				$_POST['thumb_source'] == "custom_field"
-				&& ( !isset( $_POST['thumb_field'] ) || empty( $_POST['thumb_field'] ) )
-			) {
-				echo '<div id="wpp-message" class="error fade"><p>'.__( 'Please provide the name of your custom field.', 'wordpress-popular-posts' ).'</p></div>';
-			} else {
+            if (
+                $_POST['thumb_source'] == "custom_field"
+                && ( !isset( $_POST['thumb_field'] ) || empty( $_POST['thumb_field'] ) )
+            ) {
+                echo '<div id="wpp-message" class="error fade"><p>'.__( 'Please provide the name of your custom field.', 'wordpress-popular-posts' ).'</p></div>';
+            } else {
 
-				$this->options['tools']['thumbnail']['source'] = $_POST['thumb_source'];
-				$this->options['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
-				$this->options['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
-				$this->options['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
-				$this->options['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
+                $this->options['tools']['thumbnail']['source'] = $_POST['thumb_source'];
+                $this->options['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
+                $this->options['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
+                $this->options['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
+                $this->options['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
 
-				update_site_option( 'wpp_settings_config', $this->options );
-				echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+                update_site_option( 'wpp_settings_config', $this->options );
+                echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
-			}
+            }
 
-		}
+        }
 
-	}
-	elseif ( "data" == $_POST['section'] ) {
+    }
+    elseif ( "data" == $_POST['section'] ) {
 
-		$current = 'tools';
+        $current = 'tools';
 
-		if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-data-options' ) ) {
+        if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-data-options' ) ) {
 
-			$this->options['tools']['log']['level'] = $_POST['log_option'];
-			$this->options['tools']['log']['limit'] = $_POST['log_limit'];
-			$this->options['tools']['log']['expires_after'] = ( WPP_Helper::is_number( $_POST['log_expire_time'] ) && $_POST['log_expire_time'] > 0 )
-			  ? $_POST['log_expire_time']
-			  : $this->default_user_settings['tools']['log']['expires_after'];
-			$this->options['tools']['ajax'] = $_POST['ajax'];
+            $this->options['tools']['log']['level'] = $_POST['log_option'];
+            $this->options['tools']['log']['limit'] = $_POST['log_limit'];
+            $this->options['tools']['log']['expires_after'] = ( WPP_Helper::is_number( $_POST['log_expire_time'] ) && $_POST['log_expire_time'] > 0 )
+              ? $_POST['log_expire_time']
+              : $this->default_user_settings['tools']['log']['expires_after'];
+            $this->options['tools']['ajax'] = $_POST['ajax'];
 
-			// if any of the caching settings was updated, destroy all transients created by the plugin
-			if (
-				$this->options['tools']['cache']['active'] != $_POST['cache']
-				|| $this->options['tools']['cache']['interval']['time'] != $_POST['cache_interval_time']
-				|| $this->options['tools']['cache']['interval']['value'] != $_POST['cache_interval_value']
-			) {
-				$this->flush_transients();
-			}
+            // if any of the caching settings was updated, destroy all transients created by the plugin
+            if (
+                $this->options['tools']['cache']['active'] != $_POST['cache']
+                || $this->options['tools']['cache']['interval']['time'] != $_POST['cache_interval_time']
+                || $this->options['tools']['cache']['interval']['value'] != $_POST['cache_interval_value']
+            ) {
+                $this->flush_transients();
+            }
 
-			$this->options['tools']['cache']['active'] = $_POST['cache'];
-			$this->options['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
-			$this->options['tools']['cache']['interval']['value'] = ( isset( $_POST['cache_interval_value'] ) && WPP_Helper::is_number( $_POST['cache_interval_value'] ) && $_POST['cache_interval_value'] > 0 )
-			  ? $_POST['cache_interval_value']
-			  : 1;
+            $this->options['tools']['cache']['active'] = $_POST['cache'];
+            $this->options['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
+            $this->options['tools']['cache']['interval']['value'] = ( isset( $_POST['cache_interval_value'] ) && WPP_Helper::is_number( $_POST['cache_interval_value'] ) && $_POST['cache_interval_value'] > 0 )
+              ? $_POST['cache_interval_value']
+              : 1;
 
-			$this->options['tools']['sampling']['active'] = $_POST['sampling'];
-			$this->options['tools']['sampling']['rate'] = ( isset( $_POST['sample_rate'] ) && WPP_Helper::is_number( $_POST['sample_rate'] ) && $_POST['sample_rate'] > 0 )
-			  ? $_POST['sample_rate']
-			  : 100;
+            $this->options['tools']['sampling']['active'] = $_POST['sampling'];
+            $this->options['tools']['sampling']['rate'] = ( isset( $_POST['sample_rate'] ) && WPP_Helper::is_number( $_POST['sample_rate'] ) && $_POST['sample_rate'] > 0 )
+              ? $_POST['sample_rate']
+              : 100;
 
-			update_site_option( 'wpp_settings_config', $this->options );
-			echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+            update_site_option( 'wpp_settings_config', $this->options );
+            echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
-		}
-	}
+        }
+    }
 
 }
 
 if ( $this->options['tools']['css'] && !file_exists( get_stylesheet_directory() . '/wpp.css' ) ) {
-	echo '<div id="wpp-message" class="update-nag">'. __( 'Any changes made to WPP\'s default stylesheet will be lost after every plugin update. In order to prevent this from happening, please copy the wpp.css file (located at wp-content/plugins/wordpress-popular-posts/style) into your theme\'s directory', 'wordpress-popular-posts' ) .'.</div>';
+    echo '<div id="wpp-message" class="update-nag">'. __( 'Any changes made to WPP\'s default stylesheet will be lost after every plugin update. In order to prevent this from happening, please copy the wpp.css file (located at wp-content/plugins/wordpress-popular-posts/style) into your theme\'s directory', 'wordpress-popular-posts' ) .'.</div>';
 }
 
 $rand = md5( uniqid(rand(), true) );
 
 if ( !$wpp_rand = get_site_option("wpp_rand") ) {
-	add_site_option( "wpp_rand", $rand );
+    add_site_option( "wpp_rand", $rand );
 } else {
-	update_site_option( "wpp_rand", $rand );
+    update_site_option( "wpp_rand", $rand );
 }
 
 ?>
 <script type="text/javascript">
-	// TOOLS
-	function confirm_reset_cache() {
-		if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( "This operation will delete all entries from WordPress Popular Posts' cache table and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( "Do you want to continue?", 'wordpress-popular-posts' ); ?>") ) {
-			jQuery.post(
-				ajaxurl,
-				{
-					action: 'wpp_clear_data',
-					token: '<?php echo get_site_option("wpp_rand"); ?>',
-					clear: 'cache'
-				}, function(data){
-					var response = "";
+    // TOOLS
+    function confirm_reset_cache() {
+        if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( "This operation will delete all entries from WordPress Popular Posts' cache table and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( "Do you want to continue?", 'wordpress-popular-posts' ); ?>") ) {
+            jQuery.post(
+                ajaxurl,
+                {
+                    action: 'wpp_clear_data',
+                    token: '<?php echo get_site_option("wpp_rand"); ?>',
+                    clear: 'cache'
+                }, function(data){
+                    var response = "";
 
-					switch( data ) {
-						case "1":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Success! The cache table has been cleared!', 'wordpress-popular-posts' ); ?>";
-							break;
+                    switch( data ) {
+                        case "1":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Success! The cache table has been cleared!', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "2":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Error: cache table does not exist.', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "2":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Error: cache table does not exist.', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "3":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "3":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "4":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "4":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						default:
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
-							break;
-					}
+                        default:
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
+                            break;
+                    }
 
-					alert( response );
-				}
-			);
-		}
-	}
+                    alert( response );
+                }
+            );
+        }
+    }
 
-	function confirm_reset_all() {
-		if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( "This operation will delete all stored info from WordPress Popular Posts' data tables and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("Do you want to continue?", 'wordpress-popular-posts'); ?>")) {
-			jQuery.post(
-				ajaxurl,
-				{
-					action: 'wpp_clear_data',
-					token: '<?php echo get_site_option("wpp_rand"); ?>',
-					clear: 'all'
-				}, function(data){
-					var response = "";
+    function confirm_reset_all() {
+        if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( "This operation will delete all stored info from WordPress Popular Posts' data tables and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("Do you want to continue?", 'wordpress-popular-posts'); ?>")) {
+            jQuery.post(
+                ajaxurl,
+                {
+                    action: 'wpp_clear_data',
+                    token: '<?php echo get_site_option("wpp_rand"); ?>',
+                    clear: 'all'
+                }, function(data){
+                    var response = "";
 
-					switch( data ) {
-						case "1":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Success! All data have been cleared!', 'wordpress-popular-posts' ); ?>";
-							break;
+                    switch( data ) {
+                        case "1":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Success! All data have been cleared!', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "2":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Error: one or both data tables are missing.', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "2":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Error: one or both data tables are missing.', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "3":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "3":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "4":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "4":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						default:
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
-							break;
-					}
+                        default:
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
+                            break;
+                    }
 
-					alert( response );
-				}
-			);
-		}
-	}
+                    alert( response );
+                }
+            );
+        }
+    }
 
-	function confirm_clear_image_cache() {
-		if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("This operation will delete all cached thumbnails and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( "Do you want to continue?", 'wordpress-popular-posts' ); ?>") ) {
-			jQuery.post(
-				ajaxurl,
-				{
-					action: 'wpp_clear_thumbnail',
-					token: '<?php echo get_site_option("wpp_rand"); ?>'
-				}, function(data){
-					var response = "";
+    function confirm_clear_image_cache() {
+        if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("This operation will delete all cached thumbnails and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( "Do you want to continue?", 'wordpress-popular-posts' ); ?>") ) {
+            jQuery.post(
+                ajaxurl,
+                {
+                    action: 'wpp_clear_thumbnail',
+                    token: '<?php echo get_site_option("wpp_rand"); ?>'
+                }, function(data){
+                    var response = "";
 
-					switch( data ) {
-						case "1":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Success! All files have been deleted!', 'wordpress-popular-posts' ); ?>";
-							break;
+                    switch( data ) {
+                        case "1":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Success! All files have been deleted!', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "2":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'The thumbnail cache is already empty!', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "2":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'The thumbnail cache is already empty!', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "3":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "3":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						case "4":
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts' ); ?>";
-							break;
+                        case "4":
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts' ); ?>";
+                            break;
 
-						default:
-							response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
-							break;
-					}
+                        default:
+                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e( 'Invalid action.', 'wordpress-popular-posts' ); ?>";
+                            break;
+                    }
 
-					alert( response );
-				}
-			);
-		}
-	}
+                    alert( response );
+                }
+            );
+        }
+    }
 
-	jQuery(document).ready(function($){
-		<?php if ( "params" != $current ) : ?>
-		$('.wpp_boxes:visible').css({
-			display: 'inline',
-			float: 'left'
-		}).width( $('.wpp_boxes:visible').parent().width() - $('.wpp_box').outerWidth() - 15 );
+    jQuery(document).ready(function($){
+        <?php if ( "params" != $current ) : ?>
+        $('.wpp_boxes:visible').css({
+            display: 'inline',
+            float: 'left'
+        }).width( $('.wpp_boxes:visible').parent().width() - $('.wpp_box').outerWidth() - 15 );
 
-		$(window).on('resize', function(){
-			$('.wpp_boxes:visible').css({
-				display: 'inline',
-				float: 'left'
-			}).width( $('.wpp_boxes:visible').parent().width() - $('.wpp_box').outerWidth() - 15 );
-		});
-		<?php else: ?>
-		$('.wpp_box').hide();
-		<?php endif; ?>
-	});
+        $(window).on('resize', function(){
+            $('.wpp_boxes:visible').css({
+                display: 'inline',
+                float: 'left'
+            }).width( $('.wpp_boxes:visible').parent().width() - $('.wpp_box').outerWidth() - 15 );
+        });
+        <?php else: ?>
+        $('.wpp_box').hide();
+        <?php endif; ?>
+    });
 </script>
 
 <div class="wrap">
@@ -269,9 +269,9 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
     // build tabs
     $tabs = array(
         'stats' => __( 'Stats', 'wordpress-popular-posts' ),
-		'tools' => __( 'Tools', 'wordpress-popular-posts' ),
-		'params' => __( 'Parameters', 'wordpress-popular-posts' ),
-		'about' => __( 'About', 'wordpress-popular-posts' )
+        'tools' => __( 'Tools', 'wordpress-popular-posts' ),
+        'params' => __( 'Parameters', 'wordpress-popular-posts' ),
+        'about' => __( 'About', 'wordpress-popular-posts' )
     );
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
@@ -282,7 +282,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
 
     <!-- Start stats -->
     <div id="wpp_stats" class="wpp_boxes"<?php if ( "stats" == $current ) {?> style="display:block;"<?php } ?>>
-    	<p><?php _e( "Click on each tab to see what are the most popular entries on your blog in the last 24 hours, this week, last 30 days or all time since WordPress Popular Posts was installed.", 'wordpress-popular-posts' ); ?></p>
+        <p><?php _e( "Click on each tab to see what are the most popular entries on your blog in the last 24 hours, this week, last 30 days or all time since WordPress Popular Posts was installed.", 'wordpress-popular-posts' ); ?></p>
 
         <div class="tablenav top">
             <div class="alignleft actions">
@@ -336,7 +336,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
         <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">
             <table class="form-table">
                 <tbody>
-                	<tr valign="top">
+                    <tr valign="top">
                         <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", 'wordpress-popular-posts'); ?>:</label></th>
                         <td>
                             <div id="thumb-review">
@@ -387,9 +387,9 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                         </td>
                     </tr>
                     <?php
-					$wp_upload_dir = wp_upload_dir();
-					if ( is_dir( $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts' ) ) :
-					?>
+                    $wp_upload_dir = wp_upload_dir();
+                    if ( is_dir( $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts' ) ) :
+                    ?>
                     <tr valign="top">
                         <th scope="row"></th>
                         <td>
@@ -398,8 +398,8 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                         </td>
                     </tr>
                     <?php
-					endif;
-					?>
+                    endif;
+                    ?>
                     <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="thumb" />
@@ -416,9 +416,9 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
 
         <h3 class="wmpp-subtitle"><?php _e("Data", 'wordpress-popular-posts'); ?></h3>
         <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
-        	<table class="form-table">
+            <table class="form-table">
                 <tbody>
-                	<tr valign="top">
+                    <tr valign="top">
                         <th scope="row"><label for="log_option"><?php _e("Log views from", 'wordpress-popular-posts'); ?>:</label></th>
                         <td>
                             <select name="log_option" id="log_option">
@@ -471,9 +471,9 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                     <tr valign="top" <?php if ( !$this->options['tools']['cache']['active'] ) { ?>style="display:none;"<?php } ?> id="cache_refresh_interval">
                         <th scope="row"><label for="cache_interval_value"><?php _e("Refresh cache every", 'wordpress-popular-posts'); ?>:</label></th>
                         <td>
-                        	<input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->options['tools']['cache']['interval']['value']) ) ? (int) $this->options['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
+                            <input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->options['tools']['cache']['interval']['value']) ) ? (int) $this->options['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
                             <select name="cache_interval_time" id="cache_interval_time">
-                            	<option <?php if ($this->options['tools']['cache']['interval']['time'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
+                                <option <?php if ($this->options['tools']['cache']['interval']['time'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
                                 <option <?php if ($this->options['tools']['cache']['interval']['time'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", 'wordpress-popular-posts'); ?></option>
                                 <option <?php if ($this->options['tools']['cache']['interval']['time'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", 'wordpress-popular-posts'); ?></option>
                                 <option <?php if ($this->options['tools']['cache']['interval']['time'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", 'wordpress-popular-posts'); ?></option>
@@ -499,7 +499,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                     <tr valign="top" <?php if ( !$this->options['tools']['sampling']['active'] ) { ?>style="display:none;"<?php } ?>>
                         <th scope="row"><label for="sample_rate"><?php _e("Sample Rate", 'wordpress-popular-posts'); ?>:</label></th>
                         <td>
-                        	<input name="sample_rate" type="text" id="sample_rate" value="<?php echo ( isset($this->options['tools']['sampling']['rate']) ) ? (int) $this->options['tools']['sampling']['rate'] : 100; ?>" class="small-text">
+                            <input name="sample_rate" type="text" id="sample_rate" value="<?php echo ( isset($this->options['tools']['sampling']['rate']) ) ? (int) $this->options['tools']['sampling']['rate'] : 100; ?>" class="small-text">
                             <br />
                             <?php $defaults = WPP_Settings::$defaults[ 'admin_options' ]; ?>
                             <p class="description"><?php echo sprintf( __("A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value", 'wordpress-popular-posts'), $defaults['tools']['sampling']['rate'] ); ?>.</p>
@@ -508,7 +508,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                     <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="data" />
-                    		<input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
+                            <input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
@@ -570,9 +570,9 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
     <div id="wpp_params" class="wpp_boxes"<?php if ( "params" == $current ) {?> style="display:block;"<?php } ?>>
         <div>
             <p><?php printf( __('With the following parameters you can customize the popular posts list when using either the <a href="%1$s">wpp_get_mostpopular() template tag</a> or the <a href="%2$s">[wpp] shortcode</a>.', 'wordpress-popular-posts'),
-				admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#template-tags'),
-				admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#shortcode')
-			); ?></p>
+                admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#template-tags'),
+                admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#shortcode')
+            ); ?></p>
             <br />
             <table cellspacing="0" class="wp-list-table widefat fixed posts">
                 <thead>
@@ -796,7 +796,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
         <ul>
             <li>Fixes potential XSS exploit in WPP's admin dashboard.</li>
             <li>Adds filter to set which post types should be tracked by WPP (details).</li>
-			<li>Adds ability to select first attached image as thumbnail source (thanks, <a href="https://github.com/serglopatin">@serglopatin</a>!)</li>
+            <li>Adds ability to select first attached image as thumbnail source (thanks, <a href="https://github.com/serglopatin">@serglopatin</a>!)</li>
         </ul>
 
     </div>
