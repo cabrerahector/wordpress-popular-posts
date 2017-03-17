@@ -672,7 +672,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			}
 
 			$screen = get_current_screen();
-			if ( $screen->id == $this->plugin_screen_hook_suffix ) {
+			if ( isset( $screen->id ) && $screen->id == $this->plugin_screen_hook_suffix ) {
 				wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'style/admin.css', __FILE__ ), array(), $this->version );
 			}
 
