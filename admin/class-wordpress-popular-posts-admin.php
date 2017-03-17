@@ -162,7 +162,7 @@ class WPP_Admin {
 
         $screen = get_current_screen();
         
-        if ( $screen->id == $this->plugin_screen_hook_suffix ) {
+        if ( isset( $screen->id ) && $screen->id == $this->plugin_screen_hook_suffix ) {
             wp_enqueue_style( 'wordpress-popular-posts-admin-styles', plugin_dir_url( __FILE__ ) . 'css/admin.css', array(), $this->version, 'all' );
         }
         
