@@ -720,14 +720,14 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                     </tr>
                     <tr class="alternate">
                         <td><strong>stats_comments</strong></td>
-                        <td><?php _e('If set, WordPress Popular Posts will show how many comments each popular post has got until now', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, WordPress Popular Posts will show how many comments each popular post has got during the specified time range', 'wordpress-popular-posts'); ?></td>
                         <td>1 (true), 0 (false)</td>
                         <td>0</td>
                         <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'stats_comments' => 1<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp stats_comments=1]<br /><br /></td>
                     </tr>
                     <tr>
                         <td><strong>stats_views</strong></td>
-                        <td><?php _e('If set, WordPress Popular Posts will show how many views each popular post has got since it was installed', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, WordPress Popular Posts will show how many views each popular post has got during the specified time range', 'wordpress-popular-posts'); ?></td>
                         <td>1 (true), (0) false</td>
                         <td>1</td>
                         <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'stats_views' => 0<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp stats_views=0]<br /><br /></td>

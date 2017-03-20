@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2016-09-03 16:27-0400\n"
+"POT-Creation-Date: 2017-03-20 13:17-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-KeywordsList: _e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;"
 "esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
 "X-Poedit-Basepath: .\n"
@@ -26,8 +26,30 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:276
+#: ../admin/class-wordpress-popular-posts-admin.php:274
 msgid "Settings"
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:626
+#, php-format
+msgid ""
+"Your PHP installation is too old. WordPress Popular Posts requires at least PHP "
+"version %1$s to function correctly. Please contact your hosting provider and ask them "
+"to upgrade PHP to %1$s or higher."
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:633
+#, php-format
+msgid ""
+"Your WordPress version is too old. WordPress Popular Posts requires at least WordPress "
+"version %1$s to function correctly. Please update your blog via Dashboard &gt; Update."
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:658
+#, php-format
+msgid ""
+"<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</strong>.</"
+"p></div>"
 msgstr ""
 
 #: ../admin/partials/admin.php:26 ../admin/partials/admin.php:41
@@ -46,31 +68,37 @@ msgid ""
 "content/plugins/wordpress-popular-posts/style) into your theme's directory"
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:129
 msgid ""
 "This operation will delete all entries from WordPress Popular Posts' cache table and "
 "cannot be undone."
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:129 ../admin/partials/admin.php:168
 #: ../admin/partials/admin.php:207
 msgid "Do you want to continue?"
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:141
 msgid "Success! The cache table has been cleared!"
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:145
 msgid "Error: cache table does not exist."
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:149 ../admin/partials/admin.php:157
 #: ../admin/partials/admin.php:188 ../admin/partials/admin.php:196
 #: ../admin/partials/admin.php:226 ../admin/partials/admin.php:234
 msgid "Invalid action."
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:153 ../admin/partials/admin.php:192
 #: ../admin/partials/admin.php:230
 msgid ""
@@ -78,28 +106,34 @@ msgid ""
 "administrator for support."
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:168
 msgid ""
 "This operation will delete all stored info from WordPress Popular Posts' data tables "
 "and cannot be undone."
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:180
 msgid "Success! All data have been cleared!"
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:184
 msgid "Error: one or both data tables are missing."
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:207
 msgid "This operation will delete all cached thumbnails and cannot be undone."
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:218
 msgid "Success! All files have been deleted!"
 msgstr ""
 
+#. translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent)
 #: ../admin/partials/admin.php:222
 msgid "The thumbnail cache is already empty!"
 msgstr ""
@@ -632,13 +666,13 @@ msgstr ""
 #: ../admin/partials/admin.php:723
 msgid ""
 "If set, WordPress Popular Posts will show how many comments each popular post has got "
-"until now"
+"during the specified time range"
 msgstr ""
 
 #: ../admin/partials/admin.php:730
 msgid ""
 "If set, WordPress Popular Posts will show how many views each popular post has got "
-"since it was installed"
+"during the specified time range"
 msgstr ""
 
 #: ../admin/partials/admin.php:737
@@ -689,6 +723,10 @@ msgstr ""
 msgid ""
 "displays thumbnail image without linking to post/page, requires thumbnail_width & "
 "thumbnail_height"
+msgstr ""
+
+#: ../admin/partials/admin.php:780
+msgid "displays thumbnail url, requires thumbnail_width & thumbnail_height"
 msgstr ""
 
 #: ../admin/partials/admin.php:780
