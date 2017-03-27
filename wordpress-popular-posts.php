@@ -350,7 +350,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			add_action('wp_ajax_nopriv_wpp_get_popular', array( $this, 'get_popular') );
 
 			// Check if images can be created
-			if ( extension_loaded('ImageMagick') || (extension_loaded('GD') && function_exists('gd_info')) ) {
+			if ( extension_loaded('ImageMagick') || extension_loaded('imagick') || (extension_loaded('GD') && function_exists('gd_info')) ) {
 				// Enable thumbnail feature
 				$this->thumbnailing = true;				
 				// Get available thumbnail size(s)
