@@ -84,6 +84,9 @@ class WPP_Widget extends WP_Widget {
             }
         }
 
+        // Expose Widget ID for customization
+        $instance['widget_id'] = $widget_id;
+
         // Get posts
         if ( $this->admin_options['tools']['ajax'] ) {
 
