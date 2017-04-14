@@ -140,7 +140,7 @@ class WPP_Image {
             ( false === $post_object instanceof stdClass || !isset($post_object->id) ) 
             && !filter_var( $url, FILTER_VALIDATE_URL ) 
         ) {
-            return $this->render_image( $this->default_thumbnail, $size, 'wpp-thumbnail wpp_def_noID', $post_object );
+            return $this->render_image( $this->default_thumbnail, $size, 'wpp-thumbnail wpp_def_no_src wpp_' . $source, $post_object );
         }
 
         // Get image by post ID (parent)
