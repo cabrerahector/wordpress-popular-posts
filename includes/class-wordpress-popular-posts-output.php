@@ -288,16 +288,18 @@ class WPP_Output {
 
                     }
 
-                }
+                } // Custom field is empty / not set, use default thumbnail
+                else {
 
-                // Custom field is empty / not set, use default thumbnail
-                $thumbnail = $wpp_image->get_img(
-                    null,
-                    null,
-                    array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
-                    $this->options['thumbnail']['crop'],
-                    $this->admin_options['tools']['thumbnail']['source']
-                );
+                    $thumbnail = $wpp_image->get_img(
+                        null,
+                        null,
+                        array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
+                        $this->options['thumbnail']['crop'],
+                        $this->admin_options['tools']['thumbnail']['source']
+                    );
+
+                }
 
             } // Create / get thumbnail from Featured Image, post images, etc.
             else {
