@@ -137,7 +137,7 @@ class WPP_Image {
             return '';
 
         if (
-            ( false === $post_object instanceof stdClass || !isset($post_object->id) || !isset($post_object->title) ) 
+            ( false === $post_object instanceof stdClass || !isset($post_object->id) ) 
             && !filter_var( $url, FILTER_VALIDATE_URL ) 
         ) {
             return $this->render_image( $this->default_thumbnail, $size, 'wpp-thumbnail wpp_def_noID', $post_object );
