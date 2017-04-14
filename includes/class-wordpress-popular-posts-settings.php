@@ -119,4 +119,39 @@ class WPP_Settings {
         )
     );
 
+    /**
+     * Returns plugin options.
+     *
+     * @since    4.0.0
+     * @access   public
+     * @param    string   $option_set
+     * @return   array
+     */
+    public static function get( $option_set = null ){
+
+        $options = self::$defaults;
+
+        if ( 'widget_options' == $option_set ) {
+            return $options[ 'widget_options' ];
+        }
+
+        if ( !$admin_options = get_site_option( 'wpp_settings_config' ) ) {
+            $admin_options = $options[ 'admin_options' ];
+            add_site_option( 'wpp_settings_config', $admin_options );
+        }
+        else {
+            $options[ 'admin_options' ] = WPP_Helper::merge_array_r(
+                $options[ 'admin_options' ],
+                (array) $admin_options
+            );
+        }
+
+        if ( 'admin_options' == $option_set ) {
+            return $options[ 'admin_options' ];
+        }
+
+        return $options;
+
+    }
+
 } // End WPP_Settings class
