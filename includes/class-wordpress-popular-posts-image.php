@@ -45,7 +45,7 @@ class WPP_Image {
     private function __construct() {
 
         // Check if WPP can create images
-        $this->can_create_thumbnails = ( extension_loaded('ImageMagick') || (extension_loaded('GD') && function_exists('gd_info')) );
+        $this->can_create_thumbnails = ( extension_loaded('ImageMagick') || extension_loaded('imagick') || (extension_loaded('GD') && function_exists('gd_info')) );
 
         if ( $this->can_create_thumbnails ) {
 
