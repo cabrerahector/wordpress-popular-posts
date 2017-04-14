@@ -316,7 +316,7 @@ class WPP_Image {
      * Render image tag.
      *
      * @since	3.0.0
-     * @access  private
+     * @access  public
      * @param	string   src            Image URL
      * @param	array    dimension      Image's width and height
      * @param	string   class          CSS class
@@ -324,7 +324,7 @@ class WPP_Image {
      * @param	string	 error          Error, if the image could not be created
      * @return	string
      */
-    private function render_image( $src, $size, $class, $post_object, $error = null ) {
+    public function render_image( $src, $size, $class, $post_object, $error = null ) {
 
         $img_tag = '';
 

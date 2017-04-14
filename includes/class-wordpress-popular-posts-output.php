@@ -279,7 +279,7 @@ class WPP_Output {
                     } // Use original CF image
                     else {
 
-                        $thumbnail = $this->render_image(
+                        $thumbnail = $wpp_image->render_image(
                             $thumb_url,
                             array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
                             'wpp-thumbnail wpp_cf',
