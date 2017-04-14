@@ -26,15 +26,7 @@ class WPP_Output {
 
         $this->data = $popular_posts;
         $this->options = $options;
-
-        // Get admin options
-        if ( !$this->admin_options = get_site_option( 'wpp_settings_config' ) ) {
-
-            $defaults = WPP_Settings::$defaults[ 'admin_options' ];
-            add_site_option( 'wpp_settings_config', $defaults );
-            $this->admin_options = $defaults;
-
-        }
+        $this->admin_options = WPP_Settings::get( 'admin_options' );
 
         $this->build_output();
 

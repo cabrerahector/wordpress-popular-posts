@@ -22,13 +22,7 @@ class WPP_Widget extends WP_Widget {
             )
         );
 
-        if ( !$this->admin_options = get_site_option( 'wpp_settings_config' ) ) {
-
-            $defaults = WPP_Settings::$defaults[ 'admin_options' ];
-            add_site_option( 'wpp_settings_config', $defaults );
-            $this->admin_options = $defaults;
-
-        }
+        $this->admin_options = WPP_Settings::get( 'admin_options' );
 
         // Widget's AJAX hook
         if ( $this->admin_options['tools']['ajax'] ) {

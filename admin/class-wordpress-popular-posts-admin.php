@@ -67,19 +67,7 @@ class WPP_Admin {
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        
-        // Get/Set admin options
-        $defaults = WPP_Settings::$defaults[ 'admin_options' ];
-        
-        if ( !$this->options = get_site_option( 'wpp_settings_config' ) ) {
-            add_site_option( 'wpp_settings_config', $defaults );
-            $this->options = $defaults;
-        } else {
-            $this->options = WPP_Helper::merge_array_r(
-                $defaults,
-                $this->options
-            );
-        }
+        $this->options = WPP_Settings::get( 'admin_options' );
         
         // Delete old data on demand
         if ( 1 == $this->options['tools']['log']['limit'] ) {
