@@ -51,6 +51,11 @@ class WordPressPopularPosts {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-i18n.php';
 
         /**
+         * The class responsible for translating objects.
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-translate.php';
+
+        /**
          * Settings class.
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-settings.php';
