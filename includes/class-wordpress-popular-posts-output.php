@@ -226,10 +226,15 @@ class WPP_Output {
      */
     private function get_title( stdClass $post_object ) {
 
-        // TODO
-        // Multilang support
+        $translate = WPP_translate::get_instance();
+        $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
 
-        $title = $post_object->title;
+        if ( $post_object->id != $trid ) {
+            $title = get_the_title( $trid );
+        }
+        else {
+            $title = $post_object->title;
+        }
 
         return apply_filters( 'the_title', $title, $post_object->id );
 
@@ -477,7 +482,15 @@ class WPP_Output {
                 $taxonomy = $this->options['stats_tag']['taxonomy'];
             }
 
-            $terms = wp_get_post_terms( $post_object->id, $taxonomy );
+            $translate = WPP_translate::get_instance();
+            $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
+
+            if ( $post_object->id != $trid ) {
+                $terms = wp_get_post_terms( $trid, $taxonomy );
+            }
+            else {
+                $terms = wp_get_post_terms( $post_object->id, $taxonomy );
+            }
 
             foreach( $terms as $term ) {
 
@@ -531,12 +544,21 @@ class WPP_Output {
 
         if ( $this->options['post-excerpt']['active'] ) {
 
-            // TODO
-            // Multilingual support
+            $translate = WPP_translate::get_instance();
+            $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
 
-            $excerpt = ( empty( $post_object->post_excerpt ) )
-              ? $post_object->post_content
-              : $post_object->post_excerpt;
+            if ( $post_object->id != $trid ) {
+                $the_post = get_post( $trid );
+
+                $excerpt = ( empty($the_post->post_excerpt) )
+                  ? $the_post->post_content
+                  : $post_object->post_excerpt;
+            }
+            else {
+                $excerpt = ( empty( $post_object->post_excerpt ) )
+                  ? $post_object->post_content
+                  : $post_object->post_excerpt;
+            }
 
             // remove caption tags
             $excerpt = preg_replace( "/\[caption.*\[\/caption\]/", "", $excerpt );
