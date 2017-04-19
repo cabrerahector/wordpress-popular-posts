@@ -260,6 +260,15 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
     });
 </script>
 
+<nav id="wpp-menu" class="collapsed">
+    <ul>
+        <li><a href="#" class="dashicons dashicons-menu" title="<?php esc_attr_e( 'Menu' ); ?>"><span style="display: none;"><?php _e( 'Menu' ); ?></span></a></li>
+        <li<?php echo ( 'stats' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=stats' ); ?>" class="dashicons dashicons-chart-bar" title="<?php esc_attr_e( 'Stats', 'wordpress-popular-posts' ); ?>"><span style="display: none;"><?php _e( 'Stats', 'wordpress-popular-posts' ); ?></span></a></li>
+        <li<?php echo ( 'tools' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=tools' ); ?>" class="dashicons dashicons-admin-tools" title="<?php esc_attr_e( 'Tools', 'wordpress-popular-posts' ); ?>"><span style="display: none;"><?php _e( 'Tools', 'wordpress-popular-posts' ); ?></span></a></li>
+        <li<?php echo ( 'params' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=params' ); ?>" class="dashicons dashicons-book" title="<?php esc_attr_e( 'Parameters', 'wordpress-popular-posts' ); ?>"><span style="display: none;"><?php _e( 'Parameters', 'wordpress-popular-posts' ); ?></span></a></li>
+    </ul>
+</nav>
+
 <div class="wrap">
     <div id="icon-options-general" class="icon32"><br /></div>
     <h2>WordPress Popular Posts</h2>

@@ -1,6 +1,70 @@
 (function ($) {
 	"use strict";
 	$(function () {
+
+		// Navigation
+		var wpp_menu = $("#wpp-menu"),
+		pos = 0,
+		wpp_menu_timer = null,
+		menu_items = wpp_menu.children("ul").children("li").length,
+		menu_item_width = wpp_menu.children("ul").children("li").outerWidth(),
+		menu_item_height = wpp_menu.children("ul").children("li").outerHeight();
+
+		wpp_menu.children("ul").children("li").css('z-index', function(i) {
+			return menu_items - i;
+		});
+
+		wpp_menu.find(".dashicons-menu").on("click", function(e){
+			e.preventDefault();
+
+			if ( wpp_menu_timer ) {
+				clearTimeout( wpp_menu_timer );
+			}
+
+			if ( wpp_menu.hasClass("collapsed") ) {
+
+				wpp_menu.removeClass("collapsed").addClass("expanded")
+				.children("ul").children("li").css("top", function(i) {
+					return ( menu_item_height + 5 ) * i;
+				}).css("opacity", 1);
+
+				wpp_menu_timer = setTimeout(function() {
+					wpp_menu.find(".dashicons-menu").trigger("click");
+				}, 5000);
+
+			}
+			else {
+
+				wpp_menu.removeClass("expanded").addClass("collapsed")
+				.children("ul").children("li").css("top", function(i) {
+					return 0;
+				}).css("opacity", 0);
+
+			}
+		});
+
+		wpp_menu.hover(function(){
+
+			if ( wpp_menu_timer ) {
+				clearTimeout( wpp_menu_timer );
+			}
+
+		}, function(){
+
+			if ( wpp_menu_timer ) {
+				clearTimeout( wpp_menu_timer );
+			}
+
+			if ( wpp_menu.hasClass("expanded") ) {
+
+				wpp_menu_timer = setTimeout(function() {
+					wpp_menu.find(".dashicons-menu").trigger("click");
+				}, 5000);
+
+			}
+
+		});
+		
 		// ADS
 		if ( $('#wpp_donate').is(':visible') ) {
 			
