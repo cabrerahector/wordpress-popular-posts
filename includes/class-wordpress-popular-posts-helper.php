@@ -12,6 +12,61 @@ class WPP_Helper {
     public static function is_number( $number ){
         return !empty($number) && is_numeric($number) && (intval($number) == floatval($number));
     }
+
+    /**
+     * Checks for valid date.
+     *
+     * @since	4.0.0
+     * @param	string   $date
+     * @param	string   $format
+     * @return	bool
+     */
+    public static function is_valid_date( $date = null, $format = 'Y-m-d' ){
+        $d = DateTime::createFromFormat( $format, $date );
+        return $d && $d->format($format) === $date;
+    }
+
+    /**
+     * Returns an array of dates between two dates.
+     *
+     * @since	4.0.0
+     * @param	string   $start_date
+     * @param	string   $end_date
+     * @param	string   $format
+     * @return	array|bool
+     */
+    public static function get_date_range( $start_date = null, $end_date = null, $format = 'Y-m-d' ) {
+
+        if (
+            self::is_valid_date( $start_date ) 
+            && self::is_valid_date( $end_date )
+        ) {
+
+            $dates = array();
+
+            $begin = new DateTime( $start_date );
+            $end = new DateTime( $end_date );
+
+            if ( $begin < $end ) {
+                while( $begin <= $end ) {
+                    $dates[] = $begin->format( $format );
+                    $begin->modify('+1 day');
+                }
+            }
+            else {
+                while( $begin >= $end ) {
+                    $dates[] = $begin->format( $format );
+                    $begin->modify('-1 day');
+                }
+            }
+
+            return $dates;
+
+        }
+
+        return false;
+
+    }
     
     /**
      * Returns server date.
