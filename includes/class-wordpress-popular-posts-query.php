@@ -322,7 +322,7 @@ class WPP_Query {
                             && filter_var( $this->options['time_value'], FILTER_VALIDATE_INT )
                             && $this->options['time_value'] > 0
                         ) {
-                            $interval = "{strtoupper( $this->options['time_unit'] )} {$this->options['time_unit']}";
+                            $interval = "{$this->options['time_value']} " . strtoupper( $this->options['time_unit'] );
                         }
 
                         break;
