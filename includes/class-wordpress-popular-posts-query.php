@@ -302,12 +302,12 @@ class WPP_Query {
 
                     case "last7days":
                     case "weekly":
-                        $interval = "7 DAY";
+                        $interval = "6 DAY";
                         break;
 
                     case "last30days":
                     case "monthly":
-                        $interval = "30 DAY";
+                        $interval = "29 DAY";
                         break;
 
                     case "custom":
@@ -328,7 +328,7 @@ class WPP_Query {
                         break;
 
                     default:
-                        $interval = "1 DAY";
+                        $interval = "24 HOUR";
                         break;
                 }
 
