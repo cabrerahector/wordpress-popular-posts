@@ -17,7 +17,7 @@ if ( isset($_POST['section']) ) {
 
         if ( isset( $_POST['wpp-admin-token'] ) && wp_verify_nonce( $_POST['wpp-admin-token'], 'wpp-update-stats-options' ) ) {
 
-            $this->options['stats']['order_by'] = $_POST['stats_order'];
+            //$this->options['stats']['order_by'] = $_POST['stats_order'];
             $this->options['stats']['limit'] = ( WPP_Helper::is_number( $_POST['stats_limit'] ) && $_POST['stats_limit'] > 0 ) ? $_POST['stats_limit'] : 10;
             $this->options['stats']['post_type'] = empty( $_POST['stats_type'] ) ? "post,page" : $_POST['stats_type'];
             $this->options['stats']['freshness'] = empty( $_POST['stats_freshness'] ) ? false : $_POST['stats_freshness'];
@@ -291,6 +291,33 @@ $tabs = array(
         $chart_data = $this->get_chart_data( $this->options['stats']['range'] );
 
     ?>
+
+    <a href="#" id="wpp-stats-config-btn" class="dashicons dashicons-admin-generic"></a>
+
+    <div id="wpp-stats-config" class="wpp-lightbox">
+
+        <form action="" method="post" id="wpp_stats_options" name="wpp_stats_options">
+
+            <label for="stats_type"><?php _e("Post type", 'wordpress-popular-posts'); ?>:</label>
+            <input type="text" name="stats_type" value="<?php echo esc_attr( $this->options['stats']['post_type'] ); ?>" size="15" />
+
+            <label for="stats_limits"><?php _e("Limit", 'wordpress-popular-posts'); ?>:</label>
+            <input type="text" name="stats_limit" value="<?php echo $this->options['stats']['limit']; ?>" size="5" />
+
+            <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->options['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness" /> <small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small></label>
+
+            <div class="clear"></div>
+            <br /><br />
+
+            <input type="hidden" name="section" value="stats" />
+            <button type="submit" class="button-primary action"><?php _e("Apply", 'wordpress-popular-posts'); ?></button>
+            <button class="button-secondary action right"><?php _e("Cancel"); ?></button>
+
+            <?php wp_nonce_field( 'wpp-update-stats-options', 'wpp-admin-token' ); ?>
+
+        </form>
+
+    </div>
 
     <div id="wpp-chart-wrapper">
         <h4><?php echo $chart_data['totals']['label_summary']; ?></h4>

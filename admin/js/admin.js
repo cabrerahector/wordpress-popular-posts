@@ -66,6 +66,19 @@
 
         });
 
+        // Stats config
+        $("#wpp-stats-config-btn, #wpp_stats_options .button-secondary").on("click", function(e){
+            e.preventDefault();
+
+            if ( $("#wpp-stats-config").is(":visible") ) {
+                $("#wpp-stats-config").hide();
+            }
+            else{
+                $("#wpp-stats-config").show();
+            }
+
+        });
+
         $("#wpp-time-ranges li a").on("click", function(e){
             e.preventDefault();
 
