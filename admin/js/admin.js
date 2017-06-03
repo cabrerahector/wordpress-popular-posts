@@ -66,23 +66,121 @@
 
         });
 
-        // STATISTICS TABS
-        $("#wpp-stats-tabs a").click(function(e){
-            var activeTab = $(this).attr("rel");
-            $(this).removeClass("button-secondary").addClass("button-primary").siblings().removeClass("button-primary").addClass("button-secondary");
-            $(".wpp-stats:visible").hide("fast", function(){
-                $("#"+activeTab).slideDown("fast");
-            });
-
+        $("#wpp-time-ranges li a").on("click", function(e){
             e.preventDefault();
+
+            var me = $(this);
+
+            // Update chart
+            if ( WPPChart.canRender() ) {
+
+                $.get(
+                    ajaxurl,
+                    {
+                        action: 'wpp_update_chart',
+                        nonce: wpp_admin_params.nonce,
+                        range: me.data("range")
+                    },
+                    function( response ){
+
+                        if ( 'ok' == response.status ) {
+
+                            me.parent().addClass("current").siblings().removeClass("current");
+
+                            var labels = [],
+                                dataset_views = [],
+                                dataset_comments = [];
+
+                            for ( var date in response.data.dates ) {
+
+                                labels.push( response.data.dates[date].nicename );
+
+                                if ( !$.isEmptyObject( response.data.dates[date] ) ) {
+
+                                    if ( 'undefined' != typeof response.data.dates[date].views ) {
+                                        dataset_views.push( response.data.dates[date].views );
+                                    }
+                                    else {
+                                        dataset_views.push( 0 );
+                                    }
+
+                                    if ( 'undefined' != typeof response.data.dates[date].comments ) {
+                                        dataset_comments.push( response.data.dates[date].comments );
+                                    }
+                                    else {
+                                        dataset_comments.push( 0 );
+                                    }
+
+                                }
+                                else {
+                                    dataset_views.push( 0 );
+                                    dataset_comments.push( 0 );
+                                }
+
+                            }
+
+                            // Update titles
+                            $("#wpp-chart-wrapper h4").html( response.data.totals.label_summary );
+                            $("#wpp-chart-wrapper h5").html( response.data.totals.label_date_range );
+
+                            // Update chart
+                            WPPChart.populate({
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Comments',
+                                        data: dataset_comments,
+                                    },
+                                    {
+                                        label: 'Views',
+                                        data: dataset_views,
+                                    },
+                                ]
+                            });
+
+                            $("#wpp-listing .wpp-tabbed-nav li:eq(0) a").trigger("click");
+
+                            // Update lists
+                            $.get(
+                                ajaxurl,
+                                {
+                                    action: 'wpp_get_most_viewed'
+                                },
+                                function( response ){
+                                    $("#wpp-listing .wpp-tab-content:eq(0)").html(response);
+                                }
+                            );
+
+                            $.get(
+                                ajaxurl,
+                                {
+                                    action: 'wpp_get_most_commented'
+                                },
+                                function( response ){
+                                    $("#wpp-listing .wpp-tab-content:eq(1)").html(response);
+                                }
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
         });
 
-        $(".wpp-stats").each(function(){
-            if ($("li", this).length == 1) {
-                $("li", this).addClass("wpp-stats-last-item");
-            } else {
-                $("li:last", this).addClass("wpp-stats-last-item");
-            }
+        // STATISTICS TABS
+        $("#wpp-listing .wpp-tabbed-nav li a").on("click", function(e){
+            e.preventDefault();
+
+            var me = $(this),
+                target = me.parent().index();
+
+            me.parent().addClass("active").siblings().removeClass("active");
+
+            me.closest("#wpp-listing").children(".wpp-tab-content:eq(" + target + ")").addClass("wpp-tab-content-active").siblings().removeClass("wpp-tab-content-active");
+
         });
 
         // TOOLS

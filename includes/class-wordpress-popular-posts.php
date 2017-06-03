@@ -139,6 +139,11 @@ class WordPressPopularPosts {
         $this->loader->add_action( 'admin_init', $plugin_admin, 'thickbox_setup' );
         // Add plugin settings link
         $this->loader->add_filter( 'plugin_action_links', $plugin_admin, 'add_plugin_settings_link', 10, 2 );
+        // Update chart
+        $this->loader->add_action( 'wp_ajax_wpp_update_chart', $plugin_admin, 'update_chart' );
+        // Get lists
+        $this->loader->add_action( 'wp_ajax_wpp_get_most_viewed', $plugin_admin, 'get_most_viewed' );
+        $this->loader->add_action( 'wp_ajax_wpp_get_most_commented', $plugin_admin, 'get_most_commented' );
         // Delete plugin data
         $this->loader->add_action( 'wp_ajax_wpp_clear_data', $plugin_admin, 'clear_data' );
         // Empty plugin's images cache

@@ -174,7 +174,13 @@ class WPP_Admin {
             wp_enqueue_script( 'thickbox' );
             wp_enqueue_style( 'thickbox' );
             wp_enqueue_script( 'media-upload' );
-            wp_enqueue_script( 'wordpress-popular-posts-admin-script', plugin_dir_url( __FILE__ ) . 'js/admin.js', array('jquery'), $this->version, true );
+            wp_enqueue_script( 'chartjs', plugin_dir_url( __FILE__ ) . 'js/vendor/Chart.min.js', array(), $this->version );
+            wp_enqueue_script( 'wpp-chart', plugin_dir_url( __FILE__ ) . 'js/chart.js', array('chartjs'), $this->version );
+            wp_register_script( 'wordpress-popular-posts-admin-script', plugin_dir_url( __FILE__ ) . 'js/admin.js', array('jquery'), $this->version, true );
+            wp_localize_script( 'wordpress-popular-posts-admin-script', 'wpp_admin_params', array(
+                'nonce' => wp_create_nonce( "wpp_admin_nonce" )
+            ));
+            wp_enqueue_script( 'wordpress-popular-posts-admin-script' );
             
         }
         
@@ -231,6 +237,463 @@ class WPP_Admin {
             'wordpress-popular-posts',
             array( $this, 'display_plugin_admin_page' )
         );
+
+    }
+
+    public function chart_query_fields( $fields, $options ){
+
+        if ( 'comments' == $this->options['stats']['order_by'] ) {
+            return "DATE(c.comment_date_gmt) AS 'date', COUNT(c.comment_post_ID) AS 'comment_count'";
+        }
+
+        return "v.view_date AS 'date', SUM(v.pageviews) AS 'pageviews'";
+
+    }
+
+    public function chart_query_table( $table, $options ){
+
+        if ( 'comments' == $this->options['stats']['order_by'] ) {
+            return "`wp_comments` c";
+        }
+
+        return $table;
+
+    }
+
+    public function chart_query_join( $join, $options ){
+
+        if ( 'comments' == $this->options['stats']['order_by'] ) {
+            return "INNER JOIN `wp_posts` p ON c.comment_post_ID = p.ID";
+        }
+
+        return $table;
+
+    }
+
+    public function chart_query_where( $where, $options ){
+
+        global $wpdb;
+
+        $now = current_time( 'mysql' );
+
+        // Determine time range
+        switch( $this->options['stats']['range'] ){
+            case "last24hours":
+            case "daily":
+                $interval = "24 HOUR";
+                break;
+
+            case "last7days":
+            case "weekly":
+                $interval = "7 DAY";
+                break;
+
+            case "last30days":
+            case "monthly":
+                $interval = "30 DAY";
+                break;
+
+            case "custom":
+                $time_units = array( "MINUTE", "HOUR", "DAY", "WEEK", "MONTH" );
+                $interval = "24 HOUR";
+
+                // Valid time unit
+                if (
+                    isset( $this->options['time_unit'] )
+                    && in_array( strtoupper( $this->options['time_unit'] ), $time_units )
+                    && isset( $this->options['time_value'] )
+                    && filter_var( $this->options['time_value'], FILTER_VALIDATE_INT )
+                    && $this->options['time_value'] > 0
+                ) {
+                    $interval = "{$this->options['time_value']} " . strtoupper( $this->options['time_unit'] );
+                }
+
+                break;
+
+            default:
+                $interval = "1 DAY";
+                break;
+        }
+
+        $post_types = array_map( 'trim', explode( ',', $this->options['stats']['post_type'] ) );
+        $placeholders = array();
+
+        if ( empty($post_types) ) {
+            $post_types = array('post', 'page');
+        }
+
+        foreach ( $post_types as $post_type ){
+            $placeholders[] = '%s';
+        }
+
+        $post_type_filter = $wpdb->prepare(
+            " AND p.post_type IN(" . implode( ', ', $placeholders ) . ") ",
+            $post_types
+        );
+
+        if ( 'comments' == $this->options['stats']['order_by'] ) {
+            return "WHERE 1 = 1 AND c.comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND c.comment_approved = 1 {$post_type_filter} AND p.post_password = '' AND p.post_status = 'publish'";
+        }
+
+        return "WHERE 1 = 1 AND v.last_viewed  > DATE_SUB('{$now}', INTERVAL {$interval}) {$post_type_filter} AND p.post_password = '' AND p.post_status = 'publish' ";
+
+    }
+
+    public function chart_query_group_by( $groupby, $options ){
+        return "GROUP BY date";
+    }
+
+    public function chart_query_order_by( $orderby, $options ){
+        return "ORDER BY date ASC";
+    }
+
+    public function chart_query_limit( $fields, $options ){
+        return "";
+    }
+
+    public function get_chart_data( $range ){
+
+        $now = new DateTime( WPP_Helper::curdate() );
+        $data = array(
+            'dates' => null,
+            'totals' => array(
+                'views' => 0,
+                'comments' => 0,
+                'label_summary' => '',
+                'label_date_range' => ''
+            )
+        );
+
+        // Determine time range
+        switch( $range ){
+            case "last24hours":
+            case "daily":
+                /*$start_date = $now->format('Y-m-d');
+                $end_date = $start_date;*/
+                $end_date = $now->format('Y-m-d');
+                $start_date = $now->modify('-1 day')->format('Y-m-d');
+                break;
+
+            case "today":
+                $start_date = $now->format('Y-m-d');
+                $end_date = $start_date;
+                break;
+
+            case "last7days":
+            case "weekly":
+                $end_date = $now->format('Y-m-d');
+                $start_date = $now->modify('-6 day')->format('Y-m-d');
+                break;
+
+            case "last30days":
+            case "monthly":
+                $end_date = $now->format('Y-m-d');
+                $start_date = $now->modify('-29 day')->format('Y-m-d');
+                break;
+
+            case "custom":
+                // TODO
+            default:
+                $end_date = $now->format('Y-m-d');
+                $start_date = $now->modify('-6 day')->format('Y-m-d');
+                break;
+        }
+
+        $dates = WPP_Helper::get_date_range( $start_date, $end_date );
+
+        if ( $dates ) {
+
+            for( $d = 0; $d < count($dates); $d++ ) {
+                $data['dates'][ $dates[$d] ] = array(
+                    'nicename' => date_i18n( 'D d', strtotime( $dates[$d] ) ),
+                    'views' => 0,
+                    'comments' => 0
+                );
+            }
+
+        }
+
+        add_filter( 'wpp_query_fields', array( $this, 'chart_query_fields' ), 1, 2 );
+        add_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1, 2 );
+        add_filter( 'wpp_query_group_by', array( $this, 'chart_query_group_by' ), 1, 2 );
+        add_filter( 'wpp_query_order_by', array( $this, 'chart_query_order_by' ), 1, 2 );
+        add_filter( 'wpp_query_limit', array( $this, 'chart_query_limit' ), 1, 2 );
+
+        $original_order_by = $this->options['stats']['order_by'];
+        $this->options['stats']['order_by'] = 'views';
+
+        $most_viewed = new WPP_query();
+        $views_data = $most_viewed->get_posts();
+
+        $this->options['stats']['order_by'] = $original_order_by;
+
+        remove_filter( 'wpp_query_fields', array( $this, 'chart_query_fields' ), 1 );
+        remove_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1 );
+        remove_filter( 'wpp_query_group_by', array( $this, 'chart_query_group_by' ), 1 );
+        remove_filter( 'wpp_query_order_by', array( $this, 'chart_query_order_by' ), 1 );
+        remove_filter( 'wpp_query_limit', array( $this, 'chart_query_limit' ), 1 );
+
+        $original_order_by = $this->options['stats']['order_by'];
+        $this->options['stats']['order_by'] = 'comments';
+
+        add_filter( 'wpp_query_fields', array( $this, 'chart_query_fields' ), 1, 2 );
+        add_filter( 'wpp_query_table', array( $this, 'chart_query_table' ), 1, 2 );
+        add_filter( 'wpp_query_join', array( $this, 'chart_query_join' ), 1, 2 );
+        add_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1, 2 );
+        add_filter( 'wpp_query_group_by', array( $this, 'chart_query_group_by' ), 1, 2 );
+        add_filter( 'wpp_query_order_by', array( $this, 'chart_query_order_by' ), 1, 2 );
+        add_filter( 'wpp_query_limit', array( $this, 'chart_query_limit' ), 1, 2 );
+
+        $most_commented = new WPP_query();
+        $comments_data = $most_commented->get_posts();
+
+        $this->options['stats']['order_by'] = $original_order_by;
+
+        remove_filter( 'wpp_query_fields', array( $this, 'chart_query_fields' ), 1 );
+        remove_filter( 'wpp_query_table', array( $this, 'chart_query_table' ), 1 );
+        remove_filter( 'wpp_query_join', array( $this, 'chart_query_join' ), 1 );
+        remove_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1 );
+        remove_filter( 'wpp_query_group_by', array( $this, 'chart_query_group_by' ), 1 );
+        remove_filter( 'wpp_query_order_by', array( $this, 'chart_query_order_by' ), 1 );
+        remove_filter( 'wpp_query_limit', array( $this, 'chart_query_limit' ), 1 );
+
+        if (
+            ( is_array($views_data) && !empty($views_data) ) 
+            || ( is_array($comments_data) && !empty($comments_data) )
+        ) {
+
+            if ( ( is_array($views_data) && !empty($views_data) ) ) {
+                foreach( $views_data as $views ) {
+                    if ( isset( $data['dates'][$views->date] ) ) {
+                        $data['dates'][$views->date]['views'] = $views->pageviews;
+                        $data['totals']['views'] += $views->pageviews;
+                    }
+                }
+            }
+
+            if ( ( is_array($comments_data) && !empty($comments_data) ) ) {
+                foreach( $comments_data as $comments ) {
+                    if ( isset( $data['dates'][$comments->date] ) ) {
+                        $data['dates'][$comments->date]['comments'] = $comments->comment_count;
+                        $data['totals']['comments'] += $comments->comment_count;
+                    }
+                }
+            }
+
+            $data['totals']['label_summary'] = sprintf( _n( '1 view', '%s views', $data['totals']['views'], 'wordpress-popular-posts' ), '<strong>' . number_format_i18n( $data['totals']['views'] ) . '</strong>' ) . '<br style="display: none;" /> / ' .  sprintf( _n( '1 comment', '%s comments', $data['totals']['comments'], 'wordpress-popular-posts' ), '<strong>' . number_format_i18n( $data['totals']['comments'] ) . '</strong>' );
+
+            $data['totals']['label_date_range'] = date_i18n( 'M, D d', strtotime( $start_date ) ) . ' &mdash; ' . date_i18n( 'M, D d', strtotime( $end_date ) );
+        }
+
+        return $data;
+
+    }
+
+    public function print_chart_script( $data, $containter_id ){
+
+        reset( $data['dates'] );
+        $start_date = key( $data['dates'] );
+        $end_date = key( end($data['dates']) );
+        reset( $data['dates'] );
+
+        $color_scheme = $this->get_admin_color_scheme();
+
+        ?>
+        <script>
+
+            if ( WPPChart.canRender() ) {
+
+                jQuery("#<?php echo $containter_id; ?> p").remove();
+
+                var wpp_chart_views_color = '<?php echo $color_scheme->colors[2]; ?>';
+                var wpp_chart_comments_color = '<?php echo $color_scheme->colors[3]; ?>';
+
+                var wpp_chart_data = {
+                    labels: [ <?php foreach( $data['dates'] as $date => $date_data ) : echo "'" . date_i18n( 'D d', strtotime( $date ) ) . "', "; endforeach; ?>],
+                    datasets: [
+                        {
+                            label: "<?php _e( "Comments", "wordpress-popular-posts" ); ?>",
+                            data: [<?php foreach( $data['dates'] as $date => $date_data ) : echo ( isset($date_data['comments']) ? $date_data['comments'] : '0' ) . ", "; endforeach; ?>],
+                        },
+                        {
+                            label: "<?php _e( "Views", "wordpress-popular-posts" ); ?>",
+                            data: [<?php foreach( $data['dates'] as $date => $date_data ) : echo ( isset($date_data['views']) ? $date_data['views'] : '0' ) . ", "; endforeach; ?>],
+                        }
+                    ]
+                };
+
+                WPPChart.init( '<?php echo $containter_id; ?>' );
+                WPPChart.populate( wpp_chart_data );
+
+            }
+
+        </script>
+        <?php
+    }
+
+    public function update_chart(){
+
+        $response = array(
+            'status' => 'error'
+        );
+        $nonce = isset( $_GET['nonce'] ) ? $_GET['nonce'] : null;
+
+        if ( wp_verify_nonce( $nonce, 'wpp_admin_nonce' ) ) {
+
+            $valid_ranges = array( 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' );
+            $range = ( isset( $_GET['range'] ) && in_array( $_GET['range'], $valid_ranges ) ) ? $_GET['range'] : 'last7days';
+
+            $admin_options = WPP_Settings::get( 'admin_options' );
+            $admin_options['stats']['range'] = $range;
+            $this->options = $admin_options;
+
+            update_site_option( 'wpp_settings_config', $this->options );
+
+            $response = array(
+                'status' => 'ok',
+                'data' => $this->get_chart_data( $range )
+            );
+
+        }
+
+       wp_send_json( $response );
+
+    }
+
+    public function get_most_viewed(){
+
+        $args = array(
+            'range' => $this->options['stats']['range'],
+            'post_type' => $this->options['stats']['post_type'],
+            'limit' => $this->options['stats']['limit'],
+            'stats_tag' => array(
+                'comment_count' => 0,
+                'date' => array(
+                    'active' => 1
+                )
+            )
+        );
+        $most_viewed = new WPP_query( $args );
+        $posts = $most_viewed->get_posts();
+
+        if (
+            is_array( $posts )
+            && !empty( $posts )
+        ) {
+        ?>
+        <ol class="popular-posts-list">
+        <?php
+            foreach ( $posts as $post ) { ?>
+            <li>
+                <p>
+                    <a href="<?php echo get_permalink( $post->id ); ?>"><?php echo $post->title; ?></a>
+                    <br />
+                    <span><?php printf( _n( '1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n( $post->pageviews ) ); ?></span>
+                    <small> &mdash; <a href="<?php echo get_permalink( $post->id ); ?>"><?php _e("View"); ?></a> | <a href="<?php echo get_edit_post_link( $post->id ); ?>"><?php _e("Edit"); ?></a></small>
+                </p>
+            </li>
+            <?php
+            }
+        ?>
+        </ol>
+        <?php
+        }
+        else {
+        ?>
+        <p><?php _e("Err... nothing. Nada. Come back later, alright?"); ?></p>
+        <?php
+        }
+
+        if ( defined('DOING_AJAX') && DOING_AJAX ) wp_die();
+
+    }
+
+    public function get_most_commented(){
+
+        $args = array(
+            'range' => $this->options['stats']['range'],
+            'post_type' => $this->options['stats']['post_type'],
+            'order_by' => 'comments',
+            'limit' => $this->options['stats']['limit'],
+            'stats_tag' => array(
+                'comment_count' => 1,
+                'views' => 0,
+                'date' => array(
+                    'active' => 1
+                )
+            )
+        );
+        $most_commented = new WPP_query( $args );
+        $posts = $most_commented->get_posts();
+
+        if (
+            is_array( $posts )
+            && !empty( $posts )
+        ) {
+        ?>
+        <ol class="popular-posts-list">
+        <?php
+            foreach ( $posts as $post ) { ?>
+            <li>
+                <p>
+                    <a href="<?php echo get_permalink( $post->id ); ?>"><?php echo $post->title; ?></a>
+                    <br />
+                    <span><?php printf( _n( '1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts' ), number_format_i18n( $post->comment_count ) ); ?></span>
+                    <small> &mdash; <a href="<?php echo get_permalink( $post->id ); ?>"><?php _e("View"); ?></a> | <a href="<?php echo get_edit_post_link( $post->id ); ?>"><?php _e("Edit"); ?></a></small>
+                </p>
+            </li>
+            <?php
+            }
+        ?>
+        </ol>
+        <?php
+        }
+        else {
+        ?>
+        <p><?php _e("Err... nothing. Nada. Come back later, alright?"); ?></p>
+        <?php
+        }
+
+        if ( defined('DOING_AJAX') && DOING_AJAX ) wp_die();
+
+    }
+
+    /*
+     * Gets current admin color scheme.
+     *
+     * @return stdClass
+     */
+    private function get_admin_color_scheme(){
+
+        global $_wp_admin_css_colors;
+
+        if (
+            is_array( $_wp_admin_css_colors )
+            && count( $_wp_admin_css_colors )
+        ) {
+
+            $current_user = wp_get_current_user();
+            $color_scheme = get_user_option( 'admin_color', $current_user->ID );
+
+            if (
+                empty( $color_scheme ) 
+                || !isset( $_wp_admin_css_colors[ $color_scheme ] )
+            ) {
+                $color_scheme = 'fresh';
+            }
+
+            if ( isset($_wp_admin_css_colors[ $color_scheme ]) ) {
+                return $_wp_admin_css_colors[ $color_scheme ];
+            }
+
+        }
+
+        // Fallback, just in case
+
+        $theme = new stdClass;
+        $theme->colors = ['#333', '#999', '#881111', '#a80000'];
+
+        return $theme;
 
     }
     

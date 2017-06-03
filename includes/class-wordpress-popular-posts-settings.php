@@ -81,6 +81,7 @@ class WPP_Settings {
         ),
         'admin_options' => array(
             'stats' => array(
+                'range' => 'last7days',
                 'order_by' => 'views',
                 'limit' => 10,
                 'post_type' => 'post,page',

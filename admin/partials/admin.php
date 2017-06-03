@@ -262,84 +262,173 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
 
 <nav id="wpp-menu" class="collapsed">
     <ul>
-        <li><a href="#" class="dashicons dashicons-menu" title="<?php esc_attr_e( 'Menu' ); ?>"><span style="display: none;"><?php _e( 'Menu' ); ?></span></a></li>
-        <li<?php echo ( 'stats' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=stats' ); ?>" class="dashicons dashicons-chart-bar" title="<?php esc_attr_e( 'Stats', 'wordpress-popular-posts' ); ?>"><span style="display: none;"><?php _e( 'Stats', 'wordpress-popular-posts' ); ?></span></a></li>
-        <li<?php echo ( 'tools' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=tools' ); ?>" class="dashicons dashicons-admin-tools" title="<?php esc_attr_e( 'Tools', 'wordpress-popular-posts' ); ?>"><span style="display: none;"><?php _e( 'Tools', 'wordpress-popular-posts' ); ?></span></a></li>
-        <li<?php echo ( 'params' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=params' ); ?>" class="dashicons dashicons-book" title="<?php esc_attr_e( 'Parameters', 'wordpress-popular-posts' ); ?>"><span style="display: none;"><?php _e( 'Parameters', 'wordpress-popular-posts' ); ?></span></a></li>
+        <li><a href="#" title="<?php esc_attr_e( 'Menu' ); ?>"><span><?php _e( 'Menu' ); ?></span></a></li>
+        <li<?php echo ( 'stats' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=stats' ); ?>" title="<?php esc_attr_e( 'Stats', 'wordpress-popular-posts' ); ?>"><span><?php _e( 'Stats', 'wordpress-popular-posts' ); ?></span></a></li>
+        <li<?php echo ( 'tools' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=tools' ); ?>" title="<?php esc_attr_e( 'Tools', 'wordpress-popular-posts' ); ?>"><span><?php _e( 'Tools', 'wordpress-popular-posts' ); ?></span></a></li>
+        <li<?php echo ( 'params' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=params' ); ?>" title="<?php esc_attr_e( 'Parameters', 'wordpress-popular-posts' ); ?>"><span><?php _e( 'Parameters', 'wordpress-popular-posts' ); ?></span></a></li>
     </ul>
 </nav>
 
-<div class="wrap">
-    <div id="icon-options-general" class="icon32"><br /></div>
-    <h2>WordPress Popular Posts</h2>
+<?php
+$tabs = array(
+    'stats' => __( 'Stats', 'wordpress-popular-posts' ),
+    'tools' => __( 'Tools', 'wordpress-popular-posts' ),
+    'params' => __( 'Parameters', 'wordpress-popular-posts' ),
+    'about' => __( 'About', 'wordpress-popular-posts' )
+);
+?>
+<div class="wpp-wrapper wpp-section-<?php echo $current; ?>">
 
-    <h2 class="nav-tab-wrapper">
+    <div class="wpp-header">
+        <h2>WordPress Popular Posts</h2>
+        <h3><?php echo $tabs[$current]; ?></h3>
+    </div>
+
     <?php
-    // build tabs
-    $tabs = array(
-        'stats' => __( 'Stats', 'wordpress-popular-posts' ),
-        'tools' => __( 'Tools', 'wordpress-popular-posts' ),
-        'params' => __( 'Parameters', 'wordpress-popular-posts' ),
-        'about' => __( 'About', 'wordpress-popular-posts' )
-    );
-    foreach( $tabs as $tab => $name ){
-        $class = ( $tab == $current ) ? ' nav-tab-active' : '';
-        echo "<a class='nav-tab$class' href='?page=wordpress-popular-posts&tab=$tab'>$name</a>";
-    }
+    // Stats chart
+    if ( 'stats' == $current ) {
+
+        $chart_data = $this->get_chart_data( $this->options['stats']['range'] );
+
     ?>
-    </h2>
 
-    <!-- Start stats -->
-    <div id="wpp_stats" class="wpp_boxes"<?php if ( "stats" == $current ) {?> style="display:block;"<?php } ?>>
-        <p><?php _e( "Click on each tab to see what are the most popular entries on your blog in the last 24 hours, this week, last 30 days or all time since WordPress Popular Posts was installed.", 'wordpress-popular-posts' ); ?></p>
+    <div id="wpp-chart-wrapper">
+        <h4><?php echo $chart_data['totals']['label_summary']; ?></h4>
+        <h5><?php echo $chart_data['totals']['label_date_range']; ?></h5>
 
-        <div class="tablenav top">
-            <div class="alignleft actions">
-                <form action="" method="post" id="wpp_stats_options" name="wpp_stats_options">
-                    <select name="stats_order">
-                        <option <?php if ($this->options['stats']['order_by'] == "comments") {?>selected="selected"<?php } ?> value="comments"><?php _e("Order by comments", 'wordpress-popular-posts'); ?></option>
-                        <option <?php if ($this->options['stats']['order_by'] == "views") {?>selected="selected"<?php } ?> value="views"><?php _e("Order by views", 'wordpress-popular-posts'); ?></option>
-                        <option <?php if ($this->options['stats']['order_by'] == "avg") {?>selected="selected"<?php } ?> value="avg"><?php _e("Order by avg. daily views", 'wordpress-popular-posts'); ?></option>
-                    </select>
-                    <label for="stats_type"><?php _e("Post type", 'wordpress-popular-posts'); ?>:</label> <input type="text" name="stats_type" value="<?php echo esc_attr( $this->options['stats']['post_type'] ); ?>" size="15" />
-                    <label for="stats_limits"><?php _e("Limit", 'wordpress-popular-posts'); ?>:</label> <input type="text" name="stats_limit" value="<?php echo $this->options['stats']['limit']; ?>" size="5" />
-                    <input type="hidden" name="section" value="stats" />
-                    <input type="submit" class="button-secondary action" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
+        <ul class="wpp-header-nav" id="wpp-time-ranges">
+            <li <?php echo ( 'daily' == $this->options['stats']['range'] || 'last24hours' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last24hours" title="Last 24 hours">24h</a></li>
+            <li <?php echo ( 'weekly' == $this->options['stats']['range'] || 'last7days' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last7days" title="Last 7 days">7d</a></li>
+            <li <?php echo ( 'monthly' == $this->options['stats']['range'] || 'last30days' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last30days" title="Last 30 days">30d</a></li>
+            <li <?php echo ( 'custom' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#"  data-range="custom" title="Custom">Custom</a></li>
+        </ul>
 
-                    <div class="clear"></div>
-                    <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->options['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness" /> <?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></label>
+        <div id="wpp-chart">
+            <p><?php echo sprintf( __('Err... A nice little chart is supposed to be here, instead you are seeing this because your browser is too old. <br /> Please <a href="%s" target="_blank">get a better browser</a>.', 'wordpress-popular-posts'), 'https://browsehappy.com/'); ?></p>
 
-                    <?php wp_nonce_field( 'wpp-update-stats-options', 'wpp-admin-token' ); ?>
-                </form>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <br />
-        <div id="wpp-stats-tabs">
-            <a href="#" class="button-primary" rel="wpp-daily"><?php _e("Last 24 hours", 'wordpress-popular-posts'); ?></a>
-            <a href="#" class="button-secondary" rel="wpp-weekly"><?php _e("Last 7 days", 'wordpress-popular-posts'); ?></a>
-            <a href="#" class="button-secondary" rel="wpp-monthly"><?php _e("Last 30 days", 'wordpress-popular-posts'); ?></a>
-            <a href="#" class="button-secondary" rel="wpp-all"><?php _e("All-time", 'wordpress-popular-posts'); ?></a>
-        </div>
-        <div id="wpp-stats-canvas">
-            <div class="wpp-stats wpp-stats-active" id="wpp-daily">
-                <?php echo do_shortcode("[wpp range='daily' post_type='".$this->options['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->options['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li><a href=\"{url}\" target=\"_blank\" class=\"wpp-post-title\">{text_title}</a> <span class=\"post-stats\">{stats}</span></li>' limit=".$this->options['stats']['limit']." freshness=" . $this->options['stats']['freshness'] . "]"); ?>
-            </div>
-            <div class="wpp-stats" id="wpp-weekly">
-                <?php echo do_shortcode("[wpp range='weekly' post_type='".$this->options['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->options['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li><a href=\"{url}\" target=\"_blank\" class=\"wpp-post-title\">{text_title}</a> <span class=\"post-stats\">{stats}</span></li>' limit=".$this->options['stats']['limit']." freshness=" . $this->options['stats']['freshness'] . "]"); ?>
-            </div>
-            <div class="wpp-stats" id="wpp-monthly">
-                <?php echo do_shortcode("[wpp range='monthly' post_type='".$this->options['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->options['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li><a href=\"{url}\" target=\"_blank\" class=\"wpp-post-title\">{text_title}</a> <span class=\"post-stats\">{stats}</span></li>' limit=".$this->options['stats']['limit']." freshness=" . $this->options['stats']['freshness'] . "]"); ?>
-            </div>
-            <div class="wpp-stats" id="wpp-all">
-                <?php echo do_shortcode("[wpp range='all' post_type='".$this->options['stats']['post_type']."' stats_comments=1 stats_views=1 order_by='".$this->options['stats']['order_by']."' wpp_start='<ol>' wpp_end='</ol>' post_html='<li><a href=\"{url}\" target=\"_blank\" class=\"wpp-post-title\">{text_title}</a> <span class=\"post-stats\">{stats}</span></li>' limit=".$this->options['stats']['limit']." freshness=" . $this->options['stats']['freshness'] . "]"); ?>
-            </div>
+            <?php $this->print_chart_script( $chart_data, 'wpp-chart' ); ?>
         </div>
     </div>
-    <!-- End stats -->
+    <?php
+    } // End stats chart
+    ?>
+
+    <div id="wpp-listing" class="wpp-content"<?php echo ( 'stats' == $current ) ? '' : ' style="display: none;"'; ?>>
+        <ul class="wpp-tabbed-nav">
+            <li class="active"><a href="#" title="Most viewed">Most viewed</a></li>
+            <li><a href="#" title="Most commented">Most commented</a></li>
+            <li><a href="#" title="Trending now">Trending now</a></li>
+            <li><a href="#" title="Hall of Fame">Hall of Fame</a></li>
+        </ul>
+
+        <div class="wpp-tab-content wpp-tab-content-active">
+            <?php $this->get_most_viewed(); ?>
+        </div>
+
+        <div class="wpp-tab-content">
+            <?php $this->get_most_commented(); ?>
+        </div>
+
+        <div class="wpp-tab-content">
+            <?php
+            $args = array(
+                'range' => 'custom',
+                'time_unit' => 'HOUR',
+                'time_value'=> 12,
+                'post_type' => $this->options['stats']['post_type'],
+                'order_by' => 'views',
+                'limit' => $this->options['stats']['limit'],
+                'stats_tag' => array(
+                    'comment_count' => 1,
+                    'views' => 1,
+                    'date' => array(
+                        'active' => 1
+                    )
+                )
+            );
+            $trending = new WPP_query( $args );
+            $posts = $trending->get_posts();
+
+            if (
+                is_array( $posts )
+                && !empty( $posts )
+            ) {
+            ?>
+            <ol class="popular-posts-list">
+            <?php
+                foreach ( $posts as $post ) { ?>
+                <li>
+                    <p>
+                        <a href="<?php echo get_permalink( $post->id ); ?>"><?php echo $post->title; ?></a>
+                        <br />
+                        <span><?php printf( _n( '1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n( $post->pageviews ) ); ?>, <?php printf( _n( '1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts' ), number_format_i18n( $post->comment_count ) ); ?></span>
+                        <small> &mdash; <a href="<?php echo get_permalink( $post->id ); ?>"><?php _e("View"); ?></a> | <a href="<?php echo get_edit_post_link( $post->id ); ?>"><?php _e("Edit"); ?></a></small>
+                    </p>
+                </li>
+                <?php
+                }
+            ?>
+            </ol>
+            <?php
+            }
+            else {
+            ?>
+            <p><?php _e("Err... nothing. Nada. Come back later, alright?"); ?></p>
+            <?php
+            }
+            ?>
+        </div>
+        <div class="wpp-tab-content">
+            <?php
+            $args = array(
+                'range' => 'all',
+                'post_type' => $this->options['stats']['post_type'],
+                'order_by' => 'views',
+                'limit' => $this->options['stats']['limit'],
+                'stats_tag' => array(
+                    'comment_count' => 1,
+                    'views' => 1,
+                    'date' => array(
+                        'active' => 1
+                    )
+                )
+            );
+            $hof = new WPP_query( $args );
+            $posts = $hof->get_posts();
+
+            if (
+                is_array( $posts )
+                && !empty( $posts )
+            ) {
+            ?>
+            <ol class="popular-posts-list">
+            <?php
+                foreach ( $posts as $post ) { ?>
+                <li>
+                    <p>
+                        <a href="<?php echo get_permalink( $post->id ); ?>"><?php echo $post->title; ?></a>
+                        <br />
+                        <span><?php printf( _n( '1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n( $post->pageviews ) ); ?>, <?php printf( _n( '1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts' ), number_format_i18n( $post->comment_count ) ); ?></span>
+                        <small> &mdash; <a href="<?php echo get_permalink( $post->id ); ?>"><?php _e("View"); ?></a> | <a href="<?php echo get_edit_post_link( $post->id ); ?>"><?php _e("Edit"); ?></a></small>
+                    </p>
+                </li>
+                <?php
+                }
+            ?>
+            </ol>
+            <?php
+            }
+            else {
+            ?>
+            <p><?php _e("Err... nothing. Nada. Come back later, alright?"); ?></p>
+            <?php
+            }
+            ?>
+        </div>
+    </div>
 
     <!-- Start tools -->
-    <div id="wpp_tools" class="wpp_boxes"<?php if ( "tools" == $current ) {?> style="display:block;"<?php } ?>>
+    <div id="wpp_tools" <?php echo ( "tools" == $current ) ? '' : ' style="display: none;"'; ?>>
 
         <h3 class="wmpp-subtitle"><?php _e("Thumbnails", 'wordpress-popular-posts'); ?></h3>
         <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">
@@ -575,7 +664,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
     <!-- End tools -->
 
     <!-- Start params -->
-    <div id="wpp_params" class="wpp_boxes"<?php if ( "params" == $current ) {?> style="display:block;"<?php } ?>>
+    <div id="wpp_params" <?php echo ( "params" == $current ) ? '' : ' style="display: none;"'; ?>>
         <div>
             <p><?php printf( __('With the following parameters you can customize the popular posts list when using either the <a href="%1$s">wpp_get_mostpopular() template tag</a> or the <a href="%2$s">[wpp] shortcode</a>.', 'wordpress-popular-posts'),
                 admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#template-tags'),
@@ -796,7 +885,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
     <!-- End params -->
 
     <!-- Start about -->
-    <div id="wpp_faq" class="wpp_boxes"<?php if ( "about" == $current ) {?> style="display:block;"<?php } ?>>
+    <div id="wpp_faq" <?php echo ( "about" == $current ) ? '' : ' style="display: none;"'; ?>>
 
         <h3><?php echo sprintf( __('About WordPress Popular Posts %s', 'wordpress-popular-posts'), $this->version); ?></h3>
         <p><?php _e( 'This version includes the following changes', 'wordpress-popular-posts' ); ?>:</p>
