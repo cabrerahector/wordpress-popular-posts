@@ -438,7 +438,7 @@ $tabs = array(
                         <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", 'wordpress-popular-posts'); ?>:</label></th>
                         <td>
                             <div id="thumb-review">
-                                <img src="<?php echo ( $this->options['tools']['thumbnail']['default'] ) ? $this->options['tools']['thumbnail']['default'] : plugins_url() . '/wordpress-popular-posts/public/images/no_thumb.jpg'; ?>" alt="" border="0" />
+                                <img src="<?php echo ( $this->options['tools']['thumbnail']['default'] ) ? str_replace( parse_url( $this->options['tools']['thumbnail']['default'], PHP_URL_SCHEME ) . ':', '', $this->options['tools']['thumbnail']['default'] ) : plugins_url() . '/wordpress-popular-posts/public/images/no_thumb.jpg'; ?>" alt="" border="0" />
                             </div>
                             <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", 'wordpress-popular-posts' ); ?>" />
                             <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
