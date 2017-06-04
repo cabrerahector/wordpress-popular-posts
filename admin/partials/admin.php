@@ -694,8 +694,8 @@ $tabs = array(
     <div id="wpp_params" <?php echo ( "params" == $current ) ? '' : ' style="display: none;"'; ?>>
         <div>
             <p><?php printf( __('With the following parameters you can customize the popular posts list when using either the <a href="%1$s">wpp_get_mostpopular() template tag</a> or the <a href="%2$s">[wpp] shortcode</a>.', 'wordpress-popular-posts'),
-                admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#template-tags'),
-                admin_url('options-general.php?page=wordpress-popular-posts&tab=faq#shortcode')
+                'https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular',
+                'https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages'
             ); ?></p>
             <br />
             <table cellspacing="0" class="wp-list-table widefat fixed posts">
