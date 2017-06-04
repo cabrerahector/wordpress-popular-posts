@@ -143,13 +143,7 @@
                     display: inline-block;
                     padding: 6px 12px 7px;
                     line-height: 1.1em;
-                    /*text-decoration: none;*/
-                    /*border-radius: 5px;*/
                 }
-
-                /*.wpp-section-stats .wpp-header-nav li a {
-                    color: #a80000;
-                }*/
 
                 .wpp-section-stats .wpp-header-nav li a:hover,
                 .wpp-section-stats .wpp-header-nav li.current a {
@@ -336,80 +330,6 @@
 /* Tablets & small desktops */
 @media only screen and (max-width: 768px) {
 
-/*
- * Navigation
- */
-#wpp-menu {
-    position: fixed;
-    top: 40px;
-    right: 5px;
-    z-index: 999;
-    width: 39px;
-}
-
-    #wpp-menu ul {
-        position: relative;
-        margin: 0;
-        padding: 0;
-    }
-
-        #wpp-menu ul li {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            margin: 0;
-            padding: 0;
-            opacity: 0;
-            transition: top 0.3s ease, opacity 0.6s ease;
-        }
-
-        #wpp-menu ul li:first-child {
-            opacity: 1 !important;
-        }
-
-            #wpp-menu ul li a {
-                overflow: hidden;
-                padding: 5px;
-                width: 27px;
-                height: 27px;
-                color: #fff;
-                font-size: 25px;
-                background: #a80000;
-                border-top-left-radius: 50%;
-                border-top-right-radius: 50%;
-                border-bottom-left-radius: 50%;
-                border-bottom-right-radius: 50%;
-                transition: background-color 180ms ease-in;
-            }
-
-            #wpp-menu ul li a:hover,
-            #wpp-menu ul li.current a {
-                background: #d33535;
-            }
-
-            #wpp-menu ul li a.dashicons-menu {
-                padding: 7px 5px 3px 5px;
-            }
-
-            #wpp-menu ul li a.dashicons-chart-bar {
-                padding: 8px 5px 3px 5px;
-                font-size: 20px;
-            }
-
-            #wpp-menu ul li a.dashicons-admin-tools {
-                padding: 7px 5px 3px 5px;
-                font-size: 22px;
-            }
-
-            #wpp-menu ul li a.dashicons-book {
-                padding: 9px 5px 1px 5px;
-                font-size: 20px;
-            }
-
-                #wpp-menu ul li a span {
-                    display: none;
-                }
 }
 
 /* Medium desktops, Large desktops & other devices */
