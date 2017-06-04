@@ -330,6 +330,10 @@
 /* Tablets & small desktops */
 @media only screen and (max-width: 768px) {
 
+    .wpp-wrapper {
+        margin: 20px 12px 0 2px;
+    }
+
 }
 
 /* Medium desktops, Large desktops & other devices */
