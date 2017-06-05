@@ -285,12 +285,12 @@ class WPP_Admin {
 
             case "last7days":
             case "weekly":
-                $interval = "7 DAY";
+                $interval = "6 DAY";
                 break;
 
             case "last30days":
             case "monthly":
-                $interval = "30 DAY";
+                $interval = "29 DAY";
                 break;
 
             case "custom":
