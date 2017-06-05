@@ -151,6 +151,7 @@ class WPP_Admin {
         $screen = get_current_screen();
         
         if ( isset( $screen->id ) && $screen->id == $this->plugin_screen_hook_suffix ) {
+            wp_enqueue_style( 'font-awesome', plugin_dir_url( __FILE__ ) . 'css/vendor/font-awesome.min.css', array(), '4.7.0', 'all' );
             wp_enqueue_style( 'wordpress-popular-posts-admin-styles', plugin_dir_url( __FILE__ ) . 'css/admin.css', array(), $this->version, 'all' );
         }
         

@@ -342,10 +342,10 @@ $tabs = array(
 
     <div id="wpp-listing" class="wpp-content"<?php echo ( 'stats' == $current ) ? '' : ' style="display: none;"'; ?>>
         <ul class="wpp-tabbed-nav">
-            <li class="active"><a href="#" title="Most viewed">Most viewed</a></li>
-            <li><a href="#" title="Most commented">Most commented</a></li>
-            <li><a href="#" title="Trending now">Trending now</a></li>
-            <li><a href="#" title="Hall of Fame">Hall of Fame</a></li>
+            <li class="active"><a href="#" title="Most viewed"><span class="fa fa-eye"></span><span>Most viewed</span></a></li>
+            <li><a href="#" title="Most commented"><span class="fa fa-comment-o"></span><span>Most commented</span></a></li>
+            <li><a href="#" title="Trending now"><span class="fa fa-rocket"></span><span>Trending now</span></a></li>
+            <li><a href="#" title="Hall of Fame"><span class="fa fa-trophy"></span><span>Hall of Fame</span></a></li>
         </ul>
 
         <div class="wpp-tab-content wpp-tab-content-active">

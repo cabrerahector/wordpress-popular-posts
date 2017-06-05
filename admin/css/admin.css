@@ -217,6 +217,10 @@
                     box-shadow: none;
                 }
 
+                    #wpp-listing .wpp-tabbed-nav li a .fa {
+                        display: none;
+                    }
+
         .wpp-tab-content {
             display: none;
             overflow: hidden;
@@ -333,6 +337,14 @@
     .wpp-wrapper {
         margin: 20px 12px 0 2px;
     }
+
+        #wpp-listing .wpp-tabbed-nav li a span:last-child {
+            display: none;
+        }
+
+        #wpp-listing .wpp-tabbed-nav li a .fa {
+            display: inline-block;
+        }
 
 }
 
