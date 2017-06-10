@@ -414,8 +414,8 @@ class WPP_Admin {
                     $interval = "-{$this->options['stats']['time_value']} " . ( $this->options['stats']['time_value'] > 1 ? $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ][1] : $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ][0] );
                 }
 
-                $end_date = $now->format('Y-m-d H:i:s');
-                $start_date = $now->modify($interval)->format('Y-m-d H:i:s');
+                $end_date = date( 'Y-m-d', strtotime( $now->format('Y-m-d H:i:s') ) );
+                $start_date = date( 'Y-m-d', strtotime( $now->modify($interval)->format('Y-m-d H:i:s') ) );
 
                 break;
 
