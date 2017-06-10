@@ -275,7 +275,7 @@ class WPP_Admin {
 
         global $wpdb;
 
-        $now = current_time( 'mysql' );
+        $now = WPP_Helper::now();
 
         // Determine time range
         switch( $this->options['stats']['range'] ){
@@ -354,7 +354,7 @@ class WPP_Admin {
 
     public function get_chart_data( $range ){
 
-        $now = new DateTime( WPP_Helper::curdate() );
+        $now = new DateTime( WPP_Helper::now() );
         $data = array(
             'dates' => null,
             'totals' => array(
