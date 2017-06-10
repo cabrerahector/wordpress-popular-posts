@@ -319,6 +319,36 @@ $tabs = array(
 
     </div>
 
+    <div id="wpp-stats-range" class="wpp-lightbox">
+
+        <form action="" method="post">
+
+            <p style="text-align: center;"><?php _e('Time Range', 'wordpress-popular-posts'); ?> &mdash; <?php _e('Custom', 'wordpress-popular-posts'); ?></p>
+
+            <input type="text" id="stats_range_time_value" name="stats_range_time_value" value="<?php echo $this->options['stats']['time_value']; ?>">
+
+            <select id="stats_range_time_unit" name="stats_range_time_unit">
+                <option <?php if ($this->options['stats']['time_unit'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
+                <option <?php if ($this->options['stats']['time_unit'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", 'wordpress-popular-posts'); ?></option>
+                <option <?php if ($this->options['stats']['time_unit'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", 'wordpress-popular-posts'); ?></option>
+                <option <?php if ($this->options['stats']['time_unit'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", 'wordpress-popular-posts'); ?></option>
+                <option <?php if ($this->options['stats']['time_unit'] == "month") {?>selected="selected"<?php } ?> value="month"><?php _e("Month(s)", 'wordpress-popular-posts'); ?></option>
+            </select>
+
+            <div class="clear"></div>
+            <br /><br />
+
+            <button type="submit" class="button-primary action">
+                <?php _e("Apply", 'wordpress-popular-posts'); ?>
+            </button>
+            <button class="button-secondary action right">
+                <?php _e("Cancel"); ?>
+            </button>
+
+        </form>
+
+    </div>
+
     <div id="wpp-chart-wrapper">
         <h4><?php echo $chart_data['totals']['label_summary']; ?></h4>
         <h5><?php echo $chart_data['totals']['label_date_range']; ?></h5>

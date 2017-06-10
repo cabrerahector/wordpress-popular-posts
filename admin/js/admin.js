@@ -79,6 +79,125 @@
 
         });
 
+        // Stats range
+        $("#wpp-stats-range form").on('submit', function(e){
+            e.preventDefault();
+
+            if ( $("#wpp-stats-range").is(":visible") ) {
+                $("#wpp-stats-range").hide();
+            }
+
+            get_chart_data( $("#wpp-time-ranges li a[data-range='custom']") );
+
+        });
+
+        $("#wpp-stats-range form .btn-secondary").on('click', function(e){
+            e.preventDefault();
+
+            if ( $("#wpp-stats-range").is(":visible") ) {
+                $("#wpp-stats-range").hide();
+            }
+
+        });
+
+        function get_chart_data( me ) {
+
+            $.get(
+                ajaxurl,
+                {
+                    action: 'wpp_update_chart',
+                    nonce: wpp_admin_params.nonce,
+                    range: me.data("range"),
+                    time_value: $("#stats_range_time_value").val(),
+                    time_unit: $("#stats_range_time_unit").val()
+                },
+                function( response ){
+
+                    if ( 'ok' == response.status ) {
+
+                        me.parent().addClass("current").siblings().removeClass("current");
+
+                        var labels = [],
+                            dataset_views = [],
+                            dataset_comments = [];
+
+                        for ( var date in response.data.dates ) {
+
+                            labels.push( response.data.dates[date].nicename );
+
+                            if ( !$.isEmptyObject( response.data.dates[date] ) ) {
+
+                                if ( 'undefined' != typeof response.data.dates[date].views ) {
+                                    dataset_views.push( response.data.dates[date].views );
+                                }
+                                else {
+                                    dataset_views.push( 0 );
+                                }
+
+                                if ( 'undefined' != typeof response.data.dates[date].comments ) {
+                                    dataset_comments.push( response.data.dates[date].comments );
+                                }
+                                else {
+                                    dataset_comments.push( 0 );
+                                }
+
+                            }
+                            else {
+                                dataset_views.push( 0 );
+                                dataset_comments.push( 0 );
+                            }
+
+                        }
+
+                        // Update titles
+                        $("#wpp-chart-wrapper h4").html( response.data.totals.label_summary );
+                        $("#wpp-chart-wrapper h5").html( response.data.totals.label_date_range );
+
+                        // Update chart
+                        WPPChart.populate({
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Comments',
+                                    data: dataset_comments,
+                                },
+                                {
+                                    label: 'Views',
+                                    data: dataset_views,
+                                },
+                            ]
+                        });
+
+                        $("#wpp-listing .wpp-tabbed-nav li:eq(0) a").trigger("click");
+
+                        // Update lists
+                        $.get(
+                            ajaxurl,
+                            {
+                                action: 'wpp_get_most_viewed'
+                            },
+                            function( response ){
+                                $("#wpp-listing .wpp-tab-content:eq(0)").html(response);
+                            }
+                        );
+
+                        $.get(
+                            ajaxurl,
+                            {
+                                action: 'wpp_get_most_commented'
+                            },
+                            function( response ){
+                                $("#wpp-listing .wpp-tab-content:eq(1)").html(response);
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
         $("#wpp-time-ranges li a").on("click", function(e){
             e.preventDefault();
 
@@ -87,97 +206,14 @@
             // Update chart
             if ( WPPChart.canRender() ) {
 
-                $.get(
-                    ajaxurl,
-                    {
-                        action: 'wpp_update_chart',
-                        nonce: wpp_admin_params.nonce,
-                        range: me.data("range")
-                    },
-                    function( response ){
-
-                        if ( 'ok' == response.status ) {
-
-                            me.parent().addClass("current").siblings().removeClass("current");
-
-                            var labels = [],
-                                dataset_views = [],
-                                dataset_comments = [];
-
-                            for ( var date in response.data.dates ) {
-
-                                labels.push( response.data.dates[date].nicename );
-
-                                if ( !$.isEmptyObject( response.data.dates[date] ) ) {
-
-                                    if ( 'undefined' != typeof response.data.dates[date].views ) {
-                                        dataset_views.push( response.data.dates[date].views );
-                                    }
-                                    else {
-                                        dataset_views.push( 0 );
-                                    }
-
-                                    if ( 'undefined' != typeof response.data.dates[date].comments ) {
-                                        dataset_comments.push( response.data.dates[date].comments );
-                                    }
-                                    else {
-                                        dataset_comments.push( 0 );
-                                    }
-
-                                }
-                                else {
-                                    dataset_views.push( 0 );
-                                    dataset_comments.push( 0 );
-                                }
-
-                            }
-
-                            // Update titles
-                            $("#wpp-chart-wrapper h4").html( response.data.totals.label_summary );
-                            $("#wpp-chart-wrapper h5").html( response.data.totals.label_date_range );
-
-                            // Update chart
-                            WPPChart.populate({
-                                labels: labels,
-                                datasets: [
-                                    {
-                                        label: 'Comments',
-                                        data: dataset_comments,
-                                    },
-                                    {
-                                        label: 'Views',
-                                        data: dataset_views,
-                                    },
-                                ]
-                            });
-
-                            $("#wpp-listing .wpp-tabbed-nav li:eq(0) a").trigger("click");
-
-                            // Update lists
-                            $.get(
-                                ajaxurl,
-                                {
-                                    action: 'wpp_get_most_viewed'
-                                },
-                                function( response ){
-                                    $("#wpp-listing .wpp-tab-content:eq(0)").html(response);
-                                }
-                            );
-
-                            $.get(
-                                ajaxurl,
-                                {
-                                    action: 'wpp_get_most_commented'
-                                },
-                                function( response ){
-                                    $("#wpp-listing .wpp-tab-content:eq(1)").html(response);
-                                }
-                            );
-
-                        }
-
+                if ( 'custom' != me.data("range") ) {
+                    get_chart_data( me );
+                }
+                else {
+                    if ( !$("#wpp-stats-range").is(":visible") ) {
+                        $("#wpp-stats-range").show();
                     }
-                );
+                }
 
             }
 

@@ -393,7 +393,32 @@ class WPP_Admin {
                 break;
 
             case "custom":
-                // TODO
+                $time_units = array(
+                    "MINUTE" => array("minute", "minutes"),
+                    "HOUR" => array("hour", "hours"),
+                    "DAY" => array("day", "days"),
+                    "WEEK" => array("week", "weeks"),
+                    "MONTH" => array("month", "months"),
+                    "YEAR" => array("year", "years")
+                );
+                $interval = "-24 hours";
+
+                // Valid time unit
+                if (
+                    isset( $this->options['stats']['time_unit'] )
+                    && isset( $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ] )
+                    && isset( $this->options['stats']['time_value'] )
+                    && filter_var( $this->options['stats']['time_value'], FILTER_VALIDATE_INT )
+                    && $this->options['stats']['time_value'] > 0
+                ) {
+                    $interval = "-{$this->options['stats']['time_value']} " . ( $this->options['stats']['time_value'] > 1 ? $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ][1] : $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ][0] );
+                }
+
+                $end_date = $now->format('Y-m-d H:i:s');
+                $start_date = $now->modify($interval)->format('Y-m-d H:i:s');
+
+                break;
+
             default:
                 $end_date = $now->format('Y-m-d');
                 $start_date = $now->modify('-6 day')->format('Y-m-d');
@@ -542,10 +567,16 @@ class WPP_Admin {
         if ( wp_verify_nonce( $nonce, 'wpp_admin_nonce' ) ) {
 
             $valid_ranges = array( 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' );
+            $time_units = array( "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR" );
+
             $range = ( isset( $_GET['range'] ) && in_array( $_GET['range'], $valid_ranges ) ) ? $_GET['range'] : 'last7days';
+            $time_value = ( isset( $_GET['time_value'] ) && filter_var( $_GET['time_value'], FILTER_VALIDATE_INT ) ) ? $_GET['time_value'] : 24;
+            $time_unit = ( isset( $_GET['time_unit'] ) && in_array( strtoupper( $_GET['time_unit'] ), $time_units ) ) ? $_GET['time_unit'] : 'hour';
 
             $admin_options = WPP_Settings::get( 'admin_options' );
             $admin_options['stats']['range'] = $range;
+            $admin_options['stats']['time_value'] = $time_value;
+            $admin_options['stats']['time_unit'] = $time_unit;
             $this->options = $admin_options;
 
             update_site_option( 'wpp_settings_config', $this->options );
