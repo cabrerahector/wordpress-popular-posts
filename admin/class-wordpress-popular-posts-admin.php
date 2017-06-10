@@ -295,7 +295,7 @@ class WPP_Admin {
                 break;
 
             case "custom":
-                $time_units = array( "MINUTE", "HOUR", "DAY", "WEEK", "MONTH" );
+                $time_units = array( "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR" );
                 $interval = "24 HOUR";
 
                 // Valid time unit
