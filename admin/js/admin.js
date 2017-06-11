@@ -27,7 +27,7 @@
 
         });
 
-        $("#wpp-stats-range form .btn-secondary").on('click', function(e){
+        $("#wpp-stats-range form .button-secondary").on('click', function(e){
             e.preventDefault();
 
             if ( $("#wpp-stats-range").is(":visible") ) {
