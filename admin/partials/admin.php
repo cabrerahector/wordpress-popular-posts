@@ -260,7 +260,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
     });
 </script>
 
-<nav id="wpp-menu" class="collapsed">
+<nav id="wpp-menu">
     <ul>
         <li><a href="#" title="<?php esc_attr_e( 'Menu' ); ?>"><span><?php _e( 'Menu' ); ?></span></a></li>
         <li<?php echo ( 'stats' == $current ) ? ' class="current"' : ''; ?>><a href="<?php echo admin_url( 'options-general.php?page=wordpress-popular-posts&tab=stats' ); ?>" title="<?php esc_attr_e( 'Stats', 'wordpress-popular-posts' ); ?>"><span><?php _e( 'Stats', 'wordpress-popular-posts' ); ?></span></a></li>
