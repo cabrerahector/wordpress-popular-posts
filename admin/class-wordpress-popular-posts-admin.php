@@ -300,13 +300,13 @@ class WPP_Admin {
 
                 // Valid time unit
                 if (
-                    isset( $this->options['time_unit'] )
-                    && in_array( strtoupper( $this->options['time_unit'] ), $time_units )
-                    && isset( $this->options['time_value'] )
-                    && filter_var( $this->options['time_value'], FILTER_VALIDATE_INT )
-                    && $this->options['time_value'] > 0
+                    isset( $this->options['stats']['time_unit'] )
+                    && in_array( strtoupper( $this->options['stats']['time_unit'] ), $time_units )
+                    && isset( $this->options['stats']['time_value'] )
+                    && filter_var( $this->options['stats']['time_value'], FILTER_VALIDATE_INT )
+                    && $this->options['stats']['time_value'] > 0
                 ) {
-                    $interval = "{$this->options['time_value']} " . strtoupper( $this->options['time_unit'] );
+                    $interval = "{$this->options['stats']['time_value']} " . strtoupper( $this->options['stats']['time_unit'] );
                 }
 
                 break;
