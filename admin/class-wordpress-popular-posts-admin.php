@@ -295,7 +295,7 @@ class WPP_Admin {
                 break;
 
             case "custom":
-                $time_units = array( "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR" );
+                $time_units = array( "MINUTE", "HOUR", "DAY" );
                 $interval = "24 HOUR";
 
                 // Valid time unit
@@ -396,10 +396,7 @@ class WPP_Admin {
                 $time_units = array(
                     "MINUTE" => array("minute", "minutes"),
                     "HOUR" => array("hour", "hours"),
-                    "DAY" => array("day", "days"),
-                    "WEEK" => array("week", "weeks"),
-                    "MONTH" => array("month", "months"),
-                    "YEAR" => array("year", "years")
+                    "DAY" => array("day", "days")
                 );
                 $interval = "-24 hours";
 
@@ -567,7 +564,7 @@ class WPP_Admin {
         if ( wp_verify_nonce( $nonce, 'wpp_admin_nonce' ) ) {
 
             $valid_ranges = array( 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' );
-            $time_units = array( "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR" );
+            $time_units = array( "MINUTE", "HOUR", "DAY" );
 
             $range = ( isset( $_GET['range'] ) && in_array( $_GET['range'], $valid_ranges ) ) ? $_GET['range'] : 'last7days';
             $time_value = ( isset( $_GET['time_value'] ) && filter_var( $_GET['time_value'], FILTER_VALIDATE_INT ) ) ? $_GET['time_value'] : 24;

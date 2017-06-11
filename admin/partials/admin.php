@@ -331,8 +331,6 @@ $tabs = array(
                 <option <?php if ($this->options['stats']['time_unit'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
                 <option <?php if ($this->options['stats']['time_unit'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", 'wordpress-popular-posts'); ?></option>
                 <option <?php if ($this->options['stats']['time_unit'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", 'wordpress-popular-posts'); ?></option>
-                <option <?php if ($this->options['stats']['time_unit'] == "week") {?>selected="selected"<?php } ?> value="week"><?php _e("Week(s)", 'wordpress-popular-posts'); ?></option>
-                <option <?php if ($this->options['stats']['time_unit'] == "month") {?>selected="selected"<?php } ?> value="month"><?php _e("Month(s)", 'wordpress-popular-posts'); ?></option>
             </select>
 
             <div class="clear"></div>
