@@ -593,6 +593,8 @@ class WPP_Admin {
 
         $args = array(
             'range' => $this->options['stats']['range'],
+            'time_value' => $this->options['stats']['time_value'],
+            'time_unit' => $this->options['stats']['time_unit'],
             'post_type' => $this->options['stats']['post_type'],
             'limit' => $this->options['stats']['limit'],
             'stats_tag' => array(
@@ -641,6 +643,8 @@ class WPP_Admin {
 
         $args = array(
             'range' => $this->options['stats']['range'],
+            'time_value' => $this->options['stats']['time_value'],
+            'time_unit' => $this->options['stats']['time_unit'],
             'post_type' => $this->options['stats']['post_type'],
             'order_by' => 'comments',
             'limit' => $this->options['stats']['limit'],
