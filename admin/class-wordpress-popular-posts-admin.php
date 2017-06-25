@@ -277,6 +277,8 @@ class WPP_Admin {
 
         $now = WPP_Helper::now();
 
+        $where = "WHERE 1 = 1";
+
         // Determine time range
         switch( $this->options['stats']['range'] ){
             case "last24hours":
@@ -327,16 +329,16 @@ class WPP_Admin {
             $placeholders[] = '%s';
         }
 
-        $post_type_filter = $wpdb->prepare(
+        $where .= $wpdb->prepare(
             " AND p.post_type IN(" . implode( ', ', $placeholders ) . ") ",
             $post_types
         );
 
         if ( 'comments' == $this->options['stats']['order_by'] ) {
-            return "WHERE 1 = 1 AND c.comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND c.comment_approved = 1 {$post_type_filter} AND p.post_password = '' AND p.post_status = 'publish'";
+            return $where . " AND c.comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND c.comment_approved = 1 AND p.post_password = '' AND p.post_status = 'publish'";
         }
 
-        return "WHERE 1 = 1 AND v.last_viewed  > DATE_SUB('{$now}', INTERVAL {$interval}) {$post_type_filter} AND p.post_password = '' AND p.post_status = 'publish' ";
+        return $where . " AND v.last_viewed  > DATE_SUB('{$now}', INTERVAL {$interval}) AND p.post_password = '' AND p.post_status = 'publish' ";
 
     }
 
