@@ -334,6 +334,11 @@ class WPP_Admin {
             $post_types
         );
 
+        // Get entries published within the specified time range
+        if ( isset( $this->options['stats']['freshness'] ) && $this->options['stats']['freshness'] ) {
+            $where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL {$interval})";
+        }
+
         if ( 'comments' == $this->options['stats']['order_by'] ) {
             return $where . " AND c.comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND c.comment_approved = 1 AND p.post_password = '' AND p.post_status = 'publish'";
         }
@@ -598,6 +603,7 @@ class WPP_Admin {
             'time_value' => $this->options['stats']['time_value'],
             'time_unit' => $this->options['stats']['time_unit'],
             'post_type' => $this->options['stats']['post_type'],
+            'freshness' => $this->options['stats']['freshness'],
             'limit' => $this->options['stats']['limit'],
             'stats_tag' => array(
                 'comment_count' => 0,
@@ -648,6 +654,7 @@ class WPP_Admin {
             'time_value' => $this->options['stats']['time_value'],
             'time_unit' => $this->options['stats']['time_unit'],
             'post_type' => $this->options['stats']['post_type'],
+            'freshness' => $this->options['stats']['freshness'],
             'order_by' => 'comments',
             'limit' => $this->options['stats']['limit'],
             'stats_tag' => array(
