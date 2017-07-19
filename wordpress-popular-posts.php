@@ -539,7 +539,7 @@ if ( !class_exists('WordpressPopularPosts') ) {
 			// user did not define the custom post type name, so we fall back to default
 			$instance['post_type'] = ( '' == $new_instance['post_type'] )
 			  ? 'post,page'
-			  : $new_instance['post_type'];
+			  : trim($new_instance['post_type']);
 
 			$instance['freshness'] = isset( $new_instance['freshness'] );
 
