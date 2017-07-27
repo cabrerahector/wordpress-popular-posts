@@ -203,7 +203,7 @@ class WPP_Helper {
 
         $trackable = apply_filters( 'wpp_trackable_post_types', $trackable );
 
-        if ( is_singular( $trackable ) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() ) {
+        if ( is_singular( $trackable ) && !is_front_page() && !is_preview() && !is_trackback() && !is_feed() && !is_robots() && !is_customize_preview() ) {
             global $post;
             return ( is_object($post) ) ? $post->ID : false;
         }
