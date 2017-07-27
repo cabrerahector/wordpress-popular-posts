@@ -176,9 +176,35 @@ class WPP_Widget extends WP_Widget {
 
         $instance['freshness'] = isset( $new_instance['freshness'] );
 
-        $instance['pid'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,]|', '', $new_instance['pid'] ))));
-        $instance['cat'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,-]|', '', $new_instance['cat'] ))));
-        $instance['author'] = implode(",", array_filter(explode(",", preg_replace( '|[^0-9,]|', '', $new_instance['uid'] ))));
+        // Post / Page / CTP filter
+        $ids = array_filter( explode( ",", rtrim(preg_replace( '|[^0-9,]|', '', $new_instance['pid'] ), ",") ), 'is_numeric' );
+        // Got no valid IDs, clear
+        if ( empty( $ids ) ) {
+            $instance['pid'] = '';
+        }
+        else {
+            $instance['pid'] = implode( ",", $ids );
+        }
+
+        // Category filter
+        $ids = array_filter( explode( ",", rtrim(preg_replace( '|[^0-9,-]|', '', $new_instance['cat'] ), ",") ), 'is_numeric' );
+        // Got no valid IDs, clear
+        if ( empty( $ids ) ) {
+            $instance['cat'] = '';
+        }
+        else {
+            $instance['cat'] = implode( ",", $ids );
+        }
+
+        // Author filter
+        $ids = array_filter( explode( ",", rtrim(preg_replace( '|[^0-9,]|', '', $new_instance['uid'] ), ",") ), 'is_numeric' );
+        // Got no valid IDs, clear
+        if ( empty( $ids ) ) {
+            $instance['uid'] = '';
+        }
+        else {
+            $instance['uid'] = implode( ",", $ids );
+        }
 
         $instance['shorten_title']['words'] = $new_instance['shorten_title-words'];
         $instance['shorten_title']['active'] = isset( $new_instance['shorten_title-active'] );

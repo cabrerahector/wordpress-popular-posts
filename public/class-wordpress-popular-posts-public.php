@@ -301,9 +301,9 @@ class WPP_Public {
             'freshness' => empty( $freshness ) ? false : $freshness,
             'order_by' => ( in_array( $order_by, $order_by_values ) ) ? $order_by : 'views',
             'post_type' => empty( $post_type ) ? 'post,page' : $post_type,
-            'pid' => preg_replace( '|[^0-9,]|', '', $pid ),
-            'cat' => preg_replace( '|[^0-9,-]|', '', $cat ),
-            'author' => preg_replace( '|[^0-9,]|', '', $author ),
+            'pid' => rtrim( preg_replace( '|[^0-9,]|', '', $pid ), "," ),
+            'cat' => rtrim( preg_replace( '|[^0-9,-]|', '', $cat ), "," ),
+            'author' => rtrim( preg_replace( '|[^0-9,]|', '', $author ), "," ),
             'shorten_title' => array(
                 'active' => ( !empty( $title_length ) && WPP_Helper::is_number( $title_length ) && $title_length > 0 ),
                 'length' => ( !empty( $title_length ) && WPP_Helper::is_number( $title_length) ) ? $title_length : 0,
@@ -340,6 +340,36 @@ class WPP_Public {
                 'post-html' => empty( $post_html ) ? '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>' : $post_html
             )
         );
+
+        // Post / Page / CTP filter
+        $ids = array_filter( explode( ",", $shortcode_ops['pid'] ), 'is_numeric' );
+        // Got no valid IDs, clear
+        if ( empty( $ids ) ) {
+            $shortcode_ops['pid'] = '';
+        }
+        else {
+            $instance['pid'] = implode( ",", $ids );
+        }
+
+        // Category filter
+        $ids = array_filter( explode( ",", $shortcode_ops['cat'] ), 'is_numeric' );
+        // Got no valid IDs, clear
+        if ( empty( $ids ) ) {
+            $shortcode_ops['cat'] = '';
+        }
+        else {
+            $instance['cat'] = implode( ",", $ids );
+        }
+
+        // Author filter
+        $ids = array_filter( explode( ",", $shortcode_ops['author'] ), 'is_numeric' );
+        // Got no valid IDs, clear
+        if ( empty( $ids ) ) {
+            $shortcode_ops['author'] = '';
+        }
+        else {
+            $instance['author'] = implode( ",", $ids );
+        }
 
         $shortcode_content = "\n". "<!-- WordPress Popular Posts Plugin v". $this->version ." [" . ( $php ? "PHP" : "SC" ) . "] [".$shortcode_ops['range']."] [".$shortcode_ops['order_by']."] [custom]" . ( !empty($shortcode_ops['pid']) ? " [PID]" : "" ) . ( !empty($shortcode_ops['cat']) ? " [CAT]" : "" ) . ( !empty($shortcode_ops['author']) ? " [UID]" : "" ) . " -->"."\n";
 
