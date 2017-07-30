@@ -31,7 +31,19 @@
     <option value="weekly" <?php if ( 'weekly' == $instance['range'] || 'last7days' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Last 7 days', 'wordpress-popular-posts'); ?></option>
     <option value="monthly" <?php if ( 'monthly' == $instance['range'] || 'last30days' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Last 30 days', 'wordpress-popular-posts'); ?></option>
     <option value="all" <?php if ( 'all' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('All-time', 'wordpress-popular-posts'); ?></option>
+    <option value="custom" <?php if ( 'custom' == $instance['range'] ) echo 'selected="selected"'; ?>><?php _e('Custom', 'wordpress-popular-posts'); ?></option>
 </select><br />
+
+<div style="display: <?php echo ( 'custom' == $instance['range'] ) ? "block" : "none"; ?>">
+    <input type="text" id="<?php echo $this->get_field_id( 'time_value' ); ?>" name="<?php echo $this->get_field_name( 'time_value' ); ?>" value="<?php echo $instance['time_value']; ?>" style="display: inline; float: left; width: 50px!important;" />
+
+    <select id="<?php echo $this->get_field_id( 'time_unit' ); ?>" name="<?php echo $this->get_field_name( 'time_unit' ); ?>" style="margin-bottom: 5px;">
+        <option <?php if ($instance['time_unit'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
+        <option <?php if ($instance['time_unit'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", 'wordpress-popular-posts'); ?></option>
+        <option <?php if ($instance['time_unit'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", 'wordpress-popular-posts'); ?></option>
+    </select>
+</div>
+<div class="clearfix"></div>
 
 <input type="checkbox" class="checkbox" <?php echo ($instance['freshness']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'freshness' ); ?>" name="<?php echo $this->get_field_name( 'freshness' ); ?>" /> <label for="<?php echo $this->get_field_id( 'freshness' ); ?>"><small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small></label><br /><br />
 

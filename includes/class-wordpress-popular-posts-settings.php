@@ -31,6 +31,8 @@ class WPP_Settings {
             'title' => '',
             'limit' => 10,
             'range' => 'daily',
+            'time_unit' => 'hour',
+            'time_value' => 24,
             'freshness' => false,
             'order_by' => 'views',
             'post_type' => 'post,page',

@@ -166,6 +166,10 @@ class WPP_Widget extends WP_Widget {
           ? $new_instance['limit']
           : 10;
         $instance['range'] = $new_instance['range'];
+        $instance['time_value'] = ( WPP_Helper::is_number($new_instance['time_value']) && $new_instance['time_value'] > 0 )
+          ? $new_instance['time_value']
+          : 24;
+        $instance['time_unit'] = $new_instance['time_unit'];
         $instance['order_by'] = $new_instance['order_by'];
 
         // FILTERS
