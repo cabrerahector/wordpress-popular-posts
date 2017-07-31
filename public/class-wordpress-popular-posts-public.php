@@ -293,6 +293,7 @@ class WPP_Public {
         ), $atts, 'wpp') );
 
         // possible values for "Time Range" and "Order by"
+        $time_units = array( "minute", "hour", "day", "week", "month" );
         $range_values = array( "daily", "last24hours", "weekly", "last7days", "monthly", "last30days", "all", "custom" );
         $order_by_values = array( "comments", "views", "avg" );
 
@@ -300,6 +301,8 @@ class WPP_Public {
             'title' => strip_tags( $header ),
             'limit' => ( !empty( $limit ) && WPP_Helper::is_number( $limit ) && $limit > 0 ) ? $limit : 10,
             'range' => ( in_array($range, $range_values) ) ? $range : 'daily',
+            'time_quantity' => ( !empty( $time_quantity ) && WPP_Helper::is_number( $time_quantity ) && $time_quantity > 0 ) ? $time_quantity : 24,
+            'time_unit' => ( in_array($time_unit, $time_units) ) ? $time_unit : 'hour',
             'freshness' => empty( $freshness ) ? false : $freshness,
             'order_by' => ( in_array( $order_by, $order_by_values ) ) ? $order_by : 'views',
             'post_type' => empty( $post_type ) ? 'post,page' : $post_type,
