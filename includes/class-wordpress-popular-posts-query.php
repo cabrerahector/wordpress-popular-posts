@@ -318,11 +318,11 @@ class WPP_Query {
                         if (
                             isset( $this->options['time_unit'] )
                             && in_array( strtoupper( $this->options['time_unit'] ), $time_units )
-                            && isset( $this->options['time_value'] )
-                            && filter_var( $this->options['time_value'], FILTER_VALIDATE_INT )
-                            && $this->options['time_value'] > 0
+                            && isset( $this->options['time_quantity'] )
+                            && filter_var( $this->options['time_quantity'], FILTER_VALIDATE_INT )
+                            && $this->options['time_quantity'] > 0
                         ) {
-                            $interval = "{$this->options['time_value']} " . strtoupper( $this->options['time_unit'] );
+                            $interval = "{$this->options['time_quantity']} " . strtoupper( $this->options['time_unit'] );
                         }
 
                         break;

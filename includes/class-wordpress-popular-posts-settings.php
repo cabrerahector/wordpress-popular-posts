@@ -32,7 +32,7 @@ class WPP_Settings {
             'limit' => 10,
             'range' => 'daily',
             'time_unit' => 'hour',
-            'time_value' => 24,
+            'time_quantity' => 24,
             'freshness' => false,
             'order_by' => 'views',
             'post_type' => 'post,page',
@@ -85,7 +85,7 @@ class WPP_Settings {
             'stats' => array(
                 'range' => 'last7days',
                 'time_unit' => 'hour',
-                'time_value' => 24,
+                'time_quantity' => 24,
                 'order_by' => 'views',
                 'limit' => 10,
                 'post_type' => 'post,page',
