@@ -455,7 +455,9 @@ class WPP_Output {
         $date = '';
 
         if ( $this->options['stats_tag']['date']['active'] ) {
-            $date = date_i18n( $this->options['stats_tag']['date']['format'], strtotime($post_object->date) );
+            $date = ( 'relative' == $this->options['stats_tag']['date']['format'] ) 
+                ? sprintf( _x( '%s ago', '%s = human-readable time difference', 'wordpress-popular-posts' ), human_time_diff( strtotime($post_object->date), current_time( 'timestamp' ) ) )
+                : date_i18n( $this->options['stats_tag']['date']['format'], strtotime($post_object->date) );
         }
 
         return $date;
@@ -686,7 +688,7 @@ class WPP_Output {
         // date
         if ( $this->options['stats_tag']['date']['active'] ) {
             $date = $this->get_date( $post_object );
-            $stats[] = '<span class="wpp-date">' . sprintf(__('posted on %s', 'wordpress-popular-posts'), $date) . '</span>';
+            $stats[] = '<span class="wpp-date">' . ( 'relative' == $this->options['stats_tag']['date']['format'] ? sprintf(__('posted %s', 'wordpress-popular-posts'), $date) : sprintf(__('posted on %s', 'wordpress-popular-posts'), $date) ) . '</span>';
         }
 
         // taxonomy
