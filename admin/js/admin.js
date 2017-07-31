@@ -44,7 +44,7 @@
                     action: 'wpp_update_chart',
                     nonce: wpp_admin_params.nonce,
                     range: me.data("range"),
-                    time_value: $("#stats_range_time_value").val(),
+                    time_quantity: $("#stats_range_time_quantity").val(),
                     time_unit: $("#stats_range_time_unit").val()
                 },
                 function( response ){

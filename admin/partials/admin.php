@@ -325,7 +325,7 @@ $tabs = array(
 
             <p style="text-align: center;"><?php _e('Time Range', 'wordpress-popular-posts'); ?> &mdash; <?php _e('Custom', 'wordpress-popular-posts'); ?></p>
 
-            <input type="text" id="stats_range_time_value" name="stats_range_time_value" value="<?php echo $this->options['stats']['time_value']; ?>">
+            <input type="text" id="stats_range_time_quantity" name="stats_range_time_quantity" value="<?php echo $this->options['stats']['time_quantity']; ?>">
 
             <select id="stats_range_time_unit" name="stats_range_time_unit">
                 <option <?php if ($this->options['stats']['time_unit'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
@@ -389,7 +389,7 @@ $tabs = array(
             $args = array(
                 'range' => 'custom',
                 'time_unit' => 'HOUR',
-                'time_value'=> 12,
+                'time_quantity'=> 12,
                 'post_type' => $this->options['stats']['post_type'],
                 'order_by' => 'views',
                 'limit' => $this->options['stats']['limit'],

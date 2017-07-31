@@ -35,7 +35,7 @@
 </select><br />
 
 <div style="display: <?php echo ( 'custom' == $instance['range'] ) ? "block" : "none"; ?>">
-    <input type="text" id="<?php echo $this->get_field_id( 'time_value' ); ?>" name="<?php echo $this->get_field_name( 'time_value' ); ?>" value="<?php echo $instance['time_value']; ?>" style="display: inline; float: left; width: 50px!important;" />
+    <input type="text" id="<?php echo $this->get_field_id( 'time_quantity' ); ?>" name="<?php echo $this->get_field_name( 'time_quantity' ); ?>" value="<?php echo $instance['time_quantity']; ?>" style="display: inline; float: left; width: 50px!important;" />
 
     <select id="<?php echo $this->get_field_id( 'time_unit' ); ?>" name="<?php echo $this->get_field_name( 'time_unit' ); ?>" style="margin-bottom: 5px;">
         <option <?php if ($instance['time_unit'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>

@@ -304,11 +304,11 @@ class WPP_Admin {
                 if (
                     isset( $this->options['stats']['time_unit'] )
                     && in_array( strtoupper( $this->options['stats']['time_unit'] ), $time_units )
-                    && isset( $this->options['stats']['time_value'] )
-                    && filter_var( $this->options['stats']['time_value'], FILTER_VALIDATE_INT )
-                    && $this->options['stats']['time_value'] > 0
+                    && isset( $this->options['stats']['time_quantity'] )
+                    && filter_var( $this->options['stats']['time_quantity'], FILTER_VALIDATE_INT )
+                    && $this->options['stats']['time_quantity'] > 0
                 ) {
-                    $interval = "{$this->options['stats']['time_value']} " . strtoupper( $this->options['stats']['time_unit'] );
+                    $interval = "{$this->options['stats']['time_quantity']} " . strtoupper( $this->options['stats']['time_unit'] );
                 }
 
                 break;
@@ -411,11 +411,11 @@ class WPP_Admin {
                 if (
                     isset( $this->options['stats']['time_unit'] )
                     && isset( $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ] )
-                    && isset( $this->options['stats']['time_value'] )
-                    && filter_var( $this->options['stats']['time_value'], FILTER_VALIDATE_INT )
-                    && $this->options['stats']['time_value'] > 0
+                    && isset( $this->options['stats']['time_quantity'] )
+                    && filter_var( $this->options['stats']['time_quantity'], FILTER_VALIDATE_INT )
+                    && $this->options['stats']['time_quantity'] > 0
                 ) {
-                    $interval = "-{$this->options['stats']['time_value']} " . ( $this->options['stats']['time_value'] > 1 ? $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ][1] : $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ][0] );
+                    $interval = "-{$this->options['stats']['time_quantity']} " . ( $this->options['stats']['time_quantity'] > 1 ? $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ][1] : $time_units[ strtoupper( $this->options['stats']['time_unit'] ) ][0] );
                 }
 
                 $end_date = date( 'Y-m-d', strtotime( $now->format('Y-m-d H:i:s') ) );
@@ -574,12 +574,12 @@ class WPP_Admin {
             $time_units = array( "MINUTE", "HOUR", "DAY" );
 
             $range = ( isset( $_GET['range'] ) && in_array( $_GET['range'], $valid_ranges ) ) ? $_GET['range'] : 'last7days';
-            $time_value = ( isset( $_GET['time_value'] ) && filter_var( $_GET['time_value'], FILTER_VALIDATE_INT ) ) ? $_GET['time_value'] : 24;
+            $time_quantity = ( isset( $_GET['time_quantity'] ) && filter_var( $_GET['time_quantity'], FILTER_VALIDATE_INT ) ) ? $_GET['time_quantity'] : 24;
             $time_unit = ( isset( $_GET['time_unit'] ) && in_array( strtoupper( $_GET['time_unit'] ), $time_units ) ) ? $_GET['time_unit'] : 'hour';
 
             $admin_options = WPP_Settings::get( 'admin_options' );
             $admin_options['stats']['range'] = $range;
-            $admin_options['stats']['time_value'] = $time_value;
+            $admin_options['stats']['time_quantity'] = $time_quantity;
             $admin_options['stats']['time_unit'] = $time_unit;
             $this->options = $admin_options;
 
@@ -600,7 +600,7 @@ class WPP_Admin {
 
         $args = array(
             'range' => $this->options['stats']['range'],
-            'time_value' => $this->options['stats']['time_value'],
+            'time_quantity' => $this->options['stats']['time_quantity'],
             'time_unit' => $this->options['stats']['time_unit'],
             'post_type' => $this->options['stats']['post_type'],
             'freshness' => $this->options['stats']['freshness'],
@@ -651,7 +651,7 @@ class WPP_Admin {
 
         $args = array(
             'range' => $this->options['stats']['range'],
-            'time_value' => $this->options['stats']['time_value'],
+            'time_quantity' => $this->options['stats']['time_quantity'],
             'time_unit' => $this->options['stats']['time_unit'],
             'post_type' => $this->options['stats']['post_type'],
             'freshness' => $this->options['stats']['freshness'],
