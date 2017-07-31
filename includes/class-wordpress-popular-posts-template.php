@@ -29,24 +29,23 @@ function wpp_get_views($id = NULL, $range = NULL, $number_format = true) {
             $interval = "";
 
             switch( $range ){
-                case "yesterday":
-                    $interval = "1 DAY";
-                break;
-
+                case "last24hours":
                 case "daily":
-                    $interval = "1 DAY";
+                    $interval = "24 HOUR";
                 break;
 
+                case "last7days":
                 case "weekly":
-                    $interval = "1 WEEK";
+                    $interval = "6 DAY";
                 break;
 
+                case "last30days":
                 case "monthly":
-                    $interval = "1 MONTH";
+                    $interval = "29 DAY";
                 break;
 
                 default:
-                    $interval = "1 DAY";
+                    $interval = "24 HOUR";
                 break;
             }
 

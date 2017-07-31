@@ -262,6 +262,8 @@ class WPP_Public {
             'header' => '',
             'limit' => 10,
             'range' => 'daily',
+            'time_unit' => 'hour',
+            'time_quantity' => 24,
             'freshness' => false,
             'order_by' => 'views',
             'post_type' => 'post,page',
@@ -291,7 +293,7 @@ class WPP_Public {
         ), $atts, 'wpp') );
 
         // possible values for "Time Range" and "Order by"
-        $range_values = array( "yesterday", "daily", "weekly", "monthly", "all" );
+        $range_values = array( "daily", "last24hours", "weekly", "last7days", "monthly", "last30days", "all", "custom" );
         $order_by_values = array( "comments", "views", "avg" );
 
         $shortcode_ops = array(
