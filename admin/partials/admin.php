@@ -768,9 +768,23 @@ $tabs = array(
                     <tr>
                         <td><strong>range</strong></td>
                         <td><?php _e('Tells WordPress Popular Posts to retrieve the most popular entries within the time range specified by you', 'wordpress-popular-posts'); ?></td>
-                        <td>"last24hours", "last7days", "last30days", "all"</td>
+                        <td>"last24hours", "last7days", "last30days", "all", "custom"</td>
                         <td>last24hours</td>
                         <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'range' => 'last7days'<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp range='last7days']<br /><br /></td>
+                    </tr>
+                    <tr class="alternate">
+                        <td><strong>time_quantity</strong></td>
+                        <td><?php _e('Especifies the number of time units of the custom time range', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Positive integer', 'wordpress-popular-posts'); ?></td>
+                        <td>24</td>
+                        <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'range' => 'custom',<br />&nbsp;&nbsp;&nbsp;&nbsp;'time_quantity' => 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;'time_unit' => 'hour'<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp range='custom' time_quantity=1 time_unit='hour']<br /><br /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>time_unit</strong></td>
+                        <td><?php _e('Especifies the time unit of the custom time range', 'wordpress-popular-posts'); ?></td>
+                        <td>minute, hour, day, week, month</td>
+                        <td>hour</td>
+                        <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'range' => 'custom',<br />&nbsp;&nbsp;&nbsp;&nbsp;'time_quantity' => 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;'time_unit' => 'hour'<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp range='custom' time_quantity=1 time_unit='hour']<br /><br /></td>
                     </tr>
                     <tr class="alternate">
                         <td><strong>freshness</strong></td>
