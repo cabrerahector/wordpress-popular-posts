@@ -190,14 +190,17 @@ class WPP_Widget extends WP_Widget {
             $instance['pid'] = implode( ",", $ids );
         }
 
-        // Category filter
-        $ids = array_filter( explode( ",", rtrim(preg_replace( '|[^0-9,-]|', '', $new_instance['cat'] ), ",") ), 'is_numeric' );
+        // Taxonomy filter
+        $instance['taxonomy'] = $new_instance['taxonomy'];
+        $instance['cat'] = ''; // Deprecated in 4.0.0!
+
+        $ids = array_filter( explode( ",", rtrim(preg_replace( '|[^0-9,-]|', '', $new_instance['term_id'] ), ",") ), 'is_numeric' );
         // Got no valid IDs, clear
         if ( empty( $ids ) ) {
-            $instance['cat'] = '';
+            $instance['term_id'] = '';
         }
         else {
-            $instance['cat'] = implode( ",", $ids );
+            $instance['term_id'] = implode( ",", $ids );
         }
 
         // Author filter

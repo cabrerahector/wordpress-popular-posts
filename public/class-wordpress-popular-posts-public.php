@@ -269,6 +269,8 @@ class WPP_Public {
             'post_type' => 'post,page',
             'pid' => '',
             'cat' => '',
+            'taxonomy' => 'category',
+            'term_id' => '',
             'author' => '',
             'title_length' => 0,
             'title_by_words' => 0,
@@ -308,6 +310,8 @@ class WPP_Public {
             'post_type' => empty( $post_type ) ? 'post,page' : $post_type,
             'pid' => rtrim( preg_replace( '|[^0-9,]|', '', $pid ), "," ),
             'cat' => rtrim( preg_replace( '|[^0-9,-]|', '', $cat ), "," ),
+            'taxonomy' => empty( $taxonomy ) ? 'category' : $taxonomy,
+            'term_id' => rtrim( preg_replace( '|[^0-9,-]|', '', $term_id ), "," ),
             'author' => rtrim( preg_replace( '|[^0-9,]|', '', $author ), "," ),
             'shorten_title' => array(
                 'active' => ( !empty( $title_length ) && WPP_Helper::is_number( $title_length ) && $title_length > 0 ),

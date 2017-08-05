@@ -53,8 +53,24 @@
 <label for="<?php echo $this->get_field_id( 'pid' ); ?>"><?php _e('Post(s) ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
 <input type="text" id="<?php echo $this->get_field_id( 'pid' ); ?>" name="<?php echo $this->get_field_name( 'pid' ); ?>" value="<?php echo $instance['pid']; ?>" class="widefat" /><br /><br />
 
-<label for="<?php echo $this->get_field_id( 'cat' ); ?>"><?php _e('Category(ies) ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-category-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
-<input type="text" id="<?php echo $this->get_field_id( 'cat' ); ?>" name="<?php echo $this->get_field_name( 'cat' ); ?>" value="<?php echo $instance['cat']; ?>" class="widefat" /><br /><br />
+<label for="<?php echo $this->get_field_id( 'tax_id' ); ?>"><?php _e('Taxonomy', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-category-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br />
+<?php
+// Taxonomy filter
+if ( $taxonomies = get_taxonomies( array('public' => true), 'objects' ) ) {
+
+    foreach ( $taxonomies  as $taxonomy ) {
+        if ( 'post_format' == $taxonomy->name )
+            continue;
+
+        echo '<label><input type="radio" name="' . $this->get_field_name( 'taxonomy' ) . '" value="' . $taxonomy->name . '"' . ( ( !empty($instance['cat']) && 'category' == $taxonomy->name ) || ( $instance['taxonomy'] == $taxonomy->name ) ? ' checked' : '' ) . '> ' . $taxonomy->labels->singular_name . '</label><br>';
+    }
+?>
+<input type="text" id="<?php echo $this->get_field_id( 'term_id' ); ?>" name="<?php echo $this->get_field_name( 'term_id' ); ?>" value="<?php echo ( !empty($instance['cat']) ) ? $instance['cat'] : $instance['term_id']; ?>" class="widefat" style="margin-top: 4px;" /><br />
+<small><?php _e('Taxonomy IDs, separated by comma (prefix a minus sign to exclude)', 'wordpress-popular-posts'); ?></small>
+<br /><br />
+<?php
+}
+?>
 
 <label for="<?php echo $this->get_field_id( 'uid' ); ?>"><?php _e('Author(s) ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-authors-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
 <input type="text" id="<?php echo $this->get_field_id( 'uid' ); ?>" name="<?php echo $this->get_field_name( 'uid' ); ?>" value="<?php echo $instance['author']; ?>" class="widefat" /><br /><br />
