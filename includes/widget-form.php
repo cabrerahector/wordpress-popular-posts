@@ -50,7 +50,7 @@
 <label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e('Post type(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-post-type-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
 <input type="text" id="<?php echo $this->get_field_id( 'post_type' ); ?>" name="<?php echo $this->get_field_name( 'post_type' ); ?>" value="<?php echo $instance['post_type']; ?>" class="widefat" /><br /><br />
 
-<label for="<?php echo $this->get_field_id( 'pid' ); ?>"><?php _e('Post(s) ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
+<label for="<?php echo $this->get_field_id( 'pid' ); ?>"><?php _e('Post ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
 <input type="text" id="<?php echo $this->get_field_id( 'pid' ); ?>" name="<?php echo $this->get_field_name( 'pid' ); ?>" value="<?php echo $instance['pid']; ?>" class="widefat" /><br /><br />
 
 <label for="<?php echo $this->get_field_id( 'tax_id' ); ?>"><?php _e('Taxonomy', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-category-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br />
@@ -72,7 +72,7 @@ if ( $taxonomies = get_taxonomies( array('public' => true), 'objects' ) ) {
 }
 ?>
 
-<label for="<?php echo $this->get_field_id( 'uid' ); ?>"><?php _e('Author(s) ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-authors-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
+<label for="<?php echo $this->get_field_id( 'uid' ); ?>"><?php _e('Author ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-authors-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
 <input type="text" id="<?php echo $this->get_field_id( 'uid' ); ?>" name="<?php echo $this->get_field_name( 'uid' ); ?>" value="<?php echo $instance['author']; ?>" class="widefat" /><br /><br />
 
 <!-- Post features -->
