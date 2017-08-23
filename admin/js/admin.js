@@ -39,6 +39,8 @@
                 $("#wpp-stats-range").hide();
             }
 
+            $("#stats_range_date").val('');
+
         });
 
         function get_chart_data( me ) {
@@ -176,6 +178,79 @@
                 return me.parent().index() == index;
             }).addClass("wpp-lightbox-tab-content-active");
 
+        });
+
+        // Datepicker
+        $.datepicker._defaults.onAfterUpdate = null;
+        var datepicker__updateDatepicker = $.datepicker._updateDatepicker;
+
+        $.datepicker._updateDatepicker = function( instance ){
+
+            datepicker__updateDatepicker.call( this, instance );
+
+            var onAfterUpdate = this._get( instance, 'onAfterUpdate' );
+
+            if ( onAfterUpdate ) {
+                onAfterUpdate.apply( ( instance.input ? instance.input[0] : null ), [( instance.input ? instance.input.val() : '' ), instance] );
+            }
+        };
+
+        var curr = -1,
+            prev = -1;
+
+        var dp_field = $("#stats_range_date");
+
+        var wpp_datepicker = dp_field.datepicker({
+            dateFormat: 'yy-mm-dd',
+            showButtonPanel: true,
+            beforeShowDay: function(date){
+                return [true, ( (date.getTime() >= Math.min(prev, curr) && date.getTime() <= Math.max(prev, curr) ) ? 'date-range-selected' : '' )]
+            },
+            onSelect: function(dateText, instance){
+
+                var d1, d2;
+
+                prev = curr;
+
+                curr = ( new Date(instance.selectedYear, instance.selectedMonth, instance.selectedDay) ).getTime();
+
+                if (
+                    -1 == prev
+                    || prev == curr
+                ) {
+                    prev = curr;
+                    dp_field.val( dateText );
+                }
+                else {
+
+                    d1 = $.datepicker.formatDate('yy-mm-dd', new Date( Math.min(prev, curr) ), {});
+                    d2 = $.datepicker.formatDate('yy-mm-dd', new Date( Math.max(prev, curr) ), {});
+
+                    dp_field.val( d1 + ' ~ ' + d2 );
+
+                }
+
+                $(this).data('datepicker').inline = true;
+
+            },
+            onClose: function(){
+                $(this).data('datepicker').inline = false;
+            },
+            onAfterUpdate: function( instance ){
+
+                var calendar = $(this);
+
+                if (
+                    prev > -1
+                    && curr > -1
+                ){
+
+                    $('<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">OK</button>').appendTo( $(".ui-datepicker-buttonpane") ).on('click', function(){
+                        dp_field.datepicker('hide');
+                    });
+
+                }
+            }
         });
 
         // STATISTICS TABS

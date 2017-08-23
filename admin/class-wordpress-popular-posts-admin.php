@@ -152,6 +152,7 @@ class WPP_Admin {
         
         if ( isset( $screen->id ) && $screen->id == $this->plugin_screen_hook_suffix ) {
             wp_enqueue_style( 'font-awesome', plugin_dir_url( __FILE__ ) . 'css/vendor/font-awesome.min.css', array(), '4.7.0', 'all' );
+            wp_enqueue_style( 'wpp-datepicker-theme', plugin_dir_url( __FILE__ ) . 'css/datepicker.css', array(), $this->version, 'all' );
             wp_enqueue_style( 'wordpress-popular-posts-admin-styles', plugin_dir_url( __FILE__ ) . 'css/admin.css', array(), $this->version, 'all' );
         }
         
@@ -175,6 +176,7 @@ class WPP_Admin {
             wp_enqueue_script( 'thickbox' );
             wp_enqueue_style( 'thickbox' );
             wp_enqueue_script( 'media-upload' );
+            wp_enqueue_script( 'jquery-ui-datepicker' );
             wp_enqueue_script( 'chartjs', plugin_dir_url( __FILE__ ) . 'js/vendor/Chart.min.js', array(), $this->version );
             wp_enqueue_script( 'wpp-chart', plugin_dir_url( __FILE__ ) . 'js/chart.js', array('chartjs'), $this->version );
             wp_register_script( 'wordpress-popular-posts-admin-script', plugin_dir_url( __FILE__ ) . 'js/admin.js', array('jquery'), $this->version, true );

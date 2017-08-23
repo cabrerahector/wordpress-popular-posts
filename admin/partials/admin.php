@@ -340,7 +340,7 @@ $tabs = array(
 
             </div>
 
-            <div class="wpp-lightbox-tab-content" id="custom-time-range">
+            <div class="wpp-lightbox-tab-content" id="custom-date-range">
                 <input type="text" id="stats_range_date" name="stats_range_date" value="" placeholder="<?php esc_attr_e('Select a date...', 'wordpress-popular-posts'); ?>" readonly>
             </div>
 
