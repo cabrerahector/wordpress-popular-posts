@@ -379,7 +379,6 @@ class WPP_Widget extends WP_Widget {
                 $popular_posts = new WPP_Query( $instance );
             }
 
-            $popular_posts = new WPP_Query( $instance );
             $output = new WPP_Output( $popular_posts->get_posts(), $instance );
 
             echo ( $this->admin_options['tools']['cache']['active'] ? '<!-- cached -->' : '' );
