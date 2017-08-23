@@ -308,6 +308,10 @@ class WPP_Widget extends WP_Widget {
 
                 if ( isset( $widget_instances[$id] ) ) {
                     $instance = $widget_instances[$id];
+
+                    if ( !isset( $instance['widget_id'] ) ) {
+                        $instance['widget_id'] = $this->id;
+                    }
                 }
 
             }
