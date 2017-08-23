@@ -218,7 +218,8 @@
                 }
 
                     #wpp-listing .wpp-tabbed-nav li a .fa {
-                        display: none;
+                        display: inline-block;
+                        margin: 0 8px 0 0;
                     }
 
         .wpp-tab-content {
@@ -343,7 +344,7 @@
         }
 
         #wpp-listing .wpp-tabbed-nav li a .fa {
-            display: inline-block;
+            margin: 0 0 0 0;
         }
 
 }
