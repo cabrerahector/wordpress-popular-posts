@@ -425,7 +425,7 @@ class WPP_Admin {
 
             default:
                 $end_date = $now->format('Y-m-d');
-                $start_date = $now->modify('-6 day')->format('Y-m-d');
+                $start_date = $now->modify('-6 days')->format('Y-m-d');
                 break;
         }
 
