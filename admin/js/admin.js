@@ -165,6 +165,19 @@
 
         });
 
+        $(".wpp-lightbox-tabs li a").on("click", function(e){
+            e.preventDefault();
+
+            var me = $(this);
+
+            me.parent().addClass("active").siblings().removeClass("active");
+
+            me.closest(".wpp-lightbox").find(".wpp-lightbox-tab-content").removeClass("wpp-lightbox-tab-content-active").filter(function( index ) {
+                return me.parent().index() == index;
+            }).addClass("wpp-lightbox-tab-content-active");
+
+        });
+
         // STATISTICS TABS
         $("#wpp-listing .wpp-tabbed-nav li a").on("click", function(e){
             e.preventDefault();

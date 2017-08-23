@@ -323,18 +323,29 @@ $tabs = array(
 
         <form action="" method="post">
 
-            <p style="text-align: center;"><?php _e('Time Range', 'wordpress-popular-posts'); ?> &mdash; <?php _e('Custom', 'wordpress-popular-posts'); ?></p>
+            <ul class="wpp-lightbox-tabs">
+                <li class="active"><a href="#"><?php _e('Custom Time Range', 'wordpress-popular-posts'); ?></a></li>
+                <li><a href="#"><?php _e('Date Range', 'wordpress-popular-posts'); ?></a></li>
+            </ul>
 
-            <input type="text" id="stats_range_time_quantity" name="stats_range_time_quantity" value="<?php echo $this->options['stats']['time_quantity']; ?>">
+            <div class="wpp-lightbox-tab-content wpp-lightbox-tab-content-active" id="custom-time-range">
 
-            <select id="stats_range_time_unit" name="stats_range_time_unit">
-                <option <?php if ($this->options['stats']['time_unit'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
-                <option <?php if ($this->options['stats']['time_unit'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", 'wordpress-popular-posts'); ?></option>
-                <option <?php if ($this->options['stats']['time_unit'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", 'wordpress-popular-posts'); ?></option>
-            </select>
+                <input type="text" id="stats_range_time_quantity" name="stats_range_time_quantity" value="<?php echo $this->options['stats']['time_quantity']; ?>">
+
+                <select id="stats_range_time_unit" name="stats_range_time_unit">
+                    <option <?php if ($this->options['stats']['time_unit'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
+                    <option <?php if ($this->options['stats']['time_unit'] == "hour") {?>selected="selected"<?php } ?> value="hour"><?php _e("Hour(s)", 'wordpress-popular-posts'); ?></option>
+                    <option <?php if ($this->options['stats']['time_unit'] == "day") {?>selected="selected"<?php } ?> value="day"><?php _e("Day(s)", 'wordpress-popular-posts'); ?></option>
+                </select>
+
+            </div>
+
+            <div class="wpp-lightbox-tab-content" id="custom-time-range">
+                <input type="text" id="stats_range_date" name="stats_range_date" value="" placeholder="<?php esc_attr_e('Select a date...', 'wordpress-popular-posts'); ?>" readonly>
+            </div>
 
             <div class="clear"></div>
-            <br /><br />
+            <br />
 
             <button type="submit" class="button-primary action">
                 <?php _e("Apply", 'wordpress-popular-posts'); ?>
