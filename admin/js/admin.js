@@ -224,6 +224,7 @@
         var dp_field = $("#stats_range_date");
 
         var wpp_datepicker = dp_field.datepicker({
+            maxDate: 0,
             dateFormat: 'yy-mm-dd',
             showButtonPanel: true,
             beforeShowDay: function(date){
