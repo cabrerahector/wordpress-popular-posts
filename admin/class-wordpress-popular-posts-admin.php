@@ -526,6 +526,7 @@ class WPP_Admin {
         $this->options['stats']['order_by'] = 'views';
 
         $most_viewed = new WPP_query( array(
+            'post_type' => $this->options['stats']['post_type'],
             'range' => $this->options['stats']['range'],
             'time_unit' => $this->options['stats']['time_unit'],
             'time_quantity' => $this->options['stats']['time_quantity'],
@@ -553,6 +554,7 @@ class WPP_Admin {
         add_filter( 'wpp_query_limit', array( $this, 'chart_query_limit' ), 1, 2 );
 
         $most_commented = new WPP_query( array(
+            'post_type' => $this->options['stats']['post_type'],
             'range' => $this->options['stats']['range'],
             'time_unit' => $this->options['stats']['time_unit'],
             'time_quantity' => $this->options['stats']['time_quantity'],
