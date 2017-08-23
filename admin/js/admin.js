@@ -30,6 +30,8 @@
 
             get_chart_data( $("#wpp-time-ranges li a[data-range='custom']") );
 
+            $(".wpp-lightbox-tabs li:eq(0) a").trigger("click");
+
         });
 
         $("#wpp-stats-range form .button-secondary").on('click', function(e){
@@ -40,6 +42,8 @@
             }
 
             $("#stats_range_date").val('');
+
+            $(".wpp-lightbox-tabs li:eq(0) a").trigger("click");
 
         });
 
