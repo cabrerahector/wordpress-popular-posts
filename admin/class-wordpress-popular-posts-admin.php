@@ -245,7 +245,7 @@ class WPP_Admin {
 
     public function chart_query_fields( $fields, $options ){
 
-        if ( 'comments' == $this->options['stats']['order_by'] ) {
+        if ( 'comments' == $options['order_by'] ) {
             return "DATE(c.comment_date_gmt) AS 'date', COUNT(c.comment_post_ID) AS 'comment_count'";
         }
 
@@ -255,7 +255,7 @@ class WPP_Admin {
 
     public function chart_query_table( $table, $options ){
 
-        if ( 'comments' == $this->options['stats']['order_by'] ) {
+        if ( 'comments' == $options['order_by'] ) {
             return "`wp_comments` c";
         }
 
@@ -265,7 +265,7 @@ class WPP_Admin {
 
     public function chart_query_join( $join, $options ){
 
-        if ( 'comments' == $this->options['stats']['order_by'] ) {
+        if ( 'comments' == $options['order_by'] ) {
             return "INNER JOIN `wp_posts` p ON c.comment_post_ID = p.ID";
         }
 
@@ -522,9 +522,6 @@ class WPP_Admin {
         add_filter( 'wpp_query_order_by', array( $this, 'chart_query_order_by' ), 1, 2 );
         add_filter( 'wpp_query_limit', array( $this, 'chart_query_limit' ), 1, 2 );
 
-        $original_order_by = $this->options['stats']['order_by'];
-        $this->options['stats']['order_by'] = 'views';
-
         $most_viewed = new WPP_query( array(
             'post_type' => $this->options['stats']['post_type'],
             'range' => $this->options['stats']['range'],
@@ -534,16 +531,11 @@ class WPP_Admin {
         ) );
         $views_data = $most_viewed->get_posts();
 
-        $this->options['stats']['order_by'] = $original_order_by;
-
         remove_filter( 'wpp_query_fields', array( $this, 'chart_query_fields' ), 1 );
         remove_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1 );
         remove_filter( 'wpp_query_group_by', array( $this, 'chart_query_group_by' ), 1 );
         remove_filter( 'wpp_query_order_by', array( $this, 'chart_query_order_by' ), 1 );
         remove_filter( 'wpp_query_limit', array( $this, 'chart_query_limit' ), 1 );
-
-        $original_order_by = $this->options['stats']['order_by'];
-        $this->options['stats']['order_by'] = 'comments';
 
         add_filter( 'wpp_query_fields', array( $this, 'chart_query_fields' ), 1, 2 );
         add_filter( 'wpp_query_table', array( $this, 'chart_query_table' ), 1, 2 );
@@ -561,8 +553,6 @@ class WPP_Admin {
             'order_by' => 'comments'
         ) );
         $comments_data = $most_commented->get_posts();
-
-        $this->options['stats']['order_by'] = $original_order_by;
 
         remove_filter( 'wpp_query_fields', array( $this, 'chart_query_fields' ), 1 );
         remove_filter( 'wpp_query_table', array( $this, 'chart_query_table' ), 1 );
