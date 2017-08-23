@@ -6,6 +6,11 @@
         $("#wpp-stats-config-btn, #wpp_stats_options .button-secondary").on("click", function(e){
             e.preventDefault();
 
+            // Hide custom range modal box
+            if ( $("#wpp-stats-range").is(":visible") ) {
+                $("#wpp-stats-range").hide();
+            }
+
             if ( $("#wpp-stats-config").is(":visible") ) {
                 $("#wpp-stats-config").hide();
             }
@@ -146,6 +151,11 @@
                     get_chart_data( me );
                 }
                 else {
+                    // Hide Config modal box
+                    if ( $("#wpp-stats-config").is(":visible") ) {
+                        $("#wpp-stats-config").hide();
+                    }
+
                     if ( !$("#wpp-stats-range").is(":visible") ) {
                         $("#wpp-stats-range").show();
                     }
