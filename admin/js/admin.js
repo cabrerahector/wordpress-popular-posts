@@ -45,15 +45,21 @@
 
         function get_chart_data( me ) {
 
+            var args = {
+                action: 'wpp_update_chart',
+                nonce: wpp_admin_params.nonce,
+                range: me.data("range"),
+                time_quantity: $("#stats_range_time_quantity").val(),
+                time_unit: $("#stats_range_time_unit").val()
+            };
+
+            if ( '' != $("#stats_range_date").val() ){
+                args.dates = $("#stats_range_date").val();
+            }
+
             $.get(
                 ajaxurl,
-                {
-                    action: 'wpp_update_chart',
-                    nonce: wpp_admin_params.nonce,
-                    range: me.data("range"),
-                    time_quantity: $("#stats_range_time_quantity").val(),
-                    time_unit: $("#stats_range_time_unit").val()
-                },
+                args,
                 function( response ){
 
                     if ( 'ok' == response.status ) {
@@ -114,25 +120,42 @@
                         $("#wpp-listing .wpp-tabbed-nav li:eq(0) a").trigger("click");
 
                         // Update lists
+                        args = {
+                            action: 'wpp_get_most_viewed',
+                            nonce: wpp_admin_params.nonce
+                        };
+
+                        if ( '' != $("#stats_range_date").val() ){
+                            args.dates = $("#stats_range_date").val();
+                        }
+
                         $.get(
                             ajaxurl,
-                            {
-                                action: 'wpp_get_most_viewed'
-                            },
+                            args,
                             function( response ){
                                 $("#wpp-listing .wpp-tab-content:eq(0)").html(response);
                             }
                         );
 
+                        args = {
+                            action: 'wpp_get_most_commented',
+                            nonce: wpp_admin_params.nonce
+                        };
+
+                        if ( '' != $("#stats_range_date").val() ){
+                            args.dates = $("#stats_range_date").val();
+                        }
+
                         $.get(
                             ajaxurl,
-                            {
-                                action: 'wpp_get_most_commented'
-                            },
+                            args,
                             function( response ){
                                 $("#wpp-listing .wpp-tab-content:eq(1)").html(response);
                             }
                         );
+
+                        // Unset date range
+                        $("#stats_range_date").val('');
 
                     }
 

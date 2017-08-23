@@ -279,10 +279,36 @@ class WPP_Admin {
 
         $now = WPP_Helper::now();
 
+        // Check if custom date range has been requested
+        $dates = null;
+
+        if ( isset( $_GET['dates']) ) {
+
+            $dates = explode( " ~ ", $_GET['dates'] );
+
+            if (
+                !is_array( $dates )
+                || empty( $dates )
+                || !WPP_Helper::is_valid_date( $dates[0] )
+            )
+            {
+                $dates = null;
+            }
+            else {
+                if (
+                    !isset( $dates[1] )
+                    || !WPP_Helper::is_valid_date( $dates[1] )
+                ) {
+                    $dates[1] = $dates[0];
+                }
+            }
+
+        }
+
         $where = "WHERE 1 = 1";
 
         // Determine time range
-        switch( $this->options['stats']['range'] ){
+        switch( $options['range'] ){
             case "last24hours":
             case "daily":
                 $interval = "24 HOUR";
@@ -304,13 +330,13 @@ class WPP_Admin {
 
                 // Valid time unit
                 if (
-                    isset( $this->options['stats']['time_unit'] )
-                    && in_array( strtoupper( $this->options['stats']['time_unit'] ), $time_units )
-                    && isset( $this->options['stats']['time_quantity'] )
-                    && filter_var( $this->options['stats']['time_quantity'], FILTER_VALIDATE_INT )
-                    && $this->options['stats']['time_quantity'] > 0
+                    isset( $options['time_unit'] )
+                    && in_array( strtoupper( $options['time_unit'] ), $time_units )
+                    && isset( $options['time_quantity'] )
+                    && filter_var( $options['time_quantity'], FILTER_VALIDATE_INT )
+                    && $options['time_quantity'] > 0
                 ) {
-                    $interval = "{$this->options['stats']['time_quantity']} " . strtoupper( $this->options['stats']['time_unit'] );
+                    $interval = "{$options['time_quantity']} " . strtoupper( $options['time_unit'] );
                 }
 
                 break;
@@ -320,7 +346,7 @@ class WPP_Admin {
                 break;
         }
 
-        $post_types = array_map( 'trim', explode( ',', $this->options['stats']['post_type'] ) );
+        $post_types = array_map( 'trim', explode( ',', $options['post_type'] ) );
         $placeholders = array();
 
         if ( empty($post_types) ) {
@@ -337,12 +363,28 @@ class WPP_Admin {
         );
 
         // Get entries published within the specified time range
-        if ( isset( $this->options['stats']['freshness'] ) && $this->options['stats']['freshness'] ) {
-            $where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL {$interval})";
+        if ( isset( $options['freshness'] ) && $options['freshness'] ) {
+
+            if ( $dates ) {
+                $where .= " AND p.post_date BETWEEN '{$dates[0]} 00:00:00' AND '{$dates[1]} 23:59:59'";
+            }
+            else {
+                $where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL {$interval})";
+            }
+
         }
 
-        if ( 'comments' == $this->options['stats']['order_by'] ) {
+        if ( 'comments' == $options['order_by'] ) {
+
+            if ( $dates ) {
+                return $where . " AND c.comment_date_gmt BETWEEN '{$dates[0]} 00:00:00' AND '{$dates[1]} 23:59:59' AND c.comment_approved = 1 AND p.post_password = '' AND p.post_status = 'publish'";
+            }
+
             return $where . " AND c.comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND c.comment_approved = 1 AND p.post_password = '' AND p.post_status = 'publish'";
+        }
+
+        if ( $dates ) {
+            return $where . " AND v.last_viewed BETWEEN '{$dates[0]} 00:00:00' AND '{$dates[1]} 23:59:59' AND p.post_password = '' AND p.post_status = 'publish' ";
         }
 
         return $where . " AND v.last_viewed  > DATE_SUB('{$now}', INTERVAL {$interval}) AND p.post_password = '' AND p.post_status = 'publish' ";
@@ -423,6 +465,35 @@ class WPP_Admin {
                 $end_date = date( 'Y-m-d', strtotime( $now->format('Y-m-d H:i:s') ) );
                 $start_date = date( 'Y-m-d', strtotime( $now->modify($interval)->format('Y-m-d H:i:s') ) );
 
+                // Check if custom date range has been requested
+                $dates = null;
+
+                if ( isset( $_GET['dates']) ) {
+
+                    $dates = explode( " ~ ", $_GET['dates'] );
+
+                    if (
+                        !is_array( $dates )
+                        || empty( $dates )
+                        || !WPP_Helper::is_valid_date( $dates[0] )
+                    )
+                    {
+                        $dates = null;
+                    }
+                    else {
+                        if (
+                            !isset( $dates[1] )
+                            || !WPP_Helper::is_valid_date( $dates[1] )
+                        ) {
+                            $dates[1] = $dates[0];
+                        }
+
+                        $end_date = $dates[1];
+                        $start_date = $dates[0];
+                    }
+
+                }
+
                 break;
 
             default:
@@ -454,7 +525,12 @@ class WPP_Admin {
         $original_order_by = $this->options['stats']['order_by'];
         $this->options['stats']['order_by'] = 'views';
 
-        $most_viewed = new WPP_query();
+        $most_viewed = new WPP_query( array(
+            'range' => $this->options['stats']['range'],
+            'time_unit' => $this->options['stats']['time_unit'],
+            'time_quantity' => $this->options['stats']['time_quantity'],
+            'order_by' => 'views'
+        ) );
         $views_data = $most_viewed->get_posts();
 
         $this->options['stats']['order_by'] = $original_order_by;
@@ -476,7 +552,12 @@ class WPP_Admin {
         add_filter( 'wpp_query_order_by', array( $this, 'chart_query_order_by' ), 1, 2 );
         add_filter( 'wpp_query_limit', array( $this, 'chart_query_limit' ), 1, 2 );
 
-        $most_commented = new WPP_query();
+        $most_commented = new WPP_query( array(
+            'range' => $this->options['stats']['range'],
+            'time_unit' => $this->options['stats']['time_unit'],
+            'time_quantity' => $this->options['stats']['time_quantity'],
+            'order_by' => 'comments'
+        ) );
         $comments_data = $most_commented->get_posts();
 
         $this->options['stats']['order_by'] = $original_order_by;
@@ -614,7 +695,9 @@ class WPP_Admin {
                 )
             )
         );
+        add_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1, 2 );
         $most_viewed = new WPP_query( $args );
+        remove_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1 );
         $posts = $most_viewed->get_posts();
 
         if (
@@ -667,7 +750,9 @@ class WPP_Admin {
                 )
             )
         );
+        add_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1, 2 );
         $most_commented = new WPP_query( $args );
+        remove_filter( 'wpp_query_where', array( $this, 'chart_query_where' ), 1 );
         $posts = $most_commented->get_posts();
 
         if (
