@@ -449,9 +449,6 @@ class WPP_Output {
      */
     private function get_date( stdClass $post_object ) {
 
-        // TODO
-        // relative time
-
         $date = '';
 
         if ( $this->options['stats_tag']['date']['active'] ) {
