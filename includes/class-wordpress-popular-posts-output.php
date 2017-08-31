@@ -201,8 +201,18 @@ class WPP_Output {
               ? " <span class=\"wpp-rating\">{$post_rating}</span>\n"
               : "";
 
+            $wpp_post_class = array();
+
+            if ( $is_single == $postID ) {
+                $wpp_post_class[] = "current";
+            }
+
+            // Allow themers / plugin developer
+            // to add custom classes to each post
+            $wpp_post_class = apply_filters( "wpp_post_class", $wpp_post_class, $postID );
+
             $post =
-                "<li" . ( $is_single == $postID ? ' class="current"' : '' ) . ">\n"
+                "<li" . ( ( is_array( $wpp_post_class ) && !empty( $wpp_post_class ) ) ? ' class="' . esc_attr( implode( " ", $wpp_post_class ) ) . '"' : '' ) . ">\n"
                 . $post_thumbnail
                 . "<a " . ( $is_single == $postID ? '' : "href=\"{$permalink}\"" ) . " title=\"{$post_title_attr}\" class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\">{$post_title}</a>\n"
                 . $post_excerpt
