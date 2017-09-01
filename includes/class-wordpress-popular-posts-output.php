@@ -171,7 +171,7 @@ class WPP_Output {
                 'img_no_link' => $post_thumbnail,
                 'url' => $permalink,
                 'text_title' => $post_title_attr,
-                'category' => '',
+                'category' => $post_taxonomies,
                 'author' => ( !empty($post_author) ) ? '<a href="' . get_author_posts_url( $post_object->uid ) . '">' . $post_author . '</a>' : '',
                 'views' => ( $this->options['order_by'] == "views" || $this->options['order_by'] == "comments" ) ? number_format_i18n( $post_views ) : number_format_i18n( $post_views, 2 ),
                 'comments' => number_format_i18n( $post_comments ),
