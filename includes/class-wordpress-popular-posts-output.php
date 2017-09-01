@@ -501,14 +501,18 @@ class WPP_Output {
                 $terms = wp_get_post_terms( $post_object->id, $taxonomy );
             }
 
-            foreach( $terms as $term ) {
+            if ( !is_wp_error( $terms ) ) {
 
-                $term_link = get_term_link( $term );
+                foreach( $terms as $term ) {
 
-                if ( is_wp_error( $term_link ) )
-                    continue;
+                    $term_link = get_term_link( $term );
 
-                $post_tax .= "<a href=\"{$term_link}\" class=\"{$taxonomy} {$taxonomy}-{$term->term_id}\">{$term->name}</a>, ";
+                    if ( is_wp_error( $term_link ) )
+                        continue;
+
+                    $post_tax .= "<a href=\"{$term_link}\" class=\"{$taxonomy} {$taxonomy}-{$term->term_id}\">{$term->name}</a>, ";
+
+                }
 
             }
 
