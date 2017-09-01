@@ -503,6 +503,12 @@ class WPP_Output {
 
             if ( !is_wp_error( $terms ) ) {
 
+                // Usage: https://wordpress.stackexchange.com/a/46824
+                if ( has_filter( 'wpp_post_exclude_terms' ) ) {
+                    $args = apply_filters( 'wpp_post_exclude_terms', array() );
+                    $terms = wp_list_filter( $terms, $args, 'NOT' );
+                }
+
                 foreach( $terms as $term ) {
 
                     $term_link = get_term_link( $term );
