@@ -171,7 +171,7 @@ class WPP_Output {
                 'img_no_link' => $post_thumbnail,
                 'url' => $permalink,
                 'text_title' => $post_title_attr,
-                'category' => $post_taxonomies,
+                'taxonomy' => $post_taxonomies,
                 'author' => ( !empty($post_author) ) ? '<a href="' . get_author_posts_url( $post_object->uid ) . '">' . $post_author . '</a>' : '',
                 'views' => ( $this->options['order_by'] == "views" || $this->options['order_by'] == "comments" ) ? number_format_i18n( $post_views ) : number_format_i18n( $post_views, 2 ),
                 'comments' => number_format_i18n( $post_comments ),
@@ -749,7 +749,7 @@ class WPP_Output {
             return false;
 
         $params = array();
-        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|category|views|comments|date)\}/i';
+        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|taxonomy|category|views|comments|date)\}/i';
         preg_match_all( $pattern, $string, $matches );
 
         array_map( 'strtolower', $matches[0] );
@@ -826,8 +826,8 @@ class WPP_Output {
             $string = str_replace( "{author}", $data['author'], $string );
         }
 
-        if ( in_array( "{category}", $matches[0] ) ) {
-            $string = str_replace( "{category}", $data['category'], $string );
+        if ( in_array( "{taxonomy}", $matches[0] ) || in_array( "{category}", $matches[0] ) ) {
+            $string = str_replace( array("{taxonomy}", "{category}"), $data['taxonomy'], $string );
         }
 
         if ( in_array( "{views}", $matches[0] ) ) {

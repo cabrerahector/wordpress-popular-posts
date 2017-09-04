@@ -833,6 +833,20 @@ $tabs = array(
                         <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'cat' => '1,55,-74'<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp cat='1,55,-74']<br /><br /></td>
                     </tr>
                     <tr>
+                        <td><strong>taxonomy</strong></td>
+                        <td><?php _e('If set, WordPress Popular Posts will filter posts by a given taxonomy.', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('None', 'wordpress-popular-posts'); ?></td>
+                        <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'taxonomy' => 'post_tag',<br />&nbsp;&nbsp;&nbsp;&nbsp;'term_id' => '118,75,15'<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp taxonomy='post_tag' term_id='118,75,15']<br /><br /></td>
+                    </tr>
+                    <tr class="alternate">
+                        <td><strong>term_id</strong></td>
+                        <td><?php _e('If set, WordPress Popular Posts will retrieve all entries that belong to the specified term ID(s). If a minus sign is used, entries associated to the term(s) will be excluded instead.', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('None', 'wordpress-popular-posts'); ?></td>
+                        <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'taxonomy' => 'post_tag',<br />&nbsp;&nbsp;&nbsp;&nbsp;'term_id' => '118,75,15'<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp taxonomy='post_tag' term_id='118,75,15']<br /><br /></td>
+                    </tr>
+                    <tr>
                         <td><strong>author</strong></td>
                         <td><?php _e('If set, WordPress Popular Posts will retrieve all entries created by specified author(s) ID(s).', 'wordpress-popular-posts'); ?></td>
                         <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
