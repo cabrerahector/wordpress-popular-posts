@@ -184,7 +184,7 @@ class WPP_Image {
         $file_info = pathinfo( $file_path );
 
         // there is a thumbnail already
-        if ( file_exists( trailingslashit( $this->uploads_dir['basedir'] ) . $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1] . '.' . $file_info['extension']) ) {
+        if ( is_file( trailingslashit( $this->uploads_dir['basedir'] ) . $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1] . '.' . $file_info['extension']) ) {
             return $this->render_image( trailingslashit($this->uploads_dir['baseurl']) . $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1] . '.' . $file_info['extension'], $size, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $post_object );
         }
 
