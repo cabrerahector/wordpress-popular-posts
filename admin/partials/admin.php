@@ -827,7 +827,7 @@ $tabs = array(
                     </tr>
                     <tr class="alternate">
                         <td><strong>cat</strong></td>
-                        <td><?php _e('If set, WordPress Popular Posts will retrieve all entries that belong to the specified category(ies) ID(s). If a minus sign is used, the category(ies) will be excluded instead.', 'wordpress-popular-posts'); ?></td>
+                        <td><?php _e('If set, WordPress Popular Posts will retrieve all entries that belong to the specified category ID(s). If a minus sign is used, entries associated to the category will be excluded instead.', 'wordpress-popular-posts'); ?></td>
                         <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
                         <td><?php _e('None', 'wordpress-popular-posts'); ?></td>
                         <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'cat' => '1,55,-74'<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp cat='1,55,-74']<br /><br /></td>
