@@ -266,7 +266,10 @@ class WPP_Widget extends WP_Widget {
           ? 'F j, Y'
           : $new_instance['date_format'];
 
-        $instance['stats_tag']['category'] = isset( $new_instance['category'] );
+        $instance['stats_tag']['taxonomy']['active'] = isset( $new_instance['stats_taxonomy'] );
+        $instance['stats_tag']['taxonomy']['name'] = isset( $new_instance['stats_taxonomy_name'] ) ? $new_instance['stats_taxonomy_name'] : 'category';
+        $instance['stats_tag']['category'] = isset( $new_instance['stats_taxonomy'] ); // Deprecated in 4.0.0!
+
         $instance['markup']['custom_html'] = isset( $new_instance['custom_html'] );
         $instance['markup']['wpp-start'] = empty($new_instance['wpp-start'])
           ? htmlspecialchars( '<ul class="wpp-list">', ENT_QUOTES )

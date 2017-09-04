@@ -487,8 +487,11 @@ class WPP_Output {
 
             $taxonomy = 'category';
 
-            if ( $this->options['stats_tag']['taxonomy'] ) {
-                $taxonomy = $this->options['stats_tag']['taxonomy'];
+            if (
+                $this->options['stats_tag']['taxonomy']['active']
+                && !empty( $this->options['stats_tag']['taxonomy']['name'] )
+            ) {
+                $taxonomy = $this->options['stats_tag']['taxonomy']['name'];
             }
 
             $translate = WPP_translate::get_instance();

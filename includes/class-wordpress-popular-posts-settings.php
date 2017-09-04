@@ -69,7 +69,10 @@ class WPP_Settings {
                     'format' => 'F j, Y'
                 ),
                 'category' => false,
-                'taxonomy' => false
+                'taxonomy' => array(
+                    'active' => false,
+                    'name' => 'category'
+                )
             ),
             'markup' => array(
                 'custom_html' => false,

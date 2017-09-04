@@ -151,7 +151,23 @@ if ( $taxonomies = get_taxonomies( array('public' => true), 'objects' ) ) {
     <label title='d/m/Y'><input type='radio' name='<?php echo $this->get_field_name( 'date_format' ); ?>' value='d/m/Y' <?php echo ($instance['stats_tag']['date']['format'] == 'd/m/Y') ? 'checked="checked"' : ''; ?> /><?php echo date_i18n('d/m/Y', time()); ?></label>
 </div>
 
-<input type="checkbox" class="checkbox" <?php echo ($instance['stats_tag']['category']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'category' ); ?>" name="<?php echo $this->get_field_name( 'category' ); ?>" /> <label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e('Display category', 'wordpress-popular-posts'); ?></label><br />
+<input type="checkbox" class="checkbox" <?php echo ($instance['stats_tag']['taxonomy']['active'] || $instance['stats_tag']['category']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id( 'stats_taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'stats_taxonomy' ); ?>" /> <label for="<?php echo $this->get_field_id( 'stats_taxonomy' ); ?>"><?php _e('Display taxonomy', 'wordpress-popular-posts'); ?></label><br />
+<?php
+if ( $taxonomies ) {
+?>
+<div style="display:<?php if ($instance['stats_tag']['taxonomy']['active'] || $instance['stats_tag']['category']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
+<?php
+    foreach ( $taxonomies  as $taxonomy ) {
+        if ( 'post_format' == $taxonomy->name )
+            continue;
+
+        echo '<label><input type="radio" name="' . $this->get_field_name( 'stats_taxonomy_name' ) . '" value="' . $taxonomy->name . '"' . ( ( $instance['stats_tag']['taxonomy']['name'] == $taxonomy->name ) ? ' checked' : '' ) . '> ' . $taxonomy->labels->singular_name . '</label><br>';
+    }
+?>
+</div>
+<?php
+}
+?>
 
 <!-- HTML Markup options -->
 <br /><hr /><br />
