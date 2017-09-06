@@ -183,12 +183,28 @@ class WPP_Image {
 
         $extension = pathinfo( $file_path, PATHINFO_EXTENSION );
 
+        $image_meta = array(
+            'filename' => $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1],
+            'extension' => $extension,
+            'width' => $size[0],
+            'height' => $size[1],
+            'alt' => esc_attr( wp_strip_all_tags( $post_object->title ) ),
+            'crop' => $crop,
+            'source' => $source,
+            'parent_id' => $post_object->id
+        );
+
         // there is a thumbnail already
-        if ( is_file( trailingslashit( $this->uploads_dir['basedir'] ) . $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1] . '.' . $extension) ) {
-            return $this->render_image( trailingslashit($this->uploads_dir['baseurl']) . $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1] . '.' . $extension, $size, 'wpp-thumbnail wpp_cached_thumb wpp_' . $source, $post_object );
+        if ( is_file( trailingslashit( $this->uploads_dir['basedir'] ) . $image_meta['filename'] . '.' . $image_meta['extension'] ) ) {
+            return $this->render_image(
+                trailingslashit( $this->uploads_dir['baseurl'] ) . $image_meta['filename'] . '.' . $image_meta['extension'],
+                $size,
+                'wpp-thumbnail wpp_cached_thumb wpp_' . $source,
+                $post_object
+            );
         }
 
-        return $this->image_resize( $post_object, $file_path, $size, $crop, $source );
+        return $this->image_resize( $file_path, $image_meta );
 
     } // end get_img
 
@@ -203,29 +219,27 @@ class WPP_Image {
      * @param	string   $source        Image source
      * @return	string
      */
-    private function image_resize( $post_object, $path, $size, $crop, $source ) {
+    private function image_resize( $path, $image_meta ) {
 
         $image = wp_get_image_editor( $path );
 
         // valid image, create thumbnail
         if ( !is_wp_error($image) ) {
 
-            $file_info = pathinfo( $path );
-
-            $image->resize( $size[0], $size[1], $crop );
-            $new_img = $image->save( trailingslashit($this->uploads_dir['basedir']) . $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1] . '.' . $file_info['extension'] );
+            $image->resize( $image_meta['width'], $image_meta['height'], $image_meta['crop'] );
+            $new_img = $image->save( trailingslashit($this->uploads_dir['basedir']) . $image_meta['filename'] . '.' . $image_meta['extension'] );
 
             if ( is_wp_error($new_img) ) {
-                return $this->render_image( $this->default_thumbnail, $size, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, $post_object, $new_img->get_error_message() );
+                return $this->render_image( $this->default_thumbnail, array( $image_meta['width'], $image_meta['height'] ), 'wpp-thumbnail wpp_imgeditor_error wpp_' . $image_meta['source'], null, $new_img->get_error_message() );
             }
 
-            return $this->render_image( trailingslashit($this->uploads_dir['baseurl']) . $new_img['file'], $size, 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $source, $post_object );
+            return $this->render_image( trailingslashit($this->uploads_dir['baseurl']) . $new_img['file'], array( $image_meta['width'], $image_meta['height'] ), 'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $image_meta['source'], null );
 
         }
 
         // ELSE
         // image file path is invalid
-        return $this->render_image($this->default_thumbnail, $size, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $source, $post_object, $image->get_error_message());
+        return $this->render_image($this->default_thumbnail, $size, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $image_meta['source'], null, $image->get_error_message());
 
     } // end image_resize
 
