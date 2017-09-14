@@ -716,7 +716,7 @@ class WPP_Admin {
         }
         else {
         ?>
-        <p><?php _e("Err... nothing. Nada. Come back later, alright?"); ?></p>
+        <p style="text-align: center;"><?php _e("Looks like traffic to your site is a little light right now. <br />Spread the word and come back later!", "wordpress-popular-posts"); ?></p>
         <?php
         }
 
@@ -771,7 +771,7 @@ class WPP_Admin {
         }
         else {
         ?>
-        <p><?php _e("Err... nothing. Nada. Come back later, alright?"); ?></p>
+        <p style="text-align: center;"><?php _e("Looks like traffic to your site is a little light right now. <br />Spread the word and come back later!", "wordpress-popular-posts"); ?></p>
         <?php
         }
 
