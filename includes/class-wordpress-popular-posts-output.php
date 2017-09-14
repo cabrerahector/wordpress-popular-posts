@@ -463,7 +463,7 @@ class WPP_Output {
 
         if ( $this->options['stats_tag']['date']['active'] ) {
             $date = ( 'relative' == $this->options['stats_tag']['date']['format'] ) 
-                ? sprintf( _x( '%s ago', '%s = human-readable time difference', 'wordpress-popular-posts' ), human_time_diff( strtotime($post_object->date), current_time( 'timestamp' ) ) )
+                ? sprintf( __( '%s ago', 'wordpress-popular-posts' ), human_time_diff( strtotime($post_object->date), current_time( 'timestamp' ) ) )
                 : date_i18n( $this->options['stats_tag']['date']['format'], strtotime($post_object->date) );
         }
 
