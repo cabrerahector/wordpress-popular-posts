@@ -993,24 +993,4 @@ $tabs = array(
     </div>
     <!-- End about -->
 
-    <div id="wpp_donate" class="wpp_box" style="">
-        <h3 style="margin-top:0; text-align:center;"><?php _e('Do you like this plugin?', 'wordpress-popular-posts'); ?></h3>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="RP9SK8KVQHRKS">
-            <input type="image" src="//www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="display:block; margin:0 auto;">
-            <img alt="" border="0" src="//www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
-        <p><?php _e( 'Each donation motivates me to keep releasing free stuff for the WordPress community!', 'wordpress-popular-posts' ); ?></p>
-        <p><?php echo sprintf( __('You can <a href="%s" target="_blank">leave a review</a>, too!', 'wordpress-popular-posts'), 'https://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts?rate=5#postform' ); ?></p>
-    </div>
-
-    <div id="wpp_advertisement" class="wpp_box" style=""></div>
-
-    <div id="wpp_support" class="wpp_box" style="">
-        <h3 style="margin-top:0; text-align:center;"><?php _e('Need help?', 'wordpress-popular-posts'); ?></h3>
-        <p><?php echo sprintf( __('Visit <a href="%s" target="_blank">the forum</a> for support, questions and feedback.', 'wordpress-popular-posts'), 'https://wordpress.org/support/plugin/wordpress-popular-posts' ); ?></p>
-        <p><?php _e('Let\'s make this plugin even better!', 'wordpress-popular-posts'); ?></p>
-    </div>
-
 </div>
