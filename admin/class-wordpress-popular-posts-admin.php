@@ -236,7 +236,7 @@ class WPP_Admin {
                 array(
                     'id'        => 'wpp_help_overview',
                     'title'     => __('Overview', 'wordpress-popular-posts'),
-                    'content'   => "<p>Welcome to WordPress Popular Posts' Dashboard!</p>"
+                    'content'   => "<p>" . __( "Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics on what's popular on your site, tools to further tweak WPP to your needs, and more!", "wordpress-popular-posts" ) . "</p>"
                 )
             );
             $screen->add_help_tab(
