@@ -4,6 +4,8 @@
  * Navigation
  */
 #wpp-menu {
+    float: none;
+    clear: both;
 }
 
     #wpp-menu ul {
