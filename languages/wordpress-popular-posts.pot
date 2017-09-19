@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2017-09-14 15:57-0400\n"
+"POT-Creation-Date: 2017-09-19 11:27-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -26,8 +26,39 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:588
-#: ../admin/class-wordpress-popular-posts-admin.php:707 ../admin/partials/admin.php:430
+#: ../admin/class-wordpress-popular-posts-admin.php:238
+msgid "Overview"
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:239
+msgid ""
+"Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics "
+"on what's popular on your site, tools to further tweak WPP to your needs, and more!"
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:245
+msgid "Like this plugin?"
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:247
+msgid ""
+"Each donation motivates me to keep releasing free stuff for the WordPress community!"
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:254
+#, php-format
+msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:263
+#, php-format
+msgid ""
+"<p><strong>For more information:</strong></p><ul><li><a href=\"%1$s\">Documentation</"
+"a></li><li><a href=\"%2$s\">Support</a></li></ul>"
+msgstr ""
+
+#: ../admin/class-wordpress-popular-posts-admin.php:631
+#: ../admin/class-wordpress-popular-posts-admin.php:750 ../admin/partials/admin.php:430
 #: ../admin/partials/admin.php:477
 #: ../includes/class-wordpress-popular-posts-output.php:689
 #, php-format
@@ -36,8 +67,8 @@ msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:588
-#: ../admin/class-wordpress-popular-posts-admin.php:762 ../admin/partials/admin.php:430
+#: ../admin/class-wordpress-popular-posts-admin.php:631
+#: ../admin/class-wordpress-popular-posts-admin.php:805 ../admin/partials/admin.php:430
 #: ../admin/partials/admin.php:477
 #: ../includes/class-wordpress-popular-posts-output.php:670
 #, php-format
@@ -46,39 +77,39 @@ msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:620 ../includes/widget-form.php:17
+#: ../admin/class-wordpress-popular-posts-admin.php:663 ../includes/widget-form.php:17
 msgid "Comments"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:624
+#: ../admin/class-wordpress-popular-posts-admin.php:667
 msgid "Views"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:708
-#: ../admin/class-wordpress-popular-posts-admin.php:763 ../admin/partials/admin.php:431
+#: ../admin/class-wordpress-popular-posts-admin.php:751
+#: ../admin/class-wordpress-popular-posts-admin.php:806 ../admin/partials/admin.php:431
 #: ../admin/partials/admin.php:478
 msgid "View"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:708
-#: ../admin/class-wordpress-popular-posts-admin.php:763 ../admin/partials/admin.php:431
+#: ../admin/class-wordpress-popular-posts-admin.php:751
+#: ../admin/class-wordpress-popular-posts-admin.php:806 ../admin/partials/admin.php:431
 #: ../admin/partials/admin.php:478
 msgid "Edit"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:719
-#: ../admin/class-wordpress-popular-posts-admin.php:774 ../admin/partials/admin.php:442
+#: ../admin/class-wordpress-popular-posts-admin.php:762
+#: ../admin/class-wordpress-popular-posts-admin.php:817 ../admin/partials/admin.php:442
 #: ../admin/partials/admin.php:489
 msgid ""
 "Looks like traffic to your site is a little light right now. <br />Spread the word and "
 "come back later!"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:846
+#: ../admin/class-wordpress-popular-posts-admin.php:889
 msgid "Settings"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:1198
+#: ../admin/class-wordpress-popular-posts-admin.php:1241
 #, php-format
 msgid ""
 "Your PHP installation is too old. WordPress Popular Posts requires at least PHP "
@@ -86,14 +117,14 @@ msgid ""
 "to upgrade PHP to %1$s or higher."
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:1205
+#: ../admin/class-wordpress-popular-posts-admin.php:1248
 #, php-format
 msgid ""
 "Your WordPress version is too old. WordPress Popular Posts requires at least WordPress "
 "version %1$s to function correctly. Please update your blog via Dashboard &gt; Update."
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:1230
+#: ../admin/class-wordpress-popular-posts-admin.php:1273
 #, php-format
 msgid ""
 "<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</strong>.</"
@@ -845,35 +876,6 @@ msgstr ""
 
 #: ../admin/partials/admin.php:985
 msgid "This version includes the following changes"
-msgstr ""
-
-#: ../admin/partials/admin.php:997
-msgid "Do you like this plugin?"
-msgstr ""
-
-#: ../admin/partials/admin.php:1004
-msgid ""
-"Each donation motivates me to keep releasing free stuff for the WordPress community!"
-msgstr ""
-
-#: ../admin/partials/admin.php:1005
-#, php-format
-msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
-msgstr ""
-
-#: ../admin/partials/admin.php:1011
-msgid "Need help?"
-msgstr ""
-
-#: ../admin/partials/admin.php:1012
-#, php-format
-msgid ""
-"Visit <a href=\"%s\" target=\"_blank\">the forum</a> for support, questions and "
-"feedback."
-msgstr ""
-
-#: ../admin/partials/admin.php:1013
-msgid "Let's make this plugin even better!"
 msgstr ""
 
 #: ../includes/class-wordpress-popular-posts-output.php:95
