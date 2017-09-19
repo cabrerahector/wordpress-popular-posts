@@ -286,6 +286,7 @@ class WPP_Public {
             'stats_date' => false,
             'stats_date_format' => 'F j, Y',
             'stats_category' => false,
+            'stats_taxonomy' => false,
             'wpp_start' => '<ul class="wpp-list">',
             'wpp_end' => '</ul>',
             'header_start' => '<h2>',
@@ -339,6 +340,10 @@ class WPP_Public {
                     'format' => empty( $stats_date_format ) ? 'F j, Y' : $stats_date_format
                 ),
                 'category' => empty( $stats_category ) ? false : $stats_category,
+                'taxonomy' => array(
+                    'active' => empty( $stats_taxonomy ) ? false : $stats_taxonomy,
+                    'name' => empty( $taxonomy ) ? 'category' : $taxonomy,
+                )
             ),
             'markup' => array(
                 'custom_html' => true,
