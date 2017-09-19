@@ -1,5 +1,23 @@
 Changelog
 =========
+#### 4.0.0 ####
+
+**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
+
+- Plugin code refactored!
+- Dashboard section redesigned (now mobile-friendly, too!)
+- New Statistics chart and other goodies.
+- Adds ability to pick a Custom Time Range!
+- Adds ability to filter posts by other taxonomies than just categories!
+- Adds Relative Date Format.
+- Improves PHP7+ compatibility.
+- Improves compatibility with WP-SpamShield, WooCommerce, Polylang and WPML.
+- Drops qTranslate support (that plugin has been long removed from WordPress.org anyways.)
+- New content tags added: {img_url}, {taxonomy}.
+- New filters: `wpp_post_class`, `wpp_post_exclude_terms`.
+- French and German translation files became too outdated and so support has been dropped for now (want to help? Contact me!)
+- Tons of minor bug fixes and improvements.
+
 #### 3.3.4 ####
 - Attempt to convert tables to InnoDB during upgrade if other engine is being used.
 - Adds a check to prevent the upgrade process from running too many times.
@@ -51,10 +69,10 @@ Changelog
 * Fixes list sorting issue that some users were experimenting (thanks, sponker!)
 * Widget uses stock thumbnails when using predefined size (some conditions apply).
 * Adds the ability to enable / disable responsive support for thumbails.
-* Renames wpp_update_views action hook to wpp_post_update_views, **update your code!**
-* Adds wpp_pre_update_views action hook.
-* Adds filter wpp_render_image.
-* Drops support for get_mostpopular() template tag.
+* Renames `wpp_update_views` action hook to `wpp_post_update_views`, **update your code!**
+* Adds `wpp_pre_update_views` action hook.
+* Adds filter `wpp_render_image`.
+* Drops support for `get_mostpopular()` template tag.
 * Fixes empty HTML tags (thumbnail, stats).
 * Removes Japanese, French and Norwegian Bokmal translation files from plugin.
 * Many minor bug fixes / enhancements.
@@ -78,7 +96,7 @@ Changelog
 * Minor query optimizations.
 * Adds {date} (thanks, @matsuoshi!) and {thumb_img} tags to custom html.
 * Adds minute time option for caching.
-* Adds wpp_data_sampling filter.
+* Adds `wpp_data_sampling` filter.
 * Removes jQuery's DOM ready hook for AJAX views update.
 * Adds back missing GROUP BY clause.
 * Removes unnecesary HTML decoding for custom HTML (thanks, Lea Cohen!)
@@ -94,12 +112,12 @@ Changelog
 * Fixes invalid HTML title/alt attributes caused by encoding issues.
 * Fixes issue with jQuery not loading properly under certain circumstances.
 * Fixes issue with custom excerpts not showing up.
-* Fixes undefined notices and removes an unused variable from widget_update().
-* Fixes wrong variable reference in __image_resize().
-* Adds charset to mb_substr when truncating excerpt.
+* Fixes undefined notices and removes an unused variable from `widget_update()`.
+* Fixes wrong variable reference in `__image_resize()`.
+* Adds charset to `mb_substr` when truncating excerpt.
 * Sets default logging level to 1 (Everyone).
 * Renders the category link with cat-id-[ID] CSS class.
-* Replaces getimagesize() with exif_imagetype().
+* Replaces `getimagesize()` with `exif_imagetype()`.
 * Adds notice to move/copy wpp.css stylesheet into theme's directory to keep custom CSS styles across updates.
 * Thumbail generation process has been refactored for efficiency.
 * Thumbnails are now stored in a custom folder under Uploads.
@@ -108,21 +126,21 @@ Changelog
 
 #### 3.0.3 ####
 * Fixes widget not saving 'freshness' setting.
-* Adds HTMLentities conversion/deconversion on wpp_get_mostpopular().
+* Adds HTMLentities conversion/deconversion on `wpp_get_mostpopular()`.
 * Improves thumbnail detection.
 * Fixes a bug affecting the truncation of excerpts.
-* Fixes yet another bug on wpp_get_views().
+* Fixes yet another bug on `wpp_get_views()`.
 * Other minor changes.
 
 #### 3.0.2 ####
-* Fixes an introduced bug on wpp_get_views().
+* Fixes an introduced bug on `wpp_get_views()`.
 * Fixes bug where thumbnail size was cached for multiple instances.
 * Adds back stylesheet detection.
 * Removes unused widget.js file.
 * Other minor bug fixes.
 
 #### 3.0.1 ####
-* Fixes bug on wpp_get_views.
+* Fixes bug on `wpp_get_views`.
 * Sustitutes WP_DEBUG with custom debugging constant.
 * Fixes bug that prevented disabling plugin's stylesheet.
 
@@ -133,8 +151,8 @@ Changelog
 * Added bot detection.
 * Added ability to filter posts by freshness.
 * Added own data caching method.
-* Added filters wpp_custom_html, wpp_post.
-* Added action wpp_update_views.
+* Added filters `wpp_custom_html`, `wpp_post`.
+* Added action `wpp_update_views`.
 * Dropped support on Dutch and Persian languages since the translations were outdated.
 * Several other fixes and improvements.
 
@@ -147,11 +165,11 @@ Changelog
 * Added a new content tag, {score}, to display the post rating as a simple integer (thanks, Artem!).
 * Added japanese and persian translations (thanks kjmtsh and Tatar).
 * Added wpp-list class to the UL tag, this should help style the popular list better.
-* Added plugin version to wp_enqueue_* calls.
+* Added plugin version to `wp_enqueue_*` calls.
 * Updated thumbnail feature to handle external images.
 * Updated wpp.css with text floating next to thumbnails - this sets a predefined style for the plugin for the first time.
 * Removed unnecesary wpp-thumbnail class from link tag, the image already has it.
-* Fixed typo in wpp_update_warning. From v2.3.3, minimun Wordpress version required is 3.3.
+* Fixed typo in `wpp_update_warning`. From v2.3.3, minimun Wordpress version required is 3.3.
 * Fixed minor bugs.
 
 #### 2.3.5 ####
@@ -181,7 +199,7 @@ Changelog
 * Added ability to exclude posts by ID (similar to the category filter).
 * Added ability to enable / disable logging visits from logged-in users.
 * Added Category to the Stats Tag settings options.
-* Added range parameter to wpp_get_views().
+* Added range parameter to `wpp_get_views()`.
 * Added numeric formatting to the `wpp_get_views()` function.
 * When enabling the Display author option, author's name will link to his/her profile page.
 * Fixed bad numeric formatting in Stats showing truncated views count.
@@ -189,7 +207,7 @@ Changelog
 * Fixed WP Post Ratings not displaying on the list (and while it works, there are errors coming from the WP Post Ratings plugin itself: http://wordpress.org/support/topic/plugin-wp-postratings-undefined-indexes).
 * Improved database queries for speed.
 * Fixed bug preventing PostRating to show.
-* Removed Timthumb (again) in favor of the updated `get_img()` function based on Victor Teixeira's vt_resize function.
+* Removed Timthumb (again) in favor of the updated `get_img()` function based on Victor Teixeira's `vt_resize` function.
 * Cron now removes from cache all posts that have been trashed or eliminated.
 * Added proper numeric formatting for views / comments count. (Thank you for the tip, dimagsv!)
 * Added "the title filter fix" that affected some themes. (Thank you, jeremyers1!)
@@ -206,7 +224,7 @@ Changelog
 #### 2.3.1 ####
 
 * Fixed bug caused by the sorter function when there are multiple instances of the widget.
-* Added check for new options in the get_popular_posts function.
+* Added check for new options in the `get_popular_posts` function.
 * Added plugin version check to handle upgrades.
 * Fixed bug preventing some site from fetching images from subdomains or external sites.
 * Fixed bug that prevented excluding more than one category using the Category filter.
@@ -235,7 +253,7 @@ Changelog
 * Range feature Today option changed. Replaced with Last 24 hours.
 * Category exclusion query simplified. Thanks to almergabor for the suggestion!
 * Fixed bug caused by selecting Avg. Views and All-Time that prevented WPP from getting any data from the BD. Thanks Janseo!
-* Updated the get_summary function to strip out shortcodes from excerpt as well.
+* Updated the `get_summary` function to strip out shortcodes from excerpt as well.
 * Fixed bug in the truncate function affecting accented characters. Thanks r3df!
 * Fixed bug keeping db tables from being created. Thanks northlake!
 * Fixed bug on the shortcode which was showing pages even if turned off. Thanks danpkraus!
@@ -251,7 +269,7 @@ Changelog
 * Fixed thumbnail dimensions issue.
 * Fixed widget page link.
 * Fixed widget title encoding bug.
-* Fixed deprecated errors on load_plugin_textdomain and add_submenu_page.
+* Fixed deprecated errors on `load_plugin_textdomain` and `add_submenu_page`.
 
 #### 2.1.5 ####
 
@@ -292,7 +310,7 @@ Changelog
 
 #### 2.0.1 ####
 
-* Post title excerpt now includes html entities. Characters like `ÅÄÖ` should display properly now.
+* Post title excerpt now includes html entities. Characters like `ï¿½ï¿½ï¿½` should display properly now.
 * Post excerpt has been improved. Now it supports the following HTML tags: a, b, i, strong, em.
 * Template tag `wpp_get_views()` added. Retrieves the views count of a single post.
 * Template tag `get_mostpopular()` re-added. Parameter support included.
@@ -320,7 +338,7 @@ Changelog
 
 #### 1.4.6 ####
 
-* Bug in get_mostpopular function affected comments on single.php
+* Bug in `get_mostpopular` function affected comments on single.php
 * "Show pageviews" option bug fixed
 * Added "content formatting tags" functionality
 

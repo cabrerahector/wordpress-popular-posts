@@ -82,6 +82,24 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.0.0 =
+
+**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
+
+- Plugin code refactored!
+- Dashboard section redesigned (now mobile-friendly, too!)
+- New Statistics chart and other goodies.
+- Adds ability to pick a Custom Time Range!
+- Adds ability to filter posts by other taxonomies than just categories!
+- Adds Relative Date Format.
+- Improves PHP7+ compatibility.
+- Improves compatibility with WP-SpamShield, WooCommerce, Polylang and WPML.
+- Drops qTranslate support (that plugin has been long removed from WordPress.org anyways.)
+- New content tags added: {img_url}, {taxonomy}.
+- New filters: wpp_post_class, wpp_post_exclude_terms.
+- French and German translation files became too outdated and so support has been dropped for now (want to help? Contact me!)
+- Tons of minor bug fixes and improvements.
+
 = 3.3.4 =
 - Attempt to convert tables to InnoDB during upgrade if other engine is being used.
 - Adds a check to prevent the upgrade process from running too many times.
@@ -114,32 +132,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Removes legacy datacache and datacache_backup tables.
 - Adds Settings page advertisement support.
 - FAQ section has been moved over to Github.
-
-= 3.2.3 =
-**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
-
-- Fixes a potential bug that might affect other plugins & themes (thanks @pippinsplugins).
-- Defines INNODB as default storage engine.
-- Adds the wpp-no-data CSS class to style the "Sorry, no data so far" message.
-- Adds a new index to summary table.
-- Updates plugin's documentation.
-- Other small bug fixes and improvements.
-
-= 3.2.2 =
-**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is recommended.**
-
-* Moves sampling logic into Javascript (thanks, [@kurtpayne](https://github.com/kurtpayne)!)
-* Simplifies category filtering logic.
-* Fixes list sorting issue that some users were experimenting (thanks, sponker!)
-* Widget uses stock thumbnails when using predefined size (some conditions apply).
-* Adds the ability to enable / disable responsive support for thumbails.
-* Renames wpp_update_views action hook to wpp_post_update_views, **update your code!**
-* Adds wpp_pre_update_views action hook.
-* Adds filter wpp_render_image.
-* Drops support for get_mostpopular() template tag.
-* Fixes empty HTML tags (thumbnail, stats).
-* Removes Japanese, French and Norwegian Bokmal translation files from plugin.
-* Many minor bug fixes / enhancements.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
