@@ -978,19 +978,4 @@ $tabs = array(
     </div>
     <!-- End params -->
 
-    <!-- Start about -->
-    <div id="wpp_faq" <?php echo ( "about" == $current ) ? '' : ' style="display: none;"'; ?>>
-
-        <h3><?php echo sprintf( __('About WordPress Popular Posts %s', 'wordpress-popular-posts'), $this->version); ?></h3>
-        <p><?php _e( 'This version includes the following changes', 'wordpress-popular-posts' ); ?>:</p>
-
-        <ul>
-            <li>Fixes potential XSS exploit in WPP's admin dashboard.</li>
-            <li>Adds filter to set which post types should be tracked by WPP (details).</li>
-            <li>Adds ability to select first attached image as thumbnail source (thanks, <a href="https://github.com/serglopatin">@serglopatin</a>!)</li>
-        </ul>
-
-    </div>
-    <!-- End about -->
-
 </div>
