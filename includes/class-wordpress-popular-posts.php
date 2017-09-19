@@ -137,6 +137,8 @@ class WordPressPopularPosts {
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
         // Thickbox setup
         $this->loader->add_action( 'admin_init', $plugin_admin, 'thickbox_setup' );
+        // Contextual help
+        $this->loader->add_action( 'admin_head', $plugin_admin, 'add_contextual_help' );
         // Add plugin settings link
         $this->loader->add_filter( 'plugin_action_links', $plugin_admin, 'add_plugin_settings_link', 10, 2 );
         // Update chart

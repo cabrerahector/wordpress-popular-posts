@@ -225,7 +225,50 @@ class WPP_Admin {
         return $translated_text;
 
     } // end replace_thickbox_text
-    
+
+    public function add_contextual_help(){
+
+        //get the current screen object
+        $screen = get_current_screen();
+
+        if ( isset( $screen->id ) && $screen->id == $this->plugin_screen_hook_suffix ){
+            $screen->add_help_tab(
+                array(
+                    'id'        => 'wpp_help_overview',
+                    'title'     => __('Overview', 'wordpress-popular-posts'),
+                    'content'   => "<p>Welcome to WordPress Popular Posts' Dashboard!</p>"
+                )
+            );
+            $screen->add_help_tab(
+                array(
+                    'id'        => 'wpp_help_donate',
+                    'title'     => __('Like this plugin?', 'wordpress-popular-posts'),
+                    'content'   => '
+                        <p style="text-align: center;">' . __( 'Each donation motivates me to keep releasing free stuff for the WordPress community!', 'wordpress-popular-posts' ) . '</p>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="margin: 0; padding: 0; text-align: center;">
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="RP9SK8KVQHRKS">
+                            <input type="image" src="//www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="display: inline; margin: 0;">
+                            <img alt="" border="0" src="//www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                        </form>
+                        <p style="text-align: center;">' . sprintf( __('You can <a href="%s" target="_blank">leave a review</a>, too!', 'wordpress-popular-posts'), 'https://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts?rate=5#postform' ) . '</p>'
+                )
+            );
+
+            //$screen->remove_help_tabs();
+
+            // Help sidebar
+            $screen->set_help_sidebar(
+                sprintf(
+                    __( '<p><strong>For more information:</strong></p><ul><li><a href="%1$s">Documentation</a></li><li><a href="%2$s">Support</a></li></ul>', 'wordpress-popular-posts' ),
+                    "https://github.com/cabrerahector/wordpress-popular-posts/",
+                    "https://wordpress.org/support/plugin/wordpress-popular-posts/"
+                )
+            );
+        }
+
+    }
+
     /**
      * Register the administration menu for this plugin into the WordPress Dashboard menu.
      *
