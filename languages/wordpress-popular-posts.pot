@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2017-09-19 11:27-0400\n"
+"POT-Creation-Date: 2017-09-19 15:36-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -58,8 +58,8 @@ msgid ""
 msgstr ""
 
 #: ../admin/class-wordpress-popular-posts-admin.php:631
-#: ../admin/class-wordpress-popular-posts-admin.php:750 ../admin/partials/admin.php:430
-#: ../admin/partials/admin.php:477
+#: ../admin/class-wordpress-popular-posts-admin.php:750 ../admin/partials/admin.php:412
+#: ../admin/partials/admin.php:459
 #: ../includes/class-wordpress-popular-posts-output.php:689
 #, php-format
 msgid "1 view"
@@ -68,8 +68,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../admin/class-wordpress-popular-posts-admin.php:631
-#: ../admin/class-wordpress-popular-posts-admin.php:805 ../admin/partials/admin.php:430
-#: ../admin/partials/admin.php:477
+#: ../admin/class-wordpress-popular-posts-admin.php:805 ../admin/partials/admin.php:412
+#: ../admin/partials/admin.php:459
 #: ../includes/class-wordpress-popular-posts-output.php:670
 #, php-format
 msgid "1 comment"
@@ -86,20 +86,20 @@ msgid "Views"
 msgstr ""
 
 #: ../admin/class-wordpress-popular-posts-admin.php:751
-#: ../admin/class-wordpress-popular-posts-admin.php:806 ../admin/partials/admin.php:431
-#: ../admin/partials/admin.php:478
+#: ../admin/class-wordpress-popular-posts-admin.php:806 ../admin/partials/admin.php:413
+#: ../admin/partials/admin.php:460
 msgid "View"
 msgstr ""
 
 #: ../admin/class-wordpress-popular-posts-admin.php:751
-#: ../admin/class-wordpress-popular-posts-admin.php:806 ../admin/partials/admin.php:431
-#: ../admin/partials/admin.php:478
+#: ../admin/class-wordpress-popular-posts-admin.php:806 ../admin/partials/admin.php:413
+#: ../admin/partials/admin.php:460
 msgid "Edit"
 msgstr ""
 
 #: ../admin/class-wordpress-popular-posts-admin.php:762
-#: ../admin/class-wordpress-popular-posts-admin.php:817 ../admin/partials/admin.php:442
-#: ../admin/partials/admin.php:489
+#: ../admin/class-wordpress-popular-posts-admin.php:817 ../admin/partials/admin.php:424
+#: ../admin/partials/admin.php:471
 msgid ""
 "Looks like traffic to your site is a little light right now. <br />Spread the word and "
 "come back later!"
@@ -205,76 +205,76 @@ msgstr ""
 msgid "The thumbnail cache is already empty!"
 msgstr ""
 
-#: ../admin/partials/admin.php:265
+#: ../admin/partials/admin.php:247
 msgid "Menu"
 msgstr ""
 
-#: ../admin/partials/admin.php:266 ../admin/partials/admin.php:274
+#: ../admin/partials/admin.php:248 ../admin/partials/admin.php:256
 msgid "Stats"
 msgstr ""
 
-#: ../admin/partials/admin.php:267 ../admin/partials/admin.php:275
+#: ../admin/partials/admin.php:249 ../admin/partials/admin.php:257
 msgid "Tools"
 msgstr ""
 
-#: ../admin/partials/admin.php:268 ../admin/partials/admin.php:276
+#: ../admin/partials/admin.php:250 ../admin/partials/admin.php:258
 msgid "Parameters"
 msgstr ""
 
-#: ../admin/partials/admin.php:277
+#: ../admin/partials/admin.php:259
 msgid "About"
 msgstr ""
 
-#: ../admin/partials/admin.php:301
+#: ../admin/partials/admin.php:283
 msgid "Post type"
 msgstr ""
 
-#: ../admin/partials/admin.php:304
+#: ../admin/partials/admin.php:286
 msgid "Limit"
 msgstr ""
 
-#: ../admin/partials/admin.php:307 ../includes/widget-form.php:48
+#: ../admin/partials/admin.php:289 ../includes/widget-form.php:48
 msgid "Display only posts published within the selected Time Range"
 msgstr ""
 
-#: ../admin/partials/admin.php:313 ../admin/partials/admin.php:351
-#: ../admin/partials/admin.php:570 ../admin/partials/admin.php:674
-#: ../admin/partials/admin.php:713
+#: ../admin/partials/admin.php:295 ../admin/partials/admin.php:333
+#: ../admin/partials/admin.php:552 ../admin/partials/admin.php:656
+#: ../admin/partials/admin.php:695
 msgid "Apply"
 msgstr ""
 
-#: ../admin/partials/admin.php:314 ../admin/partials/admin.php:354
+#: ../admin/partials/admin.php:296 ../admin/partials/admin.php:336
 msgid "Cancel"
 msgstr ""
 
-#: ../admin/partials/admin.php:327
+#: ../admin/partials/admin.php:309
 msgid "Custom Time Range"
 msgstr ""
 
-#: ../admin/partials/admin.php:328
+#: ../admin/partials/admin.php:310
 msgid "Date Range"
 msgstr ""
 
-#: ../admin/partials/admin.php:336 ../admin/partials/admin.php:640
+#: ../admin/partials/admin.php:318 ../admin/partials/admin.php:622
 #: ../includes/widget-form.php:41
 msgid "Minute(s)"
 msgstr ""
 
-#: ../admin/partials/admin.php:337 ../admin/partials/admin.php:641
+#: ../admin/partials/admin.php:319 ../admin/partials/admin.php:623
 #: ../includes/widget-form.php:42
 msgid "Hour(s)"
 msgstr ""
 
-#: ../admin/partials/admin.php:338 ../admin/partials/admin.php:642
+#: ../admin/partials/admin.php:320 ../admin/partials/admin.php:624
 #: ../includes/widget-form.php:43
 msgid "Day(s)"
 msgstr ""
 
-#: ../admin/partials/admin.php:344
+#: ../admin/partials/admin.php:326
 msgid "Select a date..."
 msgstr ""
 
-#: ../admin/partials/admin.php:373
+#: ../admin/partials/admin.php:355
 #, php-format
 msgid ""
 "Err... A nice little chart is supposed to be here, instead you are seeing this because "
@@ -282,191 +282,191 @@ msgid ""
 "browser</a>."
 msgstr ""
 
-#: ../admin/partials/admin.php:499
+#: ../admin/partials/admin.php:481
 msgid "Thumbnails"
 msgstr ""
 
-#: ../admin/partials/admin.php:504
+#: ../admin/partials/admin.php:486
 msgid "Default thumbnail"
 msgstr ""
 
-#: ../admin/partials/admin.php:509
+#: ../admin/partials/admin.php:491
 msgid "Upload thumbnail"
 msgstr ""
 
-#: ../admin/partials/admin.php:511
+#: ../admin/partials/admin.php:493
 msgid ""
 "How-to: upload (or select) an image, set Size to Full and click on Upload. After it's "
 "done, hit on Apply to save changes"
 msgstr ""
 
-#: ../admin/partials/admin.php:515
+#: ../admin/partials/admin.php:497
 msgid "Pick image from"
 msgstr ""
 
-#: ../admin/partials/admin.php:518
+#: ../admin/partials/admin.php:500
 msgid "Featured image"
 msgstr ""
 
-#: ../admin/partials/admin.php:519
+#: ../admin/partials/admin.php:501
 msgid "First image on post"
 msgstr ""
 
-#: ../admin/partials/admin.php:520
+#: ../admin/partials/admin.php:502
 msgid "First attachment"
 msgstr ""
 
-#: ../admin/partials/admin.php:521
+#: ../admin/partials/admin.php:503
 msgid "Custom field"
 msgstr ""
 
-#: ../admin/partials/admin.php:524
+#: ../admin/partials/admin.php:506
 msgid "Tell WordPress Popular Posts where it should get thumbnails from"
 msgstr ""
 
-#: ../admin/partials/admin.php:528
+#: ../admin/partials/admin.php:510
 msgid "Custom field name"
 msgstr ""
 
-#: ../admin/partials/admin.php:534
+#: ../admin/partials/admin.php:516
 msgid "Resize image from Custom field?"
 msgstr ""
 
-#: ../admin/partials/admin.php:537
+#: ../admin/partials/admin.php:519
 msgid "No, I will upload my own thumbnail"
 msgstr ""
 
-#: ../admin/partials/admin.php:538
+#: ../admin/partials/admin.php:520
 msgid "Yes"
 msgstr ""
 
-#: ../admin/partials/admin.php:543
+#: ../admin/partials/admin.php:525
 msgid "Responsive support"
 msgstr ""
 
-#: ../admin/partials/admin.php:546 ../admin/partials/admin.php:616
-#: ../admin/partials/admin.php:656 ../admin/partials/admin.php:703
+#: ../admin/partials/admin.php:528 ../admin/partials/admin.php:598
+#: ../admin/partials/admin.php:638 ../admin/partials/admin.php:685
 msgid "Enabled"
 msgstr ""
 
-#: ../admin/partials/admin.php:547 ../admin/partials/admin.php:600
-#: ../admin/partials/admin.php:615 ../admin/partials/admin.php:655
-#: ../admin/partials/admin.php:704
+#: ../admin/partials/admin.php:529 ../admin/partials/admin.php:582
+#: ../admin/partials/admin.php:597 ../admin/partials/admin.php:637
+#: ../admin/partials/admin.php:686
 msgid "Disabled"
 msgstr ""
 
-#: ../admin/partials/admin.php:550
+#: ../admin/partials/admin.php:532
 msgid ""
 "If enabled, WordPress Popular Posts will strip height and width attributes out of "
 "thumbnails' image tags"
 msgstr ""
 
-#: ../admin/partials/admin.php:560
+#: ../admin/partials/admin.php:542
 msgid "Empty image cache"
 msgstr ""
 
-#: ../admin/partials/admin.php:561
+#: ../admin/partials/admin.php:543
 msgid "Use this button to clear WPP's thumbnails cache"
 msgstr ""
 
-#: ../admin/partials/admin.php:581
+#: ../admin/partials/admin.php:563
 msgid "Data"
 msgstr ""
 
-#: ../admin/partials/admin.php:586
+#: ../admin/partials/admin.php:568
 msgid "Log views from"
 msgstr ""
 
-#: ../admin/partials/admin.php:589
+#: ../admin/partials/admin.php:571
 msgid "Visitors only"
 msgstr ""
 
-#: ../admin/partials/admin.php:590
+#: ../admin/partials/admin.php:572
 msgid "Logged-in users only"
 msgstr ""
 
-#: ../admin/partials/admin.php:591
+#: ../admin/partials/admin.php:573
 msgid "Everyone"
 msgstr ""
 
-#: ../admin/partials/admin.php:597
+#: ../admin/partials/admin.php:579
 msgid "Log limit"
 msgstr ""
 
-#: ../admin/partials/admin.php:601
+#: ../admin/partials/admin.php:583
 msgid "Keep data for"
 msgstr ""
 
-#: ../admin/partials/admin.php:604
+#: ../admin/partials/admin.php:586
 msgid "day(s)"
 msgstr ""
 
-#: ../admin/partials/admin.php:606
+#: ../admin/partials/admin.php:588
 msgid ""
 "Data from entries that haven't been viewed within the specified time frame will be "
 "automatically discarded"
 msgstr ""
 
-#: ../admin/partials/admin.php:612
+#: ../admin/partials/admin.php:594
 msgid "Ajaxify widget"
 msgstr ""
 
-#: ../admin/partials/admin.php:620
+#: ../admin/partials/admin.php:602
 msgid ""
 "If you are using a caching plugin such as WP Super Cache, enabling this feature will "
 "keep the popular list from being cached by it"
 msgstr ""
 
-#: ../admin/partials/admin.php:624
+#: ../admin/partials/admin.php:606
 msgid "WPP Cache Expiry Policy"
 msgstr ""
 
-#: ../admin/partials/admin.php:624 ../admin/partials/admin.php:652
+#: ../admin/partials/admin.php:606 ../admin/partials/admin.php:634
 #: ../includes/widget-form.php:3 ../includes/widget-form.php:50
 #: ../includes/widget-form.php:56 ../includes/widget-form.php:75
 #: ../includes/widget-form.php:85 ../includes/widget-form.php:177
 msgid "What is this?"
 msgstr ""
 
-#: ../admin/partials/admin.php:627
+#: ../admin/partials/admin.php:609
 msgid "Never cache"
 msgstr ""
 
-#: ../admin/partials/admin.php:628
+#: ../admin/partials/admin.php:610
 msgid "Enable caching"
 msgstr ""
 
-#: ../admin/partials/admin.php:632
+#: ../admin/partials/admin.php:614
 msgid ""
 "Sets WPP's cache expiration time. WPP can cache the popular list for a specified "
 "amount of time. Recommended for large / high traffic sites"
 msgstr ""
 
-#: ../admin/partials/admin.php:636
+#: ../admin/partials/admin.php:618
 msgid "Refresh cache every"
 msgstr ""
 
-#: ../admin/partials/admin.php:643
+#: ../admin/partials/admin.php:625
 msgid "Week(s)"
 msgstr ""
 
-#: ../admin/partials/admin.php:644
+#: ../admin/partials/admin.php:626
 msgid "Month(s)"
 msgstr ""
 
-#: ../admin/partials/admin.php:645
+#: ../admin/partials/admin.php:627
 msgid "Year(s)"
 msgstr ""
 
-#: ../admin/partials/admin.php:648
+#: ../admin/partials/admin.php:630
 msgid "Really? That long?"
 msgstr ""
 
-#: ../admin/partials/admin.php:652
+#: ../admin/partials/admin.php:634
 msgid "Data Sampling"
 msgstr ""
 
-#: ../admin/partials/admin.php:660
+#: ../admin/partials/admin.php:642
 #, php-format
 msgid ""
 "By default, WordPress Popular Posts stores in database every single visit your site "
@@ -477,45 +477,45 @@ msgid ""
 "(for more, <a href=\"%2$s\" target=\"_blank\">please read here</a>)"
 msgstr ""
 
-#: ../admin/partials/admin.php:664
+#: ../admin/partials/admin.php:646
 msgid "Sample Rate"
 msgstr ""
 
-#: ../admin/partials/admin.php:668
+#: ../admin/partials/admin.php:650
 #, php-format
 msgid ""
 "A sampling rate of %d is recommended for large / high traffic sites. For lower traffic "
 "sites, you should lower the value"
 msgstr ""
 
-#: ../admin/partials/admin.php:685
+#: ../admin/partials/admin.php:667
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../admin/partials/admin.php:690
+#: ../admin/partials/admin.php:672
 msgid "Open links in"
 msgstr ""
 
-#: ../admin/partials/admin.php:693
+#: ../admin/partials/admin.php:675
 msgid "Current window"
 msgstr ""
 
-#: ../admin/partials/admin.php:694
+#: ../admin/partials/admin.php:676
 msgid "New tab/window"
 msgstr ""
 
-#: ../admin/partials/admin.php:700
+#: ../admin/partials/admin.php:682
 msgid "Use plugin's stylesheet"
 msgstr ""
 
-#: ../admin/partials/admin.php:707
+#: ../admin/partials/admin.php:689
 msgid ""
 "By default, the plugin includes a stylesheet called wpp.css which you can use to style "
 "your popular posts listing. If you wish to use your own stylesheet or do not want it "
 "to have it included in the header section of your site, use this."
 msgstr ""
 
-#: ../admin/partials/admin.php:726
+#: ../admin/partials/admin.php:708
 msgid ""
 "WordPress Popular Posts maintains data in two separate tables: one for storing the "
 "most popular entries on a daily basis (from now on, \"cache\"), and another one to "
@@ -524,23 +524,23 @@ msgid ""
 "tables, please use the buttons below to do so."
 msgstr ""
 
-#: ../admin/partials/admin.php:727
+#: ../admin/partials/admin.php:709
 msgid "Empty cache"
 msgstr ""
 
-#: ../admin/partials/admin.php:727
+#: ../admin/partials/admin.php:709
 msgid "Use this button to manually clear entries from WPP cache only"
 msgstr ""
 
-#: ../admin/partials/admin.php:728
+#: ../admin/partials/admin.php:710
 msgid "Clear all data"
 msgstr ""
 
-#: ../admin/partials/admin.php:728
+#: ../admin/partials/admin.php:710
 msgid "Use this button to manually clear entries from all WPP data tables"
 msgstr ""
 
-#: ../admin/partials/admin.php:735
+#: ../admin/partials/admin.php:717
 #, php-format
 msgid ""
 "With the following parameters you can customize the popular posts list when using "
@@ -548,334 +548,337 @@ msgid ""
 "\"%2$s\">[wpp] shortcode</a>."
 msgstr ""
 
-#: ../admin/partials/admin.php:743
+#: ../admin/partials/admin.php:725
 msgid "Parameter"
 msgstr ""
 
-#: ../admin/partials/admin.php:744
+#: ../admin/partials/admin.php:726
 msgid "What it does "
 msgstr ""
 
-#: ../admin/partials/admin.php:745
+#: ../admin/partials/admin.php:727
 msgid "Possible values"
 msgstr ""
 
-#: ../admin/partials/admin.php:746
+#: ../admin/partials/admin.php:728
 msgid "Defaults to"
 msgstr ""
 
-#: ../admin/partials/admin.php:747
+#: ../admin/partials/admin.php:729
 msgid "Example"
 msgstr ""
 
-#: ../admin/partials/admin.php:753
+#: ../admin/partials/admin.php:735
 msgid "Sets a heading for the list"
 msgstr ""
 
-#: ../admin/partials/admin.php:754 ../admin/partials/admin.php:761
-#: ../admin/partials/admin.php:768 ../admin/partials/admin.php:817
-#: ../admin/partials/admin.php:824 ../admin/partials/admin.php:831
-#: ../admin/partials/admin.php:838 ../admin/partials/admin.php:845
-#: ../admin/partials/admin.php:852 ../admin/partials/admin.php:943
-#: ../admin/partials/admin.php:957 ../admin/partials/admin.php:964
+#: ../admin/partials/admin.php:736 ../admin/partials/admin.php:743
+#: ../admin/partials/admin.php:750 ../admin/partials/admin.php:799
+#: ../admin/partials/admin.php:806 ../admin/partials/admin.php:813
+#: ../admin/partials/admin.php:820 ../admin/partials/admin.php:827
+#: ../admin/partials/admin.php:834 ../admin/partials/admin.php:925
+#: ../admin/partials/admin.php:946 ../admin/partials/admin.php:953
 msgid "Text string"
 msgstr ""
 
-#: ../admin/partials/admin.php:755 ../admin/partials/admin.php:825
-#: ../admin/partials/admin.php:832 ../admin/partials/admin.php:839
-#: ../admin/partials/admin.php:846 ../admin/partials/admin.php:853
+#: ../admin/partials/admin.php:737 ../admin/partials/admin.php:807
+#: ../admin/partials/admin.php:814 ../admin/partials/admin.php:821
+#: ../admin/partials/admin.php:828 ../admin/partials/admin.php:835
 msgid "None"
 msgstr ""
 
-#: ../admin/partials/admin.php:756 ../admin/partials/admin.php:763
-#: ../admin/partials/admin.php:770 ../admin/partials/admin.php:777
-#: ../admin/partials/admin.php:784 ../admin/partials/admin.php:791
-#: ../admin/partials/admin.php:798 ../admin/partials/admin.php:805
-#: ../admin/partials/admin.php:812 ../admin/partials/admin.php:819
-#: ../admin/partials/admin.php:826 ../admin/partials/admin.php:833
-#: ../admin/partials/admin.php:840 ../admin/partials/admin.php:847
-#: ../admin/partials/admin.php:854 ../admin/partials/admin.php:861
-#: ../admin/partials/admin.php:868 ../admin/partials/admin.php:875
-#: ../admin/partials/admin.php:882 ../admin/partials/admin.php:889
-#: ../admin/partials/admin.php:896 ../admin/partials/admin.php:903
-#: ../admin/partials/admin.php:910 ../admin/partials/admin.php:917
-#: ../admin/partials/admin.php:924 ../admin/partials/admin.php:931
-#: ../admin/partials/admin.php:938 ../admin/partials/admin.php:945
-#: ../admin/partials/admin.php:952 ../admin/partials/admin.php:959
-#: ../admin/partials/admin.php:966 ../admin/partials/admin.php:973
+#: ../admin/partials/admin.php:738 ../admin/partials/admin.php:745
+#: ../admin/partials/admin.php:752 ../admin/partials/admin.php:759
+#: ../admin/partials/admin.php:766 ../admin/partials/admin.php:773
+#: ../admin/partials/admin.php:780 ../admin/partials/admin.php:787
+#: ../admin/partials/admin.php:794 ../admin/partials/admin.php:801
+#: ../admin/partials/admin.php:808 ../admin/partials/admin.php:815
+#: ../admin/partials/admin.php:822 ../admin/partials/admin.php:829
+#: ../admin/partials/admin.php:836 ../admin/partials/admin.php:843
+#: ../admin/partials/admin.php:850 ../admin/partials/admin.php:857
+#: ../admin/partials/admin.php:864 ../admin/partials/admin.php:871
+#: ../admin/partials/admin.php:878 ../admin/partials/admin.php:885
+#: ../admin/partials/admin.php:892 ../admin/partials/admin.php:899
+#: ../admin/partials/admin.php:906 ../admin/partials/admin.php:913
+#: ../admin/partials/admin.php:920 ../admin/partials/admin.php:927
+#: ../admin/partials/admin.php:934 ../admin/partials/admin.php:941
+#: ../admin/partials/admin.php:948 ../admin/partials/admin.php:955
+#: ../admin/partials/admin.php:962
 msgid "With wpp_get_mostpopular():"
 msgstr ""
 
-#: ../admin/partials/admin.php:756 ../admin/partials/admin.php:763
-#: ../admin/partials/admin.php:770 ../admin/partials/admin.php:777
-#: ../admin/partials/admin.php:784 ../admin/partials/admin.php:791
-#: ../admin/partials/admin.php:798 ../admin/partials/admin.php:805
-#: ../admin/partials/admin.php:812 ../admin/partials/admin.php:819
-#: ../admin/partials/admin.php:826 ../admin/partials/admin.php:833
-#: ../admin/partials/admin.php:840 ../admin/partials/admin.php:847
-#: ../admin/partials/admin.php:854 ../admin/partials/admin.php:861
-#: ../admin/partials/admin.php:868 ../admin/partials/admin.php:875
-#: ../admin/partials/admin.php:882 ../admin/partials/admin.php:889
-#: ../admin/partials/admin.php:896 ../admin/partials/admin.php:903
-#: ../admin/partials/admin.php:910 ../admin/partials/admin.php:917
-#: ../admin/partials/admin.php:924 ../admin/partials/admin.php:931
-#: ../admin/partials/admin.php:938 ../admin/partials/admin.php:945
-#: ../admin/partials/admin.php:952 ../admin/partials/admin.php:959
-#: ../admin/partials/admin.php:966 ../admin/partials/admin.php:973
+#: ../admin/partials/admin.php:738 ../admin/partials/admin.php:745
+#: ../admin/partials/admin.php:752 ../admin/partials/admin.php:759
+#: ../admin/partials/admin.php:766 ../admin/partials/admin.php:773
+#: ../admin/partials/admin.php:780 ../admin/partials/admin.php:787
+#: ../admin/partials/admin.php:794 ../admin/partials/admin.php:801
+#: ../admin/partials/admin.php:808 ../admin/partials/admin.php:815
+#: ../admin/partials/admin.php:822 ../admin/partials/admin.php:829
+#: ../admin/partials/admin.php:836 ../admin/partials/admin.php:843
+#: ../admin/partials/admin.php:850 ../admin/partials/admin.php:857
+#: ../admin/partials/admin.php:864 ../admin/partials/admin.php:871
+#: ../admin/partials/admin.php:878 ../admin/partials/admin.php:885
+#: ../admin/partials/admin.php:892 ../admin/partials/admin.php:899
+#: ../admin/partials/admin.php:906 ../admin/partials/admin.php:913
+#: ../admin/partials/admin.php:920 ../admin/partials/admin.php:927
+#: ../admin/partials/admin.php:934 ../admin/partials/admin.php:941
+#: ../admin/partials/admin.php:948 ../admin/partials/admin.php:955
+#: ../admin/partials/admin.php:962
 msgid "With the [wpp] shortcode:"
 msgstr ""
 
-#: ../admin/partials/admin.php:760
+#: ../admin/partials/admin.php:742
 msgid "Set the opening tag for the heading of the list"
 msgstr ""
 
-#: ../admin/partials/admin.php:767
+#: ../admin/partials/admin.php:749
 msgid "Set the closing tag for the heading of the list"
 msgstr ""
 
-#: ../admin/partials/admin.php:774
+#: ../admin/partials/admin.php:756
 msgid "Sets the maximum number of popular posts to be shown on the listing"
 msgstr ""
 
-#: ../admin/partials/admin.php:775 ../admin/partials/admin.php:789
-#: ../admin/partials/admin.php:859 ../admin/partials/admin.php:873
-#: ../admin/partials/admin.php:894 ../admin/partials/admin.php:901
+#: ../admin/partials/admin.php:757 ../admin/partials/admin.php:771
+#: ../admin/partials/admin.php:841 ../admin/partials/admin.php:855
+#: ../admin/partials/admin.php:876 ../admin/partials/admin.php:883
 msgid "Positive integer"
 msgstr ""
 
-#: ../admin/partials/admin.php:781
+#: ../admin/partials/admin.php:763
 msgid ""
 "Tells WordPress Popular Posts to retrieve the most popular entries within the time "
 "range specified by you"
 msgstr ""
 
-#: ../admin/partials/admin.php:788
+#: ../admin/partials/admin.php:770
 msgid "Especifies the number of time units of the custom time range"
 msgstr ""
 
-#: ../admin/partials/admin.php:795
+#: ../admin/partials/admin.php:777
 msgid "Especifies the time unit of the custom time range"
 msgstr ""
 
-#: ../admin/partials/admin.php:802
+#: ../admin/partials/admin.php:784
 msgid ""
 "Tells WordPress Popular Posts to retrieve the most popular entries published within "
 "the time range specified by you"
 msgstr ""
 
-#: ../admin/partials/admin.php:809
+#: ../admin/partials/admin.php:791
 msgid "Sets the sorting option of the popular posts"
 msgstr ""
 
-#: ../admin/partials/admin.php:810
+#: ../admin/partials/admin.php:792
 msgid "(for average views per day)"
 msgstr ""
 
-#: ../admin/partials/admin.php:816
+#: ../admin/partials/admin.php:798
 msgid "Defines the type of posts to show on the listing"
 msgstr ""
 
-#: ../admin/partials/admin.php:823
+#: ../admin/partials/admin.php:805
 msgid ""
 "If set, WordPress Popular Posts will exclude the specified post(s) ID(s) form the "
 "listing."
 msgstr ""
 
-#: ../admin/partials/admin.php:830
+#: ../admin/partials/admin.php:812
 msgid ""
 "If set, WordPress Popular Posts will retrieve all entries that belong to the specified "
 "category ID(s). If a minus sign is used, entries associated to the category will be "
 "excluded instead."
 msgstr ""
 
-#: ../admin/partials/admin.php:837
+#: ../admin/partials/admin.php:819
 msgid "If set, WordPress Popular Posts will filter posts by a given taxonomy."
 msgstr ""
 
-#: ../admin/partials/admin.php:844
+#: ../admin/partials/admin.php:826
 msgid ""
 "If set, WordPress Popular Posts will retrieve all entries that belong to the specified "
 "term ID(s). If a minus sign is used, entries associated to the term(s) will be "
 "excluded instead."
 msgstr ""
 
-#: ../admin/partials/admin.php:851
+#: ../admin/partials/admin.php:833
 msgid ""
 "If set, WordPress Popular Posts will retrieve all entries created by specified "
 "author(s) ID(s)."
 msgstr ""
 
-#: ../admin/partials/admin.php:858
+#: ../admin/partials/admin.php:840
 msgid ""
 "If set, WordPress Popular Posts will shorten each post title to \"n\" characters "
 "whenever possible"
 msgstr ""
 
-#: ../admin/partials/admin.php:865
+#: ../admin/partials/admin.php:847
 msgid ""
 "If set to 1, WordPress Popular Posts will shorten each post title to \"n\" words "
 "instead of characters"
 msgstr ""
 
-#: ../admin/partials/admin.php:872
+#: ../admin/partials/admin.php:854
 msgid ""
 "If set, WordPress Popular Posts will build and include an excerpt of \"n\" characters "
 "long from the content of each post listed as popular"
 msgstr ""
 
-#: ../admin/partials/admin.php:879
+#: ../admin/partials/admin.php:861
 msgid ""
 "If set, WordPress Popular Posts will maintaing all styling tags (strong, italic, etc) "
 "and hyperlinks found in the excerpt"
 msgstr ""
 
-#: ../admin/partials/admin.php:886
+#: ../admin/partials/admin.php:868
 msgid ""
 "If set to 1, WordPress Popular Posts will shorten the excerpt to \"n\" words instead "
 "of characters"
 msgstr ""
 
-#: ../admin/partials/admin.php:893
+#: ../admin/partials/admin.php:875
 msgid ""
 "If set, and if your current server configuration allows it, you will be able to "
 "display thumbnails of your posts. This attribute sets the width for thumbnails"
 msgstr ""
 
-#: ../admin/partials/admin.php:900
+#: ../admin/partials/admin.php:882
 msgid ""
 "If set, and if your current server configuration allows it, you will be able to "
 "display thumbnails of your posts. This attribute sets the height for thumbnails"
 msgstr ""
 
-#: ../admin/partials/admin.php:907
+#: ../admin/partials/admin.php:889
 msgid ""
 "If set, and if the WP-PostRatings plugin is installed and enabled on your blog, "
 "WordPress Popular Posts will show how your visitors are rating your entries"
 msgstr ""
 
-#: ../admin/partials/admin.php:914
+#: ../admin/partials/admin.php:896
 msgid ""
 "If set, WordPress Popular Posts will show how many comments each popular post has got "
 "during the specified time range"
 msgstr ""
 
-#: ../admin/partials/admin.php:921
+#: ../admin/partials/admin.php:903
 msgid ""
 "If set, WordPress Popular Posts will show how many views each popular post has got "
 "during the specified time range"
 msgstr ""
 
-#: ../admin/partials/admin.php:928
+#: ../admin/partials/admin.php:910
 msgid ""
 "If set, WordPress Popular Posts will show who published each popular post on the list"
 msgstr ""
 
-#: ../admin/partials/admin.php:935
+#: ../admin/partials/admin.php:917
 msgid ""
 "If set, WordPress Popular Posts will display the date when each popular post on the "
 "list was published"
 msgstr ""
 
-#: ../admin/partials/admin.php:942
+#: ../admin/partials/admin.php:924
 msgid "Sets the date format"
 msgstr ""
 
-#: ../admin/partials/admin.php:949
-msgid "If set, WordPress Popular Posts will display the category"
+#: ../admin/partials/admin.php:931
+msgid ""
+"If set, WordPress Popular Posts will display the categories associated to each entry"
 msgstr ""
 
-#: ../admin/partials/admin.php:956
+#: ../admin/partials/admin.php:938
+msgid ""
+"If set, WordPress Popular Posts will display the taxonomies associated to each entry"
+msgstr ""
+
+#: ../admin/partials/admin.php:945
 msgid "Sets the opening tag for the listing"
 msgstr ""
 
-#: ../admin/partials/admin.php:963
+#: ../admin/partials/admin.php:952
 msgid "Sets the closing tag for the listing"
 msgstr ""
 
-#: ../admin/partials/admin.php:970
+#: ../admin/partials/admin.php:959
 msgid "Sets the HTML structure of each post"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "Text string, custom HTML"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "Available Content Tags"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid ""
 "displays thumbnail linked to post/page, requires thumbnail_width & thumbnail_height"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid ""
 "displays thumbnail image without linking to post/page, requires thumbnail_width & "
 "thumbnail_height"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays thumbnail url, requires thumbnail_width & thumbnail_height"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays linked post/page title"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays post/page excerpt, and requires excerpt_length to be greater than 0"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays the default stats tags"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays post/page current rating, requires WP-PostRatings installed and enabled"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid ""
 "displays post/page current rating as an integer, requires WP-PostRatings installed and "
 "enabled"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "outputs the URL of the post/page"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays post/page title, no link"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays linked author name, requires stats_author=1"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays linked category name, requires stats_category=1"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
+msgid "displays linked taxonomy names, requires stats_taxonomy=1"
+msgstr ""
+
+#: ../admin/partials/admin.php:960
 msgid "displays views count only, no text"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays comments count only, no text, requires stats_comments=1"
 msgstr ""
 
-#: ../admin/partials/admin.php:971
+#: ../admin/partials/admin.php:960
 msgid "displays post/page date, requires stats_date=1"
-msgstr ""
-
-#: ../admin/partials/admin.php:984
-#, php-format
-msgid "About WordPress Popular Posts %s"
-msgstr ""
-
-#: ../admin/partials/admin.php:985
-msgid "This version includes the following changes"
 msgstr ""
 
 #: ../includes/class-wordpress-popular-posts-output.php:95
