@@ -240,24 +240,6 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
             );
         }
     }
-
-    jQuery(document).ready(function($){
-        <?php if ( "params" != $current ) : ?>
-        $('.wpp_boxes:visible').css({
-            display: 'inline',
-            float: 'left'
-        }).width( $('.wpp_boxes:visible').parent().width() - $('.wpp_box').outerWidth() - 15 );
-
-        $(window).on('resize', function(){
-            $('.wpp_boxes:visible').css({
-                display: 'inline',
-                float: 'left'
-            }).width( $('.wpp_boxes:visible').parent().width() - $('.wpp_box').outerWidth() - 15 );
-        });
-        <?php else: ?>
-        $('.wpp_box').hide();
-        <?php endif; ?>
-    });
 </script>
 
 <nav id="wpp-menu">
