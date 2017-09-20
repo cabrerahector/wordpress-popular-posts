@@ -299,7 +299,8 @@ class WPP_Admin {
     public function chart_query_table( $table, $options ){
 
         if ( 'comments' == $options['order_by'] ) {
-            return "`wp_comments` c";
+            global $wpdb;
+            return "`{$wpdb->prefix}comments` c";
         }
 
         return $table;
@@ -309,7 +310,8 @@ class WPP_Admin {
     public function chart_query_join( $join, $options ){
 
         if ( 'comments' == $options['order_by'] ) {
-            return "INNER JOIN `wp_posts` p ON c.comment_post_ID = p.ID";
+            global $wpdb;
+            return "INNER JOIN `{$wpdb->prefix}posts` p ON c.comment_post_ID = p.ID";
         }
 
         return $table;
