@@ -189,21 +189,25 @@ class WPP_Public {
         $result1 = $wpdb->query( $wpdb->prepare(
             "INSERT INTO {$table}data
             (postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
-            ON DUPLICATE KEY UPDATE pageviews = pageviews + %4\$d, last_viewed = '%3\$s';",
+            ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, last_viewed = %s;",
             $post_ID,
             $now,
             $now,
-            $views
+            $views,
+            $views,
+            $now
         ));
 
         // Update range (summary) table
         $result2 = $wpdb->query( $wpdb->prepare(
             "INSERT INTO {$table}summary
             (postid, pageviews, view_date, last_viewed) VALUES (%d, %d, %s, %s)
-            ON DUPLICATE KEY UPDATE pageviews = pageviews + %2\$d, last_viewed = '%4\$s';",
+            ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, last_viewed = %s;",
             $post_ID,
             $views,
             $curdate,
+            $now,
+            $views,
             $now
         ));
 
