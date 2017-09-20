@@ -855,7 +855,7 @@ class WPP_Admin {
         // Fallback, just in case
 
         $theme = new stdClass;
-        $theme->colors = ['#333', '#999', '#881111', '#a80000'];
+        $theme->colors = array( '#333', '#999', '#881111', '#a80000' );
 
         return $theme;
 
