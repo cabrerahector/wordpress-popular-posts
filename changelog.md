@@ -1,5 +1,13 @@
 Changelog
 =========
+#### 4.0.1 ####
+
+**This is a hotfix release.**
+
+- Fixes a warning message triggered on old PHP versions.
+- Fixes undefined `default_thumbnail_sizes` warning message.
+- Removes a hardcoded table prefix causing issues on sites that uses a different prefix than the stock one.
+
 #### 4.0.0 ####
 
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
