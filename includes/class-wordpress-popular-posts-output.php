@@ -22,11 +22,22 @@ class WPP_Output {
      */
     private $admin_options = array();
 
+    /**
+     * Default thumbnail sizes
+     *
+     * @since	3.2.2
+     * @var		array
+     */
+    private $default_thumbnail_sizes = array();
+
     public function __construct( array $popular_posts = array(), array $options = array() ) {
 
         $this->data = $popular_posts;
         $this->options = $options;
         $this->admin_options = WPP_Settings::get( 'admin_options' );
+
+        $wpp_image = WPP_Image::get_instance();
+        $this->default_thumbnail_sizes = $wpp_image->get_image_sizes();
 
         $this->build_output();
 
