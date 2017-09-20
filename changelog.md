@@ -10,6 +10,7 @@ Changelog
 - Adds ability to pick a Custom Time Range!
 - Adds ability to filter posts by other taxonomies than just categories!
 - Adds Relative Date Format.
+- Fixes error caused by changeset 41508 https://core.trac.wordpress.org/changeset/41508
 - Improves PHP7+ compatibility.
 - Improves compatibility with WP-SpamShield, WooCommerce, Polylang and WPML.
 - Drops qTranslate support (that plugin has been long removed from WordPress.org anyways.)
