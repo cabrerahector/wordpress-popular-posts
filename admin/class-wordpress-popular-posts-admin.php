@@ -653,8 +653,8 @@ class WPP_Admin {
 
                 jQuery("#<?php echo $containter_id; ?> p").remove();
 
-                var wpp_chart_views_color = '<?php echo $color_scheme->colors[2]; ?>';
-                var wpp_chart_comments_color = '<?php echo $color_scheme->colors[3]; ?>';
+                var wpp_chart_views_color = '<?php echo $color_scheme[2]; ?>';
+                var wpp_chart_comments_color = '<?php echo $color_scheme[3]; ?>';
 
                 var wpp_chart_data = {
                     labels: [ <?php foreach( $data['dates'] as $date => $date_data ) : echo "'" . date_i18n( 'D d', strtotime( $date ) ) . "', "; endforeach; ?>],
@@ -846,18 +846,14 @@ class WPP_Admin {
                 $color_scheme = 'fresh';
             }
 
-            if ( isset($_wp_admin_css_colors[ $color_scheme ]) ) {
-                return $_wp_admin_css_colors[ $color_scheme ];
+            if ( isset($_wp_admin_css_colors[ $color_scheme ]) && isset($_wp_admin_css_colors[ $color_scheme ]->colors) ) {
+                return $_wp_admin_css_colors[ $color_scheme ]->colors;
             }
 
         }
 
         // Fallback, just in case
-
-        $theme = new stdClass;
-        $theme->colors = array( '#333', '#999', '#881111', '#a80000' );
-
-        return $theme;
+        return array( '#333', '#999', '#881111', '#a80000' );
 
     }
     
