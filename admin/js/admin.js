@@ -309,7 +309,7 @@
             e.preventDefault();
         });
         window.send_to_editor = function(html) {
-            var regex = /<img[^>]+src="(http:\/\/[^">]+)"/g;
+            var regex = /<img[^>]+src="(https?:\/\/[^">]+)"/g;
             var result = regex.exec(html);
 
             if ( null != result ) {
