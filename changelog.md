@@ -1,5 +1,11 @@
 Changelog
 =========
+#### 4.0.2 ####
+**This is a hotfix release.**
+
+- Dashboard: fixes thumbnail picker on HTTPS.
+- Adds the `wpp_custom_html` filter back.
+
 #### 4.0.1 ####
 
 **This is a hotfix release.**
@@ -26,6 +32,8 @@ Changelog
 - New filters: `wpp_post_class`, `wpp_post_exclude_terms`.
 - French and German translation files became too outdated and so support has been dropped for now (want to help? Contact me!)
 - Tons of minor bug fixes and improvements.
+
+Also, see [Release notes](https://cabrerahector.com/development/wordpress-popular-posts-4-0-is-finally-out/).
 
 #### 3.3.4 ####
 - Attempt to convert tables to InnoDB during upgrade if other engine is being used.
