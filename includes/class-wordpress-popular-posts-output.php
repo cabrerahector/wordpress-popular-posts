@@ -58,6 +58,13 @@ class WPP_Output {
                 $this->options
             );
 
+            // Allow WP themers / coders access to raw data
+            // so they can build their own output
+            if ( has_filter( 'wpp_custom_html' ) ) {
+                $this->output = apply_filters( 'wpp_custom_html', $this->data, $this->options );
+                return;
+            }
+
             /* Open HTML wrapper */
             // Output a custom wrapper
             if (
