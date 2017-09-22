@@ -508,4 +508,14 @@ class WPP_Image {
         return $sizes;
     }
 
+    /**
+     * Sets default thumbnail image.
+     *
+     * @since	4.0.2
+     * @param   string  $url
+     */
+    public function set_default( $url ) {
+        $this->default_thumbnail = esc_url( $url );
+    }
+
 } // End WPP_Image class

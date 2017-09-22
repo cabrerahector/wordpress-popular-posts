@@ -30,14 +30,27 @@ class WPP_Output {
      */
     private $default_thumbnail_sizes = array();
 
+    /**
+     * WPP_Image object
+     *
+     * @since	4.0.2
+     * @var		object
+     */
+    private $wpp_image;
+
     public function __construct( array $popular_posts = array(), array $options = array() ) {
 
         $this->data = $popular_posts;
         $this->options = $options;
         $this->admin_options = WPP_Settings::get( 'admin_options' );
 
-        $wpp_image = WPP_Image::get_instance();
-        $this->default_thumbnail_sizes = $wpp_image->get_image_sizes();
+        $this->wpp_image = WPP_Image::get_instance();
+
+        if ( filter_var( $this->admin_options['tools']['thumbnail']['default'], FILTER_VALIDATE_URL ) ) {
+            $this->wpp_image->set_default( $this->admin_options['tools']['thumbnail']['default'] );
+        }
+
+        $this->default_thumbnail_sizes = $this->wpp_image->get_image_sizes();
 
         $this->build_output();
 
@@ -278,13 +291,13 @@ class WPP_Output {
      */
     private function get_thumbnail( stdClass $post_object ) {
 
-        $wpp_image = WPP_Image::get_instance();
+        $this->wpp_image = WPP_Image::get_instance();
 
         $thumbnail = '';
 
         if (
             $this->options['thumbnail']['active'] 
-            && $wpp_image->can_create_thumbnails() 
+            && $this->wpp_image->can_create_thumbnails() 
         ) {
 
             // Create / get thumbnail from custom field
@@ -301,7 +314,7 @@ class WPP_Output {
                     // Resize CF image
                     if ( $this->admin_options['tools']['thumbnail']['resize'] ) {
 
-                        $thumbnail = $wpp_image->get_img(
+                        $thumbnail = $this->wpp_image->get_img(
                             $post_object,
                             $thumb_url,
                             array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
@@ -312,7 +325,7 @@ class WPP_Output {
                     } // Use original CF image
                     else {
 
-                        $thumbnail = $wpp_image->render_image(
+                        $thumbnail = $this->wpp_image->render_image(
                             $thumb_url,
                             array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
                             'wpp-thumbnail wpp_cf',
@@ -324,7 +337,7 @@ class WPP_Output {
                 } // Custom field is empty / not set, use default thumbnail
                 else {
 
-                    $thumbnail = $wpp_image->get_img(
+                    $thumbnail = $this->wpp_image->get_img(
                         null,
                         null,
                         array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
@@ -376,7 +389,7 @@ class WPP_Output {
                         } // There's no Featured Image set for this post
                         else {
 
-                            $thumbnail = $wpp_image->get_img(
+                            $thumbnail = $this->wpp_image->get_img(
                                 null,
                                 null,
                                 array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
@@ -389,7 +402,7 @@ class WPP_Output {
                     } // Current theme does not support Featured Images (?)
                     else {
 
-                        $thumbnail = $wpp_image->get_img(
+                        $thumbnail = $this->wpp_image->get_img(
                             null,
                             null,
                             array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
@@ -402,7 +415,7 @@ class WPP_Output {
                 } // Build / Fetch WPP thumbnail
                 else {
 
-                    $thumbnail = $wpp_image->get_img(
+                    $thumbnail = $this->wpp_image->get_img(
                         $post_object,
                         null,
                         array( $this->options['thumbnail']['width'], $this->options['thumbnail']['height'] ),
