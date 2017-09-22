@@ -747,7 +747,7 @@ class WPP_Admin {
             foreach ( $posts as $post ) { ?>
             <li>
                 <p>
-                    <a href="<?php echo get_permalink( $post->id ); ?>"><?php echo $post->title; ?></a>
+                    <a href="<?php echo get_permalink( $post->id ); ?>"><?php echo sanitize_text_field( $post->title ); ?></a>
                     <br />
                     <span><?php printf( _n( '1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n( $post->pageviews ) ); ?></span>
                     <small> &mdash; <a href="<?php echo get_permalink( $post->id ); ?>"><?php _e("View"); ?></a> | <a href="<?php echo get_edit_post_link( $post->id ); ?>"><?php _e("Edit"); ?></a></small>
@@ -802,7 +802,7 @@ class WPP_Admin {
             foreach ( $posts as $post ) { ?>
             <li>
                 <p>
-                    <a href="<?php echo get_permalink( $post->id ); ?>"><?php echo $post->title; ?></a>
+                    <a href="<?php echo get_permalink( $post->id ); ?>"><?php echo sanitize_text_field( $post->title ); ?></a>
                     <br />
                     <span><?php printf( _n( '1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts' ), number_format_i18n( $post->comment_count ) ); ?></span>
                     <small> &mdash; <a href="<?php echo get_permalink( $post->id ); ?>"><?php _e("View"); ?></a> | <a href="<?php echo get_edit_post_link( $post->id ); ?>"><?php _e("Edit"); ?></a></small>
