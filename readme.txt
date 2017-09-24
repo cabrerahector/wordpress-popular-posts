@@ -82,6 +82,13 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.0.3 =
+
+**This is a hotfix release.**
+
+- Dashboard: escapes post titles to prevent potential XSS.
+- Restores ability to use a custom default thumbnail.
+
 = 4.0.2 =
 
 **This is a hotfix release.**

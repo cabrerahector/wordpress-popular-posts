@@ -1,5 +1,12 @@
 Changelog
 =========
+#### 4.0.3 ####
+
+**This is a hotfix release.**
+
+- Dashboard: escapes post titles to prevent potential XSS.
+- Restores ability to use a custom default thumbnail.
+
 #### 4.0.2 ####
 **This is a hotfix release.**
 
