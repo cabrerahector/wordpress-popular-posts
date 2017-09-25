@@ -81,7 +81,7 @@ class WPP_Activator {
         $prefix = $wpdb->prefix . "popularposts";
 
         // fresh setup
-        if ( $prefix != $wpdb->get_var("SHOW TABLES LIKE '{$prefix}data'") ) {
+        if ( "{$prefix}data" != $wpdb->get_var("SHOW TABLES LIKE '{$prefix}data'") ) {
             self::do_db_tables( $prefix );
         }
 
