@@ -118,12 +118,11 @@ class WPP_Activator {
                 postid bigint(20) NOT NULL,
                 pageviews bigint(20) NOT NULL DEFAULT 1,
                 view_date date NOT NULL DEFAULT '0000-00-00',
-                last_viewed datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+                view_datetime datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
                 PRIMARY KEY  (ID),
-                UNIQUE KEY ID_date (postid,view_date),
                 KEY postid (postid),
                 KEY view_date (view_date),
-                KEY last_viewed (last_viewed)
+                KEY view_datetime (view_datetime)
             ) {$charset_collate} ENGINE=InnoDB;";
 
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

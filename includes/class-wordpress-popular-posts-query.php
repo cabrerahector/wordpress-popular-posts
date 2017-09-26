@@ -342,7 +342,7 @@ class WPP_Query {
 
                     $table = "`{$wpdb->prefix}popularpostssummary` v";
                     $join = "LEFT JOIN `{$wpdb->posts}` p ON v.postid = p.ID";
-                    $where .= " AND v.last_viewed > DATE_SUB('{$now}', INTERVAL {$interval})";
+                    $where .= " AND v.view_datetime > DATE_SUB('{$now}', INTERVAL {$interval})";
                     $groupby = "GROUP BY v.postid";
 
                     // Order by views
@@ -390,7 +390,7 @@ class WPP_Query {
                     // Display views count, too
                     if ( isset($this->options['stats_tag']['views']) && $this->options['stats_tag']['views'] ) {
                         $fields .= ", IFNULL(v.pageviews, 0) AS pageviews";
-                        $join .= " LEFT JOIN (SELECT postid, SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE last_viewed > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
+                        $join .= " LEFT JOIN (SELECT postid, SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
                     }
 
                 }

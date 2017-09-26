@@ -201,8 +201,8 @@ class WPP_Public {
         // Update range (summary) table
         $result2 = $wpdb->query( $wpdb->prepare(
             "INSERT INTO {$table}summary
-            (postid, pageviews, view_date, last_viewed) VALUES (%d, %d, %s, %s)
-            ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, last_viewed = %s;",
+            (postid, pageviews, view_date, view_datetime) VALUES (%d, %d, %s, %s)
+            ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, view_datetime = %s;",
             $post_ID,
             $views,
             $curdate,

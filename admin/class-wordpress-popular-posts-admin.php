@@ -429,10 +429,10 @@ class WPP_Admin {
         }
 
         if ( $dates ) {
-            return $where . " AND v.last_viewed BETWEEN '{$dates[0]} 00:00:00' AND '{$dates[1]} 23:59:59' AND p.post_password = '' AND p.post_status = 'publish' ";
+            return $where . " AND v.view_datetime BETWEEN '{$dates[0]} 00:00:00' AND '{$dates[1]} 23:59:59' AND p.post_password = '' AND p.post_status = 'publish' ";
         }
 
-        return $where . " AND v.last_viewed  > DATE_SUB('{$now}', INTERVAL {$interval}) AND p.post_password = '' AND p.post_status = 'publish' ";
+        return $where . " AND v.view_datetime  > DATE_SUB('{$now}', INTERVAL {$interval}) AND p.post_password = '' AND p.post_status = 'publish' ";
 
     }
 
@@ -1172,6 +1172,22 @@ class WPP_Admin {
 
         // Validate the structure of the tables, create missing tables / fields if necessary
         WPP_Activator::track_new_site();
+
+        // Update summary table structure and indexes
+        $summaryFields = $wpdb->get_results( "SHOW FIELDS FROM {$prefix}summary;" );
+        foreach ( $summaryFields as $column ) {
+            if ( "last_viewed" == $column->Field ) {
+                $wpdb->query( "ALTER TABLE {$prefix}summary CHANGE last_viewed view_datetime datetime NOT NULL DEFAULT '0000-00-00 00:00:00', ADD KEY view_datetime (view_datetime);" );
+            }
+        }
+
+        $summaryIndexes = $wpdb->get_results( "SHOW INDEX FROM {$prefix}summary;" );
+        foreach( $summaryIndexes as $index ) {
+            if ( 'ID_date' == $index->Key_name ) {
+                $wpdb->query( "ALTER TABLE {$prefix}summary DROP INDEX ID_date, DROP INDEX last_viewed;" );
+                break;
+            }
+        }
 
         // Check storage engine
         $storage_engine_data = $wpdb->get_var( "SELECT `ENGINE` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='{$wpdb->dbname}' AND `TABLE_NAME`='{$prefix}data';" );

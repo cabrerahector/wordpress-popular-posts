@@ -51,7 +51,7 @@ function wpp_get_views($id = NULL, $range = NULL, $number_format = true) {
 
             $now = current_time('mysql');
 
-            $query = "SELECT SUM(pageviews) FROM {$table_name}summary WHERE postid = '{$id}' AND last_viewed > DATE_SUB('{$now}', INTERVAL {$interval}) LIMIT 1;";
+            $query = "SELECT SUM(pageviews) FROM {$table_name}summary WHERE postid = '{$id}' AND view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) LIMIT 1;";
         }
 
         $result = $wpdb->get_var($query);
