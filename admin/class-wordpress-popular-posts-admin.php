@@ -1173,28 +1173,6 @@ class WPP_Admin {
         // Validate the structure of the tables, create missing tables / fields if necessary
         WPP_Activator::track_new_site();
 
-        // If summary is empty, import data from popularpostsdatacache
-        if ( !$wpdb->get_var( "SELECT COUNT(*) FROM {$prefix}summary" ) ) {
-
-            // popularpostsdatacache table is still there
-            if ( $wpdb->get_var( "SHOW TABLES LIKE '{$prefix}datacache'" ) ) {
-
-                $sql = "
-                INSERT INTO {$prefix}summary (postid, pageviews, view_date, last_viewed)
-                SELECT id, pageviews, day_no_time, day
-                FROM {$prefix}datacache
-                GROUP BY day_no_time, id
-                ORDER BY day_no_time DESC";
-
-                $result = $wpdb->query( $sql );
-
-            }
-
-        }
-        
-        // Deletes old caching tables, if found
-        $wpdb->query( "DROP TABLE IF EXISTS {$prefix}datacache, {$prefix}datacache_backup;" );
-
         // Check storage engine
         $storage_engine_data = $wpdb->get_var( "SELECT `ENGINE` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='{$wpdb->dbname}' AND `TABLE_NAME`='{$prefix}data';" );
         
