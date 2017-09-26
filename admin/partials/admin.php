@@ -585,7 +585,7 @@ $tabs = array(
 
                             <label for="log_expire_time"<?php echo ($this->options['tools']['log']['limit'] == 0) ? ' style="display:none;"' : ''; ?>><input type="text" id="log_expire_time" name="log_expire_time" value="<?php echo esc_attr( $this->options['tools']['log']['expires_after'] ); ?>" size="3" /> <?php _e("day(s)", 'wordpress-popular-posts'); ?></label>
 
-                            <p class="description"<?php echo ($this->options['tools']['log']['limit'] == 0) ? ' style="display:none;"' : ''; ?>><?php _e("Data from entries that haven't been viewed within the specified time frame will be automatically discarded", 'wordpress-popular-posts'); ?>.</p>
+                            <p class="description"<?php echo ($this->options['tools']['log']['limit'] == 0) ? ' style="display:none;"' : ''; ?>><?php _e("Data older than the specified time frame will be automatically discarded", 'wordpress-popular-posts'); ?>.</p>
 
                             <br<?php echo ($this->options['tools']['log']['limit'] == 1) ? ' style="display:none;"' : ''; ?> />
                         </td>

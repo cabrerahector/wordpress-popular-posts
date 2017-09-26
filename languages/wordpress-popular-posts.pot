@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2017-09-19 15:36-0400\n"
+"POT-Creation-Date: 2017-09-26 13:16-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -57,59 +57,59 @@ msgid ""
 "a></li><li><a href=\"%2$s\">Support</a></li></ul>"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:631
-#: ../admin/class-wordpress-popular-posts-admin.php:750 ../admin/partials/admin.php:412
+#: ../admin/class-wordpress-popular-posts-admin.php:633
+#: ../admin/class-wordpress-popular-posts-admin.php:752 ../admin/partials/admin.php:412
 #: ../admin/partials/admin.php:459
-#: ../includes/class-wordpress-popular-posts-output.php:689
+#: ../includes/class-wordpress-popular-posts-output.php:720
 #, php-format
 msgid "1 view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:631
-#: ../admin/class-wordpress-popular-posts-admin.php:805 ../admin/partials/admin.php:412
+#: ../admin/class-wordpress-popular-posts-admin.php:633
+#: ../admin/class-wordpress-popular-posts-admin.php:807 ../admin/partials/admin.php:412
 #: ../admin/partials/admin.php:459
-#: ../includes/class-wordpress-popular-posts-output.php:670
+#: ../includes/class-wordpress-popular-posts-output.php:701
 #, php-format
 msgid "1 comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:663 ../includes/widget-form.php:17
+#: ../admin/class-wordpress-popular-posts-admin.php:665 ../includes/widget-form.php:17
 msgid "Comments"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:667
+#: ../admin/class-wordpress-popular-posts-admin.php:669
 msgid "Views"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:751
-#: ../admin/class-wordpress-popular-posts-admin.php:806 ../admin/partials/admin.php:413
+#: ../admin/class-wordpress-popular-posts-admin.php:753
+#: ../admin/class-wordpress-popular-posts-admin.php:808 ../admin/partials/admin.php:413
 #: ../admin/partials/admin.php:460
 msgid "View"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:751
-#: ../admin/class-wordpress-popular-posts-admin.php:806 ../admin/partials/admin.php:413
+#: ../admin/class-wordpress-popular-posts-admin.php:753
+#: ../admin/class-wordpress-popular-posts-admin.php:808 ../admin/partials/admin.php:413
 #: ../admin/partials/admin.php:460
 msgid "Edit"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:762
-#: ../admin/class-wordpress-popular-posts-admin.php:817 ../admin/partials/admin.php:424
+#: ../admin/class-wordpress-popular-posts-admin.php:764
+#: ../admin/class-wordpress-popular-posts-admin.php:819 ../admin/partials/admin.php:424
 #: ../admin/partials/admin.php:471
 msgid ""
 "Looks like traffic to your site is a little light right now. <br />Spread the word and "
 "come back later!"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:889
+#: ../admin/class-wordpress-popular-posts-admin.php:887
 msgid "Settings"
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:1241
+#: ../admin/class-wordpress-popular-posts-admin.php:1239
 #, php-format
 msgid ""
 "Your PHP installation is too old. WordPress Popular Posts requires at least PHP "
@@ -117,14 +117,14 @@ msgid ""
 "to upgrade PHP to %1$s or higher."
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:1248
+#: ../admin/class-wordpress-popular-posts-admin.php:1246
 #, php-format
 msgid ""
 "Your WordPress version is too old. WordPress Popular Posts requires at least WordPress "
 "version %1$s to function correctly. Please update your blog via Dashboard &gt; Update."
 msgstr ""
 
-#: ../admin/class-wordpress-popular-posts-admin.php:1273
+#: ../admin/class-wordpress-popular-posts-admin.php:1271
 #, php-format
 msgid ""
 "<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</strong>.</"
@@ -402,9 +402,7 @@ msgid "day(s)"
 msgstr ""
 
 #: ../admin/partials/admin.php:588
-msgid ""
-"Data from entries that haven't been viewed within the specified time frame will be "
-"automatically discarded"
+msgid "Data older than the specified time frame will be automatically discarded"
 msgstr ""
 
 #: ../admin/partials/admin.php:594
@@ -881,38 +879,38 @@ msgstr ""
 msgid "displays post/page date, requires stats_date=1"
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-output.php:95
+#: ../includes/class-wordpress-popular-posts-output.php:126
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-output.php:466
+#: ../includes/class-wordpress-popular-posts-output.php:497
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-output.php:683
+#: ../includes/class-wordpress-popular-posts-output.php:714
 #, php-format
 msgid "1 view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/class-wordpress-popular-posts-output.php:712
+#: ../includes/class-wordpress-popular-posts-output.php:743
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-output.php:718
+#: ../includes/class-wordpress-popular-posts-output.php:749
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-output.php:718
+#: ../includes/class-wordpress-popular-posts-output.php:749
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-output.php:727
+#: ../includes/class-wordpress-popular-posts-output.php:758
 #, php-format
 msgid "under %s"
 msgstr ""
