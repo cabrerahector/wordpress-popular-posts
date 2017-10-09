@@ -2,8 +2,15 @@
 if ( basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__) )
     exit( 'Please do not load this page directly' );
 
+$tabs = array(
+    'stats' => __( 'Stats', 'wordpress-popular-posts' ),
+    'tools' => __( 'Tools', 'wordpress-popular-posts' ),
+    'params' => __( 'Parameters', 'wordpress-popular-posts' ),
+    'about' => __( 'About', 'wordpress-popular-posts' )
+);
+
 // Set active tab
-if ( isset( $_GET['tab'] ) )
+if ( isset( $_GET['tab'] ) && isset( $tabs[$_GET['tab']] ) )
     $current = $_GET['tab'];
 else
     $current = 'stats';
@@ -251,14 +258,6 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
     </ul>
 </nav>
 
-<?php
-$tabs = array(
-    'stats' => __( 'Stats', 'wordpress-popular-posts' ),
-    'tools' => __( 'Tools', 'wordpress-popular-posts' ),
-    'params' => __( 'Parameters', 'wordpress-popular-posts' ),
-    'about' => __( 'About', 'wordpress-popular-posts' )
-);
-?>
 <div class="wpp-wrapper wpp-section-<?php echo $current; ?>">
 
     <div class="wpp-header">
