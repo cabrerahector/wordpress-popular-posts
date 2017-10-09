@@ -6,7 +6,7 @@ $tabs = array(
     'stats' => __( 'Stats', 'wordpress-popular-posts' ),
     'tools' => __( 'Tools', 'wordpress-popular-posts' ),
     'params' => __( 'Parameters', 'wordpress-popular-posts' ),
-    'about' => __( 'About', 'wordpress-popular-posts' )
+    'debug' => 'Debug'
 );
 
 // Set active tab
@@ -965,5 +965,29 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
         </div>
     </div>
     <!-- End params -->
+
+    <!-- Start debug -->
+    <?php
+    global $wpdb, $wp_version;
+
+    $my_theme = wp_get_theme();
+
+    $site_plugins = get_plugins();
+    $plugin_names = array();
+
+    foreach( $site_plugins as $main_file => $plugin_meta ) :
+        $plugin_names[] = sanitize_text_field( $plugin_meta['Name'] . ' ' . $plugin_meta['Version'] );
+    endforeach;
+    ?>
+    <div id="wpp_debug" <?php echo ( "debug" == $current ) ? '' : ' style="display: none;"'; ?>>
+        <p><strong>PHP version:</strong> <?php echo phpversion(); ?></p>
+        <p><strong>PHP extensions:</strong> <?php echo implode( ', ', get_loaded_extensions() ); ?></p>
+        <p><strong>Database version:</strong> <?php echo $wpdb->get_var( "SELECT VERSION();" ); ?></p>
+        <p><strong>InnoDB availability:</strong> <?php echo $wpdb->get_var( "SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB';" ); ?></p>
+        <p><strong>WordPress version:</strong> <?php echo $wp_version; ?></p>
+        <p><strong>Installed plugins:</strong> <?php echo implode( ', ', $plugin_names ); ?></p>
+        <p><strong>Theme:</strong> <?php echo $my_theme->get( 'Name' ) . ' (' . $my_theme->get( 'Version' ) . ') by ' . $my_theme->get( 'Author' ); ?></p>
+    </div>
+    <!-- End debug -->
 
 </div>
