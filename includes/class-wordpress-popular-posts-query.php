@@ -94,6 +94,8 @@ class WPP_Query {
             }
 
             // Get entries from these post types
+            $post_types = array( 'post', 'page' );
+
             if ( isset($this->options['post_type']) && !empty($this->options['post_type']) ) {
 
                 $post_types = explode( ",", $this->options['post_type'] );
@@ -188,6 +190,7 @@ class WPP_Query {
 
                     $post_ids = get_posts(
                         array(
+                            'post_type' => $post_types,
                             'posts_per_page' => -1,
                             'tax_query' => array(
                                 array(
