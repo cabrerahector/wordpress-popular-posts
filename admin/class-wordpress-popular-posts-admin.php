@@ -1262,7 +1262,7 @@ class WPP_Admin {
             unset($_GET['activate']);
 
         printf(
-            __('<div class="error"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</strong>.</p></div>', 'wordpress-popular-posts'),
+            __('<div class="notice notice-error"><p>%1$s</p><p><i>%2$s</i> has been <strong>deactivated</strong>.</p></div>', 'wordpress-popular-posts'),
             join( '</p><p>', $errors ),
             'WordPress Popular Posts'
         );

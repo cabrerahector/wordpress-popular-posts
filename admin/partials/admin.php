@@ -23,7 +23,7 @@ if ( isset($_POST['section']) ) {
             $this->options['stats']['freshness'] = empty( $_POST['stats_freshness'] ) ? false : $_POST['stats_freshness'];
 
             update_site_option( 'wpp_settings_config', $this->options );
-            echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
         }
 
@@ -38,7 +38,7 @@ if ( isset($_POST['section']) ) {
             $this->options['tools']['css'] = $_POST['css'];
 
             update_site_option( 'wpp_settings_config', $this->options );
-            echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
         }
     }
@@ -62,7 +62,7 @@ if ( isset($_POST['section']) ) {
                 $this->options['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
 
                 update_site_option( 'wpp_settings_config', $this->options );
-                echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+                echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
             }
 
@@ -103,7 +103,7 @@ if ( isset($_POST['section']) ) {
               : 100;
 
             update_site_option( 'wpp_settings_config', $this->options );
-            echo "<div class=\"updated\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
+            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
         }
     }
