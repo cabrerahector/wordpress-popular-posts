@@ -69,8 +69,16 @@ class WPP_Public {
      * @since    4.0.0
      */
     public function enqueue_styles() {
-        if ( $this->admin_options['tools']['css'] )
-            wp_enqueue_style( 'wordpress-popular-posts-css', plugin_dir_url( __FILE__ ) . 'css/wpp.css', array(), $this->version, 'all' );
+        if ( $this->admin_options['tools']['css'] ) {
+            $theme_file = get_stylesheet_directory() . '/wpp.css';
+
+            if ( @is_file( $theme_file ) ) {
+                wp_enqueue_style( 'wordpress-popular-posts-css', get_stylesheet_directory_uri() . "/wpp.css", array(), $this->version, 'all' );
+            } // Load stock stylesheet
+            else {
+                wp_enqueue_style( 'wordpress-popular-posts-css', plugin_dir_url( __FILE__ ) . 'css/wpp.css', array(), $this->version, 'all' );
+            }
+        }
     }
 
     /**
