@@ -82,6 +82,14 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.0.5 =
+
+- Fixes the taxonomy filter for Custom Post Types.
+- Updates summary table structure and indexes.
+- Adds back ability to use custom wpp.css from theme.
+- Dashboard: adds a Debug screen to help with support inquiries.
+- Other minor bug fixes and improvements.
+
 = 4.0.3 =
 
 **This is a hotfix release.**
@@ -114,7 +122,7 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Adds ability to pick a Custom Time Range!
 - Adds ability to filter posts by other taxonomies than just categories!
 - Adds Relative Date Format.
-- Fixes error caused by changeset 41508 https://core.trac.wordpress.org/changeset/41508 (props hykw!)
+- Fixes broken views tracking caused by changeset 41508 https://core.trac.wordpress.org/changeset/41508 (props hykw!)
 - Improves PHP7+ compatibility.
 - Improves compatibility with WP-SpamShield, WooCommerce, Polylang and WPML.
 - Drops qTranslate support (that plugin has been long removed from WordPress.org anyways.)
