@@ -53,7 +53,7 @@
 <label for="<?php echo $this->get_field_id( 'pid' ); ?>"><?php _e('Post ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
 <input type="text" id="<?php echo $this->get_field_id( 'pid' ); ?>" name="<?php echo $this->get_field_name( 'pid' ); ?>" value="<?php echo $instance['pid']; ?>" class="widefat" /><br /><br />
 
-<label for="<?php echo $this->get_field_id( 'tax_id' ); ?>"><?php _e('Taxonomy', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-category-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br />
+<label for="<?php echo $this->get_field_id( 'tax_id' ); ?>"><?php _e('Taxonomy', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-taxonomy-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br />
 <?php
 // Taxonomy filter
 if ( $taxonomies = get_taxonomies( array('public' => true), 'objects' ) ) {
