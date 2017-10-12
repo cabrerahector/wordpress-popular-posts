@@ -398,7 +398,7 @@ class WPP_Widget extends WP_Widget {
 
         }
 
-        if ( defined('DOING_AJAX') && DOING_AJAX )
+        if ( defined('DOING_AJAX') && DOING_AJAX && !is_preview() )
             wp_die();
 
     }
