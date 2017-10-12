@@ -54,6 +54,11 @@ class WPP_Widget extends WP_Widget {
          */
         extract( $args, EXTR_SKIP );
 
+        $instance = WPP_Helper::merge_array_r(
+            WPP_Settings::$defaults[ 'widget_options' ],
+            (array) $instance
+        );
+
         $markup = ( $instance['markup']['custom_html'] || has_filter('wpp_custom_html') || has_filter('wpp_post') )
               ? 'custom'
               : 'regular';
