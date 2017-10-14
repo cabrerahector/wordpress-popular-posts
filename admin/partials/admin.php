@@ -29,7 +29,7 @@ if ( isset($_POST['section']) ) {
             $this->options['stats']['post_type'] = empty( $_POST['stats_type'] ) ? "post,page" : $_POST['stats_type'];
             $this->options['stats']['freshness'] = empty( $_POST['stats_freshness'] ) ? false : $_POST['stats_freshness'];
 
-            update_site_option( 'wpp_settings_config', $this->options );
+            update_option( 'wpp_settings_config', $this->options );
             echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
         }
@@ -44,7 +44,7 @@ if ( isset($_POST['section']) ) {
             $this->options['tools']['link']['target'] = $_POST['link_target'];
             $this->options['tools']['css'] = $_POST['css'];
 
-            update_site_option( 'wpp_settings_config', $this->options );
+            update_option( 'wpp_settings_config', $this->options );
             echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
         }
@@ -68,7 +68,7 @@ if ( isset($_POST['section']) ) {
                 $this->options['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
                 $this->options['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
 
-                update_site_option( 'wpp_settings_config', $this->options );
+                update_option( 'wpp_settings_config', $this->options );
                 echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
             }
@@ -109,7 +109,7 @@ if ( isset($_POST['section']) ) {
               ? $_POST['sample_rate']
               : 100;
 
-            update_site_option( 'wpp_settings_config', $this->options );
+            update_option( 'wpp_settings_config', $this->options );
             echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
 
         }
@@ -123,10 +123,10 @@ if ( $this->options['tools']['css'] && !file_exists( get_stylesheet_directory() 
 
 $rand = md5( uniqid(rand(), true) );
 
-if ( !$wpp_rand = get_site_option("wpp_rand") ) {
-    add_site_option( "wpp_rand", $rand );
+if ( !$wpp_rand = get_option("wpp_rand") ) {
+    add_option( "wpp_rand", $rand );
 } else {
-    update_site_option( "wpp_rand", $rand );
+    update_option( "wpp_rand", $rand );
 }
 
 ?>
@@ -138,7 +138,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                 ajaxurl,
                 {
                     action: 'wpp_clear_data',
-                    token: '<?php echo get_site_option("wpp_rand"); ?>',
+                    token: '<?php echo get_option("wpp_rand"); ?>',
                     clear: 'cache'
                 }, function(data){
                     var response = "";
@@ -177,7 +177,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                 ajaxurl,
                 {
                     action: 'wpp_clear_data',
-                    token: '<?php echo get_site_option("wpp_rand"); ?>',
+                    token: '<?php echo get_option("wpp_rand"); ?>',
                     clear: 'all'
                 }, function(data){
                     var response = "";
@@ -216,7 +216,7 @@ if ( !$wpp_rand = get_site_option("wpp_rand") ) {
                 ajaxurl,
                 {
                     action: 'wpp_clear_thumbnail',
-                    token: '<?php echo get_site_option("wpp_rand"); ?>'
+                    token: '<?php echo get_option("wpp_rand"); ?>'
                 }, function(data){
                     var response = "";
 

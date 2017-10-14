@@ -143,9 +143,9 @@ class WPP_Settings {
             return $options[ 'widget_options' ];
         }
 
-        if ( !$admin_options = get_site_option( 'wpp_settings_config' ) ) {
+        if ( !$admin_options = get_option( 'wpp_settings_config' ) ) {
             $admin_options = $options[ 'admin_options' ];
-            add_site_option( 'wpp_settings_config', $admin_options );
+            add_option( 'wpp_settings_config', $admin_options );
         }
         else {
             $options[ 'admin_options' ] = WPP_Helper::merge_array_r(

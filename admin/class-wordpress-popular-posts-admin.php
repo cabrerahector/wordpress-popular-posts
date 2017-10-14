@@ -703,7 +703,7 @@ class WPP_Admin {
             $admin_options['stats']['time_unit'] = $time_unit;
             $this->options = $admin_options;
 
-            update_site_option( 'wpp_settings_config', $this->options );
+            update_option( 'wpp_settings_config', $this->options );
 
             $response = array(
                 'status' => 'ok',
@@ -960,7 +960,7 @@ class WPP_Admin {
             if ( is_array($wpp_uploads_dir) && !empty($wpp_uploads_dir) ) {
                 
                 $token = isset( $_POST['token'] ) ? $_POST['token'] : null;
-                $key = get_site_option( "wpp_rand" );				
+                $key = get_option( "wpp_rand" );				
                 
                 if (
                     current_user_can( 'manage_options' ) 
@@ -1013,7 +1013,7 @@ class WPP_Admin {
 
         $token = $_POST['token'];
         $clear = isset( $_POST['clear'] ) ? $_POST['clear'] : null;
-        $key = get_site_option( "wpp_rand" );
+        $key = get_option( "wpp_rand" );
 
         if (
             current_user_can( 'manage_options' ) 
@@ -1072,14 +1072,14 @@ class WPP_Admin {
      */
     private function flush_transients() {
 
-        $wpp_transients = get_site_option( 'wpp_transients' );
+        $wpp_transients = get_option( 'wpp_transients' );
 
         if ( $wpp_transients && is_array( $wpp_transients ) && !empty( $wpp_transients ) ) {
             
             for ( $t=0; $t < count( $wpp_transients ); $t++ )
                 delete_transient( $wpp_transients[$t] );
 
-            update_site_option( 'wpp_transients', array() );
+            update_option( 'wpp_transients', array() );
             
         }
 
@@ -1139,10 +1139,10 @@ class WPP_Admin {
     public function upgrade_check(){
 
         // Get WPP version
-        $wpp_ver = get_site_option( 'wpp_ver' );
+        $wpp_ver = get_option( 'wpp_ver' );
 
         if ( !$wpp_ver ) {
-            add_site_option( 'wpp_ver', $this->version );
+            add_option( 'wpp_ver', $this->version );
         } elseif ( version_compare( $wpp_ver, $this->version, '<' ) ) {
             $this->upgrade();
         }
@@ -1160,10 +1160,10 @@ class WPP_Admin {
     private function upgrade() {
 
         // Keep the upgrade process from running too many times
-        if ( get_site_option('wpp_update') )
+        if ( get_option('wpp_update') )
             return;
         
-        add_site_option( 'wpp_update', '1' );
+        add_option( 'wpp_update', '1' );
 
         global $wpdb;
 
@@ -1203,10 +1203,10 @@ class WPP_Admin {
         }
 
         // Update WPP version
-        update_site_option( 'wpp_ver', $this->version );
+        update_option( 'wpp_ver', $this->version );
         
         // Remove upgrade flag
-        delete_site_option( 'wpp_update' );
+        delete_option( 'wpp_update' );
 
     } // end __upgrade
     

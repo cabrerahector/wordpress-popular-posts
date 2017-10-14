@@ -452,15 +452,15 @@ class WPP_Public {
                     set_transient( $transient_name, $popular_posts, $expiration );
 
                     // Store transient in WPP transients array for garbage collection
-                    $wpp_transients = get_site_option('wpp_transients');
+                    $wpp_transients = get_option('wpp_transients');
 
                     if ( !$wpp_transients ) {
                         $wpp_transients = array( $transient_name );
-                        add_site_option( 'wpp_transients', $wpp_transients );
+                        add_option( 'wpp_transients', $wpp_transients );
                     } else {
                         if ( !in_array($transient_name, $wpp_transients) ) {
                             $wpp_transients[] = $transient_name;
-                            update_site_option( 'wpp_transients', $wpp_transients );
+                            update_option( 'wpp_transients', $wpp_transients );
                         }
                     }
 
