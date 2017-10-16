@@ -82,6 +82,12 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.0.6 =
+
+- Improves compatibility with Multisite.
+- Fixes a bug that prevented upgrade process from running on MU (props @gregsullivan!)
+- Improves compatibility with Beaver Builder.
+
 = 4.0.5 =
 
 - Fixes the taxonomy filter for Custom Post Types.

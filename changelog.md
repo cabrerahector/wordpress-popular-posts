@@ -1,5 +1,11 @@
 Changelog
 =========
+#### 4.0.6 ####
+
+- Improves compatibility with Multisite.
+- Fixes a bug that prevented upgrade process from running on MU (props Greg Sullivan!)
+- Improves compatibility with Beaver Builder.
+
 #### 4.0.5 ####
 
 - Fixes the taxonomy filter for Custom Post Types.
@@ -16,6 +22,7 @@ Changelog
 - Restores ability to use a custom default thumbnail.
 
 #### 4.0.2 ####
+
 **This is a hotfix release.**
 
 - Dashboard: fixes thumbnail picker on HTTPS.
