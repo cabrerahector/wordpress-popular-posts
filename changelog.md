@@ -3,7 +3,7 @@ Changelog
 #### 4.0.6 ####
 
 - Improves compatibility with Multisite.
-- Fixes a bug that prevented upgrade process from running on MU (props Greg Sullivan!)
+- Fixes a bug that prevented upgrade process from running on MU (props @gregsullivan!)
 - Improves compatibility with Beaver Builder.
 
 #### 4.0.5 ####

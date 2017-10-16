@@ -85,7 +85,7 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 = 4.0.6 =
 
 - Improves compatibility with Multisite.
-- Fixes a bug that prevented upgrade process from running on MU (props @gregsullivan!)
+- Fixes a bug that prevented upgrade process from running on MU (props Greg Sullivan!)
 - Improves compatibility with Beaver Builder.
 
 = 4.0.5 =
