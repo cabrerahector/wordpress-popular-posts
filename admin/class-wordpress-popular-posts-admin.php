@@ -1138,6 +1138,38 @@ class WPP_Admin {
      */
     public function upgrade_check(){
 
+        // Multisite setup, upgrade all sites
+        if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+            global $wpdb;
+
+            $original_blog_id = get_current_blog_id();
+            $blogs_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+
+            include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+            foreach( $blogs_ids as $blog_id ) {
+                switch_to_blog( $blog_id );
+
+                if ( is_plugin_active( 'wordpress-popular-posts/wordpress-popular-posts.php' ) ) {
+                    $this->upgrade_site();
+                }
+            }
+
+            // Switch back to current blog
+            switch_to_blog( $original_blog_id );
+        }
+        else {
+            $this->upgrade_site();
+        }
+
+    } // end upgrade_check
+
+    /**
+     * Upgrades single site.
+     *
+     * @since 4.0.7
+     */
+    private function upgrade_site() {
         // Get WPP version
         $wpp_ver = get_option( 'wpp_ver' );
 
@@ -1146,8 +1178,7 @@ class WPP_Admin {
         } elseif ( version_compare( $wpp_ver, $this->version, '<' ) ) {
             $this->upgrade();
         }
-
-    } // end upgrade_check
+    }
 
     /**
      * On plugin upgrade, performs a number of actions: update WPP database tables structures (if needed),
