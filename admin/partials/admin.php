@@ -987,6 +987,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
         <p><strong>Database version:</strong> <?php echo $wpdb->get_var( "SELECT VERSION();" ); ?></p>
         <p><strong>InnoDB availability:</strong> <?php echo $wpdb->get_var( "SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB';" ); ?></p>
         <p><strong>WordPress version:</strong> <?php echo $wp_version; ?></p>
+        <p><strong>Multisite:</strong> <?php echo ( function_exists( 'is_multisite' ) && is_multisite() ) ? 'Yes' : 'No'; ?></p>
         <p><strong>Active plugins:</strong> <?php echo implode( ', ', $plugin_names ); ?></p>
         <p><strong>Theme:</strong> <?php echo $my_theme->get( 'Name' ) . ' (' . $my_theme->get( 'Version' ) . ') by ' . $my_theme->get( 'Author' ); ?></p>
     </div>
