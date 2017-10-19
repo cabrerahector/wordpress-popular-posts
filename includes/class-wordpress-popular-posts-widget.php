@@ -112,6 +112,7 @@ class WPP_Widget extends WP_Widget {
                             }, function( response ){
                                 widget_container.children("p.wpp-loader").remove();
                                 widget_container.append(response);
+                                widget_container.trigger('wpp-onload');
                             }
                         );
 
