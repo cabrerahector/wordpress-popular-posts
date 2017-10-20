@@ -156,12 +156,12 @@ class WPP_Public {
      * Updates views count.
      *
      * @since    1.4.0
-     * @access   private
+     * @access   public
      * @global   object    $wpdb
      * @param    int       $post_ID
      * @return   bool|int  FALSE if query failed, TRUE on success
      */
-    private function update_views_count( $post_ID ) {
+    public function update_views_count( $post_ID ) {
 
         /*
         TODO:
