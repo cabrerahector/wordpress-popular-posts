@@ -1170,10 +1170,10 @@ class WPP_Admin {
      */
     private function upgrade_site() {
         // Get WPP version
-        $wpp_ver = get_site_option( 'wpp_ver' );
+        $wpp_ver = get_option( 'wpp_ver' );
 
         if ( !$wpp_ver ) {
-            add_site_option( 'wpp_ver', $this->version );
+            add_option( 'wpp_ver', $this->version );
         } elseif ( version_compare( $wpp_ver, $this->version, '<' ) ) {
             $this->upgrade();
         }
@@ -1190,10 +1190,10 @@ class WPP_Admin {
     private function upgrade() {
 
         // Keep the upgrade process from running too many times
-        if ( get_site_option('wpp_update') )
+        if ( get_option('wpp_update') )
             return;
         
-        add_site_option( 'wpp_update', '1' );
+        add_option( 'wpp_update', '1' );
 
         global $wpdb;
 
@@ -1233,10 +1233,10 @@ class WPP_Admin {
         }
 
         // Update WPP version
-        update_site_option( 'wpp_ver', $this->version );
+        update_option( 'wpp_ver', $this->version );
         
         // Remove upgrade flag
-        delete_site_option( 'wpp_update' );
+        delete_option( 'wpp_update' );
 
     } // end __upgrade
     
