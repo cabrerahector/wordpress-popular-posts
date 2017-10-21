@@ -28,7 +28,7 @@ class WordPressPopularPosts {
     public function __construct(){
 
         $this->plugin_name = 'wordpress-popular-posts';
-        $this->version = '4.0.7-beta-3';
+        $this->version = '4.0.7-beta-4';
 
         $this->load_dependencies();
         $this->set_locale();
