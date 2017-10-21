@@ -82,6 +82,15 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.0.8 =
+- Multisite: plugin can now be installed individually on each site.
+- Multisite: improved upgrade process.
+- Dashboard: adds multisite check to Debug screen.
+- Dashboard: have the Debug screen display active plugins only.
+- Improves compatibility with Beaver Builder.
+- Adds onload event to ajax widget (props @cawa-93).
+- Other minor bug fixes.
+
 = 4.0.6 =
 
 - Improves compatibility with Multisite.
