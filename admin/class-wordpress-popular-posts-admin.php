@@ -1142,8 +1142,6 @@ class WPP_Admin {
         if ( function_exists( 'is_multisite' ) && is_multisite() ) {
             global $wpdb;
 
-            ! defined( 'DIEONDBERROR' ) AND define( 'DIEONDBERROR', true );
-
             $original_blog_id = get_current_blog_id();
             $blogs_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
