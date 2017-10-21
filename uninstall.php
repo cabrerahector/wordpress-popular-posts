@@ -28,6 +28,7 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 
         // Delete plugin's options
         delete_option( 'wpp_ver' );
+        delete_option( 'wpp_update' );
         delete_option( 'wpp_settings_config' );
         delete_option( 'wpp_rand' );
         delete_option( 'wpp_transients' );
@@ -47,6 +48,7 @@ if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 
     // Delete plugin's options
     delete_option( 'wpp_ver' );
+    delete_option( 'wpp_update' );
     delete_option( 'wpp_settings_config' );
     delete_option( 'wpp_rand' );
     delete_option( 'wpp_transients' );
