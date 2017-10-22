@@ -213,10 +213,10 @@ class WPP_Widget extends WP_Widget {
         $ids = array_filter( explode( ",", rtrim(preg_replace( '|[^0-9,]|', '', $new_instance['uid'] ), ",") ), 'is_numeric' );
         // Got no valid IDs, clear
         if ( empty( $ids ) ) {
-            $instance['uid'] = '';
+            $instance['author'] = '';
         }
         else {
-            $instance['uid'] = implode( ",", $ids );
+            $instance['author'] = implode( ",", $ids );
         }
 
         $instance['shorten_title']['words'] = $new_instance['shorten_title-words'];
