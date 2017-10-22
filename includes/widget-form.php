@@ -72,7 +72,7 @@ if ( $taxonomies = get_taxonomies( array('public' => true), 'objects' ) ) {
 }
 ?>
 
-<label for="<?php echo $this->get_field_id( 'uid' ); ?>"><?php _e('Author ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-authors-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
+<label for="<?php echo $this->get_field_id( 'uid' ); ?>"><?php _e('Author ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-author-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
 <input type="text" id="<?php echo $this->get_field_id( 'uid' ); ?>" name="<?php echo $this->get_field_name( 'uid' ); ?>" value="<?php echo $instance['author']; ?>" class="widefat" /><br /><br />
 
 <!-- Post features -->
