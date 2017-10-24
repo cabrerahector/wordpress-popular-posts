@@ -82,6 +82,13 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.0.9 =
+- Widget: fixes Author ID field not saving/updating.
+- Fixes WPP data caching (props @zu2).
+- Dashboard: updates Content Tags' documentation.
+- Main POT file updated.
+- Other minor bug fixes & improvements.
+
 = 4.0.8 =
 - Multisite: plugin can now be installed individually on each site.
 - Multisite: improved upgrade process.

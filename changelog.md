@@ -1,5 +1,13 @@
 Changelog
 =========
+#### 4.0.9 ####
+
+- Widget: fixes Author ID field not saving/updating.
+- Fixes WPP data caching (props @zu2).
+- Dashboard: updates Content Tags' documentation.
+- Main POT file updated.
+- Other minor bug fixes & improvements.
+
 #### 4.0.8 ####
 
 - Multisite: plugin can now be installed individually on each site.
