@@ -102,7 +102,7 @@ class WPP_Public {
                 || ( 2 == $this->admin_options['tools']['log']['level'] && is_user_logged_in() )
             ) {
 
-                wp_register_script( 'wpp-tracking', plugin_dir_url( __FILE__ ) . 'js/tracking.js', array(), $this->version, false );
+                wp_register_script( 'wpp-js', plugin_dir_url( __FILE__ ) . 'js/wpp.js', array(), $this->version, false );
 
                 $params = array(
                     'sampling_active' => $this->admin_options['tools']['sampling']['active'],
