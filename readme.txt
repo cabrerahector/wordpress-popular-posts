@@ -169,33 +169,6 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 - Minor improvements and bug fixes.
 - Documentation updated.
 
-= 3.3.3 =
-- Fixes potential XSS exploit in WPP's admin dashboard.
-- Adds filter to set which post types should be tracked by WPP ([details](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_trackable_post_types)).
-- Adds ability to select first attached image as thumbnail source (thanks, [@serglopatin](https://github.com/serglopatin)!)
-
-= 3.3.2 =
-- Fixes warning message: 'stream does not support seeking in...'
-- Removes excerpt HTML encoding.
-- Passes widget ID to the instance variable for customization.
-- Adds CSS class current.
-- Documentation cleanup.
-- Other minor bug fixes / improvements.
-
-= 3.3.1 =
-- Fixes undefined index notice.
-- Makes sure legacy tables are deleted on plugin upgrade.
-
-= 3.3.0 =
-- Adds the ability to limit the amount of data logged by WPP (see Settings > WordPress Popular Posts > Tools for more).
-- Adds Polylang support (thanks, [@Chouby](https://github.com/Chouby)!)
-- Removes post data from DB on deletion.
-- Fixes whitespaces from post_type argument (thanks, [@getdave](https://github.com/getdave)!)
-- WPP now handles SSL detection for images.
-- Removes legacy datacache and datacache_backup tables.
-- Adds Settings page advertisement support.
-- FAQ section has been moved over to Github.
-
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
 == Credits ==
