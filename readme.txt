@@ -82,7 +82,13 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
-= 4.1.0 =
+= 4.0.11 =
+
+**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
+
+- Fixes reference to tracking script.
+
+= 4.0.10 =
 
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
 
