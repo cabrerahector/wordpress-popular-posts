@@ -365,6 +365,10 @@ class WPP_Widget extends WP_Widget {
                             $time = 60 * 60 * 24 * 365;
                         break;
 
+                        default:
+                            $time = 60 * 60;
+                        break;
+
                     }
 
                     $expiration = $time * $this->admin_options['tools']['cache']['interval']['value'];
