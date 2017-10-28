@@ -1,5 +1,13 @@
 Changelog
 =========
+#### 4.1.0 ####
+
+**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
+
+- Renames tracking script to prevent issues with ad blockers (props @Damienov).
+- Widget: fixes caching (props @zu2).
+- Exposes offset parameter to wpp shortcode / `wpp_get_mostpopular` template tag.
+
 #### 4.0.9 ####
 
 - Widget: fixes Author ID field not saving/updating.
