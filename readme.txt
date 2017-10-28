@@ -203,5 +203,5 @@ See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/bl
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
-= 4.0.9 =
-If you're using a caching plugin, flush its cache before upgrading to this version.
+= 4.0.10 =
+If you're using a caching plugin, flushing its cache after upgrading to this version is highly recommended.
