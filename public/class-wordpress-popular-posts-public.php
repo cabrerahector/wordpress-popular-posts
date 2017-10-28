@@ -242,6 +242,7 @@ class WPP_Public {
         /**
         * @var string $header
         * @var int $limit
+        * @var int $offset
         * @var string $range
         * @var bool $freshness
         * @var string $order_by
@@ -273,6 +274,7 @@ class WPP_Public {
         extract( shortcode_atts( array(
             'header' => '',
             'limit' => 10,
+            'offset' => 0,
             'range' => 'daily',
             'time_unit' => 'hour',
             'time_quantity' => 24,
@@ -315,6 +317,7 @@ class WPP_Public {
         $shortcode_ops = array(
             'title' => strip_tags( $header ),
             'limit' => ( !empty( $limit ) && WPP_Helper::is_number( $limit ) && $limit > 0 ) ? $limit : 10,
+            'offset' => ( !empty( $offset ) && WPP_Helper::is_number( $offset ) && $offset >= 0 ) ? $offset : 0,
             'range' => ( in_array($range, $range_values) ) ? $range : 'daily',
             'time_quantity' => ( !empty( $time_quantity ) && WPP_Helper::is_number( $time_quantity ) && $time_quantity > 0 ) ? $time_quantity : 24,
             'time_unit' => ( in_array($time_unit, $time_units) ) ? $time_unit : 'hour',

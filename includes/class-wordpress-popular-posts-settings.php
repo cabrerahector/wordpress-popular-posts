@@ -30,6 +30,7 @@ class WPP_Settings {
         'widget_options' => array(
             'title' => '',
             'limit' => 10,
+            'offset' => 0,
             'range' => 'daily',
             'time_unit' => 'hour',
             'time_quantity' => 24,
