@@ -112,9 +112,9 @@ class WPP_Public {
                     'ID' => $is_single,
                     'token' => wp_create_nonce( 'wpp-token' )
                 );
-                wp_localize_script( 'wpp-tracking', 'wpp_params', $params );
+                wp_localize_script( 'wpp-js', 'wpp_params', $params );
 
-                wp_enqueue_script( 'wpp-tracking' );
+                wp_enqueue_script( 'wpp-js' );
 
             }
 
