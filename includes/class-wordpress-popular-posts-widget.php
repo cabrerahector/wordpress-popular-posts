@@ -365,24 +365,24 @@ class WPP_Widget extends WP_Widget {
                             $time = 60 * 60 * 24 * 365;
                         break;
 
-                        $expiration = $time * $this->admin_options['tools']['cache']['interval']['value'];
+                    }
 
-                        // Store transient
-                        set_transient( $transient_name, $popular_posts, $expiration );
+                    $expiration = $time * $this->admin_options['tools']['cache']['interval']['value'];
 
-                        // Store transient in WPP transients array for garbage collection
-                        $wpp_transients = get_option('wpp_transients');
+                    // Store transient
+                    set_transient( $transient_name, $popular_posts, $expiration );
 
-                        if ( !$wpp_transients ) {
-                            $wpp_transients = array( $transient_name );
-                            add_option( 'wpp_transients', $wpp_transients );
-                        } else {
-                            if ( !in_array($transient_name, $wpp_transients) ) {
-                                $wpp_transients[] = $transient_name;
-                                update_option( 'wpp_transients', $wpp_transients );
-                            }
+                    // Store transient in WPP transients array for garbage collection
+                    $wpp_transients = get_option('wpp_transients');
+
+                    if ( !$wpp_transients ) {
+                        $wpp_transients = array( $transient_name );
+                        add_option( 'wpp_transients', $wpp_transients );
+                    } else {
+                        if ( !in_array($transient_name, $wpp_transients) ) {
+                            $wpp_transients[] = $transient_name;
+                            update_option( 'wpp_transients', $wpp_transients );
                         }
-
                     }
 
                 }
