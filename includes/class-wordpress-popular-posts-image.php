@@ -239,7 +239,7 @@ class WPP_Image {
 
         // ELSE
         // image file path is invalid
-        return $this->render_image($this->default_thumbnail, $size, 'wpp-thumbnail wpp_imgeditor_error wpp_' . $image_meta['source'], null, $image->get_error_message());
+        return $this->render_image( $this->default_thumbnail, array( $image_meta['width'], $image_meta['height'] ), 'wpp-thumbnail wpp_imgeditor_error wpp_' . $image_meta['source'], null, $image->get_error_message() );
 
     } // end image_resize
 
