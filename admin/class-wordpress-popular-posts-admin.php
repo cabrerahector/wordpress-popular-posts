@@ -1201,11 +1201,31 @@ class WPP_Admin {
         // Validate the structure of the tables, create missing tables / fields if necessary
         WPP_Activator::track_new_site();
 
+        // Update data table structure and indexes
+        $dataFields = $wpdb->get_results( "SHOW FIELDS FROM {$prefix}data;" );
+        foreach ( $dataFields as $column ) {
+            if ( "day" == $column->Field ) {
+                $wpdb->query( "ALTER TABLE {$prefix}data ALTER COLUMN day DROP DEFAULT;" );
+            }
+
+            if ( "last_viewed" == $column->Field ) {
+                $wpdb->query( "ALTER TABLE {$prefix}data ALTER COLUMN last_viewed DROP DEFAULT;" );
+            }
+        }
+
         // Update summary table structure and indexes
         $summaryFields = $wpdb->get_results( "SHOW FIELDS FROM {$prefix}summary;" );
         foreach ( $summaryFields as $column ) {
             if ( "last_viewed" == $column->Field ) {
-                $wpdb->query( "ALTER TABLE {$prefix}summary CHANGE last_viewed view_datetime datetime NOT NULL DEFAULT '0000-00-00 00:00:00', ADD KEY view_datetime (view_datetime);" );
+                $wpdb->query( "ALTER TABLE {$prefix}summary CHANGE last_viewed view_datetime datetime NOT NULL, ADD KEY view_datetime (view_datetime);" );
+            }
+
+            if ( "view_date" == $column->Field ) {
+                $wpdb->query( "ALTER TABLE {$prefix}summary ALTER COLUMN view_date DROP DEFAULT;" );
+            }
+
+            if ( "view_datetime" == $column->Field ) {
+                $wpdb->query( "ALTER TABLE {$prefix}summary ALTER COLUMN view_datetime DROP DEFAULT;" );
             }
         }
 
