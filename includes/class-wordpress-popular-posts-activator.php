@@ -108,8 +108,8 @@ class WPP_Activator {
         $sql = "
             CREATE TABLE {$prefix}data (
                 postid bigint(20) NOT NULL,
-                day datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-                last_viewed datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+                day datetime NOT NULL,
+                last_viewed datetime NOT NULL,
                 pageviews bigint(20) DEFAULT 1,
                 PRIMARY KEY  (postid)
             ) {$charset_collate} ENGINE=InnoDB;
@@ -117,8 +117,8 @@ class WPP_Activator {
                 ID bigint(20) NOT NULL AUTO_INCREMENT,
                 postid bigint(20) NOT NULL,
                 pageviews bigint(20) NOT NULL DEFAULT 1,
-                view_date date NOT NULL DEFAULT '0000-00-00',
-                view_datetime datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+                view_date date NOT NULL,
+                view_datetime datetime NOT NULL,
                 PRIMARY KEY  (ID),
                 KEY postid (postid),
                 KEY view_date (view_date),
