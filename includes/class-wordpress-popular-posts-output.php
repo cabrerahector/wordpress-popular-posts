@@ -143,7 +143,7 @@ class WPP_Output {
         $postID = $post_object->id;
 
         // Permalink
-        $permalink = get_permalink( $postID );
+        $permalink = $this->get_permalink( $post_object );
 
         // Thumbnail
         $post_thumbnail = $this->get_thumbnail( $post_object );
@@ -255,6 +255,26 @@ class WPP_Output {
 
         return apply_filters( 'wpp_post', $post, $post_object, $this->options );
 
+    }
+
+    /**
+     * Return the permalink.
+     * 
+     * @since   4.0.12
+     * @access  private
+     * @param   object  $post_object
+     * @return  string
+     */
+    private function get_permalink( stdClass $post_object ) {
+
+        $translate = WPP_translate::get_instance();
+        $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
+
+        if ( $post_object->id != $trid ) {
+            return get_permalink( $trid );
+        }
+
+        return get_permalink( $post_object->id );
     }
 
     /**
