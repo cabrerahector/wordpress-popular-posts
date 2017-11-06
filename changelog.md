@@ -1,5 +1,12 @@
 Changelog
 =========
+#### 4.0.12 ####
+
+- Fixes bug where WPP didn't return the right URL when using Polylang / WPML.
+- Fixes a compatibility issue with Yoast SEO (and potentially other plugins as well).
+- Improves compatibility with MySQL 5.7+.
+- Other minor fixes and improvements.
+
 #### 4.0.11 ####
 
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
