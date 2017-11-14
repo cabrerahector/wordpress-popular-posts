@@ -346,7 +346,7 @@ class WPP_Image {
             $img_tag = '<!-- ' . $error . ' --> ';
         }
 
-        $img_tag .= '<img src="' . ( is_ssl() ? str_ireplace( "http://", "https://", $src ) : $src ) . '" width="' . $size[0] . '" height="' . $size[1] . '" alt="' . ( ($post_object instanceof stdClass && !isset($post_object->id) ? esc_attr( wp_strip_all_tags($post_object->title) ) : '' ) ) . '" class="' . $class . '" />';
+        $img_tag .= '<img src="' . ( is_ssl() ? str_ireplace( "http://", "https://", $src ) : $src ) . '" width="' . $size[0] . '" height="' . $size[1] . '" alt="' . ( ($post_object instanceof stdClass && isset($post_object->title) ? esc_attr( wp_strip_all_tags($post_object->title) ) : '' ) ) . '" class="' . $class . '" />';
 
         return apply_filters( 'wpp_render_image', $img_tag );
 
