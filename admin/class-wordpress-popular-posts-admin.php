@@ -1187,11 +1187,25 @@ class WPP_Admin {
      */
     private function upgrade() {
 
-        // Keep the upgrade process from running too many times
-        if ( get_option('wpp_update') )
-            return;
+        $now = WPP_Helper::now();
 
-        add_option( 'wpp_update', '1' );
+        // Keep the upgrade process from running too many times
+        if ( $wpp_update = get_option('wpp_update') ) {
+
+            $from_time = strtotime( $wpp_update );
+            $to_time = strtotime( $now );
+            $difference_in_minutes = round( abs( $to_time - $from_time ) / 60, 2 );
+
+            // Upgrade flag is still valid, abort
+            if ( $difference_in_minutes <= 15 )
+                return;
+
+            // Upgrade flag expired, delete it and continue
+            delete_option( 'wpp_update' );
+
+        }
+
+        add_option( 'wpp_update', $now );
 
         global $wpdb;
 
