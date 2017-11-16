@@ -1222,8 +1222,11 @@ class WPP_Admin {
         $summaryIndexes = $wpdb->get_results( "SHOW INDEX FROM {$prefix}summary;" );
         foreach( $summaryIndexes as $index ) {
             if ( 'ID_date' == $index->Key_name ) {
-                $wpdb->query( "ALTER TABLE {$prefix}summary DROP INDEX ID_date, DROP INDEX last_viewed;" );
-                break;
+                $wpdb->query( "ALTER TABLE {$prefix}summary DROP INDEX ID_date;" );
+            }
+
+            if ( 'last_viewed' == $index->Key_name ) {
+                $wpdb->query( "ALTER TABLE {$prefix}summary DROP INDEX last_viewed;" );
             }
         }
 
