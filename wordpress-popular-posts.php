@@ -29,6 +29,8 @@ if ( ! defined( 'WPINC' ) ) {
     die();
 }
 
+define( 'WPP_VER', '4.0.12' );
+
 /*
  * The code that runs during plugin activation.
  */

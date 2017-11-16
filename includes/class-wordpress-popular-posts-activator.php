@@ -75,13 +75,16 @@ class WPP_Activator {
      */
     private static function plugin_activate() {
 
-        global $wpdb;
+        // Get WPP version
+        $wpp_ver = get_option( 'wpp_ver' );
 
-        // set table name
-        $prefix = $wpdb->prefix . "popularposts";
+        if (
+            !$wpp_ver
+            || version_compare( $wpp_ver, WPP_VER, '<' )
+        ) {
+            global $wpdb;
 
-        // fresh setup
-        if ( "{$prefix}data" != $wpdb->get_var("SHOW TABLES LIKE '{$prefix}data'") ) {
+            $prefix = $wpdb->prefix . "popularposts";
             self::do_db_tables( $prefix );
         }
 
