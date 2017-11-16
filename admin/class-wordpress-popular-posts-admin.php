@@ -1137,28 +1137,7 @@ class WPP_Admin {
      * @since	2.4.0
      */
     public function upgrade_check(){
-
-        // Multisite setup, upgrade all sites
-        if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-            global $wpdb;
-
-            $original_blog_id = get_current_blog_id();
-            $blogs_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
-
-            include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-            foreach( $blogs_ids as $blog_id ) {
-                switch_to_blog( $blog_id );
-                $this->upgrade_site();
-            }
-
-            // Switch back to current blog
-            switch_to_blog( $original_blog_id );
-        }
-        else {
-            $this->upgrade_site();
-        }
-
+        $this->upgrade_site();
     } // end upgrade_check
 
     /**
