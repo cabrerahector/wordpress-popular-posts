@@ -1191,9 +1191,6 @@ class WPP_Admin {
         // Set table name
         $prefix = $wpdb->prefix . "popularposts";
 
-        // Validate the structure of the tables, create missing tables / fields if necessary
-        WPP_Activator::track_new_site();
-
         // Update data table structure and indexes
         $dataFields = $wpdb->get_results( "SHOW FIELDS FROM {$prefix}data;" );
         foreach ( $dataFields as $column ) {
@@ -1229,6 +1226,9 @@ class WPP_Admin {
                 break;
             }
         }
+
+        // Validate the structure of the tables, create missing tables / fields if necessary
+        WPP_Activator::track_new_site();
 
         // Check storage engine
         $storage_engine_data = $wpdb->get_var( "SELECT `ENGINE` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='{$wpdb->dbname}' AND `TABLE_NAME`='{$prefix}data';" );
