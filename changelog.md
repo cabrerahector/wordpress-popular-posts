@@ -1,5 +1,10 @@
 Changelog
 =========
+#### 4.0.13 ####
+
+- Improvements to WPP's upgrade process.
+- Fixes ALT text missing from IMG tags.
+
 #### 4.0.12 ####
 
 - Fixes bug where WPP didn't return the right URL when using Polylang / WPML.

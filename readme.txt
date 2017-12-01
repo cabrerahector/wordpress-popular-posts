@@ -82,6 +82,11 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.0.13 =
+
+- Improvements to WPP's upgrade process.
+- Fixes ALT text missing from IMG tags.
+
 = 4.0.12 =
 
 - Fixes bug where WPP didn't return the right URL when using Polylang / WPML.
@@ -94,93 +99,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
 
 - Fixes reference to tracking script.
-
-= 4.0.10 =
-
-**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
-
-- Renames tracking script to prevent issues with ad blockers (props @Damienov).
-- Widget: fixes caching (props @zu2).
-- Exposes offset parameter to wpp shortcode / `wpp_get_mostpopular` template tag.
-
-= 4.0.9 =
-- Widget: fixes Author ID field not saving/updating.
-- Fixes WPP data caching (props @zu2).
-- Dashboard: updates Content Tags' documentation.
-- Main POT file updated.
-- Other minor bug fixes & improvements.
-
-= 4.0.8 =
-- Multisite: plugin can now be installed individually on each site.
-- Multisite: improved upgrade process.
-- Dashboard: adds multisite check to Debug screen.
-- Dashboard: have the Debug screen display active plugins only.
-- Improves compatibility with Beaver Builder.
-- Adds onload event to ajax widget (props @cawa-93).
-- Other minor bug fixes.
-
-= 4.0.6 =
-
-- Improves compatibility with Multisite.
-- Fixes a bug that prevented upgrade process from running on MU (props Greg Sullivan!)
-- Improves compatibility with Beaver Builder.
-
-= 4.0.5 =
-
-- Fixes the taxonomy filter for Custom Post Types.
-- Updates summary table structure and indexes.
-- Adds back ability to use custom wpp.css from theme.
-- Dashboard: adds a Debug screen to help with support inquiries.
-- Other minor bug fixes and improvements.
-
-= 4.0.3 =
-
-**This is a hotfix release.**
-
-- Dashboard: escapes post titles to prevent potential XSS (props Delta!)
-- Restores ability to use a custom default thumbnail.
-
-= 4.0.2 =
-
-**This is a hotfix release.**
-
-- Dashboard: fixes thumbnail picker on HTTPS.
-- Adds the wpp_custom_html filter back.
-
-= 4.0.1 =
-
-**This is a hotfix release.**
-
-- Fixes a warning message triggered on old PHP versions.
-- Fixes undefined default_thumbnail_sizes warning message.
-- Removes a hardcoded table prefix causing issues on sites that uses a different prefix than the stock one.
-
-= 4.0.0 =
-
-**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
-
-- Plugin code refactored!
-- Dashboard section redesigned (now mobile-friendly, too!)
-- New Statistics chart and other goodies.
-- Adds ability to pick a Custom Time Range!
-- Adds ability to filter posts by other taxonomies than just categories!
-- Adds Relative Date Format.
-- Fixes broken views tracking caused by changeset 41508 https://core.trac.wordpress.org/changeset/41508 (props hykw!)
-- Improves PHP7+ compatibility.
-- Improves compatibility with WP-SpamShield, WooCommerce, Polylang and WPML.
-- Drops qTranslate support (that plugin has been long removed from WordPress.org anyways.)
-- New content tags added: {img_url}, {taxonomy}.
-- New filters: wpp_post_class, wpp_post_exclude_terms.
-- French and German translation files became too outdated and so support has been dropped for now (want to help? Contact me!)
-- Tons of minor bug fixes and improvements.
-
-Also, see [Release notes](https://cabrerahector.com/development/wordpress-popular-posts-4-0-is-finally-out/).
-
-= 3.3.4 =
-- Attempt to convert tables to InnoDB during upgrade if other engine is being used.
-- Adds a check to prevent the upgrade process from running too many times.
-- Minor improvements and bug fixes.
-- Documentation updated.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
