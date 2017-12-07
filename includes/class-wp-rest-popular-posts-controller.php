@@ -43,6 +43,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
      * @return WP_Error|bool True if the request has read access, WP_Error object otherwise.
      */
     public function get_items_permissions_check( $request ) {
+		// TO-DO: Are there scenarios where this request should be rejected?
         return true;
     }
 
@@ -55,13 +56,19 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Response Response object on success, or WP_Error object on failure.
      */
     public function get_items( $request ) {
-        $wpp_query = new WPP_Query( $request->get_params() );
+		$rest_params = $request->get_params();
+
+		// The REST params match up with the args accepted by WPP_Query.
+        $wpp_query = new WPP_Query( $rest_params );
+		$wpp_posts = $wpp_query->get_posts();
 
         $posts = array();
 
-        foreach ( $wpp_query->get_posts() as $popular_post ) {
-            $posts[] = $this->prepare_item( $popular_post, $request );
-        }
+		if ( ! empty( $wpp_posts ) ) {
+	        foreach ( $wpp_posts as $popular_post ) {
+	            $posts[] = $this->prepare_item( $popular_post, $request );
+	        }
+		}
 
         return rest_ensure_response( $posts );
     }
@@ -80,7 +87,6 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
 
         // Borrow prepare_item_for_response method from WP_REST_Posts_Controller.
         $posts_controller = new WP_REST_Posts_Controller( $wp_post->post_type, $request );
-
         $data = $posts_controller->prepare_item_for_response( $wp_post, $request );
 
         // Add pageviews from popular_post object to response.
