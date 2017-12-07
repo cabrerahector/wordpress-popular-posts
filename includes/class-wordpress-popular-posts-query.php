@@ -403,6 +403,10 @@ class WPP_Query {
             // List only published, non password-protected posts
             $where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
+            if ( !empty($args) ) {
+                $where = $wpdb->prepare( $where, $args );
+            }
+
             $fields = apply_filters( 'wpp_query_fields', $fields, $this->options );
             $table = apply_filters( 'wpp_query_table', $table, $this->options );
             $join = apply_filters( 'wpp_query_join', $join, $this->options );
@@ -413,7 +417,8 @@ class WPP_Query {
 
             // Finally, build the query
             $query = "SELECT {$fields} FROM {$table} {$join} {$where} {$groupby} {$orderby} {$limit};";
-            $this->query = ( !empty($args) && !has_filter('wpp_query_where') ) ? $wpdb->prepare( $query, $args ) : $query;
+            //$this->query = ( !empty($args) && !has_filter('wpp_query_where') ) ? $wpdb->prepare( $query, $args ) : $query;
+            $this->query = $query;
 
         }
 
