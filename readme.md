@@ -4,7 +4,7 @@ A highly customizable widget that displays your most popular posts.
 
 ----
 ## Table of contents
-
+ 
 * [Description](https://github.com/cabrerahector/wordpress-popular-posts#description)
 * [Features](https://github.com/cabrerahector/wordpress-popular-posts#features)
 * [Requirements](https://github.com/cabrerahector/wordpress-popular-posts#requirements)
@@ -37,7 +37,6 @@ WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [widg
 * **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the *wpp_get_mostpopular()* template tag. Additionally, the *wpp_get_views()* template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
 * **Localization** - Translate WPP to your own language (*See the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for more info*).
 * **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support** - Show your visitors how your readers are rating your posts!
-* **WP REST API endpoint support** - Receive popular post data in JSON format over the WordPress REST API.
 
 
 ## Requirements
