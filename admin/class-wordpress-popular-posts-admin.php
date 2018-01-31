@@ -416,6 +416,12 @@ class WPP_Admin {
                 $interval = "24 HOUR";
                 break;
 
+            case "today":
+                $hours = date( 'H', strtotime($now) );
+                $minutes = $hours * 60 + (int) date( 'i', strtotime($now) );
+                $interval = "{$minutes} MINUTE";
+                break;
+
             case "last7days":
             case "weekly":
                 $interval = "6 DAY";
@@ -747,7 +753,7 @@ class WPP_Admin {
 
         if ( wp_verify_nonce( $nonce, 'wpp_admin_nonce' ) ) {
 
-            $valid_ranges = array( 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' );
+            $valid_ranges = array( 'today', 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' );
             $time_units = array( "MINUTE", "HOUR", "DAY" );
 
             $range = ( isset( $_GET['range'] ) && in_array( $_GET['range'], $valid_ranges ) ) ? $_GET['range'] : 'last7days';

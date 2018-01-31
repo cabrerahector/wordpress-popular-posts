@@ -344,6 +344,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
         <h5><?php echo $chart_data['totals']['label_date_range']; ?></h5>
 
         <ul class="wpp-header-nav" id="wpp-time-ranges">
+            <li <?php echo ( 'daily' == $this->options['stats']['range'] || 'today' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="today" title="Today">Today</a></li>
             <li <?php echo ( 'daily' == $this->options['stats']['range'] || 'last24hours' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last24hours" title="Last 24 hours">24h</a></li>
             <li <?php echo ( 'weekly' == $this->options['stats']['range'] || 'last7days' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last7days" title="Last 7 days">7d</a></li>
             <li <?php echo ( 'monthly' == $this->options['stats']['range'] || 'last30days' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last30days" title="Last 30 days">30d</a></li>
