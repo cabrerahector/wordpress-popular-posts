@@ -96,34 +96,36 @@ class WPP_Widget extends WP_Widget {
             } else {
             ?>
             <script type="text/javascript">
-                /* jQuery is available, so proceed */
-                if ( window.jQuery ) {
+                window.addEventListener('DOMContentLoaded', function() {
+                    /* jQuery is available, so proceed */
+                    if ( window.jQuery ) {
 
-                    jQuery(document).ready(function($){
+                        jQuery(document).ready(function($){
 
-                        var widget_container = $('#<?php echo $widget_id; ?>');
-                        widget_container.append('<p class="wpp-loader"><span><?php _e( "Loading...", "wordpress-popular-posts" ); ?></span></p>');
+                            var widget_container = $('#<?php echo $widget_id; ?>');
+                            widget_container.append('<p class="wpp-loader"><span><?php _e( "Loading...", "wordpress-popular-posts" ); ?></span></p>');
 
-                        $.get(
-                            '<?php echo admin_url('admin-ajax.php'); ?>',
-                            {
-                                action: 'wpp_get_popular',
-                                id: '<?php echo $this->number; ?>'
-                            }, function( response ){
-                                widget_container.children("p.wpp-loader").remove();
-                                widget_container.append(response);
-                                widget_container.trigger('wpp-onload');
-                            }
-                        );
+                            $.get(
+                                '<?php echo admin_url('admin-ajax.php'); ?>',
+                                {
+                                    action: 'wpp_get_popular',
+                                    id: '<?php echo $this->number; ?>'
+                                }, function( response ){
+                                    widget_container.children("p.wpp-loader").remove();
+                                    widget_container.append(response);
+                                    widget_container.trigger('wpp-onload');
+                                }
+                            );
 
-                    });
+                        });
 
-                } /* jQuery is not defined */
-                else {
-                    if ( window.console && window.console.log ) {
-                        window.console.log( 'WordPress Popular Posts: jQuery is not defined!' );
+                    } /* jQuery is not defined */
+                    else {
+                        if ( window.console && window.console.log ) {
+                            window.console.log( 'WordPress Popular Posts: jQuery is not defined!' );
+                        }
                     }
-                }
+                });
             </script>
             <?php
             }
