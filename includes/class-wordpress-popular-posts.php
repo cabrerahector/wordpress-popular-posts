@@ -130,6 +130,9 @@ class WordPressPopularPosts {
         $this->loader->add_action( 'wpmu_new_blog', $plugin_admin, 'activate_new_site' );
         // Hook fired when a blog is deleted on WP Multisite
         $this->loader->add_filter( 'wpmu_drop_tables', $plugin_admin, 'delete_site_data', 10, 2 );
+        // At-A-Glance
+        $this->loader->add_filter( 'dashboard_glance_items', $plugin_admin, 'at_a_glance_stats' );
+        $this->loader->add_action( 'admin_head', $plugin_admin, 'at_a_glance_stats_css' );
         // Load WPP's admin styles and scripts
         $this->loader->add_action( 'admin_print_styles', $plugin_admin, 'enqueue_styles' );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );

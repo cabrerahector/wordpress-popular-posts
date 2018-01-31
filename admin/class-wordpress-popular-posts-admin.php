@@ -138,6 +138,63 @@ class WPP_Admin {
     } // end delete_site_data
 
     /**
+     * Display some statistics at the "At a Glance" box from the Dashboard.
+     *
+     * @since    4.1.0
+     */
+    public function at_a_glance_stats(){
+
+        global $wpdb;
+
+        $glances = array();
+        $args = array( 'post', 'page' );
+        $post_type_placeholders = '%s, %s';
+
+        if (
+            isset( $this->options['stats']['post_type'] ) 
+            && !empty( $this->options['stats']['post_type'] )
+        ) {
+            $args = array_map( 'trim', explode( ',', $this->options['stats']['post_type'] ) );
+            $post_type_placeholders = implode( ', ', array_fill( 0, count( $args ), '%s' ) );
+        }
+
+        $args[] = WPP_Helper::now();
+
+        $query = $wpdb->prepare(
+            "SELECT SUM(pageviews) AS total 
+            FROM `{$wpdb->prefix}popularpostssummary` v LEFT JOIN `{$wpdb->prefix}posts` p ON v.postid = p.ID 
+            WHERE p.post_type IN( {$post_type_placeholders} ) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB( %s, INTERVAL 24 HOUR );"
+            , $args
+        );
+
+        $total_views = $wpdb->get_var( $query );
+
+        $pageviews = sprintf(
+            _n( '1 view in the last 24 hours', '%s views in the last 24 hours', $total_views, 'wordpress-popular-posts' ),
+            number_format_i18n( $total_views )
+        );
+
+        if ( current_user_can('manage_options') ) {
+            $glances[] = '<a class="wpp-views-count" href="' . admin_url( 'options-general.php?page=wordpress-popular-posts' ) .'">' . $pageviews . '</a>';
+        }
+        else {
+            $glances[] = '<span class="wpp-views-count">' . $pageviews . '</a>';
+        }
+
+        return $glances;
+
+    }
+
+    /**
+     * Add custom inline CSS styles for At a Glance stats.
+     *
+     * @since    4.1.0
+     */
+    public function at_a_glance_stats_css(){
+        echo '<style>#dashboard_right_now a.wpp-views-count:before, #dashboard_right_now span.wpp-views-count:before { content: "\f177"; }</style>';
+    }
+
+    /**
      * Register the stylesheets for the public-facing side of the site.
      *
      * @since    4.0.0
