@@ -344,11 +344,11 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
         <h5><?php echo $chart_data['totals']['label_date_range']; ?></h5>
 
         <ul class="wpp-header-nav" id="wpp-time-ranges">
-            <li <?php echo ( 'daily' == $this->options['stats']['range'] || 'today' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="today" title="Today">Today</a></li>
-            <li <?php echo ( 'daily' == $this->options['stats']['range'] || 'last24hours' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last24hours" title="Last 24 hours">24h</a></li>
-            <li <?php echo ( 'weekly' == $this->options['stats']['range'] || 'last7days' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last7days" title="Last 7 days">7d</a></li>
-            <li <?php echo ( 'monthly' == $this->options['stats']['range'] || 'last30days' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last30days" title="Last 30 days">30d</a></li>
-            <li <?php echo ( 'custom' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#"  data-range="custom" title="Custom">Custom</a></li>
+            <li <?php echo ( 'daily' == $this->options['stats']['range'] || 'today' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="today" title="<?php esc_attr_e( 'Today', 'wordpress-popular-posts' ); ?>"><?php _e( 'Today', 'wordpress-popular-posts' ); ?></a></li>
+            <li <?php echo ( 'daily' == $this->options['stats']['range'] || 'last24hours' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last24hours" title="<?php esc_attr_e( 'Last 24 hours', 'wordpress-popular-posts' ); ?>">24h</a></li>
+            <li <?php echo ( 'weekly' == $this->options['stats']['range'] || 'last7days' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last7days" title="<?php esc_attr_e( 'Last 7 days', 'wordpress-popular-posts' ); ?>">7d</a></li>
+            <li <?php echo ( 'monthly' == $this->options['stats']['range'] || 'last30days' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="last30days" title="<?php esc_attr_e( 'Last 30 days', 'wordpress-popular-posts' ); ?>">30d</a></li>
+            <li <?php echo ( 'custom' == $this->options['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#"  data-range="custom" title="<?php esc_attr_e( 'Custom', 'wordpress-popular-posts' ); ?>"><?php _e( 'Custom', 'wordpress-popular-posts' ); ?></a></li>
         </ul>
 
         <div id="wpp-chart">
@@ -363,10 +363,10 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
 
     <div id="wpp-listing" class="wpp-content"<?php echo ( 'stats' == $current ) ? '' : ' style="display: none;"'; ?>>
         <ul class="wpp-tabbed-nav">
-            <li class="active"><a href="#" title="Most viewed"><span class="fa fa-eye"></span><span>Most viewed</span></a></li>
-            <li><a href="#" title="Most commented"><span class="fa fa-comment-o"></span><span>Most commented</span></a></li>
-            <li><a href="#" title="Trending now"><span class="fa fa-rocket"></span><span>Trending now</span></a></li>
-            <li><a href="#" title="Hall of Fame"><span class="fa fa-trophy"></span><span>Hall of Fame</span></a></li>
+            <li class="active"><a href="#" title="<?php esc_attr_e( 'Most viewed', 'wordpress-popular-posts' ); ?>"><span class="fa fa-eye"></span><span><?php _e( 'Most viewed', 'wordpress-popular-posts' ); ?></span></a></li>
+            <li><a href="#" title="<?php esc_attr_e( 'Most commented', 'wordpress-popular-posts' ); ?>"><span class="fa fa-comment-o"></span><span><?php _e( 'Most commented', 'wordpress-popular-posts' ); ?></span></a></li>
+            <li><a href="#" title="<?php esc_attr_e( 'Trending now', 'wordpress-popular-posts' ); ?>"><span class="fa fa-rocket"></span><span><?php _e( 'Trending now', 'wordpress-popular-posts' ); ?></span></a></li>
+            <li><a href="#" title="<?php esc_attr_e( 'Hall of Fame', 'wordpress-popular-posts' ); ?>"><span class="fa fa-trophy"></span><span><?php _e( 'Hall of Fame', 'wordpress-popular-posts' ); ?></span></a></li>
         </ul>
 
         <div class="wpp-tab-content wpp-tab-content-active">
