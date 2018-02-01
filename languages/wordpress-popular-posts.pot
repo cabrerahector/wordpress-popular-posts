@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2018-01-31 18:41-0400\n"
+"POT-Creation-Date: 2018-02-01 14:16-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -24,8 +24,8 @@ msgstr ""
 
 #: ../admin/class-wordpress-popular-posts-admin.php:173
 #, php-format
-msgid "1 view in the last 24 hours"
-msgid_plural "%s views in the last 24 hours"
+msgid "1 view in the last hour"
+msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 

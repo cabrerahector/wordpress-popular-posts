@@ -163,14 +163,14 @@ class WPP_Admin {
         $query = $wpdb->prepare(
             "SELECT SUM(pageviews) AS total 
             FROM `{$wpdb->prefix}popularpostssummary` v LEFT JOIN `{$wpdb->prefix}posts` p ON v.postid = p.ID 
-            WHERE p.post_type IN( {$post_type_placeholders} ) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB( %s, INTERVAL 24 HOUR );"
+            WHERE p.post_type IN( {$post_type_placeholders} ) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB( %s, INTERVAL 1 HOUR );"
             , $args
         );
 
         $total_views = $wpdb->get_var( $query );
 
         $pageviews = sprintf(
-            _n( '1 view in the last 24 hours', '%s views in the last 24 hours', $total_views, 'wordpress-popular-posts' ),
+            _n( '1 view in the last hour', '%s views in the last hour', $total_views, 'wordpress-popular-posts' ),
             number_format_i18n( $total_views )
         );
 
