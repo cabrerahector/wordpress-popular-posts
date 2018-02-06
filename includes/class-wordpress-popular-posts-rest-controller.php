@@ -3,7 +3,7 @@
 /**
  * Class used to access popular posts via the REST API.
  *
- * @since    4.0.14
+ * @since    4.1.0
  */
 class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
 
@@ -18,7 +18,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
     /**
      * Registers the rest route.
      *
-     * @since    4.0.14
+     * @since    4.1.0
      */
     public function register_routes() {
         register_rest_route(
@@ -37,7 +37,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
     /**
      * Checks whether a given request has permission to get popular posts.
      *
-     * @since 4.0.14
+     * @since 4.1.0
      *
      * @param WP_REST_Request $request Full details about the request.
      * @return WP_Error|bool True if the request has read access, WP_Error object otherwise.
@@ -50,7 +50,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
     /**
      * Retrieves the popular posts.
      *
-     * @since 4.0.14
+     * @since 4.1.0
      *
      * @param WP_REST_Request $request Full details about the request.
      * @return WP_Error|WP_REST_Response Response object on success, or WP_Error object on failure.
@@ -76,7 +76,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
     /**
      * Retrieves the popular post's WP_Post object and formats it for the REST response.
      *
-     * @since 4.0.14
+     * @since 4.1.0
      *
      * @param object          $popular_post The popular post object.
      * @param WP_REST_Request $request Full details about the request.
@@ -98,7 +98,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
     /**
      * Retrieves the query params for the collections.
      *
-     * @since 4.0.14
+     * @since 4.1.0
      *
      * @return array Query parameters for the collection.
      */
