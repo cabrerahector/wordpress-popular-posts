@@ -119,6 +119,14 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'validate_callback' => 'rest_validate_request_arg',
                 'minimum'           => 1,
             ),
+            'freshness' => array(
+                'description'       => __( 'Retrieve the most popular entries published within the specified time range.' ),
+                'type'              => 'integer',
+                'enum'              => array( 0, 1 ),
+                'default'           => 0,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            ),
             'offset' => array(
                 'description'       => __( 'An offset point for the collection.' ),
                 'type'              => 'integer',
