@@ -105,6 +105,11 @@ class WordPressPopularPosts {
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wordpress-popular-posts-public.php';
 
+		/**
+         * The REST API controller class for the popular posts endpoing.
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wp-rest-popular-posts-controller.php';
+
         /**
          * Get loader.
          */
@@ -182,6 +187,8 @@ class WordPressPopularPosts {
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
         // Add [wpp] shortcode
         $this->loader->add_shortcode( 'wpp', $plugin_public, 'wpp_shortcode' );
+		// Register the REST route
+        $this->loader->add_action( 'rest_api_init', $plugin_public, 'init_rest_route' );
 
     }
 

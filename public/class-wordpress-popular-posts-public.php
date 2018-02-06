@@ -491,4 +491,14 @@ class WPP_Public {
 
     }
 
+	/**
+     * Initiates the popular posts REST controller class.
+     *
+     * @since    4.0.13
+     */
+    public function init_rest_route() {
+        $rest_controller = new WP_REST_Popular_Posts_Controller();
+        $rest_controller->register_routes();
+    }
+
 } // End WPP_Public class
