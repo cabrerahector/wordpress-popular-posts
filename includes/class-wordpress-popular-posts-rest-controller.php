@@ -123,7 +123,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
             'range'   => array(
                 'description'       => __( 'Return posts from a specified time range.' ),
                 'type'              => 'string',
-                'enum'                 => array( 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' ),
+                'enum'                 => array( 'today', 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' ),
                 'default'            => 'daily',
                 'sanitize_callback' => 'sanitize_text_field',
                 'validate_callback' => 'rest_validate_request_arg',
