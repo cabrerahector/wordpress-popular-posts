@@ -104,6 +104,13 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
      */
     public function get_collection_params() {
         return array(
+            'post_type'     => array(
+                'description'       => __( 'Return popular posts from specified custom post type(s).' ),
+                'type'              => 'string',
+                'default'           => 'post,page',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ),
             'limit'     => array(
                 'description'       => __( 'The maximum number of popular posts to return.' ),
                 'type'              => 'integer',
@@ -120,12 +127,36 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'sanitize_callback' => 'absint',
                 'validate_callback' => 'rest_validate_request_arg',
             ),
+            'order_by'   => array(
+                'description'       => __( 'Set the sorting option of the popular posts.' ),
+                'type'              => 'string',
+                'enum'                 => array( 'views', 'comments' ),
+                'default'            => 'views',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ),
             'range'   => array(
                 'description'       => __( 'Return posts from a specified time range.' ),
                 'type'              => 'string',
                 'enum'                 => array( 'today', 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' ),
                 'default'            => 'daily',
                 'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ),
+            'time_unit'   => array(
+                'description'       => __( 'Especifies the time unit of the custom time range.' ),
+                'type'              => 'string',
+                'enum'                 => array( 'minute', 'hour', 'day', 'week', 'month' ),
+                'default'            => 'hour',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ),
+            'time_quantity' => array(
+                'description'       => __( 'Especifies the number of time units of the custom time range.' ),
+                'type'              => 'integer',
+                'default'           => 24,
+                'minimum'           => 1,
+                'sanitize_callback' => 'absint',
                 'validate_callback' => 'rest_validate_request_arg',
             ),
             'pid'   => array(
