@@ -23,10 +23,10 @@ WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [widg
 
 ## Features
 
-* **Multi-widget capable** - You can have several widgets of WordPress Popular Posts on your blog, each with its own settings!
+* **Multi-widget capable** - You can have several WordPress Popular Posts widgets on your blog, each with its own settings!
 * **Time Range** - List those posts of your blog that have been the most popular ones within a specific time range (eg. last 24 hours, last 7 days, last 30 days, etc)!
 * **Custom Post-type support** - Wanna show other stuff than just posts and pages?
-* **Thumbnails!** - Display a thumbnail of your posts! (*see the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for technical requirements*.)
+* **Thumbnails!** - Display a thumbnail of your posts! (*see the [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#im-unable-to-activate-the-display-post-thumbnail-option-why) for technical requirements*.)
 * **Statistics dashboard** - See how your popular posts are doing directly from your admin area.
 * **Sorting options** - Order your popular list by comments, views (default) or average views per day!
 * **Use your own layout!** - WPP is flexible enough to let you customize the look and feel of your popular posts! (see [customizing WPP's HTML markup](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-can-i-use-my-own-html-markup-with-your-plugin) and [How to style WordPress Popular Posts](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) for more.)
