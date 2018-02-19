@@ -106,9 +106,19 @@ class WPP_Widget extends WP_Widget {
                             function( response ){
                                 wpp_widget_container.innerHTML += response;
 
-                                if ( document.createEvent ) {
-                                    var event = document.createEvent( "Event" );
-                                    event.initEvent( "wpp-onload", false, true ); 
+                                var event = null;
+
+                                if ( 'function' === typeof(Event) ) {
+                                    event = new Event( "wpp-onload", {"bubbles": true, "cancelable": false} );
+                                } // Fallback for older browsers
+                                else {
+                                    if ( document.createEvent ) {
+                                        event = document.createEvent('Event');
+                                        event.initEvent( "wpp-onload", true, false );
+                                    }
+                                }
+
+                                if ( event ) {
                                     wpp_widget_container.dispatchEvent( event );
                                 }
                             }
