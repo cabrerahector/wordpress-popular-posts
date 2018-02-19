@@ -51,14 +51,10 @@ var WordPressPopularPosts = (function(){
 })();
 
 if ( "undefined" !== typeof wpp_params ) {
-    var sampling_active = wpp_params.sampling_active;
-    var sampling_rate   = wpp_params.sampling_rate;
-    var do_request = false;
+    var do_request = true;
 
-    if ( !sampling_active ) {
-        do_request = true;
-    } else {
-        var num = Math.floor(Math.random() * sampling_rate) + 1;
+    if ( '1' == wpp_params.sampling_active ) {
+        var num = Math.floor(Math.random() * wpp_params.sampling_rate) + 1;
         do_request = ( 1 === num );
     }
 
