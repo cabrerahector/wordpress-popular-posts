@@ -1,1 +1,74 @@
-;if("undefined"!==typeof wpp_params){var do_request=!0;if(1==wpp_params.sampling_active)var num=Math.floor(Math.random()*wpp_params.sampling_rate)+1,do_request=1===num;if(do_request){var xhr=window.XMLHttpRequest?new XMLHttpRequest:new ActiveXObject("Microsoft.XMLHTTP"),url=wpp_params.ajax_url,params="action="+wpp_params.action+"&token="+wpp_params.token+"&wpp_id="+wpp_params.ID;xhr.open("POST",url,!0);xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");xhr.onreadystatechange=function(){4===xhr.readyState&&200===xhr.status&&window.console&&window.console.log&&window.console.log(xhr.responseText)};xhr.send(params)}};
+var WordPressPopularPosts = (function(){
+
+    "use strict";
+
+    var noop = function(){};
+
+    var get = function( url, params, callback ){
+        callback = ( 'function' === typeof callback ) ? callback : noop;
+        ajax( "GET", url, params, callback );
+    };
+
+    var post = function( url, params, callback ){
+        callback = ( 'function' === typeof callback ) ? callback : noop;
+        ajax( "POST", url, params, callback );
+    };
+
+    var ajax = function( method, url, params, callback ){
+        /* Create XMLHttpRequest object and set variables */
+        var xhr = ( window.XMLHttpRequest )
+            ? new XMLHttpRequest()
+            : new ActiveXObject( "Microsoft.XMLHTTP" ),
+        target = url,
+        args = params,
+        valid_methods = ["GET", "POST"];
+        method = -1 != valid_methods.indexOf( method ) ? method : "GET";
+        /* Set request method and target URL */
+        xhr.open( method, target + ( "GET" == method ? '?' + args : '' ), true );
+        /* Set request headers */
+        if ( "POST" == method ) {
+            xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        }
+        xhr.setRequestHeader( "X-Requested-With","XMLHttpRequest" );
+        /* Hook into onreadystatechange */
+        xhr.onreadystatechange = function() {
+            if ( 4 === xhr.readyState && 200 === xhr.status ) {
+                if ( 'function' === typeof callback ) {
+                    callback.call( undefined, xhr.response );
+                }
+            }
+        };
+        /* Send request */
+        xhr.send( ( "POST" == method ? args : null ) );
+    };
+
+    return {
+        get: get,
+        post: post,
+        ajax: ajax
+    };
+
+})();
+
+if ( "undefined" !== typeof wpp_params ) {
+    var sampling_active = wpp_params.sampling_active;
+    var sampling_rate   = wpp_params.sampling_rate;
+    var do_request = false;
+
+    if ( !sampling_active ) {
+        do_request = true;
+    } else {
+        var num = Math.floor(Math.random() * sampling_rate) + 1;
+        do_request = ( 1 === num );
+    }
+
+    if ( do_request ) {
+        WordPressPopularPosts.post(
+            wpp_params.ajax_url,
+            "action=" + wpp_params.action + "&token=" + wpp_params.token + "&wpp_id=" + wpp_params.ID,
+            function( response ){
+                window.console&&window.console.log&&window.console.log( response );
+            }
+        );
+    }
+}
