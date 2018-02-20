@@ -549,7 +549,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                     <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="thumb" />
-                            <input type="submit" class="button-secondary action" id="btn_th_ops" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
+                            <input type="submit" class="button-primary action" id="btn_th_ops" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
@@ -653,7 +653,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                     <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="data" />
-                            <input type="submit" class="button-secondary action" id="btn_ajax_ops" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
+                            <input type="submit" class="button-primary action" id="btn_ajax_ops" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
@@ -692,7 +692,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                     <tr valign="top">
                         <td colspan="2">
                             <input type="hidden" name="section" value="misc" />
-                            <input type="submit" class="button-secondary action" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
+                            <input type="submit" class="button-primary action" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="" />
                         </td>
                     </tr>
                 </tbody>
