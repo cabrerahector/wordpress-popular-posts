@@ -693,8 +693,8 @@ class WPP_Output {
 
         $rating = '';
 
-        if ( function_exists('the_ratings') && $this->options['rating'] ) {
-            $rating = the_ratings( 'span', $post_object->id, false );
+        if ( function_exists('the_ratings_results') && $this->options['rating'] ) {
+            $rating = the_ratings_results( $post_object->id );
         }
 
         return $rating;
