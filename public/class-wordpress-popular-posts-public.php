@@ -107,8 +107,7 @@ class WPP_Public {
                 $params = array(
                     'sampling_active' => $this->admin_options['tools']['sampling']['active'],
                     'sampling_rate' => $this->admin_options['tools']['sampling']['rate'],
-                    //'ajax_url' => admin_url( 'admin-ajax.php', is_ssl() ? 'https' : 'http' ),
-                    'ajax_url' => esc_url_raw( rest_url() ) . 'wp/v2/popular-posts/track',
+                    'ajax_url' => ( class_exists('WP_REST_Controller', false) ) ? esc_url_raw( rest_url( 'wp/v2/popular-posts/track' ) ) : admin_url( 'admin-ajax.php', is_ssl() ? 'https' : 'http' ),
                     'action' => 'update_views_ajax',
                     'ID' => $is_single,
                     'token' => wp_create_nonce( 'wpp-token' )
