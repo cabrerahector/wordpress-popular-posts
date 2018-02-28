@@ -32,6 +32,16 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'schema' => array( $this, 'get_public_item_schema' ),
             )
         );
+
+        register_rest_route(
+            $this->namespace, '/' . $this->rest_base . '/track', array(
+                array(
+                    'methods'             => WP_REST_Server::CREATABLE,
+                    'callback'            => array( $this, 'update_views_count' ),
+                    'args'                => $this->get_tracking_params(),
+                )
+            )
+        );
     }
 
     /**
@@ -93,6 +103,94 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
         $data->data['pageviews'] = $popular_post->pageviews;
 
         return $this->prepare_response_for_collection( $data );
+    }
+
+    /**
+     * Updates the views count of a post / page.
+     *
+     * @since 4.1.0
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_Error|string response on failure/success, or WP_Error object on nonce failure.
+     */
+    public function update_views_count( $request ){
+
+        $post_ID = $request->get_param( 'wpp_id' );
+        $token = $request->get_param( 'token' );
+        $sampling = $request->get_param( 'sampling' );
+        $sampling_rate = $request->get_param( 'sampling_rate' );
+
+        if ( !wp_verify_nonce($token, 'wpp-token') ) {
+            return new WP_Error( 'invalid_token', 'Invalid security token', array( 'status' => 400 ) );
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . "popularposts";
+        $wpdb->show_errors();
+
+        // Get translated object ID
+        $translate = WPP_translate::get_instance();
+        $post_ID = $translate->get_object_id(
+            $post_ID,
+            get_post_type( $post_ID ),
+            true,
+            $translate->get_default_language()
+        );
+
+        $now = WPP_helper::now();
+        $curdate = WPP_helper::curdate();
+        $views = ( $sampling )
+          ? $sampling_rate
+          : 1;
+
+        // Allow WP themers / coders perform an action
+        // before updating views count
+        if ( has_action( 'wpp_pre_update_views' ) )
+            do_action( 'wpp_pre_update_views', $post_ID, $views );
+
+        $exec_time = 0;
+        $start = WPP_helper::microtime_float();
+
+        // Update all-time table
+        $result1 = $wpdb->query( $wpdb->prepare(
+            "INSERT INTO {$table}data
+            (postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
+            ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, last_viewed = %s;",
+            $post_ID,
+            $now,
+            $now,
+            $views,
+            $views,
+            $now
+        ));
+
+        // Update range (summary) table
+        $result2 = $wpdb->query( $wpdb->prepare(
+            "INSERT INTO {$table}summary
+            (postid, pageviews, view_date, view_datetime) VALUES (%d, %d, %s, %s)
+            ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, view_datetime = %s;",
+            $post_ID,
+            $views,
+            $curdate,
+            $now,
+            $views,
+            $now
+        ));
+
+        $end = WPP_helper::microtime_float();
+        $exec_time += round( $end - $start, 6 );
+
+        if ( !$result1 || !$result2 ) {
+            return 'WPP: failed to update views count!';
+        }
+
+        // Allow WP themers / coders perform an action
+        // after updating views count
+        if ( has_action( 'wpp_post_update_views' ) )
+            do_action( 'wpp_post_update_views', $post_ID );
+
+        return "WPP: OK. Execution time: " . $exec_time . " seconds";
+
     }
 
     /**
@@ -199,6 +297,45 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 },
                 'validate_callback' => 'rest_validate_request_arg',
             ),
+        );
+    }
+
+    /**
+     * Retrieves the query params for tracking views count.
+     *
+     * @since 4.1.0
+     *
+     * @return array Query parameters for tracking views count.
+     */
+    public function get_tracking_params() {
+        return array(
+            'token'   => array(
+                'description'       => __( 'Security nonce.' ),
+                'type'              => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ),
+            'wpp_id' => array(
+                'description'       => __( 'The post / page ID.' ),
+                'type'              => 'integer',
+                'default'           => 0,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            ),
+            'sampling' => array(
+                'description'       => __( 'Enables Data Sampling.' ),
+                'type'              => 'integer',
+                'default'           => 0,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            ),
+            'sampling_rate' => array(
+                'description'       => __( 'Sets the Sampling Rate.' ),
+                'type'              => 'integer',
+                'default'           => 100,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            )
         );
     }
 }
