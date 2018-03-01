@@ -109,7 +109,7 @@ class WPP_Public {
                 $params = array(
                     'sampling_active' => (int) $this->admin_options['tools']['sampling']['active'],
                     'sampling_rate' => $this->admin_options['tools']['sampling']['rate'],
-                    'ajax_url' => ( $wp_rest_api ) ? esc_url_raw( rest_url( 'wp/v2/popular-posts/track' ) ) : admin_url( 'admin-ajax.php', is_ssl() ? 'https' : 'http' ),
+                    'ajax_url' => ( $wp_rest_api ) ? esc_url_raw( rest_url( 'wordpress-popular-posts/v1/popular-posts/track' ) ) : admin_url( 'admin-ajax.php', is_ssl() ? 'https' : 'http' ),
                     'action' => 'update_views_ajax',
                     'ID' => $is_single,
                     'token' => ( $wp_rest_api ) ? wp_create_nonce( 'wp_rest' ) : wp_create_nonce( 'wpp-token' )

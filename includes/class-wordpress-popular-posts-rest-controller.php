@@ -11,7 +11,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
      * Constructor.
      */
     public function __construct() {
-        $this->namespace = 'wp/v2';
+        $this->namespace = 'wordpress-popular-posts/v1';
         $this->rest_base = 'popular-posts';
     }
 
