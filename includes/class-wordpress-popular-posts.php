@@ -105,10 +105,12 @@ class WordPressPopularPosts {
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wordpress-popular-posts-public.php';
 
-		/**
+        /**
          * The REST API controller class for the popular posts endpoing.
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-rest-controller.php';
+        if ( class_exists('WP_REST_Controller', false) ) {
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-rest-controller.php';
+        }
 
         /**
          * Get loader.
