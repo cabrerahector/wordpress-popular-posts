@@ -116,13 +116,8 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
     public function update_views_count( $request ){
 
         $post_ID = $request->get_param( 'wpp_id' );
-        $token = $request->get_param( 'token' );
         $sampling = $request->get_param( 'sampling' );
         $sampling_rate = $request->get_param( 'sampling_rate' );
-
-        if ( !wp_verify_nonce($token, 'wpp-token') ) {
-            return new WP_Error( 'invalid_token', 'Invalid security token', array( 'status' => 400 ) );
-        }
 
         global $wpdb;
         $table = $wpdb->prefix . "popularposts";
