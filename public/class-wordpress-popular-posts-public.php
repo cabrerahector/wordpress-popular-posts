@@ -107,7 +107,7 @@ class WPP_Public {
                 $wp_rest_api = class_exists( 'WP_REST_Controller', false );
 
                 $params = array(
-                    'sampling_active' => $this->admin_options['tools']['sampling']['active'],
+                    'sampling_active' => (int) $this->admin_options['tools']['sampling']['active'],
                     'sampling_rate' => $this->admin_options['tools']['sampling']['rate'],
                     'ajax_url' => ( $wp_rest_api ) ? esc_url_raw( rest_url( 'wp/v2/popular-posts/track' ) ) : admin_url( 'admin-ajax.php', is_ssl() ? 'https' : 'http' ),
                     'action' => 'update_views_ajax',
