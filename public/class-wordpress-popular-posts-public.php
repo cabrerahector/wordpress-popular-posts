@@ -89,38 +89,35 @@ class WPP_Public {
     public function enqueue_scripts() {
 
         /**
-         * Enqueue WPP's tracking code.
+         * Enqueue WPP's library.
          */
 
-        $is_single = WPP_Helper::is_single();
+        $is_single = 0;
 
-        if ( $is_single ) {
-
-            if (
-                ( 0 == $this->admin_options['tools']['log']['level'] && !is_user_logged_in() )
-                || ( 1 == $this->admin_options['tools']['log']['level'] )
-                || ( 2 == $this->admin_options['tools']['log']['level'] && is_user_logged_in() )
-            ) {
-
-                wp_register_script( 'wpp-js', plugin_dir_url( __FILE__ ) . 'js/wpp-4.1.0.min.js', array(), $this->version, false );
-
-                $wp_rest_api = class_exists( 'WP_REST_Controller', false );
-
-                $params = array(
-                    'sampling_active' => (int) $this->admin_options['tools']['sampling']['active'],
-                    'sampling_rate' => $this->admin_options['tools']['sampling']['rate'],
-                    'ajax_url' => ( $wp_rest_api ) ? esc_url_raw( rest_url( 'wordpress-popular-posts/v1/popular-posts/' ) ) : admin_url( 'admin-ajax.php', is_ssl() ? 'https' : 'http' ),
-                    'action' => 'update_views_ajax',
-                    'ID' => $is_single,
-                    'token' => ( $wp_rest_api ) ? wp_create_nonce( 'wp_rest' ) : wp_create_nonce( 'wpp-token' )
-                );
-                wp_localize_script( 'wpp-js', 'wpp_params', $params );
-
-                wp_enqueue_script( 'wpp-js' );
-
-            }
-
+        if (
+            ( 0 == $this->admin_options['tools']['log']['level'] && !is_user_logged_in() )
+            || ( 1 == $this->admin_options['tools']['log']['level'] )
+            || ( 2 == $this->admin_options['tools']['log']['level'] && is_user_logged_in() )
+        ) {
+            $is_single = WPP_Helper::is_single();
         }
+
+        wp_register_script( 'wpp-js', plugin_dir_url( __FILE__ ) . 'js/wpp-4.1.0.min.js', array(), $this->version, false );
+
+        $wp_rest_api = class_exists( 'WP_REST_Controller', false );
+
+        $params = array(
+            'rest_api' => (int) $wp_rest_api,
+            'sampling_active' => (int) $this->admin_options['tools']['sampling']['active'],
+            'sampling_rate' => $this->admin_options['tools']['sampling']['rate'],
+            'ajax_url' => ( $wp_rest_api ) ? esc_url_raw( rest_url( 'wordpress-popular-posts/v1/popular-posts/' ) ) : admin_url( 'admin-ajax.php', is_ssl() ? 'https' : 'http' ),
+            'action' => 'update_views_ajax',
+            'ID' => $is_single,
+            'token' => ( $wp_rest_api ) ? wp_create_nonce( 'wp_rest' ) : wp_create_nonce( 'wpp-token' )
+        );
+        wp_localize_script( 'wpp-js', 'wpp_params', $params );
+
+        wp_enqueue_script( 'wpp-js' );
 
     }
 

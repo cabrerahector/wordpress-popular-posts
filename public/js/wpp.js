@@ -50,7 +50,10 @@ var WordPressPopularPosts = (function(){
 
 })();
 
-if ( "undefined" !== typeof wpp_params ) {
+if (
+    "undefined" !== typeof wpp_params 
+    && wpp_params.ID > 0
+) {
     var do_request = true;
 
     if ( '1' == wpp_params.sampling_active ) {

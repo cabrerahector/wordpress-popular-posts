@@ -37,6 +37,17 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'schema' => array( $this, 'get_public_item_schema' ),
             )
         );
+
+        // Widget endpoint
+        register_rest_route(
+            $this->namespace, '/' . $this->rest_base . '/widget', array(
+                array(
+                    'methods'             => WP_REST_Server::READABLE,
+                    'callback'            => array( $this, 'get_widget' ),
+                    'args'                => $this->get_widget_params(),
+                )
+            )
+        );
     }
 
     /**
@@ -98,6 +109,104 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
         $data->data['pageviews'] = $popular_post->pageviews;
 
         return $this->prepare_response_for_collection( $data );
+    }
+
+    /**
+     * Retrieves a popular posts widget for display.
+     *
+     * @since 4.1.0
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_Error|WP_REST_Response Response object on success, or WP_Error object on failure.
+     */
+    public function get_widget( $request ) {
+
+        $instance_id = $request->get_param( 'id' );
+        $widget = get_option( 'widget_wpp' );
+
+        // Valid instance
+        if ( $widget && isset($widget[ $instance_id ]) ) {
+
+            $instance = $widget[ $instance_id ];
+            $admin_options = WPP_Settings::get( 'admin_options' );
+
+            // Return cached results
+            if ( $admin_options['tools']['cache']['active'] ) {
+
+                $transient_name = md5( json_encode($instance) );
+                $popular_posts = get_transient( $transient_name );
+
+                if ( false === $popular_posts ) {
+
+                    $popular_posts = new WPP_Query( $instance );
+
+                    switch( $admin_options['tools']['cache']['interval']['time'] ){
+
+                        case 'minute':
+                            $time = 60;
+                        break;
+
+                        case 'hour':
+                            $time = 60 * 60;
+                        break;
+
+                        case 'day':
+                            $time = 60 * 60 * 24;
+                        break;
+
+                        case 'week':
+                            $time = 60 * 60 * 24 * 7;
+                        break;
+
+                        case 'month':
+                            $time = 60 * 60 * 24 * 30;
+                        break;
+
+                        case 'year':
+                            $time = 60 * 60 * 24 * 365;
+                        break;
+
+                        default:
+                            $time = 60 * 60;
+                        break;
+
+                    }
+
+                    $expiration = $time * $admin_options['tools']['cache']['interval']['value'];
+
+                    // Store transient
+                    set_transient( $transient_name, $popular_posts, $expiration );
+
+                    // Store transient in WPP transients array for garbage collection
+                    $wpp_transients = get_option('wpp_transients');
+
+                    if ( !$wpp_transients ) {
+                        $wpp_transients = array( $transient_name );
+                        add_option( 'wpp_transients', $wpp_transients );
+                    } else {
+                        if ( !in_array($transient_name, $wpp_transients) ) {
+                            $wpp_transients[] = $transient_name;
+                            update_option( 'wpp_transients', $wpp_transients );
+                        }
+                    }
+
+                }
+
+            } // Get popular posts
+            else {
+                $popular_posts = new WPP_Query( $instance );
+            }
+
+            $output = new WPP_Output( $popular_posts->get_posts(), $instance );
+
+            return rest_ensure_response( array(
+                'widget' => ( $admin_options['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $output->get_output()
+            ) );
+
+        }
+
+        return new WP_Error( 'no_widget', 'Invalid widget instance', array( 'status' => 404 ) );
+
     }
 
     /**
@@ -323,6 +432,25 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'description'       => __( 'Sets the Sampling Rate.' ),
                 'type'              => 'integer',
                 'default'           => 100,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            )
+        );
+    }
+
+    /**
+     * Retrieves the query params for getting a widget instance.
+     *
+     * @since 4.1.0
+     *
+     * @return array Query parameters for getting a widget instance.
+     */
+    public function get_widget_params() {
+        return array(
+            'id' => array(
+                'description'       => __( 'The post / page ID.' ),
+                'type'              => 'integer',
+                'default'           => 0,
                 'sanitize_callback' => 'absint',
                 'validate_callback' => 'rest_validate_request_arg',
             )
