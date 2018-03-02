@@ -29,17 +29,12 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                     'permission_callback' => array( $this, 'get_items_permissions_check' ),
                     'args'                => $this->get_collection_params(),
                 ),
-                'schema' => array( $this, 'get_public_item_schema' ),
-            )
-        );
-
-        register_rest_route(
-            $this->namespace, '/' . $this->rest_base . '/track', array(
                 array(
                     'methods'             => WP_REST_Server::CREATABLE,
                     'callback'            => array( $this, 'update_views_count' ),
                     'args'                => $this->get_tracking_params(),
-                )
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
             )
         );
     }
