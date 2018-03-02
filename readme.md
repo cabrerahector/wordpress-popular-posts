@@ -41,7 +41,7 @@ WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [widg
 
 ## Requirements
 
-* WordPress 4.1 or above.
+* WordPress 4.6 or above.
 * PHP 5.2+ or above.
 * Since WordPress Popular Posts writes constantly to the database to keep track of page views, [InnoDB](https://en.wikipedia.org/wiki/InnoDB) support is required.
 * Either the [ImageMagik](http://www.php.net/manual/en/intro.imagick.php) or [GD](http://www.php.net/manual/en/intro.image.php) library installed and enabled on your server (not really required, but needed to create thumbnails).
