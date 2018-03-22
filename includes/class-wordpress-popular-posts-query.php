@@ -410,7 +410,7 @@ class WPP_Query {
             $fields = apply_filters( 'wpp_query_fields', $fields, $this->options );
             $table = apply_filters( 'wpp_query_table', $table, $this->options );
             $join = apply_filters( 'wpp_query_join', $join, $this->options );
-            $where = apply_filters( 'wpp_query_where', $where, $this->options );
+            $where = apply_filters( 'wpp_query_where', $where, $this->options, $args );
             $groupby = apply_filters( 'wpp_query_group_by', $groupby, $this->options );
             $orderby = apply_filters( 'wpp_query_order_by', $orderby, $this->options );
             $limit = apply_filters( 'wpp_query_limit', $limit, $this->options );
