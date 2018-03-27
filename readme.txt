@@ -24,7 +24,7 @@ WordPress Popular Posts is a highly customizable widget that displays your most 
 * **Sorting options** - Order your popular list by comments, views (default) or average views per day!
 * **Use your own layout!** - WPP is flexible enough to let you customize the look and feel of your popular posts! (see [customizing WPP's HTML markup](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-can-i-use-my-own-html-markup-with-your-plugin) and [How to style WordPress Popular Posts](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) for more.)
 * **Disqus support** - Sort your popular posts by Disqus comments count!
-* **Polylang & WPML 3.2+ support!**
+* **Polylang & WPML 3.2+ support** - Show the translated version of your popular posts!
 * **WordPress Multisite support** - Each site on the network can have its own popular posts!
 
 = Other Features =
@@ -34,6 +34,8 @@ WordPress Popular Posts is a highly customizable widget that displays your most 
 * **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support** - Show your visitors how your readers are rating your posts!
 
 **WordPress Popular Posts** is now also on [GitHub](https://github.com/cabrerahector/wordpress-popular-posts)!
+
+Looking for a Recent Posts widget just as featured-packed as WordPress Popular Posts? **Try [Recently](https://wordpress.org/plugins/recently/)**!
 
 == Installation ==
 
