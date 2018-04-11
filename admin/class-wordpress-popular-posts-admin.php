@@ -371,7 +371,7 @@ class WPP_Admin {
             return "INNER JOIN `{$wpdb->prefix}posts` p ON c.comment_post_ID = p.ID";
         }
 
-        return $table;
+        return $join;
 
     }
 
