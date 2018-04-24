@@ -63,8 +63,6 @@ class WPP_Widget extends WP_Widget {
               ? 'custom'
               : 'regular';
 
-        echo "\n". "<!-- WordPress Popular Posts Plugin [W] [{$instance['range']}] [{$instance['order_by']}] [{$markup}]" . ( !empty($instance['pid']) ? " [PID]" : "" ) . ( !empty($instance['cat']) ? " [CAT]" : "" ) . ( !empty($instance['author']) ? " [UID]" : "" ) . " -->" . "\n";
-
         echo "\n" . $before_widget . "\n";
 
         // Has user set a title?

@@ -71,10 +71,12 @@ class WPP_Output {
                 $this->options
             );
 
+            $this->output = "\n" . "<!-- WordPress Popular Posts" . ( WP_DEBUG ? ' v' . WPP_VER : '' ) . " -->" . "\n";
+
             // Allow WP themers / coders access to raw data
             // so they can build their own output
             if ( has_filter( 'wpp_custom_html' ) ) {
-                $this->output = apply_filters( 'wpp_custom_html', $this->data, $this->options );
+                $this->output .= apply_filters( 'wpp_custom_html', $this->data, $this->options );
                 return;
             }
 

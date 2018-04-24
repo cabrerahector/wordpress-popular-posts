@@ -66,7 +66,7 @@ if (
             wpp_params.ajax_url,
             "action=" + wpp_params.action + "&_wpnonce=" + wpp_params.token + "&token=" + wpp_params.token + "&wpp_id=" + wpp_params.ID + "&sampling=" + wpp_params.sampling_active + "&sampling_rate=" + wpp_params.sampling_rate,
             function( response ){
-                window.console&&window.console.log&&window.console.log( response );
+                wpp_params.debug&&window.console&&window.console.log&&window.console.log( response );
             }
         );
     }

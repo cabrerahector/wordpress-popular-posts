@@ -113,7 +113,8 @@ class WPP_Public {
             'ajax_url' => ( $wp_rest_api ) ? esc_url_raw( rest_url( 'wordpress-popular-posts/v1/popular-posts/' ) ) : admin_url( 'admin-ajax.php', is_ssl() ? 'https' : 'http' ),
             'action' => 'update_views_ajax',
             'ID' => $is_single,
-            'token' => ( $wp_rest_api ) ? wp_create_nonce( 'wp_rest' ) : wp_create_nonce( 'wpp-token' )
+            'token' => ( $wp_rest_api ) ? wp_create_nonce( 'wp_rest' ) : wp_create_nonce( 'wpp-token' ),
+            'debug' => WP_DEBUG
         );
         wp_localize_script( 'wpp-js', 'wpp_params', $params );
 
@@ -399,7 +400,7 @@ class WPP_Public {
             $instance['author'] = implode( ",", $ids );
         }
 
-        $shortcode_content = "\n". "<!-- WordPress Popular Posts Plugin v". $this->version ." [" . ( $php ? "PHP" : "SC" ) . "] [".$shortcode_ops['range']."] [".$shortcode_ops['order_by']."] [custom]" . ( !empty($shortcode_ops['pid']) ? " [PID]" : "" ) . ( !empty($shortcode_ops['cat']) ? " [CAT]" : "" ) . ( !empty($shortcode_ops['author']) ? " [UID]" : "" ) . " -->"."\n";
+        $shortcode_content = '';
 
         // is there a title defined by user?
         if (
@@ -484,7 +485,6 @@ class WPP_Public {
         $output = new WPP_Output( $popular_posts->get_posts(), $shortcode_ops );
 
         $shortcode_content .= $output->get_output();
-        $shortcode_content .= "\n" . "<!-- End WordPress Popular Posts Plugin v" . $this->version . " -->" . ( $cached ? '<!-- cached -->' : '' ) . "\n";
 
         return $shortcode_content;
 
