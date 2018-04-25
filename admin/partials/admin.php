@@ -66,7 +66,6 @@ if ( isset($_POST['section']) ) {
                 $this->options['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
                 $this->options['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
                 $this->options['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
-                $this->options['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
 
                 update_option( 'wpp_settings_config', $this->options );
                 echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __( 'Settings saved.', 'wordpress-popular-posts' ) . "</strong></p></div>";
@@ -519,17 +518,6 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                                 <option <?php if ( !$this->options['tools']['thumbnail']['resize'] ) {?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", 'wordpress-popular-posts'); ?></option>
                                 <option <?php if ( $this->options['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", 'wordpress-popular-posts'); ?></option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><label for="thumb_responsive"><?php _e("Responsive support", 'wordpress-popular-posts'); ?>:</label></th>
-                        <td>
-                            <select name="thumb_responsive" id="thumb_responsive">
-                                <option <?php if ($this->options['tools']['thumbnail']['responsive']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", 'wordpress-popular-posts'); ?></option>
-                                <option <?php if (!$this->options['tools']['thumbnail']['responsive']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", 'wordpress-popular-posts'); ?></option>
-                            </select>
-                            <br />
-                            <p class="description"><?php _e("If enabled, WordPress Popular Posts will strip height and width attributes out of thumbnails' image tags", 'wordpress-popular-posts'); ?>.</p>
                         </td>
                     </tr>
                     <?php

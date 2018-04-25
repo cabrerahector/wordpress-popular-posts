@@ -105,8 +105,7 @@ class WPP_Settings {
                     'source' => 'featured',
                     'field' => '',
                     'resize' => false,
-                    'default' => '',
-                    'responsive' => false
+                    'default' => ''
                 ),
                 'log' => array(
                     'level' => 1,
