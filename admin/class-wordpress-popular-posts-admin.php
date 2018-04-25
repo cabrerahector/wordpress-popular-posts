@@ -230,14 +230,13 @@ class WPP_Admin {
 
         if ( $screen->id == $this->plugin_screen_hook_suffix ) {
 
-            wp_enqueue_script( 'thickbox' );
-            wp_enqueue_style( 'thickbox' );
-            wp_enqueue_script( 'media-upload' );
+            wp_enqueue_media();
             wp_enqueue_script( 'jquery-ui-datepicker' );
             wp_enqueue_script( 'chartjs', plugin_dir_url( __FILE__ ) . 'js/vendor/Chart.min.js', array(), $this->version );
             wp_enqueue_script( 'wpp-chart', plugin_dir_url( __FILE__ ) . 'js/chart.js', array('chartjs'), $this->version );
             wp_register_script( 'wordpress-popular-posts-admin-script', plugin_dir_url( __FILE__ ) . 'js/admin.js', array('jquery'), $this->version, true );
             wp_localize_script( 'wordpress-popular-posts-admin-script', 'wpp_admin_params', array(
+                'label_media_upload_button' => __( "Use this image WAT", "wordpress-popular-posts" ),
                 'nonce' => wp_create_nonce( "wpp_admin_nonce" )
             ));
             wp_enqueue_script( 'wordpress-popular-posts-admin-script' );
@@ -245,43 +244,6 @@ class WPP_Admin {
         }
 
     }
-
-    /**
-     * Hooks into getttext to change upload button text when uploader is called by WPP.
-     *
-     * @since	2.3.4
-     */
-    public function thickbox_setup() {
-
-        global $pagenow;
-
-        if ( 'media-upload.php' == $pagenow || 'async-upload.php' == $pagenow ) {
-            add_filter( 'gettext', array( $this, 'replace_thickbox_text' ), 1, 3 );
-        }
-
-    } // end thickbox_setup
-
-    /**
-     * Replaces upload button text when uploader is called by WPP.
-     *
-     * @since	2.3.4
-     * @param	string	translated_text
-     * @param	string	text
-     * @param	string	domain
-     * @return	string
-     */
-    public function replace_thickbox_text( $translated_text, $text, $domain ) {
-
-        if ( 'Insert into Post' == $text ) {
-            $referer = strpos( wp_get_referer(), 'wpp_admin' );
-            if ( $referer != '' ) {
-                return __( 'Upload', 'wordpress-popular-posts' );
-            }
-        }
-
-        return $translated_text;
-
-    } // end replace_thickbox_text
 
     public function add_contextual_help(){
 

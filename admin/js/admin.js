@@ -305,25 +305,28 @@
         });
         // file upload
         $('#upload_thumb_button').click(function(e) {
-            tb_show('Upload a thumbnail', 'media-upload.php?referer=wpp_admin&type=image&TB_iframe=true&post_id=0', false);
             e.preventDefault();
-        });
-        window.send_to_editor = function(html) {
-            var regex = /<img[^>]+src="(https?:\/\/[^">]+)"/g;
-            var result = regex.exec(html);
 
-            if ( null != result ) {
-                $('#upload_thumb_src').val(result[1]);
+            var custom_uploader = wp.media({
+                title: 'WordPress Popular Posts',
+                library: { type : 'image' },
+                button: { text: wpp_admin_params.label_media_upload_button },
+                id: 'library-' + (Math.random() * 10),
+                multiple: false
+            }).on('select', function() {
+                var attachment = custom_uploader.state().get('selection').first().toJSON();
+                $('#upload_thumb_src').val( attachment.url );
 
                 var img = new Image();
                 img.onload = function() {
                     $("#thumb-review").html( this ).parent().fadeIn();
                 }
-                img.src = result[1];
-            }
+                img.src = attachment.url;
 
-            tb_remove();
-        };
+            })
+            .open();
+
+        });
         // log limit
         $("#log_limit").change(function(){
             var me = $(this);

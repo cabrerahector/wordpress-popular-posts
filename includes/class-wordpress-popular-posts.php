@@ -145,8 +145,6 @@ class WordPressPopularPosts {
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
         // Add admin screen
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
-        // Thickbox setup
-        $this->loader->add_action( 'admin_init', $plugin_admin, 'thickbox_setup' );
         // Contextual help
         $this->loader->add_action( 'admin_head', $plugin_admin, 'add_contextual_help' );
         // Add plugin settings link
