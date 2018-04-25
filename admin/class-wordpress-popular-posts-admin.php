@@ -236,7 +236,7 @@ class WPP_Admin {
             wp_enqueue_script( 'wpp-chart', plugin_dir_url( __FILE__ ) . 'js/chart.js', array('chartjs'), $this->version );
             wp_register_script( 'wordpress-popular-posts-admin-script', plugin_dir_url( __FILE__ ) . 'js/admin.js', array('jquery'), $this->version, true );
             wp_localize_script( 'wordpress-popular-posts-admin-script', 'wpp_admin_params', array(
-                'label_media_upload_button' => __( "Use this image WAT", "wordpress-popular-posts" ),
+                'label_media_upload_button' => __( "Use this image", "wordpress-popular-posts" ),
                 'nonce' => wp_create_nonce( "wpp_admin_nonce" )
             ));
             wp_enqueue_script( 'wordpress-popular-posts-admin-script' );
