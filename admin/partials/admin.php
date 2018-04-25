@@ -488,9 +488,9 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                             <div id="thumb-review">
                                 <img src="<?php echo ( $this->options['tools']['thumbnail']['default'] ) ? str_replace( parse_url( $this->options['tools']['thumbnail']['default'], PHP_URL_SCHEME ) . ':', '', $this->options['tools']['thumbnail']['default'] ) : plugins_url() . '/wordpress-popular-posts/public/images/no_thumb.jpg'; ?>" alt="" border="0" />
                             </div>
-                            <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Upload thumbnail", 'wordpress-popular-posts' ); ?>" />
+                            <input id="upload_thumb_button" type="button" class="button" value="<?php _e( "Change thumbnail", 'wordpress-popular-posts' ); ?>" />
                             <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="" />
-                            <p class="description"><?php _e("How-to: upload (or select) an image, set Size to Full and click on Upload. After it's done, hit on Apply to save changes", 'wordpress-popular-posts'); ?>.</p>
+                            <p class="description"><?php _e("This image will be displayed when no thumbnail is available", 'wordpress-popular-posts'); ?>.</p>
                         </td>
                     </tr>
                     <tr valign="top">
