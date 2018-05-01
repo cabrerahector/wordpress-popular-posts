@@ -130,6 +130,10 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
             $instance = $widget[ $instance_id ];
             $admin_options = WPP_Settings::get( 'admin_options' );
 
+            // Expose widget ID for customization
+            if ( ! isset($instance['widget_id']) )
+                $instance['widget_id'] = 'wpp-' . $instance_id;
+
             // Return cached results
             if ( $admin_options['tools']['cache']['active'] ) {
 
