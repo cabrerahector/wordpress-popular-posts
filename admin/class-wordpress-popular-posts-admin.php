@@ -1293,7 +1293,7 @@ class WPP_Admin {
         global $wp_version;
 
         $php_min_version = '5.2';
-        $wp_min_version = '4.6';
+        $wp_min_version = '4.7';
         $php_current_version = phpversion();
         $errors = array();
 
