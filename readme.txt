@@ -85,6 +85,19 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.1.0 =
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
+
+- Adds support for the REST API.
+- Adds At-a-Glance stats.
+- Adds Today time range to Stats section.
+- Drops jQuery dependency on front-end (faster loading times!)
+- The plugin will no longer display debugging information unless WP_DEBUG is set to true.
+- Many minor bug fixes and improvements.
+
+See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-1-is-here/) for more details!
+
 = 4.0.13 =
 
 - Improvements to WPP's upgrade process.
@@ -96,12 +109,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Fixes a compatibility issue with Yoast SEO (and potentially other plugins as well).
 - Improves compatibility with MySQL 5.7+.
 - Other minor fixes and improvements.
-
-= 4.0.11 =
-
-**If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
-
-- Fixes reference to tracking script.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
