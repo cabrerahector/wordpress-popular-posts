@@ -3,7 +3,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://cabrerahector.com/
+ * @link       https://cabrerahector.com/
  * @since      4.0.0
  *
  * @package    WordPressPopularPosts
