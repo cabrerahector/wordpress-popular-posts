@@ -353,7 +353,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'validate_callback' => 'rest_validate_request_arg',
             ),
             'time_unit'   => array(
-                'description'       => __( 'Especifies the time unit of the custom time range.' ),
+                'description'       => __( 'Specifies the time unit of the custom time range.' ),
                 'type'              => 'string',
                 'enum'                 => array( 'minute', 'hour', 'day', 'week', 'month' ),
                 'default'            => 'hour',
@@ -361,7 +361,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'validate_callback' => 'rest_validate_request_arg',
             ),
             'time_quantity' => array(
-                'description'       => __( 'Especifies the number of time units of the custom time range.' ),
+                'description'       => __( 'Specifies the number of time units of the custom time range.' ),
                 'type'              => 'integer',
                 'default'           => 24,
                 'minimum'           => 1,
