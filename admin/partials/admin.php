@@ -521,7 +521,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                         </td>
                     </tr>
                     <?php
-                    $wp_upload_dir = wp_upload_dir();
+                    $wp_upload_dir = wp_get_upload_dir();
                     if ( is_dir( $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts' ) ) :
                     ?>
                     <tr valign="top">
