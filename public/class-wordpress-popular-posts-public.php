@@ -280,7 +280,7 @@ class WPP_Public {
             'time_quantity' => 24,
             'freshness' => false,
             'order_by' => 'views',
-            'post_type' => 'post,page',
+            'post_type' => 'post',
             'pid' => '',
             'cat' => '',
             'taxonomy' => 'category',
