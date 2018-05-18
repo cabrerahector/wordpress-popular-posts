@@ -108,7 +108,7 @@ class WPP_Widget extends WP_Widget {
 
                                 if ( 'function' === typeof(Event) ) {
                                     event = new Event( "wpp-onload", {"bubbles": true, "cancelable": false} );
-                                } // Fallback for older browsers
+                                } /* Fallback for older browsers */
                                 else {
                                     if ( document.createEvent ) {
                                         event = document.createEvent('Event');
