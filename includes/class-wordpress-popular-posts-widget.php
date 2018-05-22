@@ -301,26 +301,11 @@ class WPP_Widget extends WP_Widget {
     }
 
     /**
-     * Returns HTML list via AJAX
+     * Returns HTML list.
      *
      * @since	2.3.3
      */
     public function get_popular( $instance = null ) {
-
-        if ( isset( $_GET['id'] ) && WPP_helper::is_number( $_GET['id'] ) ) {
-
-            $id = $_GET['id'];
-            $widget_instances = $this->get_settings();
-
-            if ( isset( $widget_instances[$id] ) ) {
-                $instance = $widget_instances[$id];
-
-                if ( !isset( $instance['widget_id'] ) ) {
-                    $instance['widget_id'] = $this->id;
-                }
-            }
-
-        }
 
         if ( is_array( $instance ) && !empty( $instance ) ) {
 
