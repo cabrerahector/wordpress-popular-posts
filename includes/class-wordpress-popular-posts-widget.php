@@ -102,7 +102,7 @@ class WPP_Widget extends WP_Widget {
                             wpp_params.ajax_url + 'widget',
                             'action=wpp_get_popular&id=<?php echo $this->number; ?>',
                             function( response ){
-                                wpp_widget_container.innerHTML += ( wpp_params.rest_api && 1 == wpp_params.rest_api ) ? JSON.parse( response ).widget : response;
+                                wpp_widget_container.innerHTML += JSON.parse( response ).widget;
 
                                 var event = null;
 
