@@ -94,7 +94,7 @@ class WPP_Widget extends WP_Widget {
             } else {
             ?>
             <script type="text/javascript">
-                window.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function() {
                     var wpp_widget_container = document.getElementById('<?php echo $widget_id; ?>');
 
                     if ( 'undefined' != typeof WordPressPopularPosts ) {
