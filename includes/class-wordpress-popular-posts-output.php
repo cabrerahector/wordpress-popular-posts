@@ -634,7 +634,7 @@ class WPP_Output {
 
                 $excerpt = ( empty($the_post->post_excerpt) )
                   ? $the_post->post_content
-                  : $post_object->post_excerpt;
+                  : $the_post->post_excerpt;
             }
             else {
                 $excerpt = ( empty( $post_object->post_excerpt ) )
