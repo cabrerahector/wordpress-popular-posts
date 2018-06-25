@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2018-04-25 15:35-0400\n"
+"POT-Creation-Date: 2018-06-25 18:07-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -442,7 +442,7 @@ msgid ""
 msgstr ""
 
 #: ../admin/partials/admin.php:594
-msgid "WPP Cache Expiry Policy"
+msgid "Data Caching"
 msgstr ""
 
 #: ../admin/partials/admin.php:594 ../admin/partials/admin.php:622
@@ -462,8 +462,8 @@ msgstr ""
 
 #: ../admin/partials/admin.php:602
 msgid ""
-"Sets WPP's cache expiration time. WPP can cache the popular list for a specified "
-"amount of time. Recommended for large / high traffic sites"
+"WPP can cache the popular list for a specified amount of time. Recommended for large / "
+"high traffic sites"
 msgstr ""
 
 #: ../admin/partials/admin.php:606
@@ -945,68 +945,68 @@ msgstr ""
 msgid "under %s"
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:305
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:309
 msgid "Return popular posts from specified custom post type(s)."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:312
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:316
 msgid "The maximum number of popular posts to return."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:320
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:324
 msgid "Retrieve the most popular entries published within the specified time range."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:328
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:332
 msgid "An offset point for the collection."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:336
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:340
 msgid "Set the sorting option of the popular posts."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:344
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:348
 msgid "Return posts from a specified time range."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:352
-msgid "Especifies the time unit of the custom time range."
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:356
+msgid "Specifies the time unit of the custom time range."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:360
-msgid "Especifies the number of time units of the custom time range."
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:364
+msgid "Specifies the number of time units of the custom time range."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:368
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:372
 msgid "Post IDs to exclude."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:376
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:380
 msgid "Include posts in a specified taxonomy."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:384
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:388
 msgid "Taxonomy IDs, separated by comma (prefix a minus sign to exclude)."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:392
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:396
 msgid "Author ID(s)."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:412
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:416
 msgid "Security nonce."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:418
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:451
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:422
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:455
 msgid "The post / page ID."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:425
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:429
 msgid "Enables Data Sampling."
 msgstr ""
 
-#: ../includes/class-wordpress-popular-posts-rest-controller.php:432
+#: ../includes/class-wordpress-popular-posts-rest-controller.php:436
 msgid "Sets the Sampling Rate."
 msgstr ""
 

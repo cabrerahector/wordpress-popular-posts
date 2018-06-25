@@ -591,7 +591,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                         </td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="cache"><?php _e("WPP Cache Expiry Policy", 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching" target="_blank" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                        <th scope="row"><label for="cache"><?php _e("Data Caching", 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching" target="_blank" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
                         <td>
                             <select name="cache" id="cache">
                                 <option <?php if ( !$this->options['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Never cache", 'wordpress-popular-posts'); ?></option>
@@ -599,7 +599,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                             </select>
 
                             <br />
-                            <p class="description"><?php _e("Sets WPP's cache expiration time. WPP can cache the popular list for a specified amount of time. Recommended for large / high traffic sites", 'wordpress-popular-posts'); ?>.</p>
+                            <p class="description"><?php _e("WPP can cache the popular list for a specified amount of time. Recommended for large / high traffic sites", 'wordpress-popular-posts'); ?>.</p>
                         </td>
                     </tr>
                     <tr valign="top" <?php if ( !$this->options['tools']['cache']['active'] ) { ?>style="display:none;"<?php } ?> id="cache_refresh_interval">
