@@ -85,6 +85,15 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.1.1 =
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
+
+- Improves compatibility with Cloudflare's Rocket Loader.
+- Code cleanup.
+- Fixes a minor bug (plugin returning the wrong excerpt when a translation plugin is used).
+- Bumps minimum required PHP version to 5.3.
+
 = 4.1.0 =
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
@@ -102,13 +111,6 @@ See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-po
 
 - Improvements to WPP's upgrade process.
 - Fixes ALT text missing from IMG tags.
-
-= 4.0.12 =
-
-- Fixes bug where WPP didn't return the right URL when using Polylang / WPML.
-- Fixes a compatibility issue with Yoast SEO (and potentially other plugins as well).
-- Improves compatibility with MySQL 5.7+.
-- Other minor fixes and improvements.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 

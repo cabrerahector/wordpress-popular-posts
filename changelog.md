@@ -1,5 +1,14 @@
 Changelog
 =========
+#### 4.1.1 ####
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
+
+- Improves compatibility with Cloudflare's Rocket Loader.
+- Code cleanup.
+- Fixes a minor bug (plugin returning the wrong excerpt when a translation plugin is used).
+- Bumps minimum required PHP version to 5.3.
+
 #### 4.1.0 ####
 
 **If you’re using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
