@@ -113,9 +113,9 @@ class WPP_Settings {
                     'expires_after' => 180
                 ),
                 'cache' => array(
-                    'active' => false,
+                    'active' => true,
                     'interval' => array(
-                        'time' => 'hour',
+                        'time' => 'minute',
                         'value' => 1
                     )
                 ),
