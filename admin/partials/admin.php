@@ -787,7 +787,7 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
                             <td><strong>post_type</strong></td>
                             <td><?php _e('Defines the type of posts to show on the listing', 'wordpress-popular-posts'); ?></td>
                             <td><?php _e('Text string', 'wordpress-popular-posts'); ?></td>
-                            <td>post,page</td>
+                            <td>post</td>
                             <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'post_type' => 'post,page,your-custom-post-type'<br />);<br /><br />wpp_get_mostpopular( $args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp post_type='post,page,your-custom-post-type']<br /><br /></td>
                         </tr>
                         <tr>
