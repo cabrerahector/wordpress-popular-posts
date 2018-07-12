@@ -336,6 +336,35 @@
                         display: inline;
                     }
 
+#wpp_params {}
+
+    #wpp_params div {
+    }
+
+        #wpp_params div table {
+            width: 100%;
+            min-width: 800px;
+            background: white;
+        }
+
+            #wpp_params div table tr th {
+                font-size: 1.2em;
+                text-align: left;
+                border-bottom: #dedede 1px solid;
+            }
+
+            #wpp_params div table tr th,
+            #wpp_params div table tr td {
+                padding: 1em;
+            }
+
+            #wpp_params div table tr td {
+                position: static !important;
+                clear: none !important;
+                display: table-cell !important;
+                vertical-align: top;
+            }
+
 .clear {
     float:none;
     clear:both;
