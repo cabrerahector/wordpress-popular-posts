@@ -312,62 +312,22 @@ class WPP_Widget extends WP_Widget {
             // Return cached results
             if ( $this->admin_options['tools']['cache']['active'] ) {
 
-                $transient_name = md5( json_encode($instance) );
-                $popular_posts = get_transient( $transient_name );
+                $key = md5( json_encode($instance) );
+                $popular_posts = WPP_Cache::get( $key );
 
                 if ( false === $popular_posts ) {
 
                     $popular_posts = new WPP_Query( $instance );
 
-                    switch( $this->admin_options['tools']['cache']['interval']['time'] ){
+                    $time_value = $this->admin_options['tools']['cache']['interval']['value']; // eg. 5
+                    $time_unit = $this->admin_options['tools']['cache']['interval']['time']; // eg. 'minute'
 
-                        case 'minute':
-                            $time = 60;
-                        break;
-
-                        case 'hour':
-                            $time = 60 * 60;
-                        break;
-
-                        case 'day':
-                            $time = 60 * 60 * 24;
-                        break;
-
-                        case 'week':
-                            $time = 60 * 60 * 24 * 7;
-                        break;
-
-                        case 'month':
-                            $time = 60 * 60 * 24 * 30;
-                        break;
-
-                        case 'year':
-                            $time = 60 * 60 * 24 * 365;
-                        break;
-
-                        default:
-                            $time = 60 * 60;
-                        break;
-
-                    }
-
-                    $expiration = $time * $this->admin_options['tools']['cache']['interval']['value'];
-
-                    // Store transient
-                    set_transient( $transient_name, $popular_posts, $expiration );
-
-                    // Store transient in WPP transients array for garbage collection
-                    $wpp_transients = get_option('wpp_transients');
-
-                    if ( !$wpp_transients ) {
-                        $wpp_transients = array( $transient_name );
-                        add_option( 'wpp_transients', $wpp_transients );
-                    } else {
-                        if ( !in_array($transient_name, $wpp_transients) ) {
-                            $wpp_transients[] = $transient_name;
-                            update_option( 'wpp_transients', $wpp_transients );
-                        }
-                    }
+                    WPP_Cache::set(
+                        $key,
+                        $popular_posts,
+                        $time_value,
+                        $time_unit
+                    );
 
                 }
 

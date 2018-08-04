@@ -46,6 +46,11 @@ class WordPressPopularPosts {
     private function load_dependencies(){
 
         /**
+         * Caching class.
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-cache.php';
+
+        /**
          * The class responsible for defining internationalization functionality of the plugin.
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-popular-posts-i18n.php';
