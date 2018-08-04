@@ -373,9 +373,6 @@ class WPP_Public {
         if ( empty( $ids ) ) {
             $shortcode_ops['pid'] = '';
         }
-        else {
-            $instance['pid'] = implode( ",", $ids );
-        }
 
         // Category filter
         $ids = array_filter( explode( ",", $shortcode_ops['cat'] ), 'is_numeric' );
@@ -383,18 +380,12 @@ class WPP_Public {
         if ( empty( $ids ) ) {
             $shortcode_ops['cat'] = '';
         }
-        else {
-            $instance['cat'] = implode( ",", $ids );
-        }
 
         // Author filter
         $ids = array_filter( explode( ",", $shortcode_ops['author'] ), 'is_numeric' );
         // Got no valid IDs, clear
         if ( empty( $ids ) ) {
             $shortcode_ops['author'] = '';
-        }
-        else {
-            $instance['author'] = implode( ",", $ids );
         }
 
         $shortcode_content = '';
