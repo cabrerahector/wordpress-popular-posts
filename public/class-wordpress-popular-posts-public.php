@@ -413,12 +413,12 @@ class WPP_Public {
         // Return cached results
         if ( $this->admin_options['tools']['cache']['active'] ) {
 
-            $key = md5( json_encode($instance) );
+            $key = md5( json_encode($shortcode_ops) );
             $popular_posts = WPP_Cache::get( $key );
 
             if ( false === $popular_posts ) {
 
-                $popular_posts = new WPP_Query( $instance );
+                $popular_posts = new WPP_Query( $shortcode_ops );
 
                 $time_value = $this->admin_options['tools']['cache']['interval']['value']; // eg. 5
                 $time_unit = $this->admin_options['tools']['cache']['interval']['time']; // eg. 'minute'
