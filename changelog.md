@@ -1,5 +1,13 @@
 Changelog
 =========
+#### 4.1.2 ####
+
+- Enables [Data Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) by default (new installs only).
+- The Parameters section (Settings > WordPress Popular Posts > Parameters) is now mobile-friendly.
+- Updated the documentation in the Parameters section.
+- Refactored WPP's caching mechanism into its own class.
+- Removed unused code.
+
 #### 4.1.1 ####
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**

@@ -85,6 +85,14 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.1.2 =
+
+- Enables [Data Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) by default (new installs only).
+- The Parameters section (Settings > WordPress Popular Posts > Parameters) is now mobile-friendly.
+- Updated the documentation in the Parameters section.
+- Refactored WPP's caching mechanism into its own class.
+- Removed unused code.
+
 = 4.1.1 =
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
@@ -106,11 +114,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Many minor bug fixes and improvements.
 
 See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-1-is-here/) for more details!
-
-= 4.0.13 =
-
-- Improvements to WPP's upgrade process.
-- Fixes ALT text missing from IMG tags.
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
