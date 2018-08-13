@@ -73,15 +73,7 @@ class WPP_Admin {
         if ( 1 == $this->options['tools']['log']['limit'] ) {
 
             if ( !wp_next_scheduled( 'wpp_cache_event' ) ) {
-                $tomorrow = time() + 86400;
-                $midnight  = mktime(
-                    0,
-                    0,
-                    0,
-                    date( "m", $tomorrow ),
-                    date( "d", $tomorrow ),
-                    date( "Y", $tomorrow )
-                );
+                $midnight = strtotime( 'midnight' ) - ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) + DAY_IN_SECONDS;
                 wp_schedule_event( $midnight, 'daily', 'wpp_cache_event' );
             }
 
