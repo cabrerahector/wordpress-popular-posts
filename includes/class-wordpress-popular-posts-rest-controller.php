@@ -305,10 +305,10 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'validate_callback' => 'rest_validate_request_arg',
             ),
             'range'   => array(
-                'description'       => __( 'Return posts from a specified time range.' ),
+                'description'       => __( 'Return popular posts from a specified time range.' ),
                 'type'              => 'string',
-                'enum'                 => array( 'today', 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom' ),
-                'default'            => 'daily',
+                'enum'                 => array( 'last24hours', 'last7days', 'last30days', 'all', 'custom' ),
+                'default'            => 'last24hours',
                 'sanitize_callback' => 'sanitize_text_field',
                 'validate_callback' => 'rest_validate_request_arg',
             ),
@@ -329,7 +329,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'validate_callback' => 'rest_validate_request_arg',
             ),
             'pid'   => array(
-                'description'       => __( 'Post IDs to exclude.' ),
+                'description'       => __( 'Post IDs to exclude from the listing.' ),
                 'type'              => 'string',
                 'sanitize_callback' => function( $pid ) {
                     return rtrim( preg_replace( '|[^0-9,]|', '', $pid ), ',' );
@@ -353,7 +353,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 'validate_callback' => 'rest_validate_request_arg',
             ),
             'author'   => array(
-                'description'       => __( 'Author ID(s).' ),
+                'description'       => __( 'Include popular posts from author ID(s).' ),
                 'type'              => 'string',
                 'sanitize_callback' => function( $author ) {
                     return rtrim( preg_replace( '|[^0-9,]|', '', $author ), ',' );
