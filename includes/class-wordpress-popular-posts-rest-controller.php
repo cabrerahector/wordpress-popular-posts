@@ -268,7 +268,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
             'post_type'     => array(
                 'description'       => __( 'Return popular posts from specified custom post type(s).' ),
                 'type'              => 'string',
-                'default'           => 'post,page',
+                'default'           => 'post',
                 'sanitize_callback' => 'sanitize_text_field',
                 'validate_callback' => 'rest_validate_request_arg',
             ),
