@@ -100,7 +100,7 @@ class WPP_Widget extends WP_Widget {
                     if ( 'undefined' != typeof WordPressPopularPosts ) {
                         WordPressPopularPosts.get(
                             wpp_params.ajax_url + 'widget',
-                            'action=wpp_get_popular&id=<?php echo $this->number; ?>',
+                            'id=<?php echo $this->number; ?>',
                             function( response ){
                                 wpp_widget_container.innerHTML += JSON.parse( response ).widget;
 
