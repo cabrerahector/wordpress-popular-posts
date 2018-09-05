@@ -305,6 +305,9 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 $result2 = $wpdb->query( $query_summary );
 
             }
+            else {
+                $result1 = $result2 = true;
+            }
 
         } // Live update to the DB
         else {
