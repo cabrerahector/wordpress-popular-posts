@@ -980,6 +980,8 @@ if ( !$wpp_rand = get_option("wpp_rand") ) {
         <p><strong>InnoDB availability:</strong> <?php echo $wpdb->get_var( "SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB';" ); ?></p>
         <p><strong>WordPress version:</strong> <?php echo $wp_version; ?></p>
         <p><strong>Multisite:</strong> <?php echo ( function_exists( 'is_multisite' ) && is_multisite() ) ? 'Yes' : 'No'; ?></p>
+        <p><strong>External object cache:</strong> <?php echo ( wp_using_ext_object_cache() ) ? 'Yes' : 'No'; ?></p>
+        <p><strong>WPP_CACHE_VIEWS:</strong> <?php echo ( defined( 'WPP_CACHE_VIEWS' ) && WPP_CACHE_VIEWS ) ? 'Yes' : 'No'; ?></p>
         <p><strong>Active plugins:</strong> <?php echo implode( ', ', $plugin_names ); ?></p>
         <p><strong>Theme:</strong> <?php echo $my_theme->get( 'Name' ) . ' (' . $my_theme->get( 'Version' ) . ') by ' . $my_theme->get( 'Author' ); ?></p>
     </div>
