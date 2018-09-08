@@ -85,6 +85,7 @@ function wpp_get_mostpopular($args = NULL) {
                     is_array( $arg )
                     && ( 'post_type' == $key || 'cat' == $key || 'term_id' == $key || 'pid' == $key || 'author' == $key )
                 ) {
+                    $arg = array_filter( $arg, 'is_int' );
                     $arg = join( ',', $arg );
                 }
 
