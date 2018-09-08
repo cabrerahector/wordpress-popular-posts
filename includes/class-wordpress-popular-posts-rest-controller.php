@@ -412,7 +412,7 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
     public function get_widget_params() {
         return array(
             'id' => array(
-                'description'       => __( 'The post / page ID.' ),
+                'description'       => __( 'Widget instance ID' ),
                 'type'              => 'integer',
                 'default'           => 0,
                 'sanitize_callback' => 'absint',
