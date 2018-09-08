@@ -81,6 +81,13 @@ function wpp_get_mostpopular($args = NULL) {
         if( is_array( $args ) ){
             $atts = '';
             foreach( $args as $key => $arg ){
+                if (
+                    is_array( $arg )
+                    && ( 'post_type' == $key || 'cat' == $key || 'term_id' == $key || 'pid' == $key || 'author' == $key )
+                ) {
+                    $arg = join( ',', $arg );
+                }
+
                 $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, $encoding = ini_get("default_charset"), false) . '"';
             }
         } else {
