@@ -397,7 +397,6 @@ class WPP_Query {
 
             // Finally, build the query
             $query = "SELECT {$fields} FROM {$table} {$join} {$where} {$groupby} {$orderby} {$limit};";
-            //$this->query = ( !empty($args) && !has_filter('wpp_query_where') ) ? $wpdb->prepare( $query, $args ) : $query;
             $this->query = $query;
 
         }
