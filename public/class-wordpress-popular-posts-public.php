@@ -102,13 +102,12 @@ class WPP_Public {
             $is_single = WPP_Helper::is_single();
         }
 
-        wp_register_script( 'wpp-js', plugin_dir_url( __FILE__ ) . 'js/wpp-4.1.0.min.js', array(), $this->version, false );
+        wp_register_script( 'wpp-js', plugin_dir_url( __FILE__ ) . 'js/wpp-4.2.0.min.js', array(), $this->version, false );
 
         $params = array(
             'sampling_active' => (int) $this->admin_options['tools']['sampling']['active'],
             'sampling_rate' => $this->admin_options['tools']['sampling']['rate'],
             'ajax_url' => esc_url_raw( rest_url( 'wordpress-popular-posts/v1/popular-posts/' ) ),
-            'action' => 'update_views_ajax',
             'ID' => $is_single,
             'token' => wp_create_nonce( 'wp_rest' ),
             'debug' => WP_DEBUG
