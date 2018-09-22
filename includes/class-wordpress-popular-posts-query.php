@@ -234,14 +234,15 @@ class WPP_Query {
 
             }
 
+            $table = "`{$wpdb->posts}` p";
+
             // All-time range
             if ( "all" == $this->options['range'] ) {
 
                 // Order by views count
                 if ( "comments" != $this->options['order_by'] ) {
 
-                    $table = "`{$wpdb->prefix}popularpostsdata` v";
-                    $join = "LEFT JOIN `{$wpdb->posts}` p ON v.postid = p.ID";
+                    $join = "INNER JOIN `{$wpdb->prefix}popularpostsdata` v ON p.ID = v.postid";
 
                     // Order by views
                     if ( "views" == $this->options['order_by'] ) {
@@ -273,7 +274,6 @@ class WPP_Query {
                 // Order by comments count
                 else {
 
-                    $table = "`{$wpdb->posts}` p";
                     $where .= " AND p.comment_count > 0";
                     $orderby = "ORDER BY p.comment_count DESC";
 
@@ -285,7 +285,7 @@ class WPP_Query {
                     // Display views count, too
                     if ( isset($this->options['stats_tag']['views']) && $this->options['stats_tag']['views'] ) {
                         $fields .= ", IFNULL(v.pageviews, 0) AS pageviews";
-                        $join = "LEFT JOIN `{$wpdb->prefix}popularpostsdata` v ON p.ID = v.postid";
+                        $join = "INNER JOIN `{$wpdb->prefix}popularpostsdata` v ON p.ID = v.postid";
                     }
 
                 }
@@ -343,57 +343,37 @@ class WPP_Query {
                 // Order by views count
                 if ( "comments" != $this->options['order_by'] ) {
 
-                    $table = "`{$wpdb->prefix}popularpostssummary` v";
-                    $join = "LEFT JOIN `{$wpdb->posts}` p ON v.postid = p.ID";
-                    $where .= " AND v.view_datetime > DATE_SUB('{$now}', INTERVAL {$interval})";
-                    $groupby = "GROUP BY v.postid";
-
                     // Order by views
                     if ( "views" == $this->options['order_by'] ) {
-
-                        if ( !isset($this->options['stats_tag']['views']) || $this->options['stats_tag']['views'] ) {
-                            $fields .= ", SUM(v.pageviews) AS pageviews";
-                            $orderby = "ORDER BY pageviews DESC";
-                        }
-                        else {
-                            $orderby = "ORDER BY SUM(v.pageviews) DESC";
-                        }
-
+                        $fields .= ", v.pageviews";
+                        $join = "INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
+                        $orderby = "ORDER BY pageviews DESC";
                     }
                     // Order by average views
                     else {
-                        $fields .= ", ( SUM(v.pageviews)/(IF ( DATEDIFF('{$now}', DATE_SUB('{$now}', INTERVAL {$interval})) > 0, DATEDIFF('{$now}', DATE_SUB('{$now}', INTERVAL {$interval})), 1) ) ) AS avg_views";
+                        $fields .= ", v.avg_views";
+                        $join = "INNER JOIN (SELECT SUM(pageviews)/(IF ( DATEDIFF('{$now}', DATE_SUB('{$now}', INTERVAL {$interval})) > 0, DATEDIFF('{$now}', DATE_SUB('{$now}', INTERVAL {$interval})), 1) ) AS avg_views, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
                         $orderby = "ORDER BY avg_views DESC";
                     }
 
                     // Display comments count, too
                     if ( isset($this->options['stats_tag']['comment_count']) && $this->options['stats_tag']['comment_count'] ) {
                         $fields .= ", IFNULL(c.comment_count, 0) AS comment_count";
-                        $join .= " LEFT JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count FROM `{$wpdb->comments}` WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = 1 GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
+                        $join .= " LEFT JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count FROM `{$wpdb->comments}` WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
                     }
 
                 }
                 // Order by comments count
                 else {
 
-                    $table = "`{$wpdb->comments}` c";
-                    $join = "LEFT JOIN {$wpdb->posts} p ON c.comment_post_ID = p.ID";
-                    $where .= " AND c.comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND c.comment_approved = 1";
-                    $groupby = "GROUP BY c.comment_post_ID";
-
-                    // Display comment count
-                    if ( isset($this->options['stats_tag']['comment_count']) && $this->options['stats_tag']['comment_count'] ) {
-                        $fields .= ", COUNT(c.comment_post_ID) AS comment_count";
-                        $orderby = "ORDER BY comment_count DESC";
-                    }
-                    else {
-                        $orderby = "ORDER BY COUNT(c.comment_post_ID) DESC";
-                    }
+                    $fields .= ", c.comment_count";
+                    $join = "INNER JOIN (SELECT COUNT(comment_post_ID) AS comment_count, comment_post_ID FROM `{$wpdb->comments}` WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
+                    $orderby = "ORDER BY comment_count DESC";
 
                     // Display views count, too
                     if ( isset($this->options['stats_tag']['views']) && $this->options['stats_tag']['views'] ) {
-                        $fields .= ", IFNULL(v.pageviews, 0) AS pageviews";
-                        $join .= " LEFT JOIN (SELECT postid, SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
+                        $fields .= ", v.pageviews";
+                        $join .= " INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
                     }
 
                 }
