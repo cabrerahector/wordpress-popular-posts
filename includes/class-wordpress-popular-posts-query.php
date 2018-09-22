@@ -257,7 +257,7 @@ class WPP_Query {
                     // Order by average views
                     else {
 
-                        $now = current_time( 'mysql' );
+                        $now = WPP_Helper::now();
 
                         $fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$now}', MIN(v.day)) > 0, DATEDIFF('{$now}', MIN(v.day)), 1) ) ) AS avg_views";
                         $groupby = "GROUP BY v.postid";
@@ -294,7 +294,7 @@ class WPP_Query {
             // Custom time range
             else {
 
-                $now = current_time( 'mysql' );
+                $now = WPP_Helper::now();
 
                 // Determine time range
                 switch( $this->options['range'] ){
