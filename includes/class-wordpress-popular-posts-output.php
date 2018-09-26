@@ -895,7 +895,7 @@ class WPP_Output {
             $string = str_replace( "{date}", $data['date'], $string );
         }
 
-        return $string;
+        return apply_filters( "wpp_parse_custom_content_tags", $string, $data['id'] );
 
     }
 
