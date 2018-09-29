@@ -570,6 +570,8 @@ class WPP_Output {
                     && !empty( $terms )
                 ) {
 
+                    $taxonomy_separator = apply_filters( 'wpp_taxonomy_separator', ', ' );
+
                     foreach( $terms as $term ) {
 
                         $term_link = get_term_link( $term );
@@ -577,7 +579,7 @@ class WPP_Output {
                         if ( is_wp_error( $term_link ) )
                             continue;
 
-                        $post_tax .= "<a href=\"{$term_link}\" class=\"{$taxonomy} {$taxonomy}-{$term->term_id}\">{$term->name}</a>, ";
+                        $post_tax .= "<a href=\"{$term_link}\" class=\"{$taxonomy} {$taxonomy}-{$term->term_id}\">{$term->name}</a>" . $taxonomy_separator;
 
                     }
 
@@ -586,7 +588,7 @@ class WPP_Output {
             }
 
             if ( '' != $post_tax )
-                $post_tax = rtrim( $post_tax, ", " );
+                $post_tax = rtrim( $post_tax, $taxonomy_separator );
 
         }
 
