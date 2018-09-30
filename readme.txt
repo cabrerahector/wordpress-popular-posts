@@ -97,6 +97,7 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Adds filter hook [wpp_parse_custom_content_tags](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_parse_custom_content_tags).
 - Adds filter hook [wpp_taxonomy_separator](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_taxonomy_separator).
 - You can now also pass arrays when using the parameters `post_type`, `cat`, `term_id`, `pid` or `author` (see [issue 169](https://github.com/cabrerahector/wordpress-popular-posts/issues/169#issuecomment-419667083) for details).
+- The plugin will use language packs from wordpress.org from now on.
 - Minor fixes and improvements.
 
 Check the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-2-is-all-about-speed/) for more details!
