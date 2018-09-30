@@ -87,6 +87,19 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.2.0 =
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
+
+- **Breaking change**: Database query performance improvements (thanks Stofa!), plugin should be significantly faster for most people out there. Developers: if you're hooking into the `WPP_Query` class to customize the query, you will have to review it as this change will likely break your custom query.
+- **Persistent object caching support**: WPP can now store views count in-memory, reducing greatly the number of database writes which is good for performance!
+- Adds filter hook [wpp_parse_custom_content_tags](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_parse_custom_content_tags).
+- Adds filter hook [wpp_taxonomy_separator](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_taxonomy_separator).
+- You can now also pass arrays when using the parameters `post_type`, `cat`, `term_id`, `pid` or `author` (see [issue 169](https://github.com/cabrerahector/wordpress-popular-posts/issues/169#issuecomment-419667083) for details).
+- Minor fixes and improvements.
+
+Check the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-2-is-all-about-speed/) for more details!
+
 = 4.1.2 =
 
 - Enables [Data Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) by default (new installs only).
@@ -103,19 +116,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Code cleanup.
 - Fixes a minor bug (plugin returning the wrong excerpt when a translation plugin is used).
 - Bumps minimum required PHP version to 5.3.
-
-= 4.1.0 =
-
-**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
-
-- Adds support for the REST API.
-- Adds At-a-Glance stats.
-- Adds Today time range to Stats section.
-- Drops jQuery dependency on front-end (faster loading times!)
-- The plugin will no longer display debugging information unless WP_DEBUG is set to true.
-- Many minor bug fixes and improvements.
-
-See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-1-is-here/) for more details!
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
