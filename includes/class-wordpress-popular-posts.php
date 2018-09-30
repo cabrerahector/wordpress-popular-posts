@@ -134,8 +134,6 @@ class WordPressPopularPosts {
 
         $plugin_admin = new WPP_Admin( $this->get_plugin_name(), $this->get_version() );
 
-        // Check admin notices
-        $this->loader->add_action( 'admin_notices', $plugin_admin, 'check_admin_notices' );
         // Upgrade check
         $this->loader->add_action( 'init', $plugin_admin, 'upgrade_check' );
         // Hook fired when a new blog is activated on WP Multisite

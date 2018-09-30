@@ -29,7 +29,7 @@ class WPP_Activator {
      * @param    bool    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
      */
     public static function activate( $network_wide ) {
-        
+
         global $wpdb;
 
         if ( function_exists( 'is_multisite' ) && is_multisite() ) {
@@ -132,5 +132,40 @@ class WPP_Activator {
         dbDelta( $sql );
 
     } // end do_db_tables
+
+    /**
+     * Checks if the technical requirements are met.
+     *
+     * @since	2.4.0
+     * @link	http://wordpress.stackexchange.com/questions/25910/uninstall-activate-deactivate-a-plugin-typical-features-how-to/25979#25979
+     * @global	string $wp_version
+     * @return	array
+     */
+    public static function check_requirements() {
+
+        global $wp_version;
+
+        $php_min_version = '5.3';
+        $wp_min_version = '4.7';
+        $php_current_version = phpversion();
+        $errors = array();
+
+        if ( version_compare( $php_min_version, $php_current_version, '>' ) ) {
+            $errors[] = sprintf(
+                __( 'Your PHP installation is too old. WordPress Popular Posts requires at least PHP version %1$s to function correctly. Please contact your hosting provider and ask them to upgrade PHP to %1$s or higher.', 'wordpress-popular-posts' ),
+                $php_min_version
+            );
+        }
+
+        if ( version_compare( $wp_min_version, $wp_version, '>' ) ) {
+            $errors[] = sprintf(
+                __( 'Your WordPress version is too old. WordPress Popular Posts requires at least WordPress version %1$s to function correctly. Please update your blog via Dashboard &gt; Update.', 'wordpress-popular-posts' ),
+                $wp_min_version
+            );
+        }
+
+        return $errors;
+
+    } // end check_requirements
 
 } // end WPP_Activator class
