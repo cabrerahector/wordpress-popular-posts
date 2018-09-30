@@ -32,11 +32,8 @@ class WPP_i18n {
      * @since    1.0.0
      */
     public function load_plugin_textdomain() {
-
         $locale = apply_filters( 'plugin_locale', get_locale(), 'wordpress-popular-posts' );
         load_textdomain( 'wordpress-popular-posts', WP_LANG_DIR . '/' . 'wordpress-popular-posts' . '/' . 'wordpress-popular-posts' . '-' . $locale . '.mo' );
-        load_plugin_textdomain( 'wordpress-popular-posts', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
-
     }
 
 } // End WPP_i18n class
