@@ -108,7 +108,7 @@ class WPP_Public {
             'sampling_active' => (int) $this->admin_options['tools']['sampling']['active'],
             'sampling_rate' => $this->admin_options['tools']['sampling']['rate'],
             'ajax_url' => esc_url_raw( rest_url( 'wordpress-popular-posts/v1/popular-posts/' ) ),
-            'ID' => $is_single,
+            'ID' => apply_filters( 'wpp_is_single', $is_single, $this->admin_options['tools']['log']['level'] ),
             'token' => wp_create_nonce( 'wp_rest' ),
             'debug' => WP_DEBUG
         );
