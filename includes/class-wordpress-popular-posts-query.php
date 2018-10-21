@@ -218,6 +218,10 @@ class WPP_Query {
 
             }
 
+            if( isset($this->options['exclude_current']) && $this->options['exclude_current']){
+                $this->options['pid'] = get_the_ID();
+            }
+
             // Exclude these entries from the listing
             if ( isset($this->options['pid']) && !empty($this->options['pid']) ) {
 

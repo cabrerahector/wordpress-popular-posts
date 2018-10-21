@@ -218,6 +218,8 @@ class WPP_Widget extends WP_Widget {
             $instance['author'] = implode( ",", $ids );
         }
 
+        $instance['exclude_current'] = $new_instance['exclude_current'];
+
         $instance['shorten_title']['words'] = $new_instance['shorten_title-words'];
         $instance['shorten_title']['active'] = isset( $new_instance['shorten_title-active'] );
         $instance['shorten_title']['length'] = ( WPP_Helper::is_number($new_instance['shorten_title-length']) && $new_instance['shorten_title-length'] > 0 )

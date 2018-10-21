@@ -42,6 +42,7 @@ class WPP_Settings {
             'cat' => '',
             'taxonomy' => 'category',
             'term_id' => '',
+            'exclude_current' => false,
             'shorten_title' => array(
                 'active' => false,
                 'length' => 25,
