@@ -218,14 +218,20 @@ class WPP_Query {
 
             }
 
-            if( isset($this->options['exclude_current']) && $this->options['exclude_current']){
+            // If pid is empty and exclude option is on, populate pid
+            if ( $this->options['pid'] < 1 && isset($this->options['exclude_current']) ) {
                 $this->options['pid'] = get_the_ID();
             }
 
             // Exclude these entries from the listing
             if ( isset($this->options['pid']) && !empty($this->options['pid']) ) {
 
-                $excluded_post_IDs = explode( ",", $this->options['pid'] );
+                if( !isset($this->options['exclude_current']) ){
+                    $excluded_post_IDs = explode( ",", $this->options['pid'] );
+                }else{
+                    $excluded_post_IDs = explode( ",", $this->options['pid'].','.get_the_ID() );
+                }
+                
                 $xpid = '';
                 $where .= " AND p.ID NOT IN(";
 
