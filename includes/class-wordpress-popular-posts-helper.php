@@ -76,7 +76,7 @@ class WPP_Helper {
      * @return   string
      */
     public static function curdate() {
-        return current_time( 'Y-m-d', true );
+        return current_time( 'Y-m-d', false );
     }
 
     /**
