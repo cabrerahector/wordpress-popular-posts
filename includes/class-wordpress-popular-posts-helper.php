@@ -76,7 +76,7 @@ class WPP_Helper {
      * @return   string
      */
     public static function curdate() {
-        return gmdate( 'Y-m-d', ( time() + ( get_option( 'gmt_offset' ) * 3600 ) ) );
+        return current_time( 'Y-m-d', false );
     }
 
     /**
