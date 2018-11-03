@@ -26,7 +26,6 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 array(
                     'methods'             => WP_REST_Server::READABLE,
                     'callback'            => array( $this, 'get_items' ),
-                    'permission_callback' => array( $this, 'get_items_permissions_check' ),
                     'args'                => $this->get_collection_params(),
                 ),
                 array(
@@ -34,7 +33,6 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                     'callback'            => array( $this, 'update_views_count' ),
                     'args'                => $this->get_tracking_params(),
                 ),
-                'schema' => array( $this, 'get_public_item_schema' ),
             )
         );
 
@@ -48,19 +46,6 @@ class WP_REST_Popular_Posts_Controller extends WP_REST_Controller {
                 )
             )
         );
-    }
-
-    /**
-     * Checks whether a given request has permission to get popular posts.
-     *
-     * @since 4.1.0
-     *
-     * @param WP_REST_Request $request Full details about the request.
-     * @return WP_Error|bool True if the request has read access, WP_Error object otherwise.
-     */
-    public function get_items_permissions_check( $request ) {
-		// TO-DO: Are there scenarios where this request should be rejected?
-        return true;
     }
 
     /**
