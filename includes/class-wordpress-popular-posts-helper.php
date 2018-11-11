@@ -161,7 +161,7 @@ class WPP_Helper {
      * @param   bool     $truncate_by_words
      * @return  string
      */
-    public static function truncate( $text = '', $length = 25, $truncate_by_words = false ) {
+    public static function truncate( $text = '', $length = 25, $truncate_by_words = false, $more = '...' ) {
 
         if ( '' !== $text ) {
 
@@ -172,13 +172,13 @@ class WPP_Helper {
 
                 if ( count($words) > $length ) {
                     array_pop( $words );
-                    $text = rtrim( implode(" ", $words), ",." ) . " ...";
+                    $text = rtrim( implode(" ", $words), ",." ) . " {$more}";
                 }
 
             }
             // Truncate by characters
             elseif ( strlen($text) > $length ) {
-                $text = rtrim( mb_substr($text, 0, $length , get_bloginfo('charset')), " ,." ) . "...";
+                $text = rtrim( mb_substr($text, 0, $length , get_bloginfo('charset')), " ,." ) . $more;
             }
 
         }

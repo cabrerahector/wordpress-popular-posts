@@ -31,6 +31,14 @@ class WPP_Output {
     private $default_thumbnail_sizes = array();
 
     /**
+     * Default excerpt 'more' string.
+     *
+     * @since   4.2.1
+     * @var     string
+     */
+    private $more;
+
+    /**
      * WPP_Image object
      *
      * @since	4.0.2
@@ -51,6 +59,11 @@ class WPP_Output {
         }
 
         $this->default_thumbnail_sizes = $this->wpp_image->get_image_sizes();
+
+        $this->more = '...';
+
+        if ( has_filter('wpp_excerpt_more') )
+            $this->more = apply_filters( 'wpp_excerpt_more', $this->more );
 
         $this->build_output();
 
@@ -160,7 +173,7 @@ class WPP_Output {
               ? $this->options['shorten_title']['length']
               : 25;
 
-            $post_title = WPP_Helper::truncate( $post_title, $length, $this->options['shorten_title']['words'] );
+            $post_title = WPP_Helper::truncate( $post_title, $length, $this->options['shorten_title']['words'], $this->more );
 
         }
 
@@ -674,7 +687,8 @@ class WPP_Output {
         // Balance tags, if needed
         if ( '' !== $excerpt ) {
 
-            $excerpt = WPP_helper::truncate( $excerpt, $this->options['post-excerpt']['length'], $this->options['post-excerpt']['words'] );
+            $more = apply_filters( 'wpp_excerpt_more', '...' );
+            $excerpt = WPP_helper::truncate( $excerpt, $this->options['post-excerpt']['length'], $this->options['post-excerpt']['words'], $this->more );
 
             if ( $this->options['post-excerpt']['keep_format'] )
                 $excerpt = force_balance_tags( $excerpt );
