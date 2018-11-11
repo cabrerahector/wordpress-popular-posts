@@ -226,6 +226,11 @@ class WPP_Image {
         // valid image, create thumbnail
         if ( !is_wp_error($image) ) {
 
+            $quality = apply_filters( 'wpp_thumbnail_compression_quality', null );
+            if ( ! ctype_digit($quality) )
+                $quality = null;
+            $image->set_quality( $quality );
+
             $image->resize( $image_meta['width'], $image_meta['height'], $image_meta['crop'] );
             $new_img = $image->save( trailingslashit($this->uploads_dir['basedir']) . $image_meta['filename'] . '.' . $image_meta['extension'] );
 
