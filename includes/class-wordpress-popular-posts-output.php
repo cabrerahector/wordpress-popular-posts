@@ -201,7 +201,7 @@ class WPP_Output {
         $post_taxonomies = $this->get_taxonomies( $post_id );
 
         // Post author
-        $post_author = $this->get_author( $post_object );
+        $post_author = $this->get_author( $post_object, $post_id );
 
         // Post views count
         $post_views = $this->get_pageviews( $post_object );
@@ -225,7 +225,7 @@ class WPP_Output {
                 'url' => $permalink,
                 'text_title' => $post_title_attr,
                 'taxonomy' => $post_taxonomies,
-                'author' => ( !empty($post_author) ) ? '<a href="' . get_author_posts_url( $post_object->uid ) . '">' . $post_author . '</a>' : '',
+                'author' => ( !empty($post_author) ) ? '<a href="' . get_author_posts_url( $post_object->uid != $post_id ? get_post_field( 'post_author', $post_id ) : $post_object->uid ) . '">' . $post_author . '</a>' : '',
                 'views' => ( $this->options['order_by'] == "views" || $this->options['order_by'] == "comments" ) ? number_format_i18n( $post_views ) : number_format_i18n( $post_views, 2 ),
                 'comments' => number_format_i18n( $post_comments ),
                 'date' => $post_date
@@ -604,12 +604,13 @@ class WPP_Output {
      * @since	3.0.0
      * @access  private
      * @param	object	$post_object
+     * @param   integer $post_id
      * @return	string
      */
-    private function get_author( stdClass $post_object ) {
+    private function get_author( stdClass $post_object, int $post_id ) {
 
         $author = ( $this->options['stats_tag']['author'] )
-          ? get_the_author_meta( 'display_name', $post_object->uid )
+          ? get_the_author_meta( 'display_name', $post_object->uid != $post_id ? get_post_field( 'post_author', $post_id ) : $post_object->uid )
           : "";
 
         return $author;
@@ -763,8 +764,8 @@ class WPP_Output {
 
         // author
         if ( $this->options['stats_tag']['author'] ) {
-            $author = $this->get_author( $post_object );
-            $display_name = '<a href="' . get_author_posts_url( $post_object->uid ) . '">' . $author . '</a>';
+            $author = $this->get_author( $post_object, $post_id );
+            $display_name = '<a href="' . get_author_posts_url( $post_object->uid != $post_id ? get_post_field( 'post_author', $post_id ) : $post_object->uid ) . '">' . $author . '</a>';
             $stats[] = '<span class="wpp-author">' . sprintf(__('by %s', 'wordpress-popular-posts'), $display_name).'</span>';
         }
 
