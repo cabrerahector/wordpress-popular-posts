@@ -155,17 +155,24 @@ class WPP_Output {
 
         $post = '';
 
-        $postID = $post_object->id;
+        $post_id = $post_object->id;
+
+        $translate = WPP_translate::get_instance();
+        $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
+
+        if ( $post_id != $trid ) {
+            $post_id = $trid;
+        }
 
         // Permalink
-        $permalink = $this->get_permalink( $post_object );
+        $permalink = $this->get_permalink( $post_id );
 
         // Thumbnail
         $post_thumbnail = $this->get_thumbnail( $post_object );
 
         // Post title (and title attribute)
-        $post_title_attr = esc_attr( wp_strip_all_tags( $this->get_title( $post_object ) ) );
-        $post_title = $this->get_title( $post_object );
+        $post_title_attr = esc_attr( wp_strip_all_tags( $this->get_title( $post_object, $post_id ) ) );
+        $post_title = $this->get_title( $post_object, $post_id );
 
         if ( $this->options['shorten_title']['active'] ) {
 
@@ -178,7 +185,7 @@ class WPP_Output {
         }
 
         // Post excerpt
-        $post_excerpt = $this->get_excerpt( $post_object );
+        $post_excerpt = $this->get_excerpt( $post_object, $post_id );
 
         // Post rating
         $post_rating = $this->get_rating( $post_object );
@@ -191,7 +198,7 @@ class WPP_Output {
         $post_date = $this->get_date( $post_object );
 
         // Post taxonomies
-        $post_taxonomies = $this->get_taxonomies( $post_object );
+        $post_taxonomies = $this->get_taxonomies( $post_id );
 
         // Post author
         $post_author = $this->get_author( $post_object );
@@ -203,13 +210,13 @@ class WPP_Output {
         $post_comments = $this->get_comments( $post_object );
 
         // Post meta
-        $post_meta = join( ' | ', $this->get_metadata( $post_object ) );
+        $post_meta = join( ' | ', $this->get_metadata( $post_object, $post_id ) );
 
         // Build custom HTML output
         if ( $this->options['markup']['custom_html'] ) {
 
             $data = array(
-                'id' => $post_object->id,
+                'id' => $post_id,
                 'title' => '<a href="' . $permalink . '" title="' . $post_title_attr . '" class="wpp-post-title" target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_title . '</a>',
                 'summary' => $post_excerpt,
                 'stats' => $post_meta,
@@ -232,7 +239,7 @@ class WPP_Output {
             $is_single = WPP_Helper::is_single();
 
             $post_thumbnail = ( !empty($post_thumbnail) )
-              ? "<a " . ( $is_single == $postID ? '' : "href=\"{$permalink}\"" ) . " title=\"{$post_title_attr}\" target=\"{$this->admin_options['tools']['link']['target']}\">{$post_thumbnail}</a>\n"
+              ? "<a " . ( $is_single == $post_id ? '' : "href=\"{$permalink}\"" ) . " title=\"{$post_title_attr}\" target=\"{$this->admin_options['tools']['link']['target']}\">{$post_thumbnail}</a>\n"
               : "";
 
             $post_excerpt = ( !empty($post_excerpt) )
@@ -249,18 +256,18 @@ class WPP_Output {
 
             $wpp_post_class = array();
 
-            if ( $is_single == $postID ) {
+            if ( $is_single == $post_id ) {
                 $wpp_post_class[] = "current";
             }
 
             // Allow themers / plugin developer
             // to add custom classes to each post
-            $wpp_post_class = apply_filters( "wpp_post_class", $wpp_post_class, $postID );
+            $wpp_post_class = apply_filters( "wpp_post_class", $wpp_post_class, $post_id );
 
             $post =
                 "<li" . ( ( is_array( $wpp_post_class ) && !empty( $wpp_post_class ) ) ? ' class="' . esc_attr( implode( " ", $wpp_post_class ) ) . '"' : '' ) . ">\n"
                 . $post_thumbnail
-                . "<a " . ( $is_single == $postID ? '' : "href=\"{$permalink}\"" ) . " title=\"{$post_title_attr}\" class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\">{$post_title}</a>\n"
+                . "<a " . ( $is_single == $post_id ? '' : "href=\"{$permalink}\"" ) . " title=\"{$post_title_attr}\" class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\">{$post_title}</a>\n"
                 . $post_excerpt
                 . $post_meta
                 . $post_rating
@@ -277,19 +284,11 @@ class WPP_Output {
      * 
      * @since   4.0.12
      * @access  private
-     * @param   object  $post_object
+     * @param   integer  $post_id
      * @return  string
      */
-    private function get_permalink( stdClass $post_object ) {
-
-        $translate = WPP_translate::get_instance();
-        $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
-
-        if ( $post_object->id != $trid ) {
-            return get_permalink( $trid );
-        }
-
-        return get_permalink( $post_object->id );
+    private function get_permalink( int $post_id ) {
+        return get_permalink( $post_id );
     }
 
     /**
@@ -298,15 +297,13 @@ class WPP_Output {
      * @since	3.0.0
      * @access  private
      * @param   object   $post_object
+     * @param   integer  $post_id
      * @return  string
      */
-    private function get_title( stdClass $post_object ) {
+    private function get_title( stdClass $post_object, int $post_id ) {
 
-        $translate = WPP_translate::get_instance();
-        $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
-
-        if ( $post_object->id != $trid ) {
-            $title = get_the_title( $trid );
+        if ( $post_object->id != $post_id ) {
+            $title = get_the_title( $post_id );
         }
         else {
             $title = $post_object->title;
@@ -542,10 +539,10 @@ class WPP_Output {
      *
      * @since	3.0.0
      * @access  private
-     * @param	object	$post_object
+     * @param   integer $post_id
      * @return	string
      */
-    private function get_taxonomies( stdClass $post_object ) {
+    private function get_taxonomies( int $post_id ) {
 
         $post_tax = '';
 
@@ -560,15 +557,7 @@ class WPP_Output {
                 $taxonomy = $this->options['stats_tag']['taxonomy']['name'];
             }
 
-            $translate = WPP_translate::get_instance();
-            $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
-
-            if ( $post_object->id != $trid ) {
-                $terms = wp_get_post_terms( $trid, $taxonomy );
-            }
-            else {
-                $terms = wp_get_post_terms( $post_object->id, $taxonomy );
-            }
+            $terms = wp_get_post_terms( $post_id, $taxonomy );
 
             if ( !is_wp_error( $terms ) ) {
 
@@ -633,19 +622,17 @@ class WPP_Output {
      * @since	3.0.0
      * @access  private
      * @param	object	$post_object
+     * @param   integer $post_id
      * @return	string
      */
-    private function get_excerpt( stdClass $post_object ) {
+    private function get_excerpt( stdClass $post_object, int $post_id ) {
 
         $excerpt = '';
 
         if ( $this->options['post-excerpt']['active'] ) {
 
-            $translate = WPP_translate::get_instance();
-            $trid = $translate->get_object_id( $post_object->id, get_post_type( $post_object->id ) );
-
-            if ( $post_object->id != $trid ) {
-                $the_post = get_post( $trid );
+            if ( $post_object->id != $post_id ) {
+                $the_post = get_post( $post_id );
 
                 $excerpt = ( empty($the_post->post_excerpt) )
                   ? $the_post->post_content
@@ -724,9 +711,10 @@ class WPP_Output {
      * @since	3.0.0
      * @access  private
      * @param	object	$post_object
+     * @param   integer $post_id
      * @return	array
      */
-    private function get_metadata( stdClass $post_object ) {
+    private function get_metadata( stdClass $post_object, int $post_id ) {
 
         $stats = array();
 
@@ -790,7 +778,7 @@ class WPP_Output {
         // taxonomy
         if ( $this->options['stats_tag']['category'] ) {
 
-            $post_tax = $this->get_taxonomies( $post_object );
+            $post_tax = $this->get_taxonomies( $post_id );
 
             if ( $post_tax != '' ) {
                 $stats[] = '<span class="wpp-category">' . sprintf( __('under %s', 'wordpress-popular-posts'), $post_tax ) . '</span>';
