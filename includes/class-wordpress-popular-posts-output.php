@@ -674,7 +674,6 @@ class WPP_Output {
         // Balance tags, if needed
         if ( '' !== $excerpt ) {
 
-            $more = apply_filters( 'wpp_excerpt_more', '...' );
             $excerpt = WPP_helper::truncate( $excerpt, $this->options['post-excerpt']['length'], $this->options['post-excerpt']['words'], $this->more );
 
             if ( $this->options['post-excerpt']['keep_format'] )
