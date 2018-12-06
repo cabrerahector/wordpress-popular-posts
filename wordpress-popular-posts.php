@@ -16,7 +16,7 @@
  * Plugin Name:       WordPress Popular Posts
  * Plugin URI:        https://wordpress.org/plugins/wordpress-popular-posts/
  * Description:       A highly customizable widget that displays the most popular posts on your blog.
- * Version:           4.2.1
+ * Version:           4.2.2
  * Author:            Hector Cabrera
  * Author URI:        https://cabrerahector.com/
  * License:           GPL-2.0+
@@ -29,7 +29,7 @@ if ( ! defined( 'WPINC' ) ) {
     die();
 }
 
-define( 'WPP_VER', '4.2.1' );
+define( 'WPP_VER', '4.2.2' );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-popular-posts-admin-notices.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-popular-posts-activator.php';
