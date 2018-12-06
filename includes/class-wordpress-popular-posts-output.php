@@ -287,7 +287,7 @@ class WPP_Output {
      * @param   integer  $post_id
      * @return  string
      */
-    private function get_permalink( int $post_id ) {
+    private function get_permalink( $post_id ) {
         return get_permalink( $post_id );
     }
 
@@ -300,7 +300,7 @@ class WPP_Output {
      * @param   integer  $post_id
      * @return  string
      */
-    private function get_title( stdClass $post_object, int $post_id ) {
+    private function get_title( stdClass $post_object, $post_id ) {
 
         if ( $post_object->id != $post_id ) {
             $title = get_the_title( $post_id );
@@ -542,7 +542,7 @@ class WPP_Output {
      * @param   integer $post_id
      * @return	string
      */
-    private function get_taxonomies( int $post_id ) {
+    private function get_taxonomies( $post_id ) {
 
         $post_tax = '';
 
@@ -607,7 +607,7 @@ class WPP_Output {
      * @param   integer $post_id
      * @return	string
      */
-    private function get_author( stdClass $post_object, int $post_id ) {
+    private function get_author( stdClass $post_object, $post_id ) {
 
         $author = ( $this->options['stats_tag']['author'] )
           ? get_the_author_meta( 'display_name', $post_object->uid != $post_id ? get_post_field( 'post_author', $post_id ) : $post_object->uid )
@@ -626,7 +626,7 @@ class WPP_Output {
      * @param   integer $post_id
      * @return	string
      */
-    private function get_excerpt( stdClass $post_object, int $post_id ) {
+    private function get_excerpt( stdClass $post_object, $post_id ) {
 
         $excerpt = '';
 
@@ -714,7 +714,7 @@ class WPP_Output {
      * @param   integer $post_id
      * @return	array
      */
-    private function get_metadata( stdClass $post_object, int $post_id ) {
+    private function get_metadata( stdClass $post_object, $post_id ) {
 
         $stats = array();
 
