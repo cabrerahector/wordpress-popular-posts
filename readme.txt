@@ -88,6 +88,10 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.2.2 =
+
+- Hotfix: don't typehint scalars, breaks plugin on PHP 5.
+
 = 4.2.1 =
 
 - Adds [filter to set thumbnail compression quality](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_thumbnail_compression_quality).
