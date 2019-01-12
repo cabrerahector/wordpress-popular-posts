@@ -738,7 +738,7 @@ class WPP_Output {
             if ( $this->options['order_by'] == 'avg' ) {
                 $views_text = sprintf(
                     _n( '1 view per day', '%s views per day', $pageviews, 'wordpress-popular-posts' ),
-                    number_format_i18n( $pageviews, 2 )
+                    number_format_i18n( $pageviews, ( fmod($pageviews, 1) !== 0.0 ? 2 : 0) )
                 );
             }
             else {
