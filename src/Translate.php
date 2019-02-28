@@ -83,6 +83,19 @@ class Translate {
         );
     }
 
+    /**
+     * Translates URL.
+     *
+     * @since   5.0.0
+     * @param   string      $original_permalink
+     * @param   string      $lang
+     * @return  string
+     */
+    public function url($original_permalink, $lang)
+    {
+        return apply_filters('wpml_permalink', $original_permalink, $lang);
+    }
+
     /*
      * Retrieves the language code of an object.
      *
