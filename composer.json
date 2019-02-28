@@ -1,0 +1,21 @@
+{
+    "name": "WordPress Popular Posts",
+    "description": "A highly customizable widget that displays the most popular posts on your blog.",
+    "keywords": ["popular", "posts", "popularity", "trending"],
+    "license": "GPL2+",
+    "authors": [
+        {
+            "name": "Hector Cabrera",
+            "email": "me@cabrerahector.com",
+            "role": "Creator / Main Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WordPressPopularPosts\\": "src/"
+        }
+    }
+}
