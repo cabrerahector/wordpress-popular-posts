@@ -96,10 +96,10 @@ class Translate {
         return apply_filters(
             'wpml_element_language_code',
             null,
-            array(
+            [
                 'element_id' => $object_id,
                 'element_type' => $object_type
-            )
+            ]
         );
     }
 }
