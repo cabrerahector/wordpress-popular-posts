@@ -13,8 +13,12 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
      */
     public function modify(Container $container)
     {
+        $container['rest'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Rest\Controller(Settings::get('admin_options'));
+        });
+
         $container['wpp'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\WordPressPopularPosts();
+            return new \WordPressPopularPosts\WordPressPopularPosts($container['rest']);
         });
     }
 }

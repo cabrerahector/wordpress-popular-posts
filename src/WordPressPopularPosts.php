@@ -9,13 +9,22 @@ namespace WordPressPopularPosts;
 
 class WordPressPopularPosts {
     /**
+     * REST controller class.
+     * 
+     * @var     Rest\Controller $rest
+     * @access  private
+     */
+    private $rest;
+
+    /**
      * Constructor.
      *
      * @since   5.0.0
+     * @param   \Rest\Controller  $rest
      */
-    public function __construct()
+    public function __construct(Rest\Controller $rest)
     {
-        //
+        $this->rest = $rest;
     }
 
     /**
@@ -25,6 +34,6 @@ class WordPressPopularPosts {
      */
     public function init()
     {
-        //
+        $this->rest->hooks();
     }
 }
