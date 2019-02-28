@@ -13,8 +13,12 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
      */
     public function modify(Container $container)
     {
+        $container['translate'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Translate();
+        });
+
         $container['rest'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Rest\Controller(Settings::get('admin_options'));
+            return new \WordPressPopularPosts\Rest\Controller(Settings::get('admin_options'), $container['translate']);
         });
 
         $container['wpp'] = $container->service(function(Container $container) {
