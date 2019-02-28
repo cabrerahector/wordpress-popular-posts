@@ -12,15 +12,6 @@ namespace WordPressPopularPosts;
 
 class Translate {
     /**
-     * Class instance.
-     *
-     * @since    4.0.0
-     * @access   private
-     * @var      object|WPP_translate
-     */
-    private static $instance;
-
-    /**
      * Default language code.
      *
      * @since    4.0.0
@@ -42,26 +33,11 @@ class Translate {
      * Initialize the collections used to maintain the actions and filters.
      *
      * @since    4.0.0
-     * @access   private
      */
-    private function __construct()
+    public function __construct()
     {
         $this->default_language = apply_filters('wpml_default_language', NULL);
         $this->current_language = apply_filters('wpml_current_language', NULL);
-    }
-
-    /**
-     * Get an instance of this class.
-     *
-     * @since    4.0.0
-     * @return object|\WPP_translate
-     */
-    public static function get_instance()
-    {
-        if ( is_null(self::$instance) ) {
-            self::$instance = new WPP_translate();
-        }
-        return self::$instance;
     }
 
     /**
