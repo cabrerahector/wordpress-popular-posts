@@ -2,7 +2,7 @@
     "name": "WordPress Popular Posts",
     "description": "A highly customizable widget that displays the most popular posts on your blog.",
     "keywords": ["popular", "posts", "popularity", "trending"],
-    "license": "GPL2+",
+    "license": "GPL2",
     "authors": [
         {
             "name": "Hector Cabrera",
