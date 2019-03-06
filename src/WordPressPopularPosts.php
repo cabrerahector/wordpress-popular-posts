@@ -17,14 +17,24 @@ class WordPressPopularPosts {
     private $rest;
 
     /**
+     * Front class.
+     * 
+     * @var     Front\Front $front
+     * @access  private
+     */
+    private $front;
+
+    /**
      * Constructor.
      *
      * @since   5.0.0
-     * @param   \Rest\Controller  $rest
+     * @param   Rest\Controller  $rest
+     * @param   Front\Front      $front
      */
-    public function __construct(Rest\Controller $rest)
+    public function __construct(Rest\Controller $rest, Front\Front $front)
     {
         $this->rest = $rest;
+        $this->front = $front;
     }
 
     /**
@@ -35,5 +45,6 @@ class WordPressPopularPosts {
     public function init()
     {
         $this->rest->hooks();
+        $this->front->hooks();
     }
 }

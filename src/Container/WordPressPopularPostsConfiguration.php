@@ -21,8 +21,12 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
             return new \WordPressPopularPosts\Rest\Controller(Settings::get('admin_options'), $container['translate']);
         });
 
+        $container['front'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Front\Front(Settings::get('admin_options'), $container['translate']);
+        });
+
         $container['wpp'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\WordPressPopularPosts($container['rest']);
+            return new \WordPressPopularPosts\WordPressPopularPosts($container['rest'], $container['front']);
         });
     }
 }
