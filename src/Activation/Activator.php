@@ -17,7 +17,7 @@
  * @author     Hector Cabrera <me@cabrerahector.com>
  */
 
-namespace WordPressPopularPosts;
+namespace WordPressPopularPosts\Activation;
 
 class Activator {
     /**
