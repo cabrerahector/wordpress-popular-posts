@@ -17,12 +17,20 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
             return new \WordPressPopularPosts\Translate();
         });
 
+        $container['image'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Image();
+        });
+
+        $container['output'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Output(Settings::get('widget_options'), Settings::get('admin_options'), $container['image'], $container['translate']);
+        });
+
         $container['rest'] = $container->service(function(Container $container) {
             return new \WordPressPopularPosts\Rest\Controller(Settings::get('admin_options'), $container['translate']);
         });
 
         $container['front'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Front\Front(Settings::get('admin_options'), $container['translate']);
+            return new \WordPressPopularPosts\Front\Front(Settings::get('admin_options'), $container['translate'], $container['output']);
         });
 
         $container['wpp'] = $container->service(function(Container $container) {
