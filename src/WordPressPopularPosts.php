@@ -25,16 +25,26 @@ class WordPressPopularPosts {
     private $front;
 
     /**
+     * Widget class.
+     * 
+     * @var     Widget\Widget $widget
+     * @access  private
+     */
+    private $widget;
+
+    /**
      * Constructor.
      *
      * @since   5.0.0
-     * @param   Rest\Controller  $rest
-     * @param   Front\Front      $front
+     * @param   Rest\Controller $rest
+     * @param   Front\Front     $front
+     * @param   Widget\Widget   $widget
      */
-    public function __construct(Rest\Controller $rest, Front\Front $front)
+    public function __construct(Rest\Controller $rest, Front\Front $front, Widget\Widget $widget)
     {
         $this->rest = $rest;
         $this->front = $front;
+        $this->widget = $widget;
     }
 
     /**
@@ -46,5 +56,6 @@ class WordPressPopularPosts {
     {
         $this->rest->hooks();
         $this->front->hooks();
+        $this->widget->hooks();
     }
 }

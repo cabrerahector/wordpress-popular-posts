@@ -16,4 +16,4 @@ $container->configure([
 ]);
 
 $WordPressPopularPosts = $container['wpp'];
-add_action('init', [$WordPressPopularPosts, 'init']);
+add_action('plugins_loaded', [$WordPressPopularPosts, 'init']);
