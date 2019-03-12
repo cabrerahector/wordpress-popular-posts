@@ -85,12 +85,6 @@ class Widget extends \WP_Widget {
     {
         // Register the widget
         add_action('widgets_init', [$this, 'register']);
-
-        // Widget's AJAX hooks
-        if ( $this->admin_options['tools']['ajax'] ) {
-            //add_action('wp_ajax_wpp_get_popular', [$this, 'get_popular']);
-            //add_action('wp_ajax_nopriv_wpp_get_popular', [$this, 'get_popular']);
-        }
     }
 
     /**
