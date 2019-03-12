@@ -60,6 +60,14 @@ class Output {
     private $thumbnail;
 
     /**
+     * Translate object.
+     *
+     * @var     \WordPressPopularPosts\Translate    $translate
+     * @access  private
+     */
+    private $translate;
+
+    /**
      * Constructor.
      *
      * @since   4.0.0
