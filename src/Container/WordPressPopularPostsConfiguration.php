@@ -29,11 +29,11 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['widget'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Widget\Widget($container['widget_options'], $container['admin_options'], $container['output'], $container['image']);
+            return new \WordPressPopularPosts\Widget\Widget($container['widget_options'], $container['admin_options'], $container['output'], $container['image'], $container['translate']);
         });
 
         $container['rest'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Rest\Controller($container['admin_options'], $container['translate']);
+            return new \WordPressPopularPosts\Rest\Controller($container['admin_options'], $container['translate'], $container['output']);
         });
 
         $container['front'] = $container->service(function(Container $container) {

@@ -36,8 +36,7 @@ class Translate {
      */
     public function __construct()
     {
-        $this->default_language = apply_filters('wpml_default_language', NULL);
-        $this->current_language = apply_filters('wpml_current_language', NULL);
+        //
     }
 
     /**
@@ -48,6 +47,8 @@ class Translate {
      */
     public function get_default_language()
     {
+        if ( ! $this->default_language )
+            $this->default_language = ( function_exists('pll_default_language') ) ? pll_default_language() : apply_filters('wpml_default_language', NULL);
         return $this->default_language;
     }
 
@@ -59,7 +60,20 @@ class Translate {
      */
     public function get_current_language()
     {
+        if ( ! $this->current_language )
+            $this->current_language = ( function_exists('pll_current_language') ) ? pll_current_language() : apply_filters('wpml_current_language', NULL);
         return $this->current_language;
+    }
+
+    /**
+     * Sets the code of the currently active language.
+     *
+     * @since    4.0.0
+     * @return   string|null
+     */
+    public function set_current_language($code = null)
+    {
+        $this->current_language = $code;
     }
 
     /**
@@ -79,7 +93,7 @@ class Translate {
             $object_id,
             $object_type,
             $return_original_if_missing,
-            $lang_code
+            null == $lang_code ? $this->get_current_language() : $lang_code
         );
     }
 

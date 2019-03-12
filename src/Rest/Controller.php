@@ -23,13 +23,25 @@ class Controller extends \WP_REST_Controller {
     private $translate;
 
     /**
+     * Output object.
+     *
+     * @var     \WordPressPopularPosts\Output       $output
+     * @access  private
+     */
+    private $output;
+
+    /**
      * Initialize class.
      *
+     * @param   array
+     * @param   \WordPressPopularPosts\Translate
+     * @param   \WordPressPopularPosts\Output
      */
-    public function __construct(array $config, \WordPressPopularPosts\Translate $translate)
+    public function __construct(array $config, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Output $output)
     {
         $this->config = $config;
         $this->translate = $translate;
+        $this->output = $output;
     }
 
     /**
@@ -61,6 +73,15 @@ class Controller extends \WP_REST_Controller {
                 'methods'             => \WP_REST_Server::CREATABLE,
                 'callback'            => [$this, 'update_views_count'],
                 'args'                => $this->get_tracking_params(),
+            ]
+        ]);
+
+        // Widget endpoint
+        register_rest_route($namespace, '/popular-posts/widget/(?P<id>[\d]+)', [
+            [
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => [$this, 'get_widget'],
+                'args'                => $this->get_widget_params(),
             ]
         ]);
     }
@@ -261,6 +282,101 @@ class Controller extends \WP_REST_Controller {
     }
 
     /**
+     * Retrieves a popular posts widget for display.
+     *
+     * @since 4.1.0
+     *
+     * @param \WP_REST_Request $request Full details about the request.
+     * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
+     */
+    public function get_widget($request)
+    {
+        $instance_id = $request->get_param('id');
+        $lang = $request->get_param('lang');
+        $widget = get_option('widget_wpp');
+
+        if ( $data = $this->prepare_widget_item_for_response($instance_id, $lang, $widget, $request) )
+            return new \WP_REST_Response($data, 200);
+
+        return new \WP_Error('invalid_instance', __('Invalid Widget Instance ID', 'wordpress-popular-posts'));
+    }
+
+    /**
+     * Prepares widget instance for response.
+     *
+     * @since   5.0.0
+     * @param   int
+     * @param   string
+     * @param   array
+     * @param  \WP_REST_Request
+     * @return  array|boolean
+     */
+    public function prepare_widget_item_for_response($instance_id, $lang, $widget, $request)
+    {
+        // Valid instance
+        if ( $widget && isset($widget[$instance_id]) ) {
+
+            $instance = $widget[$instance_id];
+
+            // Expose widget ID for customization
+            if ( ! isset($instance['widget_id']) )
+                $instance['widget_id'] = 'wpp-' . $instance_id;
+
+            // Multilang support
+            if ( $lang ) {
+                $current_locale = get_locale();
+                $locale = null;
+
+                // Polylang support
+                if ( function_exists('PLL') ) {
+                    $lang_object = PLL()->model->get_language($lang);
+                    $locale = ( $lang_object && isset($lang_object->locale) ) ? $lang_object->locale : null;
+                }
+
+                // Reload locale if needed
+                if ( $locale && $locale != $current_locale ) {
+                    $this->translate->set_current_language($lang);
+                    unload_textdomain('wordpress-popular-posts');
+                    load_textdomain('wordpress-popular-posts', WP_LANG_DIR . '/plugins/wordpress-popular-posts-' . $locale . '.mo');
+                }
+            }
+
+            // Return cached results
+            if ( $this->config['tools']['cache']['active'] ) {
+                $key = md5(json_encode($instance));
+                $popular_posts = \WordPressPopularPosts\Cache::get($key);
+
+                if ( false === $popular_posts ) {
+                    $popular_posts = new Query($instance);
+
+                    $time_value = $this->config['tools']['cache']['interval']['value']; // eg. 5
+                    $time_unit = $this->config['tools']['cache']['interval']['time']; // eg. 'minute'
+
+                    \WordPressPopularPosts\Cache::set(
+                        $key,
+                        $popular_posts,
+                        $time_value,
+                        $time_unit
+                    );
+                }
+            } // Get popular posts
+            else {
+                $popular_posts = new Query($instance);
+            }
+
+            $this->output->set_data($popular_posts->get_posts());
+            $this->output->set_public_options($instance);
+            $this->output->build_output();
+
+            return [
+                'widget' => ( $this->config['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $this->output->get_output()
+            ];
+        }
+
+        return false;
+    }
+
+    /**
      * Retrieves the popular post's WP_Post object and formats it for the REST response.
      *
      * @since 4.1.0
@@ -440,6 +556,24 @@ class Controller extends \WP_REST_Controller {
                 'sanitize_callback' => 'absint',
                 'validate_callback' => 'rest_validate_request_arg',
             ]
+        ];
+    }
+
+    /**
+     * Retrieves the query params for getting a widget instance.
+     *
+     * @since 4.1.0
+     *
+     * @return array Query parameters for getting a widget instance.
+     */
+    public function get_widget_params()
+    {
+        return [
+            'lang' => [
+                'type' => 'string',
+                'default' => null,
+                'sanitize_callback' => 'sanitize_text_field'
+            ],
         ];
     }
 }

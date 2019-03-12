@@ -40,15 +40,24 @@ class Widget extends \WP_Widget {
     private $output;
 
     /**
+     * Translate object.
+     *
+     * @var     \WordPressPopularPosts\Translate    $translate
+     * @access  private
+     */
+    private $translate;
+
+    /**
      * Construct.
      *
      * @since   1.0.0
-     * @param   array                           $options
-     * @param   array                           $config
-     * @param   \WordPressPopularPosts\Output   $output
-     * @param   \WordPressPopularPosts\Image    $image
+     * @param   array                            $options
+     * @param   array                            $config
+     * @param   \WordPressPopularPosts\Output    $output
+     * @param   \WordPressPopularPosts\Image     $image
+     * @param   \WordPressPopularPosts\Translate $translate
      */
-    public function __construct(array $options, array $config, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail)
+    public function __construct(array $options, array $config, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate)
     {
         // Create the widget
         parent::__construct(
@@ -64,6 +73,7 @@ class Widget extends \WP_Widget {
         $this->admin_options = $config;
         $this->output = $output;
         $this->thumbnail = $thumbnail;
+        $this->translate = $translate;
     }
 
     /**
@@ -161,8 +171,8 @@ class Widget extends \WP_Widget {
 
                     if ( 'undefined' != typeof WordPressPopularPosts ) {
                         WordPressPopularPosts.get(
-                            wpp_params.ajax_url + 'widget',
-                            'id=<?php echo $this->number; ?>',
+                            wpp_params.ajax_url + '/widget/<?php echo $this->number; ?>',
+                            '<?php echo (function_exists('PLL')) ? 'lang=' . $this->translate->get_current_language() : ''; ?>',
                             function(response){
                                 wpp_widget_container.innerHTML += JSON.parse(response).widget;
 
