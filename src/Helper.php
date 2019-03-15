@@ -42,8 +42,8 @@ class Helper {
     public static function get_date_range($start_date = null, $end_date = null, $format = 'Y-m-d')
     {
         if (
-            self::is_valid_date($start_date)
-            && self::is_valid_date($end_date)
+            self::is_valid_date($start_date, $format)
+            && self::is_valid_date($end_date, $format)
         ) {
             $dates = [];
 

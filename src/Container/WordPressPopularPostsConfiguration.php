@@ -36,12 +36,16 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
             return new \WordPressPopularPosts\Rest\Controller($container['admin_options'], $container['translate'], $container['output']);
         });
 
+        $container['admin'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Admin\Admin($container['admin_options'], $container['output'], $container['image']);
+        });
+
         $container['front'] = $container->service(function(Container $container) {
             return new \WordPressPopularPosts\Front\Front($container['admin_options'], $container['translate'], $container['output']);
         });
 
         $container['wpp'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\WordPressPopularPosts($container['rest'], $container['front'], $container['widget']);
+            return new \WordPressPopularPosts\WordPressPopularPosts($container['rest'], $container['admin'], $container['front'], $container['widget']);
         });
     }
 }
