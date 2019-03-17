@@ -77,6 +77,31 @@ class Translate {
     }
 
     /**
+     * Gets language locale.
+     *
+     * @since   5.0.0
+     * @param   string      $lang   Language code (eg. 'es')
+     * @return  string|bool
+     */
+    public function get_locale($lang = null)
+    {
+        // Polylang support
+        if ( function_exists('PLL') ) {
+            $lang_object = PLL()->model->get_language($lang);
+            if ( $lang_object && isset($lang_object->locale) )
+                return $lang_object->locale;
+        } else {
+            // WPML support
+            global $sitepress;
+            if ( is_object($sitepress) && method_exists($sitepress, 'get_locale_from_language_code') ) {
+                return $sitepress->get_locale_from_language_code($lang);
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Retrieves the ID of an object.
      *
      * @since    4.0.0

@@ -582,9 +582,16 @@ class Output {
         $date = '';
 
         if ( $this->public_options['stats_tag']['date']['active'] ) {
+            // Check locale
+            if ( $current_language_locale = $this->translate->get_locale($this->translate->get_current_language()) ) {
+                Moment\Moment::setLocale($current_language_locale);
+            }
+
+            $m = new Moment\Moment('@' . strtotime($post_object->date));
+
             $date = ( 'relative' == $this->public_options['stats_tag']['date']['format'] ) 
-                ? sprintf(__('%s ago', 'wordpress-popular-posts'), human_time_diff(strtotime($post_object->date), current_time('timestamp')))
-                : date_i18n($this->public_options['stats_tag']['date']['format'], strtotime($post_object->date));
+                ? $m->fromNow()->getRelative()
+                : $m->format($this->public_options['stats_tag']['date']['format']);
         }
 
         return $date;
