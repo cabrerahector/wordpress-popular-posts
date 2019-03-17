@@ -3,7 +3,7 @@
 namespace WordPressPopularPosts\Moment;
 
 /**
- * Moment
+ * Moment (1.29.0)
  * Wrapper for PHP's DateTime class inspired by moment.js
  *
  * @package Moment
