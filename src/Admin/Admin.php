@@ -320,7 +320,7 @@ class Admin {
             number_format_i18n($total_views)
         );
 
-        if ( current_user_can('manage_options') ) {
+        if ( current_user_can('edit_published_posts') ) {
             $glances[] = '<a class="wpp-views-count" href="' . admin_url('options-general.php?page=wordpress-popular-posts') . '">' . $pageviews . '</a>';
         }
         else {
@@ -384,7 +384,7 @@ class Admin {
         $this->screen_hook_suffix = add_options_page(
             'WordPress Popular Posts',
             'WordPress Popular Posts',
-            'manage_options',
+            'edit_published_posts',
             'wordpress-popular-posts',
             [$this, 'display_plugin_admin_page']
         );
@@ -929,7 +929,7 @@ class Admin {
                     <?php else : ?>
                     <span><?php printf(_n('1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>, <span><?php printf(_n('1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
                     <?php endif; ?>
-                    <small> &mdash; <a href="<?php echo get_permalink($post->id); ?>"><?php _e("View"); ?></a> | <a href="<?php echo get_edit_post_link($post->id); ?>"><?php _e("Edit"); ?></a></small>
+                    <small> &mdash; <a href="<?php echo get_permalink($post->id); ?>"><?php _e("View"); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo get_edit_post_link($post->id); ?>"><?php _e("Edit"); ?></a><?php endif; ?></small>
                 </p>
             </li>
             <?php
@@ -1030,7 +1030,7 @@ class Admin {
                 $key = get_option("wpp_rand");
 
                 if (
-                    current_user_can('manage_options')
+                    current_user_can('edit_published_posts')
                     && ( $token === $key )
                 ) {
                     if ( is_dir($wpp_uploads_dir['basedir']) ) {

@@ -62,7 +62,7 @@ if ( isset($_POST['section']) ) {
             }
         }
     }
-    elseif ( "data" == $_POST['section'] ) {
+    elseif ( "data" == $_POST['section'] && current_user_can('manage_options') ) {
         $current = 'tools';
 
         if ( isset($_POST['wpp-admin-token'] ) && wp_verify_nonce($_POST['wpp-admin-token'], 'wpp-update-data-options') ) {
@@ -481,11 +481,11 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
             <?php wp_nonce_field('wpp-update-thumbnail-options', 'wpp-admin-token'); ?>
         </form>
         <br />
-        <p style="display: block; float:none; clear:both;">&nbsp;</p>
+        <p style="display: <?php echo ( current_user_can('manage_options') ) ? 'block' : 'none'; ?>; float:none; clear:both;">&nbsp;</p>
 
-        <h3 class="wmpp-subtitle"><?php _e("Data", 'wordpress-popular-posts'); ?></h3>
+        <h3 class="wmpp-subtitle" style="display: <?php echo ( current_user_can('manage_options') ) ? 'block' : 'none'; ?>"><?php _e("Data", 'wordpress-popular-posts'); ?></h3>
 
-        <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
+        <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options" style="display: <?php echo ( current_user_can('manage_options') ) ? 'block' : 'none'; ?>">
             <table class="form-table">
                 <tbody>
                     <tr valign="top">
@@ -630,11 +630,13 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
         <br />
         <p style="display: block; float: none; clear: both;">&nbsp;</p>
 
-        <br /><br />
+        <div style="display: <?php echo ( current_user_can('manage_options') ) ? 'block' : 'none'; ?>">
+            <br /><br />
 
-        <p><?php _e('WordPress Popular Posts maintains data in two separate tables: one for storing the most popular entries on a daily basis (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p>
-        <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", 'wordpress-popular-posts'); ?>" onclick="confirm_reset_cache()"> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
-        <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", 'wordpress-popular-posts'); ?>" onclick="confirm_reset_all()"> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
+            <p><?php _e('WordPress Popular Posts maintains data in two separate tables: one for storing the most popular entries on a daily basis (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p>
+            <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", 'wordpress-popular-posts'); ?>" onclick="confirm_reset_cache()"> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
+            <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", 'wordpress-popular-posts'); ?>" onclick="confirm_reset_all()"> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
+        </div>
     </div>
     <!-- End tools -->
 
