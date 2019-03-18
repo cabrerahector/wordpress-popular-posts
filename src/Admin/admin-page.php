@@ -79,10 +79,7 @@ if ( isset($_POST['section']) ) {
                 || $this->config['tools']['cache']['interval']['time'] != $_POST['cache_interval_time']
                 || $this->config['tools']['cache']['interval']['value'] != $_POST['cache_interval_value']
             ) {
-                /**
-                 * @TODO
-                 */
-                //$this->flush_transients();
+                $this->flush_transients();
             }
 
             $this->config['tools']['cache']['active'] = $_POST['cache'];
