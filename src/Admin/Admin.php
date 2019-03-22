@@ -347,10 +347,12 @@ class Admin {
      */
     public function enqueue_assets()
     {
+        // Fontello icons
+        wp_enqueue_style('wpp-fontello', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/fontello.css', [], WPP_VERSION, 'all');
+
         $screen = get_current_screen();
 
         if ( isset($screen->id) && $screen->id == $this->screen_hook_suffix ) {
-            wp_enqueue_style('font-awesome', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/vendor/font-awesome.min.css', [], '4.7.0', 'all');
             wp_enqueue_style('wpp-datepicker-theme', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/datepicker.css', [], WPP_VERSION, 'all');
             wp_enqueue_style('wordpress-popular-posts-admin-styles', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/admin.css', [], WPP_VERSION, 'all');
 
