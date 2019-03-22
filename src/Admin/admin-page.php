@@ -373,33 +373,7 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
             $hof = new \WordPressPopularPosts\Query($args);
             $posts = $hof->get_posts();
 
-            if (
-                is_array($posts)
-                && ! empty($posts)
-            ) {
-            ?>
-            <ol class="popular-posts-list">
-            <?php
-                foreach ($posts as $post) { ?>
-                <li>
-                    <p>
-                        <a href="<?php echo get_permalink($post->id); ?>"><?php echo sanitize_text_field($post->title); ?></a>
-                        <br />
-                        <span><?php printf(_n('1 view', '%s views', $post->pageviews, 'wordpress-popular-posts'), number_format_i18n($post->pageviews)); ?>, <?php printf(_n('1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
-                        <small> &mdash; <a href="<?php echo get_permalink($post->id); ?>"><?php _e("View"); ?></a> | <a href="<?php echo get_edit_post_link($post->id); ?>"><?php _e("Edit"); ?></a></small>
-                    </p>
-                </li>
-                <?php
-                }
-            ?>
-            </ol>
-            <?php
-            }
-            else {
-            ?>
-            <p style="text-align: center;"><?php _e("Looks like traffic to your site is a little light right now. <br />Spread the word and come back later!", "wordpress-popular-posts"); ?></p>
-            <?php
-            }
+            $this->render_list($posts, 'hof');
             ?>
         </div>
     </div>
