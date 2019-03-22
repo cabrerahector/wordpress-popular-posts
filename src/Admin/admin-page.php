@@ -337,10 +337,10 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
 
     <div id="wpp-listing" class="wpp-content"<?php echo ('stats' == $current ) ? '' : ' style="display: none;"'; ?>>
         <ul class="wpp-tabbed-nav">
-            <li class="active"><a href="#" title="<?php esc_attr_e('Most viewed', 'wordpress-popular-posts'); ?>"><span class="fa fa-eye"></span><span><?php _e('Most viewed', 'wordpress-popular-posts'); ?></span></a></li>
-            <li><a href="#" title="<?php esc_attr_e('Most commented', 'wordpress-popular-posts'); ?>"><span class="fa fa-comment-o"></span><span><?php _e('Most commented', 'wordpress-popular-posts'); ?></span></a></li>
-            <li><a href="#" title="<?php esc_attr_e('Trending now', 'wordpress-popular-posts'); ?>"><span class="fa fa-rocket"></span><span><?php _e('Trending now', 'wordpress-popular-posts'); ?></span></a></li>
-            <li><a href="#" title="<?php esc_attr_e('Hall of Fame', 'wordpress-popular-posts'); ?>"><span class="fa fa-trophy"></span><span><?php _e('Hall of Fame', 'wordpress-popular-posts'); ?></span></a></li>
+            <li class="active"><a href="#" title="<?php esc_attr_e('Most viewed', 'wordpress-popular-posts'); ?>"><span class="wpp-icon-eye"></span><span><?php _e('Most viewed', 'wordpress-popular-posts'); ?></span></a></li>
+            <li><a href="#" title="<?php esc_attr_e('Most commented', 'wordpress-popular-posts'); ?>"><span class="wpp-icon-comment"></span><span><?php _e('Most commented', 'wordpress-popular-posts'); ?></span></a></li>
+            <li><a href="#" title="<?php esc_attr_e('Trending now', 'wordpress-popular-posts'); ?>"><span class="wpp-icon-rocket"></span><span><?php _e('Trending now', 'wordpress-popular-posts'); ?></span></a></li>
+            <li><a href="#" title="<?php esc_attr_e('Hall of Fame', 'wordpress-popular-posts'); ?>"><span class="wpp-icon-award"></span><span><?php _e('Hall of Fame', 'wordpress-popular-posts'); ?></span></a></li>
         </ul>
 
         <div class="wpp-tab-content wpp-tab-content-active">
