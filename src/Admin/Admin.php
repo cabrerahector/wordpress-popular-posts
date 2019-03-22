@@ -97,6 +97,9 @@ class Admin {
         // At-A-Glance
         add_filter('dashboard_glance_items', [$this, 'at_a_glance_stats']);
         add_action('admin_head', [$this, 'at_a_glance_stats_css']);
+        // Dashboard Trending Now widget
+        if ( current_user_can('edit_published_posts') )
+            add_action('wp_dashboard_setup', [$this, 'add_dashboard_widgets']);
         // Load WPP's admin styles and scripts
         add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
         // Add admin screen
@@ -341,38 +344,141 @@ class Admin {
     }
 
     /**
+     * Adds a widget to the dashboard.
+     *
+     * @since   5.0.0
+     */
+    public function add_dashboard_widgets()
+    {
+        wp_add_dashboard_widget(
+            'wpp_trending_dashboard_widget',
+            __('Trending now', 'wordpress-popular-posts'),
+            [$this, 'trending_dashboard_widget']
+        );
+    }
+
+    /**
+     * Outputs the contents of our Trending Dashboard Widget.
+     *
+     * @since   5.0.0
+     */
+    function trending_dashboard_widget()
+    {
+        ?>
+        <style>
+            #wpp_trending_dashboard_widget .inside {
+                overflow: hidden;
+                position: relative;
+                min-height: 150px;
+                padding-bottom: 22px;
+            }
+
+            #wpp_trending_dashboard_widget .inside::after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0.2;
+                display: block;
+                content: '';
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                background-image: url('<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/images/flame.png'; ?>');
+                background-position: right bottom;
+                background-repeat: no-repeat;
+                background-size: 34% auto;
+            }
+
+                #wpp_trending_dashboard_widget .inside .no-data {
+                    position: absolute;
+                    top: calc(50% - 11px);
+                    left: 50%;
+                    z-index: 2;
+                    margin: 0;
+                    padding: 0;
+                    width: 96%;
+                    transform: translate(-50.0001%, -50.0001%);
+                }
+
+                #wpp_trending_dashboard_widget .inside .popular-posts-list,
+                #wpp_trending_dashboard_widget .inside p#wpp_read_more {
+                    position: relative;
+                    z-index: 2;
+                }
+
+                #wpp_trending_dashboard_widget .inside .popular-posts-list {
+                    margin: 1em 0;
+                }
+
+                #wpp_trending_dashboard_widget .inside p#wpp_read_more {
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    text-align: center;
+                }
+        </style>
+        <?php
+        $args = [
+            'range' => 'custom',
+            'time_quantity' => 1,
+            'time_unit' => 'HOUR',
+            'post_type' => $this->config['stats']['post_type'],
+            'limit' => 5,
+            'stats_tag' => [
+                'views' => 1,
+                'comment_count' => 1
+            ]
+        ];
+        $options = apply_filters('wpp_trending_dashboard_widget_args', []);
+
+        if ( is_array($options) && ! empty($options) )
+            $args = Helper::merge_array_r($args, $options);
+
+        $trending = new Query($args);
+        $posts = $trending->get_posts();
+
+        $this->render_list($posts, 'trending');
+        echo '<p id="wpp_read_more"><a href="' . admin_url('options-general.php?page=wordpress-popular-posts') . '">' . __('View more', 'wordpress-popular-posts') . '</a><p>';
+
+    }
+
+    /**
      * Enqueues admin facing assets.
      *
      * @since   5.0.0
      */
     public function enqueue_assets()
     {
-        // Fontello icons
-        wp_enqueue_style('wpp-fontello', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/fontello.css', [], WPP_VERSION, 'all');
-
         $screen = get_current_screen();
 
-        if ( isset($screen->id) && $screen->id == $this->screen_hook_suffix ) {
-            wp_enqueue_style('wpp-datepicker-theme', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/datepicker.css', [], WPP_VERSION, 'all');
-            wp_enqueue_style('wordpress-popular-posts-admin-styles', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/admin.css', [], WPP_VERSION, 'all');
+        if ( isset($screen->id) ) {
+            if ( $screen->id == $this->screen_hook_suffix ) {
+                wp_enqueue_style('wpp-datepicker-theme', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/datepicker.css', [], WPP_VERSION, 'all');
 
-            wp_enqueue_media();
-            wp_enqueue_script('jquery-ui-datepicker');
-            wp_enqueue_script('chartjs', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/vendor/Chart.min.js', [], WPP_VERSION);
+                wp_enqueue_media();
+                wp_enqueue_script('jquery-ui-datepicker');
+                wp_enqueue_script('chartjs', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/vendor/Chart.min.js', [], WPP_VERSION);
 
-            //wp_enqueue_script('wpp-chart', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/chart.js', ['chartjs'], WPP_VERSION);
-            wp_register_script('wpp-chart', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/chart.js', ['chartjs'], WPP_VERSION);
-            wp_localize_script('wpp-chart', 'wpp_chart_params', [
-                'colors' => $this->get_admin_color_scheme()
-            ]);
-            wp_enqueue_script('wpp-chart');
+                wp_register_script('wpp-chart', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/chart.js', ['chartjs'], WPP_VERSION);
+                wp_localize_script('wpp-chart', 'wpp_chart_params', [
+                    'colors' => $this->get_admin_color_scheme()
+                ]);
+                wp_enqueue_script('wpp-chart');
 
-            wp_register_script('wordpress-popular-posts-admin-script', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin.js', ['jquery'], WPP_VERSION, true);
-            wp_localize_script('wordpress-popular-posts-admin-script', 'wpp_admin_params', [
-                'label_media_upload_button' => __("Use this image", "wordpress-popular-posts"),
-                'nonce' => wp_create_nonce("wpp_admin_nonce")
-            ]);
-            wp_enqueue_script('wordpress-popular-posts-admin-script');
+                wp_register_script('wordpress-popular-posts-admin-script', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin.js', ['jquery'], WPP_VERSION, true);
+                wp_localize_script('wordpress-popular-posts-admin-script', 'wpp_admin_params', [
+                    'label_media_upload_button' => __("Use this image", "wordpress-popular-posts"),
+                    'nonce' => wp_create_nonce("wpp_admin_nonce")
+                ]);
+                wp_enqueue_script('wordpress-popular-posts-admin-script');
+            }
+
+            if ( $screen->id == $this->screen_hook_suffix || 'dashboard' == $screen->id ) {
+                // Fontello icons
+                wp_enqueue_style('wpp-fontello', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/fontello.css', [], WPP_VERSION, 'all');
+                wp_enqueue_style('wordpress-popular-posts-admin-styles', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/admin.css', [], WPP_VERSION, 'all');
+            }
         }
     }
 
@@ -921,9 +1027,8 @@ class Admin {
         <?php
             foreach( $posts as $post ) { ?>
             <li>
-                <p>
-                    <a href="<?php echo get_permalink($post->id); ?>"><?php echo sanitize_text_field($post->title); ?></a>
-                    <br />
+                <a href="<?php echo get_permalink($post->id); ?>" class="wpp-title"><?php echo sanitize_text_field($post->title); ?></a>
+                <div>
                     <?php if ( 'most-viewed' == $list ) : ?>
                     <span><?php printf(_n('1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>
                     <?php elseif ( 'most-commented' == $list ) : ?>
@@ -932,7 +1037,7 @@ class Admin {
                     <span><?php printf(_n('1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>, <span><?php printf(_n('1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
                     <?php endif; ?>
                     <small> &mdash; <a href="<?php echo get_permalink($post->id); ?>"><?php _e("View"); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo get_edit_post_link($post->id); ?>"><?php _e("Edit"); ?></a><?php endif; ?></small>
-                </p>
+                </div>
             </li>
             <?php
             }
@@ -942,7 +1047,7 @@ class Admin {
         }
         else {
         ?>
-        <p style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", "wordpress-popular-posts"); ?></p>
+        <p class="no-data" style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", "wordpress-popular-posts"); ?></p>
         <?php
         }
     }

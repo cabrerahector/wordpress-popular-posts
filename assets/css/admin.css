@@ -282,65 +282,72 @@
                 margin-right: auto;
             }
 
-            .wpp-tab-content ul,
-            .wpp-tab-content ol {
+            .popular-posts-list {
                 margin: 0 0 0 0;
+                padding: 0;
+                list-style: none;
+                counter-reset: wpp-counter;
+                font-size: 1rem;
+                line-height: 1.2;
             }
 
-                .wpp-tab-content ul li,
-                .wpp-tab-content ol li {
+                .popular-posts-list li {
+                    counter-increment: wpp-counter;
                     margin: 0 1% 15px 1%;
                     padding: 0 0 10px 0;
                     border-bottom: #f0f0f0 1px solid;
                 }
 
-                .wpp-tab-content ul li:last-child,
-                .wpp-tab-content ol li:last-child {
+                .popular-posts-list li::before {
+                    display: inline-block;
+                    width: 20px;
+                    content: counter(wpp-counter) ". ";
+                }
+
+                .popular-posts-list li:last-child,
+                .popular-posts-list li:last-child {
                     margin: 0 1%;
                     border: none;
                 }
 
-                    .popular-posts-list li > p > a {
-                        font-size: 1.1em;
+                    .popular-posts-list li a.wpp-title {
+                        display: inline;
+                        font-size: 1em;
                         text-decoration: none;
                     }
 
                     .popular-posts-list li:first-child,
-                    .popular-posts-list li:first-child > p > a {
-                        font-size: 1.9em;
+                    .popular-posts-list li:first-child  a.wpp-title {
+                        font-size: 1.15em;
                     }
 
                     .popular-posts-list li:nth-child(2),
-                    .popular-posts-list li:nth-child(2) > p > a {
-                        font-size: 1.3em;
+                    .popular-posts-list li:nth-child(2) a.wpp-title {
+                        font-size: 1.05em;
                     }
 
-                    .popular-posts-list li:nth-child(3),
-                    .popular-posts-list li:nth-child(3) > p > a {
-                        font-size: 1.1em;
-                    }
-
-                    .popular-posts-list li:first-child > p > a,
-                    .popular-posts-list li:nth-child(2) > p > a,
-                    .popular-posts-list li:nth-child(3) > p > a {
+                    .popular-posts-list li:first-child a.wpp-title,
+                    .popular-posts-list li:nth-child(2) a.wpp-title,
+                    .popular-posts-list li:nth-child(3) a.wpp-title {
                         font-weight: bold;
                         letter-spacing: -1px;
                     }
 
-                    .popular-posts-list li > p > a:hover {
+                    .popular-posts-list li a.wpp-title:hover {
                         text-decoration: underline;
                     }
 
-                    .popular-posts-list li > p > span {
+                    .popular-posts-list li span {
                         color: #bbb;
                         font-size: 13px;
                     }
 
-                    .popular-posts-list li > p > small {
+                    .popular-posts-list li small {
                         display: none;
+                        font-size: 13px;
                     }
 
-                    .popular-posts-list li:hover > p > small {
+                    .popular-posts-list li:hover small {
                         display: inline;
                     }
 
