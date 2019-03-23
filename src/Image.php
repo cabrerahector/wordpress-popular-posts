@@ -403,6 +403,11 @@ class Image {
         if ( file_exists($full_image_path) )
             return $full_image_path;
 
+        $url = Helper::add_scheme(
+            $url,
+            is_ssl() ? 'https://' : 'http://'
+        );
+
         $accepted_status_codes = [200, 301, 302];
         $response = wp_remote_head($url, ['timeout' => 5, 'sslverify' => false]);
 
