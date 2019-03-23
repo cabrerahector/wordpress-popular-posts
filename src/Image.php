@@ -111,7 +111,12 @@ class Image {
             ( false === $post_object instanceof \stdClass || ! isset($post_object->id) ) 
             && ! $this->is_image_url($url) 
         ) {
-            return $this->render_image($this->default_thumbnail, $size, 'wpp-thumbnail wpp_def_no_src wpp_' . $source, $post_object);
+            return $this->render_image(
+                $this->get_default_url(($post_object instanceof \stdClass && isset($post_object->id) ? $post_object->id : null)),
+                $size,
+                'wpp-thumbnail wpp_def_no_src wpp_' . $source,
+                $post_object
+            );
         }
 
         // Get image by post ID (parent)
@@ -124,7 +129,7 @@ class Image {
             // No images found, return default thumbnail
             if ( ! $file_path ) {
                 return $this->render_image(
-                    $this->default_thumbnail,
+                    $this->get_default_url($post_object->id),
                     $size,
                     'wpp-thumbnail wpp_def_noPath wpp_' . $source,
                     $post_object
@@ -148,7 +153,7 @@ class Image {
 
                 if ( !$external_image ) {
                     return $this->render_image(
-                        $this->default_thumbnail,
+                        $this->get_default_url(($post_object instanceof \stdClass && isset($post_object->id) ? $post_object->id : null)),
                         $size,
                         'wpp-thumbnail wpp_def_noPath wpp_no_external',
                         $post_object
@@ -211,7 +216,7 @@ class Image {
 
             if ( is_wp_error($new_img) ) {
                 return $this->render_image(
-                    $this->default_thumbnail,
+                    $this->get_default_url($image_meta['parent_id']),
                     [$image_meta['width'], $image_meta['height']],
                     'wpp-thumbnail wpp_imgeditor_error wpp_' . $image_meta['source'],
                     null,
@@ -230,7 +235,7 @@ class Image {
         // ELSE
         // image file path is invalid
         return $this->render_image(
-            $this->default_thumbnail,
+            $this->get_default_url($image_meta['parent_id']),
             [$image_meta['width'], $image_meta['height']],
             'wpp-thumbnail wpp_imgeditor_error wpp_' . $image_meta['source'],
             null,
@@ -493,6 +498,25 @@ class Image {
     public function set_default($url)
     {
         $this->default_thumbnail = esc_url($url);
+    }
+
+    /**
+     * Returns the URL of the default thumbnail image.
+     *
+     * @since   5.0.0
+     * @param   int|null
+     * @return  string
+     */
+    public function get_default_url($post_ID = null)
+    {
+        if ( has_filter('wpp_default_thumbnail_url') ) {
+            $default_thumbnail_url = apply_filters('wpp_default_thumbnail_url', $this->default_thumbnail, $post_ID);
+
+            if ( $default_thumbnail_url != $this->default_thumbnail && $this->is_image_url($default_thumbnail_url) )
+                return $default_thumbnail_url;
+        }
+
+        return $this->default_thumbnail;
     }
 
     /**
