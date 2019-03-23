@@ -109,7 +109,7 @@ class Image {
 
         if (
             ( false === $post_object instanceof \stdClass || ! isset($post_object->id) ) 
-            && ! filter_var($url, FILTER_VALIDATE_URL) 
+            && ! $this->is_image_url($url) 
         ) {
             return $this->render_image($this->default_thumbnail, $size, 'wpp-thumbnail wpp_def_no_src wpp_' . $source, $post_object);
         }
@@ -133,13 +133,10 @@ class Image {
         }
         // Get image from URL
         else {
-            // sanitize URL, just in case
-            $image_url = esc_url($url);
-            // remove querystring
-            preg_match('/[^\?]+\.(jpg|JPG|jpe|JPE|jpeg|JPEG|gif|GIF|png|PNG)/', $image_url, $matches);
-            $image_url = $matches[0];
+            $matches = $this->is_image_url($url);
+            $image_url = $matches ? $matches[0] : null;
 
-            $attachment_id = $this->get_attachment_id($image_url);
+            $attachment_id = $image_url ? $this->get_attachment_id($image_url) : null;
 
             // Image is hosted locally
             if ( $attachment_id ) {
@@ -147,7 +144,7 @@ class Image {
             }
             // Image is hosted outside WordPress
             else {
-                $external_image = $this->fetch_external_image($post_object->id, $image_url);
+                $external_image = $image_url ? $this->fetch_external_image($post_object->id, $image_url) : null;
 
                 if ( !$external_image ) {
                     return $this->render_image(
@@ -496,5 +493,25 @@ class Image {
     public function set_default($url)
     {
         $this->default_thumbnail = esc_url($url);
+    }
+
+    /**
+     * Checks whether an URL points to an actual image.
+     *
+     * @since   5.0.0
+     * @param   string
+     * @return  array|bool
+     */
+    private function is_image_url($url)
+    {
+        if ( ! filter_var($url, FILTER_VALIDATE_URL) )
+            return false;
+
+        // sanitize URL, just in case
+        $image_url = esc_url($url);
+        // remove querystring
+        preg_match('/[^\?]+\.(jpg|JPG|jpe|JPE|jpeg|JPEG|gif|GIF|png|PNG)/', $image_url, $matches);
+
+        return ( is_array($matches) && ! empty($matches) ) ? $matches : false;
     }
 }
