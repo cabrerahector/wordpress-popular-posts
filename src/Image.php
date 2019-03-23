@@ -395,7 +395,7 @@ class Image {
      */
     private function fetch_external_image($id, $url)
     {
-        $full_image_path = trailingslashit($this->get_plugin_uploads_dir()) . "{$id}_" . sanitize_file_name(rawurldecode(wp_basename($url)));
+        $full_image_path = trailingslashit($this->get_plugin_uploads_dir()['basedir']) . "{$id}_" . sanitize_file_name(rawurldecode(wp_basename($url)));
 
         // if the file exists already, return URL and path
         if ( file_exists($full_image_path) )
