@@ -25,6 +25,14 @@ class WordPressPopularPosts {
     private $rest;
 
     /**
+     * Admin class.
+     * 
+     * @var     Admin\Admin $front
+     * @access  private
+     */
+    private $admin;
+
+    /**
      * Front class.
      * 
      * @var     Front\Front $front
