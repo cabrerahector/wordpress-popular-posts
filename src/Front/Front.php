@@ -380,7 +380,7 @@ class Front {
             && ! empty($header_start)
             && ! empty($header_end)
         ) {
-            $shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . apply_filters('widget_title', $header) . htmlspecialchars_decode($header_end, ENT_QUOTES);
+            $shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . $header . htmlspecialchars_decode($header_end, ENT_QUOTES);
         }
 
         $cached = false;
