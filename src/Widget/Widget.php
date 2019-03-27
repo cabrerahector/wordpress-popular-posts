@@ -154,7 +154,7 @@ class Widget extends \WP_Widget {
 
             if ( empty($before_widget) || ! preg_match('/id="[^"]*"/', $before_widget) ) {
             ?>
-            <p><?php printf(__('Error: cannot ajaxify WordPress Popular Posts on this theme. It\'s missing the <em>id</em> attribute on before_widget (see <a href="%s" target="_blank" rel="nofollow">register_sidebar</a> for more)', 'wordpress-popular-posts'), 'https://codex.wordpress.org/Function_Reference/register_sidebar'); ?>.</p>
+            <p><?php printf(__('Error: cannot ajaxify WordPress Popular Posts on this sidebar. It\'s missing the <em>id</em> attribute on before_widget (see <a href="%s" target="_blank" rel="nofollow">register_sidebar</a> for more)', 'wordpress-popular-posts'), 'https://codex.wordpress.org/Function_Reference/register_sidebar'); ?>.</p>
             <?php
             } 
             else {
