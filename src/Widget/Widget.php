@@ -133,7 +133,7 @@ class Widget extends \WP_Widget {
 
         // Has user set a title?
         if ( '' != $instance['title'] ) {
-            $title = apply_filters('widget_title', $instance['title']);
+            $title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base);
 
             if (
                 $instance['markup']['custom_html']
