@@ -16,6 +16,10 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         $container['admin_options'] = Settings::get('admin_options');
         $container['widget_options'] = Settings::get('widget_options');
 
+        $container['i18n'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\I18N();
+        });
+
         $container['translate'] = $container->service(function(Container $container) {
             return new \WordPressPopularPosts\Translate();
         });
@@ -45,7 +49,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['wpp'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\WordPressPopularPosts($container['rest'], $container['admin'], $container['front'], $container['widget']);
+            return new \WordPressPopularPosts\WordPressPopularPosts($container['i18n'], $container['rest'], $container['admin'], $container['front'], $container['widget']);
         });
     }
 }

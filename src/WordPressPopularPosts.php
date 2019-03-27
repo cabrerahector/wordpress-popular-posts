@@ -9,6 +9,14 @@ namespace WordPressPopularPosts;
 
 class WordPressPopularPosts {
     /**
+     * I18N class.
+     * 
+     * @var     I18N $i18n
+     * @access  private
+     */
+    private $i18n;
+
+    /**
      * REST controller class.
      * 
      * @var     Rest\Controller $rest
@@ -36,13 +44,15 @@ class WordPressPopularPosts {
      * Constructor.
      *
      * @since   5.0.0
+     * @param   I18N            $i18n
      * @param   Rest\Controller $rest
      * @param   Admin\Admin     $admin
      * @param   Front\Front     $front
      * @param   Widget\Widget   $widget
      */
-    public function __construct(Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget)
+    public function __construct(I18N $i18n, Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget)
     {
+        $this->i18n = $i18n;
         $this->rest = $rest;
         $this->admin = $admin;
         $this->front = $front;
@@ -56,6 +66,7 @@ class WordPressPopularPosts {
      */
     public function init()
     {
+        $this->i18n->hooks();
         $this->rest->hooks();
         $this->admin->hooks();
         $this->front->hooks();
