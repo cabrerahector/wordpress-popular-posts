@@ -52,6 +52,11 @@ if ( isset($_POST['section']) ) {
                 echo '<div id="wpp-message" class="error fade"><p>' . __('Please provide the name of your custom field.', 'wordpress-popular-posts') . '</p></div>';
             }
             else {
+                // thumbnail settings changed, flush transients
+                if ( $this->config['tools']['cache']['active'] ) {
+                    $this->flush_transients();
+                }
+
                 $this->config['tools']['thumbnail']['source'] = $_POST['thumb_source'];
                 $this->config['tools']['thumbnail']['field'] = ( ! empty($_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
                 $this->config['tools']['thumbnail']['default'] = ( ! empty($_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
