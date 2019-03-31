@@ -205,7 +205,7 @@ class Image {
                     true
                 );
 
-                if ( ! $thumb_url || ! $this->is_image_url($cf_thumb_url) ) {
+                if ( ! $thumb_url || ! $this->is_image_url($thumb_url) ) {
                     $thumb_url = null;
                 } else {
                     /**
