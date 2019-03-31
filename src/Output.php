@@ -383,101 +383,16 @@ class Output {
             $this->public_options['thumbnail']['active'] 
             && $this->thumbnail->can_create_thumbnails() 
         ) {
-            // Create / get thumbnail from custom field
-            if ( 'custom_field' == $this->admin_options['tools']['thumbnail']['source'] ) {
-                $thumb_url = get_post_meta(
-                    $post_object->id,
-                    $this->admin_options['tools']['thumbnail']['field'],
-                    true
-                );
-
-                if ( '' != $thumb_url ) {
-                    // Resize CF image
-                    if ( $this->admin_options['tools']['thumbnail']['resize'] ) {
-                        $thumbnail = $this->thumbnail->get_img(
-                            $post_object,
-                            $thumb_url,
-                            [$this->public_options['thumbnail']['width'], $this->public_options['thumbnail']['height']],
-                            $this->public_options['thumbnail']['crop'],
-                            $this->admin_options['tools']['thumbnail']['source']
-                        );
-                    } // Use original CF image
-                    else {
-                        $thumbnail = $this->thumbnail->render_image(
-                            $thumb_url,
-                            [$this->public_options['thumbnail']['width'], $this->public_options['thumbnail']['height']],
-                            'wpp-thumbnail wpp_cf',
-                            $post_object
-                        );
-                    }
-                } // Custom field is empty / not set, use default thumbnail
-                else {
-                    $thumbnail = $this->thumbnail->get_img(
-                        null,
-                        null,
-                        [$this->public_options['thumbnail']['width'], $this->public_options['thumbnail']['height']],
-                        $this->public_options['thumbnail']['crop'],
-                        $this->admin_options['tools']['thumbnail']['source']
-                    );
-                }
-            } // Create / get thumbnail from Featured Image, post images, etc.
-            else {
-                // Use stock images as defined in theme's function.php
-                if (
-                    'predefined' == $this->public_options['thumbnail']['build'] 
-                    && 'featured' == $this->admin_options['tools']['thumbnail']['source']
-                ) {
-                    if (
-                        current_theme_supports('post-thumbnails')
-                        && has_post_thumbnail($post_object->id)
-                    ) {
-                        // Find corresponding image size
-                        $size = null;
-                        $images_sizes = $this->thumbnail->get_image_sizes();
-
-                        foreach ( $images_sizes as $name => $attr ) :
-                            if (
-                                $attr['width'] == $this->public_options['thumbnail']['width'] 
-                                && $attr['height'] == $this->public_options['thumbnail']['height'] 
-                                && $attr['crop'] == $this->public_options['thumbnail']['crop']
-                            ) {
-                                $size = $name;
-                                break;
-                            }
-                        endforeach;
-
-                        // Couldn't find a matching size so let's go with width/height combo instead 
-                        // (this should never happen but better safe than sorry!)
-                        if ( null == $size ) {
-                            $size = [$this->public_options['thumbnail']['width'], $this->public_options['thumbnail']['height']];
-                        }
-
-                        $thumbnail = get_the_post_thumbnail(
-                            $post_object->id,
-                            $size,
-                            ['class' => 'wpp-thumbnail wpp_featured_stock']
-                        );
-                    } // Post doesn't have a featured image assigned
-                    else {
-                        $thumbnail = $this->thumbnail->get_img(
-                            null,
-                            null,
-                            [$this->public_options['thumbnail']['width'], $this->public_options['thumbnail']['height']],
-                            $this->public_options['thumbnail']['crop'],
-                            $this->admin_options['tools']['thumbnail']['source']
-                        );
-                    }
-                } // Build / Fetch WPP thumbnail
-                else {
-                    $thumbnail = $this->thumbnail->get_img(
-                        $post_object,
-                        null,
-                        [$this->public_options['thumbnail']['width'], $this->public_options['thumbnail']['height']],
-                        $this->public_options['thumbnail']['crop'],
-                        $this->admin_options['tools']['thumbnail']['source']
-                    );
-                }
-            }
+            $thumbnail = $this->thumbnail->get(
+                $post_object,
+                [
+                    $this->public_options['thumbnail']['width'],
+                    $this->public_options['thumbnail']['height']
+                ],
+                $this->admin_options['tools']['thumbnail']['source'],
+                $this->public_options['thumbnail']['crop'],
+                $this->public_options['thumbnail']['build']
+            );
         }
 
         return $thumbnail;

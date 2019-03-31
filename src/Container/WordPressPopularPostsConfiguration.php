@@ -25,7 +25,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['image'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Image();
+            return new \WordPressPopularPosts\Image($container['admin_options']);
         });
 
         $container['output'] = $container->service(function(Container $container) {

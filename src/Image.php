@@ -37,17 +37,35 @@ class Image {
     private $uploads_dir = [];
 
     /**
-     * Initialize WPP's uploads folder.
+     * Admin settings.
      *
-     * @since    4.0.0
-     * @access   private
+     * @since   5.0.0
+     * @var     array
      */
-    public function __construct()
+    private $admin_options = [];
+
+    /**
+     * Available image sizes.
+     *
+     * @since   5.0.0
+     * @var     array
+     */
+    private $available_sizes = [];
+
+    /**
+     * Construct.
+     *
+     * @since   4.0.0
+     * @param   array   $admin_options
+     */
+    public function __construct(array $admin_options)
     {
         // Check if WPP can create images
         $this->can_create_thumbnails = ( extension_loaded('ImageMagick') || extension_loaded('imagick') || (extension_loaded('GD') && function_exists('gd_info')) );
 
         if ( $this->can_create_thumbnails ) {
+            $this->admin_options = $admin_options;
+
             // Set default thumbnail
             $this->default_thumbnail = plugins_url() . "/wordpress-popular-posts/assets/images/no_thumb.jpg";
 
@@ -84,189 +102,334 @@ class Image {
      * @access  public
      * @return  array|bool
      */
-    public function get_plugin_uploads_dir() {
+    public function get_plugin_uploads_dir()
+    {
         if ( is_array($this->uploads_dir) && ! empty($this->uploads_dir) )
             return $this->uploads_dir;
         return false;
     }
 
     /**
-     * Retrieves / creates the post thumbnail.
+     * Returns an image.
      *
-     * @since   2.3.3
-     * @param   object   $post_object   Post object (must contain, at least, the properties id and title)
-     * @param   string   $url           Image URL
-     * @param   array    $size          Thumbnail's width and height
-     * @param   array    $crop          Image cropping
-     * @param   string   $source        Image source
+     * @since   5.0.0
+     * @param   \stdClass   $post_object    Post object
+     * @param   array       $size           Image size (width & height)
+     * @param   string      $source         Image source
+     * @param   bool        $crop           Whether to crop the image or not
+     * @param   string      $build          Whether to build the image or get an existing one
      * @return  string
      */
-    public function get_img($post_object = null, $url = null, $size = [80, 80], $crop = true, $source = "featured")
+    public function get($post_object, $size, $source, $crop = true, $build = 'manual')
     {
         // Bail, cannot create thumbnails
         if ( ! $this->can_create_thumbnails() )
             return '';
 
-        if (
-            ( false === $post_object instanceof \stdClass || ! isset($post_object->id) ) 
-            && ! $this->is_image_url($url) 
-        ) {
-            return $this->render_image(
-                $this->get_default_url(($post_object instanceof \stdClass && isset($post_object->id) ? $post_object->id : null)),
+        // Bail, $post_object is not an actual object
+        if ( false === $post_object instanceof \stdClass || ! isset($post_object->id) ) {
+            return '';
+        }
+
+        $alt = '';
+        $classes = ['wpp-thumbnail', 'wpp_' . $source];
+        $filename = $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1];
+        $cached = $this->exists($filename);
+
+        // We have a thumbnail already, return it
+        if ( $cached ) {
+            $classes[] = 'wpp_cached_thumb';
+
+            /**
+             * Filters CSS classes assigned to the thumbnail
+             *
+             * @since   5.0.0
+             * @param   array   CSS classes
+             * @param   int     The post ID
+             * @return  array   The new CSS classes
+             */
+            $classes = apply_filters(
+                'wpp_thumbnail_class_attribute',
+                $classes,
+                $post_object->id
+            );
+
+            /**
+             * Filters CSS classes assigned to the thumbnail
+             *
+             * @since   5.0.0
+             * @param   string  Original ALT attribute
+             * @param   int     The post ID
+             * @return  string  The new ALT attribute
+             */
+            $alt = apply_filters(
+                'wpp_thumbnail_alt_attribute',
+                $this->get_alt_attribute($post_object->id, $source),
+                $post_object->id
+            );
+
+            return $this->render(
+                $cached,
                 $size,
-                'wpp-thumbnail wpp_def_no_src wpp_' . $source,
-                $post_object
+                is_array($classes) ? implode(' ', $classes) : 'wpp-thumbnail wpp_' . $source,
+                is_string($alt) ? $alt : ''
             );
         }
 
-        // Get image by post ID (parent)
-        if (
-            isset($post_object->id) 
-            && ! $url 
-        ) {
-            $file_path = $this->get_image_file_paths($post_object->id, $source);
+        $thumb_url = null;
 
-            // No images found, return default thumbnail
-            if ( ! $file_path ) {
-                return $this->render_image(
-                    $this->get_default_url($post_object->id),
+        // Return image as-is, no need to create a new thumbnail
+        if (
+            ( 'custom_field' == $source && ! $this->admin_options['tools']['thumbnail']['resize'] )
+            || ( 'featured' == $source && 'predefined' == $build )
+        ){
+            /**
+             * Filters CSS classes assigned to the thumbnail
+             *
+             * @since   5.0.0
+             * @param   array   CSS classes
+             * @param   int     The post ID
+             * @return  array   The new CSS classes
+             */
+            $classes = apply_filters(
+                'wpp_thumbnail_class_attribute',
+                $classes,
+                $post_object->id
+            );
+
+            // Get custom field image URL
+            if ( 'custom_field' == $source && ! $this->admin_options['tools']['thumbnail']['resize'] ) {
+                $thumb_url = get_post_meta(
+                    $post_object->id,
+                    $this->admin_options['tools']['thumbnail']['field'],
+                    true
+                );
+
+                if ( ! $thumb_url || ! $this->is_image_url($cf_thumb_url) ) {
+                    $thumb_url = null;
+                } else {
+                    /**
+                     * Filters CSS classes assigned to the thumbnail
+                     *
+                     * @since   5.0.0
+                     * @param   string  Original ALT attribute
+                     * @param   int     The post ID
+                     * @return  string  The new ALT attribute
+                     */
+                    $alt = apply_filters(
+                        'wpp_thumbnail_alt_attribute',
+                        '',
+                        $post_object->id
+                    );
+                }
+            }
+            // Get Post Thumbnail
+            else {
+                if (
+                    current_theme_supports('post-thumbnails')
+                    && has_post_thumbnail($post_object->id)
+                ) {
+                    // Find corresponding image size
+                    $stock_size = null;
+                    $images_sizes = $this->get_sizes();
+
+                    foreach ( $images_sizes as $name => $attr ) :
+                        if (
+                            $attr['width'] == $size[0]
+                            && $attr['height'] == $size[1]
+                            && $attr['crop'] == $crop
+                        ) {
+                            $stock_size = $name;
+                            break;
+                        }
+                    endforeach;
+
+                    // Couldn't find a matching size so let's go with width/height combo instead 
+                    // (this should never happen but better safe than sorry!)
+                    if ( null == $stock_size ) {
+                        $stock_size = $size;
+                    }
+
+                    $featured_image = get_the_post_thumbnail(
+                        $post_object->id,
+                        $stock_size
+                    );
+
+                    if ( strpos($featured_image, 'class="') && is_array($classes) && ! empty($classes) )
+                        $featured_image = str_replace('class="', 'class="'. esc_attr(implode(' ', $classes)) . ' ', $featured_image);
+
+                    return $featured_image;
+                }
+            }
+        }
+        // Build a new thumbnail and return it
+        else {
+            $file_path = null;
+
+            if ( 'custom_field' == $source && $this->admin_options['tools']['thumbnail']['resize'] ) {
+                $thumb_url = get_post_meta(
+                    $post_object->id,
+                    $this->admin_options['tools']['thumbnail']['field'],
+                    true
+                );
+
+                if ( $thumb_url && $this->is_image_url($cf_thumb_url) ) {
+                    $file_path = $this->url_to_path($thumb_url, $post_object->id);
+                }
+            } else {
+                $file_meta = $this->get_file_meta($post_object->id, $source);
+
+                if ( is_array($file_meta) && isset($file_meta['path']) ) {
+                    $alt = isset($file_meta['alt']) ? $file_meta['alt'] : '';
+                    $file_path = $file_meta['path'];
+                }
+            }
+
+            if ( $file_path ) {
+                $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+                $thumb_url = $this->resize(
+                    $file_path,
+                    $filename . '.' . $extension,
                     $size,
-                    'wpp-thumbnail wpp_def_noPath wpp_' . $source,
-                    $post_object
+                    $crop
                 );
             }
         }
-        // Get image from URL
-        else {
-            $matches = $this->is_image_url($url);
-            $image_url = $matches ? $matches[0] : null;
 
-            $attachment_id = $image_url ? $this->get_attachment_id($image_url) : null;
+        if ( ! $thumb_url ) {
+            $classes[] = 'wpp_def_no_src';
+            $thumb_url = $this->get_default_url($post_object->id);
+        }
+
+        return $this->render(
+            $thumb_url,
+            $size,
+            is_array($classes) ? implode(' ', $classes) : 'wpp-thumbnail wpp_' . $source,
+            is_string($alt) ? $alt : ''
+        );
+    }
+
+    /**
+     * Checks whether a given thumbnail exists.
+     *
+     * @since   5.0.0
+     * @access  private
+     * @param   string      $filename
+     * @return  string|bool Full URL to image
+     */
+    private function exists($filename)
+    {
+        // Do we have thumbnail already?
+        $file = $this->resolve(trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $filename);
+
+        if ( $file && is_file($file) ) {
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            return trailingslashit($this->get_plugin_uploads_dir()['baseurl']) . $filename . '.' . $extension;
+        }
+
+        return false;
+    }
+
+    /**
+     * Resolves filename.
+     *
+     * @since   5.0.0
+     * @access  private
+     * @author  Ioan Chiriac
+     * @link    https://stackoverflow.com/a/29468093/9131961
+     * @param   string      $name
+     * @return  string|bool Resolved path, or false if not found
+     */
+    private function resolve($name)
+    {
+        $info = pathinfo($name);
+
+        // File already contains an extension, return it
+        if ( isset($info['extension']) && ! empty($info['extension']) ) {
+            return $name;
+        }
+
+        $filename = $info['filename'];
+        $len = strlen($filename);
+
+        // open the folder
+        $dh = opendir($info['dirname']);
+
+        if ( ! $dh ) {
+            return false;
+        }
+
+        // scan each file in the folder
+        while ( ($file = readdir($dh)) !== false ) {
+            if ( strncmp($file, $filename, $len) === 0 ) {
+                if ( strlen($name) > $len ) {
+                    // if name contains a directory part
+                    $name = substr($name, 0, strlen($name) - $len) . $file;
+                } else {
+                    // if the name is at the path root
+                    $name = $file;
+                }
+
+                closedir($dh);
+                return $name;
+            }
+        }
+
+        // file not found
+        closedir($dh);
+        return false;
+    }
+
+    /**
+     * Retrieves local path to image.
+     *
+     * @since   5.0.0
+     * @access  private
+     * @param   string          $url
+     * @param   integer         $post_ID
+     * @return  string|boolean  Path to image, or false if not found
+     */
+    private function url_to_path($url, $post_ID = null)
+    {
+        if ( $this->is_image_url($url) ) {
+            $attachment_id = $this->get_attachment_id($url);
 
             // Image is hosted locally
             if ( $attachment_id ) {
-                $file_path = get_attached_file($attachment_id);
+                return get_attached_file($attachment_id);
             }
-            // Image is hosted outside WordPress
-            else {
-                $external_image = $image_url ? $this->fetch_external_image($post_object->id, $image_url) : null;
 
-                if ( !$external_image ) {
-                    return $this->render_image(
-                        $this->get_default_url(($post_object instanceof \stdClass && isset($post_object->id) ? $post_object->id : null)),
-                        $size,
-                        'wpp-thumbnail wpp_def_noPath wpp_no_external',
-                        $post_object
-                    );
-                }
-
-                $file_path = $external_image;
-            }
+            // Image hosted elsewhere?
+            if ( $post_ID && Helper::is_number($post_ID) )
+                return $this->fetch_external_image($post_ID, $url);
         }
 
-        $extension = pathinfo($file_path, PATHINFO_EXTENSION);
-
-        $image_meta = [
-            'filename' => $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1],
-            'extension' => $extension,
-            'width' => $size[0],
-            'height' => $size[1],
-            'alt' => esc_attr(wp_strip_all_tags($post_object->title)),
-            'crop' => $crop,
-            'source' => $source,
-            'parent_id' => $post_object->id
-        ];
-
-        // there is a thumbnail already
-        if ( is_file(trailingslashit($this->uploads_dir['basedir']) . $image_meta['filename'] . '.' . $image_meta['extension']) ) {
-            return $this->render_image(
-                trailingslashit($this->uploads_dir['baseurl']) . $image_meta['filename'] . '.' . $image_meta['extension'],
-                $size,
-                'wpp-thumbnail wpp_cached_thumb wpp_' . $source,
-                $post_object
-            );
-        }
-
-        return $this->image_resize($file_path, $image_meta);
+        return false;
     }
 
     /**
-     * Resizes image.
+     * Gets image meta.
      *
-     * @since   3.0.0
-     * @access  private
-     * @param   string   $path          Image path
-     * @param   array    $image_meta    Image's metadata
-     * @return  string
-     */
-    private function image_resize($path, $image_meta)
-    {
-        $image = wp_get_image_editor($path);
-
-        // valid image, create thumbnail
-        if ( ! is_wp_error($image) ) {
-
-            $quality = apply_filters('wpp_thumbnail_compression_quality', null);
-            if ( ! ctype_digit($quality) )
-                $quality = null;
-            $image->set_quality($quality);
-
-            $image->resize($image_meta['width'], $image_meta['height'], $image_meta['crop']);
-            $new_img = $image->save(trailingslashit($this->uploads_dir['basedir']) . $image_meta['filename'] . '.' . $image_meta['extension']);
-
-            if ( is_wp_error($new_img) ) {
-                return $this->render_image(
-                    $this->get_default_url($image_meta['parent_id']),
-                    [$image_meta['width'], $image_meta['height']],
-                    'wpp-thumbnail wpp_imgeditor_error wpp_' . $image_meta['source'],
-                    null,
-                    $new_img->get_error_message()
-                );
-            }
-
-            return $this->render_image(
-                trailingslashit($this->uploads_dir['baseurl']) . $new_img['file'],
-                [$image_meta['width'], $image_meta['height']],
-                'wpp-thumbnail wpp_imgeditor_thumb wpp_' . $image_meta['source'],
-                null
-            );
-        }
-
-        // ELSE
-        // image file path is invalid
-        return $this->render_image(
-            $this->get_default_url($image_meta['parent_id']),
-            [$image_meta['width'], $image_meta['height']],
-            'wpp-thumbnail wpp_imgeditor_error wpp_' . $image_meta['source'],
-            null,
-            $image->get_error_message()
-        );
-
-    }
-
-    /**
-     * Get image absolute path / URL.
-     *
-     * @since   3.0.0
+     * @since   5.0.0
      * @access  private
      * @param   int         $id       Post ID
      * @param   string      $source   Image source
      * @return  array|bool
      */
-    private function get_image_file_paths($id, $source)
+    private function get_file_meta($id, $source)
     {
-        $file_path = '';
-
         // get thumbnail path from the Featured Image
         if ( "featured" == $source ) {
             if ( $thumbnail_id = get_post_thumbnail_id($id) ) {
                 // image path
-                return get_attached_file($thumbnail_id);
+                return [
+                    'path' => get_attached_file($thumbnail_id),
+                    'alt' => get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true)
+                ];
             }
         }
         // get thumbnail path from first image attachment
         elseif ( "first_attachment" == $source ) {
-
             $args = [
                 'numberposts' => 1,
                 'order' => 'ASC',
@@ -278,84 +441,128 @@ class Image {
 
             if ( ! empty($post_attachments) ) {
                 $first_img = array_shift($post_attachments);
-                return get_attached_file($first_img->ID);
+
+                return [
+                    'path' => get_attached_file($first_img->ID),
+                    'alt' => get_post_meta($first_img->ID, '_wp_attachment_image_alt', true)
+                ];
             }
         }
         // get thumbnail path from post content
         elseif ( "first_image" == $source ) {
-
             /** @var wpdb $wpdb */
             global $wpdb;
 
             if ( $content = $wpdb->get_var("SELECT post_content FROM {$wpdb->posts} WHERE ID = {$id};") ) {
-
                 // at least one image has been found
                 if ( preg_match('/<img[^>]+>/i', $content, $img) ) {
                     // get img src attribute from the first image found
                     preg_match('/(src)="([^"]*)"/i', $img[0], $src_attr);
 
-                    if ( isset($src_attr[2]) && !empty($src_attr[2]) ) {
+                    if ( isset($src_attr[2]) && ! empty($src_attr[2]) ) {
+                        // get img alt attribute from the first image found
+                        $alt = '';
+                        preg_match('/(alt)="([^"]*)"/i', $img[0], $alt_attr);
+
+                        if ( isset($alt_attr[2]) && !empty($alt_attr[2]) ) {
+                            $alt = $alt_attr[2];
+                        }
+
                         // image from Media Library
                         if ( $attachment_id = $this->get_attachment_id($src_attr[2]) ) {
-                            $file_path = get_attached_file($attachment_id);
-
-                            // There's a file path, so return it
-                            if ( ! empty($file_path) ) {
-                                return $file_path;
-                            }
-
+                            return [
+                                'path' => get_attached_file($attachment_id),
+                                'alt' => $alt
+                            ];
                         } // external image?
                         else {
-                            return $this->fetch_external_image($id, $src_attr[2]);
+                            return [
+                                'path' => $this->fetch_external_image($id, $src_attr[2]),
+                                'alt' => $alt
+                            ];
                         }
                     }
-
                 }
-
             }
-
         }
 
         return false;
     }
 
     /**
-     * Render image tag.
+     * Gets image ALT attribute.
      *
-     * @since   3.0.0
-     * @access  public
-     * @param   string      $src            Image URL
-     * @param   array       $dimension      Image's width and height
-     * @param   string      $class          CSS class
-     * @param   object      $post_object   Post object (must contain, at least, the properties id and title)
-     * @param   string      $error          Error, if the image could not be created
+     * @since   5.0.0
+     * @access  private
+     * @param   int         $id       Post ID
+     * @param   string      $source   Image source
      * @return  string
      */
-    public function render_image($src, $size, $class, $post_object, $error = null)
+    private function get_alt_attribute($id, $source)
     {
-        $img_tag = '';
+        $alt = '';
 
-        if ( $error ) {
-            $img_tag = '<!-- ' . $error . ' --> ';
+        // get thumbnail path from the Featured Image
+        if ( "featured" == $source ) {
+            if ( $thumbnail_id = get_post_thumbnail_id($id) ) {
+                // image path
+                $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+            }
+        }
+        // get thumbnail path from first image attachment
+        elseif ( "first_attachment" == $source ) {
+            $args = [
+                'numberposts' => 1,
+                'order' => 'ASC',
+                'post_parent' => $id,
+                'post_type' => 'attachment',
+                'post_mime_type' => 'image'
+            ];
+            $post_attachments = get_children($args);
+
+            if ( ! empty($post_attachments) ) {
+                $first_img = array_shift($post_attachments);
+                $alt = get_post_meta($first_img->ID, '_wp_attachment_image_alt', true);
+            }
+        }
+        // get thumbnail path from post content
+        elseif ( "first_image" == $source ) {
+            /** @var wpdb $wpdb */
+            global $wpdb;
+
+            if ( $content = $wpdb->get_var("SELECT post_content FROM {$wpdb->posts} WHERE ID = {$id};") ) {
+                // at least one image has been found
+                if ( preg_match('/<img[^>]+>/i', $content, $img) ) {
+                    // get img alt attribute from the first image found
+                    preg_match('/(alt)="([^"]*)"/i', $img[0], $alt_attr);
+
+                    if ( isset($alt_attr[2]) && !empty($alt_attr[2]) ) {
+                        $alt = $alt_attr[2];
+                    }
+                }
+            }
         }
 
-        $img_tag .= '<img src="' . ( is_ssl() ? str_ireplace("http://", "https://", $src) : $src ) . '" width="' . $size[0] . '" height="' . $size[1] . '" alt="' . ( ($post_object instanceof stdClass && isset($post_object->title) ? esc_attr( wp_strip_all_tags($post_object->title) ) : '' ) ) . '" class="' . $class . '" />';
-
-        return apply_filters('wpp_render_image', $img_tag);
+        return $alt;
     }
 
     /**
-    * Get the Attachment ID for a given image URL.
-    *
-    * @since    3.0.0
-    * @access   private
-    * @author   Frankie Jarrett
-    * @link     http://frankiejarrett.com/get-an-attachment-id-by-url-in-wordpress/
-    * @param    string    $url
-    * @return   int|null
-    */
+     * Get the Attachment ID for a given image URL.
+     *
+     * @since    3.0.0
+     * @access   private
+     * @author   Frankie Jarrett
+     * @link     http://frankiejarrett.com/get-an-attachment-id-by-url-in-wordpress/
+     * @param    string    $url
+     * @return   int|null
+     */
     private function get_attachment_id($url)
     {
+        $url = Helper::add_scheme(
+            $url,
+            is_ssl() ? 'https://' : 'http://'
+        );
+
         // Split the $url into two parts with the wp-content directory as the separator.
         $parse_url  = explode(parse_url(WP_CONTENT_URL, PHP_URL_PATH), $url);
 
@@ -452,6 +659,69 @@ class Image {
     }
 
     /**
+     * Resizes image.
+     *
+     * @since   3.0.0
+     * @access  private
+     * @param   string      $path           Image path
+     * @param   string      $filename       Image filename
+     * @param   array       $size           Image size
+     * @param   bool        $crop           Whether to crop the image or not
+     * @return  string|bool Image URL on success, false on error
+     */
+    private function resize($path, $filename, $size, $crop = true)
+    {
+        $image = wp_get_image_editor($path);
+
+        // valid image, create thumbnail
+        if ( ! is_wp_error($image) ) {
+            /**
+             * Hook to change the image compression quality of WPP's thumbnails.
+             * @since   4.2.1
+             */
+            $quality = apply_filters('wpp_thumbnail_compression_quality', null);
+
+            if ( ! ctype_digit($quality) )
+                $quality = null; // Fallback to core's default
+
+            $image->set_quality($quality);
+
+            $image->resize($size[0], $size[1], $crop);
+            $new_img = $image->save(trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $filename);
+
+            if ( ! is_wp_error($new_img) )
+                return trailingslashit($this->get_plugin_uploads_dir()['baseurl']) . $filename;
+        }
+
+        return false;
+    }
+
+    /**
+     * Render image tag.
+     *
+     * @since   3.0.0
+     * @access  public
+     * @param   string      $src            Image URL
+     * @param   array       $dimension      Image's width and height
+     * @param   string      $class          CSS class
+     * @param   object      $alt            Alternative text
+     * @param   string      $error          Error, if the image could not be created
+     * @return  string
+     */
+    public function render($src, $size, $class, $alt = '', $error = null)
+    {
+        $img_tag = '';
+
+        if ( $error ) {
+            $img_tag = '<!-- ' . $error . ' --> ';
+        }
+
+        $img_tag .= '<img src="' . esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src) . '" width="' . $size[0] . '" height="' . $size[1] . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '" />';
+
+        return apply_filters('wpp_render_image', $img_tag);
+    }
+
+    /**
      * Gets list of available thumbnails sizes
      *
      * @since   3.2.0
@@ -459,50 +729,39 @@ class Image {
      * @param   string  $size
      * @return  array|bool
      */
-    public function get_image_sizes($size = '')
+    public function get_sizes($size = '')
     {
+        if ( ! is_array($this->available_sizes) || empty($this->available_sizes) ) {
+            global $_wp_additional_image_sizes;
 
-        global $_wp_additional_image_sizes;
+            $this->available_sizes = [];
+            $get_intermediate_image_sizes = get_intermediate_image_sizes();
 
-        $sizes = [];
-        $get_intermediate_image_sizes = get_intermediate_image_sizes();
-
-        // Create the full array with sizes and crop info
-        foreach( $get_intermediate_image_sizes as $_size ) {
-            if ( in_array($_size, ['thumbnail', 'medium', 'large']) ) {
-                $sizes[$_size]['width'] = get_option($_size . '_size_w');
-                $sizes[$_size]['height'] = get_option($_size . '_size_h');
-                $sizes[$_size]['crop'] = (bool) get_option($_size . '_crop');
-            }
-            elseif ( isset($_wp_additional_image_sizes[$_size]) ) {
-                $sizes[$_size] = [
-                    'width' => $_wp_additional_image_sizes[$_size]['width'],
-                    'height' => $_wp_additional_image_sizes[$_size]['height'],
-                    'crop' =>  $_wp_additional_image_sizes[$_size]['crop']
-                ];
+            // Create the full array with sizes and crop info
+            foreach( $get_intermediate_image_sizes as $_size ) {
+                if ( in_array($_size, ['thumbnail', 'medium', 'large']) ) {
+                    $this->available_sizes[$_size]['width'] = get_option($_size . '_size_w');
+                    $this->available_sizes[$_size]['height'] = get_option($_size . '_size_h');
+                    $this->available_sizes[$_size]['crop'] = (bool) get_option($_size . '_crop');
+                } elseif ( isset($_wp_additional_image_sizes[$_size]) ) {
+                    $this->available_sizes[$_size] = [
+                        'width' => $_wp_additional_image_sizes[$_size]['width'],
+                        'height' => $_wp_additional_image_sizes[$_size]['height'],
+                        'crop' =>  $_wp_additional_image_sizes[$_size]['crop']
+                    ];
+                }
             }
         }
 
         // Get only 1 size if found
         if ( $size ) {
-            if ( isset($sizes[$size]) ) {
-                return $sizes[$size];
+            if ( isset($this->available_sizes[$size]) ) {
+                return $this->available_sizes[$size];
             }
             return false;
         }
 
-        return $sizes;
-    }
-
-    /**
-     * Sets default thumbnail image.
-     *
-     * @since   4.0.2
-     * @param   string  $url
-     */
-    public function set_default($url)
-    {
-        $this->default_thumbnail = esc_url($url);
+        return $this->available_sizes;
     }
 
     /**
@@ -528,6 +787,7 @@ class Image {
      * Checks whether an URL points to an actual image.
      *
      * @since   5.0.0
+     * @access  private
      * @param   string
      * @return  array|bool
      */

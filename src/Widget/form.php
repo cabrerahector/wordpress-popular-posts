@@ -108,7 +108,7 @@ if ( $taxonomies = get_taxonomies( array('public' => true), 'objects') ) {
 
     <select id="<?php echo $this->get_field_id('thumbnail-size'); ?>" name="<?php echo $this->get_field_name('thumbnail-size'); ?>" class="widefat" style="margin:5px 0;">
         <?php
-        foreach ( $this->thumbnail->get_image_sizes() as $name => $attr ) :
+        foreach ( $this->thumbnail->get_sizes() as $name => $attr ) :
             echo '<option value="' . $name . '"' . ( ($instance['thumbnail']['build'] == 'predefined' && $attr['width'] == $instance['thumbnail']['width'] && $attr['height'] == $instance['thumbnail']['height'] ) ? ' selected="selected"' : '') . '>' . $name . ' (' . $attr['width'] . ' x ' . $attr['height'] . ( $attr['crop'] ? ', hard crop' : ', soft crop') . ')</option>';
         endforeach;
         ?>

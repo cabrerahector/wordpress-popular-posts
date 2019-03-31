@@ -302,7 +302,7 @@ class Widget extends \WP_Widget {
 
             // Use predefined thumbnail sizes
             if ( 'predefined' == $new_instance['thumbnail-size-source'] ) {
-                $default_thumbnail_sizes = $this->thumbnail->get_image_sizes();
+                $default_thumbnail_sizes = $this->thumbnail->get_sizes();
                 $size = $default_thumbnail_sizes[$new_instance['thumbnail-size']];
 
                 $instance['thumbnail']['width'] = $size['width'];
