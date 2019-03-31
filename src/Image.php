@@ -273,7 +273,7 @@ class Image {
                     true
                 );
 
-                if ( $thumb_url && $this->is_image_url($cf_thumb_url) ) {
+                if ( $thumb_url && $this->is_image_url($thumb_url) ) {
                     $file_path = $this->url_to_path($thumb_url, $post_object->id);
                 }
             } else {
