@@ -103,7 +103,8 @@ class Settings {
                     'source' => 'featured',
                     'field' => '',
                     'resize' => false,
-                    'default' => ''
+                    'default' => '',
+                    'lazyload' => true
                 ],
                 'log' => [
                     'level' => 1,

@@ -185,6 +185,23 @@ class Widget extends \WP_Widget {
                                 if ( event ) {
                                     wpp_widget_container.dispatchEvent(event);
                                 }
+
+                                <?php if ( $instance['thumbnail']['active'] && $this->admin_options['tools']['thumbnail']['lazyload'] ) : ?>
+                                var wpp_widget_images = wpp_widget_container.querySelectorAll('.wpp-lazyload');
+
+                                if ( wpp_widget_images.length ) {
+                                    if ( 'IntersectionObserver' in window && WPPImageObserver instanceof IntersectionObserver ) {
+                                        wpp_widget_images.forEach(function(image) {
+                                            WPPImageObserver.observe(image);
+                                        });
+                                    } else {
+                                        wpp_widget_images.forEach(function(img) {
+                                            wpp_load_img(img);
+                                            img.classList.remove('wpp-lazyloaded');
+                                        });
+                                    }
+                                }
+                                <?php endif; ?>
                             }
                         );
                     }

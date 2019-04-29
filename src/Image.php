@@ -136,6 +136,10 @@ class Image {
         $filename = $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1];
         $cached = $this->exists($filename);
 
+        if ( $this->admin_options['tools']['thumbnail']['lazyload'] ) {
+            array_push($classes, 'wpp-lazyload');
+        }
+
         // We have a thumbnail already, return it
         if ( $cached ) {
             $classes[] = 'wpp_cached_thumb';
@@ -257,6 +261,11 @@ class Image {
 
                     if ( strpos($featured_image, 'class="') && is_array($classes) && ! empty($classes) )
                         $featured_image = str_replace('class="', 'class="'. esc_attr(implode(' ', $classes)) . ' ', $featured_image);
+
+                    if ( $this->admin_options['tools']['thumbnail']['lazyload'] ) {
+                        $featured_image = str_replace('src="', 'data-img-src="', $featured_image);
+                        $featured_image = str_replace('srcset="', 'data-img-srcset="', $featured_image);
+                    }
 
                     return $featured_image;
                 }
@@ -716,7 +725,13 @@ class Image {
             $img_tag = '<!-- ' . $error . ' --> ';
         }
 
-        $img_tag .= '<img src="' . esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src) . '" width="' . $size[0] . '" height="' . $size[1] . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '" />';
+        if ( $this->admin_options['tools']['thumbnail']['lazyload'] ) {
+            $src = 'data-img-src="' . esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src) . '"';
+        } else {
+            $src = 'src="' . esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src) . '"';
+        }
+
+        $img_tag .= '<img ' . $src . ' width="' . $size[0] . '" height="' . $size[1] . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '" />';
 
         return apply_filters('wpp_render_image', $img_tag);
     }

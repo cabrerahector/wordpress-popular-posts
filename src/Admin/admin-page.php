@@ -61,6 +61,7 @@ if ( isset($_POST['section']) ) {
                 $this->config['tools']['thumbnail']['field'] = ( ! empty($_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
                 $this->config['tools']['thumbnail']['default'] = ( ! empty($_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
                 $this->config['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
+                $this->config['tools']['thumbnail']['lazyload'] = (bool) $_POST['thumb_lazy_load'];
 
                 update_option('wpp_settings_config', $this->config );
                 echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts') . "</strong></p></div>";
@@ -414,6 +415,15 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
                             </select>
                             <br />
                             <p class="description"><?php _e("Tell WordPress Popular Posts where it should get thumbnails from", 'wordpress-popular-posts'); ?>.</p>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="thumb_lazy_load"><?php _e("Lazy load", 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#lazy-loading" target="_blank" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                        <td>
+                            <select name="thumb_lazy_load" id="thumb_lazy_load">
+                                <option <?php if ( ! $this->config['tools']['thumbnail']['lazyload'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("No", 'wordpress-popular-posts'); ?></option>
+                                <option <?php if ( $this->config['tools']['thumbnail']['lazyload'] ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Yes", 'wordpress-popular-posts'); ?></option>
+                            </select>
                         </td>
                     </tr>
                     <tr valign="top" <?php if ($this->config['tools']['thumbnail']['source'] != "custom_field") { ?>style="display: none;"<?php } ?> id="row_custom_field">

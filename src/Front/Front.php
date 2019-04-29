@@ -66,6 +66,10 @@ class Front {
         add_action('wp_ajax_update_views_ajax', [$this, 'update_views']);
         add_action('wp_ajax_nopriv_update_views_ajax', [$this, 'update_views']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+
+        if ( $this->config['tools']['thumbnail']['lazyload'] ) {
+            add_action('wp_footer', [$this, 'lazyload_images']);
+        }
     }
 
     /**
@@ -419,5 +423,63 @@ class Front {
         $shortcode_content .= $this->output->get_output();
 
         return $shortcode_content;
+    }
+
+    /**
+     * Lazy loads WPP's images.
+     *
+     * @since   5.0.0
+     */
+    public function lazyload_images()
+    {
+        ?>
+        <script>
+            var WPPImageObserver = null;
+
+            function wpp_load_img(img) {
+                if ( ! 'imgSrc' in img.dataset || ! img.dataset.imgSrc )
+                    return;
+
+                img.src = img.dataset.imgSrc;
+
+                if ( 'imgSrcset' in img.dataset ) {
+                    img.srcset = img.dataset.imgSrcset;
+                    img.removeAttribute('data-img-srcset');
+                }
+
+                img.classList.remove('wpp-lazyload');
+                img.removeAttribute('data-img-src');
+                img.classList.add('wpp-lazyloaded');
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                let wpp_images = document.querySelectorAll('img.wpp-lazyload');
+
+                if ( 'IntersectionObserver' in window ) {
+                    WPPImageObserver = new IntersectionObserver(function(entries, observer) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                let img = entry.target;
+                                wpp_load_img(img);
+                                WPPImageObserver.unobserve(img);
+                            }
+                        });
+                    });
+
+                    if ( wpp_images.length ) {
+                        wpp_images.forEach(function(image) {
+                            WPPImageObserver.observe(image);
+                        });
+                    }
+                } /** Fallback for older browsers */
+                else {
+                    wpp_images.forEach(function(img) {
+                        wpp_load_img(img);
+                        img.classList.remove('wpp-lazyloaded');
+                    });
+                }
+            });
+        </script>
+        <?php
     }
 }
