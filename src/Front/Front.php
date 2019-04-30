@@ -455,28 +455,28 @@ class Front {
             document.addEventListener('DOMContentLoaded', function() {
                 let wpp_images = document.querySelectorAll('img.wpp-lazyload');
 
-                if ( 'IntersectionObserver' in window ) {
-                    WPPImageObserver = new IntersectionObserver(function(entries, observer) {
-                        entries.forEach(function(entry) {
-                            if (entry.isIntersecting) {
-                                let img = entry.target;
-                                wpp_load_img(img);
-                                WPPImageObserver.unobserve(img);
-                            }
+                if ( wpp_images.length ) {
+                    if ( 'IntersectionObserver' in window ) {
+                        WPPImageObserver = new IntersectionObserver(function(entries, observer) {
+                            entries.forEach(function(entry) {
+                                if (entry.isIntersecting) {
+                                    let img = entry.target;
+                                    wpp_load_img(img);
+                                    WPPImageObserver.unobserve(img);
+                                }
+                            });
                         });
-                    });
 
-                    if ( wpp_images.length ) {
                         wpp_images.forEach(function(image) {
                             WPPImageObserver.observe(image);
                         });
+                    } /** Fallback for older browsers */
+                    else {
+                        wpp_images.forEach(function(img) {
+                            wpp_load_img(img);
+                            img.classList.remove('wpp-lazyloaded');
+                        });
                     }
-                } /** Fallback for older browsers */
-                else {
-                    wpp_images.forEach(function(img) {
-                        wpp_load_img(img);
-                        img.classList.remove('wpp-lazyloaded');
-                    });
                 }
             });
         </script>
