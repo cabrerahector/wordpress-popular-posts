@@ -6,10 +6,6 @@ cabrerahector.com | @cabrerahector
 Use the following classes to style your popular posts list as you like.
 */
 
-/* Styles the "Sorry, no data so far" message */
-.wpp-no-data {
-}
-
 /* UL - Popular Posts container styles */
 .wpp-list {
     margin-left: 0;
@@ -27,10 +23,6 @@ Use the following classes to style your popular posts list as you like.
     .wpp-list-with-thumbnails li {
         display: flex;
         align-items: center;
-    }
-
-    /* Styles for the popular post in view */
-    .wpp-list li.current {
     }
 
         /* Thumbnail styles */
@@ -61,36 +53,8 @@ Use the following classes to style your popular posts list as you like.
             line-height: 1.2;
         }
 
-        /* Excerpt styles */
-        .wpp-excerpt {
-        }
-
         /* Stats tag styles */
         .wpp-meta, .post-stats {
             display: block;
             font-size: 0.8em;
-        }
-
-            /* Comments count styles */
-            .wpp-comments {
-            }
-
-            /* Views count styles */
-            .wpp-views {
-            }
-
-            /* Author styles */
-            .wpp-author {
-            }
-
-            /* Post date styles */
-            .wpp-date {
-            }
-
-            /* Post category styles */
-            .wpp-category {
-            }
-
-        /* WP-PostRatings styles */
-        .wpp-rating {
         }
