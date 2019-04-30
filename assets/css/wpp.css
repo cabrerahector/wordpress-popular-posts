@@ -12,13 +12,21 @@ Use the following classes to style your popular posts list as you like.
 
 /* UL - Popular Posts container styles */
 .wpp-list {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
 }
 
     /* LI - Post container styles */
     .wpp-list li {
-        overflow: hidden;
-        float: none;
-        clear: both;
+        list-style: none;
+        margin: 0 0 1em;
+        padding: 0;
+    }
+
+    .wpp-list-with-thumbnails li {
+        display: flex;
+        align-items: center;
     }
 
     /* Styles for the popular post in view */
@@ -26,15 +34,31 @@ Use the following classes to style your popular posts list as you like.
     }
 
         /* Thumbnail styles */
-        .wpp-thumbnail {
-            display: inline;
-            float: left;
-            margin: 0 5px 0 0;
-            border: none;
+        .wpp-thumbnail-wrapper {
+            margin: 0 1em 0 0;
+            line-height: 0;
+        }
+
+            .wpp-thumbnail {
+                overflow: hidden;
+                display: inline-block;
+                margin: 0;
+                line-height: 1;
+                background: #f0f0f0;
+                border: none;
+            }
+
+        .wpp-item-data {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         /* Title styles */
         .wpp-post-title {
+            margin-bottom: 0.25em;
+            font-weight: bold;
+            line-height: 1.2;
         }
 
         /* Excerpt styles */
@@ -45,7 +69,6 @@ Use the following classes to style your popular posts list as you like.
         .wpp-meta, .post-stats {
             display: block;
             font-size: 0.8em;
-            font-weight: bold;
         }
 
             /* Comments count styles */
