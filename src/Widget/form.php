@@ -178,7 +178,7 @@ if ( $taxonomies ) {
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id('title-start'); ?>"><?php _e('Before / after title', 'wordpress-popular-posts'); ?>:</label> <br />
     <input type="text" id="<?php echo $this->get_field_id('title-start'); ?>" name="<?php echo $this->get_field_name('title-start'); ?>" value="<?php echo $instance['markup']['title-start']; ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('title-end'); ?>" name="<?php echo $this->get_field_name('title-end'); ?>" value="<?php echo $instance['markup']['title-end']; ?>" class="widefat" style="width:49%!important" /></p>
 
-    <p style="font-size:11px"><label for="<?php echo $this->get_field_id('wpp_start'); ?>"><?php _e('Before / after Popular Posts', 'wordpress-popular-posts'); ?>:</label> <br />
+    <p style="font-size:11px"><label for="<?php echo $this->get_field_id('wpp-start'); ?>"><?php _e('Before / after Popular Posts', 'wordpress-popular-posts'); ?>:</label> <br />
     <input type="text" id="<?php echo $this->get_field_id('wpp-start'); ?>" name="<?php echo $this->get_field_name('wpp-start'); ?>" value="<?php echo esc_attr($instance['markup']['wpp-start']); ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('wpp-end'); ?>" name="<?php echo $this->get_field_name('wpp-end'); ?>" value="<?php echo $instance['markup']['wpp-end']; ?>" class="widefat" style="width:49%!important" /></p>
 
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id('post-html'); ?>"><?php _e('Post HTML Markup', 'wordpress-popular-posts'); ?>:</label> <br />
