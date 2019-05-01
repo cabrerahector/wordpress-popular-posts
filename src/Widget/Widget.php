@@ -241,6 +241,10 @@ class Widget extends \WP_Widget {
      */
     public function update($new_instance, $old_instance)
     {
+        if ( empty($old_instance) ) {
+            $old_instance = $this->defaults;
+        }
+
         $instance = $old_instance;
 
         $instance['title'] = htmlspecialchars(stripslashes_deep(strip_tags($new_instance['title'])), ENT_QUOTES);
@@ -351,11 +355,11 @@ class Widget extends \WP_Widget {
 
         $instance['markup']['custom_html'] = isset($new_instance['custom_html']);
         $instance['markup']['wpp-start'] = empty($new_instance['wpp-start'])
-          ? htmlspecialchars('<ul class="wpp-list">', ENT_QUOTES)
+          ? ! $old_instance['markup']['custom_html'] && $instance['markup']['custom_html'] ? htmlspecialchars('<ul class="wpp-list">', ENT_QUOTES) : ''
           : htmlspecialchars($new_instance['wpp-start'], ENT_QUOTES);
 
         $instance['markup']['wpp-end'] = empty($new_instance['wpp-end'])
-          ? htmlspecialchars('</ul>', ENT_QUOTES)
+          ? ! $old_instance['markup']['custom_html'] && $instance['markup']['custom_html'] ? htmlspecialchars('</ul>', ENT_QUOTES) : ''
           : htmlspecialchars($new_instance['wpp-end'], ENT_QUOTES);
 
         $instance['markup']['post-html'] = empty($new_instance['post-html'])
