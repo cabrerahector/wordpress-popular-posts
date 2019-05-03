@@ -367,11 +367,11 @@ class Widget extends \WP_Widget {
           : htmlspecialchars($new_instance['post-html'], ENT_QUOTES);
 
         $instance['markup']['title-start'] = empty($new_instance['title-start'])
-          ? ''
+          ? ! $old_instance['markup']['custom_html'] && $instance['markup']['custom_html'] ? '<h2>' : ''
           : htmlspecialchars($new_instance['title-start'], ENT_QUOTES);
 
         $instance['markup']['title-end'] = empty($new_instance['title-end'])
-          ? '' :
+          ? ! $old_instance['markup']['custom_html'] && $instance['markup']['custom_html'] ? '</h2>' : '' :
           htmlspecialchars($new_instance['title-end'], ENT_QUOTES);
 
         return $instance;
