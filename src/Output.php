@@ -303,25 +303,25 @@ class Output {
             $wpp_post_class = apply_filters("wpp_post_class", $wpp_post_class, $post_id);
 
             $post_thumbnail = ( ! empty($post_thumbnail) )
-                ? "<a href=\"{$permalink}\" title=\"{$post_title_attr}\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_single == $post_id ? " rel=\"nofollow\"" : "") . " class=\"wpp-thumbnail-wrapper\">{$post_thumbnail}</a>\n"
+                ? "<a href=\"{$permalink}\" title=\"{$post_title_attr}\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_single == $post_id ? " rel=\"nofollow\"" : "") . " class=\"wpp-thumbnail-wrapper\">{$post_thumbnail}</a>"
                 : "";
 
             $post_excerpt = ( ! empty($post_excerpt) )
-                ? " <span class=\"wpp-excerpt\">{$post_excerpt}</span>\n"
+                ? " <span class=\"wpp-excerpt\">{$post_excerpt}</span>"
                 : "";
 
             $post_meta = ( ! empty($post_meta) )
-                ? " <span class=\"wpp-meta post-stats\">{$post_meta}</span>\n"
+                ? " <span class=\"wpp-meta post-stats\">{$post_meta}</span>"
                 : '';
 
             $post_rating = ( ! empty($post_rating) )
-                ? " <span class=\"wpp-rating\">{$post_rating}</span>\n"
+                ? " <span class=\"wpp-rating\">{$post_rating}</span>"
                 : "";
 
             $post =
-                "<li" . ( ( is_array($wpp_post_class) && ! empty($wpp_post_class) ) ? ' class="' . esc_attr(implode(" ", $wpp_post_class)) . '"' : '') . ">\n"
+                "<li" . ( ( is_array($wpp_post_class) && ! empty($wpp_post_class) ) ? ' class="' . esc_attr(implode(" ", $wpp_post_class)) . '"' : '') . ">"
                 . $post_thumbnail
-                . "<div class=\"wpp-item-data\"><a href=\"{$permalink}\" title=\"{$post_title_attr}\" class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_single == $post_id ? " rel=\"nofollow\"" : "") . ">{$post_title}</a>\n"
+                . "<div class=\"wpp-item-data\"><a href=\"{$permalink}\" title=\"{$post_title_attr}\" class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_single == $post_id ? " rel=\"nofollow\"" : "") . ">{$post_title}</a>"
                 . $post_excerpt
                 . $post_meta
                 . $post_rating
