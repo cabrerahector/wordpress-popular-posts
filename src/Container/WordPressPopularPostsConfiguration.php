@@ -28,12 +28,16 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
             return new \WordPressPopularPosts\Image($container['admin_options']);
         });
 
+        $container['themer'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Themer();
+        });
+
         $container['output'] = $container->service(function(Container $container) {
             return new \WordPressPopularPosts\Output($container['widget_options'], $container['admin_options'], $container['image'], $container['translate']);
         });
 
         $container['widget'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Widget\Widget($container['widget_options'], $container['admin_options'], $container['output'], $container['image'], $container['translate']);
+            return new \WordPressPopularPosts\Widget\Widget($container['widget_options'], $container['admin_options'], $container['output'], $container['image'], $container['translate'], $container['themer']);
         });
 
         $container['rest'] = $container->service(function(Container $container) {

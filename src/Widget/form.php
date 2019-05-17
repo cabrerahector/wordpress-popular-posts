@@ -184,4 +184,44 @@ if ( $taxonomies ) {
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id('post-html'); ?>"><?php _e('Post HTML Markup', 'wordpress-popular-posts'); ?>:</label> <br />
     <textarea class="widefat" rows="10" id="<?php echo $this->get_field_id('post-html'); ?>" name="<?php echo $this->get_field_name('post-html'); ?>"><?php echo $instance['markup']['post-html']; ?></textarea>
 </div>
-<br />
+
+<!-- Theme -->
+<br /><hr /><br />
+
+<?php
+global $wp_registered_sidebars;
+
+$sidebars = wp_get_sidebars_widgets();
+$current_sidebar = null;
+$before_widget = null;
+
+foreach ($sidebars as $sidebar_name => $sidebar) {
+    if (array_search ($this->id, $sidebar) !== false) {
+        $current_sidebar = $sidebar_name;
+        $before_widget = $wp_registered_sidebars[$sidebar_name]['before_widget'];
+        break;
+    }
+}
+
+$themeable = $current_sidebar && $before_widget && false !== strpos($before_widget, '%2$s');
+?>
+
+<?php if ( ! $current_sidebar ) : ?><div style="display: none;"><?php endif; ?>
+
+<legend style="display: inline;"><strong><?php _e('Theme', 'wordpress-popular-posts'); ?></strong></legend><small>(<?php printf(__('see a <a href="%s">list of supported browsers</a>'), 'https://caniuse.com/#feat=shadowdomv1'); ?>)</small><br /><br />
+
+<select id="<?php echo $this->get_field_id('theme'); ?>" name="<?php echo $this->get_field_name('theme'); ?>" class="widefat" style="margin-bottom: 5px;"<?php echo ( ! $themeable ) ? ' disabled="disabled"' : ''; ?>>
+    <option value="" <?php if ( '' == $instance['theme']['name'] || ! $themeable ) echo 'selected="selected"'; ?>><?php _e("None", 'wordpress-popular-posts'); ?></option>
+    <?php foreach ($this->themer->get_themes() as $theme => $data) : ?>
+    <option value="<?php echo esc_attr($theme); ?>" <?php if ( $theme == $instance['theme']['name'] && $themeable ) echo 'selected="selected"'; ?>><?php echo esc_html($data['json']['name']); ?></option>
+    <?php endforeach; ?>
+</select>
+<input type="hidden" id="<?php echo $this->get_field_id('theme-applied'); ?>" name="<?php echo $this->get_field_name('theme-applied'); ?>" value="<?php echo ($instance['theme']['applied'] && $themeable) ? 1 : 0; ?>" />
+
+<?php if ( ! $themeable ) : ?>
+    <p style="color: red;"><?php printf(__('This sidebar\'s configuration does not allow WordPress Popular Posts to apply themes to this widget because the <strong>before_widget</strong> parameter is either missing the <a href="%s" target="_blank" rel="nofollow">HTML class attribute</a> or it\'s not properly set up. Please ask your theme\'s developer for assistance with this issue if you wish to apply a theme to this widget.'), 'https://codex.wordpress.org/Function_Reference/register_sidebar#Parameters'); ?></p>
+<?php endif; ?>
+
+<br /><br />
+
+<?php if ( ! $current_sidebar ) : ?></div><?php endif; ?>

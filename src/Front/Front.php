@@ -67,6 +67,8 @@ class Front {
         add_action('wp_ajax_nopriv_update_views_ajax', [$this, 'update_views']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
 
+        add_action('wp_footer', [$this, 'theme_widgets']);
+
         if ( $this->config['tools']['thumbnail']['lazyload'] ) {
             add_action('wp_footer', [$this, 'lazyload_images']);
         }
@@ -426,6 +428,39 @@ class Front {
     }
 
     /**
+     * Themes widgets.
+     *
+     * @since   5.0.0
+     */
+    public function theme_widgets()
+    {
+        ?>
+        <script type="text/javascript">
+            (function(){
+                document.addEventListener('DOMContentLoaded', function(){
+                    let wpp_widgets = document.querySelectorAll('.popular-posts-sr');
+
+                    if ( wpp_widgets ) {
+                        let supportsShadowDOMV1 = !! HTMLElement.prototype.attachShadow;
+
+                        if ( supportsShadowDOMV1 ) {
+                            for (let i = 0; i < wpp_widgets.length; i++) {
+                                let wpp_widget = wpp_widgets[i],
+                                    wpp_widget_sr = wpp_widget.attachShadow({mode: "open"});
+
+                                while(wpp_widget.firstElementChild) {
+                                    wpp_widget_sr.append(wpp_widget.firstElementChild);
+                                }
+                            }
+                        }
+                    }
+                });
+            })();
+        </script>
+        <?php
+    }
+
+    /**
      * Lazy loads WPP's images.
      *
      * @since   5.0.0
@@ -453,9 +488,10 @@ class Front {
             }
 
             document.addEventListener('DOMContentLoaded', function() {
-                let wpp_images = document.querySelectorAll('img.wpp-lazyload');
+                let wpp_images = document.querySelectorAll('img.wpp-lazyload'),
+                    wpp_widgets = document.querySelectorAll('.popular-posts-sr');
 
-                if ( wpp_images.length ) {
+                if ( wpp_images.length || wpp_widgets.length ) {
                     if ( 'IntersectionObserver' in window ) {
                         WPPImageObserver = new IntersectionObserver(function(entries, observer) {
                             entries.forEach(function(entry) {
@@ -467,15 +503,46 @@ class Front {
                             });
                         });
 
-                        wpp_images.forEach(function(image) {
-                            WPPImageObserver.observe(image);
-                        });
+                        if ( wpp_images.length ) {
+                            wpp_images.forEach(function(image) {
+                                WPPImageObserver.observe(image);
+                            });
+                        }
+
+                        if ( wpp_widgets.length ) {
+                            for (let i = 0; i < wpp_widgets.length; i++) {
+                                let wpp_widget = wpp_widgets[i],
+                                    wpp_widget_images = wpp_widget.shadowRoot.querySelectorAll('img.wpp-lazyload');
+
+                                    if ( wpp_widget_images.length ) {
+                                        wpp_widget_images.forEach(function(image) {
+                                            WPPImageObserver.observe(image);
+                                        });
+                                    }
+                            }
+                        }
                     } /** Fallback for older browsers */
                     else {
-                        wpp_images.forEach(function(img) {
-                            wpp_load_img(img);
-                            img.classList.remove('wpp-lazyloaded');
-                        });
+                        if ( wpp_images.length ) {
+                            wpp_images.forEach(function(img) {
+                                wpp_load_img(img);
+                                img.classList.remove('wpp-lazyloaded');
+                            });
+                        }
+
+                        if ( wpp_widgets.length ) {
+                            for (let i = 0; i < wpp_widgets.length; i++) {
+                                let wpp_widget = wpp_widgets[i],
+                                    wpp_widget_images = wpp_widget.shadowRoot.querySelectorAll('img.wpp-lazyload');
+
+                                if ( wpp_widget_images.length ) {
+                                    wpp_widget_images.forEach(function(img) {
+                                        wpp_load_img(img);
+                                        img.classList.remove('wpp-lazyloaded');
+                                    });
+                                }
+                            }
+                        }
                     }
                 }
             });

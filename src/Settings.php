@@ -81,6 +81,10 @@ class Settings {
                 'wpp-start' => '<ul class="wpp-list">',
                 'wpp-end' => '</ul>',
                 'post-html' => '<li>{thumb} <div class="wpp-item-data">{title} <span class="wpp-meta post-stats">{stats}</span></div></li>'
+            ],
+            'theme' => [
+                'name' => '',
+                'applied' => false
             ]
         ],
         'admin_options' => [

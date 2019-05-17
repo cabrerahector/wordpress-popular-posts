@@ -1,0 +1,52 @@
+{
+    "name": "Cardview",
+    "description": "A cardview-style popular posts list.",
+    "authors": [
+        {
+            "name": "Hector Cabrera",
+            "email": "me@cabrerahector.com",
+            "role": "Creator / Main Developer"
+        }
+    ],
+    "config": {
+        "shorten_title": {
+            "active": false,
+            "length": 25,
+            "words": false
+        },
+        "post-excerpt": {
+            "active": true,
+            "length": 75,
+            "keep_format": false,
+            "words": false
+        },
+        "thumbnail": {
+            "active": true,
+            "build": "manual",
+            "width": 320,
+            "height": 165,
+            "crop": true
+        },
+        "rating": false,
+        "stats_tag": {
+            "comment_count": false,
+            "views": false,
+            "author": false,
+            "date": {
+                "active": false,
+                "format": "F j, Y"
+            },
+            "taxonomy": {
+                "active": true,
+                "name": "category"
+            }
+        },
+        "markup": {
+            "title-start": "<h2>",
+            "title-end": "</h2>",
+            "wpp-start": "<ul class=\"wpp-list\">",
+            "wpp-end": "</ul>",
+            "post-html": "<li><div class=\"wpp-thumbnail-container\">{thumb} {taxonomy}</div> <div class=\"wpp-item-data\">{title} <p class=\"wpp-excerpt\">{excerpt}</p></div></li>"
+        }
+    }
+}

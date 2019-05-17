@@ -48,6 +48,14 @@ class Widget extends \WP_Widget {
     private $translate;
 
     /**
+     * Themer object.
+     *
+     * @var     \WordPressPopularPosts\Themer       $themer
+     * @access  private
+     */
+    private $themer;
+
+    /**
      * Construct.
      *
      * @since   1.0.0
@@ -56,8 +64,9 @@ class Widget extends \WP_Widget {
      * @param   \WordPressPopularPosts\Output    $output
      * @param   \WordPressPopularPosts\Image     $image
      * @param   \WordPressPopularPosts\Translate $translate
+     * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $options, array $config, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate)
+    public function __construct(array $options, array $config, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Themer $themer)
     {
         // Create the widget
         parent::__construct(
@@ -74,6 +83,7 @@ class Widget extends \WP_Widget {
         $this->output = $output;
         $this->thumbnail = $thumbnail;
         $this->translate = $translate;
+        $this->themer = $themer;
     }
 
     /**
@@ -129,6 +139,10 @@ class Widget extends \WP_Widget {
               ? 'custom'
               : 'regular';
 
+        if ( $instance['theme']['name'] && false !== strpos($before_widget, 'class') ) {
+            $before_widget = str_replace('class="', 'class="popular-posts-sr ', $before_widget);
+        }
+
         echo "\n" . $before_widget . "\n";
 
         // Has user set a title?
@@ -149,6 +163,11 @@ class Widget extends \WP_Widget {
         // Expose Widget ID for customization
         $instance['widget_id'] = $widget_id;
 
+        if ( $instance['theme']['name'] && false !== strpos($before_widget, 'class="popular-posts-sr') ) :
+            $theme_stylesheet = $this->themer->get_theme($instance['theme']['name'])['path'] . '/style.css';
+            echo '<style>' . file_get_contents($theme_stylesheet) . '</style>';
+        endif;
+
         // Get posts
         if ( $this->admin_options['tools']['ajax'] && ! is_customize_preview() ) {
 
@@ -168,6 +187,19 @@ class Widget extends \WP_Widget {
                             wpp_params.ajax_url + '/widget/<?php echo $this->number; ?>',
                             '<?php echo (function_exists('PLL')) ? 'lang=' . $this->translate->get_current_language() : ''; ?>',
                             function(response){
+                                <?php if ( $instance['theme']['name'] ) : ?>
+                                var sr_timer;
+
+                                sr_timer = setInterval(function(){
+                                    if (wpp_widget_container.shadowRoot) {
+                                        while(wpp_widget_container.firstElementChild) {
+                                            wpp_widget_container.shadowRoot.append(wpp_widget_container.firstElementChild);
+                                        }
+                                        clearInterval(sr_timer);
+                                    }
+                                }, 75);
+                                <?php endif; ?>
+
                                 wpp_widget_container.innerHTML += JSON.parse(response).widget;
 
                                 var event = null;
@@ -243,6 +275,11 @@ class Widget extends \WP_Widget {
     {
         if ( empty($old_instance) ) {
             $old_instance = $this->defaults;
+        } else {
+            $old_instance = Helper::merge_array_r(
+                $this->defaults,
+                (array) $old_instance
+            );
         }
 
         $instance = $old_instance;
@@ -373,6 +410,32 @@ class Widget extends \WP_Widget {
         $instance['markup']['title-end'] = empty($new_instance['title-end'])
           ? ! $old_instance['markup']['custom_html'] && $instance['markup']['custom_html'] ? '</h2>' : '' :
           htmlspecialchars($new_instance['title-end'], ENT_QUOTES);
+
+        $instance['theme'] = [
+            'name' => isset($new_instance['theme']) ? $new_instance['theme'] : '',
+            'applied' => isset($new_instance['theme']) ? (bool) $new_instance['theme-applied'] : false
+        ];
+
+        if ( $old_instance['theme']['name'] != $new_instance ) {
+            $instance['theme']['applied'] = false;
+        }
+
+        $theme = $instance['theme']['name'] ? $this->themer->get_theme($instance['theme']['name']) : null;
+
+        if (
+            is_array($theme)
+            && isset($theme['json'])
+            && isset($theme['json']['config'])
+            && is_array($theme['json']['config'])
+            && ! $instance['theme']['applied']
+        ) {
+            $instance = Helper::merge_array_r(
+                $instance,
+                $theme['json']['config']
+            );
+            $instance['markup']['custom_html'] = true;
+            $instance['theme']['applied'] = true;
+        }
 
         return $instance;
     }
