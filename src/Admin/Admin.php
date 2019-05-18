@@ -118,8 +118,9 @@ class Admin {
         add_action('wp_ajax_wpp_clear_data', [$this, 'clear_data']);
         // Empty plugin's images cache
         add_action('wp_ajax_wpp_clear_thumbnail', [$this, 'clear_thumbnails']);
-        // Flush cached thumbnail on featured image change
-        add_action('update_postmeta', [$this, 'flush_post_thumbnail'], 10, 4 );
+        // Flush cached thumbnail on featured image change/deletion
+        add_action('updated_post_meta', [$this, 'updated_post_meta'], 10, 4);
+        add_action('deleted_post_meta', [$this, 'deleted_post_meta'], 10, 4);
         // Purge post data on post/page deletion
         add_action('admin_init', [$this, 'purge_post_data']);
         // Purge old data on demand
@@ -1168,32 +1169,57 @@ class Admin {
     }
 
     /**
-     * Flushes post's cached thumbnail(s) when the image is changed.
+     * Fires immediately after deleting metadata of a post.
+     *
+     * @since 5.0.0
+     *
+     * @param int    $meta_id    Metadata ID.
+     * @param int    $post_id    Post ID.
+     * @param string $meta_key   Meta key.
+     * @param mixed  $meta_value Meta value.
+     */
+    public function updated_post_meta($meta_id, $post_id, $meta_key, $meta_value)
+    {
+        if ( '_thumbnail_id' == $meta_key ) {
+            $this->flush_post_thumbnail($post_id);
+        }
+    }
+
+    /**
+     * Fires immediately after deleting metadata of a post.
+     *
+     * @since 5.0.0
+     *
+     * @param array  $meta_ids   An array of deleted metadata entry IDs.
+     * @param int    $post_id    Post ID.
+     * @param string $meta_key   Meta key.
+     * @param mixed  $meta_value Meta value.
+     */
+    public function deleted_post_meta($meta_ids, $post_id, $meta_key, $meta_value)
+    {
+        if ( '_thumbnail_id' == $meta_key ) {
+            $this->flush_post_thumbnail($post_id);
+        }
+    }
+
+    /**
+     * Flushes post's cached thumbnail(s) when the featured image is changed/deleted.
      *
      * @since    3.3.4
      *
-     * @param    integer    $meta_id       ID of the meta data field
-     * @param    integer    $object_id     Object ID
-     * @param    string     $meta_key      Name of meta field
-     * @param    string     $meta_value    Value of meta field
+     * @param    integer    $post_id     Post ID
      */
-    public function flush_post_thumbnail($meta_id, $object_id, $meta_key, $meta_value)
+    public function flush_post_thumbnail($post_id)
     {
-        // User changed the featured image
-        if (
-            '_thumbnail_id' == $meta_key
-            && $this->thumbnail->can_create_thumbnails()
-        ) {
-            $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
+        $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
 
-            if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
-                $files = glob("{$wpp_uploads_dir['basedir']}/{$object_id}-featured-*.*"); // get all related images
+        if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
+            $files = glob("{$wpp_uploads_dir['basedir']}/{$post_id}-featured-*.*"); // get all related images
 
-                if ( is_array($files) && ! empty($files) ) {
-                    foreach( $files as $file ){ // iterate files
-                        if ( is_file($file) ) {
-                            @unlink($file); // delete file
-                        }
+            if ( is_array($files) && ! empty($files) ) {
+                foreach( $files as $file ){ // iterate files
+                    if ( is_file($file) ) {
+                        @unlink($file); // delete file
                     }
                 }
             }
