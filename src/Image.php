@@ -69,6 +69,9 @@ class Image {
             // Set default thumbnail
             $this->default_thumbnail = plugins_url() . "/wordpress-popular-posts/assets/images/no_thumb.jpg";
 
+            if ( $this->is_image_url($this->admin_options['tools']['thumbnail']['default']) )
+                $this->default_thumbnail = $this->admin_options['tools']['thumbnail']['default'];
+
             // Set uploads folder
             $wp_upload_dir = wp_get_upload_dir();
             $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts';
