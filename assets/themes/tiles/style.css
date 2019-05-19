@@ -1,0 +1,63 @@
+.wpp-list {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+    .wpp-list li {
+        position: relative;
+        list-style: none;
+        margin: 0 0 1.2rem 0;
+        padding: 0;
+    }
+
+    .wpp-list li:last-of-type {
+        margin: 0;
+    }
+
+        .wpp-list li .wpp-thumbnail {
+            overflow: hidden;
+            display: block;
+            margin: 0;
+            width: 100%;
+            height: auto;
+            font-size: 0.8rem;
+            line-height: 1;
+            background: #f0f0f0;
+            border: none;
+        }
+
+        .wpp-list li a,
+        .wpp-list li a:hover {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+        .wpp-list li .wpp-post-data {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            padding: .75rem 1rem 1rem;
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+            .wpp-list li .wpp-post-data .category,
+            .wpp-list li .wpp-post-data .wpp-post-title {
+                color: #fff;
+                font-weight: bold;
+            }
+
+            .wpp-list li .wpp-post-data .category {
+                margin: 0;
+                font-size: 0.7rem;
+                line-height: 1;
+            }
+
+            .wpp-list li .wpp-post-data .wpp-post-title {
+                display: block;
+                margin: 0 0 0;
+                font-size: 1rem;
+                line-height: 1.2;
+            }
