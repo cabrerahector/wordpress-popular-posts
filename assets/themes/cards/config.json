@@ -46,7 +46,7 @@
             "title-end": "</h2>",
             "wpp-start": "<ul class=\"wpp-list\">",
             "wpp-end": "</ul>",
-            "post-html": "<li>{thumb} <div class=\"wpp-item-data\">{taxonomy} {title} <p class=\"wpp-excerpt\">{excerpt}</p></div></li>"
+            "post-html": "<li>{thumb_img} <div class=\"wpp-item-data\">{taxonomy} {title} <p class=\"wpp-excerpt\">{excerpt}</p></div></li>"
         }
     }
 }
