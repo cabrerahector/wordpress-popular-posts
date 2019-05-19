@@ -416,7 +416,7 @@ class Widget extends \WP_Widget {
             'applied' => isset($new_instance['theme']) ? (bool) $new_instance['theme-applied'] : false
         ];
 
-        if ( $old_instance['theme']['name'] != $new_instance['theme'] ) {
+        if ( ! isset($new_instance['theme']) || $old_instance['theme']['name'] != $new_instance['theme'] ) {
             $instance['theme']['applied'] = false;
         }
 
