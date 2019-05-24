@@ -651,7 +651,7 @@ class Output {
             $comments = $this->get_comments($post_object);
 
             $comments_text = sprintf(
-                _n('1 comment', '%s comments', $comments, 'wordpress-popular-posts'),
+                _n('%s comment', '%s comments', $comments, 'wordpress-popular-posts'),
                 number_format_i18n($comments)
             );
         }
@@ -662,13 +662,13 @@ class Output {
 
             if ( $this->public_options['order_by'] == 'avg' ) {
                 $views_text = sprintf(
-                    _n('1 view per day', '%s views per day', $pageviews, 'wordpress-popular-posts'),
+                    _n('%s view per day', '%s views per day', $pageviews, 'wordpress-popular-posts'),
                     number_format_i18n($pageviews, (fmod($pageviews, 1) !== 0.0 ? 2 : 0))
                 );
             }
             else {
                 $views_text = sprintf(
-                    _n('1 view', '%s views', $pageviews, 'wordpress-popular-posts'),
+                    _n('%s view', '%s views', $pageviews, 'wordpress-popular-posts'),
                     number_format_i18n($pageviews)
                 );
             }
