@@ -1,0 +1,49 @@
+.wpp-list {
+    counter-reset: wpp-counter;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+    border-right: 6px solid rgb(0, 51, 51);
+    box-sizing: border-box;
+}
+
+    .wpp-list li {
+        position: relative;
+        display: flex;
+        align-items: center;
+        counter-increment: wpp-counter;
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 15px 15px 15px 0;
+        background: rgba(0, 51, 51, calc((((var(--total-items) - (var(--item-position) - 1)) * 100)/var(--total-items))/100));
+        box-sizing: border-box;
+    }
+
+        .wpp-list li .item-position::before {
+            display: inline-block;
+            flex: 1 0 0;
+            content: counter(wpp-counter);
+            color: rgba(255, 255, 255, 0.3);
+            width: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+            .wpp-list li .item-data .wpp-post-title {
+                display: block;
+                font-size: 15px;
+                font-weight: 700;
+                line-height: 1.3;
+            }
+
+            .wpp-list li .item-data a {
+                color: #eee;
+                text-decoration: none;
+            }
+
+            .wpp-list li .item-data  a:hover {
+                text-decoration: underline;
+            }

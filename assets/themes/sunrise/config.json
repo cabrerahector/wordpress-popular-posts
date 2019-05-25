@@ -1,0 +1,52 @@
+{
+    "name": "Sunrise",
+    "description": "A simple list of popular posts.",
+    "authors": [
+        {
+            "name": "Hector Cabrera",
+            "email": "me@cabrerahector.com",
+            "role": "Creator / Main Developer"
+        }
+    ],
+    "config": {
+        "shorten_title": {
+            "active": false,
+            "length": 25,
+            "words": false
+        },
+        "post-excerpt": {
+            "active": false,
+            "length": 75,
+            "keep_format": false,
+            "words": false
+        },
+        "thumbnail": {
+            "active": false,
+            "build": "manual",
+            "width": 75,
+            "height": 75,
+            "crop": true
+        },
+        "rating": false,
+        "stats_tag": {
+            "comment_count": false,
+            "views": false,
+            "author": false,
+            "date": {
+                "active": false,
+                "format": "F j, Y"
+            },
+            "taxonomy": {
+                "active": false,
+                "name": "category"
+            }
+        },
+        "markup": {
+            "title-start": "<h2>",
+            "title-end": "</h2>",
+            "wpp-start": "<ul class=\"wpp-list\">",
+            "wpp-end": "</ul>",
+            "post-html": "<li style=\"--item-position: {item_position}; --total-items: {total_items};\"><div class=\"item-position\"></div> <div class=\"item-data\">{title}</div></li>"
+        }
+    }
+}
