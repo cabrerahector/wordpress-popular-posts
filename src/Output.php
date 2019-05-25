@@ -177,9 +177,12 @@ class Output {
 
             }
 
+            $position = 0;
+
             // Format each post
             foreach( $this->data as $post_object ) {
-                $this->output .= $this->render_post($post_object);
+                $position++;
+                $this->output .= $this->render_post($post_object, $position);
             }
 
             /* Close HTML wrapper */
@@ -210,9 +213,10 @@ class Output {
      * @since   4.0.0
      * @access  private
      * @param   object   $post_object
+     * @param   integer  $position
      * @return  string
      */
-    private function render_post(\stdClass $post_object)
+    private function render_post(\stdClass $post_object, $position = 1)
     {
         $post = '';
         $post_id = $post_object->id;
@@ -286,7 +290,9 @@ class Output {
                 'author' => ( ! empty($post_author) ) ? '<a href="' . get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid ) . '">' . $post_author . '</a>' : '',
                 'views' => ( $this->public_options['order_by'] == "views" || $this->public_options['order_by'] == "comments" ) ? number_format_i18n($post_views) : number_format_i18n($post_views, 2),
                 'comments' => number_format_i18n($post_comments),
-                'date' => $post_date
+                'date' => $post_date,
+                'total_items' => count($this->data),
+                'item_position' => $position
             ];
             $post = $this->format_content(htmlspecialchars_decode($this->public_options['markup']['post-html'], ENT_QUOTES), $data, $this->public_options['rating']). "\n";
         } // Use the "stock" HTML output
@@ -728,7 +734,7 @@ class Output {
             return false;
 
         $params = [];
-        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|taxonomy|category|views|comments|date)\}/i';
+        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|taxonomy|category|views|comments|date|total_items|item_position)\}/i';
         preg_match_all($pattern, $string, $matches);
 
         array_map('strtolower', $matches[0]);
@@ -813,6 +819,14 @@ class Output {
 
         if ( in_array("{date}", $matches[0]) ) {
             $string = str_replace("{date}", $data['date'], $string);
+        }
+
+        if ( in_array("{total_items}", $matches[0]) ) {
+            $string = str_replace("{total_items}", $data['total_items'], $string);
+        }
+
+        if ( in_array("{item_position}", $matches[0]) ) {
+            $string = str_replace("{item_position}", $data['item_position'], $string);
         }
 
         return apply_filters("wpp_parse_custom_content_tags", $string, $data['id']);
