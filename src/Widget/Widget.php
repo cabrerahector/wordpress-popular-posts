@@ -165,7 +165,7 @@ class Widget extends \WP_Widget {
 
         if ( $instance['theme']['name'] && false !== strpos($before_widget, 'class="popular-posts-sr') ) :
             $theme_stylesheet = $this->themer->get_theme($instance['theme']['name'])['path'] . '/style.css';
-            echo '<style>' . wp_strip_all_tags(file_get_contents($theme_stylesheet), ["\'", '\"']) . '</style>';
+            echo '<style>' . wp_strip_all_tags(file_get_contents($theme_stylesheet), true) . '</style>';
         endif;
 
         // Get posts
