@@ -165,7 +165,17 @@ class Widget extends \WP_Widget {
 
         if ( $instance['theme']['name'] && false !== strpos($before_widget, 'class="popular-posts-sr') ) :
             $theme_stylesheet = $this->themer->get_theme($instance['theme']['name'])['path'] . '/style.css';
-            echo '<style>' . wp_strip_all_tags(file_get_contents($theme_stylesheet), true) . '</style>';
+            $theme_css_rules = wp_strip_all_tags(file_get_contents($theme_stylesheet), true);
+            $additional_styles = '';
+
+            if ( has_filter('wpp_additional_theme_styles') ) {
+                $additional_styles = wp_strip_all_tags(apply_filters('wpp_additional_theme_styles', '', $instance['theme']['name']), true);
+
+                if ( $additional_styles )
+                    $additional_styles = ' /* additional rules */ ' . $additional_styles;
+            }
+
+            echo '<style>' . $theme_css_rules . $additional_styles . '</style>';
         endif;
 
         // Get posts
