@@ -52,6 +52,7 @@ class Themer {
             if (
                 $fileinfo->isDir()
                 && ! $fileinfo->isDot()
+                && $fileinfo->isReadable()
                 && file_exists($fileinfo->getPathName() . '/config.json')
                 && file_exists($fileinfo->getPathName() . '/style.css')
             ) {
