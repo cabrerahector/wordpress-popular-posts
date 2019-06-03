@@ -210,9 +210,14 @@ $themeable = $current_sidebar && $before_widget && false !== strpos($before_widg
 
 <legend style="display: inline;"><strong><?php _e('Theme', 'wordpress-popular-posts'); ?></strong></legend><small>(<?php printf(__('see a <a href="%s">list of supported browsers</a>'), 'https://caniuse.com/#feat=shadowdomv1'); ?>)</small><br /><br />
 
+<?php
+$registered_themes = $this->themer->get_themes();
+ksort($registered_themes);
+?>
+
 <select id="<?php echo $this->get_field_id('theme'); ?>" name="<?php echo $this->get_field_name('theme'); ?>" class="widefat" style="margin-bottom: 5px;"<?php echo ( ! $themeable ) ? ' disabled="disabled"' : ''; ?>>
     <option value="" <?php if ( '' == $instance['theme']['name'] || ! $themeable ) echo 'selected="selected"'; ?>><?php _e("None", 'wordpress-popular-posts'); ?></option>
-    <?php foreach ($this->themer->get_themes() as $theme => $data) : ?>
+    <?php foreach ($registered_themes as $theme => $data) : ?>
     <option value="<?php echo esc_attr($theme); ?>" <?php if ( $theme == $instance['theme']['name'] && $themeable ) echo 'selected="selected"'; ?>><?php echo esc_html($data['json']['name']); ?></option>
     <?php endforeach; ?>
 </select>
