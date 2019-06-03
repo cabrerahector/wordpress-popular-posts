@@ -36,7 +36,17 @@ class Themer {
         $this->themes = [];
         $this->path = plugin_dir_path(dirname(__FILE__)) . 'assets/themes';
 
-        $this->read();
+        $this->hooks();
+    }
+
+    /**
+     * Themer's hooks.
+     *
+     * @since   5.0.0
+     */
+    public function hooks()
+    {
+        add_action('after_setup_theme', [$this, 'read']);
     }
 
     /**
@@ -49,22 +59,49 @@ class Themer {
         $directories = new \DirectoryIterator($this->path);
 
         foreach( $directories as $fileinfo ) {
-            if (
-                $fileinfo->isDir()
-                && ! $fileinfo->isDot()
-                && $fileinfo->isReadable()
-                && file_exists($fileinfo->getPathName() . '/config.json')
-                && file_exists($fileinfo->getPathName() . '/style.css')
-            ) {
-                $str = file_get_contents($fileinfo->getPathName() . '/config.json');
-                $json = json_decode($str, true);
+            $this->load_theme($fileinfo->getPathName());
+        }
 
-                if ( $this->is_valid_config($json) ) {
-                    $this->themes[$fileinfo->getFilename()] = [
-                        'json' => $json,
-                        'path' => $fileinfo->getPathName()
-                    ];
+        if ( has_filter('wpp_additional_themes') ) {
+            $additional_themes = apply_filters('wpp_additional_themes', []);
+
+            if ( is_array($additional_themes) && ! empty($additional_themes) ) {
+                foreach( $additional_themes as $additional_theme ) {
+                    $this->load_theme($additional_theme);
                 }
+            }
+        }
+    }
+
+    /**
+     * Reads and loads theme into the class.
+     *
+     * @since   5.0.0
+     * @param   string  $path   Path to theme folder
+     */
+    private function load_theme($path)
+    {
+        $theme_folder = is_string($path) && is_dir($path) && is_readable($path) ? basename($path) : null;
+        $theme_folder = $theme_folder ? preg_replace("/[^a-z0-9\_\-\.]/i", '', $theme_folder) : null;
+        $theme_path = $theme_folder ? $path : null;
+
+        if (
+            $theme_path
+            && '.' != $theme_folder
+            && '..' != $theme_folder
+            && false === strpos($theme_path, '..')
+            && ! isset($this->themes[$theme_folder])
+            && file_exists($theme_path . '/config.json')
+            && file_exists($theme_path . '/style.css')
+        ) {
+            $str = file_get_contents($theme_path . '/config.json');
+            $json = json_decode($str, true);
+
+            if ( $this->is_valid_config($json) ) {
+                $this->themes[$theme_folder] = [
+                    'json' => $json,
+                    'path' => $theme_path
+                ];
             }
         }
     }
