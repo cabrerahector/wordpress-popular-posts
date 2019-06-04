@@ -80,7 +80,7 @@ class Settings {
                 'title-end' => '</h2>',
                 'wpp-start' => '<ul class="wpp-list">',
                 'wpp-end' => '</ul>',
-                'post-html' => '<li>{thumb} <div class="wpp-item-data">{title} <span class="wpp-meta post-stats">{stats}</span></div></li>'
+                'post-html' => '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>'
             ],
             'theme' => [
                 'name' => '',
