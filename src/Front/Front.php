@@ -353,7 +353,7 @@ class Front {
                 'wpp-end' => empty($wpp_end) ? '' : $wpp_end,
                 'title-start' => empty($header_start) ? '' : $header_start,
                 'title-end' => empty($header_end) ? '' : $header_end,
-                'post-html' => empty($post_html) ? '<li>{thumb} <div class="wpp-item-data">{title} <span class="wpp-meta post-stats">{stats}</span></div></li>' : $post_html
+                'post-html' => empty($post_html) ? '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>' : $post_html
             ]
         ];
 

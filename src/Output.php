@@ -309,7 +309,7 @@ class Output {
             $wpp_post_class = apply_filters("wpp_post_class", $wpp_post_class, $post_id);
 
             $post_thumbnail = ( ! empty($post_thumbnail) )
-                ? "<a href=\"{$permalink}\" title=\"{$post_title_attr}\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_single == $post_id ? " rel=\"nofollow\"" : "") . " class=\"wpp-thumbnail-wrapper\">{$post_thumbnail}</a>\n"
+                ? "<a href=\"{$permalink}\" title=\"{$post_title_attr}\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_single == $post_id ? " rel=\"nofollow\"" : "") . ">{$post_thumbnail}</a>\n"
                 : "";
 
             $post_excerpt = ( ! empty($post_excerpt) )
@@ -327,11 +327,11 @@ class Output {
             $post =
                 "<li" . ( ( is_array($wpp_post_class) && ! empty($wpp_post_class) ) ? ' class="' . esc_attr(implode(" ", $wpp_post_class)) . '"' : '') . ">\n"
                 . $post_thumbnail
-                . "<div class=\"wpp-item-data\"><a href=\"{$permalink}\" title=\"{$post_title_attr}\" class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_single == $post_id ? " rel=\"nofollow\"" : "") . ">{$post_title}</a>\n"
+                . "<a href=\"{$permalink}\" title=\"{$post_title_attr}\" class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_single == $post_id ? " rel=\"nofollow\"" : "") . ">{$post_title}</a>\n"
                 . $post_excerpt
                 . $post_meta
                 . $post_rating
-                . "</div></li>\n";
+                . "</li>\n";
         }
 
         return apply_filters('wpp_post', $post, $post_object, $this->public_options);
