@@ -19,6 +19,11 @@ Use the following classes to style your popular posts list as you like.
         overflow: hidden;
         float: none;
         clear: both;
+        margin-bottom: 1rem;
+    }
+
+    .wpp-list li:last-of-type {
+        margin-bottom: 0;
     }
 
     /* Styles for the popular post in view */
@@ -29,12 +34,13 @@ Use the following classes to style your popular posts list as you like.
         .wpp-thumbnail {
             display: inline;
             float: left;
-            margin: 0 5px 0 0;
+            margin: 0 1rem 0 0;
             border: none;
         }
 
         /* Title styles */
         .wpp-post-title {
+            font-weight: bold;
         }
 
         /* Excerpt styles */
@@ -45,7 +51,6 @@ Use the following classes to style your popular posts list as you like.
         .wpp-meta, .post-stats {
             display: block;
             font-size: 0.8em;
-            font-weight: bold;
         }
 
             /* Comments count styles */
