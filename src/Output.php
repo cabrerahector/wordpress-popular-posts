@@ -282,10 +282,10 @@ class Output {
         if ( $this->public_options['markup']['custom_html'] ) {
             $data = [
                 'id' => $post_id,
-                'title' => '<a href="' . $permalink . '" title="' . $post_title_attr . '" class="wpp-post-title" target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_title . '</a>',
+                'title' => '<a href="' . $permalink . '" title="' . $post_title_attr . '" class="wpp-post-title" target="' . $this->admin_options['tools']['link']['target'] . '"' . ($is_current_post ? ' rel="nofollow"' : '') . '>' . $post_title . '</a>',
                 'summary' => $post_excerpt,
                 'stats' => $post_meta,
-                'img' => ( ! empty($post_thumbnail) ) ? '<a href="' . $permalink . '" title="' . $post_title_attr . '" target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_thumbnail . '</a>' : '',
+                'img' => ( ! empty($post_thumbnail) ) ? '<a href="' . $permalink . '" title="' . $post_title_attr . '" target="' . $this->admin_options['tools']['link']['target'] . '"' . ($is_current_post ? ' rel="nofollow"' : '') . '>' . $post_thumbnail . '</a>' : '',
                 'img_no_link' => $post_thumbnail,
                 'url' => $permalink,
                 'text_title' => $post_title_attr,
@@ -295,7 +295,8 @@ class Output {
                 'comments' => number_format_i18n($post_comments),
                 'date' => $post_date,
                 'total_items' => count($this->data),
-                'item_position' => $position
+                'item_position' => $position,
+                'nofollow' => $is_current_post ? 'rel="nofollow"' : ''
             ];
             $post = $this->format_content(htmlspecialchars_decode($this->public_options['markup']['post-html'], ENT_QUOTES), $data, $this->public_options['rating']). "\n";
         } // Use the "stock" HTML output
@@ -736,7 +737,7 @@ class Output {
             return false;
 
         $params = [];
-        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|taxonomy|category|views|comments|date|total_items|item_position)\}/i';
+        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|taxonomy|category|views|comments|date|total_items|item_position|nofollow)\}/i';
         preg_match_all($pattern, $string, $matches);
 
         array_map('strtolower', $matches[0]);
@@ -829,6 +830,10 @@ class Output {
 
         if ( in_array("{item_position}", $matches[0]) ) {
             $string = str_replace("{item_position}", $data['item_position'], $string);
+        }
+
+        if ( in_array("{nofollow}", $matches[0]) ) {
+            $string = str_replace("{nofollow}", $data['nofollow'], $string);
         }
 
         return apply_filters("wpp_parse_custom_content_tags", $string, $data['id']);
