@@ -292,10 +292,11 @@ class Controller extends \WP_REST_Controller {
     public function get_widget($request)
     {
         $instance_id = $request->get_param('id');
+        $is_single = $request->get_param('is_single');
         $lang = $request->get_param('lang');
         $widget = get_option('widget_wpp');
 
-        if ( $data = $this->prepare_widget_item_for_response($instance_id, $lang, $widget, $request) )
+        if ( $data = $this->prepare_widget_item_for_response($instance_id, $is_single, $lang, $widget, $request) )
             return new \WP_REST_Response($data, 200);
 
         return new \WP_Error('invalid_instance', __('Invalid Widget Instance ID', 'wordpress-popular-posts'));
@@ -306,12 +307,13 @@ class Controller extends \WP_REST_Controller {
      *
      * @since   5.0.0
      * @param   int
+     * @param   int
      * @param   string
      * @param   array
      * @param  \WP_REST_Request
      * @return  array|boolean
      */
-    public function prepare_widget_item_for_response($instance_id, $lang, $widget, $request)
+    public function prepare_widget_item_for_response($instance_id, $is_single, $lang, $widget, $request)
     {
         // Valid instance
         if ( $widget && isset($widget[$instance_id]) ) {
@@ -362,6 +364,12 @@ class Controller extends \WP_REST_Controller {
             } // Get popular posts
             else {
                 $popular_posts = new Query($instance);
+            }
+
+            if ( is_numeric($is_single) && $is_single > 0 ) {
+                add_filter('wpp_is_single', function($id) use ($is_single) {
+                    return $is_single;
+                });
             }
 
             $this->output->set_data($popular_posts->get_posts());
@@ -569,6 +577,11 @@ class Controller extends \WP_REST_Controller {
     public function get_widget_params()
     {
         return [
+            'i_single' => [
+                'type' => 'integer',
+                'default' => null,
+                'sanitize_callback' => 'absint'
+            ],
             'lang' => [
                 'type' => 'string',
                 'default' => null,

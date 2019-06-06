@@ -195,7 +195,7 @@ class Widget extends \WP_Widget {
                     if ( 'undefined' != typeof WordPressPopularPosts ) {
                         WordPressPopularPosts.get(
                             wpp_params.ajax_url + '/widget/<?php echo $this->number; ?>',
-                            '<?php echo (function_exists('PLL')) ? 'lang=' . $this->translate->get_current_language() : ''; ?>',
+                            'is_single=<?php echo Helper::is_single(); ?><?php echo (function_exists('PLL')) ? '&lang=' . $this->translate->get_current_language() : ''; ?>',
                             function(response){
                                 <?php if ( $instance['theme']['name'] ) : ?>
                                 var sr_timer;
