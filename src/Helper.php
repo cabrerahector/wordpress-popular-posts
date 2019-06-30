@@ -47,8 +47,8 @@ class Helper {
         ) {
             $dates = [];
 
-            $begin = new \DateTime($start_date);
-            $end = new \DateTime($end_date);
+            $begin = new \DateTime($start_date, new \DateTimeZone(Helper::get_timezone()));
+            $end = new \DateTime($end_date, new \DateTimeZone(Helper::get_timezone()));
 
             if ( $begin < $end ) {
                 while( $begin <= $end ) {
@@ -91,6 +91,31 @@ class Helper {
     public static function now()
     {
         return current_time('mysql');
+    }
+
+    /**
+     * Returns site's timezone.
+     *
+     * Code borrowed from Rarst's awesome WpDateTime class: https://github.com/Rarst/wpdatetime
+     *
+     * @since   5.0.0
+     * @return  string
+     */
+    public static function get_timezone()
+    {
+        $timezone_string = get_option('timezone_string');
+
+        if ( ! empty($timezone_string) ) {
+            return $timezone_string;
+        }
+
+        $offset = get_option('gmt_offset');
+        $sign = $offset < 0 ? '-' : '+';
+        $hours = (int) $offset;
+        $minutes = abs(($offset - (int) $offset) * 60);
+        $offset = sprintf('%s%02d:%02d', $sign, abs($hours), $minutes);
+
+        return $offset;
     }
 
     /**

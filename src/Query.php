@@ -85,6 +85,7 @@ class Query {
                 (array) $this->options
             );
 
+            $now = new \DateTime(Helper::now(), new \DateTimeZone(Helper::get_timezone()));
             $args = [];
             $fields = "p.ID AS id, p.post_title AS title, p.post_author AS uid";
             $table = "";
@@ -251,9 +252,7 @@ class Query {
                     }
                     // Order by average views
                     else {
-                        $now = Helper::now();
-
-                        $fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$now}', MIN(v.day)) > 0, DATEDIFF('{$now}', MIN(v.day)), 1) ) ) AS avg_views";
+                        $fields .= ", ( v.pageviews/(IF ( DATEDIFF('{$now->format('Y-m-d')}', MIN(v.day)) > 0, DATEDIFF('{$now->format('Y-m-d')}', MIN(v.day)), 1) ) ) AS avg_views";
                         $groupby = "GROUP BY v.postid";
                         $orderby = "ORDER BY avg_views DESC";
                     }
@@ -282,25 +281,30 @@ class Query {
             }
             // Custom time range
             else {
-                $now = Helper::now();
+                $start_date = clone $now;
 
                 // Determine time range
                 switch( $this->options['range'] ){
                     case "last24hours":
                     case "daily":
-                        $interval = "24 HOUR";
+                        $start_date = $start_date->sub(new \DateInterval('P1D'));
+                        $start_datetime = $start_date->format('Y-m-d H:i:s');
+                        $views_time_range = "view_datetime >= '{$start_datetime}'";
                         break;
                     case "last7days":
                     case "weekly":
-                        $interval = "6 DAY";
+                        $start_date = $start_date->sub(new \DateInterval('P6D'));
+                        $start_datetime = $start_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}'";
                         break;
                     case "last30days":
                     case "monthly":
-                        $interval = "29 DAY";
+                        $start_date = $start_date->sub(new \DateInterval('P29D'));
+                        $start_datetime = $start_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}'";
                         break;
                     case "custom":
                         $time_units = ["MINUTE", "HOUR", "DAY", "WEEK", "MONTH"];
-                        $interval = "24 HOUR";
 
                         // Valid time unit
                         if (
@@ -310,18 +314,48 @@ class Query {
                             && filter_var($this->options['time_quantity'], FILTER_VALIDATE_INT)
                             && $this->options['time_quantity'] > 0
                         ) {
-                            $interval = "{$this->options['time_quantity']} " . strtoupper($this->options['time_unit']);
+                            $time_quantity = $this->options['time_quantity'];
+                            $time_unit = strtoupper($this->options['time_unit']);
+
+                            if ( 'MINUTE' == $time_unit ) {
+                                $start_date = $start_date->sub(new \DateInterval('PT' . (60 * $time_quantity) . 'S'));
+                                $start_datetime = $start_date->format('Y-m-d H:i:s');
+                                $views_time_range = "view_datetime >= '{$start_datetime}'";
+                            } elseif ( 'HOUR' == $time_unit ) {
+                                $start_date = $start_date->sub(new \DateInterval('PT' . ((60 * $time_quantity) - 1) . 'M59S'));
+                                $start_datetime = $start_date->format('Y-m-d H:i:s');
+                                $views_time_range = "view_datetime >= '{$start_datetime}'";
+                            } elseif ( 'DAY' == $time_unit ) {
+                                $start_date = $start_date->sub(new \DateInterval('P' . ($time_quantity - 1) . 'D'));
+                                $start_datetime = $start_date->format('Y-m-d');
+                                $views_time_range = "view_date >= '{$start_datetime}'";
+                            } elseif ( 'WEEK' == $time_unit ) {
+                                $start_date = $start_date->sub(new \DateInterval('P' . ((7 * $time_quantity) - 1) . 'D'));
+                                $start_datetime = $start_date->format('Y-m-d');
+                                $views_time_range = "view_date >= '{$start_datetime}'";
+                            } else {
+                                $start_date = $start_date->sub(new \DateInterval('P' . ((30 * $time_quantity) - 1) . 'D'));
+                                $start_datetime = $start_date->format('Y-m-d');
+                                $views_time_range = "view_date >= '{$start_datetime}'";
+                            }
+                        } // Invalid time unit, default to last 24 hours
+                        else {
+                            $start_date = $start_date->sub(new \DateInterval('P1D'));
+                            $start_datetime = $start_date->format('Y-m-d H:i:s');
+                            $views_time_range = "view_datetime >= '{$start_datetime}'";
                         }
 
                         break;
                     default:
-                        $interval = "24 HOUR";
+                        $start_date = $start_date->sub(new \DateInterval('P1D'));
+                        $start_datetime = $start_date->format('Y-m-d H:i:s');
+                        $views_time_range = "view_datetime >= '{$start_datetime}'";
                         break;
                 }
 
                 // Get entries published within the specified time range
                 if ( isset($this->options['freshness']) && $this->options['freshness'] ) {
-                    $where .= " AND p.post_date > DATE_SUB('{$now}', INTERVAL {$interval})";
+                    $where .= " AND p.post_date >= '{$start_datetime}'";
                 }
 
                 // Order by views count
@@ -329,32 +363,32 @@ class Query {
                     // Order by views
                     if ( "views" == $this->options['order_by'] ) {
                         $fields .= ", v.pageviews";
-                        $join = "INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
+                        $join = "INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
                         $orderby = "ORDER BY pageviews DESC";
                     }
                     // Order by average views
                     else {
                         $fields .= ", v.avg_views";
-                        $join = "INNER JOIN (SELECT SUM(pageviews)/(IF ( DATEDIFF('{$now}', DATE_SUB('{$now}', INTERVAL {$interval})) > 0, DATEDIFF('{$now}', DATE_SUB('{$now}', INTERVAL {$interval})), 1) ) AS avg_views, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
+                        $join = "INNER JOIN (SELECT SUM(pageviews)/(IF ( DATEDIFF('{$now->format('Y-m-d H:i:s')}', '{$start_datetime}') > 0, DATEDIFF('{$now->format('Y-m-d H:i:s')}', '{$start_datetime}'), 1) ) AS avg_views, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
                         $orderby = "ORDER BY avg_views DESC";
                     }
 
                     // Display comments count, too
                     if ( isset($this->options['stats_tag']['comment_count']) && $this->options['stats_tag']['comment_count'] ) {
                         $fields .= ", IFNULL(c.comment_count, 0) AS comment_count";
-                        $join .= " LEFT JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count FROM `{$wpdb->comments}` WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
+                        $join .= " LEFT JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count FROM `{$wpdb->comments}` WHERE comment_date_gmt >= '{$start_datetime}' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
                     }
                 }
                 // Order by comments count
                 else {
                     $fields .= ", c.comment_count";
-                    $join = "INNER JOIN (SELECT COUNT(comment_post_ID) AS comment_count, comment_post_ID FROM `{$wpdb->comments}` WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
+                    $join = "INNER JOIN (SELECT COUNT(comment_post_ID) AS comment_count, comment_post_ID FROM `{$wpdb->comments}` WHERE comment_date_gmt >= '{$start_datetime}' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
                     $orderby = "ORDER BY comment_count DESC";
 
                     // Display views count, too
                     if ( isset($this->options['stats_tag']['views']) && $this->options['stats_tag']['views'] ) {
                         $fields .= ", v.pageviews";
-                        $join .= " INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
+                        $join .= " INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
                     }
                 }
             }

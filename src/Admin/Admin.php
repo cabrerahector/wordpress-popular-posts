@@ -617,16 +617,17 @@ class Admin {
      */
     public function get_chart_data($range = 'last7days', $time_unit = 'HOUR', $time_quantity = 24)
     {
-        $dates = $this->get_range_dates($range, $time_unit, $time_quantity, 'Y-m-d H:i:s');
+        $dates = $this->get_dates($range, $time_unit, $time_quantity);
         $start_date = $dates[0];
         $end_date = $dates[count($dates) - 1];
+        $date_range = Helper::get_date_range($start_date, $end_date, 'Y-m-d H:i:s');
         $views_data = $this->get_range_item_count($start_date, $end_date, 'views');
         $views = [];
         $comments_data = $this->get_range_item_count($start_date, $end_date, 'comments');
         $comments = [];
 
         if ( 'today' != $range ) {
-            foreach($dates as $date) {
+            foreach($date_range as $date) {
                 $key = date('Y-m-d', strtotime($date));
                 $views[] = ( ! isset($views_data[$key]) ) ? 0 : $views_data[$key]->pageviews;
                 $comments[] = ( ! isset($comments_data[$key]) ) ? 0 : $comments_data[$key]->comments;
@@ -649,11 +650,11 @@ class Admin {
 
         // Format labels
         if ( 'today' != $range ) {
-            $dates = array_map(function($d){
+            $date_range = array_map(function($d){
                 return date_i18n('D d', strtotime($d));
-            }, $dates);
+            }, $date_range);
         } else {
-            $dates = [date_i18n('D d', strtotime($dates[0]))];
+            $date_range = [date_i18n('D d', strtotime($date_range[0]))];
             $comments = [array_sum($comments)];
             $views = [array_sum($views)];
         }
@@ -663,7 +664,7 @@ class Admin {
                 'label_summary' => $label_summary,
                 'label_date_range' => $label_date_range,
             ],
-            'labels' => $dates,
+            'labels' => $date_range,
             'datasets' => [
                 [
                     'label' => __("Comments", "wordpress-popular-posts"),
@@ -685,18 +686,18 @@ class Admin {
      * @since   5.0.0
      * @return  array|bool
      */
-    private function get_range_dates($range = 'last7days', $time_unit = 'HOUR', $time_quantity = 24, $format = 'Y-m-d')
+    private function get_dates($range = 'last7days', $time_unit = 'HOUR', $time_quantity = 24)
     {
         $valid_ranges = ['today', 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
         $range = in_array($range, $valid_ranges) ? $range : 'last7days';
-        $now = new \DateTime(Helper::now());
+        $now = new \DateTime(Helper::now(), new \DateTimeZone(Helper::get_timezone()));
 
         // Determine time range
         switch( $range ){
             case "last24hours":
             case "daily":
-                $end_date = $now->format($format);
-                $start_date = $now->modify('-1 day')->format($format);
+                $end_date = $now->format('Y-m-d H:i:s');
+                $start_date = $now->modify('-1 day')->format('Y-m-d H:i:s');
                 break;
 
             case "today":
@@ -706,38 +707,38 @@ class Admin {
 
             case "last7days":
             case "weekly":
-                $end_date = $now->format($format);
-                $start_date = $now->modify('-6 day')->format($format);
+                $end_date = $now->format('Y-m-d') . ' 23:59:59';
+                $start_date = $now->modify('-6 day')->format('Y-m-d') . ' 00:00:00';
                 break;
 
             case "last30days":
             case "monthly":
-                $end_date = $now->format($format);
-                $start_date = $now->modify('-29 day')->format($format);
+                $end_date = $now->format('Y-m-d') . ' 23:59:59';
+                $start_date = $now->modify('-29 day')->format('Y-m-d') . ' 00:00:00';
                 break;
 
             case "custom":
-                $time_units = [
-                    "MINUTE" => ["minute", "minutes"],
-                    "HOUR" => ["hour", "hours"],
-                    "DAY" => ["day", "days"]
-                ];
-                $interval = "-24 hours";
+                $end_date = $now->format('Y-m-d H:i:s');
 
-                $time_unit = strtoupper($time_unit);
-
-                // Valid time unit
                 if (
-                    isset($time_units[strtoupper($time_unit)])
-                    && Helper::is_number($time_quantity)
-                    && $time_quantity - 1 > 0
+                    Helper::is_number($time_quantity)
+                    && $time_quantity >= 1
                 ) {
-                    $time_quantity--;
-                    $interval = "-{$time_quantity} " . ( $time_quantity > 1 ? $time_units[$time_unit][1] : $time_units[$time_unit][0] );
-                }
+                    $end_date = $now->format('Y-m-d H:i:s');
+                    $time_unit = strtoupper($time_unit);
 
-                $end_date = $now->format($format);
-                $start_date = $now->modify($interval)->format($format);
+                    if ( 'MINUTE' == $time_unit ) {
+                        $start_date = $now->sub(new \DateInterval('PT' . (60 * $time_quantity) . 'S'))->format('Y-m-d H:i:s');
+                    } elseif ( 'HOUR' == $time_unit ) {
+                        $start_date = $now->sub(new \DateInterval('PT' . ((60 * $time_quantity) - 1) . 'M59S'))->format('Y-m-d H:i:s');
+                    } else {
+                        $end_date = $now->format('Y-m-d') . ' 23:59:59';
+                        $start_date = $now->sub(new \DateInterval('P' . ($time_quantity - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
+                    }
+                } // fallback to last 24 hours
+                else {
+                    $start_date = $now->modify('-1 day')->format('Y-m-d H:i:s');
+                }
 
                 // Check if custom date range has been requested
                 $dates = null;
@@ -767,15 +768,12 @@ class Admin {
                 break;
 
             default:
-                $end_date = $now->format($format);
-                $start_date = $now->modify('-6 days')->format($format);
+                $end_date = $now->format('Y-m-d') . ' 23:59:59';
+                $start_date = $now->modify('-6 day')->format('Y-m-d') . ' 00:00:00';
                 break;
         }
 
-        if ( 'today' == $range )
-            return [$start_date, $end_date];
-
-        return Helper::get_date_range($start_date, $end_date, $format);
+        return [$start_date, $end_date];
     }
 
     /**
