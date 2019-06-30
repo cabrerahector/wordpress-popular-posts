@@ -797,6 +797,10 @@ class Admin {
 
         $post_type_placeholders = array_fill(0, count($args), '%s');
 
+        if ( $this->config['stats']['freshness'] ) {
+            $args[] = $start_date;
+        }
+
         // Append dates to arguments list
         array_unshift($args, $start_date, $end_date);
 
@@ -805,6 +809,7 @@ class Admin {
                 "SELECT DATE(`c`.`comment_date_gmt`) AS `c_date`, COUNT(*) AS `comments` 
                 FROM `{$wpdb->comments}` c INNER JOIN `{$wpdb->posts}` p ON `c`.`comment_post_ID` = `p`.`ID`
                 WHERE (`c`.`comment_date_gmt` BETWEEN %s AND %s) AND `c`.`comment_approved` = '1' AND `p`.`post_type` IN (". implode(", ", $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
+                " . ( $this->config['stats']['freshness'] ? " AND `p`.`post_date` >= %s" : "" ) . "
                 GROUP BY `c_date` ORDER BY `c_date` DESC;",
                 $args
             );
@@ -813,6 +818,7 @@ class Admin {
                 "SELECT `v`.`view_date`, SUM(`v`.`pageviews`) AS `pageviews` 
                 FROM `{$wpdb->prefix}popularpostssummary` v INNER JOIN `{$wpdb->posts}` p ON `v`.`postid` = `p`.`ID`
                 WHERE (`v`.`view_datetime` BETWEEN %s AND %s) AND `p`.`post_type` IN (". implode(", ", $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
+                " . ( $this->config['stats']['freshness'] ? " AND `p`.`post_date` >= %s" : "" ) . "
                 GROUP BY `v`.`view_date` ORDER BY `v`.`view_date` DESC;",
                 $args
             );
