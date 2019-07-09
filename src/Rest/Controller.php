@@ -158,11 +158,12 @@ class Controller extends \WP_REST_Controller {
             && WPP_CACHE_VIEWS
         ) {
 
-            $timestamp = $now->getTimestamp();
+            $now_datetime = new \DateTime($now, new \DateTimeZone(Helper::get_timezone()));
+            $timestamp = $now_datetime->getTimestamp();
 
             if ( ! $wpp_cache = wp_cache_get('_wpp_cache', 'transient') ) {
                 $wpp_cache = [
-                    'last_updated' => $now->format('Y-m-d H:i:s'),
+                    'last_updated' => $now_datetime->format('Y-m-d H:i:s'),
                     'data' => [
                         $post_ID => [
                             $timestamp => 1
@@ -185,7 +186,7 @@ class Controller extends \WP_REST_Controller {
             wp_cache_set('_wpp_cache', $wpp_cache, 'transient', 0);
 
             // How long has it been since the last time we saved to the database?
-            $last_update = $now->diff(new \DateTime($wpp_cache['last_updated']));
+            $last_update = $now_datetime->diff(new \DateTime($wpp_cache['last_updated'], new \DateTimeZone(Helper::get_timezone())));
             $diff_in_minutes = $last_update->days * 24 * 60;
             $diff_in_minutes += $last_update->h * 60;
             $diff_in_minutes += $last_update->i;
@@ -212,8 +213,8 @@ class Controller extends \WP_REST_Controller {
 
                     $query_data .= $wpdb->prepare( "(%d,%s,%s,%s),", [
                         $pid,
-                        $now->format('Y-m-d H:i:s'),
-                        $now->format('Y-m-d H:i:s'),
+                        $now_datetime->format('Y-m-d H:i:s'),
+                        $now_datetime->format('Y-m-d H:i:s'),
                         $views_count
                     ]);
                 }
@@ -222,7 +223,7 @@ class Controller extends \WP_REST_Controller {
                 $query_summary = rtrim($query_summary, ",") . ";";
 
                 // Clear cache
-                $wpp_cache['last_updated'] = $now->format('Y-m-d H:i:s');
+                $wpp_cache['last_updated'] = $now_datetime->format('Y-m-d H:i:s');
                 $wpp_cache['data'] = [];
                 wp_cache_set('_wpp_cache', $wpp_cache, 'transient', 0);
 
