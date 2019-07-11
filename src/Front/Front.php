@@ -510,36 +510,43 @@ class Front {
                         }
 
                         if ( wpp_widgets.length ) {
-                            for (let i = 0; i < wpp_widgets.length; i++) {
-                                let wpp_widget = wpp_widgets[i],
-                                    wpp_widget_images = wpp_widget.shadowRoot.querySelectorAll('img.wpp-lazyload');
+                            for (var i = 0; i < wpp_widgets.length; i++) {
+                                let wpp_widget_images = wpp_widgets[i].querySelectorAll('img.wpp-lazyload');
 
-                                    if ( wpp_widget_images.length ) {
-                                        wpp_widget_images.forEach(function(image) {
-                                            WPPImageObserver.observe(image);
-                                        });
-                                    }
+                                if ( ! wpp_widget_images.length && wpp_widgets[i].shadowRoot ) {
+                                    wpp_widget_images = wpp_widgets[i].shadowRoot.querySelectorAll('img.wpp-lazyload');
+                                }
+
+                                if ( wpp_widget_images.length ) {
+                                    wpp_widget_images.forEach(function(image) {
+                                        WPPImageObserver.observe(image);
+                                    });
+                                }
                             }
                         }
                     } /** Fallback for older browsers */
                     else {
                         if ( wpp_images.length ) {
-                            wpp_images.forEach(function(img) {
-                                wpp_load_img(img);
-                                img.classList.remove('wpp-lazyloaded');
-                            });
+                            for (var i = 0; i < wpp_images.length; i++) {
+                                wpp_load_img(wpp_images[i]);
+                                wpp_images[i].classList.remove('wpp-lazyloaded');
+                            }
                         }
 
                         if ( wpp_widgets.length ) {
-                            for (let i = 0; i < wpp_widgets.length; i++) {
-                                let wpp_widget = wpp_widgets[i],
+                            for (var j = 0; j < wpp_widgets.length; j++) {
+                                let wpp_widget = wpp_widgets[j],
+                                    wpp_widget_images = wpp_widget.querySelectorAll('img.wpp-lazyload');
+
+                                if ( ! wpp_widget_images.length && wpp_widget.shadowRoot ) {
                                     wpp_widget_images = wpp_widget.shadowRoot.querySelectorAll('img.wpp-lazyload');
+                                }
 
                                 if ( wpp_widget_images.length ) {
-                                    wpp_widget_images.forEach(function(img) {
-                                        wpp_load_img(img);
-                                        img.classList.remove('wpp-lazyloaded');
-                                    });
+                                    for (var k = 0; k < wpp_widget_images.length; k++) {
+                                        wpp_load_img(wpp_widget_images[k]);
+                                        wpp_widget_images[k].classList.remove('wpp-lazyloaded');
+                                    }
                                 }
                             }
                         }
