@@ -487,7 +487,7 @@ class Front {
                 img.classList.add('wpp-lazyloaded');
             }
 
-            document.addEventListener('DOMContentLoaded', function() {
+            function wpp_observe_imgs(){
                 let wpp_images = document.querySelectorAll('img.wpp-lazyload'),
                     wpp_widgets = document.querySelectorAll('.popular-posts-sr');
 
@@ -545,6 +545,16 @@ class Front {
                         }
                     }
                 }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                wpp_observe_imgs();
+
+                // When an ajaxified WPP widget loads,
+                // Lazy load its images
+                document.addEventListener('wpp-onload', function(){
+                    wpp_observe_imgs();
+                });
             });
         </script>
         <?php
