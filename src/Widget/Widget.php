@@ -139,10 +139,6 @@ class Widget extends \WP_Widget {
               ? 'custom'
               : 'regular';
 
-        if ( $instance['theme']['name'] && false !== strpos($before_widget, 'class') ) {
-            $before_widget = str_replace('class="', 'class="popular-posts-sr ', $before_widget);
-        }
-
         echo "\n" . $before_widget . "\n";
 
         // Has user set a title?
@@ -163,7 +159,9 @@ class Widget extends \WP_Widget {
         // Expose Widget ID for customization
         $instance['widget_id'] = $widget_id;
 
-        if ( $instance['theme']['name'] && false !== strpos($before_widget, 'class="popular-posts-sr') ) :
+        if ( $instance['theme']['name'] ) :
+            echo '<div class="popular-posts-sr">';
+
             $theme_stylesheet = $this->themer->get_theme($instance['theme']['name'])['path'] . '/style.css';
             $theme_css_rules = wp_strip_all_tags(file_get_contents($theme_stylesheet), true);
             $additional_styles = '';
@@ -197,20 +195,21 @@ class Widget extends \WP_Widget {
                             wpp_params.ajax_url + '/widget/<?php echo $this->number; ?>',
                             'is_single=<?php echo Helper::is_single(); ?><?php echo (function_exists('PLL')) ? '&lang=' . $this->translate->get_current_language() : ''; ?>',
                             function(response){
-                                <?php if ( $instance['theme']['name'] ) : ?>
-                                var sr_timer;
+                                let sr = wpp_widget_container.querySelector('.popular-posts-sr');
 
-                                sr_timer = setInterval(function(){
-                                    if (wpp_widget_container.shadowRoot) {
-                                        while(wpp_widget_container.firstElementChild) {
-                                            wpp_widget_container.shadowRoot.append(wpp_widget_container.firstElementChild);
+                                if ( sr ) {
+                                    if ( sr.shadowRoot ) {
+                                        let o = document.createRange().createContextualFragment(JSON.parse(response).widget);
+
+                                        while(o.firstElementChild) {
+                                            sr.shadowRoot.append(o.firstElementChild);
                                         }
-                                        clearInterval(sr_timer);
+                                    } else {
+                                        sr.innerHTML += JSON.parse(response).widget;
                                     }
-                                }, 75);
-                                <?php endif; ?>
-
-                                wpp_widget_container.innerHTML += JSON.parse(response).widget;
+                                } else {
+                                    wpp_widget_container.innerHTML += JSON.parse(response).widget;
+                                }
 
                                 var event = null;
 
@@ -237,6 +236,10 @@ class Widget extends \WP_Widget {
         } else {
             $this->get_popular($instance);
         }
+
+        if ( $instance['theme']['name'] && false ) :
+            echo '</div>';
+        endif;
 
         echo "\n" . $after_widget . "\n";
     }
