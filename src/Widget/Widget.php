@@ -237,7 +237,7 @@ class Widget extends \WP_Widget {
             $this->get_popular($instance);
         }
 
-        if ( $instance['theme']['name'] && false ) :
+        if ( $instance['theme']['name'] ) :
             echo '</div>';
         endif;
 
