@@ -431,6 +431,13 @@ class Widget extends \WP_Widget {
             );
             $instance['markup']['custom_html'] = true;
             $instance['theme']['applied'] = true;
+
+            $current_sidebar_data = $this->get_sidebar_data();
+
+            if ( $current_sidebar_data ) {
+                $instance['markup']['title-start'] = htmlspecialchars($current_sidebar_data['before_title'], ENT_QUOTES);
+                $instance['markup']['title-end'] = htmlspecialchars($current_sidebar_data['after_title'], ENT_QUOTES);
+            }
         }
 
         return $instance;
@@ -476,5 +483,25 @@ class Widget extends \WP_Widget {
             echo ( $this->admin_options['tools']['cache']['active'] ? '<!-- cached -->' : '' );
             $this->output->output();
         }
+    }
+
+    /**
+     * Returns data on the current sidebar.
+     *
+     * @since   5.0.0
+     * @access  private
+     * @return  array|null
+     */
+    private function get_sidebar_data()
+    {
+        global $wp_registered_sidebars;
+        $sidebars = wp_get_sidebars_widgets();
+
+        foreach ( (array) $sidebars as $sidebar_id => $sidebar ) {
+            if ( in_array($this->id, (array) $sidebar, true ) )
+                return $wp_registered_sidebars[$sidebar_id];
+        }
+
+        return null;
     }
 }

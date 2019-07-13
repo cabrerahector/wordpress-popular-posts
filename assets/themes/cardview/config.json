@@ -42,8 +42,6 @@
             }
         },
         "markup": {
-            "title-start": "<h2>",
-            "title-end": "</h2>",
             "wpp-start": "<ul class=\"wpp-list\">",
             "wpp-end": "</ul>",
             "post-html": "<li><div class=\"wpp-thumbnail-container\">{thumb} {taxonomy}</div> <div class=\"wpp-item-data\">{title} <p class=\"wpp-excerpt\">{excerpt}</p></div></li>"

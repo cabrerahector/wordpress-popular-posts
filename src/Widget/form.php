@@ -1,3 +1,9 @@
+<?php
+$current_sidebar_data = $this->get_sidebar_data();
+$current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
+$before_widget = $current_sidebar_data ? $current_sidebar_data['before_widget'] : null;
+$themeable = $current_sidebar && $before_widget && false !== strpos($before_widget, '%2$s');
+?>
 <!-- Widget title -->
 <p>
     <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-does-title-do" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small> <br />
@@ -175,8 +181,20 @@ if ( $taxonomies ) {
 <input type="checkbox" class="checkbox" <?php echo ($instance['markup']['custom_html']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id('custom_html'); ?>" name="<?php echo $this->get_field_name('custom_html'); ?>" /> <label for="<?php echo $this->get_field_id('custom_html'); ?>"><?php _e('Use custom HTML Markup', 'wordpress-popular-posts'); ?></label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-does-use-custom-html-markup-do" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br />
 
 <div style="display:<?php if ($instance['markup']['custom_html']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
+    <?php
+    if (
+        $current_sidebar
+        && ! $instance['markup']['custom_html']
+    ) {
+        $wpp_title_start = htmlspecialchars($current_sidebar_data['before_title'], ENT_QUOTES);
+        $wpp_title_end = htmlspecialchars($current_sidebar_data['after_title'], ENT_QUOTES);
+    } else {
+        $wpp_title_start = $instance['markup']['title-start'];
+        $wpp_title_end = $instance['markup']['title-end'];
+    }
+    ?>
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id('title-start'); ?>"><?php _e('Before / after title', 'wordpress-popular-posts'); ?>:</label> <br />
-    <input type="text" id="<?php echo $this->get_field_id('title-start'); ?>" name="<?php echo $this->get_field_name('title-start'); ?>" value="<?php echo $instance['markup']['title-start']; ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('title-end'); ?>" name="<?php echo $this->get_field_name('title-end'); ?>" value="<?php echo $instance['markup']['title-end']; ?>" class="widefat" style="width:49%!important" /></p>
+    <input type="text" id="<?php echo $this->get_field_id('title-start'); ?>" name="<?php echo $this->get_field_name('title-start'); ?>" value="<?php echo $wpp_title_start; ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('title-end'); ?>" name="<?php echo $this->get_field_name('title-end'); ?>" value="<?php echo $wpp_title_end; ?>" class="widefat" style="width:49%!important" /></p>
 
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id('wpp-start'); ?>"><?php _e('Before / after Popular Posts', 'wordpress-popular-posts'); ?>:</label> <br />
     <input type="text" id="<?php echo $this->get_field_id('wpp-start'); ?>" name="<?php echo $this->get_field_name('wpp-start'); ?>" value="<?php echo esc_attr($instance['markup']['wpp-start']); ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('wpp-end'); ?>" name="<?php echo $this->get_field_name('wpp-end'); ?>" value="<?php echo $instance['markup']['wpp-end']; ?>" class="widefat" style="width:49%!important" /></p>
@@ -187,24 +205,6 @@ if ( $taxonomies ) {
 
 <!-- Theme -->
 <br /><hr /><br />
-
-<?php
-global $wp_registered_sidebars;
-
-$sidebars = wp_get_sidebars_widgets();
-$current_sidebar = null;
-$before_widget = null;
-
-foreach ($sidebars as $sidebar_name => $sidebar) {
-    if (array_search ($this->id, $sidebar) !== false) {
-        $current_sidebar = $sidebar_name;
-        $before_widget = $wp_registered_sidebars[$sidebar_name]['before_widget'];
-        break;
-    }
-}
-
-$themeable = $current_sidebar && $before_widget && false !== strpos($before_widget, '%2$s');
-?>
 
 <?php if ( ! $current_sidebar ) : ?><div style="display: none;"><?php endif; ?>
 

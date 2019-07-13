@@ -42,8 +42,6 @@
             }
         },
         "markup": {
-            "title-start": "<h2>",
-            "title-end": "</h2>",
             "wpp-start": "<ul class=\"wpp-list\">",
             "wpp-end": "</ul>",
             "post-html": "<li style=\"--item-position: {item_position}; --total-items: {total_items};\"><div class=\"item-position\"></div> <div class=\"item-data\">{title}</div></li>"
