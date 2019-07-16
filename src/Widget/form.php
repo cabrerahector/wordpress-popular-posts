@@ -206,8 +206,6 @@ if ( $taxonomies ) {
 <!-- Theme -->
 <br /><hr /><br />
 
-<?php if ( ! $current_sidebar ) : ?><div style="display: none;"><?php endif; ?>
-
 <legend style="display: inline;"><strong><?php _e('Theme', 'wordpress-popular-posts'); ?></strong></legend><small>(<?php printf(__('see a <a href="%s">list of supported browsers</a>'), 'https://caniuse.com/#feat=shadowdomv1'); ?>)</small><br /><br />
 
 <?php
@@ -223,10 +221,12 @@ ksort($registered_themes);
 </select>
 <input type="hidden" id="<?php echo $this->get_field_id('theme-applied'); ?>" name="<?php echo $this->get_field_name('theme-applied'); ?>" value="<?php echo ($instance['theme']['applied'] && $themeable) ? 1 : 0; ?>" />
 
-<?php if ( ! $themeable ) : ?>
+<?php if ( ! $current_sidebar ) : ?>
+    <p style="color: red;"><?php _e('Please save this widget (or reload this page) to enable WPP themes.', 'wordpress-popular-posts'); ?></p>
+<?php endif; ?>
+
+<?php if ( $current_sidebar && ! $themeable ) : ?>
     <p style="color: red;"><?php printf(__('This sidebar\'s configuration does not allow WordPress Popular Posts to apply themes to this widget because the <strong>before_widget</strong> parameter is either missing the <a href="%s" target="_blank" rel="nofollow">HTML class attribute</a> or it\'s not properly set up. Please ask your theme\'s developer for assistance with this issue if you wish to apply a theme to this widget.'), 'https://codex.wordpress.org/Function_Reference/register_sidebar#Parameters'); ?></p>
 <?php endif; ?>
 
 <br /><br />
-
-<?php if ( ! $current_sidebar ) : ?></div><?php endif; ?>
