@@ -211,13 +211,13 @@ $registered_themes = $this->themer->get_themes();
 ksort($registered_themes);
 ?>
 
-<select id="<?php echo $this->get_field_id('theme'); ?>" name="<?php echo $this->get_field_name('theme'); ?>" class="widefat" style="margin-bottom: 5px;"<?php echo ( ! $themeable ) ? ' disabled="disabled"' : ''; ?>>
-    <option value="" <?php if ( '' == $instance['theme']['name'] || ! $themeable ) echo 'selected="selected"'; ?>><?php _e("None", 'wordpress-popular-posts'); ?></option>
+<select id="<?php echo $this->get_field_id('theme'); ?>" name="<?php echo $this->get_field_name('theme'); ?>" class="widefat" style="margin-bottom: 5px;"<?php echo ( ! $current_sidebar ) ? ' disabled="disabled"' : ''; ?>>
+    <option value="" <?php if ( '' == $instance['theme']['name'] || ! $current_sidebar ) echo 'selected="selected"'; ?>><?php _e("None", 'wordpress-popular-posts'); ?></option>
     <?php foreach ($registered_themes as $theme => $data) : ?>
-    <option value="<?php echo esc_attr($theme); ?>" <?php if ( $theme == $instance['theme']['name'] && $themeable ) echo 'selected="selected"'; ?>><?php echo esc_html($data['json']['name']); ?></option>
+    <option value="<?php echo esc_attr($theme); ?>" <?php if ( $theme == $instance['theme']['name'] && $current_sidebar ) echo 'selected="selected"'; ?>><?php echo esc_html($data['json']['name']); ?></option>
     <?php endforeach; ?>
 </select>
-<input type="hidden" id="<?php echo $this->get_field_id('theme-applied'); ?>" name="<?php echo $this->get_field_name('theme-applied'); ?>" value="<?php echo ($instance['theme']['applied'] && $themeable) ? 1 : 0; ?>" />
+<input type="hidden" id="<?php echo $this->get_field_id('theme-applied'); ?>" name="<?php echo $this->get_field_name('theme-applied'); ?>" value="<?php echo ($instance['theme']['applied'] && $current_sidebar) ? 1 : 0; ?>" />
 
 <?php if ( ! $current_sidebar ) : ?>
     <p style="color: red;"><?php _e('Please save this widget (or reload this page) to enable WPP themes.', 'wordpress-popular-posts'); ?></p>
