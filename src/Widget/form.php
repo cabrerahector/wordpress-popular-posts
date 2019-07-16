@@ -1,8 +1,6 @@
 <?php
 $current_sidebar_data = $this->get_sidebar_data();
 $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
-$before_widget = $current_sidebar_data ? $current_sidebar_data['before_widget'] : null;
-$themeable = $current_sidebar && $before_widget && false !== strpos($before_widget, '%2$s');
 ?>
 <!-- Widget title -->
 <p>
@@ -223,10 +221,6 @@ ksort($registered_themes);
 
 <?php if ( ! $current_sidebar ) : ?>
     <p style="color: red;"><?php _e('Please save this widget (or reload this page) to enable WPP themes.', 'wordpress-popular-posts'); ?></p>
-<?php endif; ?>
-
-<?php if ( $current_sidebar && ! $themeable ) : ?>
-    <p style="color: red;"><?php printf(__('This sidebar\'s configuration does not allow WordPress Popular Posts to apply themes to this widget because the <strong>before_widget</strong> parameter is either missing the <a href="%s" target="_blank" rel="nofollow">HTML class attribute</a> or it\'s not properly set up. Please ask your theme\'s developer for assistance with this issue if you wish to apply a theme to this widget.'), 'https://codex.wordpress.org/Function_Reference/register_sidebar#Parameters'); ?></p>
 <?php endif; ?>
 
 <br /><br />
