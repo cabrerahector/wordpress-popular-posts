@@ -98,7 +98,7 @@ class Admin {
         add_filter('dashboard_glance_items', [$this, 'at_a_glance_stats']);
         add_action('admin_head', [$this, 'at_a_glance_stats_css']);
         // Dashboard Trending Now widget
-        if ( current_user_can('edit_published_posts') )
+        //if ( current_user_can('edit_published_posts') )
             add_action('wp_dashboard_setup', [$this, 'add_dashboard_widgets']);
         // Load WPP's admin styles and scripts
         add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
@@ -351,11 +351,13 @@ class Admin {
      */
     public function add_dashboard_widgets()
     {
-        wp_add_dashboard_widget(
-            'wpp_trending_dashboard_widget',
-            __('Trending now', 'wordpress-popular-posts'),
-            [$this, 'trending_dashboard_widget']
-        );
+        if ( current_user_can('edit_published_posts') ) {
+            wp_add_dashboard_widget(
+                'wpp_trending_dashboard_widget',
+                __('Trending now', 'wordpress-popular-posts'),
+                [$this, 'trending_dashboard_widget']
+            );
+        }
     }
 
     /**
