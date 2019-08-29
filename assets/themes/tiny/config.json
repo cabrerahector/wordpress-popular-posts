@@ -1,0 +1,41 @@
+{
+    "name": "Tiny",
+    "description": "A very compact popular posts list.",
+    "authors": [
+        {
+            "name": "Hector Cabrera",
+            "email": "me@cabrerahector.com",
+            "role": "Creator / Main Developer"
+        }
+    ],
+    "config": {
+        "title" : "Trending",
+        "shorten_title": {
+            "active": false
+        },
+        "post-excerpt": {
+            "active": false
+        },
+        "thumbnail": {
+            "active": false
+        },
+        "rating": false,
+        "stats_tag": {
+            "comment_count": false,
+            "views": false,
+            "author": false,
+            "date": {
+                "active": false
+            },
+            "taxonomy": {
+                "active": true,
+                "name": "category"
+            }
+        },
+        "markup": {
+            "wpp-start": "<ul class=\"wpp-list\">",
+            "wpp-end": "</ul>",
+            "post-html": "<li><div class=\"wpp-item-data\">{category}</div> {title}</li>"
+        }
+    }
+}
