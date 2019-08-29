@@ -35,14 +35,6 @@ class Admin {
     private $config;
 
     /**
-     * Output object.
-     *
-     * @var     \WordPressPopularPosts\Output       $output
-     * @access  private
-     */
-    private $output;
-
-    /**
      * Image object
      *
      * @since   4.0.2
@@ -55,13 +47,11 @@ class Admin {
      *
      * @since   5.0.0
      * @param   array                               $config     Admin settings.
-     * @param   \WordPressPopularPosts\Output       $output     Output class.
      * @param   \WordPressPopularPosts\Image        $thumbnail  Image class.
      */
-    public function __construct(array $config, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail)
+    public function __construct(array $config, \WordPressPopularPosts\Image $thumbnail)
     {
         $this->config = $config;
-        $this->output = $output;
         $this->thumbnail = $thumbnail;
 
         // Delete old data on demand
