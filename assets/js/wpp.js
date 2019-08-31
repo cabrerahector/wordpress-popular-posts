@@ -16,9 +16,7 @@ var WordPressPopularPosts = (function(){
 
     var ajax = function( method, url, params, callback ){
         /* Create XMLHttpRequest object and set variables */
-        var xhr = ( window.XMLHttpRequest )
-            ? new XMLHttpRequest()
-            : new ActiveXObject( "Microsoft.XMLHTTP" ),
+        var xhr = new XMLHttpRequest(),
         target = url,
         args = params,
         valid_methods = ["GET", "POST"];
