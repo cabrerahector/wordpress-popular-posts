@@ -32,7 +32,7 @@ var WordPressPopularPosts = (function(){
         xhr.setRequestHeader( "X-Requested-With","XMLHttpRequest" );
         /* Hook into onreadystatechange */
         xhr.onreadystatechange = function() {
-            if ( 4 === xhr.readyState && 200 === xhr.status ) {
+            if ( 4 === xhr.readyState && 200 <= xhr.status && 300 > xhr.status ) {
                 if ( 'function' === typeof callback ) {
                     callback.call( undefined, xhr.response );
                 }
@@ -66,7 +66,7 @@ if (
             wpp_params.ajax_url,
             "_wpnonce=" + wpp_params.token + "&wpp_id=" + wpp_params.ID + "&sampling=" + wpp_params.sampling_active + "&sampling_rate=" + wpp_params.sampling_rate,
             function( response ){
-                wpp_params.debug&&window.console&&window.console.log&&window.console.log( response );
+                wpp_params.debug&&window.console&&window.console.log&&window.console.log(JSON.parse(response));
             }
         );
     }
