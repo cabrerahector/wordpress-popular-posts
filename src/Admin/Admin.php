@@ -1199,7 +1199,7 @@ class Admin {
     }
 
     /**
-     * Flushes post's cached thumbnail(s) when the featured image is changed/deleted.
+     * Flushes post's cached thumbnail(s).
      *
      * @since    3.3.4
      *
@@ -1210,7 +1210,7 @@ class Admin {
         $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
 
         if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
-            $files = glob("{$wpp_uploads_dir['basedir']}/{$post_id}-featured-*.*"); // get all related images
+            $files = glob("{$wpp_uploads_dir['basedir']}/{$post_id}-*.*"); // get all related images
 
             if ( is_array($files) && ! empty($files) ) {
                 foreach( $files as $file ){ // iterate files
@@ -1249,6 +1249,9 @@ class Admin {
             // Delete from summary table
             $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}popularpostssummary WHERE postid = %d;", $post_ID));
         }
+
+        // Delete cached thumbnail(s) as well
+        $this->flush_post_thumbnail($post_ID);
     }
 
     /**
