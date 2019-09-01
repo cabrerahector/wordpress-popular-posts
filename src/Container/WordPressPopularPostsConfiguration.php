@@ -33,7 +33,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['output'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Output($container['widget_options'], $container['admin_options'], $container['image'], $container['translate']);
+            return new \WordPressPopularPosts\Output($container['widget_options'], $container['admin_options'], $container['image'], $container['translate'], $container['themer']);
         });
 
         $container['widget'] = $container->service(function(Container $container) {
