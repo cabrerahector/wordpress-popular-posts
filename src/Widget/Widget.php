@@ -159,23 +159,6 @@ class Widget extends \WP_Widget {
         // Expose Widget ID for customization
         $instance['widget_id'] = $widget_id;
 
-        if ( $instance['theme']['name'] ) :
-            echo '<div class="popular-posts-sr">';
-
-            $theme_stylesheet = $this->themer->get_theme($instance['theme']['name'])['path'] . '/style.css';
-            $theme_css_rules = wp_strip_all_tags(file_get_contents($theme_stylesheet), true);
-            $additional_styles = '';
-
-            if ( has_filter('wpp_additional_theme_styles') ) {
-                $additional_styles = wp_strip_all_tags(apply_filters('wpp_additional_theme_styles', '', $instance['theme']['name']), true);
-
-                if ( $additional_styles )
-                    $additional_styles = ' /* additional rules */ ' . $additional_styles;
-            }
-
-            echo '<style>' . $theme_css_rules . $additional_styles . '</style>';
-        endif;
-
         // Get posts
         if ( $this->admin_options['tools']['ajax'] && ! is_customize_preview() ) {
 
@@ -195,20 +178,12 @@ class Widget extends \WP_Widget {
                             wpp_params.ajax_url + '/widget/<?php echo $this->number; ?>',
                             'is_single=<?php echo Helper::is_single(); ?><?php echo (function_exists('PLL')) ? '&lang=' . $this->translate->get_current_language() : ''; ?>',
                             function(response){
+                                wpp_widget_container.innerHTML += JSON.parse(response).widget;
+
                                 let sr = wpp_widget_container.querySelector('.popular-posts-sr');
 
                                 if ( sr ) {
-                                    if ( sr.shadowRoot ) {
-                                        let o = document.createRange().createContextualFragment(JSON.parse(response).widget);
-
-                                        while(o.firstElementChild) {
-                                            sr.shadowRoot.append(o.firstElementChild);
-                                        }
-                                    } else {
-                                        sr.innerHTML += JSON.parse(response).widget;
-                                    }
-                                } else {
-                                    wpp_widget_container.innerHTML += JSON.parse(response).widget;
+                                    WordPressPopularPosts.theme(sr);
                                 }
 
                                 var event = null;
@@ -236,10 +211,6 @@ class Widget extends \WP_Widget {
         } else {
             $this->get_popular($instance);
         }
-
-        if ( $instance['theme']['name'] ) :
-            echo '</div>';
-        endif;
 
         echo "\n" . $after_widget . "\n";
     }

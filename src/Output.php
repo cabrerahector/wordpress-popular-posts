@@ -68,6 +68,14 @@ class Output {
     private $translate;
 
     /**
+     * Themer object.
+     *
+     * @var     \WordPressPopularPosts\Themer       $themer
+     * @access  private
+     */
+    private $themer;
+
+    /**
      * Constructor.
      *
      * @since   4.0.0
@@ -75,13 +83,15 @@ class Output {
      * @param   array                           $admin_options
      * @param   WordPressPopularPosts\Image     $thumbnail
      * @param   WordPressPopularPosts\Translate $translate
+     * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $public_options = [], array $admin_options = [], Image $thumbnail, Translate $translate)
+    public function __construct(array $public_options = [], array $admin_options = [], Image $thumbnail, Translate $translate, \WordPressPopularPosts\Themer $themer)
     {
         $this->public_options = $public_options;
         $this->admin_options = $admin_options;
         $this->thumbnail = $thumbnail;
         $this->translate = $translate;
+        $this->themer = $themer;
 
         $this->more = '...';
 
@@ -155,6 +165,23 @@ class Output {
                 return;
             }
 
+            if ( $this->public_options['theme']['name'] ) {
+                $this->output .= '<div class="popular-posts-sr">';
+
+                $theme_stylesheet = $this->themer->get_theme($this->public_options['theme']['name'])['path'] . '/style.css';
+                $theme_css_rules = wp_strip_all_tags(file_get_contents($theme_stylesheet), true);
+                $additional_styles = '';
+
+                if ( has_filter('wpp_additional_theme_styles') ) {
+                    $additional_styles = wp_strip_all_tags(apply_filters('wpp_additional_theme_styles', '', $this->public_options['theme']['name']), true);
+
+                    if ( $additional_styles )
+                        $additional_styles = ' /* additional rules */ ' . $additional_styles;
+                }
+
+                $this->output .= '<style>' . $theme_css_rules . $additional_styles . '</style>';
+            }
+
             /* Open HTML wrapper */
             // Output a custom wrapper
             if (
@@ -198,6 +225,10 @@ class Output {
             // Output default wrapper
             else {
                 $this->output .= "</ul>" . "\n";
+            }
+
+            if ( $this->public_options['theme']['name'] ) {
+                $this->output .= "</div>";
             }
 
         }
