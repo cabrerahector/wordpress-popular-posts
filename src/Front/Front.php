@@ -441,17 +441,9 @@ class Front {
                     let wpp_widgets = document.querySelectorAll('.popular-posts-sr');
 
                     if ( wpp_widgets ) {
-                        let supportsShadowDOMV1 = !! HTMLElement.prototype.attachShadow;
-
-                        if ( supportsShadowDOMV1 ) {
-                            for (let i = 0; i < wpp_widgets.length; i++) {
-                                let wpp_widget = wpp_widgets[i],
-                                    wpp_widget_sr = wpp_widget.attachShadow({mode: "open"});
-
-                                while(wpp_widget.firstElementChild) {
-                                    wpp_widget_sr.append(wpp_widget.firstElementChild);
-                                }
-                            }
+                        for (let i = 0; i < wpp_widgets.length; i++) {
+                            let wpp_widget = wpp_widgets[i];
+                            WordPressPopularPosts.theme(wpp_widget);
                         }
                     }
                 });

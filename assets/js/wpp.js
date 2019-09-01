@@ -3,6 +3,7 @@ var WordPressPopularPosts = (function(){
     "use strict";
 
     var noop = function(){};
+    var supportsShadowDOMV1 = !! HTMLElement.prototype.attachShadow;
 
     var get = function( url, params, callback ){
         callback = ( 'function' === typeof callback ) ? callback : noop;
@@ -40,10 +41,33 @@ var WordPressPopularPosts = (function(){
         xhr.send( ( "POST" == method ? args : null ) );
     };
 
+    var theme = function(wpp_list) {
+        if ( supportsShadowDOMV1 ) {
+            let link_styles = document.createElement('style'),
+                dummy_link = document.createElement('a');
+
+            wpp_list.parentNode.appendChild(dummy_link);
+
+            let dummy_link_styles = getComputedStyle(dummy_link);
+            link_styles.innerHTML = '.wpp-list li a {color: '+ dummy_link_styles.color +'}';
+
+            wpp_list.parentNode.removeChild(dummy_link);
+
+            let wpp_list_sr = wpp_list.attachShadow({mode: "open"});
+
+            wpp_list_sr.append(link_styles);
+
+            while(wpp_list.firstElementChild) {
+                wpp_list_sr.append(wpp_list.firstElementChild);
+            }
+        }
+    };
+
     return {
         get: get,
         post: post,
-        ajax: ajax
+        ajax: ajax,
+        theme: theme
     };
 
 })();
