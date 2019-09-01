@@ -34,10 +34,12 @@
             border: none;
         }
 
-        .wpp-list li a,
+        .wpp-list li a {
+            text-decoration: none;
+        }
+
         .wpp-list li a:hover {
-            color: inherit;
-            text-decoration: inherit;
+            text-decoration: underline;
         }
 
         .wpp-list li .category,
