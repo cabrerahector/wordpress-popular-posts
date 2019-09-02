@@ -316,32 +316,26 @@ class Widget extends \WP_Widget {
           ? $new_instance['post-excerpt-length']
           : 55;
 
-        $instance['thumbnail']['active'] = false;
+        $instance['thumbnail']['active'] = isset($new_instance['thumbnail-active']);
+        $instance['thumbnail']['build'] = $new_instance['thumbnail-size-source'];
         $instance['thumbnail']['width'] = 75;
         $instance['thumbnail']['height'] = 75;
 
-        // can create thumbnails
-        if ( $this->thumbnail->can_create_thumbnails() ) {
-            $instance['thumbnail']['active'] = isset($new_instance['thumbnail-active']);
-            $instance['thumbnail']['build'] = $new_instance['thumbnail-size-source'];
+        // Use predefined thumbnail sizes
+        if ( 'predefined' == $new_instance['thumbnail-size-source'] ) {
+            $default_thumbnail_sizes = $this->thumbnail->get_sizes();
+            $size = $default_thumbnail_sizes[$new_instance['thumbnail-size']];
 
-            // Use predefined thumbnail sizes
-            if ( 'predefined' == $new_instance['thumbnail-size-source'] ) {
-                $default_thumbnail_sizes = $this->thumbnail->get_sizes();
-                $size = $default_thumbnail_sizes[$new_instance['thumbnail-size']];
-
-                $instance['thumbnail']['width'] = $size['width'];
-                $instance['thumbnail']['height'] = $size['height'];
-                $instance['thumbnail']['crop'] = $size['crop'];
-            } // Set thumbnail size manually
-            else {
-                if ( Helper::is_number($new_instance['thumbnail-width']) && Helper::is_number($new_instance['thumbnail-height']) ) {
-                    $instance['thumbnail']['width'] = $new_instance['thumbnail-width'];
-                    $instance['thumbnail']['height'] = $new_instance['thumbnail-height'];
-                    $instance['thumbnail']['crop'] = true;
-                }
+            $instance['thumbnail']['width'] = $size['width'];
+            $instance['thumbnail']['height'] = $size['height'];
+            $instance['thumbnail']['crop'] = $size['crop'];
+        } // Set thumbnail size manually
+        else {
+            if ( Helper::is_number($new_instance['thumbnail-width']) && Helper::is_number($new_instance['thumbnail-height']) ) {
+                $instance['thumbnail']['width'] = $new_instance['thumbnail-width'];
+                $instance['thumbnail']['height'] = $new_instance['thumbnail-height'];
+                $instance['thumbnail']['crop'] = true;
             }
-
         }
 
         $instance['rating'] = isset($new_instance['rating']);

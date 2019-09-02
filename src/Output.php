@@ -419,10 +419,7 @@ class Output {
     {
         $thumbnail = '';
 
-        if (
-            $this->public_options['thumbnail']['active'] 
-            && $this->thumbnail->can_create_thumbnails() 
-        ) {
+        if ( $this->public_options['thumbnail']['active'] ) {
             $thumbnail = $this->thumbnail->get(
                 $post_object,
                 [

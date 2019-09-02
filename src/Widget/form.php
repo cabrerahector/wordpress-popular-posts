@@ -105,7 +105,7 @@ if ( $taxonomies = get_taxonomies( array('public' => true), 'objects') ) {
     <label><input type="radio" name="<?php echo $this->get_field_name('post-excerpt-words'); ?>" value="1" <?php echo (isset($instance['post-excerpt']['words']) && $instance['post-excerpt']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('words', 'wordpress-popular-posts'); ?></label>
 </div>
 
-<input type="checkbox" class="checkbox" <?php echo ($instance['thumbnail']['active'] && $this->thumbnail->can_create_thumbnails()) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id('thumbnail-active'); ?>" name="<?php echo $this->get_field_name('thumbnail-active'); ?>" /> <label for="<?php echo $this->get_field_id('thumbnail-active'); ?>"><?php _e('Display post thumbnail', 'wordpress-popular-posts'); ?></label>
+<input type="checkbox" class="checkbox" <?php echo ($instance['thumbnail']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id('thumbnail-active'); ?>" name="<?php echo $this->get_field_name('thumbnail-active'); ?>" /> <label for="<?php echo $this->get_field_id('thumbnail-active'); ?>"><?php _e('Display post thumbnail', 'wordpress-popular-posts'); ?></label>
 
 <div style="display:<?php if ($instance['thumbnail']['active']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
     <label><input type='radio' id='thumbnail-predefined-size' name='<?php echo $this->get_field_name('thumbnail-size-source'); ?>' value='predefined' <?php echo ($instance['thumbnail']['build'] == 'predefined') ? 'checked="checked"' : ''; ?> /><?php _e('Use predefined size', 'wordpress-popular-posts'); ?></label><br />
@@ -123,10 +123,10 @@ if ( $taxonomies = get_taxonomies( array('public' => true), 'objects') ) {
     <label><input type='radio' id='thumbnail-manual-size' name='<?php echo $this->get_field_name('thumbnail-size-source'); ?>' value='manual' <?php echo ($instance['thumbnail']['build'] == 'manual') ? 'checked="checked"' : ''; ?> /><?php _e('Set size manually', 'wordpress-popular-posts'); ?></label><br />
 
     <label for="<?php echo $this->get_field_id('thumbnail-width'); ?>"><?php _e('Width', 'wordpress-popular-posts'); ?>:</label>
-    <input type="text" id="<?php echo $this->get_field_id('thumbnail-width'); ?>" name="<?php echo $this->get_field_name('thumbnail-width'); ?>" value="<?php echo $instance['thumbnail']['width']; ?>" class="widefat" style="margin:3px 0; width:50px!important" <?php echo ($this->thumbnail->can_create_thumbnails()) ? '' : 'disabled="disabled"' ?> /> px<br />
+    <input type="text" id="<?php echo $this->get_field_id('thumbnail-width'); ?>" name="<?php echo $this->get_field_name('thumbnail-width'); ?>" value="<?php echo $instance['thumbnail']['width']; ?>" class="widefat" style="margin:3px 0; width:50px!important" /> px<br />
 
     <label for="<?php echo $this->get_field_id('thumbnail-height'); ?>"><?php _e('Height', 'wordpress-popular-posts'); ?>:</label>
-    <input type="text" id="<?php echo $this->get_field_id('thumbnail-height'); ?>" name="<?php echo $this->get_field_name('thumbnail-height'); ?>" value="<?php echo $instance['thumbnail']['height']; ?>" class="widefat" style="width:50px!important" <?php echo ($this->thumbnail->can_create_thumbnails()) ? '' : 'disabled="disabled"' ?> /> px
+    <input type="text" id="<?php echo $this->get_field_id('thumbnail-height'); ?>" name="<?php echo $this->get_field_name('thumbnail-height'); ?>" value="<?php echo $instance['thumbnail']['height']; ?>" class="widefat" style="width:50px!important" /> px
 </div><br />
 
 <!-- Stats tag options -->

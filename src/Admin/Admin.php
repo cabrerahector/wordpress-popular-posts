@@ -1126,39 +1126,35 @@ class Admin {
      */
     public function clear_thumbnails()
     {
-        if ( $this->thumbnail->can_create_thumbnails() ) {
-            $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
+        $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
 
-            if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
-                $token = isset($_POST['token']) ? $_POST['token'] : null;
-                $key = get_option("wpp_rand");
+        if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
+            $token = isset($_POST['token']) ? $_POST['token'] : null;
+            $key = get_option("wpp_rand");
 
-                if (
-                    current_user_can('edit_published_posts')
-                    && ( $token === $key )
-                ) {
-                    if ( is_dir($wpp_uploads_dir['basedir']) ) {
-                        $files = glob("{$wpp_uploads_dir['basedir']}/*"); // get all related images
+            if (
+                current_user_can('edit_published_posts')
+                && ( $token === $key )
+            ) {
+                if ( is_dir($wpp_uploads_dir['basedir']) ) {
+                    $files = glob("{$wpp_uploads_dir['basedir']}/*"); // get all related images
 
-                        if ( is_array($files) && ! empty($files) ) {
-                            foreach( $files as $file ){ // iterate files
-                                if ( is_file($file) ) {
-                                    @unlink($file); // delete file
-                                }
+                    if ( is_array($files) && ! empty($files) ) {
+                        foreach( $files as $file ){ // iterate files
+                            if ( is_file($file) ) {
+                                @unlink($file); // delete file
                             }
-                            echo 1;
-                        } else {
-                            echo 2;
                         }
+                        echo 1;
                     } else {
-                        echo 3;
+                        echo 2;
                     }
                 } else {
-                    echo 4;
+                    echo 3;
                 }
+            } else {
+                echo 4;
             }
-        } else {
-            echo 3;
         }
 
         wp_die();

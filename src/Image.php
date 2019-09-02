@@ -12,15 +12,6 @@ namespace WordPressPopularPosts;
 class Image {
 
     /**
-     * Flag to determine if the class can create thumbnails.
-     *
-     * @since    4.0.0
-     * @access   private
-     * @var      bool    $can_create_thumbnails    Checks if WPP is able to build thumbnails.
-     */
-    private $can_create_thumbnails;
-
-    /**
      * Default thumbnail.
      *
      * @since   2.2.0
@@ -60,42 +51,26 @@ class Image {
      */
     public function __construct(array $admin_options)
     {
-        // Check if WPP can create images
-        $this->can_create_thumbnails = ( extension_loaded('ImageMagick') || extension_loaded('imagick') || (extension_loaded('GD') && function_exists('gd_info')) );
+        $this->admin_options = $admin_options;
 
-        if ( $this->can_create_thumbnails ) {
-            $this->admin_options = $admin_options;
+        // Set default thumbnail
+        $this->default_thumbnail = plugins_url() . "/wordpress-popular-posts/assets/images/no_thumb.jpg";
 
-            // Set default thumbnail
-            $this->default_thumbnail = plugins_url() . "/wordpress-popular-posts/assets/images/no_thumb.jpg";
+        if ( $this->is_image_url($this->admin_options['tools']['thumbnail']['default']) )
+            $this->default_thumbnail = $this->admin_options['tools']['thumbnail']['default'];
 
-            if ( $this->is_image_url($this->admin_options['tools']['thumbnail']['default']) )
-                $this->default_thumbnail = $this->admin_options['tools']['thumbnail']['default'];
+        // Set uploads folder
+        $wp_upload_dir = wp_get_upload_dir();
+        $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts';
+        $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . "/" . 'wordpress-popular-posts';
 
-            // Set uploads folder
-            $wp_upload_dir = wp_get_upload_dir();
-            $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts';
-            $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . "/" . 'wordpress-popular-posts';
-
-            if ( ! is_dir($this->uploads_dir['basedir']) ) {
-                // Couldn't create the folder, store thumbnails in Uploads
-                if ( ! wp_mkdir_p($this->uploads_dir['basedir']) ) {
-                    $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'];
-                    $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'];
-                }
+        if ( ! is_dir($this->uploads_dir['basedir']) ) {
+            // Couldn't create the folder, store thumbnails in Uploads
+            if ( ! wp_mkdir_p($this->uploads_dir['basedir']) ) {
+                $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'];
+                $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'];
             }
         }
-    }
-
-    /**
-     * Tells whether WPP can create thumbnails or not.
-     *
-     * @since   4.0.0
-     * @return  bool
-     */
-    public function can_create_thumbnails()
-    {
-        return $this->can_create_thumbnails;
     }
 
     /**
@@ -125,10 +100,6 @@ class Image {
      */
     public function get($post_object, $size, $source, $crop = true, $build = 'manual')
     {
-        // Bail, cannot create thumbnails
-        if ( ! $this->can_create_thumbnails() )
-            return '';
-
         // Bail, $post_object is not an actual object
         if ( false === $post_object instanceof \stdClass || ! isset($post_object->id) ) {
             return '';
