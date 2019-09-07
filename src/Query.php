@@ -151,9 +151,13 @@ class Query {
                 if ( isset($this->options['taxonomy']) && ! empty($this->options['taxonomy']) ) {
                     $registered_taxonomies = get_taxonomies(['public' => true]);
 
-                    // Invalid taxonomy, fallback to "category"
-                    if ( ! isset($registered_taxonomies[$this->options['taxonomy']]) ) {
-                        $this->options['taxonomy'] = 'category';
+                    $taxonomies = explode(";", $this->options['taxonomy']);
+
+                    foreach ( $taxonomies as $taxonomy ) {
+                        // Invalid taxonomy, fallback to "category"
+                        if ( ! isset($registered_taxonomies[$taxonomy]) ) {
+                            $this->options['taxonomy'] = 'category';
+                        }
                     }
                 } // Default to "category"
                 else {
@@ -164,56 +168,77 @@ class Query {
                     $this->options['term_id'] = $this->options['cat'];
                 }
 
-                $term_IDs = explode(",", $this->options['term_id']);
-                $in_term_IDs = [];
-                $out_term_IDs = [];
+                $term_IDs_for_taxonomies = explode( ";", $this->options['term_id'] );
+                $term_IDs = array();
+                foreach( $term_IDs_for_taxonomies as $term_IDs_for_single_taxonomy ) {
+                     $term_IDs[] = explode( ",", $term_IDs_for_single_taxonomy );
+                }
+                $in_term_IDs_for_taxonomies = array();
+                $out_term_IDs_for_taxonomies = array();
 
-                foreach( $term_IDs as $term_ID ) {
-                    if ( $term_ID >= 0 )
-                        $in_term_IDs[] = trim($term_ID);
-                    else
-                        $out_term_IDs[] = trim($term_ID) * -1;
+                foreach( $term_IDs as $term_IDs_for_single_taxonomy ) {
+
+                    $in_term_IDs_for_taxonomy = [];
+                    $out_term_IDs_for_taxonomy = [];
+
+                    foreach ( $term_IDs_for_single_taxonomy as $term_ID ) {
+
+                        if ( $term_ID >= 0 )
+                            $in_term_IDs_for_taxonomy[] = trim( $term_ID );
+                        else
+                            $out_term_IDs_for_taxonomy[] = trim( $term_ID ) * -1;
+
+                    }
+                    $in_term_IDs_for_taxonomies[] = $in_term_IDs_for_taxonomy;
+                    $out_term_IDs_for_taxonomies[] = $out_term_IDs_for_taxonomy;
                 }
 
-                if ( ! empty($in_term_IDs) ) {
-                    $where .= " AND p.ID IN (
-                    SELECT object_id
-                    FROM `{$wpdb->term_relationships}` AS r
-                         JOIN `{$wpdb->term_taxonomy}` AS x ON x.term_taxonomy_id = r.term_taxonomy_id
-                    WHERE x.taxonomy = '{$this->options['taxonomy']}'";
 
-                    $inTID = '';
+                foreach( explode(";", $this->options['taxonomy']) as $taxIndex => $taxonomy ) {
+                    $in_term_IDs = $in_term_IDs_for_taxonomies[$taxIndex];
+                    $out_term_IDs = $out_term_IDs_for_taxonomies[$taxIndex];
 
-                    foreach( $in_term_IDs as $in_term_ID ) {
-                        $inTID .= "%d, ";
-                        array_push($args, $in_term_ID);
+                    if (!empty($in_term_IDs)) {
+
+                        $where .= " AND p.ID IN (
+                        SELECT object_id
+                        FROM `{$wpdb->term_relationships}` AS r
+                             JOIN `{$wpdb->term_taxonomy}` AS x ON x.term_taxonomy_id = r.term_taxonomy_id
+                        WHERE x.taxonomy = '{$taxonomy}'";
+
+                        $inTID = '';
+
+                        foreach ($in_term_IDs as $in_term_ID) {
+                            $inTID .= "%d, ";
+                            array_push($args, $in_term_ID);
+                        }
+
+                        $where .= " AND x.term_id IN(" . rtrim($inTID, ", ") . ") )";
                     }
 
-                    $where .= " AND x.term_id IN(" . rtrim($inTID, ", ") . ") )";
-                }
+                    if (!empty($out_term_IDs)) {
 
-                if ( ! empty($out_term_IDs) ) {
-                    $post_ids = get_posts(
-                        [
-                            'post_type' => $post_types,
-                            'posts_per_page' => -1,
-                            'tax_query' => [
-                                [
-                                    'taxonomy' => $this->options['taxonomy'],
-                                    'field' => 'id',
-                                    'terms' => $out_term_IDs,
-                                ],
-                            ],
-                            'fields' => 'ids'
-                        ]
-                    );
+                        $post_ids = get_posts(
+                            array(
+                                'post_type' => $post_types,
+                                'posts_per_page' => -1,
+                                'tax_query' => array(
+                                    array(
+                                        'taxonomy' => $taxonomy,
+                                        'field' => 'id',
+                                        'terms' => $out_term_IDs,
+                                    ),
+                                ),
+                                'fields' => 'ids'
+                            )
+                        );
 
-                    if ( is_array($post_ids) && ! empty($post_ids) ) {
-                        if ( isset($this->options['pid']) && ! empty($this->options['pid']) ) {
-                            $this->options['pid'] .= "," . implode(",", $post_ids);
-                        }
-                        else {
-                            $this->options['pid'] = implode( ",", $post_ids );
+                        if (is_array($post_ids) && !empty($post_ids)) {
+                            if (isset($this->options['pid']) && !empty($this->options['pid'])) {
+                                $this->options['pid'] .= "," . implode(",", $post_ids);
+                            } else {
+                                $this->options['pid'] = implode(",", $post_ids);
+                            }
                         }
                     }
                 }
