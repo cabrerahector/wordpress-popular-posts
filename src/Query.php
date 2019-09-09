@@ -144,31 +144,28 @@ class Query {
 
             // Get / exclude entries from this taxonomies
             if (
-                ( isset($this->options['cat']) && ! empty($this->options['cat']) )
-                || ( isset($this->options['term_id']) && ! empty($this->options['term_id']) )
+                ( isset($this->options['taxonomy']) && ! empty($this->options['taxonomy']) ) &&
+                ( ( isset($this->options['cat']) && ! empty($this->options['cat']) )
+                || ( isset($this->options['term_id']) && ! empty($this->options['term_id']) ) )
             ) {
+
+                if ( isset($this->options['cat']) && ! empty($this->options['cat']) ) {
+                    $this->options['term_id'] = $this->options['cat'];
+                }
 
                 $taxonomies = explode(";", $this->options['taxonomy']);
                 $term_IDs_for_taxonomies = explode( ";", $this->options['term_id'] );
 
                 if ( count($taxonomies) == count($term_IDs_for_taxonomies) ) {
 
-                    if ( isset($this->options['taxonomy']) && ! empty($this->options['taxonomy']) ) {
-                        $registered_taxonomies = get_taxonomies(['public' => true]);
+                    $registered_taxonomies = get_taxonomies(['public' => true]);
 
-                        foreach ( $taxonomies as $index => $taxonomy ) {
-                            // Invalid taxonomy, fallback to "category"
-                            if ( ! isset($registered_taxonomies[$taxonomy]) ) {
-                                $this->options['taxonomy'] = 'category';
-                            }
+                    foreach ( $taxonomies as $index => $taxonomy ) {
+                        // Invalid taxonomy, discard the taxonomy
+                        if ( ! isset($registered_taxonomies[$taxonomy]) ) {
+                            unset($taxonomies[$index]);
+                            unset($term_IDs_for_taxonomies[$index]);
                         }
-                    } // Default to "category"
-                    else {
-                        $this->options['taxonomy'] = 'category';
-                    }
-
-                    if ( isset($this->options['cat']) && ! empty($this->options['cat']) ) {
-                        $this->options['term_id'] = $this->options['cat'];
                     }
 
                     $term_IDs = array();
@@ -196,7 +193,7 @@ class Query {
                     }
 
 
-                    foreach( explode(";", $this->options['taxonomy']) as $taxIndex => $taxonomy ) {
+                    foreach( $taxonomies as $taxIndex => $taxonomy ) {
                         $in_term_IDs = $in_term_IDs_for_taxonomies[$taxIndex];
                         $out_term_IDs = $out_term_IDs_for_taxonomies[$taxIndex];
 
