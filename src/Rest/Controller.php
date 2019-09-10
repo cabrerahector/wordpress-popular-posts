@@ -132,7 +132,7 @@ class Controller extends \WP_REST_Controller {
             $post_ID,
             get_post_type($post_ID),
             true,
-            $this->translate->get_default_language()
+            $this->translate->get_current_language()
         );
 
         $now = Helper::now();
