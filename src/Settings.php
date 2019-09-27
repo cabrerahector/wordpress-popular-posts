@@ -125,7 +125,10 @@ class Settings {
                 'sampling' => [
                     'active' => false,
                     'rate' => 100
-                ]
+                ],
+                'wpml' => [
+                    'view_default_laguage' => 'true'
+                ],
             ]
         ]
     ];

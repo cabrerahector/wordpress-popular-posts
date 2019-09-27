@@ -41,6 +41,13 @@ if ( isset($_POST['section']) ) {
             echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts') . "</strong></p></div>";
         }
     }
+    elseif ('wpml'== $_POST['section'] ) {
+        $current = 'tools';
+        if ( isset($_POST['wpp-admin-token'] ) && wp_verify_nonce($_POST['wpp-admin-token'], 'wpp-update-wpml-options') ) {
+            $this->config['tools']['wpml']['view_default_laguage'] = $_POST['view_default_laguage'];
+            update_option('wpp_settings_config', $this->config);
+            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts') . "</strong></p></div>";
+        }    } 
     elseif ( "thumb" == $_POST['section'] ) {
         $current = 'tools';
 
@@ -613,6 +620,37 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
 
             <?php wp_nonce_field('wpp-update-misc-options', 'wpp-admin-token'); ?>
         </form>
+        
+        <?php if ( defined('ICL_LANGUAGE_CODE') ) : ?>
+            <br />
+            <p style="display: block; float: none; clear: both;">&nbsp;</p>
+            
+            <h3 class="wmpp-subtitle"><?php _e("WPML", 'wordpress-popular-posts'); ?></h3>
+
+            <form action="" method="post" id="wpp_wpml_options" name="wpp_wpml_options">
+                <table class="form-table">
+                    <tbody>
+                        <tr valign="top">
+                            <th scope="row"><label for="view_default_laguage"><?php _e("Post ID record", 'wordpress-popular-posts'); ?>:</label></th>
+                            <td>
+                                <select name="view_default_laguage" id="view_default_laguage">
+                                    <option <?php if ($this->config['tools']['wpml']['view_default_laguage'] === 'true') { ?>selected="selected"<?php } ?> value="true"><?php _e("View as default language", 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['wpml']['view_default_laguage'] === 'false') { ?>selected="selected"<?php } ?> value="false"><?php _e("View as current language", 'wordpress-popular-posts'); ?></option>
+                                </select>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td colspan="2">
+                                <input type="hidden" name="section" value="wpml">
+                                <input type="submit" class="button-primary action" value="<?php _e("Apply", 'wordpress-popular-posts'); ?>" name="">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <?php wp_nonce_field('wpp-update-wpml-options', 'wpp-admin-token'); ?>
+            </form>
+        <?php endif; ?>
         <br />
         <p style="display: block; float: none; clear: both;">&nbsp;</p>
 

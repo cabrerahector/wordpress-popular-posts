@@ -163,12 +163,15 @@ class Front {
         $table = $wpdb->prefix . "popularposts";
         $wpdb->show_errors();
 
+
+        $options = Settings::get('admin_options');
+        $default_language_post_id = $options['tools']['wpml']['view_default_laguage'];
         // Get translated object ID
         $post_ID = $this->translate->get_object_id(
             $post_ID,
             get_post_type($post_ID),
             true,
-            $this->translate->get_current_language()
+            $default_language_post_id === 'true' ? $this->translate->get_default_language() : $this->translate->get_current_language()
         );
         $now = Helper::now();
         $curdate = Helper::curdate();
