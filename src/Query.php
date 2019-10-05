@@ -231,7 +231,9 @@ class Query {
                                         SELECT object_id
                                         FROM `{$wpdb->term_relationships}` AS r
                                             JOIN `{$wpdb->term_taxonomy}` AS x ON x.term_taxonomy_id = r.term_taxonomy_id
-                                        WHERE x.taxonomy = '{$taxonomy}'";
+                                        WHERE x.taxonomy = %s";
+
+                                    array_push($args, $taxonomy);
 
                                     $inTID = '';
 
