@@ -314,7 +314,7 @@ class Front {
             'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ","),
             'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ","),
             'taxonomy' => empty($taxonomy) ? 'category' : $taxonomy,
-            'term_id' => rtrim(preg_replace('|[^0-9,-]|', '', $term_id), ","),
+            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ","),
             'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ","),
             'shorten_title' => [
                 'active' => ( ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
