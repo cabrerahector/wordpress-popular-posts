@@ -153,95 +153,124 @@ class Query {
                     $this->options['term_id'] = $this->options['cat'];
                 }
 
-                $taxonomies = explode(";", $this->options['taxonomy']);
-                $term_IDs_for_taxonomies = explode( ";", $this->options['term_id'] );
+                // Let's do some cleanup before attempting the filtering
+                $this->options['taxonomy'] = trim($this->options['taxonomy'], ' ;');
+                $this->options['term_id'] = trim($this->options['term_id'], ' ;');
 
-                if ( count($taxonomies) == count($term_IDs_for_taxonomies) ) {
+                if (
+                    $this->options['taxonomy'] 
+                    && $this->options['term_id']
+                ) {
 
-                    $registered_taxonomies = get_taxonomies(['public' => true]);
+                    $taxonomies = array_map('trim', explode(';', $this->options['taxonomy']));
+                    $term_IDs_for_taxonomies = array_map('trim', explode(';', $this->options['term_id']));
 
-                    foreach ( $taxonomies as $index => $taxonomy ) {
-                        // Invalid taxonomy, discard the taxonomy
-                        if ( ! isset($registered_taxonomies[$taxonomy]) ) {
-                            unset($taxonomies[$index]);
-                            unset($term_IDs_for_taxonomies[$index]);
+                    // Apparently we have at least one taxonomy and matching term ID(s)
+                    if ( count($taxonomies) && count($term_IDs_for_taxonomies) ) {
+
+                        // Parameters mismatch: we either have too little taxonomies
+                        // or too little term ID groups, let's trim the excess
+                        if ( count($taxonomies) != count($term_IDs_for_taxonomies) ) {
+                            // We have more taxonomies than term ID groups,
+                            // let's remove some taxonomies
+                            if ( count($taxonomies) > count($term_IDs_for_taxonomies) ) {
+                                $taxonomies = array_slice($taxonomies, 0, count($term_IDs_for_taxonomies));
+                            }
+                            // We have more term ID groups than taxonomies,
+                            // let's remove some term ID groups
+                            else {
+                                $term_IDs_for_taxonomies = array_slice($term_IDs_for_taxonomies, 0, count($taxonomies));
+                            }
                         }
-                    }
 
-                    $term_IDs = array();
-                    foreach( $term_IDs_for_taxonomies as $term_IDs_for_single_taxonomy ) {
-                        $term_IDs[] = explode( ",", $term_IDs_for_single_taxonomy );
-                    }
-                    $in_term_IDs_for_taxonomies = array();
-                    $out_term_IDs_for_taxonomies = array();
+                        $registered_taxonomies = get_taxonomies(['public' => true]);
 
-                    foreach( $term_IDs as $term_IDs_for_single_taxonomy ) {
-
-                        $in_term_IDs_for_taxonomy = [];
-                        $out_term_IDs_for_taxonomy = [];
-
-                        foreach ( $term_IDs_for_single_taxonomy as $term_ID ) {
-
-                            if ( $term_ID >= 0 )
-                                $in_term_IDs_for_taxonomy[] = trim( $term_ID );
-                            else
-                                $out_term_IDs_for_taxonomy[] = trim( $term_ID ) * -1;
-
+                        foreach ( $taxonomies as $index => $taxonomy ) {
+                            // Invalid taxonomy, discard the taxonomy
+                            if ( ! isset($registered_taxonomies[$taxonomy]) ) {
+                                unset($taxonomies[$index]);
+                                unset($term_IDs_for_taxonomies[$index]);
+                            }
                         }
-                        $in_term_IDs_for_taxonomies[] = $in_term_IDs_for_taxonomy;
-                        $out_term_IDs_for_taxonomies[] = $out_term_IDs_for_taxonomy;
-                    }
 
+                        // If we still have something we can use 
+                        // for filtering, let's use it
+                        if (
+                            ! empty($taxonomies)
+                            && ! empty($term_IDs_for_taxonomies)
+                        ) {
 
-                    foreach( $taxonomies as $taxIndex => $taxonomy ) {
-                        $in_term_IDs = $in_term_IDs_for_taxonomies[$taxIndex];
-                        $out_term_IDs = $out_term_IDs_for_taxonomies[$taxIndex];
+                            $term_IDs = array();
+                            foreach( $term_IDs_for_taxonomies as $term_IDs_for_single_taxonomy ) {
+                                $term_IDs[] = explode(",", $term_IDs_for_single_taxonomy);
+                            }
+                            $in_term_IDs_for_taxonomies = array();
+                            $out_term_IDs_for_taxonomies = array();
 
-                        if (!empty($in_term_IDs)) {
+                            foreach( $term_IDs as $term_IDs_for_single_taxonomy ) {
+                                $in_term_IDs_for_taxonomy = [];
+                                $out_term_IDs_for_taxonomy = [];
 
-                            $where .= " AND p.ID IN (
-                        SELECT object_id
-                        FROM `{$wpdb->term_relationships}` AS r
-                             JOIN `{$wpdb->term_taxonomy}` AS x ON x.term_taxonomy_id = r.term_taxonomy_id
-                        WHERE x.taxonomy = '{$taxonomy}'";
+                                foreach ( $term_IDs_for_single_taxonomy as $term_ID ) {
+                                    if ( $term_ID >= 0 )
+                                        $in_term_IDs_for_taxonomy[] = trim($term_ID);
+                                    else
+                                        $out_term_IDs_for_taxonomy[] = trim($term_ID) * -1;
+                                }
 
-                            $inTID = '';
-
-                            foreach ($in_term_IDs as $in_term_ID) {
-                                $inTID .= "%d, ";
-                                array_push($args, $in_term_ID);
+                                $in_term_IDs_for_taxonomies[] = $in_term_IDs_for_taxonomy;
+                                $out_term_IDs_for_taxonomies[] = $out_term_IDs_for_taxonomy;
                             }
 
-                            $where .= " AND x.term_id IN(" . rtrim($inTID, ", ") . ") )";
-                        }
+                            foreach( $taxonomies as $taxIndex => $taxonomy ) {
+                                $in_term_IDs = $in_term_IDs_for_taxonomies[$taxIndex];
+                                $out_term_IDs = $out_term_IDs_for_taxonomies[$taxIndex];
 
-                        if (!empty($out_term_IDs)) {
+                                if ( ! empty($in_term_IDs) ) {
+                                    $where .= " AND p.ID IN (
+                                        SELECT object_id
+                                        FROM `{$wpdb->term_relationships}` AS r
+                                            JOIN `{$wpdb->term_taxonomy}` AS x ON x.term_taxonomy_id = r.term_taxonomy_id
+                                        WHERE x.taxonomy = '{$taxonomy}'";
 
-                            $post_ids = get_posts(
-                                array(
-                                    'post_type' => $post_types,
-                                    'posts_per_page' => -1,
-                                    'tax_query' => array(
-                                        array(
-                                            'taxonomy' => $taxonomy,
-                                            'field' => 'id',
-                                            'terms' => $out_term_IDs,
-                                        ),
-                                    ),
-                                    'fields' => 'ids'
-                                )
-                            );
+                                    $inTID = '';
 
-                            if (is_array($post_ids) && !empty($post_ids)) {
-                                if (isset($this->options['pid']) && !empty($this->options['pid'])) {
-                                    $this->options['pid'] .= "," . implode(",", $post_ids);
-                                } else {
-                                    $this->options['pid'] = implode(",", $post_ids);
+                                    foreach ($in_term_IDs as $in_term_ID) {
+                                        $inTID .= "%d, ";
+                                        array_push($args, $in_term_ID);
+                                    }
+
+                                    $where .= " AND x.term_id IN(" . rtrim($inTID, ", ") . ") )";
+                                }
+
+                                if ( ! empty($out_term_IDs) ) {
+
+                                    $post_ids = get_posts(
+                                        [
+                                            'post_type' => $post_types,
+                                            'posts_per_page' => -1,
+                                            'tax_query' => [
+                                                [
+                                                    'taxonomy' => $taxonomy,
+                                                    'field' => 'id',
+                                                    'terms' => $out_term_IDs,
+                                                ],
+                                            ],
+                                            'fields' => 'ids'
+                                        ]
+                                    );
+
+                                    if ( is_array($post_ids) && ! empty($post_ids) ) {
+                                        if ( isset($this->options['pid']) && ! empty($this->options['pid']) ) {
+                                            $this->options['pid'] .= "," . implode(",", $post_ids);
+                                        } else {
+                                            $this->options['pid'] = implode(",", $post_ids);
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-
                 }
             }
 
