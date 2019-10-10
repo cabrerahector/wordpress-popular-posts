@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2019-10-10 14:55-0400\n"
+"POT-Creation-Date: 2019-10-10 15:01-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../src/Admin/Admin.php:313
 #, php-format
-msgid "1 view in the last hour"
+msgid "%s view in the last hour"
 msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
@@ -77,15 +77,17 @@ msgid "Settings"
 msgstr ""
 
 #: ../src/Admin/Admin.php:641 ../src/Admin/Admin.php:1030 ../src/Admin/Admin.php:1034
+#: ../src/Output.php:708
 #, php-format
-msgid "1 view"
+msgid "%s view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/Admin/Admin.php:641 ../src/Admin/Admin.php:1032 ../src/Admin/Admin.php:1034
+#: ../src/Output.php:691
 #, php-format
-msgid "1 comment"
+msgid "%s comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
@@ -897,24 +899,10 @@ msgstr ""
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../src/Output.php:691
-#, php-format
-msgid "%s comment"
-msgid_plural "%s comments"
-msgstr[0] ""
-msgstr[1] ""
-
 #: ../src/Output.php:702
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../src/Output.php:708
-#, php-format
-msgid "%s view"
-msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
