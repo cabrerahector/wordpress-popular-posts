@@ -513,7 +513,7 @@ class Controller extends \WP_REST_Controller {
                 'description'       => __('Taxonomy IDs, separated by comma (prefix a minus sign to exclude).'),
                 'type'              => 'string',
                 'sanitize_callback' => function($term_id) {
-                    return rtrim(preg_replace('|[^0-9,-]|', '', $term_id), ',');
+                    return rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ',');
                 },
                 'validate_callback' => 'rest_validate_request_arg',
             ],
