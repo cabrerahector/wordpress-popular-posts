@@ -57,20 +57,31 @@ $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
 <label for="<?php echo $this->get_field_id('pid'); ?>"><?php _e('Post ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
 <input type="text" id="<?php echo $this->get_field_id('pid'); ?>" name="<?php echo $this->get_field_name('pid'); ?>" value="<?php echo $instance['pid']; ?>" class="widefat" /><br /><br />
 
-<label for="<?php echo $this->get_field_id('tax_id'); ?>"><?php _e('Taxonomy', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-taxonomy-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br />
+<label for="<?php echo $this->get_field_id('tax_id'); ?>"><?php _e('Taxonomy', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-taxonomy-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br style="margin-bottom: 0.5rem" />
 <?php
-// Taxonomy filter
-if ( $taxonomies = get_taxonomies( array('public' => true), 'objects') ) {
-    foreach ( $taxonomies  as $taxonomy ) {
-        if ('post_format' == $taxonomy->name )
-            continue;
-        echo '<label><input type="radio" name="' . $this->get_field_name('taxonomy') . '" value="' . $taxonomy->name . '"' . ( ( !empty($instance['cat']) && 'category' == $taxonomy->name ) || ( $instance['taxonomy'] == $taxonomy->name ) ? ' checked' : '') . '> ' . $taxonomy->labels->singular_name . '</label><br>';
+$selected_taxonomies = explode(';', $instance['taxonomy']);
+$selected_terms = explode(';', $instance['term_id']);
+$tax_filter = [];
+
+if ( ! empty($selected_taxonomies) ) {
+    foreach( $selected_taxonomies as $index => $selected_taxonomy ) {
+        if ( isset($selected_terms[$index]) ) {
+            $tax_filter[$selected_taxonomy] = $selected_terms[$index];
+        }
     }
-?>
-<input type="text" id="<?php echo $this->get_field_id('term_id'); ?>" name="<?php echo $this->get_field_name('term_id'); ?>" value="<?php echo ( !empty($instance['cat']) ) ? $instance['cat'] : $instance['term_id']; ?>" class="widefat" style="margin-top: 4px;" /><br />
-<small><?php _e('Taxonomy IDs, separated by comma (prefix a minus sign to exclude)', 'wordpress-popular-posts'); ?></small>
-<br /><br />
-<?php
+}
+
+// Taxonomy filter
+if ( $taxonomies = get_taxonomies(['public' => true], 'objects') ) {
+    foreach ( $taxonomies as $taxonomy ) {
+        if ( 'post_format' == $taxonomy->name )
+            continue;
+        echo '<label><input type="checkbox" name="' . $this->get_field_name('taxonomy') . '[names][]" value="' . $taxonomy->name . '"' . ( isset($tax_filter[$taxonomy->name]) ? ' checked' : '') . '> ' . $taxonomy->labels->singular_name . ' <small>('. $taxonomy->name .')</small></label><br>';
+        echo '<input type="text" name="' . $this->get_field_name('taxonomy') . '[terms][' . $taxonomy->name . ']" value="' . ( isset($tax_filter[$taxonomy->name]) ? esc_attr($tax_filter[$taxonomy->name]) : '') . '" class="widefat" style="margin-top: 4px;" /><br />';
+        /* translators: %s here represents the singular name of the taxonomy (eg. Category) */
+        $taxonomy_instructions = __('%s IDs, separated by comma (prefix a minus sign to exclude)', 'wordpress-popular-posts');
+        echo '<small>' . sprintf($taxonomy_instructions, $taxonomy->labels->singular_name) . '</small><br /><br />';
+    }
 }
 ?>
 

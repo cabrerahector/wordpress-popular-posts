@@ -281,16 +281,34 @@ class Widget extends \WP_Widget {
         }
 
         // Taxonomy filter
-        $instance['taxonomy'] = $new_instance['taxonomy'];
-        $instance['cat'] = ''; // Deprecated in 4.0.0!
+        $taxonomies = $new_instance['taxonomy'];
 
-        $ids = array_filter(explode(",", rtrim(preg_replace('|[^0-9,-]|', '', $new_instance['term_id']), ",")), 'is_numeric');
-        // Got no valid IDs, clear
-        if ( empty($ids) ) {
-            $instance['term_id'] = '';
-        }
+        if ( isset($taxonomies['names']) ) {
+            // Remove taxonomies that don't have any valid term IDs
+            foreach( $taxonomies['terms'] as $taxonomy => $terms ) {
+                $taxonomies['terms'][$taxonomy] = array_filter(
+                    explode(",", trim(preg_replace('|[^0-9,-]|', '', $taxonomies['terms'][$taxonomy]), ", ")),
+                    'is_numeric'
+                );
+
+                if (
+                    empty($taxonomies['terms'][$taxonomy])
+                    || ! in_array($taxonomy, $taxonomies['names'])
+                ) {
+                    unset($taxonomies['terms'][$taxonomy]);
+                } else {
+                    $taxonomies['terms'][$taxonomy] = implode(',', $taxonomies['terms'][$taxonomy]);
+                }
+            }
+
+            if ( ! empty($taxonomies['terms']) ) {
+                $instance['taxonomy'] = implode(';', array_keys($taxonomies['terms']));
+                $instance['term_id'] = implode(';', array_values($taxonomies['terms']));
+            }
+        } // Discard everything
         else {
-            $instance['term_id'] = implode(",", $ids);
+            $instance['taxonomy'] = '';
+            $instance['term_id'] = '';
         }
 
         // Author filter

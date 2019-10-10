@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2019-07-16 15:49-0400\n"
+"POT-Creation-Date: 2019-10-10 14:55-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-KeywordsList: _e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;"
 "esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
 "X-Poedit-Basepath: .\n"
@@ -22,91 +22,91 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../src/Admin/Admin.php:323
+#: ../src/Admin/Admin.php:313
 #, php-format
 msgid "1 view in the last hour"
 msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:356 ../src/Admin/admin-page.php:348
+#: ../src/Admin/Admin.php:347 ../src/Admin/admin-page.php:348
 msgid "Trending now"
 msgstr ""
 
-#: ../src/Admin/Admin.php:443
+#: ../src/Admin/Admin.php:435
 msgid "View more"
 msgstr ""
 
-#: ../src/Admin/Admin.php:472
+#: ../src/Admin/Admin.php:464
 msgid "Use this image"
 msgstr ""
 
-#: ../src/Admin/Admin.php:525
+#: ../src/Admin/Admin.php:517
 msgid "Overview"
 msgstr ""
 
-#: ../src/Admin/Admin.php:526
+#: ../src/Admin/Admin.php:518
 msgid ""
 "Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics "
 "on what's popular on your site, tools to further tweak WPP to your needs, and more!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:532
+#: ../src/Admin/Admin.php:524
 msgid "Like this plugin?"
 msgstr ""
 
-#: ../src/Admin/Admin.php:534
+#: ../src/Admin/Admin.php:526
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress community!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:541
+#: ../src/Admin/Admin.php:533
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:548
+#: ../src/Admin/Admin.php:540
 #, php-format
 msgid ""
 "<p><strong>For more information:</strong></p><ul><li><a href=\"%1$s\">Documentation</"
 "a></li><li><a href=\"%2$s\">Support</a></li></ul>"
 msgstr ""
 
-#: ../src/Admin/Admin.php:572
+#: ../src/Admin/Admin.php:564
 msgid "Settings"
 msgstr ""
 
-#: ../src/Admin/Admin.php:649 ../src/Admin/Admin.php:1038 ../src/Admin/Admin.php:1042
+#: ../src/Admin/Admin.php:641 ../src/Admin/Admin.php:1030 ../src/Admin/Admin.php:1034
 #, php-format
 msgid "1 view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:649 ../src/Admin/Admin.php:1040 ../src/Admin/Admin.php:1042
+#: ../src/Admin/Admin.php:641 ../src/Admin/Admin.php:1032 ../src/Admin/Admin.php:1034
 #, php-format
 msgid "1 comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:670 ../src/Widget/form.php:21
+#: ../src/Admin/Admin.php:662 ../src/Widget/form.php:21
 msgid "Comments"
 msgstr ""
 
-#: ../src/Admin/Admin.php:674
+#: ../src/Admin/Admin.php:666
 msgid "Views"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1044
+#: ../src/Admin/Admin.php:1036
 msgid "View"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1044
+#: ../src/Admin/Admin.php:1036
 msgid "Edit"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1055
+#: ../src/Admin/Admin.php:1047
 msgid ""
 "Looks like your site's activity is a little low right now. <br />Spread the word and "
 "come back later!"
@@ -330,8 +330,8 @@ msgstr ""
 
 #: ../src/Admin/admin-page.php:421 ../src/Admin/admin-page.php:518
 #: ../src/Admin/admin-page.php:546 ../src/Widget/form.php:7 ../src/Widget/form.php:54
-#: ../src/Widget/form.php:60 ../src/Widget/form.php:77 ../src/Widget/form.php:87
-#: ../src/Widget/form.php:179
+#: ../src/Widget/form.php:60 ../src/Widget/form.php:88 ../src/Widget/form.php:98
+#: ../src/Widget/form.php:190
 msgid "What is this?"
 msgstr ""
 
@@ -579,7 +579,7 @@ msgstr ""
 #: ../src/Admin/admin-page.php:654 ../src/Admin/admin-page.php:724
 #: ../src/Admin/admin-page.php:731 ../src/Admin/admin-page.php:738
 #: ../src/Admin/admin-page.php:745 ../src/Admin/admin-page.php:752
-#: ../src/Widget/form.php:215
+#: ../src/Widget/form.php:226
 msgid "None"
 msgstr ""
 
@@ -893,47 +893,47 @@ msgstr ""
 msgid "outputs rel=\"nofollow\" for the current post"
 msgstr ""
 
-#: ../src/Output.php:206
+#: ../src/Output.php:237
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../src/Output.php:663
+#: ../src/Output.php:691
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Output.php:674
+#: ../src/Output.php:702
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Output.php:680
+#: ../src/Output.php:708
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Output.php:703
+#: ../src/Output.php:731
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../src/Output.php:709
+#: ../src/Output.php:737
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: ../src/Output.php:709
+#: ../src/Output.php:737
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: ../src/Output.php:717
+#: ../src/Output.php:745
 #, php-format
 msgid "under %s"
 msgstr ""
@@ -1010,7 +1010,7 @@ msgstr ""
 msgid "The most Popular Posts on your blog."
 msgstr ""
 
-#: ../src/Widget/Widget.php:184
+#: ../src/Widget/Widget.php:167
 #, php-format
 msgid ""
 "Error: cannot ajaxify WordPress Popular Posts on this sidebar. It's missing the "
@@ -1066,136 +1066,137 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: ../src/Widget/form.php:71
-msgid "Taxonomy IDs, separated by comma (prefix a minus sign to exclude)"
+#: ../src/Widget/form.php:82
+#, php-format
+msgid "%s IDs, separated by comma (prefix a minus sign to exclude)"
 msgstr ""
 
-#: ../src/Widget/form.php:77
+#: ../src/Widget/form.php:88
 msgid "Author ID(s)"
 msgstr ""
 
-#: ../src/Widget/form.php:83
+#: ../src/Widget/form.php:94
 msgid "Posts settings"
 msgstr ""
 
-#: ../src/Widget/form.php:87
+#: ../src/Widget/form.php:98
 msgid "Display post rating"
 msgstr ""
 
-#: ../src/Widget/form.php:90
+#: ../src/Widget/form.php:101
 msgid "Shorten title"
 msgstr ""
 
-#: ../src/Widget/form.php:93
+#: ../src/Widget/form.php:104
 msgid "Shorten title to"
 msgstr ""
 
-#: ../src/Widget/form.php:94 ../src/Widget/form.php:104
+#: ../src/Widget/form.php:105 ../src/Widget/form.php:115
 msgid "characters"
 msgstr ""
 
-#: ../src/Widget/form.php:95 ../src/Widget/form.php:105
+#: ../src/Widget/form.php:106 ../src/Widget/form.php:116
 msgid "words"
 msgstr ""
 
-#: ../src/Widget/form.php:98
+#: ../src/Widget/form.php:109
 msgid "Display post excerpt"
 msgstr ""
 
-#: ../src/Widget/form.php:101
+#: ../src/Widget/form.php:112
 msgid "Keep text format and links"
 msgstr ""
 
-#: ../src/Widget/form.php:102
+#: ../src/Widget/form.php:113
 msgid "Excerpt length"
 msgstr ""
 
-#: ../src/Widget/form.php:108
+#: ../src/Widget/form.php:119
 msgid "Display post thumbnail"
 msgstr ""
 
-#: ../src/Widget/form.php:111
+#: ../src/Widget/form.php:122
 msgid "Use predefined size"
 msgstr ""
 
-#: ../src/Widget/form.php:123
+#: ../src/Widget/form.php:134
 msgid "Set size manually"
 msgstr ""
 
-#: ../src/Widget/form.php:125
+#: ../src/Widget/form.php:136
 msgid "Width"
 msgstr ""
 
-#: ../src/Widget/form.php:128
+#: ../src/Widget/form.php:139
 msgid "Height"
 msgstr ""
 
-#: ../src/Widget/form.php:135
+#: ../src/Widget/form.php:146
 msgid "Stats Tag settings"
 msgstr ""
 
-#: ../src/Widget/form.php:137
+#: ../src/Widget/form.php:148
 msgid "Display comment count"
 msgstr ""
 
-#: ../src/Widget/form.php:139
+#: ../src/Widget/form.php:150
 msgid "Display views"
 msgstr ""
 
-#: ../src/Widget/form.php:141
+#: ../src/Widget/form.php:152
 msgid "Display author"
 msgstr ""
 
-#: ../src/Widget/form.php:143
+#: ../src/Widget/form.php:154
 msgid "Display date"
 msgstr ""
 
-#: ../src/Widget/form.php:146
+#: ../src/Widget/form.php:157
 msgid "Date Format"
 msgstr ""
 
-#: ../src/Widget/form.php:148
+#: ../src/Widget/form.php:159
 msgid "Relative"
 msgstr ""
 
-#: ../src/Widget/form.php:149
+#: ../src/Widget/form.php:160
 msgid "WordPress Date Format"
 msgstr ""
 
-#: ../src/Widget/form.php:156
+#: ../src/Widget/form.php:167
 msgid "Display taxonomy"
 msgstr ""
 
-#: ../src/Widget/form.php:177
+#: ../src/Widget/form.php:188
 msgid "HTML Markup settings"
 msgstr ""
 
-#: ../src/Widget/form.php:179
+#: ../src/Widget/form.php:190
 msgid "Use custom HTML Markup"
 msgstr ""
 
-#: ../src/Widget/form.php:194
+#: ../src/Widget/form.php:205
 msgid "Before / after title"
 msgstr ""
 
-#: ../src/Widget/form.php:197
+#: ../src/Widget/form.php:208
 msgid "Before / after Popular Posts"
 msgstr ""
 
-#: ../src/Widget/form.php:200
+#: ../src/Widget/form.php:211
 msgid "Post HTML Markup"
 msgstr ""
 
-#: ../src/Widget/form.php:207
+#: ../src/Widget/form.php:218
 msgid "Theme"
 msgstr ""
 
-#: ../src/Widget/form.php:207
+#: ../src/Widget/form.php:218
 #, php-format
 msgid "see a <a href=\"%s\">list of supported browsers</a>"
 msgstr ""
 
-#: ../src/Widget/form.php:223
+#: ../src/Widget/form.php:234
 msgid "Please save this widget (or reload this page) to enable WPP themes."
 msgstr ""
 
