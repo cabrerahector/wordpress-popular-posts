@@ -310,7 +310,7 @@ class Admin {
         $total_views = $wpdb->get_var($query);
 
         $pageviews = sprintf(
-            _n('1 view in the last hour', '%s views in the last hour', $total_views, 'wordpress-popular-posts'),
+            _n('%s view in the last hour', '%s views in the last hour', $total_views, 'wordpress-popular-posts'),
             number_format_i18n($total_views)
         );
 
@@ -638,7 +638,7 @@ class Admin {
         $total_views = array_sum($views);
         $total_comments = array_sum($comments);
 
-        $label_summary = sprintf(_n('1 view', '%s views', $total_views, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_views) . '</strong>') . '<br style="display: none;" /> / ' .  sprintf(_n('1 comment', '%s comments', $total_comments, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_comments) . '</strong>');
+        $label_summary = sprintf(_n('%s view', '%s views', $total_views, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_views) . '</strong>') . '<br style="display: none;" /> / ' .  sprintf(_n('%s comment', '%s comments', $total_comments, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_comments) . '</strong>');
 
         // Format labels
         if ( 'today' != $range ) {
@@ -1027,11 +1027,11 @@ class Admin {
                 <a href="<?php echo get_permalink($post->id); ?>" class="wpp-title"><?php echo sanitize_text_field($post->title); ?></a>
                 <div>
                     <?php if ( 'most-viewed' == $list ) : ?>
-                    <span><?php printf(_n('1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>
+                    <span><?php printf(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>
                     <?php elseif ( 'most-commented' == $list ) : ?>
-                    <span><?php printf(_n('1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
+                    <span><?php printf(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
                     <?php else : ?>
-                    <span><?php printf(_n('1 view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>, <span><?php printf(_n('1 comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
+                    <span><?php printf(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>, <span><?php printf(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
                     <?php endif; ?>
                     <small> &mdash; <a href="<?php echo get_permalink($post->id); ?>"><?php _e("View"); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo get_edit_post_link($post->id); ?>"><?php _e("Edit"); ?></a><?php endif; ?></small>
                 </div>
