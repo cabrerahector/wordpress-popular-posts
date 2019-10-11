@@ -18,15 +18,15 @@ A highly customizable widget that displays your most popular posts.
 
 ## Description
 
-WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [widget](http://wordpress.org/plugins/wordpress-popular-posts/) to showcase the most commented / viewed entries on your [WordPress](http://wordpress.org/) powered site.
+WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [widget](https://wordpress.org/plugins/wordpress-popular-posts/) to showcase the most commented / viewed entries on your [WordPress](https://wordpress.org/) powered site.
 
 
 ## Features
 
 * **Multi-widget capable** - You can have several WordPress Popular Posts widgets on your blog, each with its own settings!
 * **Time Range** - List those posts of your blog that have been the most popular ones within a specific time range (eg. last 24 hours, last 7 days, last 30 days, etc)!
-* **Custom Post-type support** - Wanna show other stuff than just posts and pages?
-* **Thumbnails!** - Display a thumbnail of your posts! (*see the [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#im-unable-to-activate-the-display-post-thumbnail-option-why) for technical requirements*.)
+* **Custom Post-type support** - Want to show other stuff than just posts and pages, eg. Popular *Products*? [You can](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-have-a-popular-list-of-my-custom-post-type-how-can-i-do-that)!
+* **Thumbnails!** - Display a thumbnail of your posts! (*see the [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-does-wordpress-popular-posts-pick-my-posts-thumbnails) for more details*.)
 * **Statistics dashboard** - See how your popular posts are doing directly from your admin area.
 * **Sorting options** - Order your popular list by comments, views (default) or average views per day!
 * **Use your own layout!** - WPP is flexible enough to let you customize the look and feel of your popular posts! (see [customizing WPP's HTML markup](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-can-i-use-my-own-html-markup-with-your-plugin) and [How to style WordPress Popular Posts](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) for more.)
@@ -34,11 +34,13 @@ WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [widg
 * **REST API Support** - Embed your popular posts in your (web) app! (see [REST API Endpoints](https://github.com/cabrerahector/wordpress-popular-posts/wiki/8.-REST-API-Endpoints) for more.)
 * **Disqus support** - Sort your popular posts by Disqus comments count!
 * **Polylang & WPML 3.2+ support** - Show the translated version of your popular posts!
-* **WordPress Multisite support** - Each site on the network can have its own popular posts!
-* **Shortcode support** - Use the [wpp] shortcode to showcase your most popular posts on pages, too! For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
-* **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the *wpp_get_mostpopular()* template tag. Additionally, the *wpp_get_views()* template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [installation section](http://wordpress.org/extend/plugins/wordpress-popular-posts/installation/).
-* **Localization** - Translate WPP to your own language (*See the [FAQ section](http://wordpress.org/extend/plugins/wordpress-popular-posts/faq/) for more info*).
-* **[WP-PostRatings](http://wordpress.org/extend/plugins/wp-postratings/) support** - Show your visitors how your readers are rating your posts!
+* **WordPress Multisite support** - Each site on the network can have its own popular posts list!
+* **Shortcode support** - Use the [wpp] shortcode to showcase your most popular posts on pages, too! For usage and instructions, please refer to the [Usage section](https://github.com/cabrerahector/wordpress-popular-posts/#usage).
+* **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the `wpp_get_mostpopular()` template tag. Additionally, the `wpp_get_views()` template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [Usage section](https://github.com/cabrerahector/wordpress-popular-posts/#usage).
+* **Localization** - [Translate WPP into your own language](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do).
+* **[WP-PostRatings](https://wordpress.org/plugins/wp-postratings/) support** - Show your visitors how your readers are rating your posts!
+
+Looking for a **Recent Posts** widget just as featured-packed as WordPress Popular Posts? **Try [Recently](https://wordpress.org/plugins/recently/)**!
 
 
 ## Requirements
@@ -46,7 +48,6 @@ WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [widg
 * WordPress 4.7 or above.
 * PHP 5.4+ or above.
 * Since WordPress Popular Posts writes constantly to the database to keep track of page views, [InnoDB](https://en.wikipedia.org/wiki/InnoDB) support is required.
-* Either the [ImageMagik](http://www.php.net/manual/en/intro.imagick.php) or [GD](http://www.php.net/manual/en/intro.image.php) library installed and enabled on your server (not really required, but needed to create thumbnails).
 
 
 ## Installation
@@ -77,7 +78,7 @@ That's it!
 
 ## Usage
 
-WPP can be used as a [WordPress Widget](http://codex.wordpress.org/WordPress_Widgets), which means you can place it on any of your theme's sidebars (and it even supports multiple instances!) However, you can also embed it directly in posts / pages via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages); or anywhere on your theme using the [wpp_get_mostpopular()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular) template tag.
+WPP can be used as a [WordPress Widget](https://wordpress.org/support/article/wordpress-widgets/), which means you can place it on any of your theme's sidebars (and it even supports multiple instances!) However, you can also embed it directly in posts / pages via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages); or anywhere on your theme using the [`wpp_get_mostpopular()`](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular) template tag.
 
 ... and there's even more on the **[Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki)** section, so make sure to stop by!
 
@@ -101,7 +102,7 @@ When submitting an issue, please make sure to include the following:
 
 * If you have any ideas/suggestions/bug reports, and if there's not an issue filed for it already (see [issue tracker](https://github.com/cabrerahector/wordpress-popular-posts/issues)), please [create an issue](https://github.com/cabrerahector/wordpress-popular-posts/issues/new) so I can keep track of it.
 * Developers can send [pull requests](https://help.github.com/articles/using-pull-requests) to suggest fixes / improvements to the source.
-* Want to translate WPP to your language or update a current translation? Check if it's [already supported](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/languages/) or download [this file](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/languages/wordpress-popular-posts.pot) to translate the strings (see "[I want to translate your plugin into my language / help you update a translation. What do I need to do?](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do)" for more).
+* Want to translate WPP into your language or update a current translation? Check if it's [already supported](https://translate.wordpress.org/projects/wp-plugins/wordpress-popular-posts/) or download [this POT file](https://github.com/cabrerahector/wordpress-popular-posts/tree/master/i18n) to translate the strings (see [I want to translate your plugin into my language / help you update a translation. What do I need to do?](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do) for more).
 
 
 ## License
