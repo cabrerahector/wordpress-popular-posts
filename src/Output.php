@@ -313,10 +313,10 @@ class Output {
         if ( $this->public_options['markup']['custom_html'] ) {
             $data = [
                 'id' => $post_id,
-                'title' => '<a href="' . $permalink . '" title="' . $post_title_attr . '" class="wpp-post-title" target="' . $this->admin_options['tools']['link']['target'] . '"' . ($is_current_post ? ' rel="nofollow"' : '') . '>' . $post_title . '</a>',
+                'title' => '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'class="wpp-post-title" target="' . $this->admin_options['tools']['link']['target'] . '"' . ($is_current_post ? ' rel="nofollow"' : '') . '>' . $post_title . '</a>',
                 'summary' => $post_excerpt,
                 'stats' => $post_meta,
-                'img' => ( ! empty($post_thumbnail) ) ? '<a href="' . $permalink . '" title="' . $post_title_attr . '" target="' . $this->admin_options['tools']['link']['target'] . '"' . ($is_current_post ? ' rel="nofollow"' : '') . '>' . $post_thumbnail . '</a>' : '',
+                'img' => ( ! empty($post_thumbnail) ) ? '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'target="' . $this->admin_options['tools']['link']['target'] . '"' . ($is_current_post ? ' rel="nofollow"' : '') . '>' . $post_thumbnail . '</a>' : '',
                 'img_no_link' => $post_thumbnail,
                 'url' => $permalink,
                 'text_title' => $post_title_attr,
@@ -343,7 +343,7 @@ class Output {
             $wpp_post_class = apply_filters("wpp_post_class", $wpp_post_class, $post_id);
 
             $post_thumbnail = ( ! empty($post_thumbnail) )
-                ? "<a href=\"{$permalink}\" title=\"{$post_title_attr}\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_current_post ? " rel=\"nofollow\"" : "") . ">{$post_thumbnail}</a>\n"
+                ? "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : "") . "target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_current_post ? " rel=\"nofollow\"" : "") . ">{$post_thumbnail}</a>\n"
                 : "";
 
             $post_excerpt = ( ! empty($post_excerpt) )
@@ -361,7 +361,7 @@ class Output {
             $post =
                 "<li" . ( ( is_array($wpp_post_class) && ! empty($wpp_post_class) ) ? ' class="' . esc_attr(implode(" ", $wpp_post_class)) . '"' : '') . ">\n"
                 . $post_thumbnail
-                . "<a href=\"{$permalink}\" title=\"{$post_title_attr}\" class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_current_post ? " rel=\"nofollow\"" : "") . ">{$post_title}</a>\n"
+                . "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : "") . "class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\"" . ( $is_current_post ? " rel=\"nofollow\"" : "") . ">{$post_title}</a>\n"
                 . $post_excerpt
                 . $post_meta
                 . $post_rating
