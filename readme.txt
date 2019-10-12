@@ -82,10 +82,10 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Screenshots ==
 
-1. Widgets Control Panel.
-2. WordPress Popular Posts Widget.
-3. WordPress Popular Posts Widget on theme's sidebar.
-4. WordPress Popular Posts Stats panel.
+1. The WordPress Popular Posts Widget.
+2. The WordPress Popular Posts Widget on theme's sidebar.
+3. Dashboard widget.
+4. Statistics panel.
 
 == Changelog ==
 = 4.2.2 =
