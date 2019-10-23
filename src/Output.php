@@ -386,7 +386,7 @@ class Output {
         } else {
             $title = $post_object->title;
         }
-        return apply_filters('the_title', $title, $post_object->id);
+        return apply_filters('wpp_the_title', $title, $post_object->id, $post_id);
     }
 
     /**
