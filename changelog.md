@@ -1,5 +1,24 @@
 Changelog
 =========
+#### 5.0.0 ###
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
+
+- Code has been refactored to use more modern PHP practices! This will help make WordPress Popular Posts more maintainable and easier to extend.
+- WordPress Popular Posts now requires PHP 5.4 or newer and WordPress 4.7 or newer.
+- The `WPP_Query` class has been deprecated. Use `WordPressPopularPosts\Query` instead.
+- Added ability to filter posts by multiple taxonomies (thanks [blackWhitePanda](https://github.com/blackWhitePanda)!)
+- New Dashboard Widget: Trending Now.
+- Added 10 new themes for the widget!
+- Added ability to lazy load thumbnails (enabled by default).
+- Improved support for WPML and Polylang.
+- Authors and Editors can now access the Stats dashboard too!
+- Fixed translation issues affecting russian and similar languages.
+- New Content Tags: total_items and item_position.
+- Many minor bug fixes/improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-0-multiple-taxonomy-support-themes-thumbnail-lazy-loading-and-more/) | [Full Changelog](https://github.com/cabrerahector/wordpress-popular-posts/compare/4.2.2...5.0.0).
+
 #### 4.2.2 ####
 
 - Hotfix: don't typehint scalars, breaks plugin on PHP 5.
