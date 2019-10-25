@@ -403,6 +403,12 @@ class Front {
                 $time_value = $this->config['tools']['cache']['interval']['value']; // eg. 5
                 $time_unit = $this->config['tools']['cache']['interval']['time']; // eg. 'minute'
 
+                // No popular posts found, check again in 1 minute
+                if ( ! $popular_posts->get_posts() ) {
+                    $time_value = 1;
+                    $time_unit = 'minute';
+                }
+
                 \WordPressPopularPosts\Cache::set(
                     $key,
                     $popular_posts,

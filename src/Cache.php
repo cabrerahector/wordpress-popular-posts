@@ -53,7 +53,7 @@ class Cache {
             return false;
 
         if (
-            ! is_int($time_value)
+            false === filter_var($time_value, FILTER_VALIDATE_INT)
             || $time_value <= 0
         ) {
             $time_value = 1;
