@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2019-10-10 15:01-0400\n"
+"POT-Creation-Date: 2019-10-29 11:14-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -77,7 +77,7 @@ msgid "Settings"
 msgstr ""
 
 #: ../src/Admin/Admin.php:641 ../src/Admin/Admin.php:1030 ../src/Admin/Admin.php:1034
-#: ../src/Output.php:708
+#: ../src/Output.php:707
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
@@ -85,7 +85,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/Admin/Admin.php:641 ../src/Admin/Admin.php:1032 ../src/Admin/Admin.php:1034
-#: ../src/Output.php:691
+#: ../src/Output.php:690
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
@@ -891,37 +891,33 @@ msgstr ""
 msgid "outputs the position of the post in the listing"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:877
-msgid "outputs rel=\"nofollow\" for the current post"
-msgstr ""
-
 #: ../src/Output.php:237
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../src/Output.php:702
+#: ../src/Output.php:701
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Output.php:731
+#: ../src/Output.php:730
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../src/Output.php:737
+#: ../src/Output.php:736
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: ../src/Output.php:737
+#: ../src/Output.php:736
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: ../src/Output.php:745
+#: ../src/Output.php:744
 #, php-format
 msgid "under %s"
 msgstr ""
@@ -930,67 +926,67 @@ msgstr ""
 msgid "Invalid Widget Instance ID"
 msgstr ""
 
-#: ../src/Rest/Controller.php:434
+#: ../src/Rest/Controller.php:440
 msgid "Return popular posts from specified custom post type(s)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:441
+#: ../src/Rest/Controller.php:447
 msgid "The maximum number of popular posts to return."
 msgstr ""
 
-#: ../src/Rest/Controller.php:449
+#: ../src/Rest/Controller.php:455
 msgid "Retrieve the most popular entries published within the specified time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:457
+#: ../src/Rest/Controller.php:463
 msgid "An offset point for the collection."
 msgstr ""
 
-#: ../src/Rest/Controller.php:465
+#: ../src/Rest/Controller.php:471
 msgid "Set the sorting option of the popular posts."
 msgstr ""
 
-#: ../src/Rest/Controller.php:473
+#: ../src/Rest/Controller.php:479
 msgid "Return popular posts from a specified time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:481
+#: ../src/Rest/Controller.php:487
 msgid "Specifies the time unit of the custom time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:489
+#: ../src/Rest/Controller.php:495
 msgid "Specifies the number of time units of the custom time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:497
+#: ../src/Rest/Controller.php:503
 msgid "Post IDs to exclude from the listing."
 msgstr ""
 
-#: ../src/Rest/Controller.php:505
+#: ../src/Rest/Controller.php:511
 msgid "Include posts in a specified taxonomy."
 msgstr ""
 
-#: ../src/Rest/Controller.php:513
+#: ../src/Rest/Controller.php:519
 msgid "Taxonomy IDs, separated by comma (prefix a minus sign to exclude)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:521
+#: ../src/Rest/Controller.php:527
 msgid "Include popular posts from author ID(s)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:542
+#: ../src/Rest/Controller.php:548
 msgid "Security nonce."
 msgstr ""
 
-#: ../src/Rest/Controller.php:548
+#: ../src/Rest/Controller.php:554
 msgid "The post / page ID."
 msgstr ""
 
-#: ../src/Rest/Controller.php:555
+#: ../src/Rest/Controller.php:561
 msgid "Enables Data Sampling."
 msgstr ""
 
-#: ../src/Rest/Controller.php:562
+#: ../src/Rest/Controller.php:568
 msgid "Sets the Sampling Rate."
 msgstr ""
 
