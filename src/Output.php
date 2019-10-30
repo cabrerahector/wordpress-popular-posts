@@ -534,13 +534,15 @@ class Output {
 
         if ( $this->public_options['stats_tag']['date']['active'] ) {
             // Check locale
-            if ( $current_language_locale = $this->translate->get_locale($this->translate->get_current_language()) ) {
-                try {
-                    Moment\Moment::setLocale($current_language_locale);
-                } // Locale file not found, fallback to English (US)
-                catch( \Exception $e ) {
-                    Moment\Moment::setLocale('en_US');
-                }
+            if ( ! $current_language_locale = $this->translate->get_locale($this->translate->get_current_language()) ) {
+                $current_language_locale = get_locale();
+            }
+
+            try {
+                Moment\Moment::setLocale($current_language_locale);
+            } // Locale not found, fallback to English (US)
+            catch( \Exception $e ) {
+                Moment\Moment::setLocale('en_US');
             }
 
             $m = new Moment\Moment('@' . strtotime($post_object->date));
