@@ -11,7 +11,8 @@
         border-bottom: #ddd 1px solid;
     }
 
-    .wpp-cardview li:last-of-type {
+    .wpp-cardview li:last-of-type,
+    .wpp-cardview li:only-child {
         margin: 0;
         padding: 0;
         border-bottom: none;

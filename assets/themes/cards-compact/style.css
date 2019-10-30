@@ -13,7 +13,8 @@
         border-bottom: #ddd 1px solid;
     }
 
-    .wpp-cards-compact li:last-of-type {
+    .wpp-cards-compact li:last-of-type,
+    .wpp-cards-compact li:only-child {
         margin: 0;
         padding: 0;
         border-bottom: none;
