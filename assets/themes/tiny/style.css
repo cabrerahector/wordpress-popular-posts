@@ -1,35 +1,35 @@
-.wpp-list {
+.wpp-tiny {
     margin-left: 0;
     margin-right: 0;
     padding: 0;
 }
 
-    .wpp-list li {
+    .wpp-tiny li {
         list-style: none;
         margin: 0 0 1.2rem 0;
         padding: 0;
     }
 
-    .wpp-list li:last-of-type {
+    .wpp-tiny li:last-of-type {
         margin: 0;
     }
 
-        .wpp-list li a {
+        .wpp-tiny li a {
             text-decoration: none;
         }
 
-        .wpp-list li a:hover {
+        .wpp-tiny li a:hover {
             text-decoration: underline;
         }
 
-        .wpp-list li .wpp-post-title {
+        .wpp-tiny li .wpp-post-title {
             font-size: 1.125rem;
             font-weight: 700;
             letter-spacing: -1px;
             line-height: 1.1;
         }
 
-        .wpp-list li .wpp-item-data {
+        .wpp-tiny li .wpp-item-data {
             opacity: 0.5;
             font-size: 0.65rem;
             text-transform: capitalize;

@@ -33,7 +33,7 @@
             }
         },
         "markup": {
-            "wpp-start": "<ul class=\"wpp-list\">",
+            "wpp-start": "<ul class=\"wpp-list wpp-tiny\">",
             "wpp-end": "</ul>",
             "post-html": "<li><div class=\"wpp-item-data\">{category}</div> {title}</li>"
         }

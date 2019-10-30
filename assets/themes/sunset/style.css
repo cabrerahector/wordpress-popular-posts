@@ -1,4 +1,4 @@
-.wpp-list {
+.wpp-sunset {
     counter-reset: wpp-counter;
     margin-left: 0;
     margin-right: 0;
@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-    .wpp-list li {
+    .wpp-sunset li {
         position: relative;
         display: flex;
         align-items: center;
@@ -20,7 +20,7 @@
         box-sizing: border-box;
     }
 
-        .wpp-list li .item-position::before {
+        .wpp-sunset li .item-position::before {
             display: inline-block;
             flex: 1 0 0;
             content: counter(wpp-counter);
@@ -32,18 +32,18 @@
             text-align: center;
         }
 
-            .wpp-list li .item-data .wpp-post-title {
+            .wpp-sunset li .item-data .wpp-post-title {
                 display: block;
                 font-size: 15px;
                 font-weight: 700;
                 line-height: 1.3;
             }
 
-            .wpp-list li .item-data a {
+            .wpp-sunset li .item-data a {
                 color: #222;
                 text-decoration: none;
             }
 
-            .wpp-list li .item-data  a:hover {
+            .wpp-sunset li .item-data  a:hover {
                 text-decoration: underline;
             }

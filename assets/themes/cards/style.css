@@ -1,10 +1,10 @@
-.wpp-list {
+.wpp-cards {
     margin-left: 0;
     margin-right: 0;
     padding: 0;
 }
 
-    .wpp-list li {
+    .wpp-cards li {
         display: flex;
         list-style: none;
         margin: 0 0 1.2rem 0;
@@ -12,13 +12,13 @@
         border-bottom: #ddd 1px solid;
     }
 
-    .wpp-list li:last-of-type {
+    .wpp-cards li:last-of-type {
         margin: 0;
         padding: 0;
         border-bottom: none;
     }
 
-        .wpp-list li .wpp-thumbnail {
+        .wpp-cards li .wpp-thumbnail {
             overflow: hidden;
             display: inline-block;
             flex-grow: 0;
@@ -30,33 +30,33 @@
             border: none;
         }
 
-        .wpp-list li a {
+        .wpp-cards li a {
             text-decoration: none;
         }
 
-        .wpp-list li a:hover {
+        .wpp-cards li a:hover {
             text-decoration: underline;
         }
 
-        .wpp-list li .category,
-        .wpp-list li .wpp-post-title {
+        .wpp-cards li .category,
+        .wpp-cards li .wpp-post-title {
             display: block;
             font-weight: bold;
         }
 
-        .wpp-list li .category {
+        .wpp-cards li .category {
             margin-bottom: 0.25rem;
             font-size: 0.7rem;
             line-height: 1;
         }
 
-        .wpp-list li .wpp-post-title {
+        .wpp-cards li .wpp-post-title {
             margin-bottom: 0.5rem;
             font-size: 1.2rem;
             line-height: 1.2;
         }
 
-        .wpp-list li .wpp-excerpt {
+        .wpp-cards li .wpp-excerpt {
             margin: 0;
             font-size: 0.8rem;
         }

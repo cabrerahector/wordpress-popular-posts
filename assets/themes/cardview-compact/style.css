@@ -1,28 +1,28 @@
-.wpp-list {
+.wpp-cardview-compact {
     margin-left: 0;
     margin-right: 0;
     padding: 0;
 }
 
-    .wpp-list li {
+    .wpp-cardview-compact li {
         list-style: none;
         margin: 0 0 1.2rem 0;
         padding: 0 0 1rem 0;
         border-bottom: #ddd 1px solid;
     }
 
-    .wpp-list li:last-of-type {
+    .wpp-cardview-compact li:last-of-type {
         margin: 0;
         padding: 0;
         border-bottom: none;
     }
 
-        .wpp-thumbnail-container {
+        .wpp-cardview-compact .wpp-thumbnail-container {
             position: relative;
             margin-bottom: .8rem;
         }
 
-        .wpp-list li .wpp-thumbnail {
+        .wpp-cardview-compact li .wpp-thumbnail {
             overflow: hidden;
             display: block;
             margin: 0;
@@ -34,21 +34,21 @@
             border: none;
         }
 
-        .wpp-list li a {
+        .wpp-cardview-compact li a {
             text-decoration: none;
         }
 
-        .wpp-list li a:hover {
+        .wpp-cardview-compact li a:hover {
             text-decoration: underline;
         }
 
-        .wpp-list li .category,
-        .wpp-list li .wpp-post-title {
+        .wpp-cardview-compact li .category,
+        .wpp-cardview-compact li .wpp-post-title {
             display: block;
             font-weight: bold;
         }
 
-        .wpp-list li .category {
+        .wpp-cardview-compact li .category {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -59,18 +59,18 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-        .wpp-list li .category:hover {
+        .wpp-cardview-compact li .category:hover {
             color: #fff;
             background: rgba(0, 0, 0, 0.8);
         }
 
-        .wpp-list li .wpp-post-title {
+        .wpp-cardview-compact li .wpp-post-title {
             margin: 0 0 0.5rem;
             font-size: 1.2rem;
             line-height: 1.2;
         }
 
-        .wpp-list li .wpp-excerpt {
+        .wpp-cardview-compact li .wpp-excerpt {
             margin: 0;
             font-size: 0.8rem;
         }
