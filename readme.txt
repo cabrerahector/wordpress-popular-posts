@@ -89,6 +89,16 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+= 5.0.1 =
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is recommended.**
+
+- Fixed a compatibility issue with the newly introduced [widget themes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-0-multiple-taxonomy-support-themes-thumbnail-lazy-loading-and-more/#themes) feature. If you're using a theme with your popular posts widget you'll need to reapply it for it to get the latest changes (go to Appearance > Widgets > WordPress Popular Posts, select a different theme then hit Save, finally switch back to your preferred theme and hit Save again.)
+- Fixed two date related issues.
+- Minor styling improvements to widget themes Cards, Cards Compact, Cardview and Cardview Compact.
+- Removes bold styling from post title on the stock design (wpp.css).
+- Improves data caching logic.
+
 = 5.0.0 =
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
