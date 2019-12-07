@@ -54,6 +54,11 @@ class Admin {
         $this->config = $config;
         $this->thumbnail = $thumbnail;
 
+        // Performance nag
+        if ( ! wp_next_scheduled('wpp_maybe_performance_nag') ) {
+            wp_schedule_event(time(), 'hourly', 'wpp_maybe_performance_nag');
+        }
+
         // Delete old data on demand
         if ( 1 == $this->config['tools']['log']['limit'] ) {
             if ( ! wp_next_scheduled('wpp_cache_event') ) {
@@ -115,6 +120,10 @@ class Admin {
         add_action('admin_init', [$this, 'purge_post_data']);
         // Purge old data on demand
         add_action('wpp_cache_event', [$this, 'purge_data']);
+        // Maybe performance nag
+        add_action('wpp_maybe_performance_nag', [$this, 'performance_check']);
+        // Show notices
+        add_action('admin_notices', [$this, 'notices']);
     }
 
     /**
@@ -125,6 +134,45 @@ class Admin {
     public function upgrade_check()
     {
         $this->upgrade_site();
+    }
+
+    /**
+     * Checks whether a performance tweak may be necessary.
+     *
+     * @since   5.0.2
+     */
+    public function performance_check()
+    {
+        $performance_nag = get_option('wpp_performance_nag');
+
+        if ( ! $performance_nag ) {
+            $performance_nag = [
+                'status' => 0,
+                'last_checked' => null
+            ];
+            add_option('wpp_performance_nag', $performance_nag);
+        }
+
+        if ( 3 != $performance_nag['status'] ) { // 0 = inactive, 1 = active, 2 = remind me later, 3 = dismissed
+            global $wpdb;
+
+            $views_count = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT IFNULL(SUM(pageviews), 0) AS views FROM {$wpdb->prefix}popularpostssummary WHERE view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
+                    Helper::now()
+                )
+            );
+
+            // This site is probably a mid/high traffic one,
+            // display performance nag
+            if ( $views_count >= 420 ) {
+                if ( 0 == $performance_nag['status'] ) {
+                    $performance_nag['status'] = 1;
+                    $performance_nag['last_checked'] = Helper::timestamp();
+                    update_option('wpp_performance_nag', $performance_nag);
+                }
+            }
+        }
     }
 
     /**
@@ -1260,5 +1308,62 @@ class Admin {
     {
         global $wpdb;
         $wpdb->query("DELETE FROM {$wpdb->prefix}popularpostssummary WHERE view_date < DATE_SUB('" . Helper::curdate() . "', INTERVAL {$this->config['tools']['log']['expires_after']} DAY);");
+    }
+
+    /**
+     * Displays admin notices.
+     *
+     * @since   5.0.2
+     */
+    public function notices()
+    {
+        /** Performance nag */
+        $performance_nag = get_option('wpp_performance_nag');
+
+        if (
+            isset($performance_nag['status'])
+            && 3 != $performance_nag['status'] // 0 = inactive, 1 = active, 2 = remind me later, 3 = dismissed
+        ) {
+            $now = Helper::timestamp();
+
+            if ( isset($_GET['wpp_dismiss_performance_notice']) || isset($_GET['wpp_remind_performance_notice']) ) {
+                // User dismissed the notice
+                if ( isset($_GET['wpp_dismiss_performance_notice']) ) {
+                    $performance_nag['status'] = 3;
+                } // User asked us to remind them later
+                else {
+                    $performance_nag['status'] = 2;
+                    $performance_nag['last_checked'] = $now;
+                }
+
+                update_option('wpp_performance_nag', $performance_nag);
+                echo '<script>window.location.replace("'. esc_url(remove_query_arg(['wpp_dismiss_performance_notice', 'wpp_remind_performance_notice'])) .'");</script>';
+            } // Maybe display the notice
+            else {
+                // How much time has passed since the notice was last displayed?
+                $last_checked = $performance_nag['last_checked'];
+
+                if ( $last_checked ) {
+                    $last_checked = ($now - $last_checked) / (60 * 60);
+                }
+
+                if (
+                    1 == $performance_nag['status']
+                    || ( 2 == $performance_nag['status'] && $last_checked && $last_checked >= 24 )
+                ) {
+                ?>
+                <div class="notice notice-warning">
+                    <p><?php printf(
+                        __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these suggestions</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'),
+                        'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance'
+                    ) ?></p>
+                    <?php if ( current_user_can('manage_options') ) : ?>
+                    <p><a href="<?php echo add_query_arg('wpp_dismiss_performance_notice', '1'); ?>">Dismiss</a> | <a href="<?php echo add_query_arg('wpp_remind_performance_notice', '1'); ?>">Remind me later</a></p>
+                    <?php endif; ?>
+                </div>
+                <?php
+                }
+            }
+        }
     }
 }

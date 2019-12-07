@@ -94,6 +94,18 @@ class Helper {
     }
 
     /**
+     * Returns current timestamp.
+     *
+     * @since   5.0.2
+     * @return  string
+     */
+    public static function timestamp()
+    {
+        // current_datetime() is WP 5.3+
+        return ( function_exists('current_datetime') ) ? current_datetime()->getTimestamp() : current_time('timestamp');
+    }
+
+    /**
      * Returns site's timezone.
      *
      * Code borrowed from Rarst's awesome WpDateTime class: https://github.com/Rarst/wpdatetime

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2019-10-29 11:14-0400\n"
+"POT-Creation-Date: 2019-12-07 12:42-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -22,96 +22,104 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../src/Admin/Admin.php:313
+#: ../src/Admin/Admin.php:361
 #, php-format
 msgid "%s view in the last hour"
 msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:347 ../src/Admin/admin-page.php:348
+#: ../src/Admin/Admin.php:395 ../src/Admin/admin-page.php:348
 msgid "Trending now"
 msgstr ""
 
-#: ../src/Admin/Admin.php:435
+#: ../src/Admin/Admin.php:483
 msgid "View more"
 msgstr ""
 
-#: ../src/Admin/Admin.php:464
+#: ../src/Admin/Admin.php:512
 msgid "Use this image"
 msgstr ""
 
-#: ../src/Admin/Admin.php:517
+#: ../src/Admin/Admin.php:565
 msgid "Overview"
 msgstr ""
 
-#: ../src/Admin/Admin.php:518
+#: ../src/Admin/Admin.php:566
 msgid ""
 "Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics "
 "on what's popular on your site, tools to further tweak WPP to your needs, and more!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:524
+#: ../src/Admin/Admin.php:572
 msgid "Like this plugin?"
 msgstr ""
 
-#: ../src/Admin/Admin.php:526
+#: ../src/Admin/Admin.php:574
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress community!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:533
+#: ../src/Admin/Admin.php:581
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:540
+#: ../src/Admin/Admin.php:588
 #, php-format
 msgid ""
 "<p><strong>For more information:</strong></p><ul><li><a href=\"%1$s\">Documentation</"
 "a></li><li><a href=\"%2$s\">Support</a></li></ul>"
 msgstr ""
 
-#: ../src/Admin/Admin.php:564
+#: ../src/Admin/Admin.php:612
 msgid "Settings"
 msgstr ""
 
-#: ../src/Admin/Admin.php:641 ../src/Admin/Admin.php:1030 ../src/Admin/Admin.php:1034
-#: ../src/Output.php:707
+#: ../src/Admin/Admin.php:689 ../src/Admin/Admin.php:1078 ../src/Admin/Admin.php:1082
+#: ../src/Output.php:714
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:641 ../src/Admin/Admin.php:1032 ../src/Admin/Admin.php:1034
-#: ../src/Output.php:690
+#: ../src/Admin/Admin.php:689 ../src/Admin/Admin.php:1080 ../src/Admin/Admin.php:1082
+#: ../src/Output.php:697
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:662 ../src/Widget/form.php:21
+#: ../src/Admin/Admin.php:710 ../src/Widget/form.php:21
 msgid "Comments"
 msgstr ""
 
-#: ../src/Admin/Admin.php:666
+#: ../src/Admin/Admin.php:714
 msgid "Views"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1036
+#: ../src/Admin/Admin.php:1084
 msgid "View"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1036
+#: ../src/Admin/Admin.php:1084
 msgid "Edit"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1047
+#: ../src/Admin/Admin.php:1095
 msgid ""
 "Looks like your site's activity is a little low right now. <br />Spread the word and "
 "come back later!"
+msgstr ""
+
+#: ../src/Admin/Admin.php:1357
+#, php-format
+msgid ""
+"<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You "
+"may want to check <a href=\"%s\">these suggestions</a> to make sure your website's "
+"performance stays up to par."
 msgstr ""
 
 #: ../src/Admin/admin-page.php:6 ../src/Admin/admin-page.php:240
@@ -895,29 +903,29 @@ msgstr ""
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../src/Output.php:701
+#: ../src/Output.php:708
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Output.php:730
+#: ../src/Output.php:737
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../src/Output.php:736
+#: ../src/Output.php:743
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: ../src/Output.php:736
+#: ../src/Output.php:743
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: ../src/Output.php:744
+#: ../src/Output.php:751
 #, php-format
 msgid "under %s"
 msgstr ""

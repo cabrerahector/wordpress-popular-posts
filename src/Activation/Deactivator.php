@@ -61,5 +61,6 @@ class Deactivator {
     {
         remove_shortcode('wpp');
         wp_clear_scheduled_hook('wpp_cache_event');
+        wp_clear_scheduled_hook('wpp_maybe_performance_nag');
     }
 }
