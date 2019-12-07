@@ -18,9 +18,8 @@ $container->configure([
 $WordPressPopularPosts = $container['wpp'];
 add_action('plugins_loaded', [$WordPressPopularPosts, 'init']);
 
-// WPP_Query will be removed on a future release.
-// It was been superseeded by \WordPressPopularPosts\Query.
-require __DIR__ . '/WPP_Query.php';
-
 // WPP's template tags
 require __DIR__ . '/template-tags.php';
+
+// Deprecated functions/classes
+require __DIR__ . '/deprecated.php';

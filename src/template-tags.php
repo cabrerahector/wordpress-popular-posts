@@ -101,13 +101,3 @@ function wpp_get_mostpopular($args = NULL)
 
     echo do_shortcode($shortcode);
 }
-
-/**
- * Template tag - gets popular posts. Deprecated in 2.0.3, use wpp_get_mostpopular instead.
- *
- * @since   1.0
- * @param   mixed   $args
- */
-function get_mostpopular($args = NULL) {
-    trigger_error( 'The get_mostpopular() template tag has been deprecated since 2.0.3. Please use wpp_get_mostpopular() instead.', E_USER_WARNING );
-}
