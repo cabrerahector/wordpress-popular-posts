@@ -63,7 +63,7 @@ Please make sure your site meets the [minimum requirements](https://github.com/c
 2. If you have a caching plugin installed on your site, flush its cache now so WPP can start tracking your site.
 3. If you have a security / firewall plugin installed on your site, make sure you [allow WPP access to the REST API](https://wordpress.org/support/topic/wpp-does-not-count-properly/#post-10411163) so it can start tracking your site.
 4. Go to Appearance > Editor. Under "Templates", click on `header.php` and make sure that the `<?php wp_head(); ?>` tag is present (should be right before the closing `</head>` tag).
-5. (Optional, but highly recommended for large / high traffic sites) Enabling [Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) and/or [Data Sampling](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling) might be a good idea if you're worried about performance. Check [here](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more.
+5. (Optional but highly recommended) Are you running a medium/high traffic site? If so, it might be a good idea to check [these suggestions](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) to make sure your site's performance stays up to par.
 
 That's it!
 
