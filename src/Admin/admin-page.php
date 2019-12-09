@@ -240,6 +240,7 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
         <li <?php echo ('stats' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=stats'); ?>" title="<?php esc_attr_e('Stats', 'wordpress-popular-posts'); ?>"><span><?php _e('Stats', 'wordpress-popular-posts'); ?></span></a></li>
         <li <?php echo ('tools' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=tools'); ?>" title="<?php esc_attr_e('Tools', 'wordpress-popular-posts'); ?>"><span><?php _e('Tools', 'wordpress-popular-posts'); ?></span></a></li>
         <li <?php echo ('params' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=params'); ?>" title="<?php esc_attr_e('Parameters', 'wordpress-popular-posts'); ?>"><span><?php _e('Parameters', 'wordpress-popular-posts'); ?></span></a></li>
+        <li <?php echo ('debug' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=debug'); ?>" title="Debug"><span>Debug</span></a></li>
     </ul>
 </nav>
 
