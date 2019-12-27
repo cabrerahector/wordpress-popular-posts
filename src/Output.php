@@ -386,6 +386,11 @@ class Output {
         } else {
             $title = $post_object->title;
         }
+
+        // Run the_title filter so core/plugin title hooks can
+        // be applied to the post title
+        $title = apply_filters('the_title', $title, $post_object->id);
+
         return apply_filters('wpp_the_title', $title, $post_object->id, $post_id);
     }
 

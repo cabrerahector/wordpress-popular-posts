@@ -1082,7 +1082,7 @@ class Admin {
         <?php
             foreach( $posts as $post ) { ?>
             <li>
-                <a href="<?php echo get_permalink($post->id); ?>" class="wpp-title"><?php echo sanitize_text_field($post->title); ?></a>
+                <a href="<?php echo get_permalink($post->id); ?>" class="wpp-title"><?php echo sanitize_text_field(apply_filters('the_title', $post->title, $post->id)); ?></a>
                 <div>
                     <?php if ( 'most-viewed' == $list ) : ?>
                     <span><?php printf(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>
