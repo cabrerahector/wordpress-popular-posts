@@ -54,11 +54,6 @@ class Admin {
         $this->config = $config;
         $this->thumbnail = $thumbnail;
 
-        // Performance nag
-        if ( ! wp_next_scheduled('wpp_maybe_performance_nag') ) {
-            wp_schedule_event(time(), 'hourly', 'wpp_maybe_performance_nag');
-        }
-
         // Delete old data on demand
         if ( 1 == $this->config['tools']['log']['limit'] ) {
             if ( ! wp_next_scheduled('wpp_cache_event') ) {
@@ -74,6 +69,21 @@ class Admin {
 
         // Allow WP themers / coders to override data sampling status (active/inactive)
         $this->config['tools']['sampling']['active'] = apply_filters('wpp_data_sampling', $this->config['tools']['sampling']['active']);
+
+        if (
+            ! ( wp_using_ext_object_cache() && defined('WPP_CACHE_VIEWS') && WPP_CACHE_VIEWS ) // Not using a persistent object cache
+            && ! $this->config['tools']['sampling']['active'] // Not using Data Sampling
+        ) {
+            // Schedule performance nag
+            if ( ! wp_next_scheduled('wpp_maybe_performance_nag') ) {
+                wp_schedule_event(time(), 'hourly', 'wpp_maybe_performance_nag');
+            }
+        } else {
+            // Remove the scheduled performance nag if found
+            if ( $timestamp = wp_next_scheduled('wpp_maybe_performance_nag') ) {
+                wp_unschedule_event($timestamp, 'wpp_maybe_performance_nag');
+            }
+        }
     }
 
     /**
