@@ -89,6 +89,13 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+= 5.0.2 =
+
+- A performance notice will be displayed for mid/high traffic sites (see [#239](https://github.com/cabrerahector/wordpress-popular-posts/issues/239)).
+- Fixed an issue with text_title content tag not being shortened (see [#241](https://github.com/cabrerahector/wordpress-popular-posts/issues/241)).
+- Added a link to the Debug screen to the plugin's dashboard for ease of access.
+- Other minor improvements/changes.
+
 = 5.0.1 =
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is recommended.**
