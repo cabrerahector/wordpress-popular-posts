@@ -314,6 +314,7 @@ class Output {
             $data = [
                 'id' => $post_id,
                 'title' => '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'class="wpp-post-title" target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_title . '</a>',
+                'title_attr' => $post_title_attr,
                 'summary' => $post_excerpt,
                 'stats' => $post_meta,
                 'img' => ( ! empty($post_thumbnail) ) ? '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_thumbnail . '</a>' : '',
@@ -776,7 +777,7 @@ class Output {
             return false;
 
         $params = [];
-        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|taxonomy|category|views|comments|date|total_items|item_position)\}/i';
+        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|taxonomy|category|views|comments|date|total_items|item_position)\}/i';
         preg_match_all($pattern, $string, $matches);
 
         array_map('strtolower', $matches[0]);
@@ -787,6 +788,10 @@ class Output {
 
         if ( in_array("{title}", $matches[0]) ) {
             $string = str_replace("{title}", $data['title'], $string);
+        }
+
+        if ( in_array("{title_attr}", $matches[0]) ) {
+            $string = str_replace("{title_attr}", $data['title_attr'], $string);
         }
 
         if ( in_array("{meta}", $matches[0]) || in_array("{stats}", $matches[0]) ) {
