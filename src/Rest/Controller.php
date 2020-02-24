@@ -97,7 +97,36 @@ class Controller extends \WP_REST_Controller {
     {
         $params = $request->get_params();
         $popular_posts = [];
-        $query = new Query($params);
+
+        // Return cached results
+        if ( $this->config['tools']['cache']['active'] ) {
+            $key = 'wpp_' . md5(json_encode($params));
+            $query = \WordPressPopularPosts\Cache::get($key);
+
+            if ( false === $query ) {
+                $query = new Query($params);
+
+                $time_value = $this->config['tools']['cache']['interval']['value'];
+                $time_unit = $this->config['tools']['cache']['interval']['time'];
+
+                // No popular posts found, check again in 1 minute
+                if ( ! $query->get_posts() ) {
+                    $time_value = 1;
+                    $time_unit = 'minute';
+                }
+
+                \WordPressPopularPosts\Cache::set(
+                    $key,
+                    $query,
+                    $time_value,
+                    $time_unit
+                );
+            }
+        } // Get real-time popular posts
+        else {
+            $query = new Query($instance);
+        }
+
         $results = $query->get_posts();
 
         if ( is_array($results) && ! empty($results) ) {
