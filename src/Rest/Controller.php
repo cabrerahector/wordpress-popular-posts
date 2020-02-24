@@ -98,35 +98,7 @@ class Controller extends \WP_REST_Controller {
         $params = $request->get_params();
         $popular_posts = [];
 
-        // Return cached results
-        if ( $this->config['tools']['cache']['active'] ) {
-            $key = 'wpp_' . md5(json_encode($params));
-            $query = \WordPressPopularPosts\Cache::get($key);
-
-            if ( false === $query ) {
-                $query = new Query($params);
-
-                $time_value = $this->config['tools']['cache']['interval']['value'];
-                $time_unit = $this->config['tools']['cache']['interval']['time'];
-
-                // No popular posts found, check again in 1 minute
-                if ( ! $query->get_posts() ) {
-                    $time_value = 1;
-                    $time_unit = 'minute';
-                }
-
-                \WordPressPopularPosts\Cache::set(
-                    $key,
-                    $query,
-                    $time_value,
-                    $time_unit
-                );
-            }
-        } // Get real-time popular posts
-        else {
-            $query = new Query($instance);
-        }
-
+        $query = $this->maybe_query($params);
         $results = $query->get_posts();
 
         if ( is_array($results) && ! empty($results) ) {
@@ -373,34 +345,7 @@ class Controller extends \WP_REST_Controller {
                 }
             }
 
-            // Return cached results
-            if ( $this->config['tools']['cache']['active'] ) {
-                $key = md5(json_encode($instance));
-                $popular_posts = \WordPressPopularPosts\Cache::get($key);
-
-                if ( false === $popular_posts ) {
-                    $popular_posts = new Query($instance);
-
-                    $time_value = $this->config['tools']['cache']['interval']['value']; // eg. 5
-                    $time_unit = $this->config['tools']['cache']['interval']['time']; // eg. 'minute'
-
-                    // No popular posts found, check again in 1 minute
-                    if ( ! $popular_posts->get_posts() ) {
-                        $time_value = 1;
-                        $time_unit = 'minute';
-                    }
-
-                    \WordPressPopularPosts\Cache::set(
-                        $key,
-                        $popular_posts,
-                        $time_value,
-                        $time_unit
-                    );
-                }
-            } // Get popular posts
-            else {
-                $popular_posts = new Query($instance);
-            }
+            $popular_posts = $this->maybe_query($params);
 
             if ( is_numeric($is_single) && $is_single > 0 ) {
                 add_filter('wpp_is_single', function($id) use ($is_single) {
@@ -624,5 +569,48 @@ class Controller extends \WP_REST_Controller {
                 'sanitize_callback' => 'sanitize_text_field'
             ],
         ];
+    }
+
+    /**
+     * Gets Query object from cache if it exists,
+     * otherwise a new Query object will be
+     * instantiated and returned.
+     *
+     * @since   5.0.3
+     * @param   array
+     * @return  Query
+     */
+    private function maybe_query(array $params)
+    {
+        // Return cached results
+        if ( $this->config['tools']['cache']['active'] ) {
+            $key = 'wpp_' . md5(json_encode($params));
+            $query = \WordPressPopularPosts\Cache::get($key);
+
+            if ( false === $query ) {
+                $query = new Query($params);
+
+                $time_value = $this->config['tools']['cache']['interval']['value'];
+                $time_unit = $this->config['tools']['cache']['interval']['time'];
+
+                // No popular posts found, check again in 1 minute
+                if ( ! $query->get_posts() ) {
+                    $time_value = 1;
+                    $time_unit = 'minute';
+                }
+
+                \WordPressPopularPosts\Cache::set(
+                    $key,
+                    $query,
+                    $time_value,
+                    $time_unit
+                );
+            }
+        } // Get real-time popular posts
+        else {
+            $query = new Query($params);
+        }
+
+        return $query;
     }
 }
