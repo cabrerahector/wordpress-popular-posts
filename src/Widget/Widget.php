@@ -180,7 +180,7 @@ class Widget extends \WP_Widget {
                             function(response){
                                 wpp_widget_container.innerHTML += JSON.parse(response).widget;
 
-                                let sr = wpp_widget_container.querySelector('.popular-posts-sr');
+                                var sr = wpp_widget_container.querySelector('.popular-posts-sr');
 
                                 if ( sr ) {
                                     WordPressPopularPosts.theme(sr);
