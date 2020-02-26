@@ -444,11 +444,11 @@ class Front {
         <script type="text/javascript">
             (function(){
                 document.addEventListener('DOMContentLoaded', function(){
-                    let wpp_widgets = document.querySelectorAll('.popular-posts-sr');
+                    var wpp_widgets = document.querySelectorAll('.popular-posts-sr');
 
                     if ( wpp_widgets ) {
-                        for (let i = 0; i < wpp_widgets.length; i++) {
-                            let wpp_widget = wpp_widgets[i];
+                        for (var i = 0; i < wpp_widgets.length; i++) {
+                            var wpp_widget = wpp_widgets[i];
                             WordPressPopularPosts.theme(wpp_widget);
                         }
                     }
@@ -486,7 +486,7 @@ class Front {
             }
 
             function wpp_observe_imgs(){
-                let wpp_images = document.querySelectorAll('img.wpp-lazyload'),
+                var wpp_images = document.querySelectorAll('img.wpp-lazyload'),
                     wpp_widgets = document.querySelectorAll('.popular-posts-sr');
 
                 if ( wpp_images.length || wpp_widgets.length ) {
@@ -494,7 +494,7 @@ class Front {
                         WPPImageObserver = new IntersectionObserver(function(entries, observer) {
                             entries.forEach(function(entry) {
                                 if (entry.isIntersecting) {
-                                    let img = entry.target;
+                                    var img = entry.target;
                                     wpp_load_img(img);
                                     WPPImageObserver.unobserve(img);
                                 }
@@ -509,7 +509,7 @@ class Front {
 
                         if ( wpp_widgets.length ) {
                             for (var i = 0; i < wpp_widgets.length; i++) {
-                                let wpp_widget_images = wpp_widgets[i].querySelectorAll('img.wpp-lazyload');
+                                var wpp_widget_images = wpp_widgets[i].querySelectorAll('img.wpp-lazyload');
 
                                 if ( ! wpp_widget_images.length && wpp_widgets[i].shadowRoot ) {
                                     wpp_widget_images = wpp_widgets[i].shadowRoot.querySelectorAll('img.wpp-lazyload');
@@ -533,7 +533,7 @@ class Front {
 
                         if ( wpp_widgets.length ) {
                             for (var j = 0; j < wpp_widgets.length; j++) {
-                                let wpp_widget = wpp_widgets[j],
+                                var wpp_widget = wpp_widgets[j],
                                     wpp_widget_images = wpp_widget.querySelectorAll('img.wpp-lazyload');
 
                                 if ( ! wpp_widget_images.length && wpp_widget.shadowRoot ) {
