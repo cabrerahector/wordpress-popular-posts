@@ -593,6 +593,8 @@ class Output {
                     $terms = wp_list_filter($terms, $args, 'NOT');
                 }
 
+                $terms = apply_filters('wpp_post_terms', $terms);
+
                 if (
                     is_array($terms) 
                     && ! empty($terms)
