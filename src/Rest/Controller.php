@@ -345,7 +345,7 @@ class Controller extends \WP_REST_Controller {
                 }
             }
 
-            $popular_posts = $this->maybe_query($params);
+            $popular_posts = $this->maybe_query($instance);
 
             if ( is_numeric($is_single) && $is_single > 0 ) {
                 add_filter('wpp_is_single', function($id) use ($is_single) {
