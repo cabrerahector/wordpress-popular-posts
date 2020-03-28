@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2020-01-11 11:57-0400\n"
+"POT-Creation-Date: 2020-03-28 09:44-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -77,7 +77,7 @@ msgid "Settings"
 msgstr ""
 
 #: ../src/Admin/Admin.php:699 ../src/Admin/Admin.php:1088 ../src/Admin/Admin.php:1092
-#: ../src/Output.php:719
+#: ../src/Output.php:722
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
@@ -85,7 +85,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/Admin/Admin.php:699 ../src/Admin/Admin.php:1090 ../src/Admin/Admin.php:1092
-#: ../src/Output.php:702
+#: ../src/Output.php:705
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
@@ -868,6 +868,10 @@ msgid "returns post/page title, no link"
 msgstr ""
 
 #: ../src/Admin/admin-page.php:878
+msgid "similar to text_title, sanitized for use in title/alt attributes"
+msgstr ""
+
+#: ../src/Admin/admin-page.php:878
 msgid "returns linked author name, requires stats_author=1"
 msgstr ""
 
@@ -903,98 +907,98 @@ msgstr ""
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../src/Output.php:713
+#: ../src/Output.php:716
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Output.php:742
+#: ../src/Output.php:745
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../src/Output.php:748
+#: ../src/Output.php:751
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: ../src/Output.php:748
+#: ../src/Output.php:751
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: ../src/Output.php:756
+#: ../src/Output.php:759
 #, php-format
 msgid "under %s"
 msgstr ""
 
-#: ../src/Rest/Controller.php:303
+#: ../src/Rest/Controller.php:304
 msgid "Invalid Widget Instance ID"
 msgstr ""
 
-#: ../src/Rest/Controller.php:440
+#: ../src/Rest/Controller.php:414
 msgid "Return popular posts from specified custom post type(s)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:447
+#: ../src/Rest/Controller.php:421
 msgid "The maximum number of popular posts to return."
 msgstr ""
 
-#: ../src/Rest/Controller.php:455
+#: ../src/Rest/Controller.php:429
 msgid "Retrieve the most popular entries published within the specified time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:463
+#: ../src/Rest/Controller.php:437
 msgid "An offset point for the collection."
 msgstr ""
 
-#: ../src/Rest/Controller.php:471
+#: ../src/Rest/Controller.php:445
 msgid "Set the sorting option of the popular posts."
 msgstr ""
 
-#: ../src/Rest/Controller.php:479
+#: ../src/Rest/Controller.php:453
 msgid "Return popular posts from a specified time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:487
+#: ../src/Rest/Controller.php:461
 msgid "Specifies the time unit of the custom time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:495
+#: ../src/Rest/Controller.php:469
 msgid "Specifies the number of time units of the custom time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:503
+#: ../src/Rest/Controller.php:477
 msgid "Post IDs to exclude from the listing."
 msgstr ""
 
-#: ../src/Rest/Controller.php:511
+#: ../src/Rest/Controller.php:485
 msgid "Include posts in a specified taxonomy."
 msgstr ""
 
-#: ../src/Rest/Controller.php:519
+#: ../src/Rest/Controller.php:493
 msgid "Taxonomy IDs, separated by comma (prefix a minus sign to exclude)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:527
+#: ../src/Rest/Controller.php:501
 msgid "Include popular posts from author ID(s)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:548
+#: ../src/Rest/Controller.php:522
 msgid "Security nonce."
 msgstr ""
 
-#: ../src/Rest/Controller.php:554
+#: ../src/Rest/Controller.php:528
 msgid "The post / page ID."
 msgstr ""
 
-#: ../src/Rest/Controller.php:561
+#: ../src/Rest/Controller.php:535
 msgid "Enables Data Sampling."
 msgstr ""
 
-#: ../src/Rest/Controller.php:568
+#: ../src/Rest/Controller.php:542
 msgid "Sets the Sampling Rate."
 msgstr ""
 
