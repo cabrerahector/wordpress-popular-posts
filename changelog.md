@@ -1,5 +1,12 @@
 Changelog
 =========
+#### 5.1.0 ####
+
+- The /popular-posts GET API endpoint is now being cached as well.
+- Added a new Content Tag: title_attr.
+- Added a new [filter hook to filter popular posts terms](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_post_terms).
+- Minor code improvements.
+
 #### 5.0.2 ####
 
 - A performance notice will be displayed for mid/high traffic sites (see #239).
