@@ -177,14 +177,10 @@ class Controller extends \WP_REST_Controller {
                     ]
                 ];
             } else {
-                if ( ! isset($wpp_cache['data'][$post_ID]) ) {
+                if ( ! isset($wpp_cache['data'][$post_ID][$key]) ) {
                     $wpp_cache['data'][$post_ID][$key] = 1;
                 } else {
-                    if ( isset($wpp_cache['data'][$post_ID][$key]) ) {
-                        $wpp_cache['data'][$post_ID][$key] += 1;
-                    } else {
-                        $wpp_cache['data'][$post_ID][$key] = 1;
-                    }
+                    $wpp_cache['data'][$post_ID][$key] += 1;
                 }
             }
 
