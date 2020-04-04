@@ -161,24 +161,29 @@ class Controller extends \WP_REST_Controller {
 
             $now_datetime = new \DateTime($now, new \DateTimeZone(Helper::get_timezone()));
             $timestamp = $now_datetime->getTimestamp();
+            $date_time = $now_datetime->format('Y-m-d H:i');
+            $date_time_with_seconds = $now_datetime->format('Y-m-d H:i:s');
+            $high_accuracy = false;
+
+            $key = $high_accuracy ? $timestamp : $date_time;
 
             if ( ! $wpp_cache = wp_cache_get('_wpp_cache', 'transient') ) {
                 $wpp_cache = [
-                    'last_updated' => $now_datetime->format('Y-m-d H:i:s'),
+                    'last_updated' => $date_time_with_seconds,
                     'data' => [
                         $post_ID => [
-                            $timestamp => 1
+                            $key => 1
                         ]
                     ]
                 ];
             } else {
                 if ( ! isset($wpp_cache['data'][$post_ID]) ) {
-                    $wpp_cache['data'][$post_ID][$timestamp] = 1;
+                    $wpp_cache['data'][$post_ID][$key] = 1;
                 } else {
-                    if ( isset($wpp_cache['data'][$post_ID][$timestamp]) ) {
-                        $wpp_cache['data'][$post_ID][$timestamp] += 1;
+                    if ( isset($wpp_cache['data'][$post_ID][$key]) ) {
+                        $wpp_cache['data'][$post_ID][$key] += 1;
                     } else {
-                        $wpp_cache['data'][$post_ID][$timestamp] = 1;
+                        $wpp_cache['data'][$post_ID][$key] = 1;
                     }
                 }
             }
@@ -203,6 +208,7 @@ class Controller extends \WP_REST_Controller {
 
                     foreach( $data as $ts => $cached_views ){
                         $views_count += $cached_views;
+                        $ts = Helper::is_timestamp($ts) ? $ts : strtotime($ts);
 
                         $query_summary .= $wpdb->prepare("(%d,%d,%s,%s),", [
                             $pid,
@@ -214,8 +220,8 @@ class Controller extends \WP_REST_Controller {
 
                     $query_data .= $wpdb->prepare( "(%d,%s,%s,%s),", [
                         $pid,
-                        $now_datetime->format('Y-m-d H:i:s'),
-                        $now_datetime->format('Y-m-d H:i:s'),
+                        $date_time_with_seconds,
+                        $date_time_with_seconds,
                         $views_count
                     ]);
                 }
@@ -224,7 +230,7 @@ class Controller extends \WP_REST_Controller {
                 $query_summary = rtrim($query_summary, ",") . ";";
 
                 // Clear cache
-                $wpp_cache['last_updated'] = $now_datetime->format('Y-m-d H:i:s');
+                $wpp_cache['last_updated'] = $date_time_with_seconds;
                 $wpp_cache['data'] = [];
                 wp_cache_set('_wpp_cache', $wpp_cache, 'transient', 0);
 

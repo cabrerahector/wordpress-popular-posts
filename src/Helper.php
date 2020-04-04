@@ -106,6 +106,23 @@ class Helper {
     }
 
     /**
+     * Checks whether a string is a valid timestamp.
+     *
+     * @since   5.2.0
+     * @param   string  $string
+     * @return  bool
+     */
+    public static function is_timestamp($string)
+    {
+        try {
+            new \DateTime('@' . $string);
+        } catch(\Exception $e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Returns site's timezone.
      *
      * Code borrowed from Rarst's awesome WpDateTime class: https://github.com/Rarst/wpdatetime
