@@ -437,7 +437,7 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
                         <th scope="row"><label for="thumb_field_resize"><?php _e("Resize image from Custom field?", 'wordpress-popular-posts'); ?>:</label></th>
                         <td>
                             <select name="thumb_field_resize" id="thumb_field_resize">
-                                <option <?php if ( !$this->config['tools']['thumbnail']['resize'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", 'wordpress-popular-posts'); ?></option>
+                                <option <?php if ( !$this->config['tools']['thumbnail']['resize'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("No, use image as is", 'wordpress-popular-posts'); ?></option>
                                 <option <?php if ($this->config['tools']['thumbnail']['resize'] == 1 ) { ?>selected="selected"<?php } ?> value="1"><?php _e("Yes", 'wordpress-popular-posts'); ?></option>
                             </select>
                         </td>

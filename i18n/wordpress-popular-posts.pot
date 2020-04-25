@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2020-03-28 09:44-0400\n"
+"POT-Creation-Date: 2020-04-25 15:35-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -362,7 +362,7 @@ msgid "Resize image from Custom field?"
 msgstr ""
 
 #: ../src/Admin/admin-page.php:440
-msgid "No, I will upload my own thumbnail"
+msgid "No, use image as is"
 msgstr ""
 
 #: ../src/Admin/admin-page.php:452
@@ -934,71 +934,71 @@ msgstr ""
 msgid "under %s"
 msgstr ""
 
-#: ../src/Rest/Controller.php:304
+#: ../src/Rest/Controller.php:306
 msgid "Invalid Widget Instance ID"
 msgstr ""
 
-#: ../src/Rest/Controller.php:414
+#: ../src/Rest/Controller.php:416
 msgid "Return popular posts from specified custom post type(s)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:421
+#: ../src/Rest/Controller.php:423
 msgid "The maximum number of popular posts to return."
 msgstr ""
 
-#: ../src/Rest/Controller.php:429
+#: ../src/Rest/Controller.php:431
 msgid "Retrieve the most popular entries published within the specified time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:437
+#: ../src/Rest/Controller.php:439
 msgid "An offset point for the collection."
 msgstr ""
 
-#: ../src/Rest/Controller.php:445
+#: ../src/Rest/Controller.php:447
 msgid "Set the sorting option of the popular posts."
 msgstr ""
 
-#: ../src/Rest/Controller.php:453
+#: ../src/Rest/Controller.php:455
 msgid "Return popular posts from a specified time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:461
+#: ../src/Rest/Controller.php:463
 msgid "Specifies the time unit of the custom time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:469
+#: ../src/Rest/Controller.php:471
 msgid "Specifies the number of time units of the custom time range."
 msgstr ""
 
-#: ../src/Rest/Controller.php:477
+#: ../src/Rest/Controller.php:479
 msgid "Post IDs to exclude from the listing."
 msgstr ""
 
-#: ../src/Rest/Controller.php:485
+#: ../src/Rest/Controller.php:487
 msgid "Include posts in a specified taxonomy."
 msgstr ""
 
-#: ../src/Rest/Controller.php:493
+#: ../src/Rest/Controller.php:495
 msgid "Taxonomy IDs, separated by comma (prefix a minus sign to exclude)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:501
+#: ../src/Rest/Controller.php:503
 msgid "Include popular posts from author ID(s)."
 msgstr ""
 
-#: ../src/Rest/Controller.php:522
+#: ../src/Rest/Controller.php:524
 msgid "Security nonce."
 msgstr ""
 
-#: ../src/Rest/Controller.php:528
+#: ../src/Rest/Controller.php:530
 msgid "The post / page ID."
 msgstr ""
 
-#: ../src/Rest/Controller.php:535
+#: ../src/Rest/Controller.php:537
 msgid "Enables Data Sampling."
 msgstr ""
 
-#: ../src/Rest/Controller.php:542
+#: ../src/Rest/Controller.php:544
 msgid "Sets the Sampling Rate."
 msgstr ""
 
