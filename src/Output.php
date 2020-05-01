@@ -165,7 +165,10 @@ class Output {
                 return;
             }
 
-            if ( $this->public_options['theme']['name'] ) {
+            if (
+                isset($this->public_options['theme']['name'])
+                && $this->public_options['theme']['name']
+            ) {
                 $this->output .= '<div class="popular-posts-sr">';
 
                 $theme_stylesheet = $this->themer->get_theme($this->public_options['theme']['name'])['path'] . '/style.css';
@@ -227,7 +230,10 @@ class Output {
                 $this->output .= "</ul>" . "\n";
             }
 
-            if ( $this->public_options['theme']['name'] ) {
+            if (
+                isset($this->public_options['theme']['name'])
+                && $this->public_options['theme']['name']
+            ) {
                 $this->output .= "</div>";
             }
 
