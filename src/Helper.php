@@ -17,6 +17,52 @@ class Helper {
     }
 
     /**
+     * Converts a number into a short version, eg: 1000 -> 1k
+     *
+     * @see     https://gist.github.com/RadGH/84edff0cc81e6326029c
+     * @since   5.2.0
+     * @param   int
+     * @param   int
+     * @return  mixed   string|bool
+     */
+    public static function prettify_number($number, $precision = 1)
+    {
+        if ( ! is_numeric($number) )
+            return false;
+
+        if ( $number < 900 ) {
+            // 0 - 900
+            $n_format = number_format($number, $precision);
+            $suffix = '';
+        } elseif ( $number < 900000 ) {
+            // 0.9k-850k
+            $n_format = number_format($number / 1000, $precision);
+            $suffix = 'k';
+        } elseif ( $number < 900000000 ) {
+            // 0.9m-850m
+            $n_format = number_format($number / 1000000, $precision);
+            $suffix = 'm';
+        } elseif ( $number < 900000000000 ) {
+            // 0.9b-850b
+            $n_format = number_format($number / 1000000000, $precision);
+            $suffix = 'b';
+        } else {
+            // 0.9t+
+            $n_format = number_format($number / 1000000000000, $precision);
+            $suffix = 't';
+        }
+
+        // Remove unnecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
+        // Intentionally does not affect partials, eg "1.50" -> "1.50"
+        if ( $precision > 0 ) {
+            $dotzero = '.' . str_repeat('0', $precision);
+            $n_format = str_replace($dotzero, '', $n_format);
+        }
+
+        return $n_format . $suffix;
+    }
+
+    /**
      * Checks for valid date.
      *
      * @since   4.0.0
