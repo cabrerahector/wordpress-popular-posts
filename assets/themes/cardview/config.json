@@ -44,7 +44,7 @@
         "markup": {
             "wpp-start": "<ul class=\"wpp-list wpp-cardview\">",
             "wpp-end": "</ul>",
-            "post-html": "<li><div class=\"wpp-thumbnail-container\">{thumb} {taxonomy}</div> <div class=\"wpp-item-data\">{title} <p class=\"wpp-excerpt\">{excerpt}</p></div></li>"
+            "post-html": "<li><div class=\"wpp-thumbnail-container\">{thumb}<div class=\"taxonomies\">{taxonomy}</div></div> <div class=\"wpp-item-data\">{title} <p class=\"wpp-excerpt\">{excerpt}</p></div></li>"
         }
     }
 }

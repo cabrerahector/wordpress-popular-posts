@@ -43,19 +43,23 @@ var WordPressPopularPosts = (function(){
 
     var theme = function(wpp_list) {
         if ( supportsShadowDOMV1 ) {
-            let link_styles = document.createElement('style'),
-                dummy_link = document.createElement('a');
+            let base_styles = document.createElement('style'),
+                dummy_list = document.createElement('ul');
 
-            wpp_list.parentNode.appendChild(dummy_link);
+            dummy_list.innerHTML = '<li><a href="#"></a></li>';
+            wpp_list.parentNode.appendChild(dummy_list);
 
-            let dummy_link_styles = getComputedStyle(dummy_link);
-            link_styles.innerHTML = '.wpp-list li a {color: '+ dummy_link_styles.color +'}';
+            let dummy_list_item_styles = getComputedStyle(dummy_list.querySelector('li')),
+                dummy_link_item_styles = getComputedStyle(dummy_list.querySelector('li a'));
 
-            wpp_list.parentNode.removeChild(dummy_link);
+            base_styles.innerHTML = '.wpp-list li {font-size: '+ dummy_list_item_styles.fontSize +'}';
+            base_styles.innerHTML += '.wpp-list li a {color: '+ dummy_link_item_styles.color +'}';
+
+            wpp_list.parentNode.removeChild(dummy_list);
 
             let wpp_list_sr = wpp_list.attachShadow({mode: "open"});
 
-            wpp_list_sr.append(link_styles);
+            wpp_list_sr.append(base_styles);
 
             while(wpp_list.firstElementChild) {
                 wpp_list_sr.append(wpp_list.firstElementChild);

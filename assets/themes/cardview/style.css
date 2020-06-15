@@ -6,8 +6,8 @@
 
     .wpp-cardview li {
         list-style: none;
-        margin: 0 0 1.2rem 0;
-        padding: 0 0 1rem 0;
+        margin: 0 0 1.2em 0;
+        padding: 0 0 1em 0;
         border-bottom: #ddd 1px solid;
     }
 
@@ -20,7 +20,7 @@
 
         .wpp-cardview .wpp-thumbnail-container {
             position: relative;
-            margin-bottom: .8rem;
+            margin-bottom: .8em;
         }
 
         .wpp-cardview li .wpp-thumbnail {
@@ -29,7 +29,7 @@
             margin: 0;
             width: 100%;
             height: auto;
-            font-size: 0.8rem;
+            font-size: 0.8em;
             line-height: 1;
             background: #f0f0f0;
             border: none;
@@ -43,35 +43,34 @@
             text-decoration: underline;
         }
 
-        .wpp-cardview li .category,
+        .wpp-cardview li .taxonomies,
         .wpp-cardview li .wpp-post-title {
             display: block;
             font-weight: bold;
         }
 
-        .wpp-cardview li .category {
+        .wpp-cardview li .taxonomies {
             position: absolute;
             bottom: 0;
             left: 0;
             padding: 1em;
-            color: #fff;
-            font-size: 0.7rem;
+            color: #aaa;
+            font-size: 0.7em;
             line-height: 1;
             background: rgba(0, 0, 0, 0.5);
         }
 
-        .wpp-cardview li .category:hover {
-            color: #fff;
-            background: rgba(0, 0, 0, 0.8);
-        }
+            .wpp-cardview li .taxonomies a {
+                color: #fff;
+            }
 
         .wpp-cardview li .wpp-post-title {
-            margin: 0 0 0.5rem;
-            font-size: 1.2rem;
+            margin: 0 0 0.5em;
+            font-size: 1.2em;
             line-height: 1.2;
         }
 
         .wpp-cardview li .wpp-excerpt {
             margin: 0;
-            font-size: 0.8rem;
+            font-size: 0.8em;
         }

@@ -7,7 +7,7 @@
     .wpp-tiles li {
         position: relative;
         list-style: none;
-        margin: 0 0 1.2rem 0;
+        margin: 0 0 1.2em 0;
         padding: 0;
     }
 
@@ -21,7 +21,7 @@
             margin: 0;
             width: 100%;
             height: auto;
-            font-size: 0.8rem;
+            font-size: 0.8em;
             line-height: 1;
             background: #f0f0f0;
             border: none;
@@ -39,7 +39,7 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            padding: .75rem 1rem 1rem;
+            padding: .75em 1em 1em;
             width: 100%;
             box-sizing: border-box;
             background: rgba(0, 0, 0, 0.5);
@@ -53,13 +53,13 @@
 
             .wpp-tiles li .wpp-post-data .category {
                 margin: 0;
-                font-size: 0.7rem;
+                font-size: 0.7em;
                 line-height: 1;
             }
 
             .wpp-tiles li .wpp-post-data .wpp-post-title {
                 display: block;
                 margin: 0 0 0;
-                font-size: 1rem;
+                font-size: 1em;
                 line-height: 1.2;
             }

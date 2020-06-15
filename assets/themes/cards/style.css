@@ -7,8 +7,8 @@
     .wpp-cards li {
         display: flex;
         list-style: none;
-        margin: 0 0 1.2rem 0;
-        padding: 0 0 1rem 0;
+        margin: 0 0 1.2em 0;
+        padding: 0 0 1em 0;
         border-bottom: #ddd 1px solid;
     }
 
@@ -24,8 +24,8 @@
             display: inline-block;
             flex-grow: 0;
             flex-shrink: 0;
-            margin-right: 1rem;
-            font-size: 0.8rem;
+            margin-right: 1em;
+            font-size: 0.8em;
             line-height: 1;
             background: #f0f0f0;
             border: none;
@@ -39,25 +39,25 @@
             text-decoration: underline;
         }
 
-        .wpp-cards li .category,
+        .wpp-cards li .taxonomies,
         .wpp-cards li .wpp-post-title {
             display: block;
             font-weight: bold;
         }
 
-        .wpp-cards li .category {
-            margin-bottom: 0.25rem;
-            font-size: 0.7rem;
+        .wpp-cards li .taxonomies {
+            margin-bottom: 0.25em;
+            font-size: 0.7em;
             line-height: 1;
         }
 
         .wpp-cards li .wpp-post-title {
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+            margin-bottom: 0.5em;
+            font-size: 1.2em;
             line-height: 1.2;
         }
 
         .wpp-cards li .wpp-excerpt {
             margin: 0;
-            font-size: 0.8rem;
+            font-size: 0.8em;
         }
