@@ -66,8 +66,7 @@ class Front {
         add_action('wp_ajax_update_views_ajax', [$this, 'update_views']);
         add_action('wp_ajax_nopriv_update_views_ajax', [$this, 'update_views']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
-
-        add_action('wp_footer', [$this, 'theme_widgets']);
+        add_filter('script_loader_tag', [$this, 'convert_inline_js_into_json'], 10, 3);
     }
 
     /**
@@ -100,17 +99,51 @@ class Front {
             $is_single = Helper::is_single();
         }
 
-        wp_register_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.0.0.min.js', [], WPP_VERSION, false);
+        wp_register_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.2.0.min.js', [], WPP_VERSION, false);
         $params = [
             'sampling_active' => (int) $this->config['tools']['sampling']['active'],
             'sampling_rate' => $this->config['tools']['sampling']['rate'],
             'ajax_url' => esc_url_raw(rest_url('wordpress-popular-posts/v1/popular-posts')),
             'ID' => $is_single,
             'token' => wp_create_nonce('wp_rest'),
+            'lang' => function_exists('PLL') ? $this->translate->get_current_language() : null,
             'debug' => WP_DEBUG
         ];
-        wp_localize_script('wpp-js', 'wpp_params', $params);
         wp_enqueue_script('wpp-js');
+        wp_add_inline_script('wpp-js', json_encode($params), 'before');
+    }
+
+    /**
+     * Converts inline script tag into type=application/json.
+     *
+     * This function mods the original script tag as printed
+     * by WordPress which contains the data for the wpp_params
+     * object into a JSON script. This improves compatibility
+     * with Content Security Policy (CSP).
+     *
+     * @since   5.2.0
+     * @param   string  $tag
+     * @param   string  $handle
+     * @param   string  $src
+     * @return  string  $tag
+     */
+    function convert_inline_js_into_json($tag, $handle, $src)
+    {
+        if ( 'wpp-js' === $handle ) {
+            $dom = new \DOMDocument();
+            @$dom->loadHTML('<html>' . $tag .'</html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $script_tag = $dom->getElementsByTagName('script')->item(0);
+
+            $json_script_tag = $dom->createElement('script', $script_tag->nodeValue);
+            $json_script_tag->setAttribute('type', 'application/json');
+            $json_script_tag->setAttribute('id', 'wpp-json');
+
+            $script_tag->parentNode->replaceChild($json_script_tag, $script_tag);
+
+            $tag = str_replace(['<html>', '</html>'], '', $dom->saveHTML());
+        }
+
+        return $tag;
     }
 
     /**
@@ -429,28 +462,4 @@ class Front {
         return $shortcode_content;
     }
 
-    /**
-     * Themes widgets.
-     *
-     * @since   5.0.0
-     */
-    public function theme_widgets()
-    {
-        ?>
-        <script type="text/javascript">
-            (function(){
-                document.addEventListener('DOMContentLoaded', function(){
-                    let wpp_widgets = document.querySelectorAll('.popular-posts-sr');
-
-                    if ( wpp_widgets ) {
-                        for (let i = 0; i < wpp_widgets.length; i++) {
-                            let wpp_widget = wpp_widgets[i];
-                            WordPressPopularPosts.theme(wpp_widget);
-                        }
-                    }
-                });
-            })();
-        </script>
-        <?php
-    }
 }

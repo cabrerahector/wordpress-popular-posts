@@ -76,24 +76,75 @@ var WordPressPopularPosts = (function(){
 
 })();
 
-if (
-    "undefined" !== typeof wpp_params 
-    && wpp_params.ID > 0
-) {
-    var do_request = true;
+(function(){
+    try {
+        var wpp_json = document.querySelector("script#wpp-json"),
+            do_request = true;
 
-    if ( '1' == wpp_params.sampling_active ) {
-        var num = Math.floor(Math.random() * wpp_params.sampling_rate) + 1;
-        do_request = ( 1 === num );
+        wpp_params = JSON.parse(wpp_json.textContent);
+
+        if ( wpp_params.ID ) {
+            if ( '1' == wpp_params.sampling_active ) {
+                var num = Math.floor(Math.random() * wpp_params.sampling_rate) + 1;
+                do_request = ( 1 === num );
+            }
+
+            if ( do_request ) {
+                WordPressPopularPosts.post(
+                    wpp_params.ajax_url,
+                    "_wpnonce=" + wpp_params.token + "&wpp_id=" + wpp_params.ID + "&sampling=" + wpp_params.sampling_active + "&sampling_rate=" + wpp_params.sampling_rate,
+                    function( response ) {
+                        wpp_params.debug&&window.console&&window.console.log&&window.console.log(JSON.parse(response));
+                    }
+                );
+            }
+        }
+    } catch (err) {
+        console.error("WPP: Couldn't read JSON data");
+    }
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+    var widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder');
+
+    if ( widget_placeholders.length ) {
+        for( var w = 0; w < widget_placeholders.length; w++ ) {
+            fetchWidget(widget_placeholders[w]);
+        }
     }
 
-    if ( do_request ) {
-        WordPressPopularPosts.post(
-            wpp_params.ajax_url,
-            "_wpnonce=" + wpp_params.token + "&wpp_id=" + wpp_params.ID + "&sampling=" + wpp_params.sampling_active + "&sampling_rate=" + wpp_params.sampling_rate,
-            function( response ){
-                wpp_params.debug&&window.console&&window.console.log&&window.console.log(JSON.parse(response));
+    function fetchWidget(widget_placeholder) {
+        WordPressPopularPosts.get(
+            wpp_params.ajax_url + '/widget/' + widget_placeholder.getAttribute('data-widget-id').split('-')[1],
+            'is_single=' + wpp_params.ID + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' ),
+            function(response) {
+                widget_placeholder.insertAdjacentHTML('afterend', JSON.parse(response).widget);
+
+                let parent = widget_placeholder.parentNode,
+                    sr = parent.querySelector('.popular-posts-sr');
+
+                parent.removeChild(widget_placeholder);
+
+                if ( sr ) {
+                    WordPressPopularPosts.theme(sr);
+                }
+
+                let event = null;
+
+                if ( 'function' === typeof(Event) ) {
+                    event = new Event("wpp-onload", {"bubbles": true, "cancelable": false});
+                } /* Fallback for older browsers */
+                else {
+                    if ( document.createEvent ) {
+                        event = document.createEvent('Event');
+                        event.initEvent("wpp-onload", true, false);
+                    }
+                }
+
+                if ( event ) {
+                    parent.dispatchEvent(event);
+                }
             }
         );
     }
-}
+});

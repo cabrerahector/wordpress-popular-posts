@@ -161,53 +161,9 @@ class Widget extends \WP_Widget {
 
         // Get posts
         if ( $this->admin_options['tools']['ajax'] && ! is_customize_preview() ) {
-
-            if ( empty($before_widget) || ! preg_match('/id="[^"]*"/', $before_widget) ) {
             ?>
-            <p><?php printf(__('Error: cannot ajaxify WordPress Popular Posts on this sidebar. It\'s missing the <em>id</em> attribute on before_widget (see <a href="%s" target="_blank" rel="nofollow">register_sidebar</a> for more)', 'wordpress-popular-posts'), 'https://codex.wordpress.org/Function_Reference/register_sidebar'); ?>.</p>
+            <div class="wpp-widget-placeholder" data-widget-id="<?php echo esc_attr($widget_id); ?>"></div>
             <?php
-            } 
-            else {
-            ?>
-            <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', function() {
-                    var wpp_widget_container = document.getElementById('<?php echo $widget_id; ?>');
-
-                    if ( 'undefined' != typeof WordPressPopularPosts ) {
-                        WordPressPopularPosts.get(
-                            wpp_params.ajax_url + '/widget/<?php echo $this->number; ?>',
-                            'is_single=<?php echo Helper::is_single(); ?><?php echo (function_exists('PLL')) ? '&lang=' . $this->translate->get_current_language() : ''; ?>',
-                            function(response){
-                                wpp_widget_container.innerHTML += JSON.parse(response).widget;
-
-                                let sr = wpp_widget_container.querySelector('.popular-posts-sr');
-
-                                if ( sr ) {
-                                    WordPressPopularPosts.theme(sr);
-                                }
-
-                                var event = null;
-
-                                if ( 'function' === typeof(Event) ) {
-                                    event = new Event("wpp-onload", {"bubbles": true, "cancelable": false});
-                                } /* Fallback for older browsers */
-                                else {
-                                    if ( document.createEvent ) {
-                                        event = document.createEvent('Event');
-                                        event.initEvent("wpp-onload", true, false);
-                                    }
-                                }
-
-                                if ( event ) {
-                                    wpp_widget_container.dispatchEvent(event);
-                                }
-                            }
-                        );
-                    }
-                });
-            </script>
-            <?php
-            }
         } else {
             $this->get_popular($instance);
         }
