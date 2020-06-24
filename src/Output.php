@@ -581,7 +581,10 @@ class Output {
     {
         $post_tax = '';
 
-        if ( (isset($this->public_options['stats_tag']['category']) && $this->public_options['stats_tag']['category']) || $this->public_options['stats_tag']['taxonomy'] ) {
+        if (
+            (isset($this->public_options['stats_tag']['category']) && $this->public_options['stats_tag']['category']) 
+            || $this->public_options['stats_tag']['taxonomy']['active']
+        ) {
 
             $taxonomy = 'category';
 
