@@ -184,16 +184,24 @@ class Image {
                 );
 
                 if ( ! $thumb_url || ! $this->is_image_url($thumb_url) ) {
-                    $thumb_url = null;
-                } else {
+                    // Is this an attachment ID instead of an image URL?
+                    if ( Helper::is_number($thumb_url) ) {
+                        $thumb_url = wp_get_attachment_image_src($thumb_url, 'full');
+                        $thumb_url = is_array($thumb_url) ? $thumb_url[0] : null;
+                    } else {
+                        $thumb_url = null;
+                    }
+                }
+
+                if ( $thumb_url ) {
                     /**
-                     * Filters CSS classes assigned to the thumbnail
-                     *
-                     * @since   5.0.0
-                     * @param   string  Original ALT attribute
-                     * @param   int     The post ID
-                     * @return  string  The new ALT attribute
-                     */
+                    * Filters CSS classes assigned to the thumbnail
+                    *
+                    * @since   5.0.0
+                    * @param   string  Original ALT attribute
+                    * @param   int     The post ID
+                    * @return  string  The new ALT attribute
+                    */
                     $alt = apply_filters(
                         'wpp_thumbnail_alt_attribute',
                         '',
@@ -254,6 +262,17 @@ class Image {
                     $this->admin_options['tools']['thumbnail']['field'],
                     true
                 );
+
+                if ( ! $thumb_url || ! $this->is_image_url($thumb_url) ) {
+                    // Is this an attachment ID instead of an image URL?
+                    // If so, try to fetch the image
+                    if ( Helper::is_number($thumb_url) ) {
+                        $thumb_url = wp_get_attachment_image_src($thumb_url, 'full');
+                        $thumb_url = is_array($thumb_url) ? $thumb_url[0] : null;
+                    } else {
+                        $thumb_url = null;
+                    }
+                }
 
                 if ( $thumb_url && $this->is_image_url($thumb_url) ) {
                     $file_path = $this->url_to_path($thumb_url, $post_object->id);
