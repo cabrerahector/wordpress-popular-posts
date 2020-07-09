@@ -110,10 +110,6 @@ class Image {
         $filename = $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1];
         $cached = $this->exists($filename);
 
-        if ( $this->admin_options['tools']['thumbnail']['lazyload'] ) {
-            array_push($classes, 'wpp-lazyload');
-        }
-
         // We have a thumbnail already, return it
         if ( $cached ) {
             $classes[] = 'wpp_cached_thumb';
