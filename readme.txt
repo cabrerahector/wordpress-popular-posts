@@ -89,6 +89,20 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+= 5.2.0 =
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
+
+- JavaScript based Lazy Loading superseded by Native Lazing Loading.
+- Improved Pageviews Cache.
+- Views/comments count will be prettified now!
+- Fixed a few layout issues found in widget themes.
+- Improved compatibility with Content Security Policy (CSP).
+- Added support for ACF images.
+- Other minor improvements and fixes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here)
+
 = 5.1.0 =
 
 - The /popular-posts GET API endpoint is now being cached as well.
