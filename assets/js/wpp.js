@@ -1,3 +1,4 @@
+var wpp_params = null;
 var WordPressPopularPosts = (function(){
 
     "use strict";
