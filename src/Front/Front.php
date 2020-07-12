@@ -89,28 +89,7 @@ class Front {
         }
 
         // Enqueue WPP's library.
-        $is_single = 0;
-
-        if (
-            ( 0 == $this->config['tools']['log']['level'] && !is_user_logged_in() )
-            || ( 1 == $this->config['tools']['log']['level'] )
-            || ( 2 == $this->config['tools']['log']['level'] && is_user_logged_in() )
-        ) {
-            $is_single = Helper::is_single();
-        }
-
-        wp_register_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.2.0.min.js', [], WPP_VERSION, false);
-        $params = [
-            'sampling_active' => (int) $this->config['tools']['sampling']['active'],
-            'sampling_rate' => $this->config['tools']['sampling']['rate'],
-            'ajax_url' => esc_url_raw(rest_url('wordpress-popular-posts/v1/popular-posts')),
-            'ID' => $is_single,
-            'token' => wp_create_nonce('wp_rest'),
-            'lang' => function_exists('PLL') ? $this->translate->get_current_language() : null,
-            'debug' => WP_DEBUG
-        ];
-        wp_enqueue_script('wpp-js');
-        wp_add_inline_script('wpp-js', json_encode($params), 'before');
+        wp_enqueue_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.2.0.min.js', [], WPP_VERSION, false);
     }
 
     /**
@@ -130,17 +109,31 @@ class Front {
     function convert_inline_js_into_json($tag, $handle, $src)
     {
         if ( 'wpp-js' === $handle ) {
-            $dom = new \DOMDocument();
-            @$dom->loadHTML('<html>' . $tag .'</html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $script_tag = $dom->getElementsByTagName('script')->item(0);
+            $is_single = 0;
+            $lang = ( function_exists('PLL') ) 
+                ? $this->translate->get_current_language() 
+                : null;
 
-            $json_script_tag = $dom->createElement('script', $script_tag->nodeValue);
-            $json_script_tag->setAttribute('type', 'application/json');
-            $json_script_tag->setAttribute('id', 'wpp-json');
+            if (
+                ( 0 == $this->config['tools']['log']['level'] && ! is_user_logged_in() )
+                || ( 1 == $this->config['tools']['log']['level'] )
+                || ( 2 == $this->config['tools']['log']['level'] && is_user_logged_in() )
+            ) {
+                $is_single = Helper::is_single();
+            }
 
-            $script_tag->parentNode->replaceChild($json_script_tag, $script_tag);
+            $params = [
+                'sampling_active' => (int) $this->config['tools']['sampling']['active'],
+                'sampling_rate' => $this->config['tools']['sampling']['rate'],
+                'ajax_url' => esc_url_raw(rest_url('wordpress-popular-posts/v1/popular-posts')),
+                'ID' => $is_single,
+                'token' => wp_create_nonce('wp_rest'),
+                'lang' => $lang,
+                'debug' => WP_DEBUG
+            ];
+            $json_script = '<script type="application/json" id="wpp-json">' . json_encode($params) . '</script>';
 
-            $tag = str_replace(['<html>', '</html>'], '', $dom->saveHTML());
+            $tag = $json_script . "\n" . $tag;
         }
 
         return $tag;
