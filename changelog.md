@@ -1,5 +1,15 @@
 Changelog
 =========
+#### 5.2.1 ####
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
+
+- Fixes fatal PHP error triggered on some server setups.
+- Makes sure non-ajaxified themed widgets are properly moved into the ShadowRoot.
+- Fixes declaration of the wpp_params variable.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here)
+
 #### 5.2.0 ####
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
