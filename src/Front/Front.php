@@ -89,7 +89,7 @@ class Front {
         }
 
         // Enqueue WPP's library.
-        wp_enqueue_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.2.0.min.js', [], WPP_VERSION, false);
+        wp_enqueue_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.2.1.min.js', [], WPP_VERSION, false);
     }
 
     /**
