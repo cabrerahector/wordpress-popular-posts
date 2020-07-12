@@ -112,6 +112,14 @@ document.addEventListener('DOMContentLoaded', function() {
         for( var w = 0; w < widget_placeholders.length; w++ ) {
             fetchWidget(widget_placeholders[w]);
         }
+    } else {
+        var sr = document.querySelectorAll('.popular-posts-sr');
+
+        if ( sr.length ) {
+            for( var s = 0; s < sr.length; s++ ) {
+                WordPressPopularPosts.theme(sr[s]);
+            }
+        }
     }
 
     function fetchWidget(widget_placeholder) {
