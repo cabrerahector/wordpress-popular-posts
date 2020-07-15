@@ -89,7 +89,28 @@ class Front {
         }
 
         // Enqueue WPP's library.
-        wp_enqueue_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.2.1.min.js', [], WPP_VERSION, false);
+        $is_single = 0;
+
+        if (
+            ( 0 == $this->config['tools']['log']['level'] && ! is_user_logged_in() )
+            || ( 1 == $this->config['tools']['log']['level'] )
+            || ( 2 == $this->config['tools']['log']['level'] && is_user_logged_in() )
+        ) {
+            $is_single = Helper::is_single();
+        }
+
+        wp_register_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.2.1.min.js', [], WPP_VERSION, false);
+        $params = [
+            'sampling_active' => (int) $this->config['tools']['sampling']['active'],
+            'sampling_rate' => $this->config['tools']['sampling']['rate'],
+            'ajax_url' => esc_url_raw(rest_url('wordpress-popular-posts/v1/popular-posts')),
+            'ID' => $is_single,
+            'token' => wp_create_nonce('wp_rest'),
+            'lang' => function_exists('PLL') ? $this->translate->get_current_language() : null,
+            'debug' => WP_DEBUG
+        ];
+        wp_enqueue_script('wpp-js');
+        wp_add_inline_script('wpp-js', json_encode($params), 'before');
     }
 
     /**
@@ -109,31 +130,12 @@ class Front {
     function convert_inline_js_into_json($tag, $handle, $src)
     {
         if ( 'wpp-js' === $handle ) {
-            $is_single = 0;
-            $lang = ( function_exists('PLL') ) 
-                ? $this->translate->get_current_language() 
-                : null;
-
-            if (
-                ( 0 == $this->config['tools']['log']['level'] && ! is_user_logged_in() )
-                || ( 1 == $this->config['tools']['log']['level'] )
-                || ( 2 == $this->config['tools']['log']['level'] && is_user_logged_in() )
-            ) {
-                $is_single = Helper::is_single();
+            if ( false !== strpos($tag, 'type') ) {
+                $tag = preg_replace("%[ ]type=[\'\"]text\/javascript[\'\"]%", ' type="application/json" id="wpp-json"', $tag, 1);
+            } else {
+                $pos = strpos($tag, '>');
+                $tag = substr_replace($tag, ' type="application/json" id="wpp-json">', $pos, 1);
             }
-
-            $params = [
-                'sampling_active' => (int) $this->config['tools']['sampling']['active'],
-                'sampling_rate' => $this->config['tools']['sampling']['rate'],
-                'ajax_url' => esc_url_raw(rest_url('wordpress-popular-posts/v1/popular-posts')),
-                'ID' => $is_single,
-                'token' => wp_create_nonce('wp_rest'),
-                'lang' => $lang,
-                'debug' => WP_DEBUG
-            ];
-            $json_script = '<script type="application/json" id="wpp-json">' . json_encode($params) . '</script>';
-
-            $tag = $json_script . "\n" . $tag;
         }
 
         return $tag;
