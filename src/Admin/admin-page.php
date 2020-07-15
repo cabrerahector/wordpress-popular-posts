@@ -516,7 +516,7 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
                         </td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="cache"><?php _e("Data Caching", 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching" target="_blank" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                        <th scope="row"><label for="cache"><?php _e("Data Caching", 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching-db-queries-results" target="_blank" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
                         <td>
                             <select name="cache" id="cache">
                                 <option <?php if ( ! $this->config['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php _e("Never cache", 'wordpress-popular-posts'); ?></option>
