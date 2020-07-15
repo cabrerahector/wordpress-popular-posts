@@ -102,12 +102,12 @@ class Front {
         wp_register_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp-5.2.1.min.js', [], WPP_VERSION, false);
         $params = [
             'sampling_active' => (int) $this->config['tools']['sampling']['active'],
-            'sampling_rate' => $this->config['tools']['sampling']['rate'],
+            'sampling_rate' => (int) $this->config['tools']['sampling']['rate'],
             'ajax_url' => esc_url_raw(rest_url('wordpress-popular-posts/v1/popular-posts')),
-            'ID' => $is_single,
+            'ID' => (int) $is_single,
             'token' => wp_create_nonce('wp_rest'),
-            'lang' => function_exists('PLL') ? $this->translate->get_current_language() : null,
-            'debug' => WP_DEBUG
+            'lang' => function_exists('PLL') ? $this->translate->get_current_language() : 0,
+            'debug' => (int) WP_DEBUG
         ];
         wp_enqueue_script('wpp-js');
         wp_add_inline_script('wpp-js', json_encode($params), 'before');
