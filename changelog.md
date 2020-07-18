@@ -2,8 +2,6 @@ Changelog
 =========
 #### 5.2.2 ####
 
-= 5.2.2 =
-
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
 
 - Fixes compatibility issue with plugins that minify HTML code.
