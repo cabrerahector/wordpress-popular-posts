@@ -90,6 +90,16 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+= 5.2.2 =
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
+
+- Fixes compatibility issue with plugins that minify HTML code.
+- Updates installation instructions.
+- Other minor improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here#hotfixes-and-minor-updates)
+
 = 5.2.1 =
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
@@ -98,7 +108,7 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Makes sure non-ajaxified themed widgets are properly moved into the ShadowRoot.
 - Fixes declaration of the wpp_params variable.
 
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here)
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here#hotfixes-and-minor-updates)
 
 = 5.2.0 =
 
