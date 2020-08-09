@@ -26,6 +26,7 @@
         .wpp-cardview li .wpp-thumbnail {
             overflow: hidden;
             display: block;
+            float: none;
             margin: 0;
             width: 100%;
             height: auto;
