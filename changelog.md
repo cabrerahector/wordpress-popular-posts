@@ -1,5 +1,14 @@
 Changelog
 =========
+#### 5.2.3 ####
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
+
+- Fixes a compatibility issue with WordPress 5.5.
+- Widget themes: various fixes for better IE11 compatibility.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here#hotfixes-and-minor-updates)
+
 #### 5.2.2 ####
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
