@@ -130,11 +130,25 @@ class Front {
     function convert_inline_js_into_json($tag, $handle, $src)
     {
         if ( 'wpp-js' === $handle ) {
-            if ( false !== strpos($tag, 'type') ) {
-                $tag = preg_replace("%[ ]type=[\'\"]text\/javascript[\'\"]%", ' type="application/json" id="wpp-json"', $tag, 1);
-            } else {
+            // id attribute found, replace it
+            if ( false !== strpos($tag, 'wpp-js-js-before') ) {
+                $tag = str_replace('wpp-js-js-before', 'wpp-json', $tag);
+            } // id attribute missing, let's add it
+            else {
                 $pos = strpos($tag, '>');
-                $tag = substr_replace($tag, ' type="application/json" id="wpp-json">', $pos, 1);
+                $tag = substr_replace($tag, ' id="wpp-json">', $pos, 1);
+            }
+
+            // type attribute found, replace it
+            if ( false !== strpos($tag, 'type') ) {
+                $pos = strpos($tag, 'text/javascript');
+
+                if ( false !== $pos )
+                    $tag = substr_replace($tag, 'application/json', $pos, strlen('text/javascript'));
+            } // type attribute missing, let's add it
+            else {
+                $pos = strpos($tag, '>');
+                $tag = substr_replace($tag, ' type="application/json">', $pos, 1);
             }
         }
 
