@@ -160,12 +160,14 @@ class Helper {
      */
     public static function is_timestamp($string)
     {
-        try {
-            new \DateTime('@' . $string);
-        } catch(\Exception $e) {
-            return false;
+        if (
+            ( is_int($string) || ctype_digit($string) ) 
+            && strtotime(date('Y-m-d H:i:s', $string)) === (int) $string
+        ) {
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     /**
