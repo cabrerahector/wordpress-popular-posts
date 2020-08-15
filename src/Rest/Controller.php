@@ -66,7 +66,7 @@ class Controller extends \WP_REST_Controller {
             [
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => [$this, 'get_items'],
-                'permission_callback' => [$this, 'get_items_permissions_check'],
+                'permission_callback' => '__return_true',
                 'args'                => $this->get_collection_params()
             ],
             [
@@ -81,6 +81,7 @@ class Controller extends \WP_REST_Controller {
             [
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => [$this, 'get_widget'],
+                'permission_callback' => '__return_true',
                 'args'                => $this->get_widget_params(),
             ]
         ]);
@@ -388,18 +389,6 @@ class Controller extends \WP_REST_Controller {
         $data->data['pageviews'] = $popular_post->pageviews;
 
         return $this->prepare_response_for_collection($data);
-    }
-
-    /**
-     * Check if current user can read items.
-     *
-     * @since   1.0.0
-     * @param   WP_REST_Request $request Full data about the request.
-     * @return  bool
-     */
-    public function get_items_permissions_check($request)
-    {
-        return true;
     }
 
     /**
