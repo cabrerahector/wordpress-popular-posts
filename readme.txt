@@ -90,6 +90,13 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+= 5.2.4 =
+
+- Fixes PHP notices affecting Block Editor users on WordPress 5.5.
+- Fixes a rare PHP warning message that pops up randomly when the Pageviews Cache is enabled.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here#hotfixes-and-minor-updates)
+
 = 5.2.3 =
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
