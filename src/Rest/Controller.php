@@ -72,6 +72,7 @@ class Controller extends \WP_REST_Controller {
             [
                 'methods'             => \WP_REST_Server::CREATABLE,
                 'callback'            => [$this, 'update_views_count'],
+                'permission_callback' => '__return_true',
                 'args'                => $this->get_tracking_params(),
             ]
         ]);
