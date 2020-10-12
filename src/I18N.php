@@ -14,13 +14,21 @@ namespace WordPressPopularPosts;
 
 class I18N {
     /**
-     * WordPress hooks.
+     * Plugin options.
      *
-     * @since   5.0.0
+     * @var     array      $config
+     * @access  private
      */
-    public function hooks()
+    private $config;
+
+    /**
+     * Construct.
+     *
+     * @since   5.3.0
+     */
+    public function __construct(array $config)
     {
-        add_action('plugins_loaded', [$this, 'load_plugin_textdomain']);
+        $this->config = $config;
     }
 
     /**
@@ -30,7 +38,12 @@ class I18N {
      */
     public function load_plugin_textdomain()
     {
-        $locale = apply_filters('plugin_locale', get_locale(), 'wordpress-popular-posts');
-        load_textdomain('wordpress-popular-posts', WP_LANG_DIR . '/' . 'wordpress-popular-posts' . '/' . 'wordpress-popular-posts' . '-' . $locale . '.mo');
+        // This is basically a "hack" and should be removed in the future
+        // if/when we figure out why Polylang doesn't load WPP's mo files 
+        // while WPML does that automatically.
+        if ( ! is_admin() && ! $this->config['tools']['ajax'] && function_exists('PLL') ) {
+            unload_textdomain('wordpress-popular-posts');
+            load_textdomain('wordpress-popular-posts', WP_LANG_DIR . '/plugins/wordpress-popular-posts-' . get_locale() . '.mo');
+        }
     }
 }

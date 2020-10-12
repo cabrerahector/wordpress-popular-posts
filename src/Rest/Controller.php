@@ -334,9 +334,10 @@ class Controller extends \WP_REST_Controller {
             if ( $lang ) {
                 $current_locale = get_locale();
                 $locale = null;
+                $is_polylang = function_exists('PLL');
 
                 // Polylang support
-                if ( function_exists('PLL') ) {
+                if ( $is_polylang ) {
                     $lang_object = PLL()->model->get_language($lang);
                     $locale = ( $lang_object && isset($lang_object->locale) ) ? $lang_object->locale : null;
                 }
@@ -344,8 +345,11 @@ class Controller extends \WP_REST_Controller {
                 // Reload locale if needed
                 if ( $locale && $locale != $current_locale ) {
                     $this->translate->set_current_language($lang);
-                    unload_textdomain('wordpress-popular-posts');
-                    load_textdomain('wordpress-popular-posts', WP_LANG_DIR . '/plugins/wordpress-popular-posts-' . $locale . '.mo');
+
+                    if ( $is_polylang ) {
+                        unload_textdomain('wordpress-popular-posts');
+                        load_textdomain('wordpress-popular-posts', WP_LANG_DIR . '/plugins/wordpress-popular-posts-' . $locale . '.mo');
+                    }
                 }
             }
 

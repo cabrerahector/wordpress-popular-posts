@@ -17,7 +17,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         $container['widget_options'] = Settings::get('widget_options');
 
         $container['i18n'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\I18N();
+            return new \WordPressPopularPosts\I18N($container['admin_options']);
         });
 
         $container['translate'] = $container->service(function(Container $container) {

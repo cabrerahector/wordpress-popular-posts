@@ -74,7 +74,7 @@ class WordPressPopularPosts {
      */
     public function init()
     {
-        $this->i18n->hooks();
+        $this->i18n->load_plugin_textdomain();
         $this->rest->hooks();
         $this->admin->hooks();
         $this->front->hooks();
