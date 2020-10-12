@@ -171,7 +171,12 @@ class Output {
             ) {
                 $this->output .= '<div class="popular-posts-sr">';
 
-                $theme_stylesheet = $this->themer->get_theme($this->public_options['theme']['name'])['path'] . '/style.css';
+                if ( @file_exists(get_template_directory() . '/wordpress-popular-posts/themes/' . $this->public_options['theme']['name'] . '/style.css') ) {
+                    $theme_stylesheet = get_template_directory() . '/wordpress-popular-posts/themes/' . $this->public_options['theme']['name'] . '/style.css';
+                } else {
+                    $theme_stylesheet = $this->themer->get_theme($this->public_options['theme']['name'])['path'] . '/style.css';
+                }
+
                 $theme_css_rules = wp_strip_all_tags(file_get_contents($theme_stylesheet), true);
                 $additional_styles = '';
 
