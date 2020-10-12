@@ -140,7 +140,7 @@ class Image {
             );
 
             /**
-             * Filters ALT classes assigned to the thumbnail
+             * Filters ALT attribute assigned to the thumbnail
              *
              * @since   5.0.0
              * @param   string  Original ALT attribute
@@ -308,7 +308,7 @@ class Image {
         );
 
         /**
-         * Filters ALT classes assigned to the thumbnail
+         * Filters ALT attribute assigned to the thumbnail
          *
          * @since   5.0.0
          * @param   string  Original ALT attribute
