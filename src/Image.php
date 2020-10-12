@@ -140,7 +140,7 @@ class Image {
             );
 
             /**
-             * Filters CSS classes assigned to the thumbnail
+             * Filters ALT classes assigned to the thumbnail
              *
              * @since   5.0.0
              * @param   string  Original ALT attribute
@@ -168,20 +168,6 @@ class Image {
             ( 'custom_field' == $source && ! $this->admin_options['tools']['thumbnail']['resize'] )
             || ( 'featured' == $source && 'predefined' == $build )
         ){
-            /**
-             * Filters CSS classes assigned to the thumbnail
-             *
-             * @since   5.0.0
-             * @param   array   CSS classes
-             * @param   int     The post ID
-             * @return  array   The new CSS classes
-             */
-            $classes = apply_filters(
-                'wpp_thumbnail_class_attribute',
-                $classes,
-                $post_id
-            );
-
             // Get custom field image URL
             if ( 'custom_field' == $source && ! $this->admin_options['tools']['thumbnail']['resize'] ) {
                 $thumb_url = get_post_meta(
@@ -198,22 +184,6 @@ class Image {
                     } else {
                         $thumb_url = null;
                     }
-                }
-
-                if ( $thumb_url ) {
-                    /**
-                    * Filters CSS classes assigned to the thumbnail
-                    *
-                    * @since   5.0.0
-                    * @param   string  Original ALT attribute
-                    * @param   int     The post ID
-                    * @return  string  The new ALT attribute
-                    */
-                    $alt = apply_filters(
-                        'wpp_thumbnail_alt_attribute',
-                        '',
-                        $post_id
-                    );
                 }
             }
             // Get Post Thumbnail
@@ -242,6 +212,20 @@ class Image {
                     if ( null == $stock_size ) {
                         $stock_size = $size;
                     }
+
+                    /**
+                     * Filters CSS classes assigned to the thumbnail
+                     *
+                     * @since   5.0.0
+                     * @param   array   CSS classes
+                     * @param   int     The post ID
+                     * @return  array   The new CSS classes
+                     */
+                    $classes = apply_filters(
+                        'wpp_thumbnail_class_attribute',
+                        $classes,
+                        $post_id
+                    );
 
                     $featured_image = get_the_post_thumbnail(
                         $post_id,
@@ -308,6 +292,34 @@ class Image {
             $classes[] = 'wpp_def_no_src';
             $thumb_url = $this->get_default_url($post_id);
         }
+
+        /**
+         * Filters CSS classes assigned to the thumbnail
+         *
+         * @since   5.0.0
+         * @param   array   CSS classes
+         * @param   int     The post ID
+         * @return  array   The new CSS classes
+         */
+        $classes = apply_filters(
+            'wpp_thumbnail_class_attribute',
+            $classes,
+            $post_id
+        );
+
+        /**
+         * Filters ALT classes assigned to the thumbnail
+         *
+         * @since   5.0.0
+         * @param   string  Original ALT attribute
+         * @param   int     The post ID
+         * @return  string  The new ALT attribute
+         */
+        $alt = apply_filters(
+            'wpp_thumbnail_alt_attribute',
+            $this->get_alt_attribute($post_id, $source),
+            $post_id
+        );
 
         return $this->render(
             $thumb_url,
