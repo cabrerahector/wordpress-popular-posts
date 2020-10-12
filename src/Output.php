@@ -318,7 +318,34 @@ class Output {
         $post_comments = $this->get_comments($post_object);
 
         // Post meta
-        $post_meta = join(' | ', $this->get_metadata($post_object, $post_id));
+        $meta_arr = $this->get_metadata(
+            $post_object,
+            $post_id,
+            $post_date,
+            $post_taxonomies,
+            $post_author,
+            $post_views,
+            $post_comments
+        );
+
+        if (
+            is_array($meta_arr)
+            && ! empty($meta_arr)
+            && "views" == $this->public_options['order_by']
+        ) {
+            $keys = ['views', 'comments', 'author', 'date', 'taxonomy'];
+            $new_meta_arr = [];
+
+            foreach($keys as $key) {
+                if ( isset($meta_arr[$key]))
+                    $new_meta_arr[$key] = $meta_arr[$key];
+            }
+
+            if ( ! empty($new_meta_arr) )
+                $meta_arr = $new_meta_arr;
+        }
+
+        $post_meta = join(' | ', $meta_arr);
 
         $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
 
@@ -335,10 +362,15 @@ class Output {
                 'url' => $permalink,
                 'text_title' => $post_title,
                 'taxonomy' => $post_taxonomies,
+                'taxonomy_copy' => isset($meta_arr['taxonomy']) ? $meta_arr['taxonomy'] : null,
                 'author' => ( ! empty($post_author) ) ? '<a href="' . get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid ) . '">' . $post_author . '</a>' : '',
+                'author_copy' => isset($meta_arr['author']) ? $meta_arr['author'] : null,
                 'views' => ( $this->public_options['order_by'] == "views" || $this->public_options['order_by'] == "comments" ) ? ($prettify_numbers ? Helper::prettify_number($post_views) : number_format_i18n($post_views)) : ($prettify_numbers ? Helper::prettify_number($post_views, 2) : number_format_i18n($post_views, 2)),
+                'views_copy' => isset($meta_arr['views']) ? $meta_arr['views'] : null,
                 'comments' => $prettify_numbers ? Helper::prettify_number($post_comments) : number_format_i18n($post_comments),
+                'comments_copy' => isset($meta_arr['comments']) ? $meta_arr['comments'] : null,
                 'date' => $post_date,
+                'date_copy' => isset($meta_arr['date']) ? $meta_arr['date'] : null,
                 'total_items' => count($this->data),
                 'item_position' => $position
             ];
@@ -695,7 +727,8 @@ class Output {
      * @param   integer $post_id
      * @return  array
      */
-    private function get_metadata(\stdClass $post_object, $post_id)
+    //private function get_metadata(\stdClass $post_object, $post_id)
+    private function get_metadata(\stdClass $post_object, $post_id, $date, $post_tax, $author, $pageviews, $comments)
     {
         $stats = [];
 
@@ -703,18 +736,16 @@ class Output {
 
         // comments
         if ( $this->public_options['stats_tag']['comment_count'] ) {
-            $comments = $this->get_comments($post_object);
-
             $comments_text = sprintf(
                 _n('%s comment', '%s comments', $comments, 'wordpress-popular-posts'),
                 $prettify_numbers ? Helper::prettify_number($comments) : number_format_i18n($comments)
             );
+
+            $stats['comments'] = '<span class="wpp-comments">' . $comments_text . '</span>';
         }
 
         // views
         if ( $this->public_options['stats_tag']['views'] ) {
-            $pageviews = $this->get_pageviews($post_object);
-
             if ( $this->public_options['order_by'] == 'avg' ) {
                 $views_text = sprintf(
                     _n('%s view per day', '%s views per day', $pageviews, 'wordpress-popular-posts'),
@@ -727,41 +758,25 @@ class Output {
                     $prettify_numbers ? Helper::prettify_number($pageviews) : number_format_i18n($pageviews)
                 );
             }
-        }
 
-        if ( "comments" == $this->public_options['order_by'] ) {
-            if ( $this->public_options['stats_tag']['comment_count'] )
-                $stats[] = '<span class="wpp-comments">' . $comments_text . '</span>'; // First comments count
-            if ( $this->public_options['stats_tag']['views'] )
-                $stats[] = '<span class="wpp-views">' . $views_text . "</span>"; // ... then views
-        } else {
-            if ( $this->public_options['stats_tag']['views'] )
-                $stats[] = '<span class="wpp-views">' . $views_text . "</span>"; // First views count
-            if ( $this->public_options['stats_tag']['comment_count'] )
-                $stats[] = '<span class="wpp-comments">' . $comments_text . '</span>'; // ... then comments
+            $stats['views'] = '<span class="wpp-views">' . $views_text . "</span>";
         }
 
         // author
         if ( $this->public_options['stats_tag']['author'] ) {
-            $author = $this->get_author($post_object, $post_id);
             $author_url = get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid);
             $display_name = '<a href="' . $this->translate->url($author_url, $this->translate->get_current_language()) . '">' . $author . '</a>';
-            $stats[] = '<span class="wpp-author">' . sprintf(__('by %s', 'wordpress-popular-posts'), $display_name) . '</span>';
+            $stats['author'] = '<span class="wpp-author">' . sprintf(__('by %s', 'wordpress-popular-posts'), $display_name) . '</span>';
         }
 
         // date
         if ( $this->public_options['stats_tag']['date']['active'] ) {
-            $date = $this->get_date($post_object);
-            $stats[] = '<span class="wpp-date">' . ( 'relative' == $this->public_options['stats_tag']['date']['format'] ? sprintf(__('posted %s', 'wordpress-popular-posts'), $date) : sprintf(__('posted on %s', 'wordpress-popular-posts'), $date) ) . '</span>';
+            $stats['date'] = '<span class="wpp-date">' . ( 'relative' == $this->public_options['stats_tag']['date']['format'] ? sprintf(__('posted %s', 'wordpress-popular-posts'), $date) : sprintf(__('posted on %s', 'wordpress-popular-posts'), $date) ) . '</span>';
         }
 
         // taxonomy
-        if ( $this->public_options['stats_tag']['category'] ) {
-            $post_tax = $this->get_taxonomies($post_id);
-
-            if ( $post_tax != '' ) {
-                $stats[] = '<span class="wpp-category">' . sprintf(__('under %s', 'wordpress-popular-posts'), $post_tax) . '</span>';
-            }
+        if ( $this->public_options['stats_tag']['category'] && $post_tax != '' ) {
+            $stats['taxonomy'] = '<span class="wpp-category">' . sprintf(__('under %s', 'wordpress-popular-posts'), $post_tax) . '</span>';
         }
 
         return $stats;
@@ -783,7 +798,7 @@ class Output {
             return false;
 
         $params = [];
-        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|taxonomy|category|views|comments|date|total_items|item_position)\}/i';
+        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|author_copy|taxonomy|taxonomy_copy|category|category_copy|views|views_copy|comments|comments_copy|date|date_copy|total_items|item_position)\}/i';
         preg_match_all($pattern, $string, $matches);
 
         array_map('strtolower', $matches[0]);
@@ -858,20 +873,40 @@ class Output {
             $string = str_replace("{author}", $data['author'], $string);
         }
 
+        if ( in_array("{author_copy}", $matches[0]) ) {
+            $string = str_replace("{author_copy}", $data['author_copy'], $string);
+        }
+
         if ( in_array("{taxonomy}", $matches[0]) || in_array("{category}", $matches[0]) ) {
             $string = str_replace(["{taxonomy}", "{category}"], $data['taxonomy'], $string);
+        }
+
+        if ( in_array("{taxonomy_copy}", $matches[0]) || in_array("{category_copy}", $matches[0]) ) {
+            $string = str_replace(["{taxonomy_copy}", "{category_copy}"], $data['taxonomy_copy'], $string);
         }
 
         if ( in_array("{views}", $matches[0]) ) {
             $string = str_replace("{views}", $data['views'], $string);
         }
 
+        if ( in_array("{views_copy}", $matches[0]) ) {
+            $string = str_replace("{views_copy}", $data['views_copy'], $string);
+        }
+
         if ( in_array("{comments}", $matches[0]) ) {
             $string = str_replace("{comments}", $data['comments'], $string);
         }
 
+        if ( in_array("{comments_copy}", $matches[0]) ) {
+            $string = str_replace("{comments_copy}", $data['comments_copy'], $string);
+        }
+
         if ( in_array("{date}", $matches[0]) ) {
             $string = str_replace("{date}", $data['date'], $string);
+        }
+
+        if ( in_array("{date_copy}", $matches[0]) ) {
+            $string = str_replace("{date_copy}", $data['date_copy'], $string);
         }
 
         if ( in_array("{total_items}", $matches[0]) ) {
