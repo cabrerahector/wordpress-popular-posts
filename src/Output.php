@@ -345,7 +345,8 @@ class Output {
                 $meta_arr = $new_meta_arr;
         }
 
-        $post_meta = join(' | ', $meta_arr);
+        $post_meta_separator = apply_filters('wpp_post_meta_separator', ' | ');
+        $post_meta = join($post_meta_separator, $meta_arr);
 
         $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
 
