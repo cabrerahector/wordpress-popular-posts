@@ -44,6 +44,14 @@ class Image {
     private $available_sizes = [];
 
     /**
+     * Available image descriptors.
+     *
+     * @since   5.3.0
+     * @var     array
+     */
+    private $descriptors = [];
+
+    /**
      * Construct.
      *
      * @since   4.0.0
@@ -71,6 +79,9 @@ class Image {
                 $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'];
             }
         }
+
+        // Set descriptors
+        $this->descriptors = [1.5, 2, 2.5, 3];
     }
 
     /**
@@ -656,7 +667,7 @@ class Image {
     }
 
     /**
-     * Resizes image.
+     * Creates thumbnails.
      *
      * @since   3.0.0
      * @access  private
@@ -667,6 +678,75 @@ class Image {
      * @return  string|bool Image URL on success, false on error
      */
     private function resize($path, $filename, $size, $crop = true)
+    {
+        $image = wp_get_image_editor($path);
+
+        // valid image, create thumbnails
+        if ( ! is_wp_error($image) ) {
+            $original_size = $image->get_size();
+            $sizes = [
+                '1x' => $size
+            ];
+            $thumbnail = '';
+
+            /**
+             * Hook to enable/disable retina support.
+             * @since   5.3.0
+             */
+            $retina_support = apply_filters('wpp_retina_support', true);
+
+            if ( $retina_support ) {
+                // Calculate thumbnail sizes
+                foreach( $this->descriptors as $descriptor ) {
+                    $new_size_width = $descriptor * $size[0];
+                    $new_size_height = $descriptor * $size[1];
+
+                    if (
+                        $new_size_width <= $original_size['width']
+                        && $new_size_height <= $original_size['height']
+                    ) {
+                        $sizes[$descriptor . 'x'] = [$new_size_width, $new_size_height];
+                    }
+                }
+            }
+
+            $path_parts = null;
+
+            // Generate thumbnails
+            foreach( $sizes as $d => $s ) {
+                if ( '1x' == $d ) {
+                    $thumbnail = $this->generate_thumbnail($path, $filename, $s, $crop);
+
+                    // Image could not be generated, let's bail early.
+                    if ( ! $thumbnail )
+                        break;
+                } else {
+                    if ( ! $path_parts )
+                        $path_parts = pathinfo($filename);
+
+                    $filename_with_descriptor = $path_parts['filename'] . "@{$d}." . $path_parts['extension'];
+                    $this->generate_thumbnail($path, $filename_with_descriptor, $s, $crop);
+                }
+            }
+
+            return $thumbnail;
+        }
+
+        return false;
+    }
+
+    /**
+     * Creates image.
+     *
+     * @since   5.3.0
+     * @access  private
+     * @param   string      $path           Image path
+     * @param   string      $filename       Image filename
+     * @param   array       $size           Image size
+     * @param   bool        $crop           Whether to crop the image or not
+     * @return  string|bool Image URL on success, false on error
+     */
+    private function generate_thumbnail($path, $filename, $size, $crop = true)
     {
         $image = wp_get_image_editor($path);
 
@@ -694,6 +774,39 @@ class Image {
     }
 
     /**
+     * Generates srcset attribute for this image.
+     *
+     * @since   5.3.0
+     * @param   string      $src
+     * @return  string
+     */
+    private function get_srcset($src)
+    {
+        /**
+         * Hook to enable/disable retina support.
+         * @since   5.3.0
+         */
+        $retina_support = apply_filters('wpp_retina_support', true);
+
+        if ( ! $retina_support )
+            return '';
+
+        $path_parts = pathinfo($src);
+        $srcset = [$src];
+
+        foreach( $this->descriptors as $descriptor ) {
+            $d = "{$descriptor}x";
+            $filename = $path_parts['filename'] . "@{$d}." . $path_parts['extension'];
+
+            if ( @file_exists(trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $filename) ) {
+                $srcset[] = $path_parts['dirname'] . '/' . $filename . ' ' . $d;
+            }
+        }
+
+        return ( count($srcset) > 1 ) ? ' srcset="' . implode(', ', $srcset) . '" ' : '';
+    }
+
+    /**
      * Render image tag.
      *
      * @since   3.0.0
@@ -713,7 +826,8 @@ class Image {
             $img_tag = '<!-- ' . $error . ' --> ';
         }
 
-        $src = 'src="' . esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src) . '"';
+        $srcset = $this->get_srcset($src);
+        $src = 'src="' . esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src) . '"' . $srcset;
         $lazyload = ( $this->admin_options['tools']['thumbnail']['lazyload'] ) ? ' loading="lazy"' : '';
 
         $img_tag .= '<img ' . $src . ' width="' . $size[0] . '" height="' . $size[1] . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '"' . $lazyload . ' />';
