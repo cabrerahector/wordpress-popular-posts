@@ -285,7 +285,7 @@ class Output {
         }
 
         // Thumbnail
-        $post_thumbnail = $this->get_thumbnail($post_object);
+        $post_thumbnail = $this->get_thumbnail($post_id);
 
         // Post excerpt
         $post_excerpt = $this->get_excerpt($post_object, $post_id);
@@ -425,16 +425,16 @@ class Output {
      *
      * @since   3.0.0
      * @access  private
-     * @param   object   $post_object
+     * @param   int     $post_id
      * @return  string
      */
-    private function get_thumbnail(\stdClass $post_object)
+    private function get_thumbnail($post_id)
     {
         $thumbnail = '';
 
         if ( $this->public_options['thumbnail']['active'] ) {
             $thumbnail = $this->thumbnail->get(
-                $post_object,
+                $post_id,
                 [
                     $this->public_options['thumbnail']['width'],
                     $this->public_options['thumbnail']['height']

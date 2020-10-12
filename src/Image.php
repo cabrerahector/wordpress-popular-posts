@@ -102,23 +102,23 @@ class Image {
      * Returns an image.
      *
      * @since   5.0.0
-     * @param   \stdClass   $post_object    Post object
+     * @param   int         $post_id        Post ID
      * @param   array       $size           Image size (width & height)
      * @param   string      $source         Image source
      * @param   bool        $crop           Whether to crop the image or not
      * @param   string      $build          Whether to build the image or get an existing one
      * @return  string
      */
-    public function get($post_object, $size, $source, $crop = true, $build = 'manual')
+    public function get($post_id, $size, $source, $crop = true, $build = 'manual')
     {
-        // Bail, $post_object is not an actual object
-        if ( false === $post_object instanceof \stdClass || ! isset($post_object->id) ) {
+        // Bail, $post_id is not an integer
+        if ( ! is_numeric($post_id) ) {
             return '';
         }
 
         $alt = '';
         $classes = ['wpp-thumbnail', 'wpp_' . $source];
-        $filename = $post_object->id . '-' . $source . '-' . $size[0] . 'x' . $size[1];
+        $filename = $post_id . '-' . $source . '-' . $size[0] . 'x' . $size[1];
         $cached = $this->exists($filename);
 
         // We have a thumbnail already, return it
@@ -136,7 +136,7 @@ class Image {
             $classes = apply_filters(
                 'wpp_thumbnail_class_attribute',
                 $classes,
-                $post_object->id
+                $post_id
             );
 
             /**
@@ -149,8 +149,8 @@ class Image {
              */
             $alt = apply_filters(
                 'wpp_thumbnail_alt_attribute',
-                $this->get_alt_attribute($post_object->id, $source),
-                $post_object->id
+                $this->get_alt_attribute($post_id, $source),
+                $post_id
             );
 
             return $this->render(
@@ -179,13 +179,13 @@ class Image {
             $classes = apply_filters(
                 'wpp_thumbnail_class_attribute',
                 $classes,
-                $post_object->id
+                $post_id
             );
 
             // Get custom field image URL
             if ( 'custom_field' == $source && ! $this->admin_options['tools']['thumbnail']['resize'] ) {
                 $thumb_url = get_post_meta(
-                    $post_object->id,
+                    $post_id,
                     $this->admin_options['tools']['thumbnail']['field'],
                     true
                 );
@@ -212,7 +212,7 @@ class Image {
                     $alt = apply_filters(
                         'wpp_thumbnail_alt_attribute',
                         '',
-                        $post_object->id
+                        $post_id
                     );
                 }
             }
@@ -220,7 +220,7 @@ class Image {
             else {
                 if (
                     current_theme_supports('post-thumbnails')
-                    && has_post_thumbnail($post_object->id)
+                    && has_post_thumbnail($post_id)
                 ) {
                     // Find corresponding image size
                     $stock_size = null;
@@ -244,7 +244,7 @@ class Image {
                     }
 
                     $featured_image = get_the_post_thumbnail(
-                        $post_object->id,
+                        $post_id,
                         $stock_size
                     );
 
@@ -265,7 +265,7 @@ class Image {
 
             if ( 'custom_field' == $source && $this->admin_options['tools']['thumbnail']['resize'] ) {
                 $thumb_url = get_post_meta(
-                    $post_object->id,
+                    $post_id,
                     $this->admin_options['tools']['thumbnail']['field'],
                     true
                 );
@@ -282,10 +282,10 @@ class Image {
                 }
 
                 if ( $thumb_url && $this->is_image_url($thumb_url) ) {
-                    $file_path = $this->url_to_path($thumb_url, $post_object->id);
+                    $file_path = $this->url_to_path($thumb_url, $post_id);
                 }
             } else {
-                $file_meta = $this->get_file_meta($post_object->id, $source);
+                $file_meta = $this->get_file_meta($post_id, $source);
 
                 if ( is_array($file_meta) && isset($file_meta['path']) ) {
                     $alt = isset($file_meta['alt']) ? $file_meta['alt'] : '';
@@ -306,7 +306,7 @@ class Image {
 
         if ( ! $thumb_url ) {
             $classes[] = 'wpp_def_no_src';
-            $thumb_url = $this->get_default_url($post_object->id);
+            $thumb_url = $this->get_default_url($post_id);
         }
 
         return $this->render(
