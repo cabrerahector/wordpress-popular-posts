@@ -63,10 +63,52 @@ class Front {
     public function hooks()
     {
         add_shortcode('wpp', [$this, 'wpp_shortcode']);
+        add_action('wp_head', [$this, 'inline_loading_css']);
         add_action('wp_ajax_update_views_ajax', [$this, 'update_views']);
         add_action('wp_ajax_nopriv_update_views_ajax', [$this, 'update_views']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
         add_filter('script_loader_tag', [$this, 'convert_inline_js_into_json'], 10, 3);
+    }
+
+    /**
+     * 
+     */
+    public function inline_loading_css()
+    {
+        ?>
+        <style>
+            @-webkit-keyframes bgslide {
+                from {
+                    background-position-x: 0;
+                }
+                to {
+                    background-position-x: -200%;
+                }
+            }
+
+            @keyframes bgslide {
+                    from {
+                        background-position-x: 0;
+                    }
+                    to {
+                        background-position-x: -200%;
+                    }
+            }
+
+            .wpp-widget-placeholder {
+                margin: 0 auto;
+                width: 60px;
+                height: 3px;
+                background: #dd3737;
+                background: -webkit-gradient(linear, left top, right top, from(#dd3737), color-stop(transparent), to(#dd3737));
+                background: linear-gradient(90deg, #dd3737 0%, transparent, #dd3737 100%);
+                background-size: 200% auto;
+                border-radius: 3px;
+                -webkit-animation: bgslide 1s infinite linear;
+                animation: bgslide 1s infinite linear;
+            }
+        </style>
+        <?php
     }
 
     /**
