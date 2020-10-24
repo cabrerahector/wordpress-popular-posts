@@ -100,8 +100,8 @@ class Front {
                 width: 60px;
                 height: 3px;
                 background: #dd3737;
-                background: -webkit-gradient(linear, left top, right top, from(#dd3737), color-stop(transparent), to(#dd3737));
-                background: linear-gradient(90deg, #dd3737 0%, transparent, #dd3737 100%);
+                background: -webkit-gradient(linear, left top, right top, from(#dd3737), color-stop(10%, #571313), to(#dd3737));
+                background: linear-gradient(90deg, #dd3737 0%, #571313 10%, #dd3737 100%);
                 background-size: 200% auto;
                 border-radius: 3px;
                 -webkit-animation: bgslide 1s infinite linear;
