@@ -424,8 +424,6 @@ class Widget extends \WP_Widget {
             $this->output->set_data($popular_posts->get_posts());
             $this->output->set_public_options($instance);
             $this->output->build_output();
-
-            echo ( $this->admin_options['tools']['cache']['active'] ? '<!-- cached -->' : '' );
             $this->output->output();
         }
     }

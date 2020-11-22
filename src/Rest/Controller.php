@@ -366,7 +366,7 @@ class Controller extends \WP_REST_Controller {
             $this->output->build_output();
 
             return [
-                'widget' => ( $this->config['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $this->output->get_output()
+                'widget' => $this->output->get_output()
             ];
         }
 

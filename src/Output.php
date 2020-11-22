@@ -156,7 +156,7 @@ class Output {
         // Got some posts, format 'em!
         if ( ! empty($this->data) ) {
 
-            $this->output = "\n" . "<!-- WordPress Popular Posts" . ( WP_DEBUG ? ' v' . WPP_VERSION : '' ) . " -->" . "\n";
+            $this->output = "\n" . ( WP_DEBUG ? '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' : '' ) . "\n";
 
             // Allow WP themers / coders access to raw data
             // so they can build their own output
