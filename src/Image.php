@@ -919,7 +919,11 @@ class Image {
      */
     private function is_image_url($url)
     {
-        if ( ! filter_var($url, FILTER_VALIDATE_URL) )
+        $path = parse_url($url, PHP_URL_PATH);
+        $encoded_path = array_map('urlencode', explode('/', $path));
+        $parse_url = str_replace($path, implode('/', $encoded_path), $url);
+
+        if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) )
             return false;
 
         // sanitize URL, just in case
