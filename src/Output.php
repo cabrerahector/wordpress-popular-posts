@@ -643,7 +643,7 @@ class Output {
                             continue;
 
                         $term_link = $this->translate->url($term_link, $this->translate->get_current_language());
-                        $post_tax .= "<a href=\"{$term_link}\" class=\"{$taxonomy} {$taxonomy}-{$term->term_id}\">{$term->name}</a>" . $taxonomy_separator;
+                        $post_tax .= "<a href=\"{$term_link}\" class=\"wpp-taxonomy {$taxonomy} {$taxonomy}-{$term->term_id}\">{$term->name}</a>" . $taxonomy_separator;
                     }
                 }
             }
