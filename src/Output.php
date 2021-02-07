@@ -85,7 +85,7 @@ class Output {
      * @param   WordPressPopularPosts\Translate $translate
      * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $public_options = [], array $admin_options = [], Image $thumbnail, Translate $translate, \WordPressPopularPosts\Themer $themer)
+    public function __construct(array $public_options, array $admin_options, Image $thumbnail, Translate $translate, \WordPressPopularPosts\Themer $themer)
     {
         $this->public_options = $public_options;
         $this->admin_options = $admin_options;
@@ -793,7 +793,7 @@ class Output {
      * @param   bool    Used to display post rating (if functionality is available)
      * @return  string
      */
-    private function format_content($string, $data = [], $rating) {
+    private function format_content($string, $data, $rating) {
 
         if ( empty($string) || ( empty($data) || ! is_array($data) ) )
             return false;
