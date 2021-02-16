@@ -36,6 +36,9 @@ class PostsEndpoint extends Endpoint {
         $lang = isset($params['lang']) ? $params['lang'] : null;
         $popular_posts = [];
 
+        // Multilang support
+        $this->set_lang($lang);
+
         $query = $this->maybe_query($params);
         $results = $query->get_posts();
 
@@ -59,7 +62,15 @@ class PostsEndpoint extends Endpoint {
      */
     private function prepare_item($popular_post, $request)
     {
-        $post_ID = $popular_post->id;
+        if ( $request->get_param('lang') ) {
+            $post_ID = $this->translate->get_object_id(
+                $popular_post->id,
+                get_post_type($popular_post->id)
+            );
+        } else {
+            $post_ID = $popular_post->id;
+        }
+
         $wp_post = get_post($post_ID);
 
         // Borrow prepare_item_for_response method from WP_REST_Posts_Controller.
