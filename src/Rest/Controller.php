@@ -1,9 +1,6 @@
 <?php
 namespace WordPressPopularPosts\Rest;
 
-use WordPressPopularPosts\Helper;
-use WordPressPopularPosts\Query;
-
 class Controller {
 
     /**
