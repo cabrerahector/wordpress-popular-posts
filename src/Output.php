@@ -451,11 +451,11 @@ class Output {
      * @return  string
      */
     private function get_permalink(\stdClass $post_object, $post_id) {
-        $permalink = get_permalink($post_object->id);
+        if ( $post_object->id != $post_id ) {
+            return get_permalink($post_id);
+        }
 
-        return $post_object->id != $post_id 
-            ? $this->translate->url($permalink, $this->translate->get_current_language())
-            : $permalink;
+        return get_permalink($post_object->id);
     }
 
     /**
