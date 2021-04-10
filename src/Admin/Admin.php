@@ -619,7 +619,11 @@ class Admin {
             is_plugin_active($plugin_file)
             && $plugin_file == $file
         ) {
-            $links[] = '<a href="' . admin_url('options-general.php?page=wordpress-popular-posts') . '">' . __('Settings') . '</a>';
+            array_unshift(
+                $links,
+                '<a href="' . admin_url('options-general.php?page=wordpress-popular-posts') . '">' . __('Settings') . '</a>',
+                '<a href="https://wordpress.org/support/plugin/wordpress-popular-posts/">' . __('Support', 'wordpress-popular-posts') . '</a>'
+            );
         }
 
         return $links;
