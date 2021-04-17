@@ -8,61 +8,80 @@
  *
  * @link    https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_views
  * @since   2.0.3
- * @global  object  $wpdb
- * @param   int     $id
- * @param   string  $range
- * @param   bool    $number_format
+ * @param   int             $id             The Post ID.
+ * @param   string|array    $range          Either an string (eg. 'last7days') or -since 5.3- an array (eg. ['range' => 'custom', 'time_unit' => 'day', 'time_quantity' => 7])
+ * @param   bool            $number_format  Whether to format the number (eg. 9,999) or not (eg. 9999)
  * @return  string
  */
 function wpp_get_views($id = NULL, $range = NULL, $number_format = true)
 {
     // have we got an id?
-    if ( empty($id) || is_null($id) || ! is_numeric($id) ) {
+    if ( empty($id) || is_null($id) || ! is_numeric($id) )
         return "-1";
+
+    $args = [
+        'range' => 'last24hours',
+        '_postID' => $id
+    ];
+
+    if (
+        is_array($range)
+        && isset($range['range'])
+        && isset($range['time_unit'])
+        && isset($range['time_quantity'])
+    ) {
+        $args['range'] = $range['range'];
+        $args['time_unit'] = $range['time_unit'];
+        $args['time_quantity'] = $range['time_quantity'];
     } else {
-        global $wpdb;
-
-        $table_name = $wpdb->prefix . "popularposts";
-
-        if ( ! $range || 'all' == $range ) {
-            $query = "SELECT pageviews FROM {$table_name}data WHERE postid = '{$id}'";
-        } else {
-            $interval = "";
-
-            switch( $range ){
-                case "last24hours":
-                case "daily":
-                    $interval = "24 HOUR";
-                break;
-
-                case "last7days":
-                case "weekly":
-                    $interval = "6 DAY";
-                break;
-
-                case "last30days":
-                case "monthly":
-                    $interval = "29 DAY";
-                break;
-
-                default:
-                    $interval = "24 HOUR";
-                break;
-            }
-
-            $now = current_time('mysql');
-
-            $query = "SELECT SUM(pageviews) FROM {$table_name}summary WHERE postid = '{$id}' AND view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) LIMIT 1;";
-        }
-
-        $result = $wpdb->get_var($query);
-
-        if ( ! $result ) {
-            return "0";
-        }
-
-        return ($number_format) ? number_format_i18n(intval($result)) : $result;
+        $range = is_string($range) ? trim($range) : null;
+        $args['range'] = ! $range ? 'last24hours' : $range;
     }
+
+    add_filter('wpp_query_fields', 'wpp_get_views_fields', 10, 2);
+    add_filter('wpp_query_where', 'wpp_get_views_where', 10, 2);
+    add_filter('wpp_query_group_by', 'wpp_get_views_group_by', 10, 2);
+    add_filter('wpp_query_order_by', 'wpp_get_views_order_by', 10, 2);
+    add_filter('wpp_query_limit', 'wpp_get_views_limit', 10, 2);
+    $query = new \WordPressPopularPosts\Query($args);
+    remove_filter('wpp_query_fields', 'wpp_get_views_fields', 10);
+    remove_filter('wpp_query_where', 'wpp_get_views_where', 10);
+    remove_filter('wpp_query_group_by', 'wpp_get_views_group_by', 10);
+    remove_filter('wpp_query_order_by', 'wpp_get_views_order_by', 10);
+    remove_filter('wpp_query_limit', 'wpp_get_views_limit', 10);
+
+    $results = $query->get_posts();
+
+    if ( empty($results) )
+        return 0;
+
+    return $number_format ? number_format_i18n(intval($results[0]->pageviews)) : $results[0]->pageviews;
+}
+
+function wpp_get_views_fields($fields, $options)
+{
+    return 'IFNULL(v.pageviews, 0) AS pageviews';
+}
+
+function wpp_get_views_where($where, $options)
+{
+    global $wpdb;
+    return $wpdb->prepare($where . ' AND p.ID = %d ', $options['_postID']);
+}
+
+function wpp_get_views_group_by($groupby, $options)
+{
+    return '';
+}
+
+function wpp_get_views_order_by($orderby, $options)
+{
+    return '';
+}
+
+function wpp_get_views_limit($limit, $options)
+{
+    return '';
 }
 
 /**
