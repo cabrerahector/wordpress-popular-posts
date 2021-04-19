@@ -20,7 +20,7 @@ function wpp_get_views($id = NULL, $range = NULL, $number_format = true)
         return "-1";
 
     $args = [
-        'range' => 'last24hours',
+        'range' => 'all',
         '_postID' => $id
     ];
 
@@ -35,7 +35,7 @@ function wpp_get_views($id = NULL, $range = NULL, $number_format = true)
         $args['time_quantity'] = $range['time_quantity'];
     } else {
         $range = is_string($range) ? trim($range) : null;
-        $args['range'] = ! $range ? 'last24hours' : $range;
+        $args['range'] = ! $range ? 'all' : $range;
     }
 
     add_filter('wpp_query_fields', 'wpp_get_views_fields', 10, 2);
