@@ -90,6 +90,22 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+
+= 5.3.0 =
+
+- Improves compatibility with PHP 8.
+- Allows to override widget theme stylesheets.
+- Each post can have its own thumbnail now when using WPP with WPML/Polylang.
+- Improved Polylang support.
+- Adds a loading animation when using the widget with the Ajaxify widget option enabled.
+- Fixes an issue where the plugin wouldn't generate thumbnails when filenames contains Unicode characters.
+- The /popular-posts REST API endpoint now correctly translate posts when using WPML/Polylang.
+- `wpp_get_views()` can now return views count from custom time ranges.
+- Post thumbnails will now look sharper on retina displays!
+- Other minor improvements / fixes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/)
+
 = 5.2.4 =
 
 - Fixes PHP notices affecting Block Editor users on WordPress 5.5.
