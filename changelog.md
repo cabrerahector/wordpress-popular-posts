@@ -1,6 +1,10 @@
 Changelog
 =========
 
+#### 5.3.1 ####
+
+- wpp_get_views(): restores previous behavior where when no time range was set the function would return total views count (thanks narolles!)
+
 #### 5.3.0 ####
 
 - Improves compatibility with PHP 8.

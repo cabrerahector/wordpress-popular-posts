@@ -97,6 +97,10 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 5.3.1 =
+
+- wpp_get_views(): restores previous behavior where when no time range was set the function would return total views count (thanks @narolles!)
+
 = 5.3.0 =
 
 - Improves compatibility with PHP 8.
@@ -210,5 +214,5 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
-= 4.1.2 =
+= 5.3.1 =
 If you're using a caching plugin, flushing its cache after upgrading to this version is recommended.
