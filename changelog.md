@@ -4,6 +4,7 @@ Changelog
 #### 5.3.1 ####
 
 - wpp_get_views(): restores previous behavior where when no time range was set the function would return total views count (thanks narolles!)
+- The WPP widget will now be loaded via AJAX by default (this affects new installs only.)
 
 #### 5.3.0 ####
 
