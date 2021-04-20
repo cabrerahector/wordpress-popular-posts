@@ -98,7 +98,7 @@ class Settings {
                 'freshness' => false
             ],
             'tools' => [
-                'ajax' => false,
+                'ajax' => true,
                 'css' => true,
                 'link' => [
                     'target' => '_self'
