@@ -19,69 +19,119 @@ function wpp_get_views($id = NULL, $range = NULL, $number_format = true)
     if ( empty($id) || is_null($id) || ! is_numeric($id) )
         return "-1";
 
+    global $wpdb;
+    $table_name = $wpdb->prefix . "popularposts";
+
     $args = [
         'range' => 'all',
+        'time_unit' => 'hour',
+        'time_quantity' => 24,
         '_postID' => $id
     ];
 
     if (
         is_array($range)
-        && isset($range['range'])
-        && isset($range['time_unit'])
-        && isset($range['time_quantity'])
     ) {
-        $args['range'] = $range['range'];
-        $args['time_unit'] = $range['time_unit'];
-        $args['time_quantity'] = $range['time_quantity'];
+        $args = \WordPressPopularPosts\Helper::merge_array_r($args, $range);
     } else {
         $range = is_string($range) ? trim($range) : null;
         $args['range'] = ! $range ? 'all' : $range;
     }
 
-    add_filter('wpp_query_fields', 'wpp_get_views_fields', 10, 2);
-    add_filter('wpp_query_where', 'wpp_get_views_where', 10, 2);
-    add_filter('wpp_query_group_by', 'wpp_get_views_group_by', 10, 2);
-    add_filter('wpp_query_order_by', 'wpp_get_views_order_by', 10, 2);
-    add_filter('wpp_query_limit', 'wpp_get_views_limit', 10, 2);
-    $query = new \WordPressPopularPosts\Query($args);
-    remove_filter('wpp_query_fields', 'wpp_get_views_fields', 10);
-    remove_filter('wpp_query_where', 'wpp_get_views_where', 10);
-    remove_filter('wpp_query_group_by', 'wpp_get_views_group_by', 10);
-    remove_filter('wpp_query_order_by', 'wpp_get_views_order_by', 10);
-    remove_filter('wpp_query_limit', 'wpp_get_views_limit', 10);
+    $args['range'] = strtolower($args['range']);
 
-    $results = $query->get_posts();
+    // Get all-time views count
+    if ( 'all' == $args['range'] ) {
+        $query = "SELECT pageviews FROM {$table_name}data WHERE postid = '{$id}'";
+    } // Get views count within time range
+    else {
+        $start_date = new \DateTime(
+            \WordPressPopularPosts\Helper::now(),
+            new \DateTimeZone(\WordPressPopularPosts\Helper::get_timezone())
+        );
 
-    if ( empty($results) )
+        // Determine time range
+        switch( $args['range'] ){
+            case "last24hours":
+            case "daily":
+                $start_date = $start_date->sub(new \DateInterval('P1D'));
+                $start_datetime = $start_date->format('Y-m-d H:i:s');
+                $views_time_range = "view_datetime >= '{$start_datetime}'";
+                break;
+            case "last7days":
+            case "weekly":
+                $start_date = $start_date->sub(new \DateInterval('P6D'));
+                $start_datetime = $start_date->format('Y-m-d');
+                $views_time_range = "view_date >= '{$start_datetime}'";
+                break;
+            case "last30days":
+            case "monthly":
+                $start_date = $start_date->sub(new \DateInterval('P29D'));
+                $start_datetime = $start_date->format('Y-m-d');
+                $views_time_range = "view_date >= '{$start_datetime}'";
+                break;
+            case "custom":
+                $time_units = ["MINUTE", "HOUR", "DAY", "WEEK", "MONTH"];
+
+                // Valid time unit
+                if (
+                    isset($args['time_unit'])
+                    && in_array(strtoupper($args['time_unit']), $time_units)
+                    && isset($args['time_quantity'])
+                    && filter_var($args['time_quantity'], FILTER_VALIDATE_INT)
+                    && $args['time_quantity'] > 0
+                ) {
+                    $time_quantity = $args['time_quantity'];
+                    $time_unit = strtoupper($args['time_unit']);
+
+                    if ( 'MINUTE' == $time_unit ) {
+                        $start_date = $start_date->sub(new \DateInterval('PT' . (60 * $time_quantity) . 'S'));
+                        $start_datetime = $start_date->format('Y-m-d H:i:s');
+                        $views_time_range = "view_datetime >= '{$start_datetime}'";
+                    } elseif ( 'HOUR' == $time_unit ) {
+                        $start_date = $start_date->sub(new \DateInterval('PT' . ((60 * $time_quantity) - 1) . 'M59S'));
+                        $start_datetime = $start_date->format('Y-m-d H:i:s');
+                        $views_time_range = "view_datetime >= '{$start_datetime}'";
+                    } elseif ( 'DAY' == $time_unit ) {
+                        $start_date = $start_date->sub(new \DateInterval('P' . ($time_quantity - 1) . 'D'));
+                        $start_datetime = $start_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}'";
+                    } elseif ( 'WEEK' == $time_unit ) {
+                        $start_date = $start_date->sub(new \DateInterval('P' . ((7 * $time_quantity) - 1) . 'D'));
+                        $start_datetime = $start_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}'";
+                    } else {
+                        $start_date = $start_date->sub(new \DateInterval('P' . ((30 * $time_quantity) - 1) . 'D'));
+                        $start_datetime = $start_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}'";
+                    }
+                } // Invalid time unit, default to last 24 hours
+                else {
+                    $start_date = $start_date->sub(new \DateInterval('P1D'));
+                    $start_datetime = $start_date->format('Y-m-d H:i:s');
+                    $views_time_range = "view_datetime >= '{$start_datetime}'";
+                }
+
+                break;
+            default:
+                $start_date = $start_date->sub(new \DateInterval('P1D'));
+                $start_datetime = $start_date->format('Y-m-d H:i:s');
+                $views_time_range = "view_datetime >= '{$start_datetime}'";
+                break;
+        }
+
+        $query = $wpdb->prepare(
+            "SELECT SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} AND postid = %d;",
+            $args['_postID']
+        );
+    }
+
+    $results = $wpdb->get_var($query);
+
+    if ( ! $results )
         return 0;
 
-    return $number_format ? number_format_i18n(intval($results[0]->pageviews)) : $results[0]->pageviews;
-}
-
-function wpp_get_views_fields($fields, $options)
-{
-    return 'IFNULL(v.pageviews, 0) AS pageviews';
-}
-
-function wpp_get_views_where($where, $options)
-{
-    global $wpdb;
-    return $wpdb->prepare($where . ' AND p.ID = %d ', $options['_postID']);
-}
-
-function wpp_get_views_group_by($groupby, $options)
-{
-    return '';
-}
-
-function wpp_get_views_order_by($orderby, $options)
-{
-    return '';
-}
-
-function wpp_get_views_limit($limit, $options)
-{
-    return '';
+    return $number_format ? number_format_i18n(intval($results)) : $results;
 }
 
 /**
