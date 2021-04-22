@@ -1,10 +1,18 @@
 Changelog
 =========
 
+#### 5.3.2 ####
+
+- `wpp_get_views()`: fixed an issue where the function would return 0 views under certain conditions (thanks to everyone who helped with this!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#minor-updates-and-hotfixes)
+
 #### 5.3.1 ####
 
-- wpp_get_views(): restores previous behavior where when no time range was set the function would return total views count (thanks narolles!)
+- `wpp_get_views()`: restores previous behavior where when no time range was set the function would return total views count (thanks narolles!)
 - The WPP widget will now be loaded via AJAX by default (this affects new installs only.)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#minor-updates-and-hotfixes)
 
 #### 5.3.0 ####
 
