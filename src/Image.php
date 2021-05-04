@@ -81,7 +81,7 @@ class Image {
         }
 
         // Set descriptors
-        $this->descriptors = [1.5, 2, 2.5, 3];
+        $this->descriptors = ['1.5', '2', '2.5', '3'];
     }
 
     /**
@@ -710,8 +710,8 @@ class Image {
             if ( $retina_support ) {
                 // Calculate thumbnail sizes
                 foreach( $this->descriptors as $descriptor ) {
-                    $new_size_width = $descriptor * $size[0];
-                    $new_size_height = $descriptor * $size[1];
+                    $new_size_width = floor($descriptor * $size[0]);
+                    $new_size_height = floor($descriptor * $size[1]);
 
                     if (
                         $new_size_width <= $original_size['width']
