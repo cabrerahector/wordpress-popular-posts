@@ -838,8 +838,14 @@ class Image {
             $img_tag = '<!-- ' . $error . ' --> ';
         }
 
+        // Make sure we use the right protocol
+        $src = esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src);
+        // Get srcset, if available
         $srcset = $this->get_srcset($src);
-        $src = 'src="' . esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src) . '"' . $srcset;
+
+        $src = 'src="' . $src. '"' . $srcset;
+
+        // Lazy Load attribute, if enabled
         $lazyload = ( $this->admin_options['tools']['thumbnail']['lazyload'] ) ? ' loading="lazy"' : '';
 
         $img_tag .= '<img ' . $src . ' width="' . $size[0] . '" height="' . $size[1] . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '"' . $lazyload . ' />';
