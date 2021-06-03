@@ -126,14 +126,15 @@ var _wp$element = wp.element,
     Fragment = _wp$element.Fragment;
 var BlockControls = wp.blockEditor.BlockControls;
 var _wp$components = wp.components,
-    CheckboxControl = _wp$components.CheckboxControl,
-    SelectControl = _wp$components.SelectControl,
-    TextControl = _wp$components.TextControl,
-    Toolbar = _wp$components.Toolbar,
     Button = _wp$components.Button,
-    Disabled = _wp$components.Disabled;
+    CheckboxControl = _wp$components.CheckboxControl,
+    Disabled = _wp$components.Disabled,
+    SelectControl = _wp$components.SelectControl,
+    Spinner = _wp$components.Spinner,
+    TextControl = _wp$components.TextControl,
+    Toolbar = _wp$components.Toolbar;
 var __ = wp.i18n.__;
-var endpoint = '';
+var endpoint = 'wordpress-popular-posts/v1';
 var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   _inherits(WPPWidgetBlockEdit, _Component);
 
@@ -148,7 +149,9 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
     _this.state = {
       error: null,
       editMode: true,
-      themes: null
+      themes: null,
+      imgSizes: null,
+      loading: true
     };
     return _this;
   }
@@ -158,9 +161,11 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var attributes = this.props.attributes;
       this.setState({
-        editMode: attributes._editMode
+        editMode: attributes._editMode,
+        loading: false
       });
       this.getThemes();
+      this.getImageSizes();
     }
   }, {
     key: "getThemes",
@@ -168,7 +173,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       var _this2 = this;
 
       wp.apiFetch({
-        path: 'wordpress-popular-posts/v1/themes'
+        path: endpoint + '/themes'
       }).then(function (themes) {
         _this2.setState({
           themes: themes
@@ -177,6 +182,24 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         _this2.setState({
           error: error,
           themes: null
+        });
+      });
+    }
+  }, {
+    key: "getImageSizes",
+    value: function getImageSizes() {
+      var _this3 = this;
+
+      wp.apiFetch({
+        path: endpoint + '/thumbnails'
+      }).then(function (imgSizes) {
+        _this3.setState({
+          imgSizes: imgSizes
+        });
+      }, function (error) {
+        _this3.setState({
+          error: error,
+          imgSizes: null
         });
       });
     }
@@ -210,11 +233,14 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      if (this.state.loading) return /*#__PURE__*/React.createElement(Spinner, null);
       var _this$props2 = this.props,
           isSelected = _this$props2.isSelected,
           className = _this$props2.className,
           attributes = _this$props2.attributes,
           setAttributes = _this$props2.setAttributes;
+
+      var _self = this;
 
       function onTitleChange(value) {
         setAttributes({
@@ -281,6 +307,87 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         });
       }
 
+      function onShortenTitleChange(value) {
+        if (false == value) setAttributes({
+          title_length: 0,
+          title_by_words: 0
+        });
+        setAttributes({
+          shorten_title: value
+        });
+      }
+
+      function onTitleLengthChange(value) {
+        var length = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
+        setAttributes({
+          title_length: Number(length)
+        });
+      }
+
+      function onDisplayExcerptChange(value) {
+        if (false == value) setAttributes({
+          excerpt_length: 0,
+          excerpt_by_words: 0
+        });
+        setAttributes({
+          display_post_excerpt: value
+        });
+      }
+
+      function onExcerptLengthChange(value) {
+        var length = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
+        setAttributes({
+          excerpt_length: Number(length)
+        });
+      }
+
+      function onDisplayThumbnailChange(value) {
+        if (false == value) setAttributes({
+          thumbnail_width: 0,
+          thumbnail_height: 0
+        });
+        setAttributes({
+          display_post_thumbnail: value
+        });
+      }
+
+      function onThumbnailWidthChange(value) {
+        var width = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
+        setAttributes({
+          thumbnail_width: Number(width)
+        });
+      }
+
+      function onThumbnailHeightChange(value) {
+        var height = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
+        setAttributes({
+          thumbnail_height: Number(height)
+        });
+      }
+
+      function onThumbnailBuildChange(value) {
+        if ('predefined' == value) {
+          var fallback = 0;
+          setAttributes({
+            thumbnail_width: _self.state.imgSizes[sizes[fallback].value].width,
+            thumbnail_height: _self.state.imgSizes[sizes[fallback].value].height,
+            thumbnail_size: sizes[fallback].value
+          });
+        }
+
+        setAttributes({
+          thumbnail_build: value
+        });
+      }
+
+      function onThumbnailSizeChange(value) {
+        setAttributes({
+          thumbnail_width: _self.state.imgSizes[value].width,
+          thumbnail_height: _self.state.imgSizes[value].height,
+          thumbnail_size: value
+        });
+      }
+
       function onThemeChange(value) {
         setAttributes({
           theme: value
@@ -300,6 +407,17 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           themes.push({
             label: this.state.themes[theme].json.name,
             value: theme
+          });
+        }
+      }
+
+      var sizes = [];
+
+      if (this.state.imgSizes) {
+        for (var size in this.state.imgSizes) {
+          sizes.push({
+            label: size,
+            value: size
           });
         }
       }
@@ -345,7 +463,9 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           value: 'custom'
         }],
         onChange: onTimeRangeChange
-      }), 'custom' == attributes.range && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(TextControl, {
+      }), 'custom' == attributes.range && /*#__PURE__*/React.createElement("div", {
+        className: "option-subset"
+      }, /*#__PURE__*/React.createElement(TextControl, {
         label: __('Time Quantity', 'wordpress-popular-posts'),
         value: attributes.time_quantity,
         onChange: onTimeQuantityChange
@@ -386,6 +506,94 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         onChange: onAuthorChange
       }), /*#__PURE__*/React.createElement("p", {
         className: "not-a-legend"
+      }, /*#__PURE__*/React.createElement("strong", null, __('Posts settings', 'wordpress-popular-posts'))), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Shorten title', 'wordpress-popular-posts'),
+        checked: attributes.shorten_title,
+        onChange: onShortenTitleChange
+      }), attributes.shorten_title && /*#__PURE__*/React.createElement("div", {
+        className: "option-subset"
+      }, /*#__PURE__*/React.createElement(TextControl, {
+        label: __('Shorten title to', 'wordpress-popular-posts'),
+        value: attributes.title_length,
+        onChange: onTitleLengthChange
+      }), /*#__PURE__*/React.createElement(SelectControl, {
+        value: attributes.title_by_words,
+        options: [{
+          label: __('characters', 'wordpress-popular-posts'),
+          value: 0
+        }, {
+          label: __('words', 'wordpress-popular-posts'),
+          value: 1
+        }],
+        onChange: function onChange(value) {
+          return setAttributes({
+            title_by_words: Number(value)
+          });
+        }
+      })), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Display post excerpt', 'wordpress-popular-posts'),
+        checked: attributes.display_post_excerpt,
+        onChange: onDisplayExcerptChange
+      }), attributes.display_post_excerpt && /*#__PURE__*/React.createElement("div", {
+        className: "option-subset"
+      }, /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Keep text format and links', 'wordpress-popular-posts'),
+        checked: attributes.excerpt_format,
+        onChange: function onChange(value) {
+          return setAttributes({
+            excerpt_format: value
+          });
+        }
+      }), /*#__PURE__*/React.createElement(TextControl, {
+        label: __('Excerpt length', 'wordpress-popular-posts'),
+        value: attributes.excerpt_length,
+        onChange: onExcerptLengthChange
+      }), /*#__PURE__*/React.createElement(SelectControl, {
+        value: attributes.excerpt_by_words,
+        options: [{
+          label: __('characters', 'wordpress-popular-posts'),
+          value: 0
+        }, {
+          label: __('words', 'wordpress-popular-posts'),
+          value: 1
+        }],
+        onChange: function onChange(value) {
+          return setAttributes({
+            excerpt_by_words: Number(value)
+          });
+        }
+      })), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Display post thumbnail', 'wordpress-popular-posts'),
+        checked: attributes.display_post_thumbnail,
+        onChange: onDisplayThumbnailChange
+      }), attributes.display_post_thumbnail && /*#__PURE__*/React.createElement("div", {
+        className: "option-subset"
+      }, /*#__PURE__*/React.createElement(SelectControl, {
+        value: attributes.thumbnail_build,
+        options: [{
+          label: __('Set size manually', 'wordpress-popular-posts'),
+          value: 'manual'
+        }, {
+          label: __('Use predefined size', 'wordpress-popular-posts'),
+          value: 'predefined'
+        }],
+        onChange: onThumbnailBuildChange
+      }), 'manual' == attributes.thumbnail_build && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(TextControl, {
+        label: __('Thumbnail width', 'wordpress-popular-posts'),
+        help: __('Size in px units (pixels)', 'wordpress-popular-posts'),
+        value: attributes.thumbnail_width,
+        onChange: onThumbnailWidthChange
+      }), /*#__PURE__*/React.createElement(TextControl, {
+        label: __('Thumbnail height', 'wordpress-popular-posts'),
+        help: __('Size in px units (pixels)', 'wordpress-popular-posts'),
+        value: attributes.thumbnail_height,
+        onChange: onThumbnailHeightChange
+      })), 'predefined' == attributes.thumbnail_build && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(SelectControl, {
+        value: attributes.thumbnail_size,
+        options: sizes,
+        onChange: onThumbnailSizeChange
+      }))), /*#__PURE__*/React.createElement("p", {
+        className: "not-a-legend"
       }, /*#__PURE__*/React.createElement("strong", null, __('HTML Markup settings', 'wordpress-popular-posts'))), /*#__PURE__*/React.createElement(SelectControl, {
         label: __('Theme', 'wordpress-popular-posts'),
         value: attributes.theme,
@@ -405,6 +613,14 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           post_type: attributes.post_type,
           pid: attributes.pid,
           author: attributes.author,
+          title_length: attributes.title_length,
+          title_by_words: attributes.title_by_words,
+          excerpt_format: attributes.excerpt_format,
+          excerpt_length: attributes.excerpt_length,
+          excerpt_by_words: attributes.excerpt_by_words,
+          thumbnail_build: attributes.thumbnail_build,
+          thumbnail_width: attributes.thumbnail_width,
+          thumbnail_height: attributes.thumbnail_height,
           theme: attributes.theme
         }
       })))];
@@ -473,6 +689,8 @@ registerBlockType('wordpress-popular-posts/widget', {
       type: 'boolean',
       "default": false
     },
+
+    /* filters */
     post_type: {
       type: 'string',
       "default": 'post'
@@ -482,6 +700,56 @@ registerBlockType('wordpress-popular-posts/widget', {
       "default": ''
     },
     author: {
+      type: 'string',
+      "default": ''
+    },
+
+    /* post settings */
+    shorten_title: {
+      type: 'boolean',
+      "default": false
+    },
+    title_length: {
+      type: 'number',
+      "default": 0
+    },
+    title_by_words: {
+      type: 'number',
+      "default": 0
+    },
+    display_post_excerpt: {
+      type: 'boolean',
+      "default": false
+    },
+    excerpt_format: {
+      type: 'boolean',
+      "default": false
+    },
+    excerpt_length: {
+      type: 'number',
+      "default": 55
+    },
+    excerpt_by_words: {
+      type: 'number',
+      "default": 0
+    },
+    display_post_thumbnail: {
+      type: 'boolean',
+      "default": false
+    },
+    thumbnail_width: {
+      type: 'number',
+      "default": 0
+    },
+    thumbnail_height: {
+      type: 'number',
+      "default": 0
+    },
+    thumbnail_build: {
+      type: 'string',
+      "default": 'manual'
+    },
+    thumbnail_size: {
       type: 'string',
       "default": ''
     },

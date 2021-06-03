@@ -103,6 +103,8 @@ class Widget extends Block
             'excerpt_by_words' => 0,
             'thumbnail_width' => 0,
             'thumbnail_height' => 0,
+            'thumbnail_build' => 'manual',
+            'thumbnail_size' => '',
             'rating' => false,
             'stats_comments' => false,
             'stats_views' => true,
@@ -116,7 +118,8 @@ class Widget extends Block
             'header_start' => '<h2>',
             'header_end' => '</h2>',
             'post_html' => '',
-            'theme' => ''
+            'theme' => '',
+            'theme_applied' => false
         ];
     }
 
@@ -197,6 +200,38 @@ class Widget extends Block
                         'type' => 'string',
                         'default' => ''
                     ],
+                    'title_length' => [
+                        'type' =>'number',
+                        'default' => 0
+                    ],
+                    'title_by_words' => [
+                        'type' =>'number',
+                        'default' => 0
+                    ],
+                    'excerpt_format' => [
+                        'type' => 'boolean',
+                        'default' => false
+                    ],
+                    'excerpt_length' => [
+                        'type' =>'number',
+                        'default' => 0
+                    ],
+                    'excerpt_by_words' => [
+                        'type' =>'number',
+                        'default' => 0
+                    ],
+                    'thumbnail_width' => [
+                        'type' =>'number',
+                        'default' => 0
+                    ],
+                    'thumbnail_height' => [
+                        'type' =>'number',
+                        'default' => 0
+                    ],
+                    'thumbnail_build' => [
+                        'type' => 'string',
+                        'default' => 'manual'
+                    ],
                     'theme' => [
                         'type' => 'string',
                         'default' => ''
@@ -242,7 +277,7 @@ class Widget extends Block
             'shorten_title' => [
                 'active' => ( ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
                 'length' => ( ! empty($title_length) && Helper::is_number($title_length) ) ? $title_length : 0,
-                'words' => ( ! empty($title_by_words) && Helper::is_number($title_by_words) && $title_by_words > 0 ),
+                'words' => (( ! empty($title_by_words) && Helper::is_number($title_by_words) && $title_by_words > 0 )),
             ],
             'post-excerpt' => [
                 'active' => ( ! empty($excerpt_length) && Helper::is_number($excerpt_length) && $excerpt_length > 0 ),
@@ -254,6 +289,8 @@ class Widget extends Block
                 'active' => ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ),
                 'width' => ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ) ? $thumbnail_width : 0,
                 'height' => ( ! empty($thumbnail_height) && Helper::is_number($thumbnail_height) && $thumbnail_height > 0 ) ? $thumbnail_height : 0,
+                'build' => 'predefined' == $thumbnail_build ? 'predefined' : 'manual',
+                'size' => empty($thumbnail_size) ? '' : $thumbnail_size,
             ],
             'rating' => empty($rating) ? false : $rating,
             'stats_tag' => [
@@ -271,7 +308,7 @@ class Widget extends Block
                 ]
             ],
             'markup' => [
-                'custom_html' => true,
+                'custom_html' => empty($theme) ? false : true,
                 'wpp-start' => empty($wpp_start) ? '' : $wpp_start,
                 'wpp-end' => empty($wpp_end) ? '' : $wpp_end,
                 'title-start' => empty($header_start) ? '' : $header_start,
@@ -389,7 +426,7 @@ class Widget extends Block
         $out = array();
 
         foreach ( $this->defaults as $name => $default ) {
-            $out[$name] = array_key_exists($name, $atts) ? $atts[$name] : $default;
+            $out[$name] = array_key_exists($name, $atts) ? trim($atts[$name]) : $default;
         }
 
         return $out;

@@ -56,12 +56,16 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
             return new \WordPressPopularPosts\Rest\ThemesEndpoint($container['admin_options'], $container['translate'], $container['themer']);
         });
 
+        $container['thumbnails_endpoint'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Rest\ThumbnailsEndpoint($container['admin_options'], $container['translate']);
+        });
+
         $container['widget_endpoint'] = $container->service(function(Container $container) {
             return new \WordPressPopularPosts\Rest\WidgetEndpoint($container['admin_options'], $container['translate'], $container['output']);
         });
 
         $container['rest'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Rest\Controller($container['posts_endpoint'], $container['view_logger_endpoint'], $container['widget_endpoint'], $container['themes_endpoint']);
+            return new \WordPressPopularPosts\Rest\Controller($container['posts_endpoint'], $container['view_logger_endpoint'], $container['widget_endpoint'], $container['themes_endpoint'], $container['thumbnails_endpoint']);
         });
 
         $container['admin'] = $container->service(function(Container $container) {

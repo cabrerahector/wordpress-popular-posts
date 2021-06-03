@@ -3,9 +3,9 @@ import { sanitize_text_field } from '../utils';
 const { ServerSideRender } = wp.editor;
 const { Component, Fragment } = wp.element;
 const { BlockControls } = wp.blockEditor;
-const { CheckboxControl, SelectControl, TextControl, Toolbar, Button, Disabled } = wp.components;
+const { Button, CheckboxControl, Disabled, SelectControl, Spinner, TextControl, Toolbar } = wp.components;
 const { __ } = wp.i18n;
-const endpoint = ''
+const endpoint = 'wordpress-popular-posts/v1';
 
 export class WPPWidgetBlockEdit extends Component
 {
@@ -16,20 +16,23 @@ export class WPPWidgetBlockEdit extends Component
         this.state = {
             error: null,
             editMode: true,
-            themes: null
+            themes: null,
+            imgSizes: null,
+            loading: true
         }
     }
 
     componentDidMount()
     {
         const { attributes } = this.props;
-        this.setState({ editMode: attributes._editMode });
+        this.setState({ editMode: attributes._editMode, loading: false });
         this.getThemes();
+        this.getImageSizes();
     }
 
     getThemes()
     {
-        wp.apiFetch({ path: 'wordpress-popular-posts/v1/themes' })
+        wp.apiFetch({ path: endpoint + '/themes' })
         .then(
             ( themes ) => {
                 this.setState({
@@ -40,6 +43,24 @@ export class WPPWidgetBlockEdit extends Component
                 this.setState({
                     error,
                     themes: null
+                });
+            }
+        );
+    }
+
+    getImageSizes()
+    {
+        wp.apiFetch({ path: endpoint + '/thumbnails' })
+        .then(
+            ( imgSizes ) => {
+                this.setState({
+                    imgSizes
+                });
+            },
+            ( error ) => {
+                this.setState({
+                    error,
+                    imgSizes: null
                 });
             }
         );
@@ -72,7 +93,11 @@ export class WPPWidgetBlockEdit extends Component
 
     render()
     {
+        if ( this.state.loading )
+            return <Spinner />;
+
         const { isSelected, className, attributes, setAttributes } = this.props;
+        const _self = this;
 
         function onTitleChange(value)
         {
@@ -127,6 +152,70 @@ export class WPPWidgetBlockEdit extends Component
             setAttributes({ pid: new_value });
         }
 
+        function onShortenTitleChange(value) {
+            if ( false == value ) 
+                setAttributes({ title_length: 0, title_by_words: 0 });
+            setAttributes({ shorten_title: value });
+        }
+
+        function onTitleLengthChange(value)
+        {
+            let length = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
+            setAttributes({ title_length: Number(length) });
+        }
+
+        function onDisplayExcerptChange(value) {
+            if ( false == value )
+                setAttributes({ excerpt_length: 0, excerpt_by_words: 0 });
+            setAttributes({ display_post_excerpt: value });
+        }
+
+        function onExcerptLengthChange(value)
+        {
+            let length = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
+            setAttributes({ excerpt_length: Number(length) });
+        }
+
+        function onDisplayThumbnailChange(value) {
+            if ( false == value )
+                setAttributes({ thumbnail_width: 0, thumbnail_height: 0 });
+            setAttributes({ display_post_thumbnail: value });
+        }
+
+        function onThumbnailWidthChange(value)
+        {
+            let width = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
+            setAttributes({ thumbnail_width: Number(width) });
+        }
+
+        function onThumbnailHeightChange(value)
+        {
+            let height = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
+            setAttributes({ thumbnail_height: Number(height) });
+        }
+
+        function onThumbnailBuildChange(value)
+        {
+            if ( 'predefined' == value ) {
+                let fallback = 0;
+
+                setAttributes({
+                    thumbnail_width: _self.state.imgSizes[sizes[fallback].value].width,
+                    thumbnail_height: _self.state.imgSizes[sizes[fallback].value].height,
+                    thumbnail_size: sizes[fallback].value
+                });
+            }
+            setAttributes({ thumbnail_build: value });
+        }
+
+        function onThumbnailSizeChange(value) {
+            setAttributes({
+                thumbnail_width: _self.state.imgSizes[value].width,
+                thumbnail_height: _self.state.imgSizes[value].height,
+                thumbnail_size: value
+            });
+        }
+
         function onThemeChange(value)
         {
             setAttributes({ theme: value });
@@ -149,6 +238,19 @@ export class WPPWidgetBlockEdit extends Component
                     {
                         label: this.state.themes[theme].json.name,
                         value: theme
+                    },
+                );
+            }
+        }
+
+        let sizes = [];
+
+        if ( this.state.imgSizes ) {
+            for( const size in this.state.imgSizes ) {
+                sizes.push(
+                    {
+                        label: size,
+                        value: size
                     },
                 );
             }
@@ -191,7 +293,7 @@ export class WPPWidgetBlockEdit extends Component
                             onChange={onTimeRangeChange}
                         />
                         { 'custom' == attributes.range &&
-                            <Fragment>
+                            <div className='option-subset'>
                                 <TextControl
                                     label={__('Time Quantity', 'wordpress-popular-posts')}
                                     value={attributes.time_quantity}
@@ -207,7 +309,7 @@ export class WPPWidgetBlockEdit extends Component
                                     ]}
                                     onChange={onTimeUnitChange}
                                 />
-                            </Fragment>
+                            </div>
                         }
                         <CheckboxControl
                             label={__('Display only posts published within the selected Time Range', 'wordpress-popular-posts')}
@@ -233,6 +335,98 @@ export class WPPWidgetBlockEdit extends Component
                             value={attributes.author}
                             onChange={onAuthorChange}
                         />
+                        <p className='not-a-legend'><strong>{__('Posts settings', 'wordpress-popular-posts')}</strong></p>
+                        <CheckboxControl
+                            label={__('Shorten title', 'wordpress-popular-posts')}
+                            checked={attributes.shorten_title}
+                            onChange={onShortenTitleChange}
+                        />
+                        { attributes.shorten_title &&
+                            <div className='option-subset'>
+                                <TextControl
+                                    label={__('Shorten title to', 'wordpress-popular-posts')}
+                                    value={attributes.title_length}
+                                    onChange={onTitleLengthChange}
+                                />
+                                <SelectControl
+                                    value={attributes.title_by_words}
+                                    options={[
+                                        { label: __('characters', 'wordpress-popular-posts'), value: 0 },
+                                        { label: __('words', 'wordpress-popular-posts'), value: 1 },
+                                    ]}
+                                    onChange={(value) => setAttributes({ title_by_words: Number(value) })}
+                                />
+                            </div>
+                        }
+                        <CheckboxControl
+                            label={__('Display post excerpt', 'wordpress-popular-posts')}
+                            checked={attributes.display_post_excerpt}
+                            onChange={onDisplayExcerptChange}
+                        />
+                        { attributes.display_post_excerpt && 
+                            <div className='option-subset'>
+                                <CheckboxControl
+                                    label={__('Keep text format and links', 'wordpress-popular-posts')}
+                                    checked={attributes.excerpt_format}
+                                    onChange={(value) => setAttributes({ excerpt_format: value })}
+                                />
+                                <TextControl
+                                    label={__('Excerpt length', 'wordpress-popular-posts')}
+                                    value={attributes.excerpt_length}
+                                    onChange={onExcerptLengthChange}
+                                />
+                                <SelectControl
+                                    value={attributes.excerpt_by_words}
+                                    options={[
+                                        { label: __('characters', 'wordpress-popular-posts'), value: 0 },
+                                        { label: __('words', 'wordpress-popular-posts'), value: 1 },
+                                    ]}
+                                    onChange={(value) => setAttributes({ excerpt_by_words: Number(value) })}
+                                />
+                            </div>
+                        }
+                        <CheckboxControl
+                            label={__('Display post thumbnail', 'wordpress-popular-posts')}
+                            checked={attributes.display_post_thumbnail}
+                            onChange={onDisplayThumbnailChange}
+                        />
+                        { attributes.display_post_thumbnail && 
+                            <div className='option-subset'>
+                                <SelectControl
+                                    value={attributes.thumbnail_build}
+                                    options={[
+                                        { label: __('Set size manually', 'wordpress-popular-posts'), value: 'manual' },
+                                        { label: __('Use predefined size', 'wordpress-popular-posts'), value: 'predefined' },
+                                    ]}
+                                    onChange={onThumbnailBuildChange}
+                                />
+                                { 'manual' == attributes.thumbnail_build &&
+                                    <Fragment>
+                                        <TextControl
+                                            label={__('Thumbnail width', 'wordpress-popular-posts')}
+                                            help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
+                                            value={attributes.thumbnail_width}
+                                            onChange={onThumbnailWidthChange}
+                                        />
+                                        <TextControl
+                                            label={__('Thumbnail height', 'wordpress-popular-posts')}
+                                            help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
+                                            value={attributes.thumbnail_height}
+                                            onChange={onThumbnailHeightChange}
+                                        />
+                                    </Fragment>
+                                }
+                                { 'predefined' == attributes.thumbnail_build &&
+                                    <Fragment>
+                                        <SelectControl
+                                            value={attributes.thumbnail_size}
+                                            options={sizes}
+                                            onChange={onThumbnailSizeChange}
+                                        />
+                                    </Fragment>
+                                }
+                            </div>
+                        }
                         <p className='not-a-legend'><strong>{__('HTML Markup settings', 'wordpress-popular-posts')}</strong></p>
                         <SelectControl
                             label={__('Theme', 'wordpress-popular-posts')}
@@ -258,6 +452,14 @@ export class WPPWidgetBlockEdit extends Component
                             post_type: attributes.post_type,
                             pid: attributes.pid,
                             author: attributes.author,
+                            title_length: attributes.title_length,
+                            title_by_words: attributes.title_by_words,
+                            excerpt_format: attributes.excerpt_format,
+                            excerpt_length: attributes.excerpt_length,
+                            excerpt_by_words: attributes.excerpt_by_words,
+                            thumbnail_build: attributes.thumbnail_build,
+                            thumbnail_width: attributes.thumbnail_width,
+                            thumbnail_height: attributes.thumbnail_height,
                             theme: attributes.theme
                         }} />
                     </Disabled>

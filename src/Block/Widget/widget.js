@@ -47,6 +47,7 @@ registerBlockType('wordpress-popular-posts/widget', {
             type: 'boolean',
             default: false
         },
+        /* filters */
         post_type: {
             type: 'string',
             default: 'post'
@@ -56,6 +57,55 @@ registerBlockType('wordpress-popular-posts/widget', {
             default: ''
         },
         author: {
+            type: 'string',
+            default: ''
+        },
+        /* post settings */
+        shorten_title: {
+            type: 'boolean',
+            default: false
+        },
+        title_length: {
+            type: 'number',
+            default: 0
+        },
+        title_by_words: {
+            type: 'number',
+            default: 0
+        },
+        display_post_excerpt: {
+            type: 'boolean',
+            default: false
+        },
+        excerpt_format: {
+            type: 'boolean',
+            default: false
+        },
+        excerpt_length: {
+            type: 'number',
+            default: 55
+        },
+        excerpt_by_words: {
+            type: 'number',
+            default: 0
+        },
+        display_post_thumbnail: {
+            type: 'boolean',
+            default: false
+        },
+        thumbnail_width: {
+            type: 'number',
+            default: 0
+        },
+        thumbnail_height: {
+            type: 'number',
+            default: 0
+        },
+        thumbnail_build: {
+            type: 'string',
+            default: 'manual'
+        },
+        thumbnail_size: {
             type: 'string',
             default: ''
         },
