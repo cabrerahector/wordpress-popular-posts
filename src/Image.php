@@ -624,6 +624,9 @@ class Image {
      */
     private function fetch_external_image($id, $url)
     {
+        if ( ! $this->is_image_url($url) )
+            return false;
+
         $full_image_path = trailingslashit($this->get_plugin_uploads_dir()['basedir']) . "{$id}_" . sanitize_file_name(rawurldecode(wp_basename($url)));
 
         // if the file exists already, return URL and path
@@ -930,6 +933,15 @@ class Image {
         $parse_url = str_replace($path, implode('/', $encoded_path), $url);
 
         if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) )
+            return false;
+
+        // Check extension
+        $file_name = basename($path);
+        $file_name = sanitize_file_name($file_name);
+        $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if ( ! in_array($ext, $allowed_ext) )
             return false;
 
         // sanitize URL, just in case
