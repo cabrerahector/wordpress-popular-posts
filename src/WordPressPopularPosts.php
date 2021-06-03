@@ -49,6 +49,14 @@ class WordPressPopularPosts {
     private $widget;
 
     /**
+     * Block Widget class.
+     *
+     * @var     Block\Widget $widget
+     * @access  private
+     */
+    private $block_widget;
+
+    /**
      * Constructor.
      *
      * @since   5.0.0
@@ -58,13 +66,14 @@ class WordPressPopularPosts {
      * @param   Front\Front     $front
      * @param   Widget\Widget   $widget
      */
-    public function __construct(I18N $i18n, Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget)
+    public function __construct(I18N $i18n, Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget, Block\Widget\Widget $block_widget)
     {
         $this->i18n = $i18n;
         $this->rest = $rest;
         $this->admin = $admin;
         $this->front = $front;
         $this->widget = $widget;
+        $this->block_widget = $block_widget;
     }
 
     /**
@@ -79,5 +88,6 @@ class WordPressPopularPosts {
         $this->admin->hooks();
         $this->front->hooks();
         $this->widget->hooks();
+        $this->block_widget->hooks();
     }
 }

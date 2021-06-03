@@ -108,17 +108,18 @@ var WordPressPopularPosts = (function(){
 document.addEventListener('DOMContentLoaded', function() {
     var widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder');
 
-    if ( widget_placeholders.length ) {
-        for( var w = 0; w < widget_placeholders.length; w++ ) {
-            fetchWidget(widget_placeholders[w]);
-        }
-    } else {
-        var sr = document.querySelectorAll('.popular-posts-sr');
+    var w = 0;
 
-        if ( sr.length ) {
-            for( var s = 0; s < sr.length; s++ ) {
-                WordPressPopularPosts.theme(sr[s]);
-            }
+    while ( w < widget_placeholders.length ) {
+        fetchWidget(widget_placeholders[w]);
+        w++;
+    }
+
+    var sr = document.querySelectorAll('.popular-posts-sr');
+
+    if ( sr.length ) {
+        for( var s = 0; s < sr.length; s++ ) {
+            WordPressPopularPosts.theme(sr[s]);
         }
     }
 

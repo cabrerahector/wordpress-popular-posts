@@ -28,17 +28,27 @@ class Controller {
     private $widget_endpoint;
 
     /**
+     * Themes Endpoint.
+     *
+     * @var     \WordPressPopularPosts\Rest\ThemesEndpoint
+     * @access  private
+     */
+    private $themes_endpoint;
+
+    /**
      * Initialize class.
      *
      * @param   \WordPressPopularPosts\Rest\PostsEndpoint
      * @param   \WordPressPopularPosts\Rest\ViewLoggerEndpoint
      * @param   \WordPressPopularPosts\Rest\WidgetEndpoint
+     * @param   \WordPressPopularPosts\Rest\ThemesEndpoint
      */
-    public function __construct(\WordPressPopularPosts\Rest\PostsEndpoint $posts_endpoint, \WordPressPopularPosts\Rest\ViewLoggerEndpoint $view_logger_endpoint, \WordPressPopularPosts\Rest\WidgetEndpoint $widget_endpoint)
+    public function __construct(\WordPressPopularPosts\Rest\PostsEndpoint $posts_endpoint, \WordPressPopularPosts\Rest\ViewLoggerEndpoint $view_logger_endpoint, \WordPressPopularPosts\Rest\WidgetEndpoint $widget_endpoint, \WordPressPopularPosts\Rest\ThemesEndpoint $themes_endpoint)
     {
         $this->posts_endpoint = $posts_endpoint;
         $this->view_logger_endpoint = $view_logger_endpoint;
         $this->widget_endpoint = $widget_endpoint;
+        $this->themes_endpoint = $themes_endpoint;
     }
 
     /**
@@ -59,5 +69,6 @@ class Controller {
         $this->posts_endpoint->register();
         $this->view_logger_endpoint->register();
         $this->widget_endpoint->register();
+        $this->themes_endpoint->register();
     }
 }

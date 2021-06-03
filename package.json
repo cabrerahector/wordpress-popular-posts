@@ -1,0 +1,31 @@
+{
+  "name": "wordpress-popular-posts",
+  "version": "5.4.0",
+  "description": "A highly customizable widget that displays your most popular posts.",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "watch": "wp-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cabrerahector/wordpress-popular-posts.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Héctor Cabrera",
+    "email": "me@cabrerahector.com",
+    "url": "https://cabrerahector.com"
+  },
+  "license": "GPL2",
+  "bugs": {
+    "url": "https://github.com/cabrerahector/wordpress-popular-posts/issues"
+  },
+  "homepage": "https://github.com/cabrerahector/wordpress-popular-posts#readme",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-react": "^7.13.13",
+    "@wordpress/scripts": "16.1.1"
+  }
+}

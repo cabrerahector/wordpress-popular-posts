@@ -1,0 +1,36 @@
+.wp-block-wordpress-popular-posts-widget.in-edit-mode {
+    padding: 1.8em 1.5em;
+    background: #fafafa;
+}
+
+    .wp-block-wordpress-popular-posts-widget .wpp-list {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .wp-block-wordpress-popular-posts-widget .components-base-control {
+    }
+
+        .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__help {
+            margin: 0 0 1em;
+            font-size: 0.9em;
+        }
+
+        .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field {
+        }
+
+            .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field label {
+                font-weight: 600;
+            }
+
+            .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field .components-select-control {
+            }
+
+                .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field .components-select-control .components-input-control__container {
+                }
+
+                    .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field .components-select-control .components-input-control__container .components-select-control__input {
+                        max-width: none;
+                    }
