@@ -395,8 +395,23 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
                     <tr valign="top">
                         <th scope="row"><label for="thumb_default"><?php _e("Default thumbnail", 'wordpress-popular-posts'); ?>:</label></th>
                         <td>
+                            <?php
+                            $fallback_thumbnail_url = trim($this->config['tools']['thumbnail']['default']);
+
+                            if ( ! $fallback_thumbnail_url )
+                                $fallback_thumbnail_url = $this->thumbnail->get_default_url();
+
+                            $fallback_thumbnail_url = str_replace(
+                                parse_url(
+                                    $fallback_thumbnail_url
+                                    , PHP_URL_SCHEME
+                                ) . ':',
+                                '',
+                                $fallback_thumbnail_url
+                            );
+                            ?>
                             <div id="thumb-review">
-                                <img src="<?php echo ($this->config['tools']['thumbnail']['default'] ) ? str_replace(parse_url($this->config['tools']['thumbnail']['default'], PHP_URL_SCHEME) . ':', '', $this->config['tools']['thumbnail']['default']) : plugins_url() . '/wordpress-popular-posts/assets/images/no_thumb.jpg'; ?>" alt="" />
+                                <img src="<?php echo esc_url($fallback_thumbnail_url); ?>" alt="" />
                             </div>
 
                             <input id="upload_thumb_button" type="button" class="button" value="<?php _e("Change thumbnail", 'wordpress-popular-posts'); ?>">
