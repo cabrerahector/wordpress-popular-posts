@@ -97,6 +97,18 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 5.3.3 =
+
+- Fixes a potential XSS vulnerability (props to Yu Iwama of Secure Sky Technology Inc. and the JPCERT/CC Vulnerability Coordination Group).
+- Fixes a potential code injection vulnerability (props to Jerome & NinTechNet).
+- Fixes a srcset bug that affects specific PHP locales (props to @fredel).
+- Fixes a srcset not loading images due to improper SSL/HTTPS configuration (props to @aj4h).
+- Updates ChartJS to version 2.9.4.
+
+If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#minor-updates-and-hotfixes)
+
 = 5.3.2 =
 
 - `wpp_get_views()`: fixed an issue where the function would return 0 views under certain conditions (thanks to everyone who helped with this!)
@@ -132,5 +144,5 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
-= 5.3.1 =
-If you're using a caching plugin, flushing its cache after upgrading to this version is recommended.
+= 5.3.3 =
+If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.
