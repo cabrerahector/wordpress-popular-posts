@@ -44,6 +44,14 @@ class Controller {
     private $thumbnails_endpoint;
 
     /**
+     * Themes Endpoint.
+     *
+     * @var     \WordPressPopularPosts\Rest\TaxonomiesEndpoint
+     * @access  private
+     */
+    private $taxonomies_endpoint;
+
+    /**
      * Initialize class.
      *
      * @param   \WordPressPopularPosts\Rest\PostsEndpoint
@@ -51,14 +59,16 @@ class Controller {
      * @param   \WordPressPopularPosts\Rest\WidgetEndpoint
      * @param   \WordPressPopularPosts\Rest\ThemesEndpoint
      * @param   \WordPressPopularPosts\Rest\ThumbnailsEndpoint
+     * @param   \WordPressPopularPosts\Rest\TaxonomiesEndpoint
      */
-    public function __construct(\WordPressPopularPosts\Rest\PostsEndpoint $posts_endpoint, \WordPressPopularPosts\Rest\ViewLoggerEndpoint $view_logger_endpoint, \WordPressPopularPosts\Rest\WidgetEndpoint $widget_endpoint, \WordPressPopularPosts\Rest\ThemesEndpoint $themes_endpoint, \WordPressPopularPosts\Rest\ThumbnailsEndpoint $thumbnails_endpoint)
+    public function __construct(\WordPressPopularPosts\Rest\PostsEndpoint $posts_endpoint, \WordPressPopularPosts\Rest\ViewLoggerEndpoint $view_logger_endpoint, \WordPressPopularPosts\Rest\WidgetEndpoint $widget_endpoint, \WordPressPopularPosts\Rest\ThemesEndpoint $themes_endpoint, \WordPressPopularPosts\Rest\ThumbnailsEndpoint $thumbnails_endpoint, \WordPressPopularPosts\Rest\TaxonomiesEndpoint $taxonomies_endpoint)
     {
         $this->posts_endpoint = $posts_endpoint;
         $this->view_logger_endpoint = $view_logger_endpoint;
         $this->widget_endpoint = $widget_endpoint;
         $this->themes_endpoint = $themes_endpoint;
         $this->thumbnails_endpoint = $thumbnails_endpoint;
+        $this->taxonomies_endpoint = $taxonomies_endpoint;
     }
 
     /**
@@ -81,5 +91,6 @@ class Controller {
         $this->widget_endpoint->register();
         $this->themes_endpoint->register();
         $this->thumbnails_endpoint->register();
+        $this->taxonomies_endpoint->register();
     }
 }

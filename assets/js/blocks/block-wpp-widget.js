@@ -151,6 +151,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       editMode: true,
       themes: null,
       imgSizes: null,
+      taxonomies: null,
       loading: true
     };
     return _this;
@@ -160,12 +161,13 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var attributes = this.props.attributes;
+      this.getThemes();
+      this.getImageSizes();
+      this.getTaxonomies();
       this.setState({
         editMode: attributes._editMode,
         loading: false
       });
-      this.getThemes();
-      this.getImageSizes();
     }
   }, {
     key: "getThemes",
@@ -200,6 +202,24 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         _this3.setState({
           error: error,
           imgSizes: null
+        });
+      });
+    }
+  }, {
+    key: "getTaxonomies",
+    value: function getTaxonomies() {
+      var _this4 = this;
+
+      wp.apiFetch({
+        path: endpoint + '/taxonomies'
+      }).then(function (taxonomies) {
+        _this4.setState({
+          taxonomies: taxonomies
+        });
+      }, function (error) {
+        _this4.setState({
+          error: error,
+          taxonomies: null
         });
       });
     }
@@ -310,10 +330,11 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       function onShortenTitleChange(value) {
         if (false == value) setAttributes({
           title_length: 0,
-          title_by_words: 0
-        });
-        setAttributes({
+          title_by_words: 0,
           shorten_title: value
+        });else setAttributes({
+          shorten_title: value,
+          title_length: 25
         });
       }
 
@@ -327,10 +348,11 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       function onDisplayExcerptChange(value) {
         if (false == value) setAttributes({
           excerpt_length: 0,
-          excerpt_by_words: 0
-        });
-        setAttributes({
+          excerpt_by_words: 0,
           display_post_excerpt: value
+        });else setAttributes({
+          display_post_excerpt: value,
+          excerpt_length: 55
         });
       }
 
@@ -418,6 +440,17 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           sizes.push({
             label: size,
             value: size
+          });
+        }
+      }
+
+      var taxonomies = [];
+
+      if (this.state.taxonomies) {
+        for (var tax in this.state.taxonomies) {
+          taxonomies.push({
+            label: this.state.taxonomies[tax].labels.singular_name + ' (' + this.state.taxonomies[tax].name + ')',
+            value: this.state.taxonomies[tax].name
           });
         }
       }
@@ -594,6 +627,85 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         onChange: onThumbnailSizeChange
       }))), /*#__PURE__*/React.createElement("p", {
         className: "not-a-legend"
+      }, /*#__PURE__*/React.createElement("strong", null, __('Stats Tag settings', 'wordpress-popular-posts'))), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Display comments count', 'wordpress-popular-posts'),
+        checked: attributes.stats_comments,
+        onChange: function onChange(value) {
+          return setAttributes({
+            stats_comments: value
+          });
+        }
+      }), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Display views', 'wordpress-popular-posts'),
+        checked: attributes.stats_views,
+        onChange: function onChange(value) {
+          return setAttributes({
+            stats_views: value
+          });
+        }
+      }), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Display author', 'wordpress-popular-posts'),
+        checked: attributes.stats_author,
+        onChange: function onChange(value) {
+          return setAttributes({
+            stats_author: value
+          });
+        }
+      }), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Display date', 'wordpress-popular-posts'),
+        checked: attributes.stats_date,
+        onChange: function onChange(value) {
+          return setAttributes({
+            stats_date: value
+          });
+        }
+      }), attributes.stats_date && /*#__PURE__*/React.createElement("div", {
+        className: "option-subset"
+      }, /*#__PURE__*/React.createElement(SelectControl, {
+        label: __('Date Format', 'wordpress-popular-posts'),
+        value: attributes.stats_date_format,
+        options: [{
+          label: __('Relative', 'wordpress-popular-posts'),
+          value: 'relative'
+        }, {
+          label: __('Month Day, Year', 'wordpress-popular-posts'),
+          value: 'F j, Y'
+        }, {
+          label: __('yyyy/mm/dd', 'wordpress-popular-posts'),
+          value: 'Y/m/d'
+        }, {
+          label: __('mm/dd/yyyy', 'wordpress-popular-posts'),
+          value: 'm/d/Y'
+        }, {
+          label: __('dd/mm/yyyy', 'wordpress-popular-posts'),
+          value: 'd/m/Y'
+        }],
+        onChange: function onChange(value) {
+          return setAttributes({
+            stats_date_format: value
+          });
+        }
+      })), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Display taxonomy', 'wordpress-popular-posts'),
+        checked: attributes.stats_taxonomy,
+        onChange: function onChange(value) {
+          return setAttributes({
+            stats_taxonomy: value
+          });
+        }
+      }), attributes.stats_taxonomy && /*#__PURE__*/React.createElement("div", {
+        className: "option-subset"
+      }, /*#__PURE__*/React.createElement(SelectControl, {
+        label: __('Taxonomy', 'wordpress-popular-posts'),
+        value: attributes.taxonomy,
+        options: taxonomies,
+        onChange: function onChange(value) {
+          return setAttributes({
+            taxonomy: value
+          });
+        }
+      })), /*#__PURE__*/React.createElement("p", {
+        className: "not-a-legend"
       }, /*#__PURE__*/React.createElement("strong", null, __('HTML Markup settings', 'wordpress-popular-posts'))), /*#__PURE__*/React.createElement(SelectControl, {
         label: __('Theme', 'wordpress-popular-posts'),
         value: attributes.theme,
@@ -621,6 +733,13 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           thumbnail_build: attributes.thumbnail_build,
           thumbnail_width: attributes.thumbnail_width,
           thumbnail_height: attributes.thumbnail_height,
+          stats_comments: attributes.stats_comments,
+          stats_views: attributes.stats_views,
+          stats_author: attributes.stats_author,
+          stats_date: attributes.stats_date,
+          stats_date_format: attributes.stats_date_format,
+          stats_taxonomy: attributes.stats_taxonomy,
+          taxonomy: attributes.taxonomy,
           theme: attributes.theme
         }
       })))];
@@ -727,7 +846,7 @@ registerBlockType('wordpress-popular-posts/widget', {
     },
     excerpt_length: {
       type: 'number',
-      "default": 55
+      "default": 0
     },
     excerpt_by_words: {
       type: 'number',
@@ -750,6 +869,34 @@ registerBlockType('wordpress-popular-posts/widget', {
       "default": 'manual'
     },
     thumbnail_size: {
+      type: 'string',
+      "default": ''
+    },
+    stats_comments: {
+      type: 'boolean',
+      "default": false
+    },
+    stats_views: {
+      type: 'boolean',
+      "default": true
+    },
+    stats_author: {
+      type: 'boolean',
+      "default": false
+    },
+    stats_date: {
+      type: 'boolean',
+      "default": false
+    },
+    stats_date_format: {
+      type: 'string',
+      "default": 'F j, Y'
+    },
+    stats_taxonomy: {
+      type: 'boolean',
+      "default": false
+    },
+    taxonomy: {
       type: 'string',
       "default": ''
     },

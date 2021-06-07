@@ -18,6 +18,7 @@ export class WPPWidgetBlockEdit extends Component
             editMode: true,
             themes: null,
             imgSizes: null,
+            taxonomies: null,
             loading: true
         }
     }
@@ -25,9 +26,12 @@ export class WPPWidgetBlockEdit extends Component
     componentDidMount()
     {
         const { attributes } = this.props;
-        this.setState({ editMode: attributes._editMode, loading: false });
+
         this.getThemes();
         this.getImageSizes();
+        this.getTaxonomies();
+
+        this.setState({ editMode: attributes._editMode, loading: false });
     }
 
     getThemes()
@@ -61,6 +65,24 @@ export class WPPWidgetBlockEdit extends Component
                 this.setState({
                     error,
                     imgSizes: null
+                });
+            }
+        );
+    }
+
+    getTaxonomies()
+    {
+        wp.apiFetch({ path: endpoint + '/taxonomies' })
+        .then(
+            ( taxonomies ) => {
+                this.setState({
+                    taxonomies
+                });
+            },
+            ( error ) => {
+                this.setState({
+                    error,
+                    taxonomies: null
                 });
             }
         );
@@ -154,8 +176,9 @@ export class WPPWidgetBlockEdit extends Component
 
         function onShortenTitleChange(value) {
             if ( false == value ) 
-                setAttributes({ title_length: 0, title_by_words: 0 });
-            setAttributes({ shorten_title: value });
+                setAttributes({ title_length: 0, title_by_words: 0, shorten_title: value });
+            else
+                setAttributes({ shorten_title: value, title_length: 25 });
         }
 
         function onTitleLengthChange(value)
@@ -166,8 +189,9 @@ export class WPPWidgetBlockEdit extends Component
 
         function onDisplayExcerptChange(value) {
             if ( false == value )
-                setAttributes({ excerpt_length: 0, excerpt_by_words: 0 });
-            setAttributes({ display_post_excerpt: value });
+                setAttributes({ excerpt_length: 0, excerpt_by_words: 0, display_post_excerpt: value });
+            else
+                setAttributes({ display_post_excerpt: value, excerpt_length: 55 });
         }
 
         function onExcerptLengthChange(value)
@@ -251,6 +275,19 @@ export class WPPWidgetBlockEdit extends Component
                     {
                         label: size,
                         value: size
+                    },
+                );
+            }
+        }
+
+        let taxonomies = [];
+
+        if ( this.state.taxonomies ) {
+            for( const tax in this.state.taxonomies ) {
+                taxonomies.push(
+                    {
+                        label: this.state.taxonomies[tax].labels.singular_name + ' (' + this.state.taxonomies[tax].name + ')',
+                        value: this.state.taxonomies[tax].name
                     },
                 );
             }
@@ -427,6 +464,58 @@ export class WPPWidgetBlockEdit extends Component
                                 }
                             </div>
                         }
+                        <p className='not-a-legend'><strong>{__('Stats Tag settings', 'wordpress-popular-posts')}</strong></p>
+                        <CheckboxControl
+                            label={__('Display comments count', 'wordpress-popular-posts')}
+                            checked={attributes.stats_comments}
+                            onChange={(value) => setAttributes({ stats_comments: value })}
+                        />
+                        <CheckboxControl
+                            label={__('Display views', 'wordpress-popular-posts')}
+                            checked={attributes.stats_views}
+                            onChange={(value) => setAttributes({ stats_views: value })}
+                        />
+                        <CheckboxControl
+                            label={__('Display author', 'wordpress-popular-posts')}
+                            checked={attributes.stats_author}
+                            onChange={(value) => setAttributes({ stats_author: value })}
+                        />
+                        <CheckboxControl
+                            label={__('Display date', 'wordpress-popular-posts')}
+                            checked={attributes.stats_date}
+                            onChange={(value) => setAttributes({ stats_date: value })}
+                        />
+                        { attributes.stats_date && 
+                            <div className='option-subset'>
+                                <SelectControl
+                                    label={__('Date Format', 'wordpress-popular-posts')}
+                                    value={attributes.stats_date_format}
+                                    options={[
+                                        { label: __('Relative', 'wordpress-popular-posts'), value: 'relative' },
+                                        { label: __('Month Day, Year', 'wordpress-popular-posts'), value: 'F j, Y' },
+                                        { label: __('yyyy/mm/dd', 'wordpress-popular-posts'), value: 'Y/m/d' },
+                                        { label: __('mm/dd/yyyy', 'wordpress-popular-posts'), value: 'm/d/Y' },
+                                        { label: __('dd/mm/yyyy', 'wordpress-popular-posts'), value: 'd/m/Y' },
+                                    ]}
+                                    onChange={(value) => setAttributes({ stats_date_format: value })}
+                                />
+                            </div>
+                        }
+                        <CheckboxControl
+                            label={__('Display taxonomy', 'wordpress-popular-posts')}
+                            checked={attributes.stats_taxonomy}
+                            onChange={(value) => setAttributes({ stats_taxonomy: value })}
+                        />
+                        { attributes.stats_taxonomy && 
+                            <div className='option-subset'>
+                                <SelectControl
+                                    label={__('Taxonomy', 'wordpress-popular-posts')}
+                                    value={attributes.taxonomy}
+                                    options={taxonomies}
+                                    onChange={(value) => setAttributes({ taxonomy: value })}
+                                />
+                            </div>
+                        }
                         <p className='not-a-legend'><strong>{__('HTML Markup settings', 'wordpress-popular-posts')}</strong></p>
                         <SelectControl
                             label={__('Theme', 'wordpress-popular-posts')}
@@ -460,6 +549,13 @@ export class WPPWidgetBlockEdit extends Component
                             thumbnail_build: attributes.thumbnail_build,
                             thumbnail_width: attributes.thumbnail_width,
                             thumbnail_height: attributes.thumbnail_height,
+                            stats_comments: attributes.stats_comments,
+                            stats_views: attributes.stats_views,
+                            stats_author: attributes.stats_author,
+                            stats_date: attributes.stats_date,
+                            stats_date_format: attributes.stats_date_format,
+                            stats_taxonomy: attributes.stats_taxonomy,
+                            taxonomy: attributes.taxonomy,
                             theme: attributes.theme
                         }} />
                     </Disabled>

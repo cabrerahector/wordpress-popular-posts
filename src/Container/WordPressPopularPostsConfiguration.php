@@ -52,6 +52,10 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
             return new \WordPressPopularPosts\Rest\ViewLoggerEndpoint($container['admin_options'], $container['translate']);
         });
 
+        $container['taxonomies_endpoint'] = $container->service(function(Container $container) {
+            return new \WordPressPopularPosts\Rest\TaxonomiesEndpoint($container['admin_options'], $container['translate']);
+        });
+
         $container['themes_endpoint'] = $container->service(function(Container $container) {
             return new \WordPressPopularPosts\Rest\ThemesEndpoint($container['admin_options'], $container['translate'], $container['themer']);
         });
@@ -65,7 +69,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['rest'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Rest\Controller($container['posts_endpoint'], $container['view_logger_endpoint'], $container['widget_endpoint'], $container['themes_endpoint'], $container['thumbnails_endpoint']);
+            return new \WordPressPopularPosts\Rest\Controller($container['posts_endpoint'], $container['view_logger_endpoint'], $container['widget_endpoint'], $container['themes_endpoint'], $container['thumbnails_endpoint'], $container['taxonomies_endpoint']);
         });
 
         $container['admin'] = $container->service(function(Container $container) {

@@ -776,7 +776,7 @@ class Output {
         }
 
         // taxonomy
-        if ( $this->public_options['stats_tag']['category'] && $post_tax != '' ) {
+        if ( ($this->public_options['stats_tag']['category'] || $this->public_options['stats_tag']['taxonomy']['active']) && $post_tax != '' ) {
             $stats['taxonomy'] = '<span class="wpp-category">' . sprintf(__('under %s', 'wordpress-popular-posts'), $post_tax) . '</span>';
         }
 

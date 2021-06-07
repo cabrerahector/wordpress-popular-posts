@@ -232,6 +232,34 @@ class Widget extends Block
                         'type' => 'string',
                         'default' => 'manual'
                     ],
+                    'stats_comments' => [
+                        'type' => 'boolean',
+                        'default' => false
+                    ],
+                    'stats_views' => [
+                        'type' => 'boolean',
+                        'default' => true
+                    ],
+                    'stats_author' => [
+                        'type' => 'boolean',
+                        'default' => false
+                    ],
+                    'stats_date' => [
+                        'type' => 'boolean',
+                        'default' => false
+                    ],
+                    'stats_date_format' => [
+                        'type' => 'string',
+                        'default' => 'F j, Y'
+                    ],
+                    'stats_taxonomy' => [
+                        'type' => 'boolean',
+                        'default' => false
+                    ],
+                    'taxonomy' => [
+                        'type' => 'string',
+                        'default' => 'category'
+                    ],
                     'theme' => [
                         'type' => 'string',
                         'default' => ''
