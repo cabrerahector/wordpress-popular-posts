@@ -95,6 +95,8 @@ class Widget extends \WP_Widget {
     {
         // Register the widget
         add_action('widgets_init', [$this, 'register']);
+        // Remove widget from Legacy Widget block
+        add_filter('widget_types_to_hide_from_legacy_widget_block', [$this, 'remove_from_legacy_widget_block']);
     }
 
     /**
@@ -446,5 +448,17 @@ class Widget extends \WP_Widget {
         }
 
         return null;
+    }
+
+    /**
+     * Removes the standard widget from the Legacy Widget block.
+     *
+     * @param   array
+     * @return  array
+     */
+    public function remove_from_legacy_widget_block($widget_types)
+    {
+        $widget_types[] = 'wpp';
+        return $widget_types;
     }
 }
