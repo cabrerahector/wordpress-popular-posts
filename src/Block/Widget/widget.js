@@ -137,6 +137,30 @@ registerBlockType('wordpress-popular-posts/widget', {
             type: 'string',
             default: ''
         },
+        custom_html: {
+            type: 'boolean',
+            default: false
+        },
+        header_start: {
+            type: 'string',
+            default: '<h2>'
+        },
+        header_end: {
+            type: 'string',
+            default: '</h2>'
+        },
+        wpp_start: {
+            type: 'string',
+            default: '<ul class="wpp-list">'
+        },
+        wpp_end: {
+            type: 'string',
+            default: '</ul>'
+        },
+        post_html: {
+            type: 'string',
+            default: '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>'
+        },
         theme: {
             type: 'string',
             default: ''

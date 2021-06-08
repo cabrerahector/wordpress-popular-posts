@@ -334,4 +334,140 @@ class Helper {
         // Invalid/malformed URL
         return false;
     }
+
+    /**
+     * Checks whether an URL points to an actual image.
+     *
+     * This function used to live in src/Image, moved it here
+     * on version 5.4.0 to use it where needed.
+     *
+     * @since   5.0.0
+     * @access  private
+     * @param   string
+     * @return  array|bool
+     */
+    static function is_image_url($url)
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+        $encoded_path = array_map('urlencode', explode('/', $path));
+        $parse_url = str_replace($path, implode('/', $encoded_path), $url);
+
+        if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) )
+            return false;
+
+        // Check extension
+        $file_name = basename($path);
+        $file_name = sanitize_file_name($file_name);
+        $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if ( ! in_array($ext, $allowed_ext) )
+            return false;
+
+        // sanitize URL, just in case
+        $image_url = esc_url($url);
+        // remove querystring
+        preg_match('/[^\?]+\.(jpg|JPG|jpe|JPE|jpeg|JPEG|gif|GIF|png|PNG)/', $image_url, $matches);
+
+        return ( is_array($matches) && ! empty($matches) ) ? $matches : false;
+    }
+
+    /**
+     * Removes unsafe HTML tags / attributes.
+     *
+     * @since   5.4.0
+     * @param   string
+     * @return  string
+     */
+    static function remove_unsafe_html($string)
+    {
+        $html = trim($string);
+
+        if ( $html ) {
+            $unsafe_tags = [
+                'html',
+                'head',
+                'meta',
+                'link',
+                'title',
+                'body',
+                'pre',
+                'iframe',
+                'frame',
+                'frameset',
+                'object',
+                'embed',
+                'script',
+                'applet',
+                'input',
+                'textarea'
+            ];
+
+            $doc = new \DOMDocument();
+
+            /**
+             * @TODO
+             *
+             * We should be able to just use:
+             * $doc->loadHTML($html, LIBXML_NOWARNING | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+             * and remove the lines below once the minimum required PHP version is 7.1.4 or higher
+             *
+             * @see https://www.php.net/ChangeLog-7.php#7.1.4, https://stackoverflow.com/q/41844778/9131961
+             */
+
+            # clear errors list if any
+            libxml_clear_errors();
+            # use internal errors, don't spill out warnings
+            $previous = libxml_use_internal_errors(true);
+
+            $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+            $elements = $doc->getElementsByTagname('*');
+
+            for ( $i = $elements->length; --$i >= 0; ) {
+                $element = $elements->item($i);
+
+                // Remove unsafe tags
+                if ( in_array($element->tagName, $unsafe_tags) ) {
+                    $element->parentNode->removeChild($element);
+                }
+                else {
+                    // Remove unsafe attributes (onclick, onerror, etc.)
+                    foreach (iterator_to_array($element->attributes) as $name => $attribute) {
+                        if ( 0 === substr_compare($name, 'on', 0, 2, true) ) {
+                            $element->removeAttribute($name);
+                        }
+                    }
+
+                    // Remove <img> tag if src is not an image URL
+                    if ( 'img' == $element->tagName ) {
+                        $src = trim($element->getAttribute('src'));
+
+                        if ( ! Helper::is_image_url($src) ) {
+                            $element->parentNode->removeChild($element);
+                        }
+                    }
+                }
+            }
+
+            $html = $doc->saveHTML();
+
+            /**
+             * @TODO
+             *
+             * We should be able to just use:
+             * $doc->loadHTML($html, LIBXML_NOWARNING | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+             * and remove the lines below once the minimum required PHP version is 7.1.4 or higher
+             *
+             * @see https://www.php.net/ChangeLog-7.php#7.1.4, https://stackoverflow.com/q/41844778/9131961
+             */
+
+            # clear errors list if any
+            libxml_clear_errors();
+            # restore previous behavior
+            libxml_use_internal_errors($previous);
+        }
+
+        return $html;
+    }
 }

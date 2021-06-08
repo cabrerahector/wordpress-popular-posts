@@ -131,6 +131,7 @@ var _wp$components = wp.components,
     Disabled = _wp$components.Disabled,
     SelectControl = _wp$components.SelectControl,
     Spinner = _wp$components.Spinner,
+    TextareaControl = _wp$components.TextareaControl,
     TextControl = _wp$components.TextControl,
     Toolbar = _wp$components.Toolbar;
 var __ = wp.i18n.__;
@@ -366,9 +367,11 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       function onDisplayThumbnailChange(value) {
         if (false == value) setAttributes({
           thumbnail_width: 0,
-          thumbnail_height: 0
-        });
-        setAttributes({
+          thumbnail_height: 0,
+          display_post_thumbnail: value
+        });else setAttributes({
+          thumbnail_width: 75,
+          thumbnail_height: 75,
           display_post_thumbnail: value
         });
       }
@@ -411,9 +414,38 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       }
 
       function onThemeChange(value) {
-        setAttributes({
-          theme: value
-        });
+        if ('undefined' != typeof _self.state.themes[value]) {
+          var config = _self.state.themes[value].json.config;
+          setAttributes({
+            shorten_title: config.shorten_title.active,
+            title_length: config.shorten_title.title_length,
+            title_by_words: config.shorten_title.words ? 1 : 0,
+            display_post_excerpt: config['post-excerpt'].active,
+            excerpt_format: config['post-excerpt'].format,
+            excerpt_length: config['post-excerpt'].length,
+            excerpt_by_words: config['post-excerpt'].words ? 1 : 0,
+            display_post_thumbnail: config.thumbnail.active,
+            thumbnail_build: config.thumbnail.build,
+            thumbnail_width: config.thumbnail.width,
+            thumbnail_height: config.thumbnail.height,
+            stats_comments: config.stats_tag.comment_count,
+            stats_views: config.stats_tag.views,
+            stats_author: config.stats_tag.author,
+            stats_date: config.stats_tag.date.active,
+            stats_date_format: config.stats_tag.date.format,
+            stats_taxonomy: config.stats_tag.taxonomy.active,
+            taxonomy: config.stats_tag.taxonomy.name,
+            custom_html: true,
+            wpp_start: config.markup['wpp-start'],
+            wpp_end: config.markup['wpp-end'],
+            post_html: config.markup['post-html'],
+            theme: value
+          });
+        } else {
+          setAttributes({
+            theme: value
+          });
+        }
       }
 
       var classes = className;
@@ -706,7 +738,61 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         }
       })), /*#__PURE__*/React.createElement("p", {
         className: "not-a-legend"
-      }, /*#__PURE__*/React.createElement("strong", null, __('HTML Markup settings', 'wordpress-popular-posts'))), /*#__PURE__*/React.createElement(SelectControl, {
+      }, /*#__PURE__*/React.createElement("strong", null, __('HTML Markup settings', 'wordpress-popular-posts'))), /*#__PURE__*/React.createElement(CheckboxControl, {
+        label: __('Use custom HTML Markup', 'wordpress-popular-posts'),
+        checked: attributes.custom_html,
+        onChange: function onChange(value) {
+          return setAttributes({
+            custom_html: value
+          });
+        }
+      }), attributes.custom_html && /*#__PURE__*/React.createElement("div", {
+        className: "option-subset"
+      }, /*#__PURE__*/React.createElement(TextareaControl, {
+        rows: "1",
+        label: __('Before title', 'wordpress-popular-posts'),
+        value: attributes.header_start,
+        onChange: function onChange(value) {
+          return setAttributes({
+            header_start: value
+          });
+        }
+      }), /*#__PURE__*/React.createElement(TextareaControl, {
+        rows: "1",
+        label: __('After title', 'wordpress-popular-posts'),
+        value: attributes.header_end,
+        onChange: function onChange(value) {
+          return setAttributes({
+            header_end: value
+          });
+        }
+      }), /*#__PURE__*/React.createElement(TextareaControl, {
+        rows: "1",
+        label: __('Before popular posts', 'wordpress-popular-posts'),
+        value: attributes.wpp_start,
+        onChange: function onChange(value) {
+          return setAttributes({
+            wpp_start: value
+          });
+        }
+      }), /*#__PURE__*/React.createElement(TextareaControl, {
+        rows: "1",
+        label: __('After popular posts', 'wordpress-popular-posts'),
+        value: attributes.wpp_end,
+        onChange: function onChange(value) {
+          return setAttributes({
+            wpp_end: value
+          });
+        }
+      }), /*#__PURE__*/React.createElement(TextareaControl, {
+        label: __('Post HTML markup', 'wordpress-popular-posts'),
+        value: attributes.post_html,
+        onChange: function onChange(value) {
+          return setAttributes({
+            post_html: value
+          });
+        }
+      })), /*#__PURE__*/React.createElement(SelectControl, {
         label: __('Theme', 'wordpress-popular-posts'),
         value: attributes.theme,
         options: themes,
@@ -740,6 +826,12 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           stats_date_format: attributes.stats_date_format,
           stats_taxonomy: attributes.stats_taxonomy,
           taxonomy: attributes.taxonomy,
+          custom_html: attributes.custom_html,
+          header_start: attributes.header_start,
+          header_end: attributes.header_end,
+          wpp_start: attributes.wpp_start,
+          wpp_end: attributes.wpp_end,
+          post_html: attributes.post_html,
           theme: attributes.theme
         }
       })))];
@@ -899,6 +991,30 @@ registerBlockType('wordpress-popular-posts/widget', {
     taxonomy: {
       type: 'string',
       "default": ''
+    },
+    custom_html: {
+      type: 'boolean',
+      "default": false
+    },
+    header_start: {
+      type: 'string',
+      "default": '<h2>'
+    },
+    header_end: {
+      type: 'string',
+      "default": '</h2>'
+    },
+    wpp_start: {
+      type: 'string',
+      "default": '<ul class="wpp-list">'
+    },
+    wpp_end: {
+      type: 'string',
+      "default": '</ul>'
+    },
+    post_html: {
+      type: 'string',
+      "default": '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>'
     },
     theme: {
       type: 'string',

@@ -113,6 +113,7 @@ class Widget extends Block
             'stats_date_format' => 'F j, Y',
             'stats_category' => false,
             'stats_taxonomy' => false,
+            'custom_html' => false,
             'wpp_start' => '<ul class="wpp-list">',
             'wpp_end' => '</ul>',
             'header_start' => '<h2>',
@@ -260,6 +261,30 @@ class Widget extends Block
                         'type' => 'string',
                         'default' => 'category'
                     ],
+                    'custom_html' => [
+                        'type' => 'boolean',
+                        'default' => false
+                    ],
+                    'header_start' => [
+                        'type' => 'string',
+                        'default' => '<h2>'
+                    ],
+                    'header_end' => [
+                        'type' => 'string',
+                        'default' => '</h2>'
+                    ],
+                    'wpp_start' => [
+                        'type' => 'string',
+                        'default' => '<ul class="wpp-list">'
+                    ],
+                    'wpp_end' => [
+                        'type' => 'string',
+                        'default' => '</ul>'
+                    ],
+                    'post_html' => [
+                        'type' => 'string',
+                        'default' => '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>'
+                    ],
                     'theme' => [
                         'type' => 'string',
                         'default' => ''
@@ -286,6 +311,12 @@ class Widget extends Block
         $time_units = ["minute", "hour", "day", "week", "month"];
         $range_values = ["daily", "last24hours", "weekly", "last7days", "monthly", "last30days", "all", "custom"];
         $order_by_values = ["comments", "views", "avg"];
+
+        $theme_data = $this->themer->get_theme($theme);
+
+        if ( ! isset($theme_data['json']) ) {
+            $theme = '';
+        }
 
         $query_args = [
             'title' => strip_tags($title),
@@ -336,7 +367,7 @@ class Widget extends Block
                 ]
             ],
             'markup' => [
-                'custom_html' => empty($theme) ? false : true,
+                'custom_html' => empty($custom_html) ? false : $custom_html,
                 'wpp-start' => empty($wpp_start) ? '' : $wpp_start,
                 'wpp-end' => empty($wpp_end) ? '' : $wpp_end,
                 'title-start' => empty($header_start) ? '' : $header_start,
@@ -367,20 +398,6 @@ class Widget extends Block
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $query_args['author'] = '';
-        }
-
-        $theme = $query_args['theme']['name'] ? $this->themer->get_theme($query_args['theme']['name']) : null;
-
-        if (
-            is_array($theme)
-            && isset($theme['json'])
-            && isset($theme['json']['config'])
-            && is_array($theme['json']['config'])
-        ) {
-            $query_args = Helper::merge_array_r(
-                $query_args,
-                $theme['json']['config']
-            );
         }
 
         // Has user set a title?
@@ -438,6 +455,9 @@ class Widget extends Block
         $html .= $this->output->get_output();
 
         $html .= '</div>';
+
+        // Sanitize HTML before output
+        $html = Helper::remove_unsafe_html($html);
 
         return $html;
     }

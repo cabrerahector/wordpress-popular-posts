@@ -3,7 +3,7 @@ import { sanitize_text_field } from '../utils';
 const { ServerSideRender } = wp.editor;
 const { Component, Fragment } = wp.element;
 const { BlockControls } = wp.blockEditor;
-const { Button, CheckboxControl, Disabled, SelectControl, Spinner, TextControl, Toolbar } = wp.components;
+const { Button, CheckboxControl, Disabled, SelectControl, Spinner, TextareaControl, TextControl, Toolbar } = wp.components;
 const { __ } = wp.i18n;
 const endpoint = 'wordpress-popular-posts/v1';
 
@@ -202,8 +202,9 @@ export class WPPWidgetBlockEdit extends Component
 
         function onDisplayThumbnailChange(value) {
             if ( false == value )
-                setAttributes({ thumbnail_width: 0, thumbnail_height: 0 });
-            setAttributes({ display_post_thumbnail: value });
+                setAttributes({ thumbnail_width: 0, thumbnail_height: 0, display_post_thumbnail: value });
+            else
+                setAttributes({ thumbnail_width: 75, thumbnail_height: 75, display_post_thumbnail: value });
         }
 
         function onThumbnailWidthChange(value)
@@ -242,7 +243,37 @@ export class WPPWidgetBlockEdit extends Component
 
         function onThemeChange(value)
         {
-            setAttributes({ theme: value });
+            if ( 'undefined' != typeof _self.state.themes[value] ) {
+                let config = _self.state.themes[value].json.config;
+
+                setAttributes({
+                    shorten_title: config.shorten_title.active,
+                    title_length: config.shorten_title.title_length,
+                    title_by_words: config.shorten_title.words ? 1 : 0,
+                    display_post_excerpt: config['post-excerpt'].active,
+                    excerpt_format: config['post-excerpt'].format,
+                    excerpt_length: config['post-excerpt'].length,
+                    excerpt_by_words: config['post-excerpt'].words ? 1 : 0,
+                    display_post_thumbnail: config.thumbnail.active,
+                    thumbnail_build: config.thumbnail.build,
+                    thumbnail_width: config.thumbnail.width,
+                    thumbnail_height: config.thumbnail.height,
+                    stats_comments: config.stats_tag.comment_count,
+                    stats_views: config.stats_tag.views,
+                    stats_author: config.stats_tag.author,
+                    stats_date: config.stats_tag.date.active,
+                    stats_date_format: config.stats_tag.date.format,
+                    stats_taxonomy: config.stats_tag.taxonomy.active,
+                    taxonomy: config.stats_tag.taxonomy.name,
+                    custom_html: true,
+                    wpp_start: config.markup['wpp-start'],
+                    wpp_end: config.markup['wpp-end'],
+                    post_html: config.markup['post-html'],
+                    theme: value
+                });
+            } else {
+                setAttributes({ theme: value });
+            }
         }
 
         let classes = className;
@@ -517,6 +548,44 @@ export class WPPWidgetBlockEdit extends Component
                             </div>
                         }
                         <p className='not-a-legend'><strong>{__('HTML Markup settings', 'wordpress-popular-posts')}</strong></p>
+                        <CheckboxControl
+                            label={__('Use custom HTML Markup', 'wordpress-popular-posts')}
+                            checked={attributes.custom_html}
+                            onChange={(value) => setAttributes({ custom_html: value })}
+                        />
+                        { attributes.custom_html &&
+                            <div className='option-subset'>
+                                <TextareaControl
+                                    rows="1"
+                                    label={__('Before title', 'wordpress-popular-posts')}
+                                    value={attributes.header_start}
+                                    onChange={(value) => setAttributes({ header_start: value })}
+                                />
+                                <TextareaControl
+                                    rows="1"
+                                    label={__('After title', 'wordpress-popular-posts')}
+                                    value={attributes.header_end}
+                                    onChange={(value) => setAttributes({ header_end: value })}
+                                />
+                                <TextareaControl
+                                    rows="1"
+                                    label={__('Before popular posts', 'wordpress-popular-posts')}
+                                    value={attributes.wpp_start}
+                                    onChange={(value) => setAttributes({ wpp_start: value })}
+                                />
+                                <TextareaControl
+                                    rows="1"
+                                    label={__('After popular posts', 'wordpress-popular-posts')}
+                                    value={attributes.wpp_end}
+                                    onChange={(value) => setAttributes({ wpp_end: value })}
+                                />
+                                <TextareaControl
+                                    label={__('Post HTML markup', 'wordpress-popular-posts')}
+                                    value={attributes.post_html}
+                                    onChange={(value) => setAttributes({ post_html: value })}
+                                />
+                            </div>
+                        }
                         <SelectControl
                             label={__('Theme', 'wordpress-popular-posts')}
                             value={attributes.theme}
@@ -556,6 +625,12 @@ export class WPPWidgetBlockEdit extends Component
                             stats_date_format: attributes.stats_date_format,
                             stats_taxonomy: attributes.stats_taxonomy,
                             taxonomy: attributes.taxonomy,
+                            custom_html: attributes.custom_html,
+                            header_start: attributes.header_start,
+                            header_end: attributes.header_end,
+                            wpp_start: attributes.wpp_start,
+                            wpp_end: attributes.wpp_end,
+                            post_html: attributes.post_html,
                             theme: attributes.theme
                         }} />
                     </Disabled>

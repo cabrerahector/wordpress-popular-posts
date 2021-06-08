@@ -64,7 +64,7 @@ class Image {
         // Set default thumbnail
         $this->default_thumbnail = plugins_url() . "/wordpress-popular-posts/assets/images/no_thumb.jpg";
 
-        if ( $this->is_image_url($this->admin_options['tools']['thumbnail']['default']) )
+        if ( Helper::is_image_url($this->admin_options['tools']['thumbnail']['default']) )
             $this->default_thumbnail = $this->admin_options['tools']['thumbnail']['default'];
 
         // Set uploads folder
@@ -176,7 +176,7 @@ class Image {
                     true
                 );
 
-                if ( ! $thumb_url || ! $this->is_image_url($thumb_url) ) {
+                if ( ! $thumb_url || ! Helper::is_image_url($thumb_url) ) {
                     // Is this an attachment ID instead of an image URL?
                     if ( Helper::is_number($thumb_url) ) {
                         $thumb_url = wp_get_attachment_image_src($thumb_url, 'full');
@@ -254,7 +254,7 @@ class Image {
                     true
                 );
 
-                if ( ! $thumb_url || ! $this->is_image_url($thumb_url) ) {
+                if ( ! $thumb_url || ! Helper::is_image_url($thumb_url) ) {
                     // Is this an attachment ID instead of an image URL?
                     // If so, try to fetch the image
                     if ( Helper::is_number($thumb_url) ) {
@@ -265,7 +265,7 @@ class Image {
                     }
                 }
 
-                if ( $thumb_url && $this->is_image_url($thumb_url) ) {
+                if ( $thumb_url && Helper::is_image_url($thumb_url) ) {
                     $file_path = $this->url_to_path($thumb_url, $post_id);
                 }
             } else {
@@ -411,7 +411,7 @@ class Image {
      */
     private function url_to_path($url, $post_ID = null)
     {
-        if ( $this->is_image_url($url) ) {
+        if ( Helper::is_image_url($url) ) {
             $attachment_id = $this->get_attachment_id($url);
 
             // Image is hosted locally
@@ -624,7 +624,7 @@ class Image {
      */
     private function fetch_external_image($id, $url)
     {
-        if ( ! $this->is_image_url($url) )
+        if ( ! Helper::is_image_url($url) )
             return false;
 
         $full_image_path = trailingslashit($this->get_plugin_uploads_dir()['basedir']) . "{$id}_" . sanitize_file_name(rawurldecode(wp_basename($url)));
@@ -911,44 +911,10 @@ class Image {
         if ( has_filter('wpp_default_thumbnail_url') ) {
             $default_thumbnail_url = apply_filters('wpp_default_thumbnail_url', $this->default_thumbnail, $post_ID);
 
-            if ( $default_thumbnail_url != $this->default_thumbnail && $this->is_image_url($default_thumbnail_url) )
+            if ( $default_thumbnail_url != $this->default_thumbnail && Helper::is_image_url($default_thumbnail_url) )
                 return $default_thumbnail_url;
         }
 
         return $this->default_thumbnail;
-    }
-
-    /**
-     * Checks whether an URL points to an actual image.
-     *
-     * @since   5.0.0
-     * @access  private
-     * @param   string
-     * @return  array|bool
-     */
-    private function is_image_url($url)
-    {
-        $path = parse_url($url, PHP_URL_PATH);
-        $encoded_path = array_map('urlencode', explode('/', $path));
-        $parse_url = str_replace($path, implode('/', $encoded_path), $url);
-
-        if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) )
-            return false;
-
-        // Check extension
-        $file_name = basename($path);
-        $file_name = sanitize_file_name($file_name);
-        $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
-
-        if ( ! in_array($ext, $allowed_ext) )
-            return false;
-
-        // sanitize URL, just in case
-        $image_url = esc_url($url);
-        // remove querystring
-        preg_match('/[^\?]+\.(jpg|JPG|jpe|JPE|jpeg|JPEG|gif|GIF|png|PNG)/', $image_url, $matches);
-
-        return ( is_array($matches) && ! empty($matches) ) ? $matches : false;
     }
 }
