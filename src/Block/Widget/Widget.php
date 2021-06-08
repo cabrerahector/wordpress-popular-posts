@@ -139,7 +139,7 @@ class Widget extends Block
         wp_enqueue_script(
             'block-wpp-widget-js',
             plugin_dir_url(dirname(dirname(dirname(__FILE__)))) . 'assets/js/blocks/block-wpp-widget.js',
-            ['wp-blocks', 'wp-i18n', 'wp-element', 'wp-block-editor', 'wp-data', 'wp-editor'],
+            ['wp-blocks', 'wp-i18n', 'wp-element', 'wp-block-editor', 'wp-editor'],
             WPP_VERSION
         );
 
