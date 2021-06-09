@@ -390,7 +390,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       function onAuthorChange(value) {
         var new_value = value.replace(/[^0-9\,]/, '');
         setAttributes({
-          pid: new_value
+          author: new_value
         });
       }
 

@@ -229,7 +229,7 @@ export class WPPWidgetBlockEdit extends Component
         function onAuthorChange(value)
         {
             let new_value = value.replace(/[^0-9\,]/, '');
-            setAttributes({ pid: new_value });
+            setAttributes({ author: new_value });
         }
 
         return <Fragment>
