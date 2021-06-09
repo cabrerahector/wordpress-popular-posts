@@ -254,7 +254,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.loading) return /*#__PURE__*/React.createElement(Spinner, null);
+      if (this.state.loading && !this.state.taxonomies && !this.state.themes && !this.state.imgSizes) return /*#__PURE__*/React.createElement(Spinner, null);
       var _this$props2 = this.props,
           isSelected = _this$props2.isSelected,
           className = _this$props2.className,
@@ -799,6 +799,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         onChange: onThemeChange
       })), !this.state.editMode && /*#__PURE__*/React.createElement(Disabled, null, /*#__PURE__*/React.createElement(ServerSideRender, {
         block: this.props.name,
+        className: className,
         attributes: {
           title: attributes.title,
           limit: attributes.limit,

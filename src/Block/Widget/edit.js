@@ -115,7 +115,7 @@ export class WPPWidgetBlockEdit extends Component
 
     render()
     {
-        if ( this.state.loading )
+        if ( this.state.loading && ! this.state.taxonomies && ! this.state.themes && ! this.state.imgSizes )
             return <Spinner />;
 
         const { isSelected, className, attributes, setAttributes } = this.props;
@@ -598,6 +598,7 @@ export class WPPWidgetBlockEdit extends Component
                     <Disabled>
                         <ServerSideRender
                         block={this.props.name}
+                        className={className}
                         attributes={{
                             title: attributes.title,
                             limit: attributes.limit,
