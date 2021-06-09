@@ -167,6 +167,9 @@ registerBlockType('wordpress-popular-posts/widget', {
         },
     },
     supports: {
+        anchor: true,
+        align: true,
+        html: false
     },
 
     edit: WPPWidgetBlockEdit,

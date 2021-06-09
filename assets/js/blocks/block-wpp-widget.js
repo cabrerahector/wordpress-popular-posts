@@ -1022,7 +1022,11 @@ registerBlockType('wordpress-popular-posts/widget', {
       "default": ''
     }
   },
-  supports: {},
+  supports: {
+    anchor: true,
+    align: true,
+    html: false
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["WPPWidgetBlockEdit"],
   save: function save() {
     return null;
