@@ -113,13 +113,9 @@ export class WPPWidgetBlockEdit extends Component
         );
     }
 
-    render()
+    getMainFields()
     {
-        if ( this.state.loading && ! this.state.taxonomies && ! this.state.themes && ! this.state.imgSizes )
-            return <Spinner />;
-
-        const { isSelected, className, attributes, setAttributes } = this.props;
-        const _self = this;
+        const { attributes, setAttributes } = this.props;
 
         function onTitleChange(value)
         {
@@ -156,6 +152,69 @@ export class WPPWidgetBlockEdit extends Component
             setAttributes({ freshness: value });
         }
 
+        return <Fragment>
+            <TextControl
+                label={__('Title', 'wordpress-popular-posts')}
+                value={attributes.title}
+                onChange={onTitleChange}
+            />
+            <TextControl
+                label={__('Limit', 'wordpress-popular-posts')}
+                value={attributes.limit}
+                onChange={onLimitChange}
+            />
+            <SelectControl
+                label={__('Sort posts by', 'wordpress-popular-posts')}
+                value={attributes.order_by}
+                options={[
+                    {label: __('Total views', 'wordpress-popular-posts'), value: 'views'},
+                    {label: __('Comments', 'wordpress-popular-posts'), value: 'comments'}
+                ]}
+                onChange={onOrderByChange}
+            />
+            <SelectControl
+                label={__('Time Range', 'wordpress-popular-posts')}
+                value={attributes.range}
+                options={[
+                    {label: __('Last 24 Hours', 'wordpress-popular-posts'), value: 'last24hours'},
+                    {label: __('Last 7 days', 'wordpress-popular-posts'), value: 'last7days'},
+                    {label: __('Last 30 days', 'wordpress-popular-posts'), value: 'last30days'},
+                    {label: __('All-time', 'wordpress-popular-posts'), value: 'all'},
+                    {label: __('Custom', 'wordpress-popular-posts'), value: 'custom'},
+                ]}
+                onChange={onTimeRangeChange}
+            />
+            { 'custom' == attributes.range &&
+                <div className='option-subset'>
+                    <TextControl
+                        label={__('Time Quantity', 'wordpress-popular-posts')}
+                        value={attributes.time_quantity}
+                        onChange={onTimeQuantityChange}
+                    />
+                    <SelectControl
+                        label={__('Time Unit', 'wordpress-popular-posts')}
+                        value={attributes.time_unit}
+                        options={[
+                            {label: __('Minute(s)', 'wordpress-popular-posts'), value: 'minute'},
+                            {label: __('Hour(s)', 'wordpress-popular-posts'), value: 'hour'},
+                            {label: __('Day(s)', 'wordpress-popular-posts'), value: 'day'}
+                        ]}
+                        onChange={onTimeUnitChange}
+                    />
+                </div>
+            }
+            <CheckboxControl
+                label={__('Display only posts published within the selected Time Range', 'wordpress-popular-posts')}
+                checked={attributes.freshness}
+                onChange={onFreshnessChange}
+            />
+        </Fragment>;
+    }
+
+    getFiltersFields()
+    {
+        const { attributes, setAttributes } = this.props;
+
         function onPostTypeChange(value)
         {
             setAttributes({ post_type: sanitize_text_field(value) });
@@ -163,7 +222,6 @@ export class WPPWidgetBlockEdit extends Component
 
         function onPostIDExcludeChange(value)
         {
-            //let new_value = value.replace(/[^0-9-\,]/, '');
             let new_value = value.replace(/[^0-9\,]/, '');
             setAttributes({ pid: new_value });
         }
@@ -173,6 +231,34 @@ export class WPPWidgetBlockEdit extends Component
             let new_value = value.replace(/[^0-9\,]/, '');
             setAttributes({ pid: new_value });
         }
+
+        return <Fragment>
+            <p className='not-a-legend'><strong>{__('Filters', 'wordpress-popular-posts')}</strong></p>
+            <TextControl
+                label={__('Post type(s)', 'wordpress-popular-posts')}
+                help={__('Post types must be comma separated.', 'wordpress-popular-posts')}
+                value={attributes.post_type}
+                onChange={onPostTypeChange}
+            />
+            <TextControl
+                label={__('Post ID(s) to exclude', 'wordpress-popular-posts')}
+                help={__('IDs must be comma separated.', 'wordpress-popular-posts')}
+                value={attributes.pid}
+                onChange={onPostIDExcludeChange}
+            />
+            <TextControl
+                label={__('Author ID(s)', 'wordpress-popular-posts')}
+                help={__('IDs must be comma separated.', 'wordpress-popular-posts')}
+                value={attributes.author}
+                onChange={onAuthorChange}
+            />
+        </Fragment>;
+    }
+
+    getPostSettingsFields()
+    {
+        const { attributes, setAttributes } = this.props;
+        const _self = this;
 
         function onShortenTitleChange(value) {
             if ( false == value ) 
@@ -241,6 +327,193 @@ export class WPPWidgetBlockEdit extends Component
             });
         }
 
+        let sizes = [];
+
+        if ( this.state.imgSizes ) {
+            for( const size in this.state.imgSizes ) {
+                sizes.push(
+                    {
+                        label: size,
+                        value: size
+                    },
+                );
+            }
+        }
+
+        return <Fragment>
+            <p className='not-a-legend'><strong>{__('Posts settings', 'wordpress-popular-posts')}</strong></p>
+            <CheckboxControl
+                label={__('Shorten title', 'wordpress-popular-posts')}
+                checked={attributes.shorten_title}
+                onChange={onShortenTitleChange}
+            />
+            { attributes.shorten_title &&
+                <div className='option-subset'>
+                    <TextControl
+                        label={__('Shorten title to', 'wordpress-popular-posts')}
+                        value={attributes.title_length}
+                        onChange={onTitleLengthChange}
+                    />
+                    <SelectControl
+                        value={attributes.title_by_words}
+                        options={[
+                            { label: __('characters', 'wordpress-popular-posts'), value: 0 },
+                            { label: __('words', 'wordpress-popular-posts'), value: 1 },
+                        ]}
+                        onChange={(value) => setAttributes({ title_by_words: Number(value) })}
+                    />
+                </div>
+            }
+            <CheckboxControl
+                label={__('Display post excerpt', 'wordpress-popular-posts')}
+                checked={attributes.display_post_excerpt}
+                onChange={onDisplayExcerptChange}
+            />
+            { attributes.display_post_excerpt && 
+                <div className='option-subset'>
+                    <CheckboxControl
+                        label={__('Keep text format and links', 'wordpress-popular-posts')}
+                        checked={attributes.excerpt_format}
+                        onChange={(value) => setAttributes({ excerpt_format: value })}
+                    />
+                    <TextControl
+                        label={__('Excerpt length', 'wordpress-popular-posts')}
+                        value={attributes.excerpt_length}
+                        onChange={onExcerptLengthChange}
+                    />
+                    <SelectControl
+                        value={attributes.excerpt_by_words}
+                        options={[
+                            { label: __('characters', 'wordpress-popular-posts'), value: 0 },
+                            { label: __('words', 'wordpress-popular-posts'), value: 1 },
+                        ]}
+                        onChange={(value) => setAttributes({ excerpt_by_words: Number(value) })}
+                    />
+                </div>
+            }
+            <CheckboxControl
+                label={__('Display post thumbnail', 'wordpress-popular-posts')}
+                checked={attributes.display_post_thumbnail}
+                onChange={onDisplayThumbnailChange}
+            />
+            { attributes.display_post_thumbnail && 
+                <div className='option-subset'>
+                    <SelectControl
+                        value={attributes.thumbnail_build}
+                        options={[
+                            { label: __('Set size manually', 'wordpress-popular-posts'), value: 'manual' },
+                            { label: __('Use predefined size', 'wordpress-popular-posts'), value: 'predefined' },
+                        ]}
+                        onChange={onThumbnailBuildChange}
+                    />
+                    { 'manual' == attributes.thumbnail_build &&
+                        <Fragment>
+                            <TextControl
+                                label={__('Thumbnail width', 'wordpress-popular-posts')}
+                                help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
+                                value={attributes.thumbnail_width}
+                                onChange={onThumbnailWidthChange}
+                            />
+                            <TextControl
+                                label={__('Thumbnail height', 'wordpress-popular-posts')}
+                                help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
+                                value={attributes.thumbnail_height}
+                                onChange={onThumbnailHeightChange}
+                            />
+                        </Fragment>
+                    }
+                    { 'predefined' == attributes.thumbnail_build &&
+                        <Fragment>
+                            <SelectControl
+                                value={attributes.thumbnail_size}
+                                options={sizes}
+                                onChange={onThumbnailSizeChange}
+                            />
+                        </Fragment>
+                    }
+                </div>
+            }
+        </Fragment>;
+    }
+
+    getStatsTagFields()
+    {
+        const { attributes, setAttributes } = this.props;
+
+        let taxonomies = [];
+
+        if ( this.state.taxonomies ) {
+            for( const tax in this.state.taxonomies ) {
+                taxonomies.push(
+                    {
+                        label: this.state.taxonomies[tax].labels.singular_name + ' (' + this.state.taxonomies[tax].name + ')',
+                        value: this.state.taxonomies[tax].name
+                    },
+                );
+            }
+        }
+
+        return <Fragment>
+            <p className='not-a-legend'><strong>{__('Stats Tag settings', 'wordpress-popular-posts')}</strong></p>
+            <CheckboxControl
+                label={__('Display comments count', 'wordpress-popular-posts')}
+                checked={attributes.stats_comments}
+                onChange={(value) => setAttributes({ stats_comments: value })}
+            />
+            <CheckboxControl
+                label={__('Display views', 'wordpress-popular-posts')}
+                checked={attributes.stats_views}
+                onChange={(value) => setAttributes({ stats_views: value })}
+            />
+            <CheckboxControl
+                label={__('Display author', 'wordpress-popular-posts')}
+                checked={attributes.stats_author}
+                onChange={(value) => setAttributes({ stats_author: value })}
+            />
+            <CheckboxControl
+                label={__('Display date', 'wordpress-popular-posts')}
+                checked={attributes.stats_date}
+                onChange={(value) => setAttributes({ stats_date: value })}
+            />
+            { attributes.stats_date && 
+                <div className='option-subset'>
+                    <SelectControl
+                        label={__('Date Format', 'wordpress-popular-posts')}
+                        value={attributes.stats_date_format}
+                        options={[
+                            { label: __('Relative', 'wordpress-popular-posts'), value: 'relative' },
+                            { label: __('Month Day, Year', 'wordpress-popular-posts'), value: 'F j, Y' },
+                            { label: __('yyyy/mm/dd', 'wordpress-popular-posts'), value: 'Y/m/d' },
+                            { label: __('mm/dd/yyyy', 'wordpress-popular-posts'), value: 'm/d/Y' },
+                            { label: __('dd/mm/yyyy', 'wordpress-popular-posts'), value: 'd/m/Y' },
+                        ]}
+                        onChange={(value) => setAttributes({ stats_date_format: value })}
+                    />
+                </div>
+            }
+            <CheckboxControl
+                label={__('Display taxonomy', 'wordpress-popular-posts')}
+                checked={attributes.stats_taxonomy}
+                onChange={(value) => setAttributes({ stats_taxonomy: value })}
+            />
+            { attributes.stats_taxonomy && 
+                <div className='option-subset'>
+                    <SelectControl
+                        label={__('Taxonomy', 'wordpress-popular-posts')}
+                        value={attributes.taxonomy}
+                        options={taxonomies}
+                        onChange={(value) => setAttributes({ taxonomy: value })}
+                    />
+                </div>
+            }
+        </Fragment>;
+    }
+
+    getHTMLMarkupFields()
+    {
+        const { attributes, setAttributes } = this.props;
+        const _self = this;
+
         function onThemeChange(value)
         {
             if ( 'undefined' != typeof _self.state.themes[value] ) {
@@ -276,10 +549,6 @@ export class WPPWidgetBlockEdit extends Component
             }
         }
 
-        let classes = className;
-        classes += this.state.editMode ? ' in-edit-mode' : '';
-        classes += isSelected ? ' is-selected' : '';
-
         let themes = [
             {
                 label: __('None', 'wordpress-popular-posts'),
@@ -298,300 +567,76 @@ export class WPPWidgetBlockEdit extends Component
             }
         }
 
-        let sizes = [];
-
-        if ( this.state.imgSizes ) {
-            for( const size in this.state.imgSizes ) {
-                sizes.push(
-                    {
-                        label: size,
-                        value: size
-                    },
-                );
+        return <Fragment>
+            <p className='not-a-legend'><strong>{__('HTML Markup settings', 'wordpress-popular-posts')}</strong></p>
+            <CheckboxControl
+                label={__('Use custom HTML Markup', 'wordpress-popular-posts')}
+                checked={attributes.custom_html}
+                onChange={(value) => setAttributes({ custom_html: value })}
+            />
+            { attributes.custom_html &&
+                <div className='option-subset'>
+                    <TextareaControl
+                        rows="1"
+                        label={__('Before title', 'wordpress-popular-posts')}
+                        value={attributes.header_start}
+                        onChange={(value) => setAttributes({ header_start: value })}
+                    />
+                    <TextareaControl
+                        rows="1"
+                        label={__('After title', 'wordpress-popular-posts')}
+                        value={attributes.header_end}
+                        onChange={(value) => setAttributes({ header_end: value })}
+                    />
+                    <TextareaControl
+                        rows="1"
+                        label={__('Before popular posts', 'wordpress-popular-posts')}
+                        value={attributes.wpp_start}
+                        onChange={(value) => setAttributes({ wpp_start: value })}
+                    />
+                    <TextareaControl
+                        rows="1"
+                        label={__('After popular posts', 'wordpress-popular-posts')}
+                        value={attributes.wpp_end}
+                        onChange={(value) => setAttributes({ wpp_end: value })}
+                    />
+                    <TextareaControl
+                        label={__('Post HTML markup', 'wordpress-popular-posts')}
+                        value={attributes.post_html}
+                        onChange={(value) => setAttributes({ post_html: value })}
+                    />
+                </div>
             }
-        }
+            <SelectControl
+                label={__('Theme', 'wordpress-popular-posts')}
+                value={attributes.theme}
+                options={themes}
+                onChange={onThemeChange}
+            />
+        </Fragment>;
+    }
 
-        let taxonomies = [];
+    render()
+    {
+        if ( this.state.loading && ! this.state.taxonomies && ! this.state.themes && ! this.state.imgSizes )
+            return <Spinner />;
 
-        if ( this.state.taxonomies ) {
-            for( const tax in this.state.taxonomies ) {
-                taxonomies.push(
-                    {
-                        label: this.state.taxonomies[tax].labels.singular_name + ' (' + this.state.taxonomies[tax].name + ')',
-                        value: this.state.taxonomies[tax].name
-                    },
-                );
-            }
-        }
+        const { isSelected, className, attributes } = this.props;
+
+        let classes = className;
+        classes += this.state.editMode ? ' in-edit-mode' : '';
+        classes += isSelected ? ' is-selected' : '';
 
         return ([
             this.getBlockControls(),
             <div className={classes}>
                 { this.state.editMode &&
                     <Fragment>
-                        <TextControl
-                            label={__('Title', 'wordpress-popular-posts')}
-                            value={attributes.title}
-                            onChange={onTitleChange}
-                        />
-                        <TextControl
-                            label={__('Limit', 'wordpress-popular-posts')}
-                            value={attributes.limit}
-                            onChange={onLimitChange}
-                        />
-                        <SelectControl
-                            label={__('Sort posts by', 'wordpress-popular-posts')}
-                            value={attributes.order_by}
-                            options={[
-                                {label: __('Total views', 'wordpress-popular-posts'), value: 'views'},
-                                {label: __('Comments', 'wordpress-popular-posts'), value: 'comments'}
-                            ]}
-                            onChange={onOrderByChange}
-                        />
-                        <SelectControl
-                            label={__('Time Range', 'wordpress-popular-posts')}
-                            value={attributes.range}
-                            options={[
-                                {label: __('Last 24 Hours', 'wordpress-popular-posts'), value: 'last24hours'},
-                                {label: __('Last 7 days', 'wordpress-popular-posts'), value: 'last7days'},
-                                {label: __('Last 30 days', 'wordpress-popular-posts'), value: 'last30days'},
-                                {label: __('All-time', 'wordpress-popular-posts'), value: 'all'},
-                                {label: __('Custom', 'wordpress-popular-posts'), value: 'custom'},
-                            ]}
-                            onChange={onTimeRangeChange}
-                        />
-                        { 'custom' == attributes.range &&
-                            <div className='option-subset'>
-                                <TextControl
-                                    label={__('Time Quantity', 'wordpress-popular-posts')}
-                                    value={attributes.time_quantity}
-                                    onChange={onTimeQuantityChange}
-                                />
-                                <SelectControl
-                                    label={__('Time Unit', 'wordpress-popular-posts')}
-                                    value={attributes.time_unit}
-                                    options={[
-                                        {label: __('Minute(s)', 'wordpress-popular-posts'), value: 'minute'},
-                                        {label: __('Hour(s)', 'wordpress-popular-posts'), value: 'hour'},
-                                        {label: __('Day(s)', 'wordpress-popular-posts'), value: 'day'}
-                                    ]}
-                                    onChange={onTimeUnitChange}
-                                />
-                            </div>
-                        }
-                        <CheckboxControl
-                            label={__('Display only posts published within the selected Time Range', 'wordpress-popular-posts')}
-                            checked={attributes.freshness}
-                            onChange={onFreshnessChange}
-                        />
-                        <p className='not-a-legend'><strong>{__('Filters', 'wordpress-popular-posts')}</strong></p>
-                        <TextControl
-                            label={__('Post type(s)', 'wordpress-popular-posts')}
-                            help={__('Post types must be comma separated.', 'wordpress-popular-posts')}
-                            value={attributes.post_type}
-                            onChange={onPostTypeChange}
-                        />
-                        <TextControl
-                            label={__('Post ID(s) to exclude', 'wordpress-popular-posts')}
-                            help={__('IDs must be comma separated.', 'wordpress-popular-posts')}
-                            value={attributes.pid}
-                            onChange={onPostIDExcludeChange}
-                        />
-                        <TextControl
-                            label={__('Author ID(s)', 'wordpress-popular-posts')}
-                            help={__('IDs must be comma separated.', 'wordpress-popular-posts')}
-                            value={attributes.author}
-                            onChange={onAuthorChange}
-                        />
-                        <p className='not-a-legend'><strong>{__('Posts settings', 'wordpress-popular-posts')}</strong></p>
-                        <CheckboxControl
-                            label={__('Shorten title', 'wordpress-popular-posts')}
-                            checked={attributes.shorten_title}
-                            onChange={onShortenTitleChange}
-                        />
-                        { attributes.shorten_title &&
-                            <div className='option-subset'>
-                                <TextControl
-                                    label={__('Shorten title to', 'wordpress-popular-posts')}
-                                    value={attributes.title_length}
-                                    onChange={onTitleLengthChange}
-                                />
-                                <SelectControl
-                                    value={attributes.title_by_words}
-                                    options={[
-                                        { label: __('characters', 'wordpress-popular-posts'), value: 0 },
-                                        { label: __('words', 'wordpress-popular-posts'), value: 1 },
-                                    ]}
-                                    onChange={(value) => setAttributes({ title_by_words: Number(value) })}
-                                />
-                            </div>
-                        }
-                        <CheckboxControl
-                            label={__('Display post excerpt', 'wordpress-popular-posts')}
-                            checked={attributes.display_post_excerpt}
-                            onChange={onDisplayExcerptChange}
-                        />
-                        { attributes.display_post_excerpt && 
-                            <div className='option-subset'>
-                                <CheckboxControl
-                                    label={__('Keep text format and links', 'wordpress-popular-posts')}
-                                    checked={attributes.excerpt_format}
-                                    onChange={(value) => setAttributes({ excerpt_format: value })}
-                                />
-                                <TextControl
-                                    label={__('Excerpt length', 'wordpress-popular-posts')}
-                                    value={attributes.excerpt_length}
-                                    onChange={onExcerptLengthChange}
-                                />
-                                <SelectControl
-                                    value={attributes.excerpt_by_words}
-                                    options={[
-                                        { label: __('characters', 'wordpress-popular-posts'), value: 0 },
-                                        { label: __('words', 'wordpress-popular-posts'), value: 1 },
-                                    ]}
-                                    onChange={(value) => setAttributes({ excerpt_by_words: Number(value) })}
-                                />
-                            </div>
-                        }
-                        <CheckboxControl
-                            label={__('Display post thumbnail', 'wordpress-popular-posts')}
-                            checked={attributes.display_post_thumbnail}
-                            onChange={onDisplayThumbnailChange}
-                        />
-                        { attributes.display_post_thumbnail && 
-                            <div className='option-subset'>
-                                <SelectControl
-                                    value={attributes.thumbnail_build}
-                                    options={[
-                                        { label: __('Set size manually', 'wordpress-popular-posts'), value: 'manual' },
-                                        { label: __('Use predefined size', 'wordpress-popular-posts'), value: 'predefined' },
-                                    ]}
-                                    onChange={onThumbnailBuildChange}
-                                />
-                                { 'manual' == attributes.thumbnail_build &&
-                                    <Fragment>
-                                        <TextControl
-                                            label={__('Thumbnail width', 'wordpress-popular-posts')}
-                                            help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
-                                            value={attributes.thumbnail_width}
-                                            onChange={onThumbnailWidthChange}
-                                        />
-                                        <TextControl
-                                            label={__('Thumbnail height', 'wordpress-popular-posts')}
-                                            help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
-                                            value={attributes.thumbnail_height}
-                                            onChange={onThumbnailHeightChange}
-                                        />
-                                    </Fragment>
-                                }
-                                { 'predefined' == attributes.thumbnail_build &&
-                                    <Fragment>
-                                        <SelectControl
-                                            value={attributes.thumbnail_size}
-                                            options={sizes}
-                                            onChange={onThumbnailSizeChange}
-                                        />
-                                    </Fragment>
-                                }
-                            </div>
-                        }
-                        <p className='not-a-legend'><strong>{__('Stats Tag settings', 'wordpress-popular-posts')}</strong></p>
-                        <CheckboxControl
-                            label={__('Display comments count', 'wordpress-popular-posts')}
-                            checked={attributes.stats_comments}
-                            onChange={(value) => setAttributes({ stats_comments: value })}
-                        />
-                        <CheckboxControl
-                            label={__('Display views', 'wordpress-popular-posts')}
-                            checked={attributes.stats_views}
-                            onChange={(value) => setAttributes({ stats_views: value })}
-                        />
-                        <CheckboxControl
-                            label={__('Display author', 'wordpress-popular-posts')}
-                            checked={attributes.stats_author}
-                            onChange={(value) => setAttributes({ stats_author: value })}
-                        />
-                        <CheckboxControl
-                            label={__('Display date', 'wordpress-popular-posts')}
-                            checked={attributes.stats_date}
-                            onChange={(value) => setAttributes({ stats_date: value })}
-                        />
-                        { attributes.stats_date && 
-                            <div className='option-subset'>
-                                <SelectControl
-                                    label={__('Date Format', 'wordpress-popular-posts')}
-                                    value={attributes.stats_date_format}
-                                    options={[
-                                        { label: __('Relative', 'wordpress-popular-posts'), value: 'relative' },
-                                        { label: __('Month Day, Year', 'wordpress-popular-posts'), value: 'F j, Y' },
-                                        { label: __('yyyy/mm/dd', 'wordpress-popular-posts'), value: 'Y/m/d' },
-                                        { label: __('mm/dd/yyyy', 'wordpress-popular-posts'), value: 'm/d/Y' },
-                                        { label: __('dd/mm/yyyy', 'wordpress-popular-posts'), value: 'd/m/Y' },
-                                    ]}
-                                    onChange={(value) => setAttributes({ stats_date_format: value })}
-                                />
-                            </div>
-                        }
-                        <CheckboxControl
-                            label={__('Display taxonomy', 'wordpress-popular-posts')}
-                            checked={attributes.stats_taxonomy}
-                            onChange={(value) => setAttributes({ stats_taxonomy: value })}
-                        />
-                        { attributes.stats_taxonomy && 
-                            <div className='option-subset'>
-                                <SelectControl
-                                    label={__('Taxonomy', 'wordpress-popular-posts')}
-                                    value={attributes.taxonomy}
-                                    options={taxonomies}
-                                    onChange={(value) => setAttributes({ taxonomy: value })}
-                                />
-                            </div>
-                        }
-                        <p className='not-a-legend'><strong>{__('HTML Markup settings', 'wordpress-popular-posts')}</strong></p>
-                        <CheckboxControl
-                            label={__('Use custom HTML Markup', 'wordpress-popular-posts')}
-                            checked={attributes.custom_html}
-                            onChange={(value) => setAttributes({ custom_html: value })}
-                        />
-                        { attributes.custom_html &&
-                            <div className='option-subset'>
-                                <TextareaControl
-                                    rows="1"
-                                    label={__('Before title', 'wordpress-popular-posts')}
-                                    value={attributes.header_start}
-                                    onChange={(value) => setAttributes({ header_start: value })}
-                                />
-                                <TextareaControl
-                                    rows="1"
-                                    label={__('After title', 'wordpress-popular-posts')}
-                                    value={attributes.header_end}
-                                    onChange={(value) => setAttributes({ header_end: value })}
-                                />
-                                <TextareaControl
-                                    rows="1"
-                                    label={__('Before popular posts', 'wordpress-popular-posts')}
-                                    value={attributes.wpp_start}
-                                    onChange={(value) => setAttributes({ wpp_start: value })}
-                                />
-                                <TextareaControl
-                                    rows="1"
-                                    label={__('After popular posts', 'wordpress-popular-posts')}
-                                    value={attributes.wpp_end}
-                                    onChange={(value) => setAttributes({ wpp_end: value })}
-                                />
-                                <TextareaControl
-                                    label={__('Post HTML markup', 'wordpress-popular-posts')}
-                                    value={attributes.post_html}
-                                    onChange={(value) => setAttributes({ post_html: value })}
-                                />
-                            </div>
-                        }
-                        <SelectControl
-                            label={__('Theme', 'wordpress-popular-posts')}
-                            value={attributes.theme}
-                            options={themes}
-                            onChange={onThemeChange}
-                        />
+                        {this.getMainFields()}
+                        {this.getFiltersFields()}
+                        {this.getPostSettingsFields()}
+                        {this.getStatsTagFields()}
+                        {this.getHTMLMarkupFields()}
                     </Fragment>
                 }
                 { ! this.state.editMode &&
