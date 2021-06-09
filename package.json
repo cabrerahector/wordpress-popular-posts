@@ -26,6 +26,6 @@
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
-    "@wordpress/scripts": "16.1.1"
+    "@wordpress/scripts": "16.1.2"
   }
 }
