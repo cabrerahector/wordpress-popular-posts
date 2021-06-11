@@ -571,17 +571,12 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         });
       }
 
-      function onThumbnailWidthChange(value) {
+      function onThumbnailDimChange(dim, value) {
         var width = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
-        setAttributes({
+        setAttributes('width' == dim ? {
           thumbnail_width: Number(width)
-        });
-      }
-
-      function onThumbnailHeightChange(value) {
-        var height = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
-        setAttributes({
-          thumbnail_height: Number(height)
+        } : {
+          thumbnail_height: Number(width)
         });
       }
 
@@ -697,12 +692,16 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         label: __('Thumbnail width', 'wordpress-popular-posts'),
         help: __('Size in px units (pixels)', 'wordpress-popular-posts'),
         value: attributes.thumbnail_width,
-        onChange: onThumbnailWidthChange
+        onChange: function onChange(value) {
+          return onThumbnailDimChange('width', value);
+        }
       }), /*#__PURE__*/React.createElement(TextControl, {
         label: __('Thumbnail height', 'wordpress-popular-posts'),
         help: __('Size in px units (pixels)', 'wordpress-popular-posts'),
         value: attributes.thumbnail_height,
-        onChange: onThumbnailHeightChange
+        onChange: function onChange(value) {
+          return onThumbnailDimChange('height', value);
+        }
       })), 'predefined' == attributes.thumbnail_build && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(SelectControl, {
         value: attributes.thumbnail_size,
         options: sizes,

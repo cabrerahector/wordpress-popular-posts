@@ -396,16 +396,10 @@ export class WPPWidgetBlockEdit extends Component
                 setAttributes({ thumbnail_width: 75, thumbnail_height: 75, display_post_thumbnail: value });
         }
 
-        function onThumbnailWidthChange(value)
+        function onThumbnailDimChange(dim, value)
         {
             let width = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
-            setAttributes({ thumbnail_width: Number(width) });
-        }
-
-        function onThumbnailHeightChange(value)
-        {
-            let height = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
-            setAttributes({ thumbnail_height: Number(height) });
+            setAttributes(( 'width' == dim ? { thumbnail_width: Number(width) } : { thumbnail_height: Number(width) } ));
         }
 
         function onThumbnailBuildChange(value)
@@ -515,13 +509,13 @@ export class WPPWidgetBlockEdit extends Component
                                 label={__('Thumbnail width', 'wordpress-popular-posts')}
                                 help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
                                 value={attributes.thumbnail_width}
-                                onChange={onThumbnailWidthChange}
+                                onChange={(value) => onThumbnailDimChange('width', value)}
                             />
                             <TextControl
                                 label={__('Thumbnail height', 'wordpress-popular-posts')}
                                 help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
                                 value={attributes.thumbnail_height}
-                                onChange={onThumbnailHeightChange}
+                                onChange={(value) => onThumbnailDimChange('height', value)}
                             />
                         </Fragment>
                     }
