@@ -94,6 +94,7 @@ class Widget extends Block
             'pid' => '',
             'cat' => '',
             'taxonomy' => 'category',
+            'tax' => '',
             'term_id' => '',
             'author' => '',
             'title_length' => 0,
@@ -198,6 +199,14 @@ class Widget extends Block
                         'default' => ''
                     ],
                     'author' => [
+                        'type' => 'string',
+                        'default' => ''
+                    ],
+                    'tax' => [
+                        'type' => 'string',
+                        'default' => ''
+                    ],
+                    'term_id' => [
                         'type' => 'string',
                         'default' => ''
                     ],
@@ -330,7 +339,7 @@ class Widget extends Block
             'post_type' => empty($post_type) ? 'post' : $post_type,
             'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ","),
             'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ","),
-            'taxonomy' => empty($taxonomy) ? 'category' : $taxonomy,
+            'taxonomy' => empty($tax) ? 'category' : $tax,
             'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ","),
             'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ","),
             'shorten_title' => [

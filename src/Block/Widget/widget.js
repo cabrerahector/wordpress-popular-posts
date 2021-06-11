@@ -60,6 +60,14 @@ registerBlockType('wordpress-popular-posts/widget', {
             type: 'string',
             default: ''
         },
+        tax: {
+            type: 'string',
+            default: ''
+        },
+        term_id: {
+            type: 'string',
+            default: ''
+        },
         /* post settings */
         shorten_title: {
             type: 'boolean',

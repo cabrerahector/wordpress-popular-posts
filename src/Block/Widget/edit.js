@@ -72,9 +72,28 @@ export class WPPWidgetBlockEdit extends Component
 
     getTaxonomies()
     {
+        const { attributes } = this.props;
+
         wp.apiFetch({ path: endpoint + '/taxonomies' })
         .then(
             ( taxonomies ) => {
+                if ( taxonomies ) {
+                    let tax = attributes.tax.split(';'),
+                        term_id = attributes.term_id.split(';');
+
+                    if ( tax.length && tax.length == term_id.length ) {
+                        let selected_taxonomies = {};
+
+                        for( var t = 0; t < tax.length; t++ ) {
+                            selected_taxonomies[tax[t]] = term_id[t];
+                        }
+
+                        for( const tax in taxonomies ) {
+                            taxonomies[tax]._terms = 'undefined' != typeof selected_taxonomies[tax] ? selected_taxonomies[tax] : '';
+                        }
+                    }
+                }
+
                 this.setState({
                     taxonomies
                 });
@@ -214,6 +233,7 @@ export class WPPWidgetBlockEdit extends Component
     getFiltersFields()
     {
         const { attributes, setAttributes } = this.props;
+        const _self = this;
 
         function onPostTypeChange(value)
         {
@@ -230,6 +250,76 @@ export class WPPWidgetBlockEdit extends Component
         {
             let new_value = value.replace(/[^0-9\,]/, '');
             setAttributes({ author: new_value });
+        }
+
+        function onTaxChange(taxonomy_name, terms)
+        {
+            let taxonomies = _self.state.taxonomies;
+
+            terms = terms.replace(/[^0-9-\,]/, '');
+
+            if ( taxonomies && 'undefined' != typeof taxonomies[taxonomy_name] ) {
+                taxonomies[taxonomy_name]._terms = terms;
+                _self.setState({ taxonomies: taxonomies });
+            }
+        }
+
+        function onTaxBlur(taxonomy_name)
+        {
+            let taxonomies = _self.state.taxonomies;
+
+            if ( taxonomies && 'undefined' != typeof taxonomies[taxonomy_name] ) {
+                let terms_arr = taxonomies[taxonomy_name]._terms.split(',');
+
+                // Remove invalid values
+                if ( terms_arr.length )
+                    terms_arr = terms_arr.map((term) => term.trim())
+                        .filter((term) => '' != term && '-' != term);
+
+                // Remove duplicates
+                if ( terms_arr.length )
+                    terms_arr = Array.from(new Set(terms_arr));
+
+                taxonomies[taxonomy_name]._terms = terms_arr.join(',');
+
+                _self.setState({ taxonomies });
+
+                let tax = '',
+                    term_id = '';
+
+                for ( let key in _self.state.taxonomies ) {
+                    if ( _self.state.taxonomies.hasOwnProperty(key) ) {
+
+                        if ( ! _self.state.taxonomies[key]._terms.length )
+                            continue;
+
+                        tax += key + ';';
+                        term_id += _self.state.taxonomies[key]._terms + ';';
+                    }
+                }
+
+                // Remove trailing semicolon
+                if ( tax && term_id ) {
+                    tax = tax.replace(new RegExp(';$'), '');
+                    term_id = term_id.replace(new RegExp(';$'), '');
+                }
+
+                setAttributes({ tax: tax, term_id: term_id });
+            }
+        }
+
+        let taxonomies = [];
+
+        if ( this.state.taxonomies ) {
+            for( const tax in this.state.taxonomies ) {
+                taxonomies.push(
+                    {
+                        name: this.state.taxonomies[tax].name,
+                        label: this.state.taxonomies[tax].labels.singular_name + ' (' + this.state.taxonomies[tax].name + ')',
+                        terms: this.state.taxonomies[tax]._terms
+                    }
+                );
+            }
         }
 
         return <Fragment>
@@ -252,6 +342,19 @@ export class WPPWidgetBlockEdit extends Component
                 value={attributes.author}
                 onChange={onAuthorChange}
             />
+            { taxonomies && taxonomies.filter((tax) => 'post_format' != tax.name).map((tax) =>
+                {
+                    return (
+                        <TextControl
+                            label={tax.label}
+                            help={__('Term IDs must be comma separated, prefix a minus sign to exclude.', 'wordpress-popular-posts')}
+                            value={tax.terms}
+                            onChange={(terms) => onTaxChange(tax.name, terms)}
+                            onBlur={() => onTaxBlur(tax.name)}
+                        />
+                    );
+                }
+            )}
         </Fragment>;
     }
 
@@ -618,8 +721,10 @@ export class WPPWidgetBlockEdit extends Component
 
     render()
     {
-        if ( this.state.loading && ! this.state.taxonomies && ! this.state.themes && ! this.state.imgSizes )
+        if ( ! this.state.taxonomies || ! this.state.themes || ! this.state.imgSizes )
             return <Spinner />;
+
+        //console.log(this.state.taxonomies);
 
         const { isSelected, className, attributes } = this.props;
 
@@ -656,6 +761,8 @@ export class WPPWidgetBlockEdit extends Component
                             post_type: attributes.post_type,
                             pid: attributes.pid,
                             author: attributes.author,
+                            tax: attributes.tax,
+                            term_id: attributes.term_id,
                             title_length: attributes.title_length,
                             title_by_words: attributes.title_by_words,
                             excerpt_format: attributes.excerpt_format,

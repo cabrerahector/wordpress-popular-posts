@@ -211,9 +211,27 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
     value: function getTaxonomies() {
       var _this4 = this;
 
+      var attributes = this.props.attributes;
       wp.apiFetch({
         path: endpoint + '/taxonomies'
       }).then(function (taxonomies) {
+        if (taxonomies) {
+          var tax = attributes.tax.split(';'),
+              term_id = attributes.term_id.split(';');
+
+          if (tax.length && tax.length == term_id.length) {
+            var selected_taxonomies = {};
+
+            for (var t = 0; t < tax.length; t++) {
+              selected_taxonomies[tax[t]] = term_id[t];
+            }
+
+            for (var _tax in taxonomies) {
+              taxonomies[_tax]._terms = 'undefined' != typeof selected_taxonomies[_tax] ? selected_taxonomies[_tax] : '';
+            }
+          }
+        }
+
         _this4.setState({
           taxonomies: taxonomies
         });
@@ -374,6 +392,8 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           attributes = _this$props3.attributes,
           setAttributes = _this$props3.setAttributes;
 
+      var _self = this;
+
       function onPostTypeChange(value) {
         setAttributes({
           post_type: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["sanitize_text_field"])(value)
@@ -394,6 +414,75 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         });
       }
 
+      function onTaxChange(taxonomy_name, terms) {
+        var taxonomies = _self.state.taxonomies;
+        terms = terms.replace(/[^0-9-\,]/, '');
+
+        if (taxonomies && 'undefined' != typeof taxonomies[taxonomy_name]) {
+          taxonomies[taxonomy_name]._terms = terms;
+
+          _self.setState({
+            taxonomies: taxonomies
+          });
+        }
+      }
+
+      function onTaxBlur(taxonomy_name) {
+        var taxonomies = _self.state.taxonomies;
+
+        if (taxonomies && 'undefined' != typeof taxonomies[taxonomy_name]) {
+          var terms_arr = taxonomies[taxonomy_name]._terms.split(','); // Remove invalid values
+
+
+          if (terms_arr.length) terms_arr = terms_arr.map(function (term) {
+            return term.trim();
+          }).filter(function (term) {
+            return '' != term && '-' != term;
+          }); // Remove duplicates
+
+          if (terms_arr.length) terms_arr = Array.from(new Set(terms_arr));
+          taxonomies[taxonomy_name]._terms = terms_arr.join(',');
+
+          _self.setState({
+            taxonomies: taxonomies
+          });
+
+          var tax = '',
+              term_id = '';
+
+          for (var key in _self.state.taxonomies) {
+            if (_self.state.taxonomies.hasOwnProperty(key)) {
+              if (!_self.state.taxonomies[key]._terms.length) continue;
+              tax += key + ';';
+              term_id += _self.state.taxonomies[key]._terms + ';';
+            }
+          } // Remove trailing semicolon
+
+
+          if (tax && term_id) {
+            tax = tax.replace(new RegExp(';$'), '');
+            term_id = term_id.replace(new RegExp(';$'), '');
+          }
+
+          setAttributes({
+            tax: tax,
+            term_id: term_id
+          });
+        }
+      }
+
+      var taxonomies = [];
+
+      if (this.state.taxonomies) {
+        for (var tax in this.state.taxonomies) {
+          taxonomies.push({
+            name: this.state.taxonomies[tax].name,
+            label: this.state.taxonomies[tax].labels.singular_name + ' (' + this.state.taxonomies[tax].name + ')',
+            terms: this.state.taxonomies[tax]._terms
+          });
+        }
+      }
+
       return /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("p", {
         className: "not-a-legend"
       }, /*#__PURE__*/React.createElement("strong", null, __('Filters', 'wordpress-popular-posts'))), /*#__PURE__*/React.createElement(TextControl, {
@@ -411,6 +500,20 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
         help: __('IDs must be comma separated.', 'wordpress-popular-posts'),
         value: attributes.author,
         onChange: onAuthorChange
+      }), taxonomies && taxonomies.filter(function (tax) {
+        return 'post_format' != tax.name;
+      }).map(function (tax) {
+        return /*#__PURE__*/React.createElement(TextControl, {
+          label: tax.label,
+          help: __('Term IDs must be comma separated, prefix a minus sign to exclude.', 'wordpress-popular-posts'),
+          value: tax.terms,
+          onChange: function onChange(terms) {
+            return onTaxChange(tax.name, terms);
+          },
+          onBlur: function onBlur() {
+            return onTaxBlur(tax.name);
+          }
+        });
       }));
     }
   }, {
@@ -830,7 +933,8 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.loading && !this.state.taxonomies && !this.state.themes && !this.state.imgSizes) return /*#__PURE__*/React.createElement(Spinner, null);
+      if (!this.state.taxonomies || !this.state.themes || !this.state.imgSizes) return /*#__PURE__*/React.createElement(Spinner, null); //console.log(this.state.taxonomies);
+
       var _this$props7 = this.props,
           isSelected = _this$props7.isSelected,
           className = _this$props7.className,
@@ -855,6 +959,8 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           post_type: attributes.post_type,
           pid: attributes.pid,
           author: attributes.author,
+          tax: attributes.tax,
+          term_id: attributes.term_id,
           title_length: attributes.title_length,
           title_by_words: attributes.title_by_words,
           excerpt_format: attributes.excerpt_format,
@@ -955,6 +1061,14 @@ registerBlockType('wordpress-popular-posts/widget', {
       "default": ''
     },
     author: {
+      type: 'string',
+      "default": ''
+    },
+    tax: {
+      type: 'string',
+      "default": ''
+    },
+    term_id: {
       type: 'string',
       "default": ''
     },
