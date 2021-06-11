@@ -109,7 +109,7 @@ export class WPPWidgetBlockEdit extends Component
 
     getBlockControls()
     {
-        const { attributes, setAttributes } = this.props;
+        const { setAttributes } = this.props;
         const _self = this;
 
         function onPreviewChange()
@@ -723,8 +723,6 @@ export class WPPWidgetBlockEdit extends Component
     {
         if ( ! this.state.taxonomies || ! this.state.themes || ! this.state.imgSizes )
             return <Spinner />;
-
-        //console.log(this.state.taxonomies);
 
         const { isSelected, className, attributes } = this.props;
 

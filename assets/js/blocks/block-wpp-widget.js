@@ -245,9 +245,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "getBlockControls",
     value: function getBlockControls() {
-      var _this$props = this.props,
-          attributes = _this$props.attributes,
-          setAttributes = _this$props.setAttributes;
+      var setAttributes = this.props.setAttributes;
 
       var _self = this;
 
@@ -272,9 +270,9 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "getMainFields",
     value: function getMainFields() {
-      var _this$props2 = this.props,
-          attributes = _this$props2.attributes,
-          setAttributes = _this$props2.setAttributes;
+      var _this$props = this.props,
+          attributes = _this$props.attributes,
+          setAttributes = _this$props.setAttributes;
 
       function onTitleChange(value) {
         setAttributes({
@@ -388,9 +386,9 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "getFiltersFields",
     value: function getFiltersFields() {
-      var _this$props3 = this.props,
-          attributes = _this$props3.attributes,
-          setAttributes = _this$props3.setAttributes;
+      var _this$props2 = this.props,
+          attributes = _this$props2.attributes,
+          setAttributes = _this$props2.setAttributes;
 
       var _self = this;
 
@@ -519,9 +517,9 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "getPostSettingsFields",
     value: function getPostSettingsFields() {
-      var _this$props4 = this.props,
-          attributes = _this$props4.attributes,
-          setAttributes = _this$props4.setAttributes;
+      var _this$props3 = this.props,
+          attributes = _this$props3.attributes,
+          setAttributes = _this$props3.setAttributes;
 
       var _self = this;
 
@@ -714,9 +712,9 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "getStatsTagFields",
     value: function getStatsTagFields() {
-      var _this$props5 = this.props,
-          attributes = _this$props5.attributes,
-          setAttributes = _this$props5.setAttributes;
+      var _this$props4 = this.props,
+          attributes = _this$props4.attributes,
+          setAttributes = _this$props4.setAttributes;
       var taxonomies = [];
 
       if (this.state.taxonomies) {
@@ -812,9 +810,9 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "getHTMLMarkupFields",
     value: function getHTMLMarkupFields() {
-      var _this$props6 = this.props,
-          attributes = _this$props6.attributes,
-          setAttributes = _this$props6.setAttributes;
+      var _this$props5 = this.props,
+          attributes = _this$props5.attributes,
+          setAttributes = _this$props5.setAttributes;
 
       var _self = this;
 
@@ -933,12 +931,11 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      if (!this.state.taxonomies || !this.state.themes || !this.state.imgSizes) return /*#__PURE__*/React.createElement(Spinner, null); //console.log(this.state.taxonomies);
-
-      var _this$props7 = this.props,
-          isSelected = _this$props7.isSelected,
-          className = _this$props7.className,
-          attributes = _this$props7.attributes;
+      if (!this.state.taxonomies || !this.state.themes || !this.state.imgSizes) return /*#__PURE__*/React.createElement(Spinner, null);
+      var _this$props6 = this.props,
+          isSelected = _this$props6.isSelected,
+          className = _this$props6.className,
+          attributes = _this$props6.attributes;
       var classes = className;
       classes += this.state.editMode ? ' in-edit-mode' : '';
       classes += isSelected ? ' is-selected' : '';
