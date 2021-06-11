@@ -117,6 +117,7 @@ registerBlockType('wordpress-popular-posts/widget', {
             type: 'string',
             default: ''
         },
+        /* stats tag settings */
         stats_comments: {
             type: 'boolean',
             default: false
@@ -145,6 +146,7 @@ registerBlockType('wordpress-popular-posts/widget', {
             type: 'string',
             default: ''
         },
+        /* HTML markup settings */
         custom_html: {
             type: 'boolean',
             default: false

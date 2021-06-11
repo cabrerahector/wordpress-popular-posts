@@ -158,6 +158,10 @@ class Widget extends Block
                 'editor_script' => 'block-wpp-widget-js',
                 'render_callback' => [$this, 'render'],
                 'attributes' => [
+                    '_editMode' => [
+                        'type' => 'boolean',
+                        'default' => true
+                    ],
                     'title' => [
                         'type' => 'string',
                         'default' => ''
@@ -190,6 +194,7 @@ class Widget extends Block
                         'type' => 'boolean',
                         'default' => false
                     ],
+                    /* filters */
                     'post_type' => [
                         'type' => 'string',
                         'default' => 'post'
@@ -210,6 +215,11 @@ class Widget extends Block
                         'type' => 'string',
                         'default' => ''
                     ],
+                    /* post settings */
+                    'shorten_title' => [
+                        'type' => 'boolean',
+                        'default' => false
+                    ],
                     'title_length' => [
                         'type' =>'number',
                         'default' => 0
@@ -217,6 +227,10 @@ class Widget extends Block
                     'title_by_words' => [
                         'type' =>'number',
                         'default' => 0
+                    ],
+                    'display_post_excerpt' => [
+                        'type' => 'boolean',
+                        'default' => false
                     ],
                     'excerpt_format' => [
                         'type' => 'boolean',
@@ -230,6 +244,10 @@ class Widget extends Block
                         'type' =>'number',
                         'default' => 0
                     ],
+                    'display_post_thumbnail' => [
+                        'type' => 'boolean',
+                        'default' => false
+                    ],
                     'thumbnail_width' => [
                         'type' =>'number',
                         'default' => 0
@@ -242,6 +260,11 @@ class Widget extends Block
                         'type' => 'string',
                         'default' => 'manual'
                     ],
+                    'thumbnail_size' => [
+                        'type' => 'string',
+                        'default' => ''
+                    ],
+                    /* stats tag settings */
                     'stats_comments' => [
                         'type' => 'boolean',
                         'default' => false
@@ -270,6 +293,7 @@ class Widget extends Block
                         'type' => 'string',
                         'default' => 'category'
                     ],
+                    /* HTML markup settings */
                     'custom_html' => [
                         'type' => 'boolean',
                         'default' => false

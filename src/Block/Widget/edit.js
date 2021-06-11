@@ -747,45 +747,10 @@ export class WPPWidgetBlockEdit extends Component
                 { ! this.state.editMode &&
                     <Disabled>
                         <ServerSideRender
-                        block={this.props.name}
-                        className={className}
-                        attributes={{
-                            title: attributes.title,
-                            limit: attributes.limit,
-                            offset: attributes.offset,
-                            order_by: attributes.order_by,
-                            range: attributes.range,
-                            time_quantity: attributes.time_quantity,
-                            time_unit: attributes.time_unit,
-                            freshness: attributes.freshness,
-                            post_type: attributes.post_type,
-                            pid: attributes.pid,
-                            author: attributes.author,
-                            tax: attributes.tax,
-                            term_id: attributes.term_id,
-                            title_length: attributes.title_length,
-                            title_by_words: attributes.title_by_words,
-                            excerpt_format: attributes.excerpt_format,
-                            excerpt_length: attributes.excerpt_length,
-                            excerpt_by_words: attributes.excerpt_by_words,
-                            thumbnail_build: attributes.thumbnail_build,
-                            thumbnail_width: attributes.thumbnail_width,
-                            thumbnail_height: attributes.thumbnail_height,
-                            stats_comments: attributes.stats_comments,
-                            stats_views: attributes.stats_views,
-                            stats_author: attributes.stats_author,
-                            stats_date: attributes.stats_date,
-                            stats_date_format: attributes.stats_date_format,
-                            stats_taxonomy: attributes.stats_taxonomy,
-                            taxonomy: attributes.taxonomy,
-                            custom_html: attributes.custom_html,
-                            header_start: attributes.header_start,
-                            header_end: attributes.header_end,
-                            wpp_start: attributes.wpp_start,
-                            wpp_end: attributes.wpp_end,
-                            post_html: attributes.post_html,
-                            theme: attributes.theme
-                        }} />
+                            block={this.props.name}
+                            className={className}
+                            attributes={attributes}
+                        />
                     </Disabled>
                 }
             </div>
