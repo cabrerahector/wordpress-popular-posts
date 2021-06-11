@@ -152,8 +152,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       editMode: true,
       themes: null,
       imgSizes: null,
-      taxonomies: null,
-      loading: true
+      taxonomies: null
     };
     return _this;
   }
@@ -166,8 +165,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       this.getImageSizes();
       this.getTaxonomies();
       this.setState({
-        editMode: attributes._editMode,
-        loading: false
+        editMode: attributes._editMode
       });
     }
   }, {

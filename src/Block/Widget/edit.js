@@ -18,8 +18,7 @@ export class WPPWidgetBlockEdit extends Component
             editMode: true,
             themes: null,
             imgSizes: null,
-            taxonomies: null,
-            loading: true
+            taxonomies: null
         }
     }
 
@@ -31,7 +30,7 @@ export class WPPWidgetBlockEdit extends Component
         this.getImageSizes();
         this.getTaxonomies();
 
-        this.setState({ editMode: attributes._editMode, loading: false });
+        this.setState({ editMode: attributes._editMode });
     }
 
     getThemes()
