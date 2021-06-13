@@ -52,7 +52,7 @@ $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
 <input type="checkbox" class="checkbox" <?php echo ($instance['freshness']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id('freshness'); ?>" name="<?php echo $this->get_field_name('freshness'); ?>" /> <label for="<?php echo $this->get_field_id('freshness'); ?>"><small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small></label><br /><br />
 
 <label for="<?php echo $this->get_field_id('post_type'); ?>"><?php _e('Post type(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-post-type-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
-<input type="text" id="<?php echo $this->get_field_id('post_type'); ?>" name="<?php echo $this->get_field_name('post_type'); ?>" value="<?php echo $instance['post_type']; ?>" class="widefat" /><br /><br />
+<input type="text" id="<?php echo $this->get_field_id('post_type'); ?>" name="<?php echo $this->get_field_name('post_type'); ?>" value="<?php echo esc_attr($instance['post_type']); ?>" class="widefat" /><br /><br />
 
 <label for="<?php echo $this->get_field_id('pid'); ?>"><?php _e('Post ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
 <input type="text" id="<?php echo $this->get_field_id('pid'); ?>" name="<?php echo $this->get_field_name('pid'); ?>" value="<?php echo $instance['pid']; ?>" class="widefat" /><br /><br />
