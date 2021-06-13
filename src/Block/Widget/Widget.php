@@ -489,9 +489,6 @@ class Widget extends Block
 
         $html .= '</div>';
 
-        // Sanitize HTML before output
-        $html = Helper::remove_unsafe_html($html);
-
         return $html;
     }
 

@@ -132,7 +132,7 @@ class Output {
      */
     public function output()
     {
-        echo $this->output;
+        echo $this->get_output();
     }
 
     /**
@@ -143,7 +143,7 @@ class Output {
      */
     public function get_output()
     {
-        return $this->output;
+        return Helper::remove_unsafe_html($this->output);
     }
 
     /**
