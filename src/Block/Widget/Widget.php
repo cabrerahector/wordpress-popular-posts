@@ -120,8 +120,7 @@ class Widget extends Block
             'header_start' => '<h2>',
             'header_end' => '</h2>',
             'post_html' => '',
-            'theme' => '',
-            'theme_applied' => false
+            'theme' => ''
         ];
     }
 
