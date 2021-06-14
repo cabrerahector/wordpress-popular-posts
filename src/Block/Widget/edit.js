@@ -720,7 +720,7 @@ export class WPPWidgetBlockEdit extends Component
         const { isSelected, className, attributes } = this.props;
 
         let classes = className;
-        classes += this.state.editMode ? ' in-edit-mode' : '';
+        classes += this.state.editMode ? ' in-edit-mode' : ' in-preview-mode';
         classes += isSelected ? ' is-selected' : '';
 
         return ([

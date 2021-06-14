@@ -11,6 +11,11 @@
         padding: 0;
     }
 
+    .in-preview-mode .wpp-tiles li {
+        margin: 0 0 1.2em 0 !important;
+        padding: 0 !important;
+    }
+
     .wpp-tiles li:last-of-type {
         margin: 0;
     }

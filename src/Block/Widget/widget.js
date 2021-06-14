@@ -181,6 +181,25 @@ registerBlockType('wordpress-popular-posts/widget', {
         align: true,
         html: false
     },
+    example: {
+        attributes: {
+            _editMode: false,
+            title: 'Popular Posts',
+            limit: 3,
+            range: 'last7days',
+            display_post_excerpt: true,
+            excerpt_length: 75,
+            display_post_thumbnail: true,
+            thumbnail_width: 75,
+            thumbnail_height: 75,
+            stats_views: false,
+            stats_taxonomy: true,
+            custom_html: true,
+            wpp_start: '<ul class="wpp-list wpp-cards">',
+            post_html: '<li>{thumb_img} <div class="wpp-item-data"><div class="taxonomies">{taxonomy}</div>{title} <p class="wpp-excerpt">{excerpt}</p></div></li>',
+            theme: 'cards'
+        }
+    },
 
     edit: WPPWidgetBlockEdit,
 

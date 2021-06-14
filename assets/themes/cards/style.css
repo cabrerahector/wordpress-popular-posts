@@ -12,6 +12,11 @@
         border-bottom: #ddd 1px solid;
     }
 
+    .in-preview-mode .wpp-cards li {
+        margin: 0 0 1.2em 0 !important;
+        padding: 0 0 1em 0 !important;
+    }
+
     .wpp-cards li:last-of-type,
     .wpp-cards li:only-child {
         margin: 0;

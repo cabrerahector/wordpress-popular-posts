@@ -11,6 +11,11 @@
         border-bottom: #ddd 1px solid;
     }
 
+    .in-preview-mode .wpp-cardview li {
+        margin: 0 0 1.2em 0 !important;
+        padding: 0 0 1em 0 !important;
+    }
+
     .wpp-cardview li:last-of-type,
     .wpp-cardview li:only-child {
         margin: 0;

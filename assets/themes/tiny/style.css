@@ -10,6 +10,11 @@
         padding: 0;
     }
 
+    .in-preview-mode .wpp-tiny li {
+        margin: 0 0 1.2em 0 !important;
+        padding: 0 !important;
+    }
+
     .wpp-tiny li:last-of-type {
         margin: 0;
     }

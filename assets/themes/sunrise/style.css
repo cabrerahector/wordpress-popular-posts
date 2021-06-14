@@ -20,6 +20,11 @@
         box-sizing: border-box;
     }
 
+    .in-preview-mode .wpp-sunrise li {
+        margin: 0 !important;
+        padding: 15px 15px 15px 0 !important;
+    }
+
         .wpp-sunrise li .item-position::before {
             display: inline-block;
             flex: 1 0 0;

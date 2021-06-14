@@ -20,6 +20,11 @@
         box-sizing: border-box;
     }
 
+    .in-preview-mode .wpp-sunset li {
+        margin: 0 !important;
+        padding: 15px 15px 15px 0 !important;
+    }
+
         .wpp-sunset li .item-position::before {
             display: inline-block;
             flex: 1 0 0;
