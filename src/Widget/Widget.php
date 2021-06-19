@@ -152,10 +152,20 @@ class Widget extends \WP_Widget {
                 && $instance['markup']['title-start'] != ""
                 && $instance['markup']['title-end'] != ""
             ) {
-                echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
+                $title = htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
             } else {
-                echo $before_title . $title . $after_title;
+                $title = $before_title . $title . $after_title;
             }
+
+            echo \WordPressPopularPosts\htmLawed::hl(
+                Helper::remove_unsafe_html($title),
+                [
+                    'cdata' => 1,
+                    'comment' => 2,
+                    'deny_attribute' => 'on*',
+                    'schemes' => 'href: mailto, tel, http, https; src: http, https; srcset: http, https'
+                ]
+            );
         }
 
         // Expose Widget ID for customization

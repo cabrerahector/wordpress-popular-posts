@@ -143,7 +143,15 @@ class Output {
      */
     public function get_output()
     {
-        return Helper::remove_unsafe_html($this->output);
+        return \WordPressPopularPosts\htmLawed::hl(
+            Helper::remove_unsafe_html($this->output),
+            [
+                'cdata' => 1,
+                'comment' => 2,
+                'deny_attribute' => 'on*',
+                'schemes' => 'href: mailto, tel, http, https; src: http, https; srcset: http, https'
+            ]
+        );
     }
 
     /**
