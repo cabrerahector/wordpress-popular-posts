@@ -391,6 +391,8 @@ class Helper {
                 'link',
                 'title',
                 'body',
+                'audio',
+                'canvas',
                 'pre',
                 'iframe',
                 'frame',
