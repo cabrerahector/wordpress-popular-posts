@@ -161,7 +161,7 @@ class Widget extends \WP_Widget {
                 Helper::remove_unsafe_html($title),
                 [
                     'cdata' => 1,
-                    'comment' => 2,
+                    'comment' => 1,
                     'deny_attribute' => 'on*',
                     'schemes' => 'href: mailto, tel, http, https; src: http, https; srcset: http, https'
                 ]
