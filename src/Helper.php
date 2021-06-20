@@ -401,8 +401,10 @@ class Helper {
                 'embed',
                 'script',
                 'applet',
+                'form',
                 'input',
-                'textarea'
+                'textarea',
+                'button'
             ];
 
             $doc = new \DOMDocument();
