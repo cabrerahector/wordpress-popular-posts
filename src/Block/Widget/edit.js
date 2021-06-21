@@ -1,4 +1,4 @@
-import { sanitize_text_field } from '../utils';
+import { escape_html, unescape_html } from '../utils';
 
 const { ServerSideRender } = wp.editor;
 const { Component, Fragment } = wp.element;
@@ -137,7 +137,8 @@ export class WPPWidgetBlockEdit extends Component
 
         function onTitleChange(value)
         {
-            setAttributes({ title: sanitize_text_field(value) });
+            value = escape_html(unescape_html(value));
+            setAttributes({ title: value });
         }
 
         function onLimitChange(value)
@@ -236,18 +237,19 @@ export class WPPWidgetBlockEdit extends Component
 
         function onPostTypeChange(value)
         {
-            setAttributes({ post_type: sanitize_text_field(value) });
+            let new_value = value.replace(/[^a-z0-9-_\,]+/gi, '');
+            setAttributes({ post_type: new_value });
         }
 
         function onPostIDExcludeChange(value)
         {
-            let new_value = value.replace(/[^0-9\,]/, '');
+            let new_value = value.replace(/[^0-9\,]/g, '');
             setAttributes({ pid: new_value });
         }
 
         function onAuthorChange(value)
         {
-            let new_value = value.replace(/[^0-9\,]/, '');
+            let new_value = value.replace(/[^0-9\,]/g, '');
             setAttributes({ author: new_value });
         }
 
@@ -255,7 +257,7 @@ export class WPPWidgetBlockEdit extends Component
         {
             let taxonomies = _self.state.taxonomies;
 
-            terms = terms.replace(/[^0-9-\,]/, '');
+            terms = terms.replace(/[^0-9-\,]/g, '');
 
             if ( taxonomies && 'undefined' != typeof taxonomies[taxonomy_name] ) {
                 taxonomies[taxonomy_name]._terms = terms;

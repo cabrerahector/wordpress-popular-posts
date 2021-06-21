@@ -273,8 +273,9 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
           setAttributes = _this$props.setAttributes;
 
       function onTitleChange(value) {
+        value = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["escape_html"])(Object(_utils__WEBPACK_IMPORTED_MODULE_0__["unescape_html"])(value));
         setAttributes({
-          title: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["sanitize_text_field"])(value)
+          title: value
         });
       }
 
@@ -391,20 +392,23 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
       var _self = this;
 
       function onPostTypeChange(value) {
+        var new_value = value.replace(/[^a-z0-9-_\,]+/gi, '');
+        console.log(new_value);
+        console.log(sanitize_text_field(value));
         setAttributes({
-          post_type: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["sanitize_text_field"])(value)
+          post_type: new_value
         });
       }
 
       function onPostIDExcludeChange(value) {
-        var new_value = value.replace(/[^0-9\,]/, '');
+        var new_value = value.replace(/[^0-9\,]/g, '');
         setAttributes({
           pid: new_value
         });
       }
 
       function onAuthorChange(value) {
-        var new_value = value.replace(/[^0-9\,]/, '');
+        var new_value = value.replace(/[^0-9\,]/g, '');
         setAttributes({
           author: new_value
         });
@@ -412,7 +416,7 @@ var WPPWidgetBlockEdit = /*#__PURE__*/function (_Component) {
 
       function onTaxChange(taxonomy_name, terms) {
         var taxonomies = _self.state.taxonomies;
-        terms = terms.replace(/[^0-9-\,]/, '');
+        terms = terms.replace(/[^0-9-\,]/g, '');
 
         if (taxonomies && 'undefined' != typeof taxonomies[taxonomy_name]) {
           taxonomies[taxonomy_name]._terms = terms;
@@ -1214,17 +1218,33 @@ icons.flame = /*#__PURE__*/React.createElement("svg", {
 /*!****************************!*\
   !*** ./src/Block/utils.js ***!
   \****************************/
-/*! exports provided: sanitize_text_field */
+/*! exports provided: escape_html, unescape_html */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sanitize_text_field", function() { return sanitize_text_field; });
-function sanitize_text_field(value) {
-  var decoder = document.createElement('div');
-  decoder.innerHTML = value;
-  var sanitized = decoder.textContent;
-  return sanitized;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "escape_html", function() { return escape_html; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unescape_html", function() { return unescape_html; });
+function escape_html(value) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    "/": '&#x2F;',
+    '`': '&grave;'
+  };
+  var reg = /[&<>"'/]/ig;
+  return value.replace(reg, function (match) {
+    return map[match];
+  });
+}
+function unescape_html(value) {
+  var div = document.createElement('div');
+  div.innerHTML = value;
+  var child = div.childNodes[0];
+  return child ? child.nodeValue : '';
 }
 
 /***/ })
