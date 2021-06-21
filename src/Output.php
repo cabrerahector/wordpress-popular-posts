@@ -143,6 +143,8 @@ class Output {
      */
     public function get_output()
     {
+        $this->output = "\n" . ( WP_DEBUG ? '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' : '' ) . "\n" . $this->output;
+
         return \WordPressPopularPosts\htmLawed::hl(
             Helper::remove_unsafe_html($this->output),
             [
@@ -164,7 +166,7 @@ class Output {
         // Got some posts, format 'em!
         if ( ! empty($this->data) ) {
 
-            $this->output = "\n" . ( WP_DEBUG ? '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' : '' ) . "\n";
+            $this->output = '';
 
             // Allow WP themers / coders access to raw data
             // so they can build their own output
