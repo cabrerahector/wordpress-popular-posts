@@ -434,18 +434,9 @@ class Widget extends Block
 
         // Has user set a title?
         if ( '' != $query_args['title'] ) {
-            $title = apply_filters('widget_title', $query_args['title'], $query_args);
-
-            if (
-                $query_args['markup']['custom_html']
-                && $query_args['markup']['title-start'] != ""
-                && $query_args['markup']['title-end'] != ""
-            ) {
-                $html .= htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
-            } else {
-                $before_title = apply_filters('wpp_block_before_title', '<h2>');
-                $after_title = apply_filters('wpp_block_after_title', '</h2>');
-                $html .= $before_title . $title . $after_title;
+            if ( ! $query_args['markup']['custom_html'] ) {
+                $query_args['markup']['title-start'] = apply_filters('wpp_block_before_title', '<h2>');
+                $query_args['markup']['title-end'] = apply_filters('wpp_block_after_title', '</h2>');
             }
         }
 

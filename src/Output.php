@@ -173,6 +173,19 @@ class Output {
                 return;
             }
 
+            // Has user set a title?
+            if (
+                '' != $this->public_options['title']
+                && '' != $this->public_options['markup']['title-start']
+                && '' != $this->public_options['markup']['title-end']
+            ) {
+                $id_base = isset($this->public_options['id_base']) ? $this->public_options['id_base'] : null;
+                $this->public_options['title'] = apply_filters('widget_title', $this->public_options['title'], $this->public_options, $id_base);
+                $this->public_options['title'] = htmlspecialchars_decode($this->public_options['markup']['title-start'], ENT_QUOTES) . $this->public_options['title'] . htmlspecialchars_decode($this->public_options['markup']['title-end'], ENT_QUOTES);
+
+                $this->output .= $this->public_options['title'] . "\n";
+            }
+
             if (
                 isset($this->public_options['theme']['name'])
                 && $this->public_options['theme']['name']

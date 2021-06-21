@@ -145,31 +145,15 @@ class Widget extends \WP_Widget {
 
         // Has user set a title?
         if ( '' != $instance['title'] ) {
-            $title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base);
-
-            if (
-                $instance['markup']['custom_html']
-                && $instance['markup']['title-start'] != ""
-                && $instance['markup']['title-end'] != ""
-            ) {
-                $title = htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
-            } else {
-                $title = $before_title . $title . $after_title;
+            if ( ! $instance['markup']['custom_html'] ) {
+                $instance['markup']['title-start'] = $before_title;
+                $instance['markup']['title-end'] = $after_title;
             }
-
-            echo \WordPressPopularPosts\htmLawed::hl(
-                Helper::remove_unsafe_html($title),
-                [
-                    'cdata' => 1,
-                    'comment' => 1,
-                    'deny_attribute' => 'on*',
-                    'schemes' => 'href: mailto, tel, http, https; src: http, https; srcset: http, https'
-                ]
-            );
         }
 
-        // Expose Widget ID for customization
+        // Expose Widget ID & base for customization
         $instance['widget_id'] = $widget_id;
+        $instance['id_base'] = $this->id_base;
 
         // Get posts
         if ( $this->admin_options['tools']['ajax'] && ! is_customize_preview() ) {
@@ -402,6 +386,7 @@ class Widget extends \WP_Widget {
     public function get_popular($instance = null)
     {
         if ( is_array($instance) && ! empty($instance) ) {
+
             // Return cached results
             if ( $this->admin_options['tools']['cache']['active'] ) {
 
