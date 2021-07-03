@@ -143,6 +143,11 @@ class Output {
      */
     public function get_output()
     {
+        $this->output = str_replace(
+            ["&lt;", "&gt;"],
+            ["<", ">"],
+            htmlentities($this->output, ENT_NOQUOTES, 'UTF-8', false)
+        );
         $this->output = "\n" . ( WP_DEBUG ? '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' : '' ) . "\n" . $this->output;
 
         return \WordPressPopularPosts\htmLawed::hl(
