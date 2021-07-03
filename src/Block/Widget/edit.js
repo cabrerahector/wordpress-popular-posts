@@ -122,7 +122,7 @@ export class WPPWidgetBlockEdit extends Component
             <BlockControls>
                 <Toolbar>
                     <Button
-                        label={ this.state.editMode ? __('Preview', 'wordpress-popular-posts') : __('Preview', 'wordpress-popular-posts') }
+                        label={ this.state.editMode ? __('Preview', 'wordpress-popular-posts') : __('Edit', 'wordpress-popular-posts') }
                         icon={ this.state.editMode ? "format-image" : "edit" }
                         onClick={onPreviewChange}
                     />
