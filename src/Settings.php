@@ -98,6 +98,7 @@ class Settings {
                 'freshness' => false
             ],
             'tools' => [
+                'experimental' => false,
                 'ajax' => true,
                 'css' => true,
                 'link' => [

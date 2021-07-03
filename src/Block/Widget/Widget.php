@@ -136,6 +136,10 @@ class Widget extends Block
             return;
         }
 
+        // Experimental feature, bail if disabled.
+        if ( ! $this->admin_options['tools']['experimental'] )
+            return;
+
         wp_enqueue_script(
             'block-wpp-widget-js',
             plugin_dir_url(dirname(dirname(dirname(__FILE__)))) . 'assets/js/blocks/block-wpp-widget.js',

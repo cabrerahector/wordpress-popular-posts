@@ -36,6 +36,7 @@ if ( isset($_POST['section']) ) {
         if ( isset($_POST['wpp-update-misc-options-token'] ) && wp_verify_nonce($_POST['wpp-update-misc-options-token'], 'wpp-update-misc-options') ) {
             $this->config['tools']['link']['target'] = $_POST['link_target'];
             $this->config['tools']['css'] = $_POST['css'];
+            $this->config['tools']['experimental'] = empty($_POST['experimental_features']) ? false : $_POST['experimental_features'];
 
             update_option('wpp_settings_config', $this->config);
             echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts') . "</strong></p></div>";
@@ -616,6 +617,12 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
                             </select>
                             <br />
                             <p class="description"><?php _e("By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.", 'wordpress-popular-posts'); ?></p>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="experimental_features"><?php _e("Enable experimental features", 'wordpress-popular-posts'); ?>:</label></th>
+                        <td>
+                            <input type="checkbox" class="checkbox" id="experimental_features" name="experimental_features" <?php echo ($this->config['tools']['experimental']) ? 'checked="checked"' : ''; ?>>
                         </td>
                     </tr>
                     <tr valign="top">
