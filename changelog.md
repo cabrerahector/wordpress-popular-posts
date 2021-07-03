@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 5.3.4 ####
+
+- Experimental Gutenberg support! This version introduces the first WPP block. It's not enabled by default though, see the Release Notes for more.
+- Fixes a potential authenticated stored XSS vulnerability (props to Visse for reporting it!)
+- Overall security enhancements (props to Visse for assisting with this!)
+- Other minor improvements / fixes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#5.3.4)
+
 #### 5.3.3 ####
 
 - Fixes a potential XSS vulnerability (props to Yu Iwama of Secure Sky Technology Inc. and the JPCERT/CC Vulnerability Coordination Group).
