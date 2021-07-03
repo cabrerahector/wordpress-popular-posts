@@ -120,7 +120,7 @@ class Output {
     public function set_public_options(array $public_options = [])
     {
         $this->public_options = Helper::merge_array_r(
-            $this->public_options,
+            Settings::get('widget_options'),
             $public_options
         );
     }
