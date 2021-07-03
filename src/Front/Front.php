@@ -373,6 +373,7 @@ class Front {
             'header_start' => '<h2>',
             'header_end' => '</h2>',
             'post_html' => '',
+            'theme' => '',
             'php' => false
         ], $atts, 'wpp'));
 
@@ -434,6 +435,9 @@ class Front {
                 'title-start' => empty($header_start) ? '' : $header_start,
                 'title-end' => empty($header_end) ? '' : $header_end,
                 'post-html' => empty($post_html) ? '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>' : $post_html
+            ],
+            'theme' => [
+                'name' => trim($theme)
             ]
         ];
 
