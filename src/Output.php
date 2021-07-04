@@ -143,22 +143,8 @@ class Output {
      */
     public function get_output()
     {
-        $this->output = str_replace(
-            ["&lt;", "&gt;"],
-            ["<", ">"],
-            htmlentities($this->output, ENT_NOQUOTES, 'UTF-8', false)
-        );
         $this->output = "\n" . ( WP_DEBUG ? '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' : '' ) . "\n" . $this->output;
-
-        return \WordPressPopularPosts\htmLawed::hl(
-            Helper::remove_unsafe_html($this->output),
-            [
-                'cdata' => 1,
-                'comment' => 1,
-                'deny_attribute' => 'on*',
-                'schemes' => 'href: mailto, tel, http, https; src: http, https; srcset: http, https'
-            ]
-        );
+        return $this->output;
     }
 
     /**
