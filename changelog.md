@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 5.3.5 ####
+
+- Reverts security enhancements (not the XSS one though).
+- Fixes a PHP Fatal Error affecting some setups.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#5.3.5)
+
 #### 5.3.4 ####
 
 - Experimental Gutenberg support! This version introduces the first WPP block. It's not enabled by default though, see the Release Notes for more.
