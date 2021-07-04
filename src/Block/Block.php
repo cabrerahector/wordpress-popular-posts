@@ -23,5 +23,5 @@ abstract class Block {
     /**
      * 
      */
-    abstract function render(array $attribute);
+    abstract function render(array $attributes);
 }
