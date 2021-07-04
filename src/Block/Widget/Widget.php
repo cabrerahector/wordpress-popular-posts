@@ -337,7 +337,7 @@ class Widget extends Block
      * @param   array
      * @return  string
      */
-    public function render($attributes)
+    public function render(array $attributes)
     {
         extract($this->parse_attributes($attributes));
 
