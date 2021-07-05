@@ -3,7 +3,7 @@ Changelog
 
 #### 5.3.5 ####
 
-- Reverts security enhancements (not the XSS one though).
+- Reverts security enhancements (not the XSS one though) which caused garbled output for some websites.
 - Fixes a PHP Fatal Error affecting some setups.
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#5.3.5)
