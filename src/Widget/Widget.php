@@ -137,10 +137,6 @@ class Widget extends \WP_Widget {
             (array) $instance
         );
 
-        $markup = ( $instance['markup']['custom_html'] || has_filter('wpp_custom_html') || has_filter('wpp_post') )
-              ? 'custom'
-              : 'regular';
-
         echo "\n" . $before_widget . "\n";
 
         // Has user set a title?
