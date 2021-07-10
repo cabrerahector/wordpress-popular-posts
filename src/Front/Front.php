@@ -504,7 +504,21 @@ class Front {
 
         $shortcode_content .= $this->output->get_output();
 
-        return $shortcode_content;
+        // Sanitize and return shortcode HTML
+        $allowed_tags = wp_kses_allowed_html('post');
+
+        if ( isset($allowed_tags['form']) ) {
+            unset($allowed_tags['form']);
+        }
+
+        if ( ! empty($shortcode_ops['theme']['name']) ) {
+            $allowed_tags['style'] = [
+                'id' => 1,
+                'nonce' => 1,
+            ];
+        }
+
+        return wp_kses($shortcode_content, $allowed_tags);
     }
 
 }
