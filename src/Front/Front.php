@@ -465,6 +465,15 @@ class Front {
         $shortcode_content = '';
         $cached = false;
 
+        // is there a title defined by user?
+        if (
+            ! empty($header)
+            && ! empty($header_start)
+            && ! empty($header_end)
+        ) {
+            $shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . $header . htmlspecialchars_decode($header_end, ENT_QUOTES);
+        }
+
         // Return cached results
         if ( $this->config['tools']['cache']['active'] ) {
 
