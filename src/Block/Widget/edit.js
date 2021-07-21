@@ -1,6 +1,6 @@
 import { escape_html, unescape_html } from '../utils';
 
-const { ServerSideRender } = wp.editor;
+const { serverSideRender: ServerSideRender } = wp;
 const { Component, Fragment } = wp.element;
 const { BlockControls } = wp.blockEditor;
 const { Button, CheckboxControl, Disabled, SelectControl, Spinner, TextareaControl, TextControl, Toolbar } = wp.components;
