@@ -520,7 +520,21 @@ class Admin {
                 wp_register_script('wordpress-popular-posts-admin-script', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin.js', ['jquery'], WPP_VERSION, true);
                 wp_localize_script('wordpress-popular-posts-admin-script', 'wpp_admin_params', [
                     'label_media_upload_button' => __("Use this image", "wordpress-popular-posts"),
-                    'nonce' => wp_create_nonce("wpp_admin_nonce")
+                    'nonce' => wp_create_nonce("wpp_admin_nonce"),
+                    'nonce_reset_data' => wp_create_nonce("wpp_nonce_reset_data"),
+                    'nonce_reset_thumbnails' => wp_create_nonce("wpp_nonce_reset_thumbnails"),
+                    'text_confirm_reset_cache_table' => __("This operation will delete all entries from WordPress Popular Posts' cache table and cannot be undone.", 'wordpress-popular-posts'),
+                    'text_cache_table_cleared' => __('Success! The cache table has been cleared!', 'wordpress-popular-posts'),
+                    'text_cache_table_missing' => __('Error: cache table does not exist.', 'wordpress-popular-posts'),
+                    'text_confirm_reset_all_tables' => __("This operation will delete all stored info from WordPress Popular Posts' data tables and cannot be undone.", 'wordpress-popular-posts'),
+                    'text_all_table_cleared' => __('Success! All data have been cleared!', 'wordpress-popular-posts'),
+                    'text_tables_missing' => __('Error: one or both data tables are missing.', 'wordpress-popular-posts'),
+                    'text_confirm_image_cache_reset' => __('This operation will delete all cached thumbnails and cannot be undone.', 'wordpress-popular-posts'),
+                    'text_image_cache_cleared' => __('Success! All files have been deleted!', 'wordpress-popular-posts'),
+                    'text_image_cache_already_empty' => __('The thumbnail cache is already empty!', 'wordpress-popular-posts'),
+                    'text_continue' => __('Do you want to continue?', 'wordpress-popular-posts'),
+                    'text_insufficient_permissions' => __('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts'),
+                    'text_invalid_action' => __('Invalid action.', 'wordpress-popular-posts')
                 ]);
                 wp_enqueue_script('wordpress-popular-posts-admin-script');
             }
@@ -1119,13 +1133,12 @@ class Admin {
      */
     public function clear_data()
     {
-        $token = $_POST['token'];
+        $token = isset($_POST['token']) ? $_POST['token'] : null;
         $clear = isset($_POST['clear']) ? $_POST['clear'] : null;
-        $key = get_option("wpp_rand");
 
         if (
             current_user_can('manage_options')
-            && ( $token === $key )
+            && wp_verify_nonce($token, 'wpp_nonce_reset_data')
             && $clear
         ) {
             global $wpdb;
@@ -1192,11 +1205,10 @@ class Admin {
 
         if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
             $token = isset($_POST['token']) ? $_POST['token'] : null;
-            $key = get_option("wpp_rand");
 
             if (
                 current_user_can('edit_published_posts')
-                && ( $token === $key )
+                && wp_verify_nonce($token, 'wpp_nonce_reset_thumbnails')
             ) {
                 if ( is_dir($wpp_uploads_dir['basedir']) ) {
                     $files = glob("{$wpp_uploads_dir['basedir']}/*"); // get all related images

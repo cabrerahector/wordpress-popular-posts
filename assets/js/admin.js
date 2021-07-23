@@ -2,6 +2,11 @@
     "use strict";
     $(function () {
 
+        if ( $('#wpp-chart').length && WPPChart.canRender() ) {
+            $("#wpp-chart p").remove();
+            WPPChart.init('wpp-chart');
+        }
+
         // Stats config
         $("#wpp-stats-config-btn, #wpp_stats_options .button-secondary").on("click", function(e){
             e.preventDefault();
@@ -295,6 +300,10 @@
             .open();
 
         });
+        $('#wpp-reset-image-cache').on('click', function(e){
+            e.preventDefault();
+            confirm_clear_image_cache();
+        });
         // log limit
         $("#log_limit").change(function(){
             var me = $(this);
@@ -353,5 +362,132 @@
                 $("#cache_too_long").hide();
             }
         });
+
+        $("#wpp-reset-cache").on("click", function(e){
+            e.preventDefault();
+            confirm_reset_cache();
+        });
+
+        $("#wpp-reset-all").on("click", function(e){
+            e.preventDefault();
+            confirm_reset_all();
+        });
     });
+
+    // TOOLS
+    function confirm_reset_cache() {
+        if ( confirm(wpp_admin_params.text_confirm_reset_cache_table + " \n\n" + wpp_admin_params.text_continue) ) {
+            jQuery.post(
+                ajaxurl,
+                {
+                    action: 'wpp_clear_data',
+                    token: wpp_admin_params.nonce_reset_data,
+                    clear: 'cache'
+                }, function(data){
+                    var response = "";
+
+                    switch( data ) {
+                        case "1":
+                            response = wpp_admin_params.text_cache_table_cleared;
+                            break;
+
+                        case "2":
+                            response = wpp_admin_params.text_cache_table_missing;
+                            break;
+
+                        case "3":
+                            response = wpp_admin_params.text_invalid_action;
+                            break;
+
+                        case "4":
+                            response = wpp_admin_params.text_insufficient_permissions;
+                            break;
+
+                        default:
+                            response = wpp_admin_params.text_invalid_action;
+                            break;
+                    }
+
+                    alert(response);
+                }
+            );
+        }
+    }
+
+    function confirm_reset_all() {
+        if ( confirm(wpp_admin_params.text_confirm_reset_all_tables + " \n\n" + wpp_admin_params.text_continue) ) {
+            jQuery.post(
+                ajaxurl,
+                {
+                    action: 'wpp_clear_data',
+                    token: wpp_admin_params.nonce_reset_data,
+                    clear: 'all'
+                }, function(data){
+                    var response = "";
+
+                    switch( data ) {
+                        case "1":
+                            response = wpp_admin_params.text_all_table_cleared;
+                            break;
+
+                        case "2":
+                            response = wpp_admin_params.text_tables_missing;
+                            break;
+
+                        case "3":
+                            response = wpp_admin_params.text_invalid_action;
+                            break;
+
+                        case "4":
+                            response = wpp_admin_params.text_insufficient_permissions;
+                            break;
+
+                        default:
+                            response = wpp_admin_params.text_invalid_action;
+                            break;
+                    }
+
+                    alert(response);
+                }
+            );
+        }
+    }
+
+    function confirm_clear_image_cache() {
+        if ( confirm(wpp_admin_params.text_confirm_image_cache_reset + " \n\n"  + wpp_admin_params.text_continue) ) {
+            jQuery.post(
+                ajaxurl,
+                {
+                    action: 'wpp_clear_thumbnail',
+                    token: wpp_admin_params.nonce_reset_thumbnails
+                }, function(data){
+                    var response = "";
+
+                    switch( data ) {
+                        case "1":
+                            response = wpp_admin_params.text_image_cache_cleared;
+                            break;
+
+                        case "2":
+                            response = wpp_admin_params.text_image_cache_already_empty;
+                            break;
+
+                        case "3":
+                            response = wpp_admin_params.text_invalid_action;
+                            break;
+
+                        case "4":
+                            response = wpp_admin_params.text_insufficient_permissions;
+                            break;
+
+                        default:
+                            response = wpp_admin_params.text_invalid_action;
+                            break;
+                    }
+
+                    alert(response);
+                }
+            );
+        }
+    }
 }(jQuery));

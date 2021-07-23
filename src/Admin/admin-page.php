@@ -106,134 +106,7 @@ if ( isset($_POST['section']) ) {
     }
 
 }
-
-$rand = md5(uniqid(rand(), true));
-
-if ( ! $wpp_rand = get_option("wpp_rand") ) {
-    add_option("wpp_rand", $rand);
-} else {
-    update_option("wpp_rand", $rand);
-}
-
 ?>
-<script type="text/javascript">
-    // TOOLS
-    function confirm_reset_cache() {
-        if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("This operation will delete all entries from WordPress Popular Posts' cache table and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("Do you want to continue?", 'wordpress-popular-posts'); ?>") ) {
-            jQuery.post(
-                ajaxurl,
-                {
-                    action: 'wpp_clear_data',
-                    token: '<?php echo get_option("wpp_rand"); ?>',
-                    clear: 'cache'
-                }, function(data){
-                    var response = "";
-
-                    switch( data ) {
-                        case "1":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Success! The cache table has been cleared!', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "2":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Error: cache table does not exist.', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "3":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Invalid action.', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "4":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        default:
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Invalid action.', 'wordpress-popular-posts'); ?>";
-                            break;
-                    }
-
-                    alert(response);
-                }
-            );
-        }
-    }
-
-    function confirm_reset_all() {
-        if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("This operation will delete all stored info from WordPress Popular Posts' data tables and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("Do you want to continue?", 'wordpress-popular-posts'); ?>")) {
-            jQuery.post(
-                ajaxurl,
-                {
-                    action: 'wpp_clear_data',
-                    token: '<?php echo get_option("wpp_rand"); ?>',
-                    clear: 'all'
-                }, function(data){
-                    var response = "";
-
-                    switch( data ) {
-                        case "1":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Success! All data have been cleared!', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "2":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Error: one or both data tables are missing.', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "3":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Invalid action.', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "4":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        default:
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Invalid action.', 'wordpress-popular-posts'); ?>";
-                            break;
-                    }
-
-                    alert(response);
-                }
-            );
-        }
-    }
-
-    function confirm_clear_image_cache() {
-        if ( confirm("<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("This operation will delete all cached thumbnails and cannot be undone.", 'wordpress-popular-posts'); ?> \n\n" + "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e("Do you want to continue?", 'wordpress-popular-posts'); ?>") ) {
-            jQuery.post(
-                ajaxurl,
-                {
-                    action: 'wpp_clear_thumbnail',
-                    token: '<?php echo get_option("wpp_rand"); ?>'
-                }, function(data){
-                    var response = "";
-
-                    switch( data ) {
-                        case "1":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Success! All files have been deleted!', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "2":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('The thumbnail cache is already empty!', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "3":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Invalid action.', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        case "4":
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts'); ?>";
-                            break;
-
-                        default:
-                            response = "<?php /*translators: Special characters (such as accents) must be replaced with Javascript Octal codes (eg. \341 is the Octal code for small a with acute accent) */ _e('Invalid action.', 'wordpress-popular-posts'); ?>";
-                            break;
-                    }
-
-                    alert(response);
-                }
-            );
-        }
-    }
-</script>
 
 <nav id="wpp-menu">
     <ul>
@@ -330,13 +203,6 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
 
         <div id="wpp-chart">
             <p><?php echo sprintf( __('Err... A nice little chart is supposed to be here, instead you are seeing this because your browser is too old. <br /> Please <a href="%s" target="_blank">get a better browser</a>.', 'wordpress-popular-posts'), 'https://browsehappy.com/'); ?></p>
-
-            <script>
-                if ( WPPChart.canRender() ) {
-                    jQuery("#wpp-chart p").remove();
-                    WPPChart.init('wpp-chart');
-                }
-            </script>
         </div>
     </div>
     <?php
@@ -465,7 +331,7 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
                     <tr valign="top">
                         <th scope="row"></th>
                         <td>
-                            <input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty image cache", 'wordpress-popular-posts'); ?>" onclick="confirm_clear_image_cache()">
+                            <input type="button" name="wpp-reset-image-cache" id="wpp-reset-image-cache" class="button-secondary" value="<?php _e("Empty image cache", 'wordpress-popular-posts'); ?>">
                             <p class="description"><?php _e("Use this button to clear WPP's thumbnails cache", 'wordpress-popular-posts'); ?>.</p>
                         </td>
                     </tr>
@@ -643,8 +509,8 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
             <br /><br />
 
             <p><?php _e('WordPress Popular Posts maintains data in two separate tables: one for storing the most popular entries on a daily basis (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts') ?></p>
-            <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", 'wordpress-popular-posts'); ?>" onclick="confirm_reset_cache()"> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
-            <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", 'wordpress-popular-posts'); ?>" onclick="confirm_reset_all()"> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
+            <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php _e("Empty cache", 'wordpress-popular-posts'); ?>"> <label for="wpp-reset-cache"><small><?php _e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
+            <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php _e("Clear all data", 'wordpress-popular-posts'); ?>"> <label for="wpp-reset-all"><small><?php _e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
         </div>
     </div>
     <!-- End tools -->
