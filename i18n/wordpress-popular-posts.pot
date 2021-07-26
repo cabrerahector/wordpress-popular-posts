@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2021-07-03 13:54-0400\n"
+"POT-Creation-Date: 2021-07-26 11:44-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/Admin.php:1098
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/Admin.php:1140
 #: ../src/Block/Widget/edit.js:125
 msgid "Edit"
 msgstr ""
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:270
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:143
 #: ../src/Block/Widget/edit.js:181
 msgid "Limit"
 msgstr ""
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Total views"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/Admin.php:724
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/Admin.php:766
 #: ../src/Block/Widget/edit.js:190 ../src/Widget/form.php:21
 msgid "Comments"
 msgstr ""
@@ -65,12 +65,12 @@ msgstr ""
 msgid "Last 24 Hours"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:326
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:199
 #: ../src/Block/Widget/edit.js:199 ../src/Widget/form.php:35
 msgid "Last 7 days"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:327
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:200
 #: ../src/Block/Widget/edit.js:200 ../src/Widget/form.php:36
 msgid "Last 30 days"
 msgstr ""
@@ -80,7 +80,7 @@ msgstr ""
 msgid "All-time"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:328
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:201
 #: ../src/Block/Widget/edit.js:202 ../src/Widget/form.php:38
 msgid "Custom"
 msgstr ""
@@ -93,25 +93,25 @@ msgstr ""
 msgid "Time Unit"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:297
-#: ../src/Admin/admin-page.php:551 ../src/Block/Widget/edit.js:217
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:170
+#: ../src/Admin/admin-page.php:417 ../src/Block/Widget/edit.js:217
 #: ../src/Widget/form.php:45
 msgid "Minute(s)"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:298
-#: ../src/Admin/admin-page.php:552 ../src/Block/Widget/edit.js:218
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:171
+#: ../src/Admin/admin-page.php:418 ../src/Block/Widget/edit.js:218
 #: ../src/Widget/form.php:46
 msgid "Hour(s)"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:299
-#: ../src/Admin/admin-page.php:553 ../src/Block/Widget/edit.js:219
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:172
+#: ../src/Admin/admin-page.php:419 ../src/Block/Widget/edit.js:219
 #: ../src/Widget/form.php:47
 msgid "Day(s)"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:273
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:146
 #: ../src/Block/Widget/edit.js:226 ../src/Widget/form.php:52
 msgid "Display only posts published within the selected Time Range"
 msgstr ""
@@ -277,10 +277,10 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:677
-#: ../src/Admin/admin-page.php:747 ../src/Admin/admin-page.php:754
-#: ../src/Admin/admin-page.php:761 ../src/Admin/admin-page.php:768
-#: ../src/Admin/admin-page.php:775 ../src/Block/Widget/edit.js:652
+#: ../assets/js/blocks/block-wpp-widget.js:1 ../src/Admin/admin-page.php:543
+#: ../src/Admin/admin-page.php:613 ../src/Admin/admin-page.php:620
+#: ../src/Admin/admin-page.php:627 ../src/Admin/admin-page.php:634
+#: ../src/Admin/admin-page.php:641 ../src/Block/Widget/edit.js:652
 #: ../src/Widget/form.php:226
 msgid "None"
 msgstr ""
@@ -320,95 +320,149 @@ msgstr ""
 msgid "Theme"
 msgstr ""
 
-#: ../src/Admin/Admin.php:371
+#: ../src/Admin/Admin.php:372
 #, php-format
 msgid "%s view in the last hour"
 msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:405 ../src/Admin/admin-page.php:350
+#: ../src/Admin/Admin.php:406 ../src/Admin/admin-page.php:216
 msgid "Trending now"
 msgstr ""
 
-#: ../src/Admin/Admin.php:493
+#: ../src/Admin/Admin.php:494
 msgid "View more"
 msgstr ""
 
-#: ../src/Admin/Admin.php:522
+#: ../src/Admin/Admin.php:523
 msgid "Use this image"
 msgstr ""
 
-#: ../src/Admin/Admin.php:575
+#: ../src/Admin/Admin.php:527
+msgid ""
+"This operation will delete all entries from WordPress Popular Posts' cache table and "
+"cannot be undone."
+msgstr ""
+
+#: ../src/Admin/Admin.php:528
+msgid "Success! The cache table has been cleared!"
+msgstr ""
+
+#: ../src/Admin/Admin.php:529
+msgid "Error: cache table does not exist."
+msgstr ""
+
+#: ../src/Admin/Admin.php:530
+msgid ""
+"This operation will delete all stored info from WordPress Popular Posts' data tables "
+"and cannot be undone."
+msgstr ""
+
+#: ../src/Admin/Admin.php:531
+msgid "Success! All data have been cleared!"
+msgstr ""
+
+#: ../src/Admin/Admin.php:532
+msgid "Error: one or both data tables are missing."
+msgstr ""
+
+#: ../src/Admin/Admin.php:533
+msgid "This operation will delete all cached thumbnails and cannot be undone."
+msgstr ""
+
+#: ../src/Admin/Admin.php:534
+msgid "Success! All files have been deleted!"
+msgstr ""
+
+#: ../src/Admin/Admin.php:535
+msgid "The thumbnail cache is already empty!"
+msgstr ""
+
+#: ../src/Admin/Admin.php:536
+msgid "Do you want to continue?"
+msgstr ""
+
+#: ../src/Admin/Admin.php:537
+msgid ""
+"Sorry, you do not have enough permissions to do this. Please contact the site "
+"administrator for support."
+msgstr ""
+
+#: ../src/Admin/Admin.php:538
+msgid "Invalid action."
+msgstr ""
+
+#: ../src/Admin/Admin.php:617
 msgid "Overview"
 msgstr ""
 
-#: ../src/Admin/Admin.php:576
+#: ../src/Admin/Admin.php:618
 msgid ""
 "Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics "
 "on what's popular on your site, tools to further tweak WPP to your needs, and more!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:582
+#: ../src/Admin/Admin.php:624
 msgid "Like this plugin?"
 msgstr ""
 
-#: ../src/Admin/Admin.php:584
+#: ../src/Admin/Admin.php:626
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress community!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:591
+#: ../src/Admin/Admin.php:633
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:598
+#: ../src/Admin/Admin.php:640
 #, php-format
 msgid ""
 "<p><strong>For more information:</strong></p><ul><li><a href=\"%1$s\">Documentation</"
 "a></li><li><a href=\"%2$s\">Support</a></li></ul>"
 msgstr ""
 
-#: ../src/Admin/Admin.php:624
+#: ../src/Admin/Admin.php:666
 msgid "Settings"
 msgstr ""
 
-#: ../src/Admin/Admin.php:625
+#: ../src/Admin/Admin.php:667
 msgid "Support"
 msgstr ""
 
-#: ../src/Admin/Admin.php:703 ../src/Admin/Admin.php:1092 ../src/Admin/Admin.php:1096
-#: ../src/Output.php:781
+#: ../src/Admin/Admin.php:745 ../src/Admin/Admin.php:1134 ../src/Admin/Admin.php:1138
+#: ../src/Output.php:759
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:703 ../src/Admin/Admin.php:1094 ../src/Admin/Admin.php:1096
-#: ../src/Output.php:764
+#: ../src/Admin/Admin.php:745 ../src/Admin/Admin.php:1136 ../src/Admin/Admin.php:1138
+#: ../src/Output.php:742
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Admin/Admin.php:728
+#: ../src/Admin/Admin.php:770
 msgid "Views"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1098
+#: ../src/Admin/Admin.php:1140
 msgid "View"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1109
+#: ../src/Admin/Admin.php:1151
 msgid ""
 "Looks like your site's activity is a little low right now. <br />Spread the word and "
 "come back later!"
 msgstr ""
 
-#: ../src/Admin/Admin.php:1371
+#: ../src/Admin/Admin.php:1397
 #, php-format
 msgid ""
 "<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You "
@@ -416,15 +470,23 @@ msgid ""
 "performance stays up to par."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:6 ../src/Admin/admin-page.php:241
+#: ../src/Admin/Admin.php:1401
+msgid "Dismiss"
+msgstr ""
+
+#: ../src/Admin/Admin.php:1401
+msgid "Remind me later"
+msgstr ""
+
+#: ../src/Admin/admin-page.php:6 ../src/Admin/admin-page.php:114
 msgid "Stats"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:7 ../src/Admin/admin-page.php:242
+#: ../src/Admin/admin-page.php:7 ../src/Admin/admin-page.php:115
 msgid "Tools"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:8 ../src/Admin/admin-page.php:243
+#: ../src/Admin/admin-page.php:8 ../src/Admin/admin-page.php:116
 msgid "Parameters"
 msgstr ""
 
@@ -437,103 +499,45 @@ msgstr ""
 msgid "Please provide the name of your custom field."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:122
-msgid ""
-"This operation will delete all entries from WordPress Popular Posts' cache table and "
-"cannot be undone."
-msgstr ""
-
-#: ../src/Admin/admin-page.php:122 ../src/Admin/admin-page.php:161
-#: ../src/Admin/admin-page.php:200
-msgid "Do you want to continue?"
-msgstr ""
-
-#: ../src/Admin/admin-page.php:134
-msgid "Success! The cache table has been cleared!"
-msgstr ""
-
-#: ../src/Admin/admin-page.php:138
-msgid "Error: cache table does not exist."
-msgstr ""
-
-#: ../src/Admin/admin-page.php:142 ../src/Admin/admin-page.php:150
-#: ../src/Admin/admin-page.php:181 ../src/Admin/admin-page.php:189
-#: ../src/Admin/admin-page.php:219 ../src/Admin/admin-page.php:227
-msgid "Invalid action."
-msgstr ""
-
-#: ../src/Admin/admin-page.php:146 ../src/Admin/admin-page.php:185
-#: ../src/Admin/admin-page.php:223
-msgid ""
-"Sorry, you do not have enough permissions to do this. Please contact the site "
-"administrator for support."
-msgstr ""
-
-#: ../src/Admin/admin-page.php:161
-msgid ""
-"This operation will delete all stored info from WordPress Popular Posts' data tables "
-"and cannot be undone."
-msgstr ""
-
-#: ../src/Admin/admin-page.php:173
-msgid "Success! All data have been cleared!"
-msgstr ""
-
-#: ../src/Admin/admin-page.php:177
-msgid "Error: one or both data tables are missing."
-msgstr ""
-
-#: ../src/Admin/admin-page.php:200
-msgid "This operation will delete all cached thumbnails and cannot be undone."
-msgstr ""
-
-#: ../src/Admin/admin-page.php:211
-msgid "Success! All files have been deleted!"
-msgstr ""
-
-#: ../src/Admin/admin-page.php:215
-msgid "The thumbnail cache is already empty!"
-msgstr ""
-
-#: ../src/Admin/admin-page.php:240
+#: ../src/Admin/admin-page.php:113
 msgid "Menu"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:267
+#: ../src/Admin/admin-page.php:140
 msgid "Post type"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:279 ../src/Admin/admin-page.php:311
-#: ../src/Admin/admin-page.php:478 ../src/Admin/admin-page.php:585
-#: ../src/Admin/admin-page.php:631
+#: ../src/Admin/admin-page.php:152 ../src/Admin/admin-page.php:184
+#: ../src/Admin/admin-page.php:344 ../src/Admin/admin-page.php:451
+#: ../src/Admin/admin-page.php:497
 msgid "Apply"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:280 ../src/Admin/admin-page.php:314
+#: ../src/Admin/admin-page.php:153 ../src/Admin/admin-page.php:187
 msgid "Cancel"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:289
+#: ../src/Admin/admin-page.php:162
 msgid "Custom Time Range"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:290
+#: ../src/Admin/admin-page.php:163
 msgid "Date Range"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:304
+#: ../src/Admin/admin-page.php:177
 msgid "Select a date..."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:324
+#: ../src/Admin/admin-page.php:197
 msgid "Today"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:325 ../src/Widget/form.php:34
+#: ../src/Admin/admin-page.php:198 ../src/Widget/form.php:34
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:332
+#: ../src/Admin/admin-page.php:205
 #, php-format
 msgid ""
 "Err... A nice little chart is supposed to be here, instead you are seeing this because "
@@ -541,196 +545,196 @@ msgid ""
 "browser</a>."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:348
+#: ../src/Admin/admin-page.php:214
 msgid "Most viewed"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:349
+#: ../src/Admin/admin-page.php:215
 msgid "Most commented"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:351
+#: ../src/Admin/admin-page.php:217
 msgid "Hall of Fame"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:391
+#: ../src/Admin/admin-page.php:257
 msgid "Thumbnails"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:397
+#: ../src/Admin/admin-page.php:263
 msgid "Default thumbnail"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:418
+#: ../src/Admin/admin-page.php:284
 msgid "Change thumbnail"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:421
+#: ../src/Admin/admin-page.php:287
 msgid "This image will be displayed when no thumbnail is available"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:425
+#: ../src/Admin/admin-page.php:291
 msgid "Pick image from"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:428
+#: ../src/Admin/admin-page.php:294
 msgid "Featured image"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:429
+#: ../src/Admin/admin-page.php:295
 msgid "First image on post"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:430
+#: ../src/Admin/admin-page.php:296
 msgid "First attachment"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:431
+#: ../src/Admin/admin-page.php:297
 msgid "Custom field"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:434
+#: ../src/Admin/admin-page.php:300
 msgid "Tell WordPress Popular Posts where it should get thumbnails from"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:438
+#: ../src/Admin/admin-page.php:304
 msgid "Lazy load"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:438 ../src/Admin/admin-page.php:535
-#: ../src/Admin/admin-page.php:563 ../src/Widget/form.php:7 ../src/Widget/form.php:54
+#: ../src/Admin/admin-page.php:304 ../src/Admin/admin-page.php:401
+#: ../src/Admin/admin-page.php:429 ../src/Widget/form.php:7 ../src/Widget/form.php:54
 #: ../src/Widget/form.php:60 ../src/Widget/form.php:88 ../src/Widget/form.php:98
 #: ../src/Widget/form.php:190
 msgid "What is this?"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:441
+#: ../src/Admin/admin-page.php:307
 msgid "No"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:442 ../src/Admin/admin-page.php:457
+#: ../src/Admin/admin-page.php:308 ../src/Admin/admin-page.php:323
 msgid "Yes"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:447
+#: ../src/Admin/admin-page.php:313
 msgid "Custom field name"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:453
+#: ../src/Admin/admin-page.php:319
 msgid "Resize image from Custom field?"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:456
+#: ../src/Admin/admin-page.php:322
 msgid "No, use image as is"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:468
+#: ../src/Admin/admin-page.php:334
 msgid "Empty image cache"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:469
+#: ../src/Admin/admin-page.php:335
 msgid "Use this button to clear WPP's thumbnails cache"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:489
+#: ../src/Admin/admin-page.php:355
 msgid "Data"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:495
+#: ../src/Admin/admin-page.php:361
 msgid "Log views from"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:498
+#: ../src/Admin/admin-page.php:364
 msgid "Visitors only"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:499
+#: ../src/Admin/admin-page.php:365
 msgid "Logged-in users only"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:500
+#: ../src/Admin/admin-page.php:366
 msgid "Everyone"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:506
+#: ../src/Admin/admin-page.php:372
 msgid "Log limit"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:509 ../src/Admin/admin-page.php:526
-#: ../src/Admin/admin-page.php:566 ../src/Admin/admin-page.php:616
+#: ../src/Admin/admin-page.php:375 ../src/Admin/admin-page.php:392
+#: ../src/Admin/admin-page.php:432 ../src/Admin/admin-page.php:482
 msgid "Disabled"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:510
+#: ../src/Admin/admin-page.php:376
 msgid "Keep data for"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:514
+#: ../src/Admin/admin-page.php:380
 msgid "day(s)"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:517
+#: ../src/Admin/admin-page.php:383
 msgid "Data older than the specified time frame will be automatically discarded"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:523
+#: ../src/Admin/admin-page.php:389
 msgid "Ajaxify widget"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:527 ../src/Admin/admin-page.php:567
-#: ../src/Admin/admin-page.php:615
+#: ../src/Admin/admin-page.php:393 ../src/Admin/admin-page.php:433
+#: ../src/Admin/admin-page.php:481
 msgid "Enabled"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:531
+#: ../src/Admin/admin-page.php:397
 msgid ""
 "If you are using a caching plugin such as WP Super Cache, enabling this feature will "
 "keep the popular list from being cached by it"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:535
+#: ../src/Admin/admin-page.php:401
 msgid "Data Caching"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:538
+#: ../src/Admin/admin-page.php:404
 msgid "Never cache"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:539
+#: ../src/Admin/admin-page.php:405
 msgid "Enable caching"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:543
+#: ../src/Admin/admin-page.php:409
 msgid ""
 "WPP can cache the popular list for a specified amount of time. Recommended for large / "
 "high traffic sites"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:547
+#: ../src/Admin/admin-page.php:413
 msgid "Refresh cache every"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:554
+#: ../src/Admin/admin-page.php:420
 msgid "Week(s)"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:555
+#: ../src/Admin/admin-page.php:421
 msgid "Month(s)"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:556
+#: ../src/Admin/admin-page.php:422
 msgid "Year(s)"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:559
+#: ../src/Admin/admin-page.php:425
 msgid "Really? That long?"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:563
+#: ../src/Admin/admin-page.php:429
 msgid "Data Sampling"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:571
+#: ../src/Admin/admin-page.php:437
 #, php-format
 msgid ""
 "By default, WordPress Popular Posts stores in database every single visit your site "
@@ -741,49 +745,49 @@ msgid ""
 "(for more, <a href=\"%2$s\" target=\"_blank\">please read here</a>)"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:575
+#: ../src/Admin/admin-page.php:441
 msgid "Sample Rate"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:579
+#: ../src/Admin/admin-page.php:445
 #, php-format
 msgid ""
 "A sampling rate of %d is recommended for large / high traffic sites. For lower traffic "
 "sites, you should lower the value"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:596
+#: ../src/Admin/admin-page.php:462
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:602
+#: ../src/Admin/admin-page.php:468
 msgid "Open links in"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:605
+#: ../src/Admin/admin-page.php:471
 msgid "Current window"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:606
+#: ../src/Admin/admin-page.php:472
 msgid "New tab/window"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:612
+#: ../src/Admin/admin-page.php:478
 msgid "Use plugin's stylesheet"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:619
+#: ../src/Admin/admin-page.php:485
 msgid ""
 "By default, the plugin includes a stylesheet called wpp.css which you can use to style "
 "your popular posts listing. If you wish to use your own stylesheet or do not want it "
 "to have it included in the header section of your site, use this."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:623
+#: ../src/Admin/admin-page.php:489
 msgid "Enable experimental features"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:645
+#: ../src/Admin/admin-page.php:511
 msgid ""
 "WordPress Popular Posts maintains data in two separate tables: one for storing the "
 "most popular entries on a daily basis (from now on, \"cache\"), and another one to "
@@ -792,23 +796,23 @@ msgid ""
 "tables, please use the buttons below to do so."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:646
+#: ../src/Admin/admin-page.php:512
 msgid "Empty cache"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:646
+#: ../src/Admin/admin-page.php:512
 msgid "Use this button to manually clear entries from WPP cache only"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:647
+#: ../src/Admin/admin-page.php:513
 msgid "Clear all data"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:647
+#: ../src/Admin/admin-page.php:513
 msgid "Use this button to manually clear entries from all WPP data tables"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:655
+#: ../src/Admin/admin-page.php:521
 #, php-format
 msgid ""
 "With the following parameters you can customize the popular posts list when using "
@@ -816,370 +820,370 @@ msgid ""
 "\"%2$s\">[wpp] shortcode</a>."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:665
+#: ../src/Admin/admin-page.php:531
 msgid "Parameter"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:666
+#: ../src/Admin/admin-page.php:532
 msgid "What it does "
 msgstr ""
 
-#: ../src/Admin/admin-page.php:667
+#: ../src/Admin/admin-page.php:533
 msgid "Possible values"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:668
+#: ../src/Admin/admin-page.php:534
 msgid "Defaults to"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:669
+#: ../src/Admin/admin-page.php:535
 msgid "Example"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:675
+#: ../src/Admin/admin-page.php:541
 msgid "Sets a heading for the list"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:676 ../src/Admin/admin-page.php:683
-#: ../src/Admin/admin-page.php:690 ../src/Admin/admin-page.php:739
-#: ../src/Admin/admin-page.php:746 ../src/Admin/admin-page.php:753
-#: ../src/Admin/admin-page.php:760 ../src/Admin/admin-page.php:767
-#: ../src/Admin/admin-page.php:774 ../src/Admin/admin-page.php:865
-#: ../src/Admin/admin-page.php:886 ../src/Admin/admin-page.php:893
+#: ../src/Admin/admin-page.php:542 ../src/Admin/admin-page.php:549
+#: ../src/Admin/admin-page.php:556 ../src/Admin/admin-page.php:605
+#: ../src/Admin/admin-page.php:612 ../src/Admin/admin-page.php:619
+#: ../src/Admin/admin-page.php:626 ../src/Admin/admin-page.php:633
+#: ../src/Admin/admin-page.php:640 ../src/Admin/admin-page.php:731
+#: ../src/Admin/admin-page.php:752 ../src/Admin/admin-page.php:759
 msgid "Text string"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:678 ../src/Admin/admin-page.php:685
-#: ../src/Admin/admin-page.php:692 ../src/Admin/admin-page.php:699
-#: ../src/Admin/admin-page.php:706 ../src/Admin/admin-page.php:713
-#: ../src/Admin/admin-page.php:720 ../src/Admin/admin-page.php:727
-#: ../src/Admin/admin-page.php:734 ../src/Admin/admin-page.php:741
-#: ../src/Admin/admin-page.php:748 ../src/Admin/admin-page.php:755
-#: ../src/Admin/admin-page.php:762 ../src/Admin/admin-page.php:769
-#: ../src/Admin/admin-page.php:776 ../src/Admin/admin-page.php:783
-#: ../src/Admin/admin-page.php:790 ../src/Admin/admin-page.php:797
-#: ../src/Admin/admin-page.php:804 ../src/Admin/admin-page.php:811
-#: ../src/Admin/admin-page.php:818 ../src/Admin/admin-page.php:825
-#: ../src/Admin/admin-page.php:832 ../src/Admin/admin-page.php:839
-#: ../src/Admin/admin-page.php:846 ../src/Admin/admin-page.php:853
-#: ../src/Admin/admin-page.php:860 ../src/Admin/admin-page.php:867
-#: ../src/Admin/admin-page.php:874 ../src/Admin/admin-page.php:881
-#: ../src/Admin/admin-page.php:888 ../src/Admin/admin-page.php:895
-#: ../src/Admin/admin-page.php:902
+#: ../src/Admin/admin-page.php:544 ../src/Admin/admin-page.php:551
+#: ../src/Admin/admin-page.php:558 ../src/Admin/admin-page.php:565
+#: ../src/Admin/admin-page.php:572 ../src/Admin/admin-page.php:579
+#: ../src/Admin/admin-page.php:586 ../src/Admin/admin-page.php:593
+#: ../src/Admin/admin-page.php:600 ../src/Admin/admin-page.php:607
+#: ../src/Admin/admin-page.php:614 ../src/Admin/admin-page.php:621
+#: ../src/Admin/admin-page.php:628 ../src/Admin/admin-page.php:635
+#: ../src/Admin/admin-page.php:642 ../src/Admin/admin-page.php:649
+#: ../src/Admin/admin-page.php:656 ../src/Admin/admin-page.php:663
+#: ../src/Admin/admin-page.php:670 ../src/Admin/admin-page.php:677
+#: ../src/Admin/admin-page.php:684 ../src/Admin/admin-page.php:691
+#: ../src/Admin/admin-page.php:698 ../src/Admin/admin-page.php:705
+#: ../src/Admin/admin-page.php:712 ../src/Admin/admin-page.php:719
+#: ../src/Admin/admin-page.php:726 ../src/Admin/admin-page.php:733
+#: ../src/Admin/admin-page.php:740 ../src/Admin/admin-page.php:747
+#: ../src/Admin/admin-page.php:754 ../src/Admin/admin-page.php:761
+#: ../src/Admin/admin-page.php:768
 msgid "With wpp_get_mostpopular():"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:678 ../src/Admin/admin-page.php:685
-#: ../src/Admin/admin-page.php:692 ../src/Admin/admin-page.php:699
-#: ../src/Admin/admin-page.php:706 ../src/Admin/admin-page.php:713
-#: ../src/Admin/admin-page.php:720 ../src/Admin/admin-page.php:727
-#: ../src/Admin/admin-page.php:734 ../src/Admin/admin-page.php:741
-#: ../src/Admin/admin-page.php:748 ../src/Admin/admin-page.php:755
-#: ../src/Admin/admin-page.php:762 ../src/Admin/admin-page.php:769
-#: ../src/Admin/admin-page.php:776 ../src/Admin/admin-page.php:783
-#: ../src/Admin/admin-page.php:790 ../src/Admin/admin-page.php:797
-#: ../src/Admin/admin-page.php:804 ../src/Admin/admin-page.php:811
-#: ../src/Admin/admin-page.php:818 ../src/Admin/admin-page.php:825
-#: ../src/Admin/admin-page.php:832 ../src/Admin/admin-page.php:839
-#: ../src/Admin/admin-page.php:846 ../src/Admin/admin-page.php:853
-#: ../src/Admin/admin-page.php:860 ../src/Admin/admin-page.php:867
-#: ../src/Admin/admin-page.php:874 ../src/Admin/admin-page.php:881
-#: ../src/Admin/admin-page.php:888 ../src/Admin/admin-page.php:895
-#: ../src/Admin/admin-page.php:902
+#: ../src/Admin/admin-page.php:544 ../src/Admin/admin-page.php:551
+#: ../src/Admin/admin-page.php:558 ../src/Admin/admin-page.php:565
+#: ../src/Admin/admin-page.php:572 ../src/Admin/admin-page.php:579
+#: ../src/Admin/admin-page.php:586 ../src/Admin/admin-page.php:593
+#: ../src/Admin/admin-page.php:600 ../src/Admin/admin-page.php:607
+#: ../src/Admin/admin-page.php:614 ../src/Admin/admin-page.php:621
+#: ../src/Admin/admin-page.php:628 ../src/Admin/admin-page.php:635
+#: ../src/Admin/admin-page.php:642 ../src/Admin/admin-page.php:649
+#: ../src/Admin/admin-page.php:656 ../src/Admin/admin-page.php:663
+#: ../src/Admin/admin-page.php:670 ../src/Admin/admin-page.php:677
+#: ../src/Admin/admin-page.php:684 ../src/Admin/admin-page.php:691
+#: ../src/Admin/admin-page.php:698 ../src/Admin/admin-page.php:705
+#: ../src/Admin/admin-page.php:712 ../src/Admin/admin-page.php:719
+#: ../src/Admin/admin-page.php:726 ../src/Admin/admin-page.php:733
+#: ../src/Admin/admin-page.php:740 ../src/Admin/admin-page.php:747
+#: ../src/Admin/admin-page.php:754 ../src/Admin/admin-page.php:761
+#: ../src/Admin/admin-page.php:768
 msgid "With the [wpp] shortcode:"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:682
+#: ../src/Admin/admin-page.php:548
 msgid "Set the opening tag for the heading of the list"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:689
+#: ../src/Admin/admin-page.php:555
 msgid "Set the closing tag for the heading of the list"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:696
+#: ../src/Admin/admin-page.php:562
 msgid "Sets the maximum number of popular posts to be shown on the listing"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:697 ../src/Admin/admin-page.php:711
-#: ../src/Admin/admin-page.php:781 ../src/Admin/admin-page.php:795
-#: ../src/Admin/admin-page.php:816 ../src/Admin/admin-page.php:823
+#: ../src/Admin/admin-page.php:563 ../src/Admin/admin-page.php:577
+#: ../src/Admin/admin-page.php:647 ../src/Admin/admin-page.php:661
+#: ../src/Admin/admin-page.php:682 ../src/Admin/admin-page.php:689
 msgid "Positive integer"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:703
+#: ../src/Admin/admin-page.php:569
 msgid ""
 "Tells WordPress Popular Posts to retrieve the most popular entries within the time "
 "range specified by you"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:710
+#: ../src/Admin/admin-page.php:576
 msgid "Especifies the number of time units of the custom time range"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:717
+#: ../src/Admin/admin-page.php:583
 msgid "Especifies the time unit of the custom time range"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:724
+#: ../src/Admin/admin-page.php:590
 msgid ""
 "Tells WordPress Popular Posts to retrieve the most popular entries published within "
 "the time range specified by you"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:731
+#: ../src/Admin/admin-page.php:597
 msgid "Sets the sorting option of the popular posts"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:732
+#: ../src/Admin/admin-page.php:598
 msgid "(for average views per day)"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:738
+#: ../src/Admin/admin-page.php:604
 msgid "Defines the type of posts to show on the listing"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:745
+#: ../src/Admin/admin-page.php:611
 msgid ""
 "If set, WordPress Popular Posts will exclude the specified post(s) ID(s) form the "
 "listing."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:752
+#: ../src/Admin/admin-page.php:618
 msgid ""
 "If set, WordPress Popular Posts will retrieve all entries that belong to the specified "
 "category ID(s). If a minus sign is used, entries associated to the category will be "
 "excluded instead."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:759
+#: ../src/Admin/admin-page.php:625
 msgid "If set, WordPress Popular Posts will filter posts by a given taxonomy."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:766
+#: ../src/Admin/admin-page.php:632
 msgid ""
 "If set, WordPress Popular Posts will retrieve all entries that belong to the specified "
 "term ID(s). If a minus sign is used, entries associated to the term(s) will be "
 "excluded instead."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:773
+#: ../src/Admin/admin-page.php:639
 msgid ""
 "If set, WordPress Popular Posts will retrieve all entries created by specified "
 "author(s) ID(s)."
 msgstr ""
 
-#: ../src/Admin/admin-page.php:780
+#: ../src/Admin/admin-page.php:646
 msgid ""
 "If set, WordPress Popular Posts will shorten each post title to \"n\" characters "
 "whenever possible"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:787
+#: ../src/Admin/admin-page.php:653
 msgid ""
 "If set to 1, WordPress Popular Posts will shorten each post title to \"n\" words "
 "instead of characters"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:794
+#: ../src/Admin/admin-page.php:660
 msgid ""
 "If set, WordPress Popular Posts will build and include an excerpt of \"n\" characters "
 "long from the content of each post listed as popular"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:801
+#: ../src/Admin/admin-page.php:667
 msgid ""
 "If set, WordPress Popular Posts will maintaing all styling tags (strong, italic, etc) "
 "and hyperlinks found in the excerpt"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:808
+#: ../src/Admin/admin-page.php:674
 msgid ""
 "If set to 1, WordPress Popular Posts will shorten the excerpt to \"n\" words instead "
 "of characters"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:815
+#: ../src/Admin/admin-page.php:681
 msgid ""
 "If set, and if your current server configuration allows it, you will be able to "
 "display thumbnails of your posts. This attribute sets the width for thumbnails"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:822
+#: ../src/Admin/admin-page.php:688
 msgid ""
 "If set, and if your current server configuration allows it, you will be able to "
 "display thumbnails of your posts. This attribute sets the height for thumbnails"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:829
+#: ../src/Admin/admin-page.php:695
 msgid ""
 "If set, and if the WP-PostRatings plugin is installed and enabled on your blog, "
 "WordPress Popular Posts will show how your visitors are rating your entries"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:836
+#: ../src/Admin/admin-page.php:702
 msgid ""
 "If set, WordPress Popular Posts will show how many comments each popular post has got "
 "during the specified time range"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:843
+#: ../src/Admin/admin-page.php:709
 msgid ""
 "If set, WordPress Popular Posts will show how many views each popular post has got "
 "during the specified time range"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:850
+#: ../src/Admin/admin-page.php:716
 msgid ""
 "If set, WordPress Popular Posts will show who published each popular post on the list"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:857
+#: ../src/Admin/admin-page.php:723
 msgid ""
 "If set, WordPress Popular Posts will display the date when each popular post on the "
 "list was published"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:864
+#: ../src/Admin/admin-page.php:730
 msgid "Sets the date format"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:871
+#: ../src/Admin/admin-page.php:737
 msgid ""
 "If set, WordPress Popular Posts will display the categories associated to each entry"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:878
+#: ../src/Admin/admin-page.php:744
 msgid ""
 "If set, WordPress Popular Posts will display the taxonomies associated to each entry"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:885
+#: ../src/Admin/admin-page.php:751
 msgid "Sets the opening tag for the listing"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:892
+#: ../src/Admin/admin-page.php:758
 msgid "Sets the closing tag for the listing"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:899
+#: ../src/Admin/admin-page.php:765
 msgid "Sets the HTML structure of each post"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "Text string, custom HTML"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "Available Content Tags"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid ""
 "returns thumbnail linked to post/page, requires thumbnail_width & thumbnail_height"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid ""
 "returns thumbnail image without linking to post/page, requires thumbnail_width & "
 "thumbnail_height"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns thumbnail url, requires thumbnail_width & thumbnail_height"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns linked post/page title"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns the post/page ID"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns post/page excerpt, and requires excerpt_length to be greater than 0"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns the default stats tags"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns post/page current rating, requires WP-PostRatings installed and enabled"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid ""
 "returns post/page current rating as an integer, requires WP-PostRatings installed and "
 "enabled"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns the URL of the post/page"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns post/page title, no link"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "similar to text_title, sanitized for use in title/alt attributes"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns linked author name, requires stats_author=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns linked author name with copy, requires stats_author=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns linked category name, requires stats_category=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns linked category name with copy, requires stats_category=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns linked taxonomy names, requires stats_taxonomy=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns linked taxonomy names with copy, requires stats_taxonomy=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns views count only, no text, requires stats_views=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns views count with copy, requires stats_views=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns comments count only, no text, requires stats_comments=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns comments count with copy, requires stats_comments=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns post/page date, requires stats_date=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "returns post/page date with copy, requires stats_date=1"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "outputs number of popular posts found"
 msgstr ""
 
-#: ../src/Admin/admin-page.php:900
+#: ../src/Admin/admin-page.php:766
 msgid "outputs the position of the post in the listing"
 msgstr ""
 
@@ -1187,38 +1191,38 @@ msgstr ""
 msgid "A highly customizable block that displays your most popular posts."
 msgstr ""
 
-#: ../src/Output.php:271
+#: ../src/Output.php:249
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: ../src/Output.php:612
+#: ../src/Output.php:590
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: ../src/Output.php:775
+#: ../src/Output.php:753
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/Output.php:793
+#: ../src/Output.php:771
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: ../src/Output.php:798
+#: ../src/Output.php:776
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: ../src/Output.php:798
+#: ../src/Output.php:776
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: ../src/Output.php:803
+#: ../src/Output.php:781
 #, php-format
 msgid "under %s"
 msgstr ""

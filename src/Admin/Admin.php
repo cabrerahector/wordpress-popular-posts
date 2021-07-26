@@ -132,6 +132,7 @@ class Admin {
         add_action('wpp_cache_event', [$this, 'purge_data']);
         // Maybe performance nag
         add_action('wpp_maybe_performance_nag', [$this, 'performance_check']);
+        add_action('wp_ajax_wpp_handle_performance_notice', [$this, 'handle_performance_notice']);
         // Show notices
         add_action('admin_notices', [$this, 'notices']);
     }
@@ -543,6 +544,33 @@ class Admin {
                 // Fontello icons
                 wp_enqueue_style('wpp-fontello', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/fontello.css', [], WPP_VERSION, 'all');
                 wp_enqueue_style('wordpress-popular-posts-admin-styles', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/admin.css', [], WPP_VERSION, 'all');
+            }
+        }
+
+        $performance_nag = get_option('wpp_performance_nag');
+
+        if (
+            isset($performance_nag['status'])
+            && 3 != $performance_nag['status'] // 0 = inactive, 1 = active, 2 = remind me later, 3 = dismissed
+        ) {
+            $now = Helper::timestamp();
+
+            // How much time has passed since the notice was last displayed?
+            $last_checked = isset($performance_nag['last_checked']) ? $performance_nag['last_checked'] : 0;
+
+            if ( $last_checked ) {
+                $last_checked = ($now - $last_checked) / (60 * 60);
+            }
+
+            if (
+                1 == $performance_nag['status']
+                || ( 2 == $performance_nag['status'] && $last_checked && $last_checked >= 24 )
+            ) {
+                wp_register_script('wpp-admin-notices', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin-notices.js', [], WPP_VERSION);
+                wp_localize_script('wpp-admin-notices', 'wpp_admin_notices_params', [
+                    'nonce_performance_nag' => wp_create_nonce("wpp_nonce_performance_nag")
+                ]);
+                wp_enqueue_script('wpp-admin-notices');
             }
         }
     }
@@ -1352,44 +1380,68 @@ class Admin {
         ) {
             $now = Helper::timestamp();
 
-            if ( isset($_GET['wpp_dismiss_performance_notice']) || isset($_GET['wpp_remind_performance_notice']) ) {
-                // User dismissed the notice
-                if ( isset($_GET['wpp_dismiss_performance_notice']) ) {
-                    $performance_nag['status'] = 3;
-                } // User asked us to remind them later
-                else {
-                    $performance_nag['status'] = 2;
-                    $performance_nag['last_checked'] = $now;
-                }
+            // How much time has passed since the notice was last displayed?
+            $last_checked = isset($performance_nag['last_checked']) ? $performance_nag['last_checked'] : 0;
 
-                update_option('wpp_performance_nag', $performance_nag);
-                echo '<script>window.location.replace("'. esc_url(remove_query_arg(['wpp_dismiss_performance_notice', 'wpp_remind_performance_notice'])) .'");</script>';
-            } // Maybe display the notice
-            else {
-                // How much time has passed since the notice was last displayed?
-                $last_checked = $performance_nag['last_checked'];
+            if ( $last_checked ) {
+                $last_checked = ($now - $last_checked) / (60 * 60);
+            }
 
-                if ( $last_checked ) {
-                    $last_checked = ($now - $last_checked) / (60 * 60);
-                }
-
-                if (
-                    1 == $performance_nag['status']
-                    || ( 2 == $performance_nag['status'] && $last_checked && $last_checked >= 24 )
-                ) {
-                ?>
-                <div class="notice notice-warning">
-                    <p><?php printf(
-                        __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these suggestions</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'),
-                        'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance'
-                    ) ?></p>
-                    <?php if ( current_user_can('manage_options') ) : ?>
-                    <p><a href="<?php echo add_query_arg('wpp_dismiss_performance_notice', '1'); ?>">Dismiss</a> | <a href="<?php echo add_query_arg('wpp_remind_performance_notice', '1'); ?>">Remind me later</a></p>
-                    <?php endif; ?>
-                </div>
-                <?php
-                }
+            if (
+                1 == $performance_nag['status']
+                || ( 2 == $performance_nag['status'] && $last_checked && $last_checked >= 24 )
+            ) {
+            ?>
+            <div class="notice notice-warning">
+                <p><?php printf(
+                    __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these suggestions</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'),
+                    'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance'
+                ) ?></p>
+                <?php if ( current_user_can('manage_options') ) : ?>
+                <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo add_query_arg('wpp_dismiss_performance_notice', '1'); ?>"><?php _e("Dismiss", "wordpress-popular-posts"); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo add_query_arg('wpp_remind_performance_notice', '1'); ?>"><?php _e("Remind me later", "wordpress-popular-posts"); ?></a> <span class="spinner" style="float: none;"></span></p>
+                <?php endif; ?>
+            </div>
+            <?php
             }
         }
+    }
+
+    /**
+     * Handles performance notice click event.
+     *
+     * @since
+     */
+    public function handle_performance_notice()
+    {
+        $response = [
+            'status' => 'error'
+        ];
+        $token = isset($_POST['token']) ? $_POST['token'] : null;
+        $dismiss = isset($_POST['dismiss']) ? $_POST['dismiss'] : 0;
+
+        if (
+            current_user_can('manage_options')
+            && wp_verify_nonce($token, 'wpp_nonce_performance_nag')
+        ) {
+            $now = Helper::timestamp();
+
+            // User dismissed the notice
+            if ( 1 == $dismiss ) {
+                $performance_nag['status'] = 3;
+            } // User asked us to remind them later
+            else {
+                $performance_nag['status'] = 2;
+            }
+
+            $performance_nag['last_checked'] = $now;
+
+            update_option('wpp_performance_nag', $performance_nag);
+
+            $response = [
+                'status' => 'success'
+            ];
+        }
+
+        wp_send_json($response);
     }
 }
