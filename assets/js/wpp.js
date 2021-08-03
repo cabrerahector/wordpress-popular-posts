@@ -6,30 +6,45 @@ var WordPressPopularPosts = (function(){
     var noop = function(){};
     var supportsShadowDOMV1 = !! HTMLElement.prototype.attachShadow;
 
-    var get = function( url, params, callback ){
+    var get = function( url, params, callback, additional_headers ){
         callback = ( 'function' === typeof callback ) ? callback : noop;
-        ajax( "GET", url, params, callback );
+        ajax( "GET", url, params, callback, additional_headers );
     };
 
-    var post = function( url, params, callback ){
+    var post = function( url, params, callback, additional_headers ){
         callback = ( 'function' === typeof callback ) ? callback : noop;
-        ajax( "POST", url, params, callback );
+        ajax( "POST", url, params, callback, additional_headers );
     };
 
-    var ajax = function( method, url, params, callback ){
+    var ajax = function( method, url, params, callback, additional_headers ){
         /* Create XMLHttpRequest object and set variables */
         var xhr = new XMLHttpRequest(),
         target = url,
         args = params,
-        valid_methods = ["GET", "POST"];
-        method = -1 != valid_methods.indexOf( method ) ? method : "GET";
-        /* Set request method and target URL */
-        xhr.open( method, target + ( "GET" == method ? '?' + args : '' ), true );
+        valid_methods = ["GET", "POST"],
+        method = -1 != valid_methods.indexOf( method ) ? method : "GET",
+        headers = {
+            'X-Requested-With': 'XMLHttpRequest'
+        };
+
         /* Set request headers */
-        if ( "POST" == method ) {
-            xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        if ( 'POST' == method ) {
+            headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
-        xhr.setRequestHeader( "X-Requested-With","XMLHttpRequest" );
+
+        if ( 'object' == typeof additional_headers && Object.keys(additional_headers).length ) {
+            headers = Object.assign({}, headers, additional_headers);
+        }
+
+        /* Set request method and target URL */
+        xhr.open( method, target + ( 'GET' == method ? '?' + args : '' ), true );
+
+        for (const key in headers) {
+            if ( headers.hasOwnProperty(key) ) {
+                xhr.setRequestHeader( key, headers[key] );
+            }
+        }
+
         /* Hook into onreadystatechange */
         xhr.onreadystatechange = function() {
             if ( 4 === xhr.readyState && 200 <= xhr.status && 300 > xhr.status ) {
@@ -38,8 +53,9 @@ var WordPressPopularPosts = (function(){
                 }
             }
         };
+
         /* Send request */
-        xhr.send( ( "POST" == method ? args : null ) );
+        xhr.send( ( 'POST' == method ? args : null ) );
     };
 
     var theme = function(wpp_list) {
@@ -106,9 +122,8 @@ var WordPressPopularPosts = (function(){
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
-    var widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder');
-
-    var w = 0;
+    var widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder, .wpp-widget-block-placeholder'),
+        w = 0;
 
     while ( w < widget_placeholders.length ) {
         fetchWidget(widget_placeholders[w]);
@@ -124,37 +139,59 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchWidget(widget_placeholder) {
-        WordPressPopularPosts.get(
-            wpp_params.ajax_url + '/widget/' + widget_placeholder.getAttribute('data-widget-id').split('-')[1],
-            'is_single=' + wpp_params.ID + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' ),
-            function(response) {
-                widget_placeholder.insertAdjacentHTML('afterend', JSON.parse(response).widget);
+        let widget_id_attr = widget_placeholder.getAttribute('data-widget-id'),
+            method = 'GET',
+            url = '',
+            headers = {},
+            params = '';
 
-                let parent = widget_placeholder.parentNode,
-                    sr = parent.querySelector('.popular-posts-sr');
+        if ( widget_id_attr ) {
+            url = wpp_params.ajax_url + '/widget/' + widget_id_attr.split('-')[1];
+            params = 'is_single=' + wpp_params.ID + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
+        } else {
+            method = 'POST';
+            url = wpp_params.api_url + '/v2/widget?is_single=' + wpp_params.ID + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
+            headers = {
+                'Content-Type': 'application/json'
+            };
 
-                parent.removeChild(widget_placeholder);
+            let json_tag = widget_placeholder.parentNode.querySelector('script[type="application/json"]');
 
-                if ( sr ) {
-                    WordPressPopularPosts.theme(sr);
-                }
-
-                let event = null;
-
-                if ( 'function' === typeof(Event) ) {
-                    event = new Event("wpp-onload", {"bubbles": true, "cancelable": false});
-                } /* Fallback for older browsers */
-                else {
-                    if ( document.createEvent ) {
-                        event = document.createEvent('Event');
-                        event.initEvent("wpp-onload", true, false);
-                    }
-                }
-
-                if ( event ) {
-                    parent.dispatchEvent(event);
-                }
+            if ( json_tag ) {
+                let args = JSON.parse(json_tag.textContent);
+                params = JSON.stringify(args);
             }
+        }
+
+        WordPressPopularPosts.ajax(
+            method,
+            url,
+            params,
+            function(response) {
+                renderWidget(response, widget_placeholder);
+            },
+            headers
         );
+    }
+
+    function renderWidget(response, widget_placeholder) {
+        widget_placeholder.insertAdjacentHTML('afterend', JSON.parse(response).widget);
+
+        let parent = widget_placeholder.parentNode,
+            sr = parent.querySelector('.popular-posts-sr'),
+            json_tag = parent.querySelector('script[type="application/json"]');
+
+        if ( json_tag )
+            parent.removeChild(json_tag);
+
+        parent.removeChild(widget_placeholder);
+        parent.classList.add('wpp-ajax');
+
+        if ( sr ) {
+            WordPressPopularPosts.theme(sr);
+        }
+
+        let event = new Event("wpp-onload", {"bubbles": true, "cancelable": false});
+        parent.dispatchEvent(event);
     }
 });

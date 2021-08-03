@@ -43,6 +43,18 @@ class WidgetEndpoint extends Endpoint {
                 'args'                => $this->get_widget_params(),
             ]
         ]);
+
+        $version = '2';
+        $namespace = 'wordpress-popular-posts/v' . $version;
+
+        register_rest_route($namespace, '/widget/', [
+            [
+                'methods'             => 'POST',
+                'callback'            => [$this, 'get_widget_block'],
+                'permission_callback' => '__return_true',
+                'args'                => $this->get_widget_params(),
+            ]
+        ]);
     }
 
     /**
@@ -109,6 +121,41 @@ class WidgetEndpoint extends Endpoint {
         }
 
         return false;
+    }
+
+    /**
+     * Retrieves a popular posts widget for display.
+     *
+     * @since 5.4.0
+     *
+     * @param \WP_REST_Request $request Full details about the request.
+     * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
+     */
+    public function get_widget_block($request)
+    {
+        $instance = $request->get_params();
+
+        $is_single = $request->get_param('is_single');
+        $lang = $request->get_param('lang');
+
+        // Multilang support
+        $this->set_lang($lang);
+
+        $popular_posts = $this->maybe_query($instance);
+
+        if ( is_numeric($is_single) && $is_single > 0 ) {
+            add_filter('wpp_is_single', function($id) use ($is_single) {
+                return $is_single;
+            });
+        }
+
+        $this->output->set_data($popular_posts->get_posts());
+        $this->output->set_public_options($instance);
+        $this->output->build_output();
+
+        return [
+            'widget' => ( $this->config['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $this->output->get_output()
+        ];
     }
 
     /**

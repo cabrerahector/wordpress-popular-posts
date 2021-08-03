@@ -16,6 +16,10 @@ registerBlockType('wordpress-popular-posts/widget', {
             type: 'boolean',
             default: true
         },
+        _isSelected: {
+            type: 'boolean',
+            default: false
+        },
         title: {
             type: 'string',
         },

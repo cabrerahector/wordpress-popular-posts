@@ -144,7 +144,7 @@ class Widget extends Block
             'block-wpp-widget-js',
             plugin_dir_url(dirname(dirname(dirname(__FILE__)))) . 'assets/js/blocks/block-wpp-widget.js',
             ['wp-blocks', 'wp-i18n', 'wp-element', 'wp-block-editor', 'wp-server-side-render'],
-            WPP_VERSION
+            filemtime(plugin_dir_path(dirname(dirname(dirname(__FILE__)))) . 'assets/js/blocks/block-wpp-widget.js')
         );
 
         wp_register_style(
@@ -164,6 +164,10 @@ class Widget extends Block
                     '_editMode' => [
                         'type' => 'boolean',
                         'default' => true
+                    ],
+                    '_isSelected' => [
+                        'type' => 'boolean',
+                        'default' => false
                     ],
                     'title' => [
                         'type' => 'string',
@@ -442,6 +446,15 @@ class Widget extends Block
                 $query_args['markup']['title-start'] = apply_filters('wpp_block_before_title', '<h2>');
                 $query_args['markup']['title-end'] = apply_filters('wpp_block_after_title', '</h2>');
             }
+        }
+
+        $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;
+
+        if ( $this->admin_options['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
+            $html .= '<script type="application/json">' . json_encode($query_args) . '</script>';
+            $html .= '<div class="wpp-widget-block-placeholder"></div>';
+
+            return $html;
         }
 
         // Return cached results

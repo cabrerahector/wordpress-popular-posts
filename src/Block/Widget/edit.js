@@ -743,6 +743,7 @@ export class WPPWidgetBlockEdit extends Component
                             block={this.props.name}
                             className={className}
                             attributes={attributes}
+                            urlQueryArgs={{isSelected: isSelected}}
                         />
                     </Disabled>
                 }

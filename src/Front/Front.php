@@ -146,6 +146,7 @@ class Front {
             'sampling_active' => (int) $this->config['tools']['sampling']['active'],
             'sampling_rate' => (int) $this->config['tools']['sampling']['rate'],
             'ajax_url' => esc_url_raw(rest_url('wordpress-popular-posts/v1/popular-posts')),
+            'api_url' => esc_url_raw(rest_url('wordpress-popular-posts')),
             'ID' => (int) $is_single,
             'token' => wp_create_nonce('wp_rest'),
             'lang' => function_exists('PLL') ? $this->translate->get_current_language() : 0,
