@@ -94,10 +94,6 @@ class Output {
         $this->themer = $themer;
 
         $this->more = '...';
-
-        // Allow customization of the more (...) string
-        if ( has_filter('wpp_excerpt_more') )
-            $this->more = apply_filters('wpp_excerpt_more', $this->more);
     }
 
     /**
@@ -545,7 +541,8 @@ class Output {
         // Balance tags, if needed
         if ( '' !== $excerpt ) {
 
-            $excerpt = Helper::truncate($excerpt, $this->public_options['post-excerpt']['length'], $this->public_options['post-excerpt']['words'], $this->more);
+            $more = apply_filters('wpp_excerpt_more', $this->more);
+            $excerpt = Helper::truncate($excerpt, $this->public_options['post-excerpt']['length'], $this->public_options['post-excerpt']['words'], $more);
 
             if ( $this->public_options['post-excerpt']['keep_format'] )
                 $excerpt = force_balance_tags($excerpt);
