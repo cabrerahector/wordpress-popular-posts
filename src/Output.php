@@ -283,7 +283,8 @@ class Output {
               ? $this->public_options['shorten_title']['length']
               : 25;
 
-            $post_title = Helper::truncate($post_title, $length, $this->public_options['shorten_title']['words'], $this->more);
+            $more = apply_filters('wpp_title_more', $this->more);
+            $post_title = Helper::truncate($post_title, $length, $this->public_options['shorten_title']['words'], $more);
         }
 
         // Thumbnail
