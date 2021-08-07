@@ -773,7 +773,7 @@ class Output {
 
         // date
         if ( $this->public_options['stats_tag']['date']['active'] ) {
-            $stats['date'] = '<span class="wpp-date">' . ( 'relative' == $this->public_options['stats_tag']['date']['format'] ? sprintf(__('posted %s', 'wordpress-popular-posts'), $date) : sprintf(__('posted on %s', 'wordpress-popular-posts'), $date) ) . '</span>';
+            $stats['date'] = '<span class="wpp-date">' . ( 'relative' == $this->public_options['stats_tag']['date']['format'] ? sprintf(__('posted %s', 'wordpress-popular-posts'), $date) : ('l, j. F Y' == $this->public_options['stats_tag']['date']['format'] ? sprintf(__('%s', 'wordpress-popular-posts'), $date) : sprintf(__('posted on %s', 'wordpress-popular-posts'), $date) ) ) . '</span>';
         }
 
         // taxonomy
