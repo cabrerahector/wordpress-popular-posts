@@ -441,11 +441,12 @@ class Widget extends Block
         }
 
         // Has user set a title?
-        if ( '' != $query_args['title'] ) {
-            if ( ! $query_args['markup']['custom_html'] ) {
-                $query_args['markup']['title-start'] = apply_filters('wpp_block_before_title', '<h2>');
-                $query_args['markup']['title-end'] = apply_filters('wpp_block_after_title', '</h2>');
-            }
+        if (
+            ! empty($query_args['title'])
+            && ! empty($query_args['markup']['title-start'])
+            && ! empty($query_args['markup']['title-end'])
+        ) {
+            $html .= htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
         }
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;
