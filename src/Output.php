@@ -352,6 +352,7 @@ class Output {
         if ( $this->public_options['markup']['custom_html'] ) {
             $data = [
                 'id' => $post_id,
+                'is_current_post' => $is_current_post,
                 'title' => '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'class="wpp-post-title" target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_title . '</a>',
                 'title_attr' => $post_title_attr,
                 'summary' => $post_excerpt,
@@ -798,13 +799,17 @@ class Output {
             return false;
 
         $params = [];
-        $pattern = '/\{(pid|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|author_copy|taxonomy|taxonomy_copy|category|category_copy|views|views_copy|comments|comments_copy|date|date_copy|total_items|item_position)\}/i';
+        $pattern = '/\{(pid|current_class|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|author_copy|taxonomy|taxonomy_copy|category|category_copy|views|views_copy|comments|comments_copy|date|date_copy|total_items|item_position)\}/i';
         preg_match_all($pattern, $string, $matches);
 
         array_map('strtolower', $matches[0]);
 
         if ( in_array("{pid}", $matches[0]) ) {
             $string = str_replace("{pid}", $data['id'], $string);
+        }
+
+        if ( in_array("{current_class}", $matches[0]) ) {
+            $string = str_replace("{current_class}", ( $data['is_current_post'] ? 'current' : '' ), $string);
         }
 
         if ( in_array("{title}", $matches[0]) ) {

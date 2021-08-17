@@ -44,7 +44,7 @@
         "markup": {
             "wpp-start": "<ul class=\"wpp-list wpp-sunrise\">",
             "wpp-end": "</ul>",
-            "post-html": "<li style=\"--item-position: {item_position}; --total-items: {total_items};\"><div class=\"item-position\"></div> <div class=\"item-data\">{title}</div></li>"
+            "post-html": "<li class=\"{current_class}\" style=\"--item-position: {item_position}; --total-items: {total_items};\"><div class=\"item-position\"></div> <div class=\"item-data\">{title}</div></li>"
         }
     }
 }
