@@ -125,7 +125,7 @@ class Widget extends Block
     }
 
     /**
-     * 
+     * Registers the block.
      *
      * @since   5.4.0
      */
