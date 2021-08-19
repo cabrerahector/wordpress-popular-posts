@@ -1,6 +1,21 @@
 Changelog
 =========
 
+#### 5.4.0 ####
+
+**If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
+
+- The widget block is no longer an experimental feature and is now available to everyone (but it's still a WIP).
+- Widget block: adds AJAX support to prevent caching plugins from caching your popular posts block.
+- Widget block: adds WPML/Polylang support.
+- Widget block: fixes widget heading not displaying.
+- Widget themes: allow themes to detect the current post so it can be styled differently.
+- Fixes `wpp_excerpt_more` filter hook not working (props to SchweizerSchoggi!)
+- Adds filter hook `wpp_title_more` to allow customization of the prefix added to shortened post titles.
+- Removes inline JavaScript code from WPP's dashboard in preparation for [WordPress' CSP adoption](https://core.trac.wordpress.org/ticket/51407).
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/)
+
 #### 5.3.6 ####
 
 - Fixes a potential authenticated stored XSS vulnerability (props to pluginvulnerabilities.com).
