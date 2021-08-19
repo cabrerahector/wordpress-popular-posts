@@ -136,6 +136,12 @@ class Widget extends Block
             return;
         }
 
+        $block_editor_support = apply_filters('wpp_block_editor_support', true);
+
+        if ( ! $block_editor_support ) {
+            return;
+        }
+
         wp_enqueue_script(
             'block-wpp-widget-js',
             plugin_dir_url(dirname(dirname(dirname(__FILE__)))) . 'assets/js/blocks/block-wpp-widget.js',
