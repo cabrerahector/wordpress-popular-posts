@@ -283,7 +283,8 @@ class Output {
               ? $this->public_options['shorten_title']['length']
               : 25;
 
-            $more = apply_filters('wpp_title_more', $this->more);
+            $more = $this->public_options['shorten_title']['words'] ? ' ' . $this->more : $this->more;
+            $more = apply_filters('wpp_title_more', $more);
             $post_title = Helper::truncate($post_title, $length, $this->public_options['shorten_title']['words'], $more);
         }
 
@@ -545,7 +546,8 @@ class Output {
         // Balance tags, if needed
         if ( '' !== $excerpt ) {
 
-            $more = apply_filters('wpp_excerpt_more', $this->more);
+            $more = $this->public_options['post-excerpt']['words'] ? ' ' . $this->more : $this->more;
+            $more = apply_filters('wpp_excerpt_more', $more);
             $excerpt = Helper::truncate($excerpt, $this->public_options['post-excerpt']['length'], $this->public_options['post-excerpt']['words'], $more);
 
             if ( $this->public_options['post-excerpt']['keep_format'] )

@@ -268,7 +268,7 @@ class Helper {
 
                 if ( count($words) > $length ) {
                     array_pop($words);
-                    $text = rtrim(implode(" ", $words), ",.") . " {$more}";
+                    $text = rtrim(implode(" ", $words), ",.") . $more;
                 }
             }
             // Truncate by characters
