@@ -1,6 +1,16 @@
 Changelog
 =========
 
+#### 5.4.1 ####
+
+**If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
+
+- Widget block: fixes WPP block loading block editor JS files on the front end.
+- Adds filter hook to disable Block editor support.
+- Improves logic of filter hooks `wpp_excerpt_more` and `wpp_title_more`.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/#5.4.1)
+
 #### 5.4.0 ####
 
 **If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
