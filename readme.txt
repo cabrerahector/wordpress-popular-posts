@@ -104,6 +104,7 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Widget block: fixes WPP block loading block editor JS files on the front end.
 - Adds filter hook to disable Block editor support.
 - Improves logic of filter hooks `wpp_excerpt_more` and `wpp_title_more`.
+- The Parameters section has been moved to the Wiki (see https://git.io/JEOrX).
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/#5.4.1)
 
