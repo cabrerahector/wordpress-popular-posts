@@ -161,20 +161,21 @@ var WPPChart = (function() {
         config.data.datasets[1].label = data.datasets[1].label;
         config.data.datasets[1].data = data.datasets[1].data;
 
+        var colors_arr = wpp_chart_params.colors.slice(-2);
 
-        var rgb_comments = HexToRGB(wpp_chart_params.colors[2]);
+        var rgb_comments = HexToRGB(colors_arr[0]);
         config.data.datasets[1].backgroundColor = "rgba(" + rgb_comments.r + ", " + rgb_comments.g + ", " + rgb_comments.b + ", 0.9)";
-        config.data.datasets[1].borderColor = wpp_chart_params.colors[2];
-        config.data.datasets[1].pointBorderColor = wpp_chart_params.colors[2];
-        config.data.datasets[1].pointHoverBackgroundColor = wpp_chart_params.colors[2];
-        config.data.datasets[1].pointHoverBorderColor = wpp_chart_params.colors[2];
+        config.data.datasets[1].borderColor = colors_arr[0];
+        config.data.datasets[1].pointBorderColor = colors_arr[0];
+        config.data.datasets[1].pointHoverBackgroundColor = colors_arr[0];
+        config.data.datasets[1].pointHoverBorderColor = colors_arr[0];
 
-        var rgb_views = HexToRGB(wpp_chart_params.colors[3]);
+        var rgb_views = HexToRGB(colors_arr[1]);
         config.data.datasets[0].backgroundColor = "rgba(" + rgb_views.r + ", " + rgb_views.g + ", " + rgb_views.b + ",  0.7)";
-        config.data.datasets[0].borderColor = wpp_chart_params.colors[3];
-        config.data.datasets[0].pointBorderColor = wpp_chart_params.colors[3];
-        config.data.datasets[0].pointHoverBackgroundColor = wpp_chart_params.colors[3];
-        config.data.datasets[0].pointHoverBorderColor = wpp_chart_params.colors[3];
+        config.data.datasets[0].borderColor = colors_arr[1];
+        config.data.datasets[0].pointBorderColor = colors_arr[1];
+        config.data.datasets[0].pointHoverBackgroundColor = colors_arr[1];
+        config.data.datasets[0].pointHoverBorderColor = colors_arr[1];
 
         chart = new Chart(cvs, config);
     };
