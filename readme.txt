@@ -97,6 +97,12 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 5.4.2 =
+
+- Fixes a rare issue that prevented some users from seeing the Statistics chart (thanks Zsolt!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/#5.4.2)
+
 = 5.4.1 =
 
 **If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+#### 5.4.2 ####
+
+- Fixes a rare issue that prevented some users from seeing the Stats chart (thanks Zsolt!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/#5.4.1)
+
 #### 5.4.1 ####
 
 **If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
