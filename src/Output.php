@@ -848,8 +848,8 @@ class Output {
 
                 if ( $img_tag->length ) {
                     foreach( $img_tag as $node ) {
-                        if ( $node->hasAttribute('src') || $node->hasAttribute('data-img-src') ) {
-                            $src = $node->hasAttribute('src') ? $node->getAttribute('src') : $node->getAttribute('data-img-src');
+                        if ( $node->hasAttribute('src') ) {
+                            $src = $node->getAttribute('src');
                             $string = str_replace("{thumb_url}", $src, $string);
                         }
                     }
