@@ -584,6 +584,7 @@ export class WPPWidgetBlockEdit extends Component
                             { label: __('yyyy/mm/dd', 'wordpress-popular-posts'), value: 'Y/m/d' },
                             { label: __('mm/dd/yyyy', 'wordpress-popular-posts'), value: 'm/d/Y' },
                             { label: __('dd/mm/yyyy', 'wordpress-popular-posts'), value: 'd/m/Y' },
+                            { label: __('WordPress Date Format', 'wordpress-popular-posts'), value: WPP_OPTIONS.wp_date_format },
                         ]}
                         onChange={(value) => setAttributes({ stats_date_format: value })}
                     />
