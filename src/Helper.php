@@ -272,7 +272,7 @@ class Helper {
                 }
             }
             // Truncate by characters
-            elseif ( strlen($text) > $length ) {
+            elseif ( mb_strlen($text) > $length ) {
                 $text = rtrim(mb_substr($text, 0, $length , get_bloginfo('charset')), " ,.") . $more;
             }
         }
