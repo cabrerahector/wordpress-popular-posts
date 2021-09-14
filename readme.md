@@ -48,6 +48,7 @@ Looking for a **Recent Posts** widget just as featured-packed as WordPress Popul
 
 * WordPress 4.9 or above.
 * PHP 5.4+ or above.
+* Mbstring PHP Extension.
 * Since WordPress Popular Posts writes constantly to the database to keep track of page views, [InnoDB](https://en.wikipedia.org/wiki/InnoDB) support is required.
 
 
