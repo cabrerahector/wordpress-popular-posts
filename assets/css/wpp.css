@@ -52,6 +52,10 @@ Use the following classes to style your popular posts list as you like.
             font-size: 0.8em;
         }
 
+        .wpp-meta:empty, .post-stats:empty {
+            display: none;
+        }
+
             /* Comments count styles */
             .wpp-comments {
             }
