@@ -125,6 +125,8 @@ class Admin {
         // Flush cached thumbnail on featured image change/deletion
         add_action('updated_post_meta', [$this, 'updated_post_meta'], 10, 4);
         add_action('deleted_post_meta', [$this, 'deleted_post_meta'], 10, 4);
+        // Purge transients when sending post/page to trash
+        add_action('wp_trash_post', [$this, 'purge_data_cache']);
         // Purge post data on post/page deletion
         add_action('admin_init', [$this, 'purge_post_data']);
         // Purge old data on demand
@@ -1210,13 +1212,15 @@ class Admin {
      */
     private function flush_transients()
     {
-        $wpp_transients = get_option('wpp_transients');
+        global $wpdb;
+
+        $wpp_transients = $wpdb->get_results("SELECT tkey FROM {$wpdb->prefix}popularpoststransients;");
 
         if ( $wpp_transients && is_array($wpp_transients) && ! empty($wpp_transients) ) {
-            for ( $t=0; $t < count($wpp_transients); $t++ )
-                delete_transient($wpp_transients[$t]);
+            foreach( $wpp_transients as $wpp_transient )
+                delete_transient($wpp_transient->tkey);
 
-            update_option('wpp_transients', []);
+            $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}popularpoststransients;");
         }
     }
 
@@ -1317,6 +1321,16 @@ class Admin {
                 }
             }
         }
+    }
+
+    /**
+     * Purges data cache when a post/page is trashed.
+     *
+     * @since 5.5.0
+     */
+    public function purge_data_cache()
+    {
+        $this->flush_transients();
     }
 
     /**

@@ -96,17 +96,16 @@ class Cache {
         // Store transient
         set_transient($key, $data, $expiration);
 
-        // Store transient in WPP transients array for garbage collection
-        $wpp_transients = get_option('wpp_transients');
+        // Store transient keys in WPP's transients table for garbage collection
+        global $wpdb;
 
-        if ( !$wpp_transients ) {
-            $wpp_transients = [$key];
-            add_option('wpp_transients', $wpp_transients);
-        } else {
-            if ( !in_array($key, $wpp_transients) ) {
-                $wpp_transients[] = $key;
-                update_option('wpp_transients', $wpp_transients);
-            }
-        }
+        $wpdb->insert(
+            $wpdb->prefix . "popularpoststransients",
+            [
+                'tkey' => $key,
+                'tkey_date' => Helper::now()
+            ],
+            ['%s', '%s']
+        );
     }
 }

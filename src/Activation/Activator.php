@@ -75,6 +75,7 @@ class Activator {
         if (
             ! $wpp_ver
             || version_compare($wpp_ver, WPP_VERSION, '<')
+            || ( defined('WPP_DO_DB_TABLES') && WPP_DO_DB_TABLES )
         ) {
             global $wpdb;
 
@@ -119,7 +120,13 @@ class Activator {
             KEY postid (postid),
             KEY view_date (view_date),
             KEY view_datetime (view_datetime)
-        ) {$charset_collate} ENGINE=InnoDB;";
+        ) {$charset_collate} ENGINE=InnoDB;
+        CREATE TABLE {$prefix}transients (
+            ID bigint(20) NOT NULL AUTO_INCREMENT,
+            tkey varchar(191) NOT NULL,
+            tkey_date datetime NOT NULL,
+            PRIMARY KEY  (ID)
+        ) {$charset_collate} ENGINE=InnoDB";
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         \dbDelta($sql);
