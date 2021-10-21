@@ -148,6 +148,13 @@ class Widget extends Block
             ['wp-blocks', 'wp-i18n', 'wp-element', 'wp-block-editor', 'wp-server-side-render'],
             filemtime(plugin_dir_path(dirname(dirname(dirname(__FILE__)))) . 'assets/js/blocks/block-wpp-widget.js')
         );
+        wp_add_inline_script(
+            'block-wpp-widget-js',
+            'const WPP_OPTIONS = ' . json_encode([
+                'wp_date_format' => get_option('date_format'),
+            ]),
+            'before'
+        );
 
         wp_register_style(
             'block-wpp-editor-css',
