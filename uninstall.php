@@ -77,4 +77,5 @@ function uninstall() {
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}datacache_backup;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}log;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}summary;");
+    $wpdb->query("DROP TABLE IF EXISTS {$prefix}transients;");
 }
