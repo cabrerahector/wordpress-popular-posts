@@ -379,6 +379,8 @@ class Output {
                 'taxonomy_copy' => isset($meta_arr['taxonomy']) ? $meta_arr['taxonomy'] : null,
                 'author' => ( ! empty($post_author) ) ? '<a href="' . get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid ) . '">' . $post_author . '</a>' : '',
                 'author_copy' => isset($meta_arr['author']) ? $meta_arr['author'] : null,
+                'author_name' => $post_author,
+                'author_url' => ( ! empty($post_author) ) ? get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid ) : '',
                 'views' => ( $this->public_options['order_by'] == "views" || $this->public_options['order_by'] == "comments" ) ? ($prettify_numbers ? Helper::prettify_number($post_views) : number_format_i18n($post_views)) : ($prettify_numbers ? Helper::prettify_number($post_views, 2) : number_format_i18n($post_views, 2)),
                 'views_copy' => isset($meta_arr['views']) ? $meta_arr['views'] : null,
                 'comments' => $prettify_numbers ? Helper::prettify_number($post_comments) : number_format_i18n($post_comments),
@@ -827,7 +829,7 @@ class Output {
             return false;
 
         $params = [];
-        $pattern = '/\{(pid|current_class|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|author_copy|taxonomy|taxonomy_copy|category|category_copy|views|views_copy|comments|comments_copy|date|date_copy|total_items|item_position)\}/i';
+        $pattern = '/\{(pid|current_class|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|author_copy|author_name|author_url|taxonomy|taxonomy_copy|category|category_copy|views|views_copy|comments|comments_copy|date|date_copy|total_items|item_position)\}/i';
         preg_match_all($pattern, $string, $matches);
 
         array_map('strtolower', $matches[0]);
@@ -908,6 +910,14 @@ class Output {
 
         if ( in_array("{author_copy}", $matches[0]) ) {
             $string = str_replace("{author_copy}", $data['author_copy'], $string);
+        }
+
+        if ( in_array("{author_name}", $matches[0]) ) {
+            $string = str_replace("{author_name}", $data['author_name'], $string);
+        }
+
+        if ( in_array("{author_url}", $matches[0]) ) {
+            $string = str_replace("{author_url}", $data['author_url'], $string);
         }
 
         if ( in_array("{taxonomy}", $matches[0]) || in_array("{category}", $matches[0]) ) {
