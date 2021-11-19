@@ -59,6 +59,8 @@ class Themer {
         $directories = new \DirectoryIterator($this->path);
 
         foreach( $directories as $fileinfo ) {
+            if ( $fileinfo->isDot() || $fileinfo->isFile() )
+                continue;
             $this->load_theme($fileinfo->getPathName());
         }
 
