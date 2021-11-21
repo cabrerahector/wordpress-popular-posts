@@ -17,7 +17,7 @@
     "email": "me@cabrerahector.com",
     "url": "https://cabrerahector.com"
   },
-  "license": "GPL2",
+  "license": "GPL-2.0-or-later",
   "bugs": {
     "url": "https://github.com/cabrerahector/wordpress-popular-posts/issues"
   },
@@ -28,5 +28,7 @@
     "@babel/preset-react": "^7.13.13",
     "@wordpress/scripts": "16.1.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "caniuse-lite": "^1.0.30001282"
+  }
 }
