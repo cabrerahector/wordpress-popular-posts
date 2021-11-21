@@ -97,6 +97,16 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 5.5.0 =
+
+- Adds the Sort by Average Daily Views option from the classic widget to the WordPress Popular Posts block.
+- Adds the WordPress Date Format option from the classic widget to the WordPress Popular Posts block (please see announcements for details).
+- Adds new Content Tags: author_name and author_url.
+- Improves cached data garbage collection.
+- Other minor performances improvements and fixes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-5-qol-improvements-and-php-5-announcement/)
+
 = 5.4.2 =
 
 - Fixes a rare issue that prevented some users from seeing the Statistics chart (thanks Zsolt!)
