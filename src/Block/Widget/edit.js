@@ -187,6 +187,7 @@ export class WPPWidgetBlockEdit extends Component
                 value={attributes.order_by}
                 options={[
                     {label: __('Total views', 'wordpress-popular-posts'), value: 'views'},
+                    {label: __('Avg. daily views', 'wordpress-popular-posts'), value: 'avg'},
                     {label: __('Comments', 'wordpress-popular-posts'), value: 'comments'}
                 ]}
                 onChange={onOrderByChange}
