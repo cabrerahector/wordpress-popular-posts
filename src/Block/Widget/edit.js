@@ -560,7 +560,7 @@ export class WPPWidgetBlockEdit extends Component
                 onChange={(value) => setAttributes({ stats_comments: value })}
             />
             <CheckboxControl
-                label={__('Display views FOO', 'wordpress-popular-posts')}
+                label={__('Display views', 'wordpress-popular-posts')}
                 checked={attributes.stats_views}
                 onChange={(value) => setAttributes({ stats_views: value })}
             />
