@@ -19,13 +19,14 @@ var WordPressPopularPosts = (function(){
     var ajax = function( method, url, params, callback, additional_headers ){
         /* Create XMLHttpRequest object and set variables */
         var xhr = new XMLHttpRequest(),
-        target = url,
-        args = params,
-        valid_methods = ["GET", "POST"],
-        method = -1 != valid_methods.indexOf( method ) ? method : "GET",
-        headers = {
-            'X-Requested-With': 'XMLHttpRequest'
-        };
+            target = url,
+            args = params,
+            valid_methods = ["GET", "POST"],
+            headers = {
+                'X-Requested-With': 'XMLHttpRequest'
+            };
+
+        method = -1 != valid_methods.indexOf( method ) ? method : "GET";
 
         /* Set request headers */
         if ( 'POST' == method ) {
