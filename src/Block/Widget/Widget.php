@@ -457,7 +457,7 @@ class Widget extends Block
             $html .= '<script type="application/json">' . json_encode($query_args) . '</script>';
             $html .= '<div class="wpp-widget-block-placeholder"></div>';
 
-            return $html;
+            return $html . '</div>';
         }
 
         // Return cached results
