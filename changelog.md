@@ -1,6 +1,17 @@
 Changelog
 =========
 
+#### 5.5.1 ####
+
+**If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
+
+- Fixes an issue where the WordPress Popular Posts block would, under specific conditions, output code that may break the page layout (thanks shoelaced and themosaurus for the report!)
+- Fixes minor variable declaration bug in wpp.js.min.
+- Cleans up inline style tag (thanks gabu69 and @lflorent for the suggestions!)
+- Other minor fixes & changes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-5-qol-improvements-and-php-5-announcement/#minor-updates-and-hotfixes)
+
 #### 5.5.0 ####
 
 - Adds the Sort by Average Daily Views option from the classic widget to the WordPress Popular Posts block.
