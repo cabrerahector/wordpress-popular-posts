@@ -4,8 +4,11 @@ namespace WordPressPopularPosts\Widget;
 
 use WordPressPopularPosts\Helper;
 use WordPressPopularPosts\Query;
+use WordPressPopularPosts\Traits\QueriesPosts;
 
 class Widget extends \WP_Widget {
+
+    use QueriesPosts;
 
     /**
      * Default options.
@@ -21,7 +24,7 @@ class Widget extends \WP_Widget {
      * @since   2.3.3
      * @var	    array
      */
-    private $admin_options = [];
+    private $config = [];
 
     /**
      * Image object.
@@ -61,12 +64,13 @@ class Widget extends \WP_Widget {
      * @since   1.0.0
      * @param   array                            $options
      * @param   array                            $config
+     * @param   \WordPressPopularPosts\Query     $query
      * @param   \WordPressPopularPosts\Output    $output
      * @param   \WordPressPopularPosts\Image     $image
      * @param   \WordPressPopularPosts\Translate $translate
      * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $options, array $config, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Themer $themer)
+    public function __construct(array $options, array $config, Query $query, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Themer $themer)
     {
         // Create the widget
         parent::__construct(
@@ -79,11 +83,13 @@ class Widget extends \WP_Widget {
         );
 
         $this->defaults = $options;
-        $this->admin_options = $config;
+        $this->config = $config;
         $this->output = $output;
         $this->thumbnail = $thumbnail;
         $this->translate = $translate;
         $this->themer = $themer;
+
+        $this->set_query_object($query);
     }
 
     /**
@@ -159,7 +165,7 @@ class Widget extends \WP_Widget {
         $instance['id_base'] = $this->id_base;
 
         // Get posts
-        if ( $this->admin_options['tools']['ajax'] && ! is_customize_preview() ) {
+        if ( $this->config['tools']['ajax'] && ! is_customize_preview() ) {
             ?>
             <div class="wpp-widget-placeholder" data-widget-id="<?php echo esc_attr($widget_id); ?>"></div>
             <?php
@@ -389,37 +395,7 @@ class Widget extends \WP_Widget {
     public function get_popular($instance = null)
     {
         if ( is_array($instance) && ! empty($instance) ) {
-
-            // Return cached results
-            if ( $this->admin_options['tools']['cache']['active'] ) {
-
-                $key = md5(json_encode($instance));
-                $popular_posts = \WordPressPopularPosts\Cache::get($key);
-
-                if ( false === $popular_posts ) {
-                    $popular_posts = new Query($instance);
-
-                    $time_value = $this->admin_options['tools']['cache']['interval']['value']; // eg. 5
-                    $time_unit = $this->admin_options['tools']['cache']['interval']['time']; // eg. 'minute'
-
-                    // No popular posts found, check again in 1 minute
-                    if ( ! $popular_posts->get_posts() ) {
-                        $time_value = 1;
-                        $time_unit = 'minute';
-                    }
-
-                    \WordPressPopularPosts\Cache::set(
-                        $key,
-                        $popular_posts,
-                        $time_value,
-                        $time_unit
-                    );
-                }
-
-            } // Get popular posts
-            else {
-                $popular_posts = new Query($instance);
-            }
+            $popular_posts = $this->maybe_query($instance);
 
             $this->output->set_data($popular_posts->get_posts());
             $this->output->set_public_options($instance);

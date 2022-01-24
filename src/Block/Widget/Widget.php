@@ -5,9 +5,12 @@ use WordPressPopularPosts\Helper;
 use WordPressPopularPosts\Query;
 use WordPressPopularPosts\Output;
 use WordPressPopularPosts\Block\Block;
+use WordPressPopularPosts\Traits\QueriesPosts;
 
 class Widget extends Block
 {
+
+    use QueriesPosts;
 
     /**
      * Administrative settings.
@@ -16,7 +19,7 @@ class Widget extends Block
      * @var     array
      * @access  private
      */
-    private $admin_options = [];
+    private $config = [];
 
     /**
      * Image object.
@@ -68,18 +71,21 @@ class Widget extends Block
      *
      * @since   5.4.0
      * @param   array                            $config
+     * @param   \WordPressPopularPosts\Query     $query
      * @param   \WordPressPopularPosts\Output    $output
      * @param   \WordPressPopularPosts\Image     $image
      * @param   \WordPressPopularPosts\Translate $translate
      * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $config, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Themer $themer)
+    public function __construct(array $config, Query $query, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Themer $themer)
     {
-        $this->admin_options = $config;
+        $this->config = $config;
         $this->output = $output;
         $this->thumbnail = $thumbnail;
         $this->translate = $translate;
         $this->themer = $themer;
+
+        $this->set_query_object($query);
 
         $this->defaults = [
             'title' => '',
@@ -453,43 +459,14 @@ class Widget extends Block
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;
 
-        if ( $this->admin_options['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
+        if ( $this->config['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
             $html .= '<script type="application/json">' . json_encode($query_args) . '</script>';
             $html .= '<div class="wpp-widget-block-placeholder"></div>';
 
             return $html . '</div>';
         }
 
-        // Return cached results
-        if ( $this->admin_options['tools']['cache']['active'] ) {
-
-            $key = md5(json_encode($query_args));
-            $popular_posts = \WordPressPopularPosts\Cache::get($key);
-
-            if ( false === $popular_posts ) {
-                $popular_posts = new Query($query_args);
-
-                $time_value = $this->admin_options['tools']['cache']['interval']['value']; // eg. 5
-                $time_unit = $this->admin_options['tools']['cache']['interval']['time']; // eg. 'minute'
-
-                // No popular posts found, check again in 1 minute
-                if ( ! $popular_posts->get_posts() ) {
-                    $time_value = 1;
-                    $time_unit = 'minute';
-                }
-
-                \WordPressPopularPosts\Cache::set(
-                    $key,
-                    $popular_posts,
-                    $time_value,
-                    $time_unit
-                );
-            }
-
-        } // Get popular posts
-        else {
-            $popular_posts = new Query($query_args);
-        }
+        $popular_posts = $this->maybe_query($query_args);
 
         $this->output->set_data($popular_posts->get_posts());
         $this->output->set_public_options($query_args);

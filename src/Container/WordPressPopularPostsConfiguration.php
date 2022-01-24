@@ -1,6 +1,7 @@
 <?php
 namespace WordPressPopularPosts\Container;
 
+use WordPressPopularPosts\Query;
 use WordPressPopularPosts\Settings;
 
 class WordPressPopularPostsConfiguration implements ContainerConfigurationInterface
@@ -15,6 +16,10 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
     {
         $container['admin_options'] = Settings::get('admin_options');
         $container['widget_options'] = Settings::get('widget_options');
+
+        $container['query'] = function (Container $container) {
+            return new Query();
+        };
 
         $container['i18n'] = $container->service(function(Container $container) {
             return new \WordPressPopularPosts\I18N($container['admin_options']);
@@ -37,15 +42,15 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['widget'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Widget\Widget($container['widget_options'], $container['admin_options'], $container['output'], $container['image'], $container['translate'], $container['themer']);
+            return new \WordPressPopularPosts\Widget\Widget($container['widget_options'], $container['admin_options'], $container['query'], $container['output'], $container['image'], $container['translate'], $container['themer']);
         });
 
         $container['block_widget'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Block\Widget\Widget($container['admin_options'], $container['output'], $container['image'], $container['translate'], $container['themer']);
+            return new \WordPressPopularPosts\Block\Widget\Widget($container['admin_options'], $container['query'], $container['output'], $container['image'], $container['translate'], $container['themer']);
         });
 
         $container['posts_endpoint'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Rest\PostsEndpoint($container['admin_options'], $container['translate']);
+            return new \WordPressPopularPosts\Rest\PostsEndpoint($container['admin_options'], $container['translate'], $container['query']);
         });
 
         $container['view_logger_endpoint'] = $container->service(function(Container $container) {
@@ -65,7 +70,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['widget_endpoint'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Rest\WidgetEndpoint($container['admin_options'], $container['translate'], $container['output']);
+            return new \WordPressPopularPosts\Rest\WidgetEndpoint($container['admin_options'], $container['translate'], $container['output'], $container['query']);
         });
 
         $container['rest'] = $container->service(function(Container $container) {
@@ -73,11 +78,11 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['admin'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Admin\Admin($container['admin_options'], $container['image']);
+            return new \WordPressPopularPosts\Admin\Admin($container['admin_options'], $container['query'], $container['image']);
         });
 
         $container['front'] = $container->service(function(Container $container) {
-            return new \WordPressPopularPosts\Front\Front($container['admin_options'], $container['translate'], $container['output']);
+            return new \WordPressPopularPosts\Front\Front($container['admin_options'], $container['query'], $container['translate'], $container['output']);
         });
 
         $container['wpp'] = $container->service(function(Container $container) {

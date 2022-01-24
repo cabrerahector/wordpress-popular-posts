@@ -243,8 +243,9 @@ if ( isset($_POST['section']) ) {
                     ]
                 ]
             ];
-            $hof = new \WordPressPopularPosts\Query($args);
-            $posts = $hof->get_posts();
+            $posts = $this->query->set_options($args)
+                ->execute()
+                ->get_posts();
 
             $this->render_list($posts, 'hof');
             ?>

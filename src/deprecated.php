@@ -39,7 +39,8 @@ class WPP_Query extends \WordPressPopularPosts\Query {
      */
     public function __construct(array $options = [])
     {
-        parent::__construct($options);
+        $this->set_options($options);
+        $this->run();
         trigger_error('The WPP_Query class has been deprecated since 5.0.0. Please use \WordPressPopularPosts\Query instead.', E_USER_NOTICE);
     }
 }

@@ -14,8 +14,11 @@ namespace WordPressPopularPosts\Front;
 use WordPressPopularPosts\Helper;
 use WordPressPopularPosts\Output;
 use WordPressPopularPosts\Query;
+use WordPressPopularPosts\Traits\QueriesPosts;
 
 class Front {
+
+    use QueriesPosts;
 
     /**
      * Plugin options.
@@ -46,13 +49,16 @@ class Front {
      *
      * @since   5.0.0
      * @param   array                               $config     Admin settings.
+     * @param   \WordPressPopularPosts\Query        $query      Query class.
      * @param   \WordPressPopularPosts\Translate    $translate  Translate class.
      */
-    public function __construct(array $config, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Output $output)
+    public function __construct(array $config, Query $query, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Output $output)
     {
         $this->config = $config;
         $this->translate = $translate;
         $this->output = $output;
+
+        $this->set_query_object($query);
     }
 
     /**
@@ -450,38 +456,7 @@ class Front {
             $shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . $header . htmlspecialchars_decode($header_end, ENT_QUOTES);
         }
 
-        // Return cached results
-        if ( $this->config['tools']['cache']['active'] ) {
-
-            $key = md5(json_encode($shortcode_ops));
-            $popular_posts = \WordPressPopularPosts\Cache::get($key);
-
-            if ( false === $popular_posts ) {
-                $popular_posts = new Query($shortcode_ops);
-
-                $time_value = $this->config['tools']['cache']['interval']['value']; // eg. 5
-                $time_unit = $this->config['tools']['cache']['interval']['time']; // eg. 'minute'
-
-                // No popular posts found, check again in 1 minute
-                if ( ! $popular_posts->get_posts() ) {
-                    $time_value = 1;
-                    $time_unit = 'minute';
-                }
-
-                \WordPressPopularPosts\Cache::set(
-                    $key,
-                    $popular_posts,
-                    $time_value,
-                    $time_unit
-                );
-            }
-
-            $cached = true;
-
-        } // Get popular posts
-        else {
-            $popular_posts = new Query($shortcode_ops);
-        }
+        $popular_posts = $this->maybe_query($shortcode_ops);
 
         $this->output->set_data($popular_posts->get_posts());
         $this->output->set_public_options($shortcode_ops);

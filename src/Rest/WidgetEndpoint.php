@@ -1,7 +1,12 @@
 <?php
 namespace WordPressPopularPosts\Rest;
 
+use WordPressPopularPosts\Query;
+use WordPressPopularPosts\Traits\QueriesPosts;
+
 class WidgetEndpoint extends Endpoint {
+
+    use QueriesPosts;
 
     /**
      * Output object.
@@ -17,12 +22,15 @@ class WidgetEndpoint extends Endpoint {
      * @param   array
      * @param   \WordPressPopularPosts\Translate
      * @param   \WordPressPopularPosts\Output
+     * @param   \WordPressPopularPosts\Query
      */
-    public function __construct(array $config, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Output $output)
+    public function __construct(array $config, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Output $output, Query $query)
     {
         $this->config = $config;
         $this->translate = $translate;
         $this->output = $output;
+
+        $this->set_query_object($query);
     }
 
     /**

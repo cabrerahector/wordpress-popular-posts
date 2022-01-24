@@ -35,6 +35,15 @@ class Admin {
     private $config;
 
     /**
+     * Query object.
+     *
+     * @since   6.0.0
+     * @var     WordPressPopularPosts\Query
+     * @access  private
+     */
+    private $query;
+
+    /**
      * Image object
      *
      * @since   4.0.2
@@ -49,9 +58,10 @@ class Admin {
      * @param   array                               $config     Admin settings.
      * @param   \WordPressPopularPosts\Image        $thumbnail  Image class.
      */
-    public function __construct(array $config, \WordPressPopularPosts\Image $thumbnail)
+    public function __construct(array $config, Query $query, \WordPressPopularPosts\Image $thumbnail)
     {
         $this->config = $config;
+        $this->query = $query;
         $this->thumbnail = $thumbnail;
 
         // Delete old data on demand
@@ -488,8 +498,9 @@ class Admin {
         if ( is_array($options) && ! empty($options) )
             $args = Helper::merge_array_r($args, $options);
 
-        $trending = new Query($args);
-        $posts = $trending->get_posts();
+        $posts = $this->query->set_options($args)
+            ->execute()
+            ->get_posts();
 
         $this->render_list($posts, 'trending');
         echo '<p id="wpp_read_more"><a href="' . admin_url('options-general.php?page=wordpress-popular-posts') . '">' . __('View more', 'wordpress-popular-posts') . '</a><p>';
@@ -1099,8 +1110,9 @@ class Admin {
 
             }
 
-            $popular_items = new \WordPressPopularPosts\Query($args);
-            $posts = $popular_items->get_posts();
+            $posts = $this->query->set_options($args)
+                ->execute()
+                ->get_posts();
 
             if ( 'trending' != $items ) {
                 remove_all_filters('wpp_query_join', 1);
