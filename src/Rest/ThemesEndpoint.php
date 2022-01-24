@@ -1,6 +1,9 @@
 <?php
 namespace WordPressPopularPosts\Rest;
 
+use WordPressPopularPosts\Themer;
+use WordPressPopularPosts\Translate;
+
 class ThemesEndpoint extends Endpoint {
 
     /**
@@ -18,7 +21,7 @@ class ThemesEndpoint extends Endpoint {
      * @param   \WordPressPopularPosts\Translate
      * @param   \WordPressPopularPosts\Themer
      */
-    public function __construct(array $config, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Themer $themer)
+    public function __construct(array $config, Translate $translate, Themer $themer)
     {
         $this->config = $config;
         $this->translate = $translate;

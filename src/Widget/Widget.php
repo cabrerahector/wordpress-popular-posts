@@ -3,8 +3,12 @@
 namespace WordPressPopularPosts\Widget;
 
 use WordPressPopularPosts\Helper;
+use WordPressPopularPosts\Image;
+use WordPressPopularPosts\Output;
 use WordPressPopularPosts\Query;
+use WordPressPopularPosts\Themer;
 use WordPressPopularPosts\Traits\QueriesPosts;
+use WordPressPopularPosts\Translate;
 
 class Widget extends \WP_Widget {
 
@@ -70,7 +74,7 @@ class Widget extends \WP_Widget {
      * @param   \WordPressPopularPosts\Translate $translate
      * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $options, array $config, Query $query, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Themer $themer)
+    public function __construct(array $options, array $config, Query $query, Output $output, Image $thumbnail, Translate $translate, Themer $themer)
     {
         // Create the widget
         parent::__construct(

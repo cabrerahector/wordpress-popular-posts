@@ -13,6 +13,7 @@
 namespace WordPressPopularPosts\Admin;
 
 use WordPressPopularPosts\Helper;
+use WordPressPopularPosts\Image;
 use WordPressPopularPosts\Output;
 use WordPressPopularPosts\Query;
 
@@ -58,7 +59,7 @@ class Admin {
      * @param   array                               $config     Admin settings.
      * @param   \WordPressPopularPosts\Image        $thumbnail  Image class.
      */
-    public function __construct(array $config, Query $query, \WordPressPopularPosts\Image $thumbnail)
+    public function __construct(array $config, Query $query, Image $thumbnail)
     {
         $this->config = $config;
         $this->query = $query;

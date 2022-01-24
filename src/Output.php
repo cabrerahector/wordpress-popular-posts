@@ -91,9 +91,9 @@ class Output {
      * @param   array                           $admin_options
      * @param   WordPressPopularPosts\Image     $thumbnail
      * @param   WordPressPopularPosts\Translate $translate
-     * @param   \WordPressPopularPosts\Themer    $themer
+     * @param   WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $public_options, array $admin_options, Image $thumbnail, Translate $translate, \WordPressPopularPosts\Themer $themer)
+    public function __construct(array $public_options, array $admin_options, Image $thumbnail, Translate $translate, Themer $themer)
     {
         $this->public_options = $public_options;
         $this->admin_options = $admin_options;

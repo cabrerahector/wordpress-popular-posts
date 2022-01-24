@@ -61,7 +61,7 @@ class Controller {
      * @param   \WordPressPopularPosts\Rest\ThumbnailsEndpoint
      * @param   \WordPressPopularPosts\Rest\TaxonomiesEndpoint
      */
-    public function __construct(\WordPressPopularPosts\Rest\PostsEndpoint $posts_endpoint, \WordPressPopularPosts\Rest\ViewLoggerEndpoint $view_logger_endpoint, \WordPressPopularPosts\Rest\WidgetEndpoint $widget_endpoint, \WordPressPopularPosts\Rest\ThemesEndpoint $themes_endpoint, \WordPressPopularPosts\Rest\ThumbnailsEndpoint $thumbnails_endpoint, \WordPressPopularPosts\Rest\TaxonomiesEndpoint $taxonomies_endpoint)
+    public function __construct(PostsEndpoint $posts_endpoint, ViewLoggerEndpoint $view_logger_endpoint, WidgetEndpoint $widget_endpoint, ThemesEndpoint $themes_endpoint, ThumbnailsEndpoint $thumbnails_endpoint, TaxonomiesEndpoint $taxonomies_endpoint)
     {
         $this->posts_endpoint = $posts_endpoint;
         $this->view_logger_endpoint = $view_logger_endpoint;

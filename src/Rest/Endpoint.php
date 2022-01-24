@@ -1,6 +1,8 @@
 <?php
 namespace WordPressPopularPosts\Rest;
 
+use WordPressPopularPosts\Translate;
+
 abstract class Endpoint extends \WP_REST_Controller {
 
     /**
@@ -26,7 +28,7 @@ abstract class Endpoint extends \WP_REST_Controller {
      * @param   \WordPressPopularPosts\Translate
      * @param   \WordPressPopularPosts\Output
      */
-    public function __construct(array $config, \WordPressPopularPosts\Translate $translate)
+    public function __construct(array $config, Translate $translate)
     {
         $this->config = $config;
         $this->translate = $translate;

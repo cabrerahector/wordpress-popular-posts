@@ -2,10 +2,13 @@
 namespace WordPressPopularPosts\Block\Widget;
 
 use WordPressPopularPosts\Helper;
+use WordPressPopularPosts\Image;
 use WordPressPopularPosts\Query;
 use WordPressPopularPosts\Output;
 use WordPressPopularPosts\Block\Block;
 use WordPressPopularPosts\Traits\QueriesPosts;
+use WordPressPopularPosts\Themer;
+use WordPressPopularPosts\Translate;
 
 class Widget extends Block
 {
@@ -77,7 +80,7 @@ class Widget extends Block
      * @param   \WordPressPopularPosts\Translate $translate
      * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $config, Query $query, \WordPressPopularPosts\Output $output, \WordPressPopularPosts\Image $thumbnail, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Themer $themer)
+    public function __construct(array $config, Query $query, Output $output, Image $thumbnail, Translate $translate, Themer $themer)
     {
         $this->config = $config;
         $this->output = $output;

@@ -15,6 +15,7 @@ use WordPressPopularPosts\Helper;
 use WordPressPopularPosts\Output;
 use WordPressPopularPosts\Query;
 use WordPressPopularPosts\Traits\QueriesPosts;
+use WordPressPopularPosts\Translate;
 
 class Front {
 
@@ -52,7 +53,7 @@ class Front {
      * @param   \WordPressPopularPosts\Query        $query      Query class.
      * @param   \WordPressPopularPosts\Translate    $translate  Translate class.
      */
-    public function __construct(array $config, Query $query, \WordPressPopularPosts\Translate $translate, \WordPressPopularPosts\Output $output)
+    public function __construct(array $config, Query $query, Translate $translate, Output $output)
     {
         $this->config = $config;
         $this->translate = $translate;
