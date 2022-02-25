@@ -1,10 +1,8 @@
 <?php
 namespace WordPressPopularPosts\Rest;
 
-use WordPressPopularPosts\Output;
-use WordPressPopularPosts\Query;
+use WordPressPopularPosts\{ Output, Query, Translate };
 use WordPressPopularPosts\Traits\QueriesPosts;
-use WordPressPopularPosts\Translate;
 
 class WidgetEndpoint extends Endpoint {
 

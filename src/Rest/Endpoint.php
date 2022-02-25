@@ -26,7 +26,6 @@ abstract class Endpoint extends \WP_REST_Controller {
      *
      * @param   array
      * @param   \WordPressPopularPosts\Translate
-     * @param   \WordPressPopularPosts\Output
      */
     public function __construct(array $config, Translate $translate)
     {

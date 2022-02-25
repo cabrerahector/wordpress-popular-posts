@@ -1,9 +1,8 @@
 <?php
 namespace WordPressPopularPosts\Rest;
 
-use WordPressPopularPosts\Query;
+use WordPressPopularPosts\{ Query, Translate };
 use WordPressPopularPosts\Traits\QueriesPosts;
-use WordPressPopularPosts\Translate;
 
 class PostsEndpoint extends Endpoint {
 

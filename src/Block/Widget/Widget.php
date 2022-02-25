@@ -1,14 +1,9 @@
 <?php
 namespace WordPressPopularPosts\Block\Widget;
 
-use WordPressPopularPosts\Helper;
-use WordPressPopularPosts\Image;
-use WordPressPopularPosts\Query;
-use WordPressPopularPosts\Output;
+use WordPressPopularPosts\{ Helper, Image, Query, Output, Themer, Translate };
 use WordPressPopularPosts\Block\Block;
 use WordPressPopularPosts\Traits\QueriesPosts;
-use WordPressPopularPosts\Themer;
-use WordPressPopularPosts\Translate;
 
 class Widget extends Block
 {

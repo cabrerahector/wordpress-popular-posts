@@ -2,13 +2,8 @@
 
 namespace WordPressPopularPosts\Widget;
 
-use WordPressPopularPosts\Helper;
-use WordPressPopularPosts\Image;
-use WordPressPopularPosts\Output;
-use WordPressPopularPosts\Query;
-use WordPressPopularPosts\Themer;
+use WordPressPopularPosts\{ Helper, Image, Output, Query, Themer, Translate };
 use WordPressPopularPosts\Traits\QueriesPosts;
-use WordPressPopularPosts\Translate;
 
 class Widget extends \WP_Widget {
 

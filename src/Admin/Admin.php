@@ -12,10 +12,7 @@
 
 namespace WordPressPopularPosts\Admin;
 
-use WordPressPopularPosts\Helper;
-use WordPressPopularPosts\Image;
-use WordPressPopularPosts\Output;
-use WordPressPopularPosts\Query;
+use WordPressPopularPosts\{Helper, Image, Output, Query};
 
 class Admin {
 

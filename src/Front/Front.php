@@ -11,11 +11,8 @@
 
 namespace WordPressPopularPosts\Front;
 
-use WordPressPopularPosts\Helper;
-use WordPressPopularPosts\Output;
-use WordPressPopularPosts\Query;
+use WordPressPopularPosts\{ Helper, Output, Query, Translate };
 use WordPressPopularPosts\Traits\QueriesPosts;
-use WordPressPopularPosts\Translate;
 
 class Front {
 

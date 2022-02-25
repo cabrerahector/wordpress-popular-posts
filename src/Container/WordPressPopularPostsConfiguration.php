@@ -1,25 +1,12 @@
 <?php
 namespace WordPressPopularPosts\Container;
 
+use WordPressPopularPosts\{ Image, I18N, Output, Query, Settings, Themer, Translate, WordPressPopularPosts };
 use WordPressPopularPosts\Admin\Admin;
 use WordPressPopularPosts\Block\Widget\Widget as BlockWidget;
 use WordPressPopularPosts\Front\Front;
-use WordPressPopularPosts\Image;
-use WordPressPopularPosts\I18N;
-use WordPressPopularPosts\Output;
-use WordPressPopularPosts\Query;
-use WordPressPopularPosts\Rest\Controller;
-use WordPressPopularPosts\Rest\PostsEndpoint;
-use WordPressPopularPosts\Rest\TaxonomiesEndpoint;
-use WordPressPopularPosts\Rest\ThemesEndpoint;
-use WordPressPopularPosts\Rest\ThumbnailsEndpoint;
-use WordPressPopularPosts\Rest\ViewLoggerEndpoint;
-use WordPressPopularPosts\Rest\WidgetEndpoint;
-use WordPressPopularPosts\Settings;
-use WordPressPopularPosts\Themer;
-use WordPressPopularPosts\Translate;
+use WordPressPopularPosts\Rest\{ Controller, PostsEndpoint, TaxonomiesEndpoint, ThemesEndpoint, ThumbnailsEndpoint, ViewLoggerEndpoint, WidgetEndpoint };
 use WordPressPopularPosts\Widget\Widget;
-use WordPressPopularPosts\WordPressPopularPosts;
 
 class WordPressPopularPostsConfiguration implements ContainerConfigurationInterface
 {
