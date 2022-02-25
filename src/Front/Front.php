@@ -30,6 +30,15 @@ class Front {
     private $config;
 
     /**
+     * Query object.
+     *
+     * @since   6.0.0
+     * @var     WordPressPopularPosts\Query
+     * @access  private
+     */
+    private $query;
+
+    /**
      * Translate object.
      *
      * @var     \WordPressPopularPosts\Translate    $translate
@@ -56,6 +65,7 @@ class Front {
     public function __construct(array $config, Query $query, Translate $translate, Output $output)
     {
         $this->config = $config;
+        $this->query = $query;
         $this->translate = $translate;
         $this->output = $output;
 

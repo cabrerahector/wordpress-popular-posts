@@ -31,6 +31,15 @@ class Widget extends \WP_Widget {
     private $config = [];
 
     /**
+     * Query object.
+     *
+     * @since   6.0.0
+     * @var     WordPressPopularPosts\Query
+     * @access  private
+     */
+    private $query;
+
+    /**
      * Image object.
      *
      * @since   5.0.0
