@@ -621,7 +621,7 @@ export class WPPWidgetBlockEdit extends Component
 
                 setAttributes({
                     shorten_title: config.shorten_title.active,
-                    title_length: config.shorten_title.title_length,
+                    title_length: config.shorten_title.length,
                     title_by_words: config.shorten_title.words ? 1 : 0,
                     display_post_excerpt: config['post-excerpt'].active,
                     excerpt_format: config['post-excerpt'].format,
