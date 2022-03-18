@@ -108,14 +108,16 @@ if ( isset($_POST['section']) ) {
 }
 ?>
 
-<nav id="wpp-menu">
-    <ul>
-        <li><a href="#" title="<?php esc_attr_e('Menu'); ?>"><span><?php _e('Menu'); ?></span></a></li>
-        <li <?php echo ('stats' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=stats'); ?>" title="<?php esc_attr_e('Stats', 'wordpress-popular-posts'); ?>"><span><?php _e('Stats', 'wordpress-popular-posts'); ?></span></a></li>
-        <li <?php echo ('tools' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=tools'); ?>" title="<?php esc_attr_e('Tools', 'wordpress-popular-posts'); ?>"><span><?php _e('Tools', 'wordpress-popular-posts'); ?></span></a></li>
-        <li <?php echo ('debug' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=debug'); ?>" title="Debug"><span>Debug</span></a></li>
-    </ul>
-</nav>
+<?php if ( current_user_can('edit_others_posts') ) : ?>
+    <nav id="wpp-menu">
+        <ul>
+            <li><a href="#" title="<?php esc_attr_e('Menu'); ?>"><span><?php _e('Menu'); ?></span></a></li>
+            <li <?php echo ('stats' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=stats'); ?>" title="<?php esc_attr_e('Stats', 'wordpress-popular-posts'); ?>"><span><?php _e('Stats', 'wordpress-popular-posts'); ?></span></a></li>
+            <li <?php echo ('tools' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=tools'); ?>" title="<?php esc_attr_e('Tools', 'wordpress-popular-posts'); ?>"><span><?php _e('Tools', 'wordpress-popular-posts'); ?></span></a></li>
+            <li <?php echo ('debug' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=debug'); ?>" title="Debug"><span>Debug</span></a></li>
+        </ul>
+    </nav>
+<?php endif; ?>
 
 <div class="wpp-wrapper wpp-section-<?php echo $current; ?>">
     <div class="wpp-header">

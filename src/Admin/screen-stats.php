@@ -10,28 +10,30 @@ if ( 'stats' == $current ) {
     );
     ?>
 
-    <a href="#" id="wpp-stats-config-btn" class="dashicons dashicons-admin-generic"></a>
+    <?php if ( current_user_can('edit_others_posts') ) : ?>
+        <a href="#" id="wpp-stats-config-btn" class="dashicons dashicons-admin-generic"></a>
 
-    <div id="wpp-stats-config" class="wpp-lightbox">
-        <form action="" method="post" id="wpp_stats_options" name="wpp_stats_options">
-            <label for="stats_type"><?php _e("Post type", 'wordpress-popular-posts'); ?>:</label>
-            <input type="text" name="stats_type" value="<?php echo esc_attr($this->config['stats']['post_type']); ?>" size="15">
+        <div id="wpp-stats-config" class="wpp-lightbox">
+            <form action="" method="post" id="wpp_stats_options" name="wpp_stats_options">
+                <label for="stats_type"><?php _e("Post type", 'wordpress-popular-posts'); ?>:</label>
+                <input type="text" name="stats_type" value="<?php echo esc_attr($this->config['stats']['post_type']); ?>" size="15">
 
-            <label for="stats_limits"><?php _e("Limit", 'wordpress-popular-posts'); ?>:</label>
-            <input type="text" name="stats_limit" value="<?php echo $this->config['stats']['limit']; ?>" size="5">
+                <label for="stats_limits"><?php _e("Limit", 'wordpress-popular-posts'); ?>:</label>
+                <input type="text" name="stats_limit" value="<?php echo $this->config['stats']['limit']; ?>" size="5">
 
-            <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->config['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness"> <small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small></label>
+                <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->config['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness"> <small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small></label>
 
-            <div class="clear"></div>
-            <br /><br />
+                <div class="clear"></div>
+                <br /><br />
 
-            <input type="hidden" name="section" value="stats">
-            <button type="submit" class="button-primary action"><?php _e("Apply", 'wordpress-popular-posts'); ?></button>
-            <button class="button-secondary action right"><?php _e("Cancel"); ?></button>
+                <input type="hidden" name="section" value="stats">
+                <button type="submit" class="button-primary action"><?php _e("Apply", 'wordpress-popular-posts'); ?></button>
+                <button class="button-secondary action right"><?php _e("Cancel"); ?></button>
 
-            <?php wp_nonce_field('wpp-update-stats-options', 'wpp-update-stats-options-token'); ?>
-        </form>
-    </div>
+                <?php wp_nonce_field('wpp-update-stats-options', 'wpp-update-stats-options-token'); ?>
+            </form>
+        </div>
+    <?php endif; ?>
 
     <div id="wpp-stats-range" class="wpp-lightbox">
         <form action="" method="post">
