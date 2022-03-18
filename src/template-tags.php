@@ -13,7 +13,7 @@
  * @param   bool            $number_format  Whether to format the number (eg. 9,999) or not (eg. 9999)
  * @return  string
  */
-function wpp_get_views($id = NULL, $range = NULL, $number_format = true)
+function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range */
 {
     // have we got an id?
     if ( empty($id) || is_null($id) || ! is_numeric($id) )
@@ -141,7 +141,7 @@ function wpp_get_views($id = NULL, $range = NULL, $number_format = true)
  * @since   2.0.3
  * @param   mixed   $args
  */
-function wpp_get_mostpopular($args = NULL)
+function wpp_get_mostpopular($args = NULL) /** @TODO: starting PHP 8.0 $args can be declared as mixed $args */
 {
     $shortcode = '[wpp';
 

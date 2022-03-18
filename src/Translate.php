@@ -69,9 +69,9 @@ class Translate {
      * Sets the code of the currently active language.
      *
      * @since    4.0.0
-     * @return   string|null
+     * @return   string
      */
-    public function set_current_language($code = null)
+    public function set_current_language(string $code)
     {
         $this->current_language = $code;
     }
@@ -83,7 +83,7 @@ class Translate {
      * @param   string      $lang   Language code (eg. 'es')
      * @return  string|bool
      */
-    public function get_locale($lang = null)
+    public function get_locale(string $lang)
     {
         // Polylang support
         if ( function_exists('PLL') ) {
@@ -111,7 +111,7 @@ class Translate {
      * @param    string     $lang_code
      * @return   integer
      */
-    public function get_object_id($object_id = null, $object_type = 'post', $return_original_if_missing = true, $lang_code = null)
+    public function get_object_id(int $object_id, string $object_type = 'post', bool $return_original_if_missing = true, ?string $lang_code = '')
     {
         return apply_filters(
             'wpml_object_id',
@@ -130,7 +130,7 @@ class Translate {
      * @param   string      $lang
      * @return  string
      */
-    public function url($original_permalink, $lang)
+    public function url(string $original_permalink, ?string $lang)
     {
         return apply_filters('wpml_permalink', $original_permalink, $lang);
     }
@@ -143,7 +143,7 @@ class Translate {
      * @param    string     $object_type
      * @return   string|null
      */
-    public function get_object_lang_code($object_id = null, $object_type = 'post')
+    public function get_object_lang_code(int $object_id, string $object_type = 'post')
     {
         return apply_filters(
             'wpml_element_language_code',

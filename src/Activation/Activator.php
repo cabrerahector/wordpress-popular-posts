@@ -27,7 +27,7 @@ class Activator {
      * @param    bool    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
      * @global   object  $wpdb
      */
-    public static function activate($network_wide)
+    public static function activate(bool $network_wide)
     {
         global $wpdb;
 
@@ -91,7 +91,7 @@ class Activator {
      * @param    string   $prefix
      * @global   object   $wpdb
      */
-    private static function do_db_tables($prefix)
+    private static function do_db_tables(string $prefix)
     {
         global $wpdb;
         $charset_collate = "";

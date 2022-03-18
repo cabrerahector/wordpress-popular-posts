@@ -109,7 +109,7 @@ class Image {
      * @param   string      $build          Whether to build the image or get an existing one
      * @return  string
      */
-    public function get($post_id, $size, $source, $crop = true, $build = 'manual')
+    public function get(int $post_id, array $size, string $source, bool $crop = true, string $build = 'manual')
     {
         // Bail, $post_id is not an integer
         if ( ! is_numeric($post_id) ) {
@@ -337,7 +337,7 @@ class Image {
      * @param   string      $filename
      * @return  string|bool Full URL to image
      */
-    private function exists($filename)
+    private function exists(string $filename)
     {
         // Do we have thumbnail already?
         $file = $this->resolve(trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $filename);
@@ -360,7 +360,7 @@ class Image {
      * @param   string      $name
      * @return  string|bool Resolved path, or false if not found
      */
-    private function resolve($name)
+    private function resolve(string $name)
     {
         $info = pathinfo($name);
 
@@ -409,7 +409,7 @@ class Image {
      * @param   integer         $post_ID
      * @return  string|boolean  Path to image, or false if not found
      */
-    private function url_to_path($url, $post_ID = null)
+    private function url_to_path(string $url, ?int $post_ID)
     {
         if ( Helper::is_image_url($url) ) {
             $attachment_id = $this->get_attachment_id($url);
@@ -436,7 +436,7 @@ class Image {
      * @param   string      $source   Image source
      * @return  array|bool
      */
-    private function get_file_meta($id, $source)
+    private function get_file_meta(int $id, string $source)
     {
         // get thumbnail path from the Featured Image
         if ( "featured" == $source ) {
@@ -518,7 +518,7 @@ class Image {
      * @param   string      $source   Image source
      * @return  string
      */
-    private function get_alt_attribute($id, $source)
+    private function get_alt_attribute(int $id, string $source)
     {
         $alt = '';
 
@@ -576,7 +576,7 @@ class Image {
      * @param    string    $url
      * @return   int|null
      */
-    private function get_attachment_id($url)
+    private function get_attachment_id(string $url)
     {
         $url = Helper::add_scheme(
             $url,
@@ -622,7 +622,7 @@ class Image {
      * @param   string      $url   Image url.
      * @return  string|bool Image path, or false on failure.
      */
-    private function fetch_external_image($id, $url)
+    private function fetch_external_image(int $id, string $url)
     {
         if ( ! Helper::is_image_url($url) )
             return false;
@@ -692,7 +692,7 @@ class Image {
      * @param   bool        $crop           Whether to crop the image or not
      * @return  string|bool Image URL on success, false on error
      */
-    private function resize($path, $filename, $size, $crop = true)
+    private function resize(string $path, string $filename, array $size, bool $crop = true)
     {
         $image = wp_get_image_editor($path);
 
@@ -761,7 +761,7 @@ class Image {
      * @param   bool        $crop           Whether to crop the image or not
      * @return  string|bool Image URL on success, false on error
      */
-    private function generate_thumbnail($path, $filename, $size, $crop = true)
+    private function generate_thumbnail(string $path, string $filename, array $size, bool $crop = true)
     {
         $image = wp_get_image_editor($path);
 
@@ -795,7 +795,7 @@ class Image {
      * @param   string      $src
      * @return  string
      */
-    private function get_srcset($src)
+    private function get_srcset(string $src)
     {
         /**
          * Hook to enable/disable retina support.
@@ -833,7 +833,7 @@ class Image {
      * @param   string      $error          Error, if the image could not be created
      * @return  string
      */
-    public function render($src, $size, $class, $alt = '', $error = null)
+    public function render(string $src, array $size, string $class, string $alt = '', string $error = '')
     {
         $img_tag = '';
 
@@ -864,7 +864,7 @@ class Image {
      * @param   string  $size
      * @return  array|bool
      */
-    public function get_sizes($size = '')
+    public function get_sizes(?string $size)
     {
         if ( ! is_array($this->available_sizes) || empty($this->available_sizes) ) {
             global $_wp_additional_image_sizes;
@@ -906,7 +906,7 @@ class Image {
      * @param   int|null
      * @return  string
      */
-    public function get_default_url($post_ID = null)
+    public function get_default_url(?int $post_ID = null)
     {
         if ( has_filter('wpp_default_thumbnail_url') ) {
             $default_thumbnail_url = apply_filters('wpp_default_thumbnail_url', $this->default_thumbnail, $post_ID);

@@ -81,7 +81,7 @@ class Themer {
      * @since   5.0.0
      * @param   string  $path   Path to theme folder
      */
-    private function load_theme($path)
+    private function load_theme(string $path)
     {
         $theme_folder = is_string($path) && is_dir($path) && is_readable($path) ? basename($path) : null;
         $theme_folder = $theme_folder ? preg_replace("/[^a-z0-9\_\-\.]/i", '', $theme_folder) : null;
@@ -126,7 +126,7 @@ class Themer {
      * @param   string  $theme
      * @return  array|bool
      */
-    public function get_theme($theme)
+    public function get_theme(string $theme)
     {
         return isset($this->themes[$theme]) ? $this->themes[$theme] : false;
     }
@@ -138,7 +138,7 @@ class Themer {
      * @param   array
      * @return  bool
      */
-    public function is_valid_config($json = [])
+    public function is_valid_config(array $json)
     {
         return is_array($json) && ! empty($json) && isset($json['name']) && isset($json['config']) && is_array($json['config']);
     }

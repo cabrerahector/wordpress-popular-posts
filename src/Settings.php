@@ -139,7 +139,7 @@ class Settings {
      * @param    string   $option_set
      * @return   array
      */
-    public static function get($option_set = null)
+    public static function get(string $option_set = '')
     {
         $options = self::$defaults;
 

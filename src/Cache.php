@@ -34,7 +34,7 @@ class Cache {
      * @param    string               $key              The name of the cached data.
      * @return   mixed
      */
-    public static function get($key)
+    public static function get(string $key)
     {
         return get_transient($key);
     }
@@ -47,7 +47,7 @@ class Cache {
      * @param    string               $key              The name of the cached data.
      * @param    mixed                $data             The data being stored.
      */
-    public static function set($key = null, $data = [], $time_value = 1, $time_unit = 'minute')
+    public static function set(string $key = null, $data = [], int $time_value = 1, string $time_unit = 'minute') /** @TODO: starting PHP 8.0 $data can be declared as mixed $data */
     {
         if ( !$key )
             return false;

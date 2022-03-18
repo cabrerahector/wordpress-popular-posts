@@ -493,7 +493,7 @@ class Widget extends Block
      * @param   array
      * @return  array
      */
-    private function parse_attributes($atts = [])
+    private function parse_attributes(array $atts = [])
     {
         $out = array();
 

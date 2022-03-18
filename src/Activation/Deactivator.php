@@ -27,7 +27,7 @@ class Deactivator {
      * @global  object  wpbd
      * @param   bool    network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog
      */
-    public static function deactivate($network_wide)
+    public static function deactivate(bool $network_wide)
     {
         global $wpdb;
 

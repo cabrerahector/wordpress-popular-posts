@@ -400,16 +400,14 @@ class Widget extends \WP_Widget {
      *
      * @since   2.3.3
      */
-    public function get_popular($instance = null)
+    public function get_popular(array $instance)
     {
-        if ( is_array($instance) && ! empty($instance) ) {
-            $popular_posts = $this->maybe_query($instance);
+        $popular_posts = $this->maybe_query($instance);
 
-            $this->output->set_data($popular_posts->get_posts());
-            $this->output->set_public_options($instance);
-            $this->output->build_output();
-            $this->output->output();
-        }
+        $this->output->set_data($popular_posts->get_posts());
+        $this->output->set_public_options($instance);
+        $this->output->build_output();
+        $this->output->output();
     }
 
     /**
@@ -438,7 +436,7 @@ class Widget extends \WP_Widget {
      * @param   array
      * @return  array
      */
-    public function remove_from_legacy_widget_block($widget_types)
+    public function remove_from_legacy_widget_block(array $widget_types)
     {
         $widget_types[] = 'wpp';
         return $widget_types;

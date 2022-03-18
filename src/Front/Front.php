@@ -159,7 +159,7 @@ class Front {
      * @param   string  $src
      * @return  string  $tag
      */
-    function convert_inline_js_into_json($tag, $handle, $src)
+    function convert_inline_js_into_json(string $tag, string $handle, string $src)
     {
         if ( 'wpp-js' === $handle ) {
             // id attribute found, replace it
@@ -223,7 +223,7 @@ class Front {
      * @param    int       $post_ID
      * @return   bool|int  FALSE if query failed, TRUE on success
      */
-    private function update_views_count($post_ID) {
+    private function update_views_count(int $post_ID) {
         /*
         TODO:
         For WordPress Multisite, we must define the DIEONDBERROR constant for database errors to display like so:
@@ -295,7 +295,7 @@ class Front {
      * @param    array    $atts    User defined attributes in shortcode tag
      * @return   string
      */
-    public function wpp_shortcode($atts = null) {
+    public function wpp_shortcode($atts = null) { /** @TODO: starting PHP 8.0 $atts can be declared as mixed $meta_value (if not set WP gives an string, and it set we get an array) */
         /**
         * @var string $header
         * @var int $limit

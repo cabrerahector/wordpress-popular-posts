@@ -11,7 +11,7 @@ class Helper {
      * @param   int     number
      * @return  bool
      */
-    public static function is_number($number)
+    public static function is_number($number) /** @TODO: starting PHP 8.0 $number can be declared as mixed $number */
     {
         return !empty($number) && is_numeric($number) && (intval($number) == floatval($number));
     }
@@ -25,7 +25,7 @@ class Helper {
      * @param   int
      * @return  mixed   string|bool
      */
-    public static function prettify_number($number, $precision = 1)
+    public static function prettify_number($number, $precision = 1) /** @TODO: starting PHP 8.0 $number can be declared as mixed $number */
     {
         if ( ! is_numeric($number) )
             return false;
@@ -70,7 +70,7 @@ class Helper {
      * @param   string   $format
      * @return  bool
      */
-    public static function is_valid_date($date = null, $format = 'Y-m-d')
+    public static function is_valid_date(?string $date, $format = 'Y-m-d')
     {
         $d = \DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) === $date;
@@ -85,7 +85,7 @@ class Helper {
      * @param   string   $format
      * @return  array|bool
      */
-    public static function get_date_range($start_date = null, $end_date = null, $format = 'Y-m-d')
+    public static function get_date_range(string $start_date, string $end_date, string $format = 'Y-m-d')
     {
         if (
             self::is_valid_date($start_date, $format)
@@ -158,7 +158,7 @@ class Helper {
      * @param   string  $string
      * @return  bool
      */
-    public static function is_timestamp($string)
+    public static function is_timestamp($string) /** @TODO: starting PHP 8.0 $string can be declared as mixed $string */
     {
         if (
             ( is_int($string) || ctype_digit($string) ) 
@@ -238,7 +238,7 @@ class Helper {
      * @param   mixed $v variable to display with var_dump()
      * @param   mixed $v,... unlimited optional number of variables to display with var_dump()
      */
-    public static function debug($v)
+    public static function debug($v) /** @TODO: remove this function, we don't use it at all */
     {
         if ( !defined('WPP_DEBUG') || !WPP_DEBUG )
             return;
@@ -259,7 +259,7 @@ class Helper {
      * @param   bool     $truncate_by_words
      * @return  string
      */
-    public static function truncate($text = '', $length = 25, $truncate_by_words = false, $more = '...')
+    public static function truncate(string $text = '', int $length = 25, bool $truncate_by_words = false, string $more = '...')
     {
         if ( '' !== $text ) {
             $charset = get_bloginfo('charset');
@@ -321,7 +321,7 @@ class Helper {
      * @param   string      $scheme
      * @return  string|bool
      */
-    static function add_scheme($url = null, $scheme = 'https://')
+    static function add_scheme(?string $url, string $scheme = 'https://')
     {
         $url_args = parse_url($url);
 
@@ -348,7 +348,7 @@ class Helper {
      * @param   string
      * @return  array|bool
      */
-    static function is_image_url($url)
+    static function is_image_url(string $url)
     {
         $path = parse_url($url, PHP_URL_PATH);
         $encoded_path = array_map('urlencode', explode('/', $path));
