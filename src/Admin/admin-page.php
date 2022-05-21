@@ -23,7 +23,7 @@ if ( isset($_POST['section']) ) {
 
         if ( isset($_POST['wpp-update-stats-options-token']) && wp_verify_nonce($_POST['wpp-update-stats-options-token'], 'wpp-update-stats-options') ) {
             $this->config['stats']['limit'] = ( \WordPressPopularPosts\Helper::is_number($_POST['stats_limit']) && $_POST['stats_limit'] > 0 ) ? $_POST['stats_limit'] : 10;
-            $this->config['stats']['post_type'] = empty($_POST['stats_type']) ? "post,page" : $_POST['stats_type'];
+            $this->config['stats']['post_type'] = empty($_POST['stats_type']) ? "post" : $_POST['stats_type'];
             $this->config['stats']['freshness'] = empty($_POST['stats_freshness']) ? false : $_POST['stats_freshness'];
 
             update_option('wpp_settings_config', $this->config);

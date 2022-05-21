@@ -94,7 +94,7 @@ class Settings {
                 'time_quantity' => 24,
                 'order_by' => 'views',
                 'limit' => 10,
-                'post_type' => 'post,page',
+                'post_type' => 'post',
                 'freshness' => false
             ],
             'tools' => [

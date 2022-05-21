@@ -381,7 +381,7 @@ class Front {
             'time_unit' => ( in_array($time_unit, $time_units) ) ? $time_unit : 'hour',
             'freshness' => empty($freshness) ? false : $freshness,
             'order_by' => ( in_array($order_by, $order_by_values) ) ? $order_by : 'views',
-            'post_type' => empty($post_type) ? 'post,page' : $post_type,
+            'post_type' => empty($post_type) ? 'post' : $post_type,
             'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ","),
             'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ","),
             'taxonomy' => empty($taxonomy) ? 'category' : $taxonomy,

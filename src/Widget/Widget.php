@@ -234,7 +234,7 @@ class Widget extends \WP_Widget {
         // FILTERS
         // user did not set a post type name, so we fall back to default
         $instance['post_type'] = ( '' == $new_instance['post_type'] )
-          ? 'post,page'
+          ? 'post'
           : $new_instance['post_type'];
 
         $instance['freshness'] = isset($new_instance['freshness']);
