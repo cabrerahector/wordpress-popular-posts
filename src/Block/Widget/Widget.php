@@ -400,7 +400,7 @@ class Widget extends Block
                 'words' => ( ! empty($excerpt_by_words) && Helper::is_number($excerpt_by_words) && $excerpt_by_words > 0 ),
             ],
             'thumbnail' => [
-                'active' => ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ),
+                'active' => ( 'predefined' == $thumbnail_build && $attributes['display_post_thumbnail'] ) ? true : ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ),
                 'width' => ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ) ? $thumbnail_width : 0,
                 'height' => ( ! empty($thumbnail_height) && Helper::is_number($thumbnail_height) && $thumbnail_height > 0 ) ? $thumbnail_height : 0,
                 'build' => 'predefined' == $thumbnail_build ? 'predefined' : 'manual',
