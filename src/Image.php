@@ -194,7 +194,7 @@ class Image {
                 ) {
                     // Find corresponding image size
                     $stock_size = null;
-                    $images_sizes = $this->get_sizes();
+                    $images_sizes = $this->get_sizes(null);
 
                     foreach ( $images_sizes as $name => $attr ) :
                         if (
@@ -238,6 +238,8 @@ class Image {
                     if ( $this->admin_options['tools']['thumbnail']['lazyload'] && false == strpos($featured_image, 'loading="lazy"') ) {
                         $featured_image = str_replace('src="', 'loading="lazy" src="', $featured_image);
                     }
+
+                    error_log(print_r($featured_image, true));
 
                     return $featured_image;
                 }
