@@ -26,9 +26,9 @@
     "@babel/plugin-proposal-class-properties": "^7.17.12",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
-    "@wordpress/scripts": "^23.2.0"
+    "@wordpress/scripts": "^23.3.0"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001349"
+    "caniuse-lite": "^1.0.30001359"
   }
 }
