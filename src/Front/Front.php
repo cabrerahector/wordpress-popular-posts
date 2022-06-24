@@ -11,7 +11,7 @@
 
 namespace WordPressPopularPosts\Front;
 
-use WordPressPopularPosts\{ Helper, Output, Query, Translate };
+use WordPressPopularPosts\{ Helper, Output, Translate };
 use WordPressPopularPosts\Traits\QueriesPosts;
 
 class Front {
@@ -25,15 +25,6 @@ class Front {
      * @access  private
      */
     private $config;
-
-    /**
-     * Query object.
-     *
-     * @since   6.0.0
-     * @var     WordPressPopularPosts\Query
-     * @access  private
-     */
-    private $query;
 
     /**
      * Translate object.
@@ -56,17 +47,14 @@ class Front {
      *
      * @since   5.0.0
      * @param   array                               $config     Admin settings.
-     * @param   \WordPressPopularPosts\Query        $query      Query class.
      * @param   \WordPressPopularPosts\Translate    $translate  Translate class.
+     * @param   \WordPressPopularPosts\Output       $output     Output class.
      */
-    public function __construct(array $config, Query $query, Translate $translate, Output $output)
+    public function __construct(array $config, Translate $translate, Output $output)
     {
         $this->config = $config;
-        $this->query = $query;
         $this->translate = $translate;
         $this->output = $output;
-
-        $this->set_query_object($query);
     }
 
     /**

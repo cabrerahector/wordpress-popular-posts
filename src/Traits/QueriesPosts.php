@@ -15,18 +15,6 @@ trait QueriesPosts
     private $query;
 
     /**
-     * Sets the query object.
-     *
-     * @since   6.0.0
-     * @param   \WordPressPopularPosts\Query
-     * @access  private
-     */
-    private function set_query_object(Query $query)
-    {
-        $this->query = $query;
-    }
-
-    /**
      * Gets Query object from cache if it exists,
      * otherwise a new Query object will be
      * instantiated and returned.
@@ -40,32 +28,32 @@ trait QueriesPosts
         // Return cached results
         if ( $this->config['tools']['cache']['active'] ) {
             $key = 'wpp_' . md5(json_encode($params));
-            $query = \WordPressPopularPosts\Cache::get($key);
+            $this->query = \WordPressPopularPosts\Cache::get($key);
 
-            if ( false === $query ) {
-                $query = $this->query->set_options($params)->execute();
+            if ( false === $this->query ) {
+                $this->query = new Query($params);
 
                 $time_value = $this->config['tools']['cache']['interval']['value'];
                 $time_unit = $this->config['tools']['cache']['interval']['time'];
 
                 // No popular posts found, check again in 1 minute
-                if ( ! $query->get_posts() ) {
+                if ( ! $this->query->get_posts() ) {
                     $time_value = 1;
                     $time_unit = 'minute';
                 }
 
                 \WordPressPopularPosts\Cache::set(
                     $key,
-                    $query,
+                    $this->query,
                     $time_value,
                     $time_unit
                 );
             }
         } // Get real-time popular posts
         else {
-            $query = $this->query->set_options($params)->execute();
+            $this->query = new Query($params);
         }
 
-        return $query;
+        return $this->query;
     }
 }

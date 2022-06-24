@@ -6,9 +6,11 @@
  * the wpp_get_mostpopular() template tag).
  *
  * eg.:
- * $popular_posts = new \WordPressPopularPosts\Query();
- * $popular_posts->set_options(['range' => 'last7days', 'order_by' => 'views', 'limit' => 5]);
- * $popular_posts->execute();
+ * $popular_posts = new \WordPressPopularPosts\Query([
+ *  'range' => 'last7days',
+ *  'order_by' => 'views',
+ *  'limit' => 5
+ * ]);
  * var_dump( $popular_posts->get_posts() );
  *
  * @since             4.0.0
@@ -53,7 +55,8 @@ class Query {
      */
     public function __construct(array $options = [])
     {
-        //
+        $this->set_options($options)
+            ->execute();
     }
 
     /**

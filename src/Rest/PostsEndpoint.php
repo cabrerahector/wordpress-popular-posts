@@ -1,7 +1,7 @@
 <?php
 namespace WordPressPopularPosts\Rest;
 
-use WordPressPopularPosts\{ Query, Translate };
+use WordPressPopularPosts\Translate;
 use WordPressPopularPosts\Traits\QueriesPosts;
 
 class PostsEndpoint extends Endpoint {
@@ -15,12 +15,10 @@ class PostsEndpoint extends Endpoint {
      * @param   \WordPressPopularPosts\Translate
      * @param   \WordPressPopularPosts\Output
      */
-    public function __construct(array $config, Translate $translate, Query $query)
+    public function __construct(array $config, Translate $translate)
     {
         $this->config = $config;
         $this->translate = $translate;
-
-        $this->set_query_object($query);
     }
 
     /**

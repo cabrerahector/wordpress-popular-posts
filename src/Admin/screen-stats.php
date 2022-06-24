@@ -120,9 +120,8 @@ if ( 'stats' == $current ) {
                     ]
                 ]
             ];
-            $posts = $this->query->set_options($args)
-                ->execute()
-                ->get_posts();
+            $query = new \WordPressPopularPosts\Query($args);
+            $posts = $query->get_posts();
 
             $this->render_list($posts, 'hof');
             ?>

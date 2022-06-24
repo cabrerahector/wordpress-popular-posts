@@ -1,7 +1,7 @@
 <?php
 namespace WordPressPopularPosts\Block\Widget;
 
-use WordPressPopularPosts\{ Helper, Image, Query, Output, Themer, Translate };
+use WordPressPopularPosts\{ Helper, Image, Output, Themer, Translate };
 use WordPressPopularPosts\Block\Block;
 use WordPressPopularPosts\Traits\QueriesPosts;
 
@@ -18,15 +18,6 @@ class Widget extends Block
      * @access  private
      */
     private $config = [];
-
-    /**
-     * Query object.
-     *
-     * @since   6.0.0
-     * @var     WordPressPopularPosts\Query
-     * @access  private
-     */
-    private $query;
 
     /**
      * Image object.
@@ -78,21 +69,18 @@ class Widget extends Block
      *
      * @since   5.4.0
      * @param   array                            $config
-     * @param   \WordPressPopularPosts\Query     $query
      * @param   \WordPressPopularPosts\Output    $output
      * @param   \WordPressPopularPosts\Image     $image
      * @param   \WordPressPopularPosts\Translate $translate
      * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $config, Query $query, Output $output, Image $thumbnail, Translate $translate, Themer $themer)
+    public function __construct(array $config, Output $output, Image $thumbnail, Translate $translate, Themer $themer)
     {
         $this->config = $config;
         $this->output = $output;
         $this->thumbnail = $thumbnail;
         $this->translate = $translate;
         $this->themer = $themer;
-
-        $this->set_query_object($query);
 
         $this->defaults = [
             'title' => '',

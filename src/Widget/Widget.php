@@ -2,7 +2,7 @@
 
 namespace WordPressPopularPosts\Widget;
 
-use WordPressPopularPosts\{ Helper, Image, Output, Query, Themer, Translate };
+use WordPressPopularPosts\{ Helper, Image, Output, Themer, Translate };
 use WordPressPopularPosts\Traits\QueriesPosts;
 
 class Widget extends \WP_Widget {
@@ -24,15 +24,6 @@ class Widget extends \WP_Widget {
      * @var	    array
      */
     private $config = [];
-
-    /**
-     * Query object.
-     *
-     * @since   6.0.0
-     * @var     WordPressPopularPosts\Query
-     * @access  private
-     */
-    private $query;
 
     /**
      * Image object.
@@ -72,13 +63,12 @@ class Widget extends \WP_Widget {
      * @since   1.0.0
      * @param   array                            $options
      * @param   array                            $config
-     * @param   \WordPressPopularPosts\Query     $query
      * @param   \WordPressPopularPosts\Output    $output
      * @param   \WordPressPopularPosts\Image     $image
      * @param   \WordPressPopularPosts\Translate $translate
      * @param   \WordPressPopularPosts\Themer    $themer
      */
-    public function __construct(array $options, array $config, Query $query, Output $output, Image $thumbnail, Translate $translate, Themer $themer)
+    public function __construct(array $options, array $config, Output $output, Image $thumbnail, Translate $translate, Themer $themer)
     {
         // Create the widget
         parent::__construct(
@@ -96,8 +86,6 @@ class Widget extends \WP_Widget {
         $this->thumbnail = $thumbnail;
         $this->translate = $translate;
         $this->themer = $themer;
-
-        $this->set_query_object($query);
     }
 
     /**
