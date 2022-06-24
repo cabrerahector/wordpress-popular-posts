@@ -239,8 +239,6 @@ class Image {
                         $featured_image = str_replace('src="', 'loading="lazy" src="', $featured_image);
                     }
 
-                    error_log(print_r($featured_image, true));
-
                     return $featured_image;
                 }
             }
