@@ -1403,7 +1403,7 @@ class Admin {
             ?>
             <div class="notice notice-warning">
                 <p><?php printf(
-                    __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these suggestions</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'),
+                    __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these recommendations</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'),
                     'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance'
                 ) ?></p>
                 <?php if ( current_user_can('manage_options') ) : ?>
