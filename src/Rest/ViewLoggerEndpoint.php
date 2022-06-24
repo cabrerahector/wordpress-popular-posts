@@ -57,6 +57,8 @@ class ViewLoggerEndpoint extends Endpoint {
           ? $sampling_rate
           : 1;
 
+        $views = apply_filters('wpp_update_views_count_value', $views, $post_ID, $sampling, $sampling_rate);
+
         // Allow WP themers / coders perform an action
         // before updating views count
         if ( has_action('wpp_pre_update_views') )
