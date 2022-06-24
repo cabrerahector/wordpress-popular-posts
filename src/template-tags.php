@@ -47,7 +47,7 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
     else {
         $start_date = new \DateTime(
             \WordPressPopularPosts\Helper::now(),
-            new \DateTimeZone(\WordPressPopularPosts\Helper::get_timezone())
+            wp_timezone()
         );
 
         // Determine time range

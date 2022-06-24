@@ -796,7 +796,7 @@ class Admin {
     {
         $valid_ranges = ['today', 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
         $range = in_array($range, $valid_ranges) ? $range : 'last7days';
-        $now = new \DateTime(Helper::now(), new \DateTimeZone(Helper::get_timezone()));
+        $now = new \DateTime(Helper::now(), wp_timezone());
 
         // Determine time range
         switch( $range ){

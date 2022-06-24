@@ -92,7 +92,7 @@ class Query {
                 (array) $this->options
             );
 
-            $now = new \DateTime(Helper::now(), new \DateTimeZone(Helper::get_timezone()));
+            $now = new \DateTime(Helper::now(),wp_timezone());
             $args = [];
             $fields = "p.ID AS id, p.post_title AS title, p.post_author AS uid";
             $table = "";

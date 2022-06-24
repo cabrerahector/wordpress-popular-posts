@@ -17,7 +17,7 @@
  * Plugin URI:        https://wordpress.org/plugins/wordpress-popular-posts/
  * Description:       A highly customizable widget that displays the most popular posts on your blog.
  * Version:           5.5.1
- * Requires at least: 5.2
+ * Requires at least: 5.3
  * Requires PHP:      7.2
  * Author:            Hector Cabrera
  * Author URI:        https://cabrerahector.com/
