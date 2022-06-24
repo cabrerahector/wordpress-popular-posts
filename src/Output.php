@@ -181,8 +181,8 @@ class Output {
             ) {
                 $this->output .= '<div class="popular-posts-sr">';
 
-                if ( @file_exists(get_template_directory() . '/wordpress-popular-posts/themes/' . $this->public_options['theme']['name'] . '/style.css') ) {
-                    $theme_stylesheet = get_template_directory() . '/wordpress-popular-posts/themes/' . $this->public_options['theme']['name'] . '/style.css';
+                if ( @file_exists(get_stylesheet_directory() . '/wordpress-popular-posts/themes/' . $this->public_options['theme']['name'] . '/style.css') ) {
+                    $theme_stylesheet = get_stylesheet_directory() . '/wordpress-popular-posts/themes/' . $this->public_options['theme']['name'] . '/style.css';
                 } else {
                     $theme_stylesheet = $this->themer->get_theme($this->public_options['theme']['name'])['path'] . '/style.css';
                 }
