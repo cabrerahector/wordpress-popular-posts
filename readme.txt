@@ -109,6 +109,23 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 6.0.0 =
+
+**This release introduces a couple of major changes so please review before updating.**
+
+- Minimum required PHP version is now 7.2.
+- Minimum required WordPress version is now 5.3.
+- Breaking change: this version removes code that has been deprecated for a long time. See the release notes for more details.
+- Widget block: fixes an issue where the length of the title when set via theme was being ignored.
+- Widget block: fixes bug with thumbnail not rendering under certain circumstances (thanks the9mm!)
+- Admin: the Statistics screen will now by default only lists posts. See the release notes for more details.
+- Admin: only users with `edit_others_posts` capability (usually Editors and Administrators) will be able to access certain areas of WPP's dashboard.
+- Admin: makes sure to escape params from `add_query_arg()`.
+- Fixes an issue where widget themes stored in child theme's folder would not be recognized by the plugin.
+- Small improvements / fixes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/)
+
 = 5.5.1 =
 
 **If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
@@ -129,38 +146,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Other minor performances improvements and fixes.
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-5-qol-improvements-and-php-5-announcement/)
-
-= 5.4.2 =
-
-- Fixes a rare issue that prevented some users from seeing the Statistics chart (thanks Zsolt!)
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/#5.4.2)
-
-= 5.4.1 =
-
-**If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
-
-- Widget block: fixes WPP block loading block editor JS files on the front end.
-- Adds filter hook to disable Block editor support.
-- Improves logic of filter hooks `wpp_excerpt_more` and `wpp_title_more`.
-- The Parameters section has been moved to the Wiki (see https://git.io/JEOrX).
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/#5.4.1)
-
-= 5.4.0 =
-
-**If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
-
-- The widget block is no longer an experimental feature and is now available to everyone (but it's still a WIP).
-- Widget block: adds AJAX support to prevent caching plugins from caching your popular posts block.
-- Widget block: adds WPML/Polylang support.
-- Widget block: fixes widget heading not displaying.
-- Widget themes: allow themes to detect the current post so it can be styled differently.
-- Fixes `wpp_excerpt_more` filter hook not working (props to SchweizerSchoggi!)
-- Adds filter hook `wpp_title_more` to allow customization of the prefix added to shortened post titles.
-- Removes inline JavaScript code from WPP's dashboard in preparation for [WordPress' CSP adoption](https://core.trac.wordpress.org/ticket/51407).
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/)
 
 [Full Changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md)
 

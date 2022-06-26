@@ -1,6 +1,23 @@
 Changelog
 =========
 
+#### 6.0.0 ####
+
+**This release introduces a couple of major changes so please review before updating.**
+
+- Minimum required PHP version is now 7.2.
+- Minimum required WordPress version is now 5.3.
+- Breaking change: this version removes code that has been deprecated for a long time. See the release notes for more details.
+- Widget block: fixes an issue where the length of the title when set via theme was being ignored.
+- Widget block: fixes bug with thumbnail not rendering under certain circumstances (thanks the9mm!)
+- Admin: the Statistics screen will now by default only lists posts. See the release notes for more details.
+- Admin: only users with `edit_others_posts` capability (usually Editors and Administrators) will be able to access certain areas of WPP's dashboard.
+- Admin: makes sure to escape params from `add_query_arg()`.
+- Fixes an issue where widget themes stored in child theme's folder would not be recognized by the plugin.
+- Small improvements / fixes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/)
+
 #### 5.5.1 ####
 
 **If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
