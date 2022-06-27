@@ -109,7 +109,7 @@ class Image {
      * @param   string      $build          Whether to build the image or get an existing one
      * @return  string
      */
-    public function get(int $post_id, array $size, string $source, bool $crop = true, string $build = 'manual')
+    public function get(int $post_id, array $size, string $source, bool $crop = true, ?string $build = 'manual')
     {
         // Bail, $post_id is not an integer
         if ( ! is_numeric($post_id) ) {
