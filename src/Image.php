@@ -62,7 +62,7 @@ class Image {
         $this->admin_options = $admin_options;
 
         // Set default thumbnail
-        $this->default_thumbnail = plugins_url() . "/wordpress-popular-posts/assets/images/no_thumb.jpg";
+        $this->default_thumbnail = plugins_url('assets/images/no_thumb.jpg', dirname(__FILE__, 1));
 
         if ( Helper::is_image_url($this->admin_options['tools']['thumbnail']['default']) )
             $this->default_thumbnail = $this->admin_options['tools']['thumbnail']['default'];
@@ -851,7 +851,7 @@ class Image {
         // Lazy Load attribute, if enabled
         $lazyload = ( $this->admin_options['tools']['thumbnail']['lazyload'] ) ? ' loading="lazy"' : '';
 
-        $img_tag .= '<img ' . $src . ' width="' . $size[0] . '" height="' . $size[1] . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '"' . $lazyload . ' />';
+        $img_tag .= '<img ' . $src . ' width="' . esc_attr($size[0]) . '" height="' . esc_attr($size[1]) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '"' . $lazyload . ' />';
 
         return apply_filters('wpp_render_image', $img_tag);
     }

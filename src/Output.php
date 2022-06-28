@@ -285,7 +285,7 @@ class Output {
         $is_current_post = ( $is_single && ($is_single == $post_id || $is_single == $post_object->id) ) ? true : false;
 
         // Permalink
-        $permalink = $this->get_permalink($post_object, $post_id);
+        $permalink = esc_url($this->get_permalink($post_object, $post_id));
 
         // Post title (and title attribute)
         $post_title_attr = esc_attr(wp_strip_all_tags($this->get_title($post_object, $post_id)));
@@ -357,7 +357,7 @@ class Output {
                 $meta_arr = $new_meta_arr;
         }
 
-        $post_meta_separator = apply_filters('wpp_post_meta_separator', ' | ');
+        $post_meta_separator = esc_html(apply_filters('wpp_post_meta_separator', ' | '));
         $post_meta = join($post_meta_separator, $meta_arr);
 
         $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
@@ -367,20 +367,20 @@ class Output {
             $data = [
                 'id' => $post_id,
                 'is_current_post' => $is_current_post,
-                'title' => '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'class="wpp-post-title" target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_title . '</a>',
+                'title' => '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'class="wpp-post-title" target="' . esc_attr($this->admin_options['tools']['link']['target']) . '">' . $post_title . '</a>',
                 'title_attr' => $post_title_attr,
                 'summary' => $post_excerpt,
                 'stats' => $post_meta,
-                'img' => ( ! empty($post_thumbnail) ) ? '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_thumbnail . '</a>' : '',
+                'img' => ( ! empty($post_thumbnail) ) ? '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'target="' . esc_attr($this->admin_options['tools']['link']['target']) . '">' . $post_thumbnail . '</a>' : '',
                 'img_no_link' => $post_thumbnail,
                 'url' => $permalink,
                 'text_title' => $post_title,
                 'taxonomy' => $post_taxonomies,
                 'taxonomy_copy' => isset($meta_arr['taxonomy']) ? $meta_arr['taxonomy'] : null,
-                'author' => ( ! empty($post_author) ) ? '<a href="' . get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid ) . '">' . $post_author . '</a>' : '',
+                'author' => ( ! empty($post_author) ) ? '<a href="' . esc_url(get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid )) . '">' . esc_html($post_author) . '</a>' : '',
                 'author_copy' => isset($meta_arr['author']) ? $meta_arr['author'] : null,
-                'author_name' => $post_author,
-                'author_url' => ( ! empty($post_author) ) ? get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid ) : '',
+                'author_name' => esc_html($post_author),
+                'author_url' => ( ! empty($post_author) ) ? esc_url(get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid)) : '',
                 'views' => ( $this->public_options['order_by'] == "views" || $this->public_options['order_by'] == "comments" ) ? ($prettify_numbers ? Helper::prettify_number($post_views) : number_format_i18n($post_views)) : ($prettify_numbers ? Helper::prettify_number($post_views, 2) : number_format_i18n($post_views, 2)),
                 'views_copy' => isset($meta_arr['views']) ? $meta_arr['views'] : null,
                 'comments' => $prettify_numbers ? Helper::prettify_number($post_comments) : number_format_i18n($post_comments),
@@ -404,7 +404,7 @@ class Output {
             $wpp_post_class = apply_filters("wpp_post_class", $wpp_post_class, $post_id);
 
             $post_thumbnail = ( ! empty($post_thumbnail) )
-                ? "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : "") . "target=\"{$this->admin_options['tools']['link']['target']}\">{$post_thumbnail}</a>\n"
+                ? "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : "") . "target=\"" . esc_attr($this->admin_options['tools']['link']['target']) . "\">{$post_thumbnail}</a>\n"
                 : "";
 
             $post_excerpt = ( ! empty($post_excerpt) )
@@ -422,7 +422,7 @@ class Output {
             $post =
                 "<li" . ( ( is_array($wpp_post_class) && ! empty($wpp_post_class) ) ? ' class="' . esc_attr(implode(" ", $wpp_post_class)) . '"' : '') . ">\n"
                 . $post_thumbnail
-                . "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : "") . "class=\"wpp-post-title\" target=\"{$this->admin_options['tools']['link']['target']}\">{$post_title}</a>\n"
+                . "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : "") . "class=\"wpp-post-title\" target=\"" . esc_attr($this->admin_options['tools']['link']['target']) . "\">{$post_title}</a>\n"
                 . $post_excerpt
                 . $post_meta
                 . $post_rating
@@ -546,9 +546,19 @@ class Output {
 
             // remove HTML tags if requested
             if ( $this->public_options['post-excerpt']['keep_format'] ) {
-                $excerpt = strip_tags($excerpt, '<a><b><i><em><strong>');
+                $excerpt = wp_kses(
+                    $excerpt,
+                    [
+                        'a' => [
+                            'href' => [],
+                            'title' => []
+                        ],
+                        'em' => [],
+                        'strong' => []
+                    ]
+                );
             } else {
-                $excerpt = strip_tags($excerpt);
+                $excerpt = wp_kses($excerpt, []);
 
                 // remove URLs, too
                 $excerpt = preg_replace('_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS', '', $excerpt);
@@ -664,7 +674,10 @@ class Output {
                     is_array($terms) 
                     && ! empty($terms)
                 ) {
-                    $taxonomy_separator = apply_filters('wpp_taxonomy_separator', ', ');
+                    $taxonomy_separator = esc_html(apply_filters('wpp_taxonomy_separator', ', '));
+
+                    // We're going to use the taxonomy slug as a CSS class so let's escape it just in case
+                    $taxonomy = esc_attr($taxonomy);
 
                     foreach ($terms as $term) {
                         $term_link = get_term_link($term);
@@ -672,8 +685,8 @@ class Output {
                         if ( is_wp_error($term_link) )
                             continue;
 
-                        $term_link = $this->translate->url($term_link, $this->translate->get_current_language());
-                        $post_tax .= "<a href=\"{$term_link}\" class=\"wpp-taxonomy {$taxonomy} {$taxonomy}-{$term->term_id}\">{$term->name}</a>" . $taxonomy_separator;
+                        $term_link = esc_url($this->translate->url($term_link, $this->translate->get_current_language()));
+                        $post_tax .= "<a href=\"{$term_link}\" class=\"wpp-taxonomy {$taxonomy} {$taxonomy}-{$term->term_id}\">" . esc_html($term->name) . " </a>" . $taxonomy_separator;
                     }
                 }
             }
@@ -796,7 +809,7 @@ class Output {
         // author
         if ( $this->public_options['stats_tag']['author'] ) {
             $author_url = get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid);
-            $display_name = '<a href="' . $this->translate->url($author_url, $this->translate->get_current_language()) . '">' . $author . '</a>';
+            $display_name = '<a href="' . esc_url($this->translate->url($author_url, $this->translate->get_current_language())) . '">' . esc_html($author) . '</a>';
             $stats['author'] = '<span class="wpp-author">' . sprintf(__('by %s', 'wordpress-popular-posts'), $display_name) . '</span>';
         }
 

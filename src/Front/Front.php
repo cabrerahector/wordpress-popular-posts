@@ -212,11 +212,6 @@ class Front {
      * @return   bool|int  FALSE if query failed, TRUE on success
      */
     private function update_views_count(int $post_ID) {
-        /*
-        TODO:
-        For WordPress Multisite, we must define the DIEONDBERROR constant for database errors to display like so:
-        <?php define( 'DIEONDBERROR', true ); ?>
-        */
         global $wpdb;
         $table = $wpdb->prefix . "popularposts";
         $wpdb->show_errors();

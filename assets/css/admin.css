@@ -19,10 +19,6 @@
             border-right: #ddd 1px solid;
         }
 
-        #wpp-menu ul li:first-child {
-            display: none;
-        }
-
         #wpp-menu ul li:last-child {
             border: none;
         }

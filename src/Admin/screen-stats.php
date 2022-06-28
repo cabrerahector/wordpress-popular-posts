@@ -19,9 +19,11 @@ if ( 'stats' == $current ) {
                 <input type="text" name="stats_type" value="<?php echo esc_attr($this->config['stats']['post_type']); ?>" size="15">
 
                 <label for="stats_limits"><?php _e("Limit", 'wordpress-popular-posts'); ?>:</label>
-                <input type="text" name="stats_limit" value="<?php echo $this->config['stats']['limit']; ?>" size="5">
+                <input type="text" name="stats_limit" value="<?php echo esc_attr($this->config['stats']['limit']); ?>" size="5">
 
-                <label for="stats_freshness"><input type="checkbox" class="checkbox" <?php echo ($this->config['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness"> <small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small></label>
+                <label for="stats_freshness">
+                    <input type="checkbox" class="checkbox" <?php echo ($this->config['stats']['freshness']) ? 'checked="checked"' : ''; ?> id="stats_freshness" name="stats_freshness"> <small><?php _e('Display only posts published within the selected Time Range', 'wordpress-popular-posts'); ?></small>
+                </label>
 
                 <div class="clear"></div>
                 <br /><br />

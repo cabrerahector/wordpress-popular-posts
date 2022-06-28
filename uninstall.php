@@ -27,21 +27,21 @@ if (
     foreach( $blogs_ids as $blog_id ) {
         switch_to_blog($blog_id);
         // delete tables and options
-        uninstall();
+        wordpress_popular_posts_uninstall();
         // delete thumbnails cache and its directory
-        delete_thumb_cache();
+        wordpress_popular_posts_delete_thumb_cache();
     }
 
     // Switch back to current blog
     switch_to_blog($original_blog_id);
 } else {
     // delete tables and options
-    uninstall();
+    wordpress_popular_posts_uninstall();
     // delete thumbnails cache and its directory
-    delete_thumb_cache();
+    wordpress_popular_posts_delete_thumb_cache();
 }
 
-function delete_thumb_cache() {
+function wordpress_popular_posts_delete_thumb_cache() {
     $wp_upload_dir = wp_get_upload_dir();
 
     if ( is_dir($wp_upload_dir['basedir'] . "/wordpress-popular-posts") ) {
@@ -59,7 +59,7 @@ function delete_thumb_cache() {
     }
 }
 
-function uninstall() {
+function wordpress_popular_posts_uninstall() {
     global $wpdb;
 
     // Delete plugin's options

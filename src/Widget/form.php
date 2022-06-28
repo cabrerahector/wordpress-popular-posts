@@ -76,17 +76,17 @@ if ( $taxonomies = get_taxonomies(['public' => true], 'objects') ) {
     foreach ( $taxonomies as $taxonomy ) {
         if ( 'post_format' == $taxonomy->name )
             continue;
-        echo '<label><input type="checkbox" name="' . $this->get_field_name('taxonomy') . '[names][]" value="' . $taxonomy->name . '"' . ( isset($tax_filter[$taxonomy->name]) ? ' checked' : '') . '> ' . $taxonomy->labels->singular_name . ' <small>('. $taxonomy->name .')</small></label><br>';
-        echo '<input type="text" name="' . $this->get_field_name('taxonomy') . '[terms][' . $taxonomy->name . ']" value="' . ( isset($tax_filter[$taxonomy->name]) ? esc_attr($tax_filter[$taxonomy->name]) : '') . '" class="widefat" style="margin-top: 4px;" /><br />';
+        echo '<label><input type="checkbox" name="' . $this->get_field_name('taxonomy') . '[names][]" value="' . esc_attr($taxonomy->name) . '"' . ( isset($tax_filter[$taxonomy->name]) ? ' checked' : '') . '> ' . esc_html($taxonomy->labels->singular_name) . ' <small>('. esc_html($taxonomy->name) .')</small></label><br>';
+        echo '<input type="text" name="' . $this->get_field_name('taxonomy') . '[terms][' . esc_attr($taxonomy->name) . ']" value="' . ( isset($tax_filter[$taxonomy->name]) ? esc_attr($tax_filter[$taxonomy->name]) : '') . '" class="widefat" style="margin-top: 4px;" /><br />';
         /* translators: %s here represents the singular name of the taxonomy (eg. Category) */
         $taxonomy_instructions = __('%s IDs, separated by comma (prefix a minus sign to exclude)', 'wordpress-popular-posts');
-        echo '<small>' . sprintf($taxonomy_instructions, $taxonomy->labels->singular_name) . '</small><br /><br />';
+        echo '<small>' . sprintf($taxonomy_instructions, esc_html($taxonomy->labels->singular_name)) . '</small><br /><br />';
     }
 }
 ?>
 
 <label for="<?php echo $this->get_field_id('uid'); ?>"><?php _e('Author ID(s)', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-author-ids-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small>
-<input type="text" id="<?php echo $this->get_field_id('uid'); ?>" name="<?php echo $this->get_field_name('uid'); ?>" value="<?php echo $instance['author']; ?>" class="widefat" /><br /><br />
+<input type="text" id="<?php echo $this->get_field_id('uid'); ?>" name="<?php echo $this->get_field_name('uid'); ?>" value="<?php echo esc_attr($instance['author']); ?>" class="widefat" /><br /><br />
 
 <!-- Post features -->
 <br /><hr /><br />
@@ -101,7 +101,7 @@ if ( $taxonomies = get_taxonomies(['public' => true], 'objects') ) {
 <input type="checkbox" class="checkbox" <?php echo ($instance['shorten_title']['active']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id('shorten_title-active'); ?>" name="<?php echo $this->get_field_name('shorten_title-active'); ?>" /> <label for="<?php echo $this->get_field_id('shorten_title-active'); ?>"><?php _e('Shorten title', 'wordpress-popular-posts'); ?></label><br />
 
 <div style="display:<?php if ($instance['shorten_title']['active']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
-    <label for="<?php echo $this->get_field_id('shorten_title-length'); ?>"><?php _e('Shorten title to', 'wordpress-popular-posts'); ?> <input type="text" id="<?php echo $this->get_field_id('shorten_title-length'); ?>" name="<?php echo $this->get_field_name('shorten_title-length'); ?>" value="<?php echo $instance['shorten_title']['length']; ?>" class="widefat" style="width:50px!important" /></label><br />
+    <label for="<?php echo $this->get_field_id('shorten_title-length'); ?>"><?php _e('Shorten title to', 'wordpress-popular-posts'); ?> <input type="text" id="<?php echo $this->get_field_id('shorten_title-length'); ?>" name="<?php echo $this->get_field_name('shorten_title-length'); ?>" value="<?php echo esc_attr($instance['shorten_title']['length']); ?>" class="widefat" style="width:50px!important" /></label><br />
     <label><input type="radio" name="<?php echo $this->get_field_name('shorten_title-words'); ?>" value="0" <?php echo (!isset($instance['shorten_title']['words']) || !$instance['shorten_title']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('characters', 'wordpress-popular-posts'); ?></label><br />
     <label><input type="radio" name="<?php echo $this->get_field_name('shorten_title-words'); ?>" value="1" <?php echo (isset($instance['shorten_title']['words']) && $instance['shorten_title']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('words', 'wordpress-popular-posts'); ?></label>
 </div>
@@ -110,7 +110,7 @@ if ( $taxonomies = get_taxonomies(['public' => true], 'objects') ) {
 
 <div style="display:<?php if ($instance['post-excerpt']['active']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
     <input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id('post-excerpt-format'); ?>" name="<?php echo $this->get_field_name('post-excerpt-format'); ?>" <?php echo ($instance['post-excerpt']['keep_format']) ? 'checked="checked"' : ''; ?> /> <label for="<?php echo $this->get_field_id('post-excerpt-format'); ?>"><?php _e('Keep text format and links', 'wordpress-popular-posts'); ?></label><br /><br />
-    <label for="<?php echo $this->get_field_id('post-excerpt-length'); ?>"><?php _e('Excerpt length', 'wordpress-popular-posts'); ?>: <input type="text" id="<?php echo $this->get_field_id('post-excerpt-length'); ?>" name="<?php echo $this->get_field_name('post-excerpt-length'); ?>" value="<?php echo $instance['post-excerpt']['length']; ?>" class="widefat" style="width:50px!important" /></label><br  />
+    <label for="<?php echo $this->get_field_id('post-excerpt-length'); ?>"><?php _e('Excerpt length', 'wordpress-popular-posts'); ?>: <input type="text" id="<?php echo $this->get_field_id('post-excerpt-length'); ?>" name="<?php echo $this->get_field_name('post-excerpt-length'); ?>" value="<?php echo esc_attr($instance['post-excerpt']['length']); ?>" class="widefat" style="width:50px!important" /></label><br  />
 
     <label><input type="radio" name="<?php echo $this->get_field_name('post-excerpt-words'); ?>" value="0" <?php echo (!isset($instance['post-excerpt']['words']) || !$instance['post-excerpt']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('characters', 'wordpress-popular-posts'); ?></label><br />
     <label><input type="radio" name="<?php echo $this->get_field_name('post-excerpt-words'); ?>" value="1" <?php echo (isset($instance['post-excerpt']['words']) && $instance['post-excerpt']['words']) ? 'checked="checked"' : ''; ?> /> <?php _e('words', 'wordpress-popular-posts'); ?></label>
@@ -124,7 +124,8 @@ if ( $taxonomies = get_taxonomies(['public' => true], 'objects') ) {
     <select id="<?php echo $this->get_field_id('thumbnail-size'); ?>" name="<?php echo $this->get_field_name('thumbnail-size'); ?>" class="widefat" style="margin:5px 0;">
         <?php
         foreach ( $this->thumbnail->get_sizes(null) as $name => $attr ) :
-            echo '<option value="' . $name . '"' . ( ($instance['thumbnail']['build'] == 'predefined' && $attr['width'] == $instance['thumbnail']['width'] && $attr['height'] == $instance['thumbnail']['height'] ) ? ' selected="selected"' : '') . '>' . $name . ' (' . $attr['width'] . ' x ' . $attr['height'] . ( $attr['crop'] ? ', hard crop' : ', soft crop') . ')</option>';
+            $option_label = $name . ' (' . $attr['width'] . ' x ' . $attr['height'] . ( $attr['crop'] ? ', hard crop' : ', soft crop') . ')';
+            echo '<option value="' . esc_attr($name) . '"' . ( ($instance['thumbnail']['build'] == 'predefined' && $attr['width'] == $instance['thumbnail']['width'] && $attr['height'] == $instance['thumbnail']['height'] ) ? ' selected="selected"' : '') . '>' . esc_html($option_label) . '</option>';
         endforeach;
         ?>
     </select>
@@ -134,10 +135,10 @@ if ( $taxonomies = get_taxonomies(['public' => true], 'objects') ) {
     <label><input type='radio' id='thumbnail-manual-size' name='<?php echo $this->get_field_name('thumbnail-size-source'); ?>' value='manual' <?php echo ($instance['thumbnail']['build'] == 'manual') ? 'checked="checked"' : ''; ?> /><?php _e('Set size manually', 'wordpress-popular-posts'); ?></label><br />
 
     <label for="<?php echo $this->get_field_id('thumbnail-width'); ?>"><?php _e('Width', 'wordpress-popular-posts'); ?>:</label>
-    <input type="text" id="<?php echo $this->get_field_id('thumbnail-width'); ?>" name="<?php echo $this->get_field_name('thumbnail-width'); ?>" value="<?php echo $instance['thumbnail']['width']; ?>" class="widefat" style="margin:3px 0; width:50px!important" /> px<br />
+    <input type="text" id="<?php echo $this->get_field_id('thumbnail-width'); ?>" name="<?php echo $this->get_field_name('thumbnail-width'); ?>" value="<?php echo esc_attr($instance['thumbnail']['width']); ?>" class="widefat" style="margin:3px 0; width:50px!important" /> px<br />
 
     <label for="<?php echo $this->get_field_id('thumbnail-height'); ?>"><?php _e('Height', 'wordpress-popular-posts'); ?>:</label>
-    <input type="text" id="<?php echo $this->get_field_id('thumbnail-height'); ?>" name="<?php echo $this->get_field_name('thumbnail-height'); ?>" value="<?php echo $instance['thumbnail']['height']; ?>" class="widefat" style="width:50px!important" /> px
+    <input type="text" id="<?php echo $this->get_field_id('thumbnail-height'); ?>" name="<?php echo $this->get_field_name('thumbnail-height'); ?>" value="<?php echo esc_attr($instance['thumbnail']['height']); ?>" class="widefat" style="width:50px!important" /> px
 </div><br />
 
 <!-- Stats tag options -->
@@ -174,7 +175,7 @@ if ( $taxonomies ) {
         if ('post_format' == $taxonomy->name )
             continue;
 
-        echo '<label><input type="radio" name="' . $this->get_field_name('stats_taxonomy_name') . '" value="' . $taxonomy->name . '"' . ( ( $instance['stats_tag']['taxonomy']['name'] == $taxonomy->name ) ? ' checked' : '') . '> ' . $taxonomy->labels->singular_name . '</label><br>';
+        echo '<label><input type="radio" name="' . $this->get_field_name('stats_taxonomy_name') . '" value="' . esc_attr($taxonomy->name) . '"' . ( ( $instance['stats_tag']['taxonomy']['name'] == $taxonomy->name ) ? ' checked' : '') . '> ' . esc_html($taxonomy->labels->singular_name) . '</label><br>';
     }
 ?>
 </div>
