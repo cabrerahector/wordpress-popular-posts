@@ -70,28 +70,36 @@ var WPPChart = (function() {
             layout: {
                 padding: {
                     top: 2,
-                    right: 5,
-                    bottom: 0,
-                    left: 5
+                    right: 0,
+                    bottom: 5,
+                    left: 0
                 }
             },
             scales: {
-                xAxes: [{
-                    display: true,
-                    gridLines: {
-                        display: false,
+                x: {
+                    grid: {
+                        display: false
                     },
                     ticks: {
-                        fontSize: 10,
-                        fontColor: '#23282d',
+                        font: {
+                            lineHeight: 1,
+                            size: 10
+                        },
+                        color: '#23282d',
                         autoSkip: false,
                         maxRotation: 90,
                         minRotation: 90
                     }
-                }],
-                yAxes: [{
-                    display: false
-                }]
+                },
+                  y: {
+                    grid: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: false
+                    }
+                }
             }
         }
     },

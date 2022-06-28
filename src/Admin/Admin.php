@@ -509,7 +509,7 @@ class Admin {
 
                 wp_enqueue_media();
                 wp_enqueue_script('jquery-ui-datepicker');
-                wp_enqueue_script('chartjs', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/vendor/Chart.min.js', [], WPP_VERSION);
+                wp_enqueue_script('chartjs', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/vendor/chart.min.js', [], WPP_VERSION);
 
                 wp_register_script('wpp-chart', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/chart.js', ['chartjs'], WPP_VERSION);
                 wp_localize_script('wpp-chart', 'wpp_chart_params', [
