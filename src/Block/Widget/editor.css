@@ -16,19 +16,42 @@
         background: #f0f0f0;
     }
 
-    .wp-block-wordpress-popular-posts-widget .components-base-control {
+    .wp-block-wordpress-popular-posts-widget .not-a-legend {
+        margin: 1em 0;
+        font-size: 0.9rem;
     }
+
+    .wp-block-wordpress-popular-posts-widget .components-base-control {
+        margin-bottom: 1em;
+    }
+
+    .wp-block-wordpress-popular-posts-widget .components-base-control.components-checkbox-control {
+        margin-bottom: 0.5em;
+    }
+
+            .wp-block-wordpress-popular-posts-widget .components-base-control.components-checkbox-control .components-base-control__field .components-checkbox-control__input-container {
+                margin-right: 0.5em;
+            }
 
         .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__help {
             margin: 0 0 1em;
-            font-size: 0.9em;
+            font-size: 0.8em;
         }
 
         .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field {
         }
 
             .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field label {
+                font-size: 0.8rem;
                 font-weight: 600;
+            }
+
+            .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field .components-text-control__input {
+                padding-left: 8px;
+                padding-right: 8px;
+                color: #000;
+                background: #fff;
+                border-color: #000;
             }
 
             .wp-block-wordpress-popular-posts-widget .components-base-control .components-base-control__field .components-select-control {
