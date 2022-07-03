@@ -356,6 +356,13 @@ class Widget extends \WP_Widget {
             $instance['theme']['applied'] = false;
         }
 
+        // On the new Widgets screen $new_instance['theme'] is
+        // an array for some reason, let's grab the theme name
+        // from the array and move on
+        if ( is_array($instance['theme']['name']) ) {
+            $instance['theme']['name'] = $instance['theme']['name']['name'];
+        }
+
         $theme = $instance['theme']['name'] ? $this->themer->get_theme($instance['theme']['name']) : null;
 
         if (
