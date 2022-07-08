@@ -1,7 +1,7 @@
 Changelog
 =========
 
-#### 6.0.1 ####
+## 6.0.1 ##
 
 - Security improvements.
 - Fixes fatal error in Image class (thanks Senri Miura!)
@@ -11,7 +11,7 @@ Changelog
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#minor-updates-and-hotfixes)
 
-#### 6.0.0 ####
+## 6.0.0 ##
 
 **This release introduces a couple of major changes so please review before updating.**
 
@@ -28,7 +28,7 @@ Changelog
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/)
 
-#### 5.5.1 ####
+## 5.5.1 ##
 
 **If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
 
@@ -39,7 +39,7 @@ Changelog
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-5-qol-improvements-and-php-5-announcement/#minor-updates-and-hotfixes)
 
-#### 5.5.0 ####
+## 5.5.0 ##
 
 - Adds the Sort by Average Daily Views option from the classic widget to the WordPress Popular Posts block.
 - Adds the WordPress Date Format option from the classic widget to the WordPress Popular Posts block (please see release notes for details).
@@ -49,13 +49,13 @@ Changelog
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-5-qol-improvements-and-php-5-announcement/)
 
-#### 5.4.2 ####
+## 5.4.2 ##
 
 - Fixes a rare issue that prevented some users from seeing the Stats chart (thanks Zsolt!)
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/#5.4.1)
 
-#### 5.4.1 ####
+## 5.4.1 ##
 
 **If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
 
@@ -66,7 +66,7 @@ Changelog
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/#5.4.1)
 
-#### 5.4.0 ####
+## 5.4.0 ##
 
 **If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
 
@@ -81,7 +81,7 @@ Changelog
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-4-widget-block-improvements-plus-prep-work-for-csp-support/)
 
-#### 5.3.6 ####
+## 5.3.6 ##
 
 - Fixes a potential authenticated stored XSS vulnerability (props to pluginvulnerabilities.com).
 - Fixes widget title not being displayed under certain conditions (thanks Okoth1 and others for reporting this issue!)
@@ -89,14 +89,14 @@ Changelog
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#5.3.6)
 
-#### 5.3.5 ####
+## 5.3.5 ##
 
 - Reverts security enhancements (not the XSS one though) which caused garbled output for some websites.
 - Fixes a PHP Fatal Error affecting some setups.
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#5.3.5)
 
-#### 5.3.4 ####
+## 5.3.4 ##
 
 - Experimental Gutenberg support! This version introduces the first WPP block. It's not enabled by default though, see the Release Notes for more.
 - Fixes a potential authenticated stored XSS vulnerability (props to Visse for reporting it!)
@@ -105,7 +105,7 @@ Changelog
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#5.3.4)
 
-#### 5.3.3 ####
+## 5.3.3 ##
 
 - Fixes a potential XSS vulnerability (props to Yu Iwama of Secure Sky Technology Inc. and the JPCERT/CC Vulnerability Coordination Group).
 - Fixes a potential code injection vulnerability (props to Jerome & NinTechNet).
@@ -117,20 +117,20 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#minor-updates-and-hotfixes)
 
-#### 5.3.2 ####
+## 5.3.2 ##
 
 - `wpp_get_views()`: fixed an issue where the function would return 0 views under certain conditions (thanks to everyone who helped with this!)
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#minor-updates-and-hotfixes)
 
-#### 5.3.1 ####
+## 5.3.1 ##
 
 - `wpp_get_views()`: restores previous behavior where when no time range was set the function would return total views count (thanks narolles!)
 - The WPP widget will now be loaded via AJAX by default (this affects new installs only.)
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#minor-updates-and-hotfixes)
 
-#### 5.3.0 ####
+## 5.3.0 ##
 
 - Improves compatibility with PHP 8.
 - Allows to override widget theme stylesheets.
@@ -145,14 +145,14 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/)
 
-#### 5.2.4 ####
+## 5.2.4 ##
 
 - Fixes PHP notices affecting Block Editor users on WordPress 5.5.
 - Fixes a rare PHP warning message that pops up randomly when the Pageviews Cache is enabled.
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here#hotfixes-and-minor-updates)
 
-#### 5.2.3 ####
+## 5.2.3 ##
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
 
@@ -161,7 +161,7 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here#hotfixes-and-minor-updates)
 
-#### 5.2.2 ####
+## 5.2.2 ##
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
 
@@ -171,7 +171,7 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here#hotfixes-and-minor-updates)
 
-#### 5.2.1 ####
+## 5.2.1 ##
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
 
@@ -181,7 +181,7 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here#hotfixes-and-minor-updates)
 
-#### 5.2.0 ####
+## 5.2.0 ##
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
 
@@ -195,21 +195,21 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-2-is-here)
 
-#### 5.1.0 ####
+## 5.1.0 ##
 
 - The /popular-posts GET API endpoint is now being cached as well.
 - Added a new Content Tag: title_attr.
 - Added a new [filter hook to filter popular posts terms](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_post_terms).
 - Minor code improvements.
 
-#### 5.0.2 ####
+## 5.0.2 ##
 
 - A performance notice will be displayed for mid/high traffic sites (see #239).
 - Fixed an issue with text_title content tag not being shortened (see #241).
 - Added a link to the Debug screen to the plugin's dashboard for ease of access.
 - Other minor improvements/changes.
 
-#### 5.0.1 ####
+## 5.0.1 ##
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is recommended.**
 
@@ -219,7 +219,7 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 - Removes bold styling from post title on the stock design (wpp.css).
 - Improves data caching logic.
 
-#### 5.0.0 ####
+## 5.0.0 ##
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
 
@@ -238,11 +238,11 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-0-multiple-taxonomy-support-themes-thumbnail-lazy-loading-and-more/) | [Full Changelog](https://github.com/cabrerahector/wordpress-popular-posts/compare/4.2.2...5.0.0).
 
-#### 4.2.2 ####
+## 4.2.2 ##
 
 - Hotfix: don't typehint scalars, breaks plugin on PHP 5.
 
-#### 4.2.1 ####
+## 4.2.1 ##
 
 - Adds [filter to set thumbnail compression quality](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_thumbnail_compression_quality).
 - Adds [filter to change the ending string of the excerpt](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_excerpt_more) generated by WPP.
@@ -250,7 +250,7 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 - Fixes a PHP warning message generated by an unimplemented method in the REST API controller.
 - Minor code improvements.
 
-#### 4.2.0 ####
+## 4.2.0 ##
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
 
@@ -264,7 +264,7 @@ If you're using a caching plugin flushing its cache after upgrading to this vers
 
 Check the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-2-is-all-about-speed/) for more details!
 
-#### 4.1.2 ####
+## 4.1.2 ##
 
 - Enables [Data Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) by default (new installs only).
 - The Parameters section (Settings > WordPress Popular Posts > Parameters) is now mobile-friendly.
@@ -272,7 +272,7 @@ Check the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-
 - Refactored WPP's caching mechanism into its own class.
 - Removed unused code.
 
-#### 4.1.1 ####
+## 4.1.1 ##
 
 **If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
 
@@ -281,7 +281,7 @@ Check the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-
 - Fixes a minor bug (plugin returning the wrong excerpt when a translation plugin is used).
 - Bumps minimum required PHP version to 5.3.
 
-#### 4.1.0 ####
+## 4.1.0 ##
 
 **If you’re using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
 
@@ -294,25 +294,25 @@ Check the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-
 
 See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-1-is-here/) for more details!
 
-#### 4.0.13 ####
+## 4.0.13 ##
 
 - Improvements to WPP's upgrade process.
 - Fixes ALT text missing from IMG tags.
 
-#### 4.0.12 ####
+## 4.0.12 ##
 
 - Fixes bug where WPP didn't return the right URL when using Polylang / WPML.
 - Fixes a compatibility issue with Yoast SEO (and potentially other plugins as well).
 - Improves compatibility with MySQL 5.7+.
 - Other minor fixes and improvements.
 
-#### 4.0.11 ####
+## 4.0.11 ##
 
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
 
 - Fixes reference to tracking script.
 
-#### 4.0.10 ####
+## 4.0.10 ##
 
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
 
@@ -320,7 +320,7 @@ See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-po
 - Widget: fixes caching (props @zu2).
 - Exposes offset parameter to wpp shortcode / `wpp_get_mostpopular` template tag.
 
-#### 4.0.9 ####
+## 4.0.9 ##
 
 - Widget: fixes Author ID field not saving/updating.
 - Fixes WPP data caching (props @zu2).
@@ -328,7 +328,7 @@ See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-po
 - Main POT file updated.
 - Other minor bug fixes & improvements.
 
-#### 4.0.8 ####
+## 4.0.8 ##
 
 - Multisite: plugin can now be installed individually on each site.
 - Multisite: improved upgrade process.
@@ -338,13 +338,13 @@ See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-po
 - Adds onload event to ajax widget (props @cawa-93).
 - Other minor bug fixes.
 
-#### 4.0.6 ####
+## 4.0.6 ##
 
 - Improves compatibility with Multisite.
 - Fixes a bug that prevented upgrade process from running on MU (props @gregsullivan!)
 - Improves compatibility with Beaver Builder.
 
-#### 4.0.5 ####
+## 4.0.5 ##
 
 - Fixes the taxonomy filter for Custom Post Types.
 - Updates summary table structure and indexes.
@@ -352,21 +352,21 @@ See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-po
 - Dashboard: adds a Debug screen to help with support inquiries.
 - Other minor bug fixes and improvements.
 
-#### 4.0.3 ####
+## 4.0.3 ##
 
 **This is a hotfix release.**
 
 - Dashboard: escapes post titles to prevent potential XSS (props Delta!)
 - Restores ability to use a custom default thumbnail.
 
-#### 4.0.2 ####
+## 4.0.2 ##
 
 **This is a hotfix release.**
 
 - Dashboard: fixes thumbnail picker on HTTPS.
 - Adds the `wpp_custom_html` filter back.
 
-#### 4.0.1 ####
+## 4.0.1 ##
 
 **This is a hotfix release.**
 
@@ -374,7 +374,7 @@ See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-po
 - Fixes undefined `default_thumbnail_sizes` warning message.
 - Removes a hardcoded table prefix causing issues on sites that uses a different prefix than the stock one.
 
-#### 4.0.0 ####
+## 4.0.0 ##
 
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
 
@@ -395,18 +395,18 @@ See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-po
 
 Also, see [Release notes](https://cabrerahector.com/development/wordpress-popular-posts-4-0-is-finally-out/).
 
-#### 3.3.4 ####
+## 3.3.4 ##
 - Attempt to convert tables to InnoDB during upgrade if other engine is being used.
 - Adds a check to prevent the upgrade process from running too many times.
 - Minor improvements and bug fixes.
 - Documentation updated.
 
-#### 3.3.3 ####
+## 3.3.3 ##
 - Fixes potential XSS exploit in WPP's admin dashboard.
 - Adds filter to set which post types should be tracked by WPP (details).
 - Adds ability to select first attached image as thumbnail source (thanks, [@serglopatin](https://github.com/serglopatin)!)
 
-#### 3.3.2 ####
+## 3.3.2 ##
 - Fixes warning message: 'stream does not support seeking in...'
 - Removes excerpt HTML encoding.
 - Passes widget ID to the instance variable for customization.
@@ -414,11 +414,11 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 - Documentation cleanup.
 - Other minor bug fixes / improvements.
 
-#### 3.3.1 ####
+## 3.3.1 ##
 - Fixes undefined index notice.
 - Makes sure legacy tables are deleted on plugin upgrade.
 
-#### 3.3.0 ####
+## 3.3.0 ##
 - Adds the ability to limit the amount of data logged by WPP (see Settings > WordPress Popular Posts > Tools for more).
 - Adds Polylang support (thanks, [@Chouby](https://github.com/Chouby)!)
 - Removes post data from DB on deletion.
@@ -428,7 +428,7 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 - Adds Settings page advertisement support.
 - FAQ section has been moved over to Github.
 
-#### 3.2.3 ####
+## 3.2.3 ##
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is highly recommended.**
 
 - Fixes a potential bug that might affect other plugins & themes (thanks @pippinsplugins).
@@ -438,7 +438,7 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 - Updates plugin's documentation.
 - Other small bug fixes and improvements.
 
-#### 3.2.2 ####
+## 3.2.2 ##
 **If you're using a caching plugin, flushing its cache after installing / upgrading to this version is recommended.**
 
 * Moves sampling logic into Javascript (thanks, [@kurtpayne](https://github.com/kurtpayne)!)
@@ -454,11 +454,11 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Removes Japanese, French and Norwegian Bokmal translation files from plugin.
 * Many minor bug fixes / enhancements.
 
-#### 3.2.1 ####
+## 3.2.1 ##
 * Fixes missing HTML decoding for custom HTML in widget.
 * Puts LIMIT clause back to the outer query.
 
-#### 3.2.0 ####
+## 3.2.0 ##
 * Adds check for jQuery.
 * Fixes invalid parameter in htmlspecialchars().
 * Switches AJAX update to POST method.
@@ -481,11 +481,11 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Adds list of available thumbnail sizes to the widget.
 * Other minor bugfixes and improvements.
 
-#### 3.1.1 ####
+## 3.1.1 ##
 * Adds check for exif extension availability.
 * Rolls back check for user's default thumbnail.
 
-#### 3.1.0 ####
+## 3.1.0 ##
 * Fixes invalid HTML title/alt attributes caused by encoding issues.
 * Fixes issue with jQuery not loading properly under certain circumstances.
 * Fixes issue with custom excerpts not showing up.
@@ -501,7 +501,7 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Drops support on Japanese and French languages since the translations were outdated.
 * Other minor bug fixes and improvements.
 
-#### 3.0.3 ####
+## 3.0.3 ##
 * Fixes widget not saving 'freshness' setting.
 * Adds HTMLentities conversion/deconversion on `wpp_get_mostpopular()`.
 * Improves thumbnail detection.
@@ -509,19 +509,19 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Fixes yet another bug on `wpp_get_views()`.
 * Other minor changes.
 
-#### 3.0.2 ####
+## 3.0.2 ##
 * Fixes an introduced bug on `wpp_get_views()`.
 * Fixes bug where thumbnail size was cached for multiple instances.
 * Adds back stylesheet detection.
 * Removes unused widget.js file.
 * Other minor bug fixes.
 
-#### 3.0.1 ####
+## 3.0.1 ##
 * Fixes bug on `wpp_get_views`.
 * Sustitutes WP_DEBUG with custom debugging constant.
 * Fixes bug that prevented disabling plugin's stylesheet.
 
-#### 3.0.0 ####
+## 3.0.0 ##
 * Plugin refactoring based on [@tikaszvince](https://github.com/tikaszvince)'s work (many thanks, Vince!).
 * Added WPML support.
 * Added experimental Wordpress Multisite support.
@@ -533,10 +533,10 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Dropped support on Dutch and Persian languages since the translations were outdated.
 * Several other fixes and improvements.
 
-#### 2.3.7 ####
+## 2.3.7 ##
 * Fixed category excluding/including bug.
 
-#### 2.3.6 ####
+## 2.3.6 ##
 * Added ability to set links' target attribute (thanks, Pedro!).
 * Added sanitization for external thumbnail filenames to avoid weird characters.
 * Added a new content tag, {score}, to display the post rating as a simple integer (thanks, Artem!).
@@ -549,13 +549,13 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Fixed typo in `wpp_update_warning`. From v2.3.3, minimun Wordpress version required is 3.3.
 * Fixed minor bugs.
 
-#### 2.3.5 ####
+## 2.3.5 ##
 
 * Fixed minor bugs on admin page.
 * Fixed query bug preventing some results from being listed.
 * Added a check to avoid using the terms tables if not necessary (eg. listing pages only).
 
-#### 2.3.4 ####
+## 2.3.4 ##
 
 * Added ability to shorten title/excerpt by number of words.
 * Updated excerpt code, don't show it if empty.
@@ -568,7 +568,7 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Updated `wpp_print_stylesheet()` to get the wpp.css file from the right path (thanks, Martin!).
 * Moved translations to lang folder.
 
-#### 2.3.3 ####
+## 2.3.3 ##
 
 * Minimum Wordpress version requirement changed to 3.3.
 * Minimum PHP version requirement changed to 5.2.0.
@@ -591,14 +591,14 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Added dutch translation. (Thank you, Jeroen!)
 * Added german translation. (Thank you, Martin!)
 
-#### 2.3.2 ####
+## 2.3.2 ##
 
 * The ability to enable / disable the Ajax Update has been removed. It introduced a random bug that doubled the views count of some posts / pages. Will be added back when a fix is ready.
 * Fixed a bug preventing the cat parameter from excluding categories (widget was not affected by this).
 * FAQ section (Settings / Wordpress Popular Posts / FAQ) updated.
 * Added french translation. (Thanks, Le Raconteur!)
 
-#### 2.3.1 ####
+## 2.3.1 ##
 
 * Fixed bug caused by the sorter function when there are multiple instances of the widget.
 * Added check for new options in the `get_popular_posts` function.
@@ -606,7 +606,7 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Fixed bug preventing some site from fetching images from subdomains or external sites.
 * Fixed bug that prevented excluding more than one category using the Category filter.
 
-#### 2.3.0 ####
+## 2.3.0 ##
 
 * Merged all pages into Settings/Wordpress Popular Posts.
 * Added new options to the Wordpress Popular Posts Stats dashboard.
@@ -620,11 +620,11 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Improved the category filtering feature.
 * Added the ability to get popular posts from given author IDs.
 
-#### 2.2.1 ####
+## 2.2.1 ##
 
 * Quick update to fix error with All-time combined with views breaking the plugin.
 
-#### 2.2.0 ####
+## 2.2.0 ##
 
 * Featured Image is generated for the user automatically if not present and if there's an image attached to the post.
 * Range feature Today option changed. Replaced with Last 24 hours.
@@ -635,11 +635,11 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Fixed bug keeping db tables from being created. Thanks northlake!
 * Fixed bug on the shortcode which was showing pages even if turned off. Thanks danpkraus!
 
-#### 2.1.7 ####
+## 2.1.7 ##
 
 * Added stylesheet detection. If wpp.css is on theme's folder, will use that instead the one bundled with the plugin.
 
-#### 2.1.6 ####
+## 2.1.6 ##
 
 * Added DB character set and collate detection.
 * Fixed excerpt translation issue when the qTrans plugin is present. Thanks r3df!.
@@ -648,30 +648,30 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Fixed widget title encoding bug.
 * Fixed deprecated errors on `load_plugin_textdomain` and `add_submenu_page`.
 
-#### 2.1.5 ####
+## 2.1.5 ##
 
 * Dropped TimThumb support in favor of Wordpress's Featured Image function.
 
-#### 2.1.4 ####
+## 2.1.4 ##
 
 * Added italian localization. Thanks Gianni!
 * Added charset detection.
 * Fixed bug preventing HTML View / Visual View on Edit Post page from working.
 
-#### 2.1.1 ####
+## 2.1.1 ##
 * Fixed bug preventing widget title from being saved.
 * Fixed bug affecting blogs with Wordpress installed somewhere else than domain's root.
 * Added htmlentities to post titles.
 * Added default thumbnail image if none is found in the post.
 
-#### 2.1.0 ####
+## 2.1.0 ##
 
 * Title special HTML entities bug fixed.
 * Thumbnail feature improved! Wordpress Popular Posts now supports The Post Thumbnail feature. You can choose whether to select your own thumbnails, or let Wordpress Popular Posts create them for you!
 * Shortcode bug fixed. Thanks Krokkodriljo!
 * Category exclusion feature improved. Thanks raamdev!
 
-#### 2.0.3 ####
+## 2.0.3 ##
 
 * Added a Statistics Dashboard to Admin panel so users can view what's popular directly from there.
 * Users can now select a different date format.
@@ -679,13 +679,13 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Cache maintenance bug fixed.
 * Several UI enhancements were applied to this version.
 
-#### 2.0.2 ####
+## 2.0.2 ##
 
 * "Keep text format and links" feature introduced. If selected, formatting tags and hyperlinks won't be removed from excerpt.
 * Post title excerpt html entities bug fixed. It was causing the excerpt function to display more characters than the requested by user.
 * Several shortcode bugs fixed (range, order_by, do_pattern, pattern_form were not working as expected).
 
-#### 2.0.1 ####
+## 2.0.1 ##
 
 * Post title excerpt now includes html entities. Characters like `���` should display properly now.
 * Post excerpt has been improved. Now it supports the following HTML tags: a, b, i, strong, em.
@@ -693,7 +693,7 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Template tag `get_mostpopular()` re-added. Parameter support included.
 * Shortcode bug fixed (range was always "daily" no matter what option was being selected by the user).
 
-#### 2.0.0 ####
+## 2.0.0 ##
 
 * Plugin rewritten to support Multi-Widget capabilities
 * Cache table implemented
@@ -703,71 +703,71 @@ Also, see [Release notes](https://cabrerahector.com/development/wordpress-popula
 * Thumbnail feature improved - some bugs were fixed, too
 * Maintenance page added
 
-#### 1.5.1 ####
+## 1.5.1 ##
 
 * Widget bug fixed
 
-#### 1.5.0 ####
+## 1.5.0 ##
 
 * Database improvements implemented
 * WP-PostRatings support added
 * Thumbnail feature added
 
-#### 1.4.6 ####
+## 1.4.6 ##
 
 * Bug in `get_mostpopular` function affected comments on single.php
 * "Show pageviews" option bug fixed
 * Added "content formatting tags" functionality
 
-#### 1.4.5 ####
+## 1.4.5 ##
 
 * Added new localizable strings
 * Fixed Admin page coding bug that was affecting the styling of WPP
 
-#### 1.4.4 ####
+## 1.4.4 ##
 
 * HTML Markup customizer added
 * Removed some unnessesary files
 
-#### 1.4.3 ####
+## 1.4.3 ##
 
 * Korean and Swedish are supported
 
-#### 1.4.2 ####
+## 1.4.2 ##
 
 * Code snippet bug found
 
-#### 1.4.1 ####
+## 1.4.1 ##
 
 * Found database bug affecting only new installations
 
-#### 1.4 ####
+## 1.4 ##
 
 * Massive code enhancement
 * CSS bugs fixed
 * Features added: Time Range; author and date (stats tag); separate settings for Widget and Code Snippet
 
-#### 1.3.2 ####
+## 1.3.2 ##
 
 * Permalink bug fixed
 
-#### 1.3.1 ####
+## 1.3.1 ##
 
 * Admin panel styling bug fixed
 
-#### 1.3 ####
+## 1.3 ##
 
 * Added an Admin page for a better management of the plugin
 * New sorting options (sort posts by comment count, by pageviews, or by average daily views) added
 
-#### 1.2 ####
+## 1.2 ##
 
 * Added extra functionalities to Wordpress Popular Post plugin core
 
-#### 1.1  ####
+## 1.1  ##
 
 * Fixed comment count bug
 
-#### 1.0 ####
+## 1.0 ##
 
 * Public release
