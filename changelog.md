@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 6.0.2 ##
+
+- Fixes issue with Stats dashboard not loading for Linux users (thanks agbuere!)
+
 ## 6.0.1 ##
 
 - Security improvements.
