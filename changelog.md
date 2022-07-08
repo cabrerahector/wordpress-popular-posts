@@ -1,6 +1,16 @@
 Changelog
 =========
 
+#### 6.0.1 ####
+
+- Security improvements.
+- Fixes fatal error in Image class (thanks Senri Miura!)
+- Fixes fatal error in "classic" widget when using widget themes (thanks Finn Jackson!)
+- Updates ChartJS to version 3.8.0.
+- Small improvements / fixes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#minor-updates-and-hotfixes)
+
 #### 6.0.0 ####
 
 **This release introduces a couple of major changes so please review before updating.**
