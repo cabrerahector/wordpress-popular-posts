@@ -75,7 +75,7 @@ if ( isset($_POST['section']) ) {
         if ( isset($_POST['wpp-update-data-options-token'] ) && wp_verify_nonce($_POST['wpp-update-data-options-token'], 'wpp-update-data-options') ) {
             $this->config['tools']['log']['level'] = (int) $_POST['log_option'];
             $this->config['tools']['log']['limit'] = (int) $_POST['log_limit'];
-            $this->config['tools']['log']['expires_after'] = ( \WordPressPopularPosts\Helper::is_number($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) ? $_POST['log_expire_time'] : 180;
+            $this->config['tools']['log']['expires_after'] = ( \WordPressPopularPosts\Helper::is_number($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) ? (int) $_POST['log_expire_time'] : 180;
             $this->config['tools']['ajax'] = (bool) $_POST['ajax'];
 
             // if any of the caching settings was updated, destroy all transients created by the plugin
@@ -89,7 +89,7 @@ if ( isset($_POST['section']) ) {
 
             $this->config['tools']['cache']['active'] = (bool) $_POST['cache'];
             $this->config['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
-            $this->config['tools']['cache']['interval']['value'] = ( isset($_POST['cache_interval_value']) && \WordPressPopularPosts\Helper::is_number($_POST['cache_interval_value']) && $_POST['cache_interval_value'] > 0 ) ? $_POST['cache_interval_value'] : 1;
+            $this->config['tools']['cache']['interval']['value'] = ( isset($_POST['cache_interval_value']) && \WordPressPopularPosts\Helper::is_number($_POST['cache_interval_value']) && $_POST['cache_interval_value'] > 0 ) ? (int) $_POST['cache_interval_value'] : 1;
 
             $this->config['tools']['sampling']['active'] = (bool) $_POST['sampling'];
             $this->config['tools']['sampling']['rate'] = ( isset($_POST['sample_rate']) && \WordPressPopularPosts\Helper::is_number($_POST['sample_rate']) && $_POST['sample_rate'] > 0 )
