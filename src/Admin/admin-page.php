@@ -58,8 +58,8 @@ if ( isset($_POST['section']) ) {
                     $this->flush_transients();
                 }
 
-                $this->config['tools']['thumbnail']['source'] = $_POST['thumb_source'];
-                $this->config['tools']['thumbnail']['field'] = ( ! empty($_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
+                $this->config['tools']['thumbnail']['source'] = sanitize_text_field($_POST['thumb_source']);
+                $this->config['tools']['thumbnail']['field'] = ( ! empty($_POST['thumb_field']) ) ? sanitize_text_field($_POST['thumb_field']) : "wpp_thumbnail";
                 $this->config['tools']['thumbnail']['default'] = ( ! empty($_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
                 $this->config['tools']['thumbnail']['resize'] = (bool) $_POST['thumb_field_resize'];
                 $this->config['tools']['thumbnail']['lazyload'] = (bool) $_POST['thumb_lazy_load'];
@@ -88,7 +88,7 @@ if ( isset($_POST['section']) ) {
             }
 
             $this->config['tools']['cache']['active'] = (bool) $_POST['cache'];
-            $this->config['tools']['cache']['interval']['time'] = $_POST['cache_interval_time'];
+            $this->config['tools']['cache']['interval']['time'] = $_POST['cache_interval_time']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             $this->config['tools']['cache']['interval']['value'] = ( isset($_POST['cache_interval_value']) && \WordPressPopularPosts\Helper::is_number($_POST['cache_interval_value']) && $_POST['cache_interval_value'] > 0 ) ? (int) $_POST['cache_interval_value'] : 1;
 
             $this->config['tools']['sampling']['active'] = (bool) $_POST['sampling'];

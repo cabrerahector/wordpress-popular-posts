@@ -45,7 +45,7 @@ if ( 'stats' == $current ) {
             </ul>
 
             <div class="wpp-lightbox-tab-content wpp-lightbox-tab-content-active" id="custom-time-range">
-                <input type="text" id="stats_range_time_quantity" name="stats_range_time_quantity" value="<?php echo $this->config['stats']['time_quantity']; ?>">
+                <input type="text" id="stats_range_time_quantity" name="stats_range_time_quantity" value="<?php echo esc_attr($this->config['stats']['time_quantity']); ?>">
 
                 <select id="stats_range_time_unit" name="stats_range_time_unit">
                     <option <?php if ($this->config['stats']['time_unit'] == "minute") { ?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
@@ -71,8 +71,8 @@ if ( 'stats' == $current ) {
     </div>
 
     <div id="wpp-chart-wrapper">
-        <h4><?php echo $chart_data['totals']['label_summary']; ?></h4>
-        <h5><?php echo $chart_data['totals']['label_date_range']; ?></h5>
+        <h4><?php echo wp_kses_post($chart_data['totals']['label_summary']); ?></h4>
+        <h5><?php echo esc_html($chart_data['totals']['label_date_range']); ?></h5>
 
         <ul class="wpp-header-nav" id="wpp-time-ranges">
             <li <?php echo ('daily' == $this->config['stats']['range'] || 'today' == $this->config['stats']['range'] ) ? ' class="current"' : ''; ?>><a href="#" data-range="today" title="<?php esc_attr_e('Today', 'wordpress-popular-posts'); ?>"><?php _e('Today', 'wordpress-popular-posts'); ?></a></li>

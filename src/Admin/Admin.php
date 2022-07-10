@@ -741,7 +741,7 @@ class Admin {
         $total_views = array_sum($views);
         $total_comments = array_sum($comments);
 
-        $label_summary = sprintf(_n('%s view', '%s views', $total_views, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_views) . '</strong>') . '<br style="display: none;" /> / ' .  sprintf(_n('%s comment', '%s comments', $total_comments, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_comments) . '</strong>');
+        $label_summary = sprintf(_n('%s view', '%s views', $total_views, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_views) . '</strong>') . ' / ' .  sprintf(_n('%s comment', '%s comments', $total_comments, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_comments) . '</strong>');
 
         // Format labels
         if ( 'today' != $range ) {
@@ -839,7 +839,7 @@ class Admin {
                 $dates = null;
 
                 if ( isset($_GET['dates']) ) {
-                    $dates = explode(" ~ ", $_GET['dates']);
+                    $dates = explode(" ~ ", esc_html($_GET['dates']));
 
                     if (
                         ! is_array($dates)
@@ -1011,7 +1011,7 @@ class Admin {
                     $dates = null;
 
                     if ( isset($_GET['dates']) ) {
-                        $dates = explode(" ~ ", $_GET['dates']);
+                        $dates = explode(" ~ ", esc_html($_GET['dates']));
 
                         if (
                             ! is_array($dates)
@@ -1157,8 +1157,8 @@ class Admin {
      */
     public function clear_data()
     {
-        $token = isset($_POST['token']) ? $_POST['token'] : null;
-        $clear = isset($_POST['clear']) ? $_POST['clear'] : null;
+        $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
+        $clear = isset($_POST['clear']) ? $_POST['clear'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
         if (
             current_user_can('manage_options')
@@ -1230,7 +1230,7 @@ class Admin {
         $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
 
         if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
-            $token = isset($_POST['token']) ? $_POST['token'] : null;
+            $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
 
             if (
                 current_user_can('edit_published_posts')
@@ -1425,8 +1425,8 @@ class Admin {
         $response = [
             'status' => 'error'
         ];
-        $token = isset($_POST['token']) ? $_POST['token'] : null;
-        $dismiss = isset($_POST['dismiss']) ? $_POST['dismiss'] : 0;
+        $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
+        $dismiss = isset($_POST['dismiss']) ? (int) $_POST['dismiss'] : 0;
 
         if (
             current_user_can('manage_options')

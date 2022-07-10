@@ -5,13 +5,13 @@ $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
 <!-- Widget title -->
 <p>
     <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-does-title-do" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small> <br />
-    <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
+    <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" class="widefat" />
 </p>
 
 <!-- Limit -->
 <p>
     <label for="<?php echo $this->get_field_id('limit'); ?>"><?php _e('Show up to', 'wordpress-popular-posts'); ?>:</label><br />
-    <input type="text" id="<?php echo $this->get_field_id('limit'); ?>" name="<?php echo $this->get_field_name('limit'); ?>" value="<?php echo $instance['limit']; ?>" class="widefat" style="width:50px!important" /> <?php _e('posts', 'wordpress-popular-posts'); ?>
+    <input type="text" id="<?php echo $this->get_field_id('limit'); ?>" name="<?php echo $this->get_field_name('limit'); ?>" value="<?php echo esc_attr($instance['limit']); ?>" class="widefat" style="width:50px!important" /> <?php _e('posts', 'wordpress-popular-posts'); ?>
 </p>
 
 <!-- Order by -->
@@ -39,7 +39,7 @@ $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
 </select><br />
 
 <div style="display: <?php echo ('custom' == $instance['range'] ) ? "block" : "none"; ?>">
-    <input type="text" id="<?php echo $this->get_field_id('time_quantity'); ?>" name="<?php echo $this->get_field_name('time_quantity'); ?>" value="<?php echo $instance['time_quantity']; ?>" style="display: inline; float: left; width: 50px!important;" />
+    <input type="text" id="<?php echo $this->get_field_id('time_quantity'); ?>" name="<?php echo $this->get_field_name('time_quantity'); ?>" value="<?php echo esc_attr($instance['time_quantity']); ?>" style="display: inline; float: left; width: 50px!important;" />
 
     <select id="<?php echo $this->get_field_id('time_unit'); ?>" name="<?php echo $this->get_field_name('time_unit'); ?>" style="margin-bottom: 5px;">
         <option <?php if ($instance['time_unit'] == "minute") {?>selected="selected"<?php } ?> value="minute"><?php _e("Minute(s)", 'wordpress-popular-posts'); ?></option>
@@ -55,7 +55,7 @@ $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
 <input type="text" id="<?php echo $this->get_field_id('post_type'); ?>" name="<?php echo $this->get_field_name('post_type'); ?>" value="<?php echo esc_attr($instance['post_type']); ?>" class="widefat" /><br /><br />
 
 <label for="<?php echo $this->get_field_id('pid'); ?>"><?php _e('Post ID(s) to exclude', 'wordpress-popular-posts'); ?>:</label>
-<input type="text" id="<?php echo $this->get_field_id('pid'); ?>" name="<?php echo $this->get_field_name('pid'); ?>" value="<?php echo $instance['pid']; ?>" class="widefat" /><br /><br />
+<input type="text" id="<?php echo $this->get_field_id('pid'); ?>" name="<?php echo $this->get_field_name('pid'); ?>" value="<?php echo esc_attr($instance['pid']); ?>" class="widefat" /><br /><br />
 
 <label for="<?php echo $this->get_field_id('tax_id'); ?>"><?php _e('Taxonomy', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#what-is-taxonomy-for" title="<?php _e('What is this?', 'wordpress-popular-posts'); ?>" target="_blank">?</a>]</small><br style="margin-bottom: 0.5rem" />
 <?php
@@ -204,10 +204,10 @@ if ( $taxonomies ) {
     }
     ?>
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id('title-start'); ?>"><?php _e('Before / after title', 'wordpress-popular-posts'); ?>:</label> <br />
-    <input type="text" id="<?php echo $this->get_field_id('title-start'); ?>" name="<?php echo $this->get_field_name('title-start'); ?>" value="<?php echo $wpp_title_start; ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('title-end'); ?>" name="<?php echo $this->get_field_name('title-end'); ?>" value="<?php echo $wpp_title_end; ?>" class="widefat" style="width:49%!important" /></p>
+    <input type="text" id="<?php echo $this->get_field_id('title-start'); ?>" name="<?php echo $this->get_field_name('title-start'); ?>" value="<?php echo esc_attr($wpp_title_start); ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('title-end'); ?>" name="<?php echo $this->get_field_name('title-end'); ?>" value="<?php echo esc_attr($wpp_title_end); ?>" class="widefat" style="width:49%!important" /></p>
 
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id('wpp-start'); ?>"><?php _e('Before / after Popular Posts', 'wordpress-popular-posts'); ?>:</label> <br />
-    <input type="text" id="<?php echo $this->get_field_id('wpp-start'); ?>" name="<?php echo $this->get_field_name('wpp-start'); ?>" value="<?php echo esc_attr($instance['markup']['wpp-start']); ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('wpp-end'); ?>" name="<?php echo $this->get_field_name('wpp-end'); ?>" value="<?php echo $instance['markup']['wpp-end']; ?>" class="widefat" style="width:49%!important" /></p>
+    <input type="text" id="<?php echo $this->get_field_id('wpp-start'); ?>" name="<?php echo $this->get_field_name('wpp-start'); ?>" value="<?php echo esc_attr($instance['markup']['wpp-start']); ?>" class="widefat" style="width:49%!important" /> <input type="text" id="<?php echo $this->get_field_id('wpp-end'); ?>" name="<?php echo $this->get_field_name('wpp-end'); ?>" value="<?php echo esc_attr($instance['markup']['wpp-end']); ?>" class="widefat" style="width:49%!important" /></p>
 
     <p style="font-size:11px"><label for="<?php echo $this->get_field_id('post-html'); ?>"><?php _e('Post HTML Markup', 'wordpress-popular-posts'); ?>:</label> <br />
     <textarea class="widefat" rows="10" id="<?php echo $this->get_field_id('post-html'); ?>" name="<?php echo $this->get_field_name('post-html'); ?>"><?php echo $instance['markup']['post-html']; ?></textarea>
