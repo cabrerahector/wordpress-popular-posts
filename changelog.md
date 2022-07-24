@@ -1,9 +1,18 @@
 Changelog
 =========
 
+## 6.0.3 ##
+
+- WPCS updates.
+- Fixes an issue where excerpts may outout broken HTML under certain conditions (thanks ozboss1!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.3)
+
 ## 6.0.2 ##
 
 - Fixes issue with Stats dashboard not loading for Linux users (thanks agbuere!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.2)
 
 ## 6.0.1 ##
 
