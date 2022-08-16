@@ -19,8 +19,18 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
     if ( empty($id) || is_null($id) || ! is_numeric($id) )
         return "-1";
 
+    $id = absint($id);
+
     global $wpdb;
     $table_name = $wpdb->prefix . "popularposts";
+    $translate = new \WordPressPopularPosts\Translate;
+
+    $id = $translate->get_object_id(
+        $id,
+        get_post_type($id),
+        true,
+        $translate->get_default_language()
+    );
 
     $args = [
         'range' => 'all',
@@ -42,7 +52,10 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
 
     // Get all-time views count
     if ( 'all' == $args['range'] ) {
-        $query = "SELECT pageviews FROM {$table_name}data WHERE postid = '{$id}'";
+        $query = $wpdb->prepare(
+            "SELECT pageviews FROM {$table_name}data WHERE postid = %d;",
+            $args['_postID']
+        );
     } // Get views count within time range
     else {
         $start_date = new \DateTime(
