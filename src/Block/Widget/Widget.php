@@ -150,6 +150,14 @@ class Widget extends Block
             filemtime(plugin_dir_path(dirname(dirname(dirname(__FILE__)))) . 'assets/js/blocks/block-wpp-widget.js')
         );
 
+        wp_localize_script(
+            'block-wpp-widget-js',
+            '_wordpress_popular_posts',
+            [
+                'can_show_rating' => function_exists('the_ratings_results')
+            ]
+        );
+
         wp_register_style(
             'block-wpp-editor-css',
             plugins_url('editor.css', __FILE__),
@@ -273,6 +281,10 @@ class Widget extends Block
                     'thumbnail_size' => [
                         'type' => 'string',
                         'default' => ''
+                    ],
+                    'rating' => [
+                        'type' => 'boolean',
+                        'default' => false
                     ],
                     /* stats tag settings */
                     'stats_comments' => [

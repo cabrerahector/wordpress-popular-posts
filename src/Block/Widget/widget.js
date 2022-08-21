@@ -121,6 +121,10 @@ registerBlockType('wordpress-popular-posts/widget', {
             type: 'string',
             default: ''
         },
+        rating: {
+            type: 'boolean',
+            default: false
+        },
         /* stats tag settings */
         stats_comments: {
             type: 'boolean',

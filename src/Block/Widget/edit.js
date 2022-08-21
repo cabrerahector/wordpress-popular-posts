@@ -538,6 +538,13 @@ export class WPPWidgetBlockEdit extends Component
                     }
                 </div>
             }
+            { _wordpress_popular_posts.can_show_rating &&
+                <CheckboxControl
+                    label={__('Display post rating', 'wordpress-popular-posts')}
+                    checked={attributes.rating}
+                    onChange={(value) => setAttributes({ rating: value })}
+                />
+            }
         </Fragment>;
     }
 
