@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2022-06-24 15:06-0400\n"
+"POT-Creation-Date: 2022-08-28 10:31-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -73,12 +73,12 @@ msgstr ""
 msgid "Last 24 Hours"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:78
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:80
 #: src/Block/Widget/edit.js:200 src/Widget/form.php:35
 msgid "Last 7 days"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:79
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:81
 #: src/Block/Widget/edit.js:201 src/Widget/form.php:36
 msgid "Last 30 days"
 msgstr ""
@@ -88,7 +88,7 @@ msgstr ""
 msgid "All-time"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:80
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:82
 #: src/Block/Widget/edit.js:203 src/Widget/form.php:38
 msgid "Custom"
 msgstr ""
@@ -101,22 +101,22 @@ msgstr ""
 msgid "Time Unit"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:49
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:51
 #: src/Admin/screen-tools.php:171 src/Block/Widget/edit.js:218 src/Widget/form.php:45
 msgid "Minute(s)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:50
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:52
 #: src/Admin/screen-tools.php:172 src/Block/Widget/edit.js:219 src/Widget/form.php:46
 msgid "Hour(s)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:51
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:53
 #: src/Admin/screen-tools.php:173 src/Block/Widget/edit.js:220 src/Widget/form.php:47
 msgid "Day(s)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:24
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:25
 #: src/Block/Widget/edit.js:227 src/Widget/form.php:52
 msgid "Display only posts published within the selected Time Range"
 msgstr ""
@@ -154,176 +154,181 @@ msgstr ""
 msgid "Term IDs must be comma separated, prefix a minus sign to exclude."
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:443
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:449
 #: src/Widget/form.php:94
 msgid "Posts settings"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:445
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:451
 #: src/Widget/form.php:101
 msgid "Shorten title"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:452
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:458
 #: src/Widget/form.php:104
 msgid "Shorten title to"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:459
-#: src/Block/Widget/edit.js:486 src/Widget/form.php:105 src/Widget/form.php:115
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:465
+#: src/Block/Widget/edit.js:492 src/Widget/form.php:105 src/Widget/form.php:115
 msgid "characters"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:460
-#: src/Block/Widget/edit.js:487 src/Widget/form.php:106 src/Widget/form.php:116
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:466
+#: src/Block/Widget/edit.js:493 src/Widget/form.php:106 src/Widget/form.php:116
 msgid "words"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:467
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:473
 #: src/Widget/form.php:109
 msgid "Display post excerpt"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:474
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:480
 #: src/Widget/form.php:112
 msgid "Keep text format and links"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:479
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:485
 #: src/Widget/form.php:113
 msgid "Excerpt length"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:494
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:500
 #: src/Widget/form.php:119
 msgid "Display post thumbnail"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:503
-#: src/Widget/form.php:134
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:509
+#: src/Widget/form.php:135
 msgid "Set size manually"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:504
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:510
 #: src/Widget/form.php:122
 msgid "Use predefined size"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:511
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:517
 msgid "Thumbnail width"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:512
-#: src/Block/Widget/edit.js:518
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:518
+#: src/Block/Widget/edit.js:524
 msgid "Size in px units (pixels)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:517
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:523
 msgid "Thumbnail height"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:556
-#: src/Widget/form.php:146
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:543
+#: src/Widget/form.php:98
+msgid "Display post rating"
+msgstr ""
+
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:569
+#: src/Widget/form.php:147
 msgid "Stats Tag settings"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:558
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:571
 msgid "Display comments count"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:563
-#: src/Widget/form.php:150
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:576
+#: src/Widget/form.php:151
 msgid "Display views"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:568
-#: src/Widget/form.php:152
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:581
+#: src/Widget/form.php:153
 msgid "Display author"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:573
-#: src/Widget/form.php:154
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:586
+#: src/Widget/form.php:155
 msgid "Display date"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:580
-#: src/Widget/form.php:157
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:593
+#: src/Widget/form.php:158
 msgid "Date Format"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:583
-#: src/Widget/form.php:159
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:596
+#: src/Widget/form.php:160
 msgid "Relative"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:584
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:597
 msgid "Month Day, Year"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:585
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:598
 msgid "yyyy/mm/dd"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:586
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:599
 msgid "mm/dd/yyyy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:587
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:600
 msgid "dd/mm/yyyy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:588
-#: src/Widget/form.php:160
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:601
+#: src/Widget/form.php:161
 msgid "WordPress Date Format"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:595
-#: src/Widget/form.php:167
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:608
+#: src/Widget/form.php:168
 msgid "Display taxonomy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:602
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:615
 #: src/Widget/form.php:60
 msgid "Taxonomy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:654
-#: src/Widget/form.php:226
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:667
+#: src/Widget/form.php:227
 msgid "None"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:671
-#: src/Widget/form.php:188
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:684
+#: src/Widget/form.php:189
 msgid "HTML Markup settings"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:673
-#: src/Widget/form.php:190
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:686
+#: src/Widget/form.php:191
 msgid "Use custom HTML Markup"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:681
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:694
 msgid "Before title"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:687
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:700
 msgid "After title"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:693
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:706
 msgid "Before popular posts"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:699
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:712
 msgid "After popular posts"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:704
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:717
 msgid "Post HTML markup"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:711
-#: src/Widget/form.php:218
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:724
+#: src/Widget/form.php:219
 msgid "Theme"
 msgstr ""
 
@@ -334,7 +339,7 @@ msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:405 src/Admin/screen-stats.php:92
+#: src/Admin/Admin.php:405 src/Admin/screen-stats.php:94
 msgid "Trending now"
 msgstr ""
 
@@ -440,7 +445,7 @@ msgid "Support"
 msgstr ""
 
 #: src/Admin/Admin.php:744 src/Admin/Admin.php:1130 src/Admin/Admin.php:1134
-#: src/Output.php:788
+#: src/Output.php:804
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
@@ -448,7 +453,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Admin/Admin.php:744 src/Admin/Admin.php:1132 src/Admin/Admin.php:1134
-#: src/Output.php:771
+#: src/Output.php:787
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
@@ -485,11 +490,11 @@ msgstr ""
 msgid "Remind me later"
 msgstr ""
 
-#: src/Admin/admin-page.php:6 src/Admin/admin-page.php:115
+#: src/Admin/admin-page.php:6 src/Admin/admin-page.php:110
 msgid "Stats"
 msgstr ""
 
-#: src/Admin/admin-page.php:7 src/Admin/admin-page.php:116
+#: src/Admin/admin-page.php:7 src/Admin/admin-page.php:111
 msgid "Tools"
 msgstr ""
 
@@ -498,7 +503,7 @@ msgid "Parameters"
 msgstr ""
 
 #: src/Admin/admin-page.php:30 src/Admin/admin-page.php:42 src/Admin/admin-page.php:68
-#: src/Admin/admin-page.php:104
+#: src/Admin/admin-page.php:100
 msgid "Settings saved."
 msgstr ""
 
@@ -506,45 +511,41 @@ msgstr ""
 msgid "Please provide the name of your custom field."
 msgstr ""
 
-#: src/Admin/admin-page.php:114
-msgid "Menu"
-msgstr ""
-
 #: src/Admin/screen-stats.php:18
 msgid "Post type"
 msgstr ""
 
-#: src/Admin/screen-stats.php:30 src/Admin/screen-stats.php:63
+#: src/Admin/screen-stats.php:32 src/Admin/screen-stats.php:65
 #: src/Admin/screen-tools.php:97 src/Admin/screen-tools.php:205
 #: src/Admin/screen-tools.php:252
 msgid "Apply"
 msgstr ""
 
-#: src/Admin/screen-stats.php:31 src/Admin/screen-stats.php:66
+#: src/Admin/screen-stats.php:33 src/Admin/screen-stats.php:68
 msgid "Cancel"
 msgstr ""
 
-#: src/Admin/screen-stats.php:41
+#: src/Admin/screen-stats.php:43
 msgid "Custom Time Range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:42
+#: src/Admin/screen-stats.php:44
 msgid "Date Range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:56
+#: src/Admin/screen-stats.php:58
 msgid "Select a date..."
 msgstr ""
 
-#: src/Admin/screen-stats.php:76
+#: src/Admin/screen-stats.php:78
 msgid "Today"
 msgstr ""
 
-#: src/Admin/screen-stats.php:77 src/Widget/form.php:34
+#: src/Admin/screen-stats.php:79 src/Widget/form.php:34
 msgid "Last 24 hours"
 msgstr ""
 
-#: src/Admin/screen-stats.php:84
+#: src/Admin/screen-stats.php:86
 #, php-format
 msgid ""
 "Err... A nice little chart is supposed to be here, instead you are seeing this because "
@@ -552,31 +553,31 @@ msgid ""
 "browser</a>."
 msgstr ""
 
-#: src/Admin/screen-stats.php:90
+#: src/Admin/screen-stats.php:92
 msgid "See your most viewed posts within the selected time range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:90
+#: src/Admin/screen-stats.php:92
 msgid "Most viewed"
 msgstr ""
 
-#: src/Admin/screen-stats.php:91
+#: src/Admin/screen-stats.php:93
 msgid "See your most commented posts within the selected time range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:91
+#: src/Admin/screen-stats.php:93
 msgid "Most commented"
 msgstr ""
 
-#: src/Admin/screen-stats.php:92
+#: src/Admin/screen-stats.php:94
 msgid "See your most viewed posts within the last hour"
 msgstr ""
 
-#: src/Admin/screen-stats.php:93
+#: src/Admin/screen-stats.php:95
 msgid "See your most viewed posts of all time"
 msgstr ""
 
-#: src/Admin/screen-stats.php:93
+#: src/Admin/screen-stats.php:95
 msgid "Hall of Fame"
 msgstr ""
 
@@ -627,7 +628,7 @@ msgstr ""
 #: src/Admin/screen-tools.php:57 src/Admin/screen-tools.php:155
 #: src/Admin/screen-tools.php:183 src/Widget/form.php:7 src/Widget/form.php:54
 #: src/Widget/form.php:60 src/Widget/form.php:88 src/Widget/form.php:98
-#: src/Widget/form.php:190
+#: src/Widget/form.php:191
 msgid "What is this?"
 msgstr ""
 
@@ -843,34 +844,34 @@ msgstr ""
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: src/Output.php:609
+#: src/Output.php:622
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: src/Output.php:782
+#: src/Output.php:798
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Output.php:800
+#: src/Output.php:816
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: src/Output.php:805
+#: src/Output.php:821
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: src/Output.php:805
+#: src/Output.php:821
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: src/Output.php:810
+#: src/Output.php:826
 #, php-format
 msgid "under %s"
 msgstr ""
@@ -960,39 +961,35 @@ msgstr ""
 msgid "%s IDs, separated by comma (prefix a minus sign to exclude)"
 msgstr ""
 
-#: src/Widget/form.php:98
-msgid "Display post rating"
-msgstr ""
-
-#: src/Widget/form.php:136
+#: src/Widget/form.php:137
 msgid "Width"
 msgstr ""
 
-#: src/Widget/form.php:139
+#: src/Widget/form.php:140
 msgid "Height"
 msgstr ""
 
-#: src/Widget/form.php:148
+#: src/Widget/form.php:149
 msgid "Display comment count"
 msgstr ""
 
-#: src/Widget/form.php:205
+#: src/Widget/form.php:206
 msgid "Before / after title"
 msgstr ""
 
-#: src/Widget/form.php:208
+#: src/Widget/form.php:209
 msgid "Before / after Popular Posts"
 msgstr ""
 
-#: src/Widget/form.php:211
+#: src/Widget/form.php:212
 msgid "Post HTML Markup"
 msgstr ""
 
-#: src/Widget/form.php:218
+#: src/Widget/form.php:219
 #, php-format
 msgid "see a <a href=\"%s\">list of supported browsers</a>"
 msgstr ""
 
-#: src/Widget/form.php:234
+#: src/Widget/form.php:235
 msgid "Please save this widget (or reload this page) to enable WPP themes."
 msgstr ""
