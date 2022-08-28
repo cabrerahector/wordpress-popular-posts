@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 6.0.4 ##
+
+- Block: improves logic when toggling certain settings.
+- Block: adds back option to show post rating.
+- get_views() is now compatible with Polylang/WPML.
+- Updates dependencies.
+- Updates .pot file.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.4)
+
 ## 6.0.3 ##
 
 - WPCS updates.
