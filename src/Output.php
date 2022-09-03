@@ -570,8 +570,8 @@ class Output {
             // remove HTML comments
             $excerpt = preg_replace('/<!--.*?-->/ms', '', $excerpt);
 
-            // Remove extra whitespaces
-            $excerpt =  preg_replace('/\s\s+/', ' ', $excerpt);
+            // remove extra whitespaces
+            $excerpt = preg_replace('/\s\s+/', ' ', $excerpt);
 
             $excerpt = trim($excerpt);
 
