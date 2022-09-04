@@ -109,6 +109,15 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 6.0.5 =
+
+## 6.0.5 ##
+
+- Fixes yet another issue where excerpts may output broken HTML under certain conditions (thanks dxylott54!)
+- Updates .pot file.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.5)
+
 = 6.0.4 =
 
 - Block: improves logic when toggling certain settings.
@@ -158,27 +167,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Small improvements / fixes.
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/)
-
-= 5.5.1 =
-
-**If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.**
-
-- Fixes an issue where the WordPress Popular Posts block would, under specific conditions, output code that may break the page layout (thanks @shoelaced and @themosaurus for the report!)
-- Fixes minor variable declaration bug in wpp.js.min.
-- Cleans up inline style tag (thanks @gabu69 and Lohen Florent for the suggestions!)
-- Other minor fixes & changes.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-5-qol-improvements-and-php-5-announcement/#minor-updates-and-hotfixes)
-
-= 5.5.0 =
-
-- Adds the Sort by Average Daily Views option from the classic widget to the WordPress Popular Posts block.
-- Adds the WordPress Date Format option from the classic widget to the WordPress Popular Posts block (please see announcements for details).
-- Adds new Content Tags: author_name and author_url.
-- Improves cached data garbage collection.
-- Other minor performances improvements and fixes.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-5-qol-improvements-and-php-5-announcement/)
 
 [Full Changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md)
 

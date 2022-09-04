@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 6.0.5 ##
+
+- Fixes yet another issue where excerpts may output broken HTML under certain conditions (thanks dxylott54!)
+- Updates .pot file.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.5)
+
 ## 6.0.4 ##
 
 - Block: improves logic when toggling certain settings.
