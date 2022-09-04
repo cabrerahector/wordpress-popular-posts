@@ -1,6 +1,6 @@
 {
   "name": "wordpress-popular-posts",
-  "version": "6.0.4",
+  "version": "6.0.5",
   "description": "A highly customizable widget that displays your most popular posts.",
   "main": "index.js",
   "scripts": {
