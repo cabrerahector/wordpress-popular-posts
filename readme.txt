@@ -111,8 +111,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 = 6.0.5 =
 
-## 6.0.5 ##
-
 - Fixes yet another issue where excerpts may output broken HTML under certain conditions (thanks dxylott54!)
 - Updates .pot file.
 
