@@ -44,7 +44,7 @@ class ViewLoggerEndpoint extends Endpoint {
         $_sampling = $this->config['tools']['sampling']['active'];
         $_sampling_rate = $this->config['tools']['sampling']['rate'];
 
-        // Let's make sure that sampling valuessettings we got
+        // Let's make sure that sampling settings we got
         // on this request are what we expect
         $sampling = $sampling != $_sampling ? $_sampling : $sampling;
         $sampling_rate = $sampling_rate != $_sampling_rate ? $_sampling_rate : $sampling_rate;
