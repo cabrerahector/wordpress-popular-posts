@@ -49,13 +49,6 @@ class ViewLoggerEndpoint extends Endpoint {
         $sampling = $sampling != $_sampling ? $_sampling : $sampling;
         $sampling_rate = $sampling_rate != $_sampling_rate ? $_sampling_rate : $sampling_rate;
 
-        error_log( print_r([
-            'request_sampling' => $request->get_param('sampling'),
-            'request_srate' => $request->get_param('sampling_rate'),
-            'sampling' => $sampling,
-            'sampling_rate' => $sampling_rate
-        ], true) );
-
         $table = $wpdb->prefix . "popularposts";
         $wpdb->show_errors();
 
