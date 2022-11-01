@@ -40,6 +40,22 @@ class ViewLoggerEndpoint extends Endpoint {
         $sampling = $request->get_param('sampling');
         $sampling_rate = $request->get_param('sampling_rate');
 
+        // Sampling settings from database
+        $_sampling = $this->config['tools']['sampling']['active'];
+        $_sampling_rate = $this->config['tools']['sampling']['rate'];
+
+        // Let's make sure that sampling valuessettings we got
+        // on this request are what we expect
+        $sampling = $sampling != $_sampling ? $_sampling : $sampling;
+        $sampling_rate = $sampling_rate != $_sampling_rate ? $_sampling_rate : $sampling_rate;
+
+        error_log( print_r([
+            'request_sampling' => $request->get_param('sampling'),
+            'request_srate' => $request->get_param('sampling_rate'),
+            'sampling' => $sampling,
+            'sampling_rate' => $sampling_rate
+        ], true) );
+
         $table = $wpdb->prefix . "popularposts";
         $wpdb->show_errors();
 
