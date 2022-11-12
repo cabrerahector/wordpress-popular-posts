@@ -443,6 +443,8 @@ class Output {
      */
     private function get_title(\stdClass $post_object, int $post_id)
     {
+        $title = '';
+
         if ( $post_object->id != $post_id ) {
             $title = get_the_title($post_id);
         } else {
