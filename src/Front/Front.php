@@ -118,6 +118,10 @@ class Front {
             $is_single = Helper::is_single();
         }
 
+        $wpp_js = ( defined('WP_DEBUG') && WP_DEBUG )
+            ? plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp.js'
+            : plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp.min.js';
+
         wp_register_script('wpp-js', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp.min.js', [], WPP_VERSION, false);
         $params = [
             'sampling_active' => (int) $this->config['tools']['sampling']['active'],
