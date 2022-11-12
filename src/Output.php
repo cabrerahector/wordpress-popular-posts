@@ -639,7 +639,7 @@ class Output {
             }
         }
 
-        return $date;
+        return apply_filters('wpp_the_date', $date, $post_object->id);
     }
 
     /**
