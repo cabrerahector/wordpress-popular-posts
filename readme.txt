@@ -109,6 +109,15 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 6.1.0 =
+
+- Improves PHP 8.1 support.
+- Adds new [filter to modify the post date](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_the_date).
+- Adds check to prevent the misuse of the Data Sampling feature (props to the JPCERT/CC team for reporting this issue).
+- Updates dependencies.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-1-0-improved-php-8-1-support-plus-minor-enhancements/)
+
 = 6.0.5 =
 
 - Fixes yet another issue where excerpts may output broken HTML under certain conditions (thanks dxylott54!)
