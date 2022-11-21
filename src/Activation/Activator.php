@@ -24,10 +24,10 @@ class Activator {
      * Fired when the plugin is activated.
      *
      * @since    1.0.0
-     * @param    bool    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
+     * @param    mixed   $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog. Sometimes it's NULL though.
      * @global   object  $wpdb
      */
-    public static function activate(bool $network_wide)
+    public static function activate($network_wide) /** @TODO: starting PHP 8.0 $network_wide can be declared as mixed $network_wide */
     {
         global $wpdb;
 
