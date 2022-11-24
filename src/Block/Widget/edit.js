@@ -681,7 +681,7 @@ export class WPPWidgetBlockEdit extends Component
         }
 
         return <Fragment>
-            <p className='not-a-legend'><strong>{__('HTML Markup settings', 'wordpress-popular-posts')}</strong></p>
+            <p className='not-a-legend'><strong>{__('HTML Markup settings', 'wordpress-popular-posts')}</strong> <small>(<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-can-i-use-my-own-html-markup-with-your-plugin" target="_blank">{__('What is this?', 'wordpress-popular-posts')}</a>)</small></p>
             <CheckboxControl
                 label={__('Use custom HTML Markup', 'wordpress-popular-posts')}
                 checked={attributes.custom_html}
@@ -718,6 +718,7 @@ export class WPPWidgetBlockEdit extends Component
                         value={attributes.post_html}
                         onChange={(value) => setAttributes({ post_html: value })}
                     />
+                    <small><a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#content-tags" target="_blank">{__('Content Tags List', 'wordpress-popular-posts')}</a></small>
                 </div>
             }
             <SelectControl

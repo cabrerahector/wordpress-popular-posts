@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2022-11-12 15:20-0400\n"
+"POT-Creation-Date: 2022-11-24 12:14-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -302,6 +302,14 @@ msgstr ""
 msgid "HTML Markup settings"
 msgstr ""
 
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-tools.php:57
+#: src/Admin/screen-tools.php:155 src/Admin/screen-tools.php:183
+#: src/Block/Widget/edit.js:684 src/Widget/form.php:7 src/Widget/form.php:54
+#: src/Widget/form.php:60 src/Widget/form.php:88 src/Widget/form.php:98
+#: src/Widget/form.php:191
+msgid "What is this?"
+msgstr ""
+
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:686
 #: src/Widget/form.php:191
 msgid "Use custom HTML Markup"
@@ -327,7 +335,11 @@ msgstr ""
 msgid "Post HTML markup"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:724
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:721
+msgid "Content Tags List"
+msgstr ""
+
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:725
 #: src/Widget/form.php:219
 msgid "Theme"
 msgstr ""
@@ -623,13 +635,6 @@ msgstr ""
 
 #: src/Admin/screen-tools.php:57
 msgid "Lazy load"
-msgstr ""
-
-#: src/Admin/screen-tools.php:57 src/Admin/screen-tools.php:155
-#: src/Admin/screen-tools.php:183 src/Widget/form.php:7 src/Widget/form.php:54
-#: src/Widget/form.php:60 src/Widget/form.php:88 src/Widget/form.php:98
-#: src/Widget/form.php:191
-msgid "What is this?"
 msgstr ""
 
 #: src/Admin/screen-tools.php:60
