@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 6.1.1 ##
+
+- Fixes a rare PHP fatal error that can occur during plugin activation.
+- Block: adds links to documentation within the block form for ease of access.
+- Updates dependencies.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-1-0-improved-php-8-1-support-plus-minor-enhancements/#minor-updates-and-hotfixes)
+
 ## 6.1.0 ##
 
 - Improves PHP 8.1 support.
