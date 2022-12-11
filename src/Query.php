@@ -152,7 +152,7 @@ class Query {
 
             }
 
-            // Get / exclude entries from this taxonomies
+            // Get / exclude entries from these taxonomies
             if (
                 ( isset($this->options['taxonomy']) && ! empty($this->options['taxonomy']) ) &&
                 ( ( isset($this->options['cat']) && ! empty($this->options['cat']) )
@@ -210,33 +210,27 @@ class Query {
                             && ! empty($term_IDs_for_taxonomies)
                         ) {
 
-                            $term_IDs = array();
-                            foreach( $term_IDs_for_taxonomies as $term_IDs_for_single_taxonomy ) {
-                                $term_IDs[] = explode(",", $term_IDs_for_single_taxonomy);
-                            }
-                            $in_term_IDs_for_taxonomies = array();
-                            $out_term_IDs_for_taxonomies = array();
-
-                            foreach( $term_IDs as $term_IDs_for_single_taxonomy ) {
-                                $in_term_IDs_for_taxonomy = [];
-                                $out_term_IDs_for_taxonomy = [];
-
-                                foreach ( $term_IDs_for_single_taxonomy as $term_ID ) {
-                                    if ( $term_ID >= 0 )
-                                        $in_term_IDs_for_taxonomy[] = trim($term_ID);
-                                    else
-                                        $out_term_IDs_for_taxonomy[] = trim($term_ID) * -1;
-                                }
-
-                                $in_term_IDs_for_taxonomies[] = $in_term_IDs_for_taxonomy;
-                                $out_term_IDs_for_taxonomies[] = $out_term_IDs_for_taxonomy;
-                            }
+                            $tax_terms = [];
 
                             foreach( $taxonomies as $taxIndex => $taxonomy ) {
-                                $in_term_IDs = $in_term_IDs_for_taxonomies[$taxIndex];
-                                $out_term_IDs = $out_term_IDs_for_taxonomies[$taxIndex];
+                                $tax_terms[$taxonomy] = [
+                                    'term_id_include' => [],
+                                    'term_id_exclude' => []
+                                ];
 
-                                if ( ! empty($in_term_IDs) ) {
+                                $term_IDs = array_map('trim', explode(',', $term_IDs_for_taxonomies[$taxIndex]));
+
+                                foreach ( $term_IDs as $term_ID ) {
+                                    if ( $term_ID >= 0 )
+                                        $tax_terms[$taxonomy]['term_id_include'][] = (int) $term_ID;
+                                    else
+                                        $tax_terms[$taxonomy]['term_id_exclude'][] = abs((int) $term_ID);
+                                }
+                            }
+
+                            foreach( $tax_terms as $taxonomy => $terms ) {
+
+                                if ( ! empty($terms['term_id_include']) ) {
                                     $where .= " AND p.ID IN (
                                         SELECT object_id
                                         FROM `{$wpdb->term_relationships}` AS r
@@ -247,16 +241,15 @@ class Query {
 
                                     $inTID = '';
 
-                                    foreach ($in_term_IDs as $in_term_ID) {
+                                    foreach ($terms['term_id_include'] as $term_ID) {
                                         $inTID .= "%d, ";
-                                        array_push($args, $in_term_ID);
+                                        array_push($args, $term_ID);
                                     }
 
                                     $where .= " AND x.term_id IN(" . rtrim($inTID, ", ") . ") )";
                                 }
 
-                                if ( ! empty($out_term_IDs) ) {
-
+                                if ( ! empty($terms['term_id_exclude']) ) {
                                     $post_ids = get_posts(
                                         [
                                             'post_type' => $post_types,
@@ -265,7 +258,7 @@ class Query {
                                                 [
                                                     'taxonomy' => $taxonomy,
                                                     'field' => 'id',
-                                                    'terms' => $out_term_IDs,
+                                                    'terms' => $terms['term_id_exclude'],
                                                 ],
                                             ],
                                             'fields' => 'ids'
@@ -274,9 +267,19 @@ class Query {
 
                                     if ( is_array($post_ids) && ! empty($post_ids) ) {
                                         if ( isset($this->options['pid']) && ! empty($this->options['pid']) ) {
-                                            $this->options['pid'] .= "," . implode(",", $post_ids);
+                                            $pid_arr = explode(',', $this->options['pid']);
+                                            $pid_arr = array_merge($pid_arr, $post_ids);
+
+                                            // Remove duplicates
+                                            $pid_arr_no_dupes = [];
+                                            foreach( $pid_arr as $key => $post_id ) {
+                                                $pid_arr_no_dupes[$post_id] = true;
+                                            }
+                                            $pid_arr_no_dupes = array_keys($pid_arr_no_dupes);
+
+                                            $this->options['pid'] = implode(',', $pid_arr_no_dupes);
                                         } else {
-                                            $this->options['pid'] = implode(",", $post_ids);
+                                            $this->options['pid'] = implode(',', $post_ids);
                                         }
                                     }
                                 }
