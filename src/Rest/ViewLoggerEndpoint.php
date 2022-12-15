@@ -225,12 +225,6 @@ class ViewLoggerEndpoint extends Endpoint {
     public function get_tracking_params()
     {
         return [
-            'token' => [
-                'description'       => __('Security nonce.'),
-                'type'              => 'string',
-                'sanitize_callback' => 'sanitize_text_field',
-                'validate_callback' => 'rest_validate_request_arg',
-            ],
             'wpp_id' => [
                 'description'       => __('The post / page ID.'),
                 'type'              => 'integer',
