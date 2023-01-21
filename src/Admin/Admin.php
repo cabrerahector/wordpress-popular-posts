@@ -134,6 +134,26 @@ class Admin {
         add_action('wp_ajax_wpp_handle_performance_notice', [$this, 'handle_performance_notice']);
         // Show notices
         add_action('admin_notices', [$this, 'notices']);
+
+        /**
+         * Unregisters WPP from Elementor.
+         *
+         * @ToDo
+         *
+         * The 'elementor/widgets/widgets_registered' hook 
+         * will be deleted after Elementor 4.3
+         */
+        if ( defined('ELEMENTOR_VERSION') ) {
+            if ( version_compare( ELEMENTOR_VERSION, '3.5', '>=' ) ) {
+                add_action('elementor/widgets/register', function( $widget_manager ) {
+                    $widgets_manager->unregister('wp-widget-wpp');
+                }, 15);
+            } else {
+                add_action('elementor/widgets/widgets_registered', function( $widget_manager ) {
+                    $widget_manager->unregister_widget_type('wp-widget-wpp');
+                }, 15);
+            }
+        }
     }
 
     /**
