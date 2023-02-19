@@ -210,6 +210,7 @@ class Query {
                             && ! empty($term_IDs_for_taxonomies)
                         ) {
 
+                            $tax_query_args = [];
                             $tax_terms = [];
 
                             foreach( $taxonomies as $taxIndex => $taxonomy ) {
@@ -231,57 +232,38 @@ class Query {
                             foreach( $tax_terms as $taxonomy => $terms ) {
 
                                 if ( ! empty($terms['term_id_include']) ) {
-                                    $where .= " AND p.ID IN (
-                                        SELECT object_id
-                                        FROM `{$wpdb->term_relationships}` AS r
-                                            JOIN `{$wpdb->term_taxonomy}` AS x ON x.term_taxonomy_id = r.term_taxonomy_id
-                                        WHERE x.taxonomy = %s";
+                                    $terms['term_id_include'] = array_unique($terms['term_id_include']);
 
-                                    array_push($args, $taxonomy);
-
-                                    $inTID = '';
-
-                                    foreach ($terms['term_id_include'] as $term_ID) {
-                                        $inTID .= "%d, ";
-                                        array_push($args, $term_ID);
-                                    }
-
-                                    $where .= " AND x.term_id IN(" . rtrim($inTID, ", ") . ") )";
+                                    $tax_query_args[] = [
+                                        'taxonomy' => $taxonomy,
+                                        'terms' => $terms['term_id_include'],
+                                        'include_children' => false,
+                                    ];
                                 }
 
                                 if ( ! empty($terms['term_id_exclude']) ) {
-                                    $post_ids = get_posts(
-                                        [
-                                            'post_type' => $post_types,
-                                            'posts_per_page' => -1,
-                                            'tax_query' => [
-                                                [
-                                                    'taxonomy' => $taxonomy,
-                                                    'field' => 'id',
-                                                    'terms' => $terms['term_id_exclude'],
-                                                ],
-                                            ],
-                                            'fields' => 'ids'
-                                        ]
-                                    );
+                                    $terms['term_id_exclude'] = array_unique($terms['term_id_exclude']);
 
-                                    if ( is_array($post_ids) && ! empty($post_ids) ) {
-                                        if ( isset($this->options['pid']) && ! empty($this->options['pid']) ) {
-                                            $pid_arr = explode(',', $this->options['pid']);
-                                            $pid_arr = array_merge($pid_arr, $post_ids);
+                                    $tax_query_args[] = [
+                                        'taxonomy' => $taxonomy,
+                                        'terms' => $terms['term_id_exclude'],
+                                        'operator' => 'NOT IN',
+                                        'include_children' => false,
+                                    ];
+                                }
+                            }
 
-                                            // Remove duplicates
-                                            $pid_arr_no_dupes = [];
-                                            foreach( $pid_arr as $key => $post_id ) {
-                                                $pid_arr_no_dupes[$post_id] = true;
-                                            }
-                                            $pid_arr_no_dupes = array_keys($pid_arr_no_dupes);
+                            if ( $tax_query_args ) {
+                                $tax_query_args = apply_filters('wpp_tax_query_args', $tax_query_args, $this->options);
 
-                                            $this->options['pid'] = implode(',', $pid_arr_no_dupes);
-                                        } else {
-                                            $this->options['pid'] = implode(',', $post_ids);
-                                        }
-                                    }
+                                if ( is_array($tax_query_args) && ! empty($tax_query_args) ) {
+                                    $tax_query = new \WP_Tax_Query($tax_query_args);
+
+                                    $tax_query_clauses = $tax_query->get_sql($wpdb->posts, 'ID');
+                                    $tax_query_join = $tax_query_clauses['join'];
+                                    $tax_query_where = $tax_query_clauses['where'];
+
+                                    $where .= " AND p.ID IN (SELECT {$wpdb->posts}.ID FROM {$wpdb->posts} {$tax_query_join} WHERE 1 = 1 {$tax_query_where}) ";
                                 }
                             }
                         }
