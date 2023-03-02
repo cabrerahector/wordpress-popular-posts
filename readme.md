@@ -104,7 +104,7 @@ When submitting an issue, please make sure to include the following:
 ## Contributing
 
 * If you'd like to support my work and efforts to creating and maintaining more open source projects your donations and messages of support mean a lot! [Ko-fi](https://ko-fi.com/cabrerahector) | [Buy me a coffee](https://www.buymeacoffee.com/cabrerahector) | [PayPal Me](https://paypal.me/cabrerahector)
-* If you have any ideas/suggestions/bug reports, and if there's not an issue filed for it already (see [issue tracker](https://github.com/cabrerahector/wordpress-popular-posts/issues)), please [create an issue](https://github.com/cabrerahector/wordpress-popular-posts/issues/new) so I can keep track of it.
+* If you have any ideas/suggestions/bug reports, and if there's not an issue filed for it already (see [issue tracker](https://github.com/cabrerahector/wordpress-popular-posts/issues)), please [create an issue](https://github.com/cabrerahector/wordpress-popular-posts/issues/new/choose) so I can keep track of it.
 * Developers can send [pull requests](https://help.github.com/articles/using-pull-requests) to suggest fixes / improvements to the source.
 * Want to translate WPP into your language or update a current translation? Check if it's [already supported](https://translate.wordpress.org/projects/wp-plugins/wordpress-popular-posts/) or download [this POT file](https://github.com/cabrerahector/wordpress-popular-posts/tree/master/i18n) to translate the strings (see [I want to translate your plugin into my language / help you update a translation. What do I need to do?](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do) for more).
 
@@ -113,7 +113,7 @@ When submitting an issue, please make sure to include the following:
 
 [GNU General Public License version 2 or later](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Copyright (C) 2008-2022  Héctor Cabrera - https://cabrerahector.com
+Copyright (C) 2008-2023  Héctor Cabrera - https://cabrerahector.com
 
 The WordPress Popular Posts plugin is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
