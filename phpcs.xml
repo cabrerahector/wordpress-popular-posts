@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Coding Standards for WordPress Popular Posts">
+
+    <arg value="s" />
+    <arg name="extensions" value="php" />
+    <file>.</file>
+
+    <!-- Excluded paths -->
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern type="relative">assets/*</exclude-pattern>
+    <exclude-pattern type="relative">i18n/*</exclude-pattern>
+
+    <!-- Strip the filepaths down to the relevant bit. -->
+    <arg name="basepath" value="./" />
+
+    <!-- Check up to 10 files simultaneously. -->
+    <arg name="parallel" value="1" />
+
+    <!-- Configs -->
+    <config name="minimum_supported_wp_version" value="5.3" /> <!-- Minimum WP Version -->
+    <config name="testVersion" value="7.2" /> <!-- Minimum PHP Version -->
+    <config name="text_domain" value="wordpress-popular-posts" />
+
+    <!-- Rules -->
+    <rule ref="Generic.Files.LineEndings">
+        <exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
+    </rule>
+
+    <rule ref="Generic.Classes">
+        <exclude name="Generic.Classes.OpeningBraceSameLine.BraceOnNewLine" />
+    </rule>
+
+    <rule ref="Generic.Formatting">
+        <exclude name="Generic.Formatting.MultipleStatementAlignment" />
+        <exclude name="Generic.Formatting.NoSpaceAfterCast" />
+        <exclude name="Generic.Formatting.SpaceBeforeCast" />
+    </rule>
+
+    <rule ref="Generic.Functions">
+        <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman.BraceOnSameLine" />
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie.BraceOnNewLine" />
+    </rule>
+
+    <rule ref="Generic.WhiteSpace">
+        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing" />
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
+    </rule>
+
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
+        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
+        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket" />
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
+    </rule>
+
+    <rule ref="Squiz.ControlStructures.ControlSignature">
+        <exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
+        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
+        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
+        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword" />
+    </rule>
+
+    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing" />
+    </rule>
+
+    <rule ref="Squiz.WhiteSpace">
+        <exclude name="Squiz.WhiteSpace.ControlStructureSpacing" />
+        <exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace" />
+        <exclude name="Squiz.WhiteSpace.FunctionOpeningBraceSpace" />
+        <exclude name="Squiz.WhiteSpace.FunctionSpacing" />
+        <exclude name="Squiz.WhiteSpace.MemberVarSpacing" />
+        <exclude name="Squiz.WhiteSpace.OperatorSpacing" />
+        <exclude name="Squiz.WhiteSpace.ScopeClosingBrace" />
+        <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace" />
+    </rule>
+
+    <rule ref="WordPress-Core">
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+        <exclude name="Generic.Commenting.DocComment.MissingShort" />
+        <exclude name="WordPress.PHP.DisallowShortTernary" />
+    </rule>
+
+    <rule ref="WordPress.Arrays">
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
+        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
+        <exclude name="WordPress.Arrays.CommaAfterArrayItem.NoComma" />
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned" />
+    </rule>
+
+    <rule ref="WordPress.Files.FileName">
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+    </rule>
+
+    <rule ref="WordPress.NamingConventions">
+        <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase" />
+        <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase" />
+    </rule>
+
+    <rule ref="WordPress.PHP.YodaConditions">
+        <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+    </rule>
+
+    <rule ref="WordPress.WhiteSpace">
+        <exclude name="WordPress.WhiteSpace.CastStructureSpacing" />
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
+        <exclude name="WordPress.WhiteSpace.DisallowInlineTabs" />
+        <exclude name="WordPress.WhiteSpace.PrecisionAlignment" />
+        <exclude name="WordPress.WhiteSpace.OperatorSpacing" />"
+    </rule>
+
+    <!-- <rule ref="WordPress-Docs" /> -->
+    <rule ref="WordPress-Extra" />
+
+    <rule ref="Squiz.Classes.ClassFileName">
+        <include-pattern>src/*</include-pattern>
+    </rule>
+
+    <!-- Limit max. consecutive blank lines to 1 instead of 2. -->
+    <rule ref="Squiz.WhiteSpace.FunctionSpacing">
+        <properties>
+            <property name="spacing" value="1"/>
+            <property name="spacingBeforeFirst" value="1"/>
+            <property name="spacingAfterLast" value="0"/>
+        </properties>
+    </rule>
+</ruleset>
