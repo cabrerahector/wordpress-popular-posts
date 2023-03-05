@@ -2,7 +2,7 @@
 if ( basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__) )
     exit('Please do not load this page directly');
 
-$tabs = [
+$wpp_tabs = [
     'stats' => __('Stats', 'wordpress-popular-posts'),
     'tools' => __('Tools', 'wordpress-popular-posts'),
     'params' => __('Parameters', 'wordpress-popular-posts'),
@@ -10,7 +10,7 @@ $tabs = [
 ];
 
 // Set active tab
-if ( isset($_GET['tab'] ) && isset($tabs[$_GET['tab']] ) )
+if ( isset($_GET['tab'] ) && isset($wpp_tabs[$_GET['tab']] ) )
     $current = $_GET['tab'];
 else
     $current = 'stats';
@@ -117,7 +117,7 @@ if ( isset($_POST['section']) ) {
 <div class="wpp-wrapper wpp-section-<?php echo esc_attr($current); ?>">
     <div class="wpp-header">
         <h2>WordPress Popular Posts</h2>
-        <h3><?php echo esc_html($tabs[$current]); ?></h3>
+        <h3><?php echo esc_html($wpp_tabs[$current]); ?></h3>
     </div>
 
     <?php

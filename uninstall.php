@@ -24,8 +24,8 @@ if (
     $original_blog_id = get_current_blog_id();
     $blogs_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
 
-    foreach( $blogs_ids as $blog_id ) {
-        switch_to_blog($blog_id);
+    foreach( $blogs_ids as $b_id ) {
+        switch_to_blog($b_id);
         // delete tables and options
         wordpress_popular_posts_uninstall();
         // delete thumbnails cache and its directory

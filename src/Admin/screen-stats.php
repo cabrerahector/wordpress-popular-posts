@@ -123,9 +123,9 @@ if ( 'stats' == $current ) {
                 ]
             ];
             $query = new \WordPressPopularPosts\Query($args);
-            $posts = $query->get_posts();
+            $popular_posts = $query->get_posts();
 
-            $this->render_list($posts, 'hof');
+            $this->render_list($popular_posts, 'hof');
             ?>
         </div>
     </div>

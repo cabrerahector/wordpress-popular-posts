@@ -72,15 +72,15 @@ if ( ! empty($selected_taxonomies) ) {
 }
 
 // Taxonomy filter
-if ( $taxonomies = get_taxonomies(['public' => true], 'objects') ) {
-    foreach ( $taxonomies as $taxonomy ) {
-        if ( 'post_format' == $taxonomy->name )
+if ( $_taxonomies = get_taxonomies(['public' => true], 'objects') ) {
+    foreach ( $_taxonomies as $_taxonomy ) {
+        if ( 'post_format' == $_taxonomy->name )
             continue;
-        echo '<label><input type="checkbox" name="' . $this->get_field_name('taxonomy') . '[names][]" value="' . esc_attr($taxonomy->name) . '"' . ( isset($tax_filter[$taxonomy->name]) ? ' checked' : '') . '> ' . esc_html($taxonomy->labels->singular_name) . ' <small>('. esc_html($taxonomy->name) .')</small></label><br>';
-        echo '<input type="text" name="' . $this->get_field_name('taxonomy') . '[terms][' . esc_attr($taxonomy->name) . ']" value="' . ( isset($tax_filter[$taxonomy->name]) ? esc_attr($tax_filter[$taxonomy->name]) : '') . '" class="widefat" style="margin-top: 4px;" /><br />';
+        echo '<label><input type="checkbox" name="' . $this->get_field_name('taxonomy') . '[names][]" value="' . esc_attr($_taxonomy->name) . '"' . ( isset($tax_filter[$_taxonomy->name]) ? ' checked' : '') . '> ' . esc_html($_taxonomy->labels->singular_name) . ' <small>('. esc_html($_taxonomy->name) .')</small></label><br>';
+        echo '<input type="text" name="' . $this->get_field_name('taxonomy') . '[terms][' . esc_attr($_taxonomy->name) . ']" value="' . ( isset($tax_filter[$_taxonomy->name]) ? esc_attr($tax_filter[$_taxonomy->name]) : '') . '" class="widefat" style="margin-top: 4px;" /><br />';
         /* translators: %s here represents the singular name of the taxonomy (eg. Category) */
         $taxonomy_instructions = __('%s IDs, separated by comma (prefix a minus sign to exclude)', 'wordpress-popular-posts');
-        echo '<small>' . sprintf($taxonomy_instructions, esc_html($taxonomy->labels->singular_name)) . '</small><br /><br />';
+        echo '<small>' . sprintf($taxonomy_instructions, esc_html($_taxonomy->labels->singular_name)) . '</small><br /><br />';
     }
 }
 ?>
@@ -167,15 +167,15 @@ if ( $taxonomies = get_taxonomies(['public' => true], 'objects') ) {
 
 <input type="checkbox" class="checkbox" <?php echo ($instance['stats_tag']['taxonomy']['active'] || $instance['stats_tag']['category']) ? 'checked="checked"' : ''; ?> id="<?php echo $this->get_field_id('stats_taxonomy'); ?>" name="<?php echo $this->get_field_name('stats_taxonomy'); ?>" /> <label for="<?php echo $this->get_field_id('stats_taxonomy'); ?>"><?php _e('Display taxonomy', 'wordpress-popular-posts'); ?></label><br />
 <?php
-if ( $taxonomies ) {
+if ( $_taxonomies ) {
 ?>
 <div style="display:<?php if ($instance['stats_tag']['taxonomy']['active'] || $instance['stats_tag']['category']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
 <?php
-    foreach ( $taxonomies  as $taxonomy ) {
-        if ('post_format' == $taxonomy->name )
+    foreach ( $_taxonomies  as $_taxonomy ) {
+        if ('post_format' == $_taxonomy->name )
             continue;
 
-        echo '<label><input type="radio" name="' . $this->get_field_name('stats_taxonomy_name') . '" value="' . esc_attr($taxonomy->name) . '"' . ( ( $instance['stats_tag']['taxonomy']['name'] == $taxonomy->name ) ? ' checked' : '') . '> ' . esc_html($taxonomy->labels->singular_name) . '</label><br>';
+        echo '<label><input type="radio" name="' . $this->get_field_name('stats_taxonomy_name') . '" value="' . esc_attr($_taxonomy->name) . '"' . ( ( $instance['stats_tag']['taxonomy']['name'] == $_taxonomy->name ) ? ' checked' : '') . '> ' . esc_html($_taxonomy->labels->singular_name) . '</label><br>';
     }
 ?>
 </div>
