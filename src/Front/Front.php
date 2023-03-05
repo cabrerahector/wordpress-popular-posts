@@ -239,6 +239,7 @@ class Front {
             do_action('wpp_pre_update_views', $post_ID, $views);
 
         // Update all-time table
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
         $result1 = $wpdb->query($wpdb->prepare(
             "INSERT INTO {$table}data
             (postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
@@ -250,8 +251,10 @@ class Front {
             $views,
             $now
         ));
+        //phpcs:enable
 
         // Update range (summary) table
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
         $result2 = $wpdb->query($wpdb->prepare(
             "INSERT INTO {$table}summary
             (postid, pageviews, view_date, view_datetime) VALUES (%d, %d, %s, %s)
@@ -263,6 +266,7 @@ class Front {
             $views,
             $now
         ));
+        //phpcs:enable
 
         if ( !$result1 || !$result2 )
             return false;

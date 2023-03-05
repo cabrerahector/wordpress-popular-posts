@@ -467,7 +467,7 @@ class Query {
             $where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
             if ( !empty($args) ) {
-                $where = $wpdb->prepare($where, $args);
+                $where = $wpdb->prepare($where, $args); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $where and $args are built and prepared dynamically, see above
             }
 
             $fields = apply_filters('wpp_query_fields', $fields, $this->options);
@@ -498,7 +498,7 @@ class Query {
         global $wpdb;
 
         if ( isset($wpdb) && !empty($this->query) && !is_wp_error($this->query) ) {
-            $this->posts = $wpdb->get_results($this->query);
+            $this->posts = $wpdb->get_results($this->query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- at this point $this->query has been prepared already
         }
     }
 

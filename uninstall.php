@@ -72,10 +72,12 @@ function wordpress_popular_posts_uninstall() {
 
     // Delete WPP's DB tables
     $prefix = $wpdb->prefix . "popularposts";
+    //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}data;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}datacache;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}datacache_backup;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}log;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}summary;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}transients;");
+    //phpcs:enable
 }

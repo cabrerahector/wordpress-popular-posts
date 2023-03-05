@@ -256,7 +256,7 @@ class Admin {
         $prefix = $wpdb->prefix . "popularposts";
 
         // Update data table structure and indexes
-        $dataFields = $wpdb->get_results("SHOW FIELDS FROM {$prefix}data;");
+        $dataFields = $wpdb->get_results("SHOW FIELDS FROM {$prefix}data;"); //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $prefix is safe to use
 
         foreach ( $dataFields as $column ) {
             if ( "day" == $column->Field ) {
@@ -381,11 +381,11 @@ class Admin {
         $query = $wpdb->prepare(
             "SELECT SUM(pageviews) AS total 
             FROM `{$wpdb->prefix}popularpostssummary` v LEFT JOIN `{$wpdb->prefix}posts` p ON v.postid = p.ID 
-            WHERE p.post_type IN({$post_type_placeholders}) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);"
-            , $args
+            WHERE p.post_type IN({$post_type_placeholders}) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
+            $args
         );
 
-        $total_views = $wpdb->get_var($query);
+        $total_views = $wpdb->get_var($query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $query is built and prepared dynamically, see above
 
         $pageviews = sprintf(
             _n('%s view in the last hour', '%s views in the last hour', $total_views, 'wordpress-popular-posts'),
@@ -906,6 +906,14 @@ class Admin {
 
         $args = array_map('trim', explode(',', $this->config['stats']['post_type']));
 
+        $types = get_post_types([
+            'public' => true
+        ], 'names' );
+        $types = array_values($types);
+
+        // Let's make sure we're getting valid post types
+        $args = array_intersect($types, $args);
+
         if ( empty($args) ) {
             $args = ['post', 'page'];
         }
@@ -920,6 +928,7 @@ class Admin {
         array_unshift($args, $start_date, $end_date);
 
         if ( $item == 'comments' ) {
+            //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- $post_type_placeholders is already prepared above
             $query = $wpdb->prepare(
                 "SELECT DATE(`c`.`comment_date_gmt`) AS `c_date`, COUNT(*) AS `comments` 
                 FROM `{$wpdb->comments}` c INNER JOIN `{$wpdb->posts}` p ON `c`.`comment_post_ID` = `p`.`ID`
@@ -928,7 +937,9 @@ class Admin {
                 GROUP BY `c_date` ORDER BY `c_date` DESC;",
                 $args
             );
+            //phpcs:enable
         } else {
+            //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- $post_type_placeholders is already prepared above
             $query = $wpdb->prepare(
                 "SELECT `v`.`view_date`, SUM(`v`.`pageviews`) AS `pageviews` 
                 FROM `{$wpdb->prefix}popularpostssummary` v INNER JOIN `{$wpdb->posts}` p ON `v`.`postid` = `p`.`ID`
@@ -937,11 +948,12 @@ class Admin {
                 GROUP BY `v`.`view_date` ORDER BY `v`.`view_date` DESC;",
                 $args
             );
+            //phpcs:enable
 
             //error_log($query);
         }
 
-        return $wpdb->get_results($query, OBJECT_K);
+        return $wpdb->get_results($query, OBJECT_K); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- at this point $query has been prepared already
     }
 
     /**
@@ -1190,6 +1202,7 @@ class Admin {
             // set table name
             $prefix = $wpdb->prefix . "popularposts";
 
+            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $prefix is safe to use
             if ( $clear == 'cache' ) {
                 if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
                     $wpdb->query("TRUNCATE TABLE {$prefix}summary;");
@@ -1212,6 +1225,7 @@ class Admin {
             } else {
                 echo 3;
             }
+            //phpcs:enable
         } else {
             echo 4;
         }
@@ -1390,7 +1404,13 @@ class Admin {
     public function purge_data()
     {
         global $wpdb;
-        $wpdb->query("DELETE FROM {$wpdb->prefix}popularpostssummary WHERE view_date < DATE_SUB('" . Helper::curdate() . "', INTERVAL {$this->config['tools']['log']['expires_after']} DAY);");
+        $wpdb->query(
+            $wpdb->prepare(
+                "DELETE FROM {$wpdb->prefix}popularpostssummary WHERE view_date < DATE_SUB(%s, INTERVAL %d DAY);",
+                Helper::curdate(),
+                $this->config['tools']['log']['expires_after']
+            )
+        );
     }
 
     /**

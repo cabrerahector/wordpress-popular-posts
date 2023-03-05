@@ -52,10 +52,11 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
 
     // Get all-time views count
     if ( 'all' == $args['range'] ) {
-        $query = $wpdb->prepare(
-            "SELECT pageviews FROM {$table_name}data WHERE postid = %d;",
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table_name is safe to use
+        $query = $wpdb->prepare( "SELECT pageviews FROM {$table_name}data WHERE postid = %d;",
             $args['_postID']
         );
+        //phpcs:enable
     } // Get views count within time range
     else {
         $start_date = new \DateTime(
@@ -133,13 +134,15 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
                 break;
         }
 
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $views_time_range is safe to use
         $query = $wpdb->prepare(
             "SELECT SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} AND postid = %d;",
             $args['_postID']
         );
+        //phpcs:enable
     }
 
-    $results = $wpdb->get_var($query);
+    $results = $wpdb->get_var($query); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query above
 
     if ( ! $results )
         return 0;

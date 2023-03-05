@@ -473,7 +473,14 @@ class Image {
             /** @var wpdb $wpdb */
             global $wpdb;
 
-            if ( $content = $wpdb->get_var("SELECT post_content FROM {$wpdb->posts} WHERE ID = {$id};") ) {
+            $content = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT post_content FROM {$wpdb->posts} WHERE ID = %d;",
+                    $id
+                )
+            );
+
+            if ( $content ) {
                 // at least one image has been found
                 if ( preg_match('/<img[^>]+>/i', $content, $img) ) {
                     // get img src attribute from the first image found
@@ -550,7 +557,14 @@ class Image {
             /** @var wpdb $wpdb */
             global $wpdb;
 
-            if ( $content = $wpdb->get_var("SELECT post_content FROM {$wpdb->posts} WHERE ID = {$id};") ) {
+            $content = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT post_content FROM {$wpdb->posts} WHERE ID = %d;",
+                    $id
+                )
+            );
+
+            if ( $content ) {
                 // at least one image has been found
                 if ( preg_match('/<img[^>]+>/i', $content, $img) ) {
                     // get img alt attribute from the first image found
