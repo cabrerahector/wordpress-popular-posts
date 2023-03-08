@@ -27,7 +27,7 @@ if ( isset($_POST['section']) ) {
             $this->config['stats']['freshness'] = isset($_POST['stats_freshness']);
 
             update_option('wpp_settings_config', $this->config);
-            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts') . "</strong></p></div>";
+            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . "</strong></p></div>";
         }
     }
     elseif ( "misc" == $_POST['section'] ) {
@@ -39,7 +39,7 @@ if ( isset($_POST['section']) ) {
             $this->config['tools']['experimental'] = isset($_POST['experimental_features']);
 
             update_option('wpp_settings_config', $this->config);
-            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts') . "</strong></p></div>";
+            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . "</strong></p></div>";
         }
     }
     elseif ( "thumb" == $_POST['section'] ) {
@@ -50,7 +50,7 @@ if ( isset($_POST['section']) ) {
                 $_POST['thumb_source'] == "custom_field"
                 && ( ! isset($_POST['thumb_field']) || empty($_POST['thumb_field']) )
             ) {
-                echo '<div id="wpp-message" class="error fade"><p>' . __('Please provide the name of your custom field.', 'wordpress-popular-posts') . '</p></div>';
+                echo '<div id="wpp-message" class="error fade"><p>' . esc_html(__('Please provide the name of your custom field.', 'wordpress-popular-posts')) . '</p></div>';
             }
             else {
                 // thumbnail settings changed, flush transients
@@ -65,7 +65,7 @@ if ( isset($_POST['section']) ) {
                 $this->config['tools']['thumbnail']['lazyload'] = (bool) $_POST['thumb_lazy_load'];
 
                 update_option('wpp_settings_config', $this->config );
-                echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts') . "</strong></p></div>";
+                echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . "</strong></p></div>";
             }
         }
     }
@@ -97,7 +97,7 @@ if ( isset($_POST['section']) ) {
               : 100;
 
             update_option('wpp_settings_config', $this->config);
-            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . __('Settings saved.', 'wordpress-popular-posts') . "</strong></p></div>";
+            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . "</strong></p></div>";
         }
     }
 
@@ -107,9 +107,9 @@ if ( isset($_POST['section']) ) {
 <?php if ( current_user_can('edit_others_posts') ) : ?>
     <nav id="wpp-menu">
         <ul>
-            <li <?php echo ('stats' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=stats'); ?>" title="<?php esc_attr_e('Stats', 'wordpress-popular-posts'); ?>"><span><?php _e('Stats', 'wordpress-popular-posts'); ?></span></a></li>
-            <li <?php echo ('tools' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=tools'); ?>" title="<?php esc_attr_e('Tools', 'wordpress-popular-posts'); ?>"><span><?php _e('Tools', 'wordpress-popular-posts'); ?></span></a></li>
-            <li <?php echo ('debug' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=debug'); ?>" title="Debug"><span>Debug</span></a></li>
+            <li <?php echo ('stats' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo esc_url(admin_url('options-general.php?page=wordpress-popular-posts&tab=stats')); ?>" title="<?php esc_attr_e('Stats', 'wordpress-popular-posts'); ?>"><span><?php esc_html_e('Stats', 'wordpress-popular-posts'); ?></span></a></li>
+            <li <?php echo ('tools' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo esc_url(admin_url('options-general.php?page=wordpress-popular-posts&tab=tools')); ?>" title="<?php esc_attr_e('Tools', 'wordpress-popular-posts'); ?>"><span><?php esc_html_e('Tools', 'wordpress-popular-posts'); ?></span></a></li>
+            <li <?php echo ('debug' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo esc_url(admin_url('options-general.php?page=wordpress-popular-posts&tab=debug')); ?>" title="Debug"><span>Debug</span></a></li>
         </ul>
     </nav>
 <?php endif; ?>

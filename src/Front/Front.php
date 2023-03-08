@@ -200,7 +200,7 @@ class Front {
         $exec_time += round($end - $start, 6);
 
         if ( $result ) {
-            die("WPP: OK. Execution time: " . $exec_time . " seconds");
+            die("WPP: OK. Execution time: " . $exec_time . " seconds"); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
 
         die("WPP: Oops, could not update the views count!");

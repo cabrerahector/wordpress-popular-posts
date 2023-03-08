@@ -141,7 +141,7 @@ class Output {
      */
     public function output()
     {
-        echo $this->get_output();
+        echo $this->get_output(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- At this point everything has been escaped / sanitized already
     }
 
     /**

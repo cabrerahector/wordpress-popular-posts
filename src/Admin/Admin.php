@@ -454,7 +454,7 @@ class Admin {
                 width: 100%;
                 height: 100%;
                 z-index: 1;
-                background-image: url('<?php echo plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/images/flame.png'; ?>');
+                background-image: url('<?php echo esc_url(plugin_dir_url(dirname(dirname(__FILE__)))) . 'assets/images/flame.png'; ?>');
                 background-position: right bottom;
                 background-repeat: no-repeat;
                 background-size: 34% auto;
@@ -510,7 +510,7 @@ class Admin {
         $posts = $query->get_posts();
 
         $this->render_list($posts, 'trending');
-        echo '<p id="wpp_read_more"><a href="' . admin_url('options-general.php?page=wordpress-popular-posts') . '">' . __('View more', 'wordpress-popular-posts') . '</a><p>';
+        echo '<p id="wpp_read_more"><a href="' . esc_url(admin_url('options-general.php?page=wordpress-popular-posts')) . '">' . esc_html(__('View more', 'wordpress-popular-posts')) . '</a><p>';
 
     }
 
@@ -1156,16 +1156,16 @@ class Admin {
         <?php
             foreach( $posts as $post ) { ?>
             <li>
-                <a href="<?php echo get_permalink($post->id); ?>" class="wpp-title"><?php echo sanitize_text_field(apply_filters('the_title', $post->title, $post->id)); ?></a>
+                <a href="<?php echo esc_url(get_permalink($post->id)); ?>" class="wpp-title"><?php echo esc_html(sanitize_text_field(apply_filters('the_title', $post->title, $post->id))); ?></a>
                 <div>
                     <?php if ( 'most-viewed' == $list ) : ?>
-                    <span><?php printf(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>
+                    <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>
                     <?php elseif ( 'most-commented' == $list ) : ?>
-                    <span><?php printf(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
+                    <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
                     <?php else : ?>
-                    <span><?php printf(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts' ), number_format_i18n($post->pageviews)); ?></span>, <span><?php printf(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts'), number_format_i18n($post->comment_count)); ?></span>
+                    <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>, <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
                     <?php endif; ?>
-                    <small> &mdash; <a href="<?php echo get_permalink($post->id); ?>"><?php _e("View"); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo get_edit_post_link($post->id); ?>"><?php _e("Edit"); ?></a><?php endif; ?></small>
+                    <small> &mdash; <a href="<?php echo esc_url(get_permalink($post->id)); ?>"><?php esc_html_e('View'); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo esc_url(get_edit_post_link($post->id)); ?>"><?php esc_html_e("Edit"); ?></a><?php endif; ?></small>
                 </div>
             </li>
             <?php
@@ -1176,7 +1176,7 @@ class Admin {
         }
         else {
         ?>
-        <p class="no-data" style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", "wordpress-popular-posts"); ?></p>
+        <p class="no-data" style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", "wordpress-popular-posts"); //phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?></p>
         <?php
         }
     }
@@ -1443,11 +1443,11 @@ class Admin {
             ?>
             <div class="notice notice-warning">
                 <p><?php printf(
-                    __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these recommendations</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'),
+                    __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these recommendations</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'), //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
                     'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance'
-                ) ?></p>
+                );?></p>
                 <?php if ( current_user_can('manage_options') ) : ?>
-                <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_dismiss_performance_notice', '1')); ?>"><?php _e("Dismiss", "wordpress-popular-posts"); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_remind_performance_notice', '1')); ?>"><?php _e("Remind me later", "wordpress-popular-posts"); ?></a> <span class="spinner" style="float: none;"></span></p>
+                <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_dismiss_performance_notice', '1')); ?>"><?php esc_html_e("Dismiss", "wordpress-popular-posts"); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_remind_performance_notice', '1')); ?>"><?php _esc_html_e("Remind me later", "wordpress-popular-posts"); ?></a> <span class="spinner" style="float: none;"></span></p>
                 <?php endif; ?>
             </div>
             <?php

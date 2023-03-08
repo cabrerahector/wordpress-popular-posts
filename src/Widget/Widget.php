@@ -139,7 +139,7 @@ class Widget extends \WP_Widget {
             (array) $instance
         );
 
-        echo "\n" . $before_widget . "\n";
+        echo "\n" . $before_widget . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
         // Has user set a title?
         if ( '' != $instance['title'] ) {
@@ -150,8 +150,10 @@ class Widget extends \WP_Widget {
                 && $instance['markup']['title-start'] != ""
                 && $instance['markup']['title-end'] != ""
             ) {
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
             } else {
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $before_title . $title . $after_title;
             }
         }
@@ -169,7 +171,7 @@ class Widget extends \WP_Widget {
             $this->get_popular($instance);
         }
 
-        echo "\n" . $after_widget . "\n";
+        echo "\n" . $after_widget . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
