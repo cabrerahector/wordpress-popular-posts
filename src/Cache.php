@@ -61,35 +61,27 @@ class Cache {
         }
 
         switch( $time_unit ){
-
             case 'minute':
                 $time = 60;
-            break;
-
+                break;
             case 'hour':
                 $time = 60 * 60;
-            break;
-
+                break;
             case 'day':
                 $time = 60 * 60 * 24;
-            break;
-
+                break;
             case 'week':
                 $time = 60 * 60 * 24 * 7;
-            break;
-
+                break;
             case 'month':
                 $time = 60 * 60 * 24 * 30;
-            break;
-
+                break;
             case 'year':
                 $time = 60 * 60 * 24 * 365;
-            break;
-
+                break;
             default:
                 $time = 60;
-            break;
-
+                break;
         }
 
         $expiration = $time * $time_value;

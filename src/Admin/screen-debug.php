@@ -28,7 +28,7 @@ if ( 'debug' == $current ) {
                 break;
             case 2:
                 $performance_nag_status = 'Remind me later';
-            break;
+                break;
             case 3:
                 $performance_nag_status = 'Dismissed';
                 break;
