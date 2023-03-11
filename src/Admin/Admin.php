@@ -1197,8 +1197,8 @@ class Admin {
      */
     public function clear_data()
     {
-        $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
-        $clear = isset($_POST['clear']) ? $_POST['clear'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
+        $clear = isset($_POST['clear']) ? $_POST['clear'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
         if (
             current_user_can('manage_options')
@@ -1273,7 +1273,7 @@ class Admin {
         $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
 
         if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
-            $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
+            $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
 
             if (
                 current_user_can('edit_published_posts')
@@ -1478,7 +1478,7 @@ class Admin {
         $response = [
             'status' => 'error'
         ];
-        $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
+        $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
         $dismiss = isset($_POST['dismiss']) ? (int) $_POST['dismiss'] : 0;
 
         if (
