@@ -208,26 +208,6 @@ class Helper {
     }
 
     /**
-     * Debug function.
-     *
-     * @since   3.0.0
-     * @param   mixed $v variable to display with var_dump()
-     * @param   mixed $v,... unlimited optional number of variables to display with var_dump()
-     */
-    public static function debug($v) /** @TODO: remove this function, we don't use it at all */
-    {
-        if ( ! defined('WPP_DEBUG') || ! WPP_DEBUG ) {
-            return;
-        }
-
-        foreach( func_get_args() as $arg ) {
-            print '<pre>';
-            var_dump($arg);
-            print '</pre>';
-        }
-    }
-
-    /**
      * Truncates text.
      *
      * @since   4.0.0
