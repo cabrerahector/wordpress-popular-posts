@@ -891,7 +891,7 @@ class Output {
         }
 
         if ( in_array('{thumb_url}', $matches[0]) && ! empty($data['img_no_link']) ) {
-            $dom = new \DOMDocument;
+            $dom = new \DOMDocument();
 
             if ( $dom->loadHTML($data['img_no_link']) ) {
                 $img_tag = $dom->getElementsByTagName('img');

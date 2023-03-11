@@ -23,7 +23,7 @@ function wpp_get_views(int $id = null, $range = null, bool $number_format = true
 
     global $wpdb;
     $table_name = $wpdb->prefix . 'popularposts';
-    $translate = new \WordPressPopularPosts\Translate;
+    $translate = new \WordPressPopularPosts\Translate();
 
     $id = $translate->get_object_id(
         $id,
