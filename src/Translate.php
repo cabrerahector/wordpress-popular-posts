@@ -48,7 +48,7 @@ class Translate {
     public function get_default_language()
     {
         if ( ! $this->default_language )
-            $this->default_language = ( function_exists('pll_default_language') ) ? pll_default_language() : apply_filters('wpml_default_language', NULL);
+            $this->default_language = ( function_exists('pll_default_language') ) ? pll_default_language() : apply_filters('wpml_default_language', null);
         return $this->default_language;
     }
 
@@ -61,7 +61,7 @@ class Translate {
     public function get_current_language()
     {
         if ( ! $this->current_language )
-            $this->current_language = ( function_exists('pll_current_language') ) ? pll_current_language() : apply_filters('wpml_current_language', NULL);
+            $this->current_language = ( function_exists('pll_current_language') ) ? pll_current_language() : apply_filters('wpml_current_language', null);
         return $this->current_language;
     }
 

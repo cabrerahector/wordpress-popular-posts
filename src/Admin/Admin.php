@@ -22,7 +22,7 @@ class Admin {
      * @since   3.0.0
      * @var     string
      */
-    protected $screen_hook_suffix = NULL;
+    protected $screen_hook_suffix = null;
 
     /**
      * Plugin options.

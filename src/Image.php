@@ -624,7 +624,7 @@ class Image {
         }
 
         // Returns null if no attachment is found.
-        return isset($attachment[0]) ? $attachment[0] : NULL;
+        return isset($attachment[0]) ? $attachment[0] : null;
     }
 
     /**
@@ -671,7 +671,7 @@ class Image {
                     $image_type = exif_imagetype($tmp);
                 } else {
                     $image_type = getimagesize($tmp);
-                    $image_type = ( isset($image_type[2]) ) ? $image_type[2] : NULL;
+                    $image_type = ( isset($image_type[2]) ) ? $image_type[2] : null;
                 }
 
                 // Valid image, save it
