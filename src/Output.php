@@ -221,7 +221,7 @@ class Output {
                     $classes .= ' wpp-list-with-thumbnails';
                 }
 
-                $this->output .= "\n" . "<ul class=\"{$classes}\">" . "\n";
+                $this->output .= "\n<ul class=\"{$classes}\">\n";
 
             }
 

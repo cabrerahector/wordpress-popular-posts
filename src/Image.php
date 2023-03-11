@@ -70,8 +70,8 @@ class Image {
 
         // Set uploads folder
         $wp_upload_dir = wp_get_upload_dir();
-        $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . '/' . 'wordpress-popular-posts';
-        $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . '/' . 'wordpress-popular-posts';
+        $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . '/wordpress-popular-posts';
+        $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . '/wordpress-popular-posts';
 
         if ( ! is_dir($this->uploads_dir['basedir']) ) {
             // Couldn't create the folder, store thumbnails in Uploads

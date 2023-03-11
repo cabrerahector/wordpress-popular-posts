@@ -77,7 +77,7 @@ if ( 'tools' == $current ) {
                         </tr>
                         <?php
                         $wp_upload_dir = wp_get_upload_dir();
-                        if ( is_dir($wp_upload_dir['basedir'] . '/' . 'wordpress-popular-posts') ) :
+                        if ( is_dir($wp_upload_dir['basedir'] . '/wordpress-popular-posts') ) :
                             ?>
                             <tr valign="top">
                                 <th scope="row"></th>
