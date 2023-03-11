@@ -97,7 +97,9 @@ class ViewLoggerEndpoint extends Endpoint {
 
             $key = $high_accuracy ? $timestamp : $date_time;
 
-            if ( ! $wpp_cache = wp_cache_get('_wpp_cache', 'transient') ) {
+            $wpp_cache = wp_cache_get('_wpp_cache', 'transient');
+
+            if ( ! $wpp_cache ) {
                 $wpp_cache = [
                     'last_updated' => $date_time_with_seconds,
                     'data' => [

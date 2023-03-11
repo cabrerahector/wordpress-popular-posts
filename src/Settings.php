@@ -147,7 +147,9 @@ class Settings {
             return $options['widget_options'];
         }
 
-        if ( ! $admin_options = get_option('wpp_settings_config') ) {
+        $admin_options = get_option('wpp_settings_config');
+
+        if ( ! $admin_options ) {
             $admin_options = $options['admin_options'];
             add_option('wpp_settings_config', $admin_options);
         }

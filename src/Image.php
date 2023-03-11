@@ -440,7 +440,9 @@ class Image {
     {
         // get thumbnail path from the Featured Image
         if ( 'featured' == $source ) {
-            if ( $thumbnail_id = get_post_thumbnail_id($id) ) {
+            $thumbnail_id = get_post_thumbnail_id($id);
+
+            if ( $thumbnail_id ) {
                 // image path
                 return [
                     'path' => get_attached_file($thumbnail_id),
@@ -496,7 +498,9 @@ class Image {
                         }
 
                         // image from Media Library
-                        if ( $attachment_id = $this->get_attachment_id($src_attr[2]) ) {
+                        $attachment_id = $this->get_attachment_id($src_attr[2]);
+
+                        if ( $attachment_id ) {
                             return [
                                 'path' => get_attached_file($attachment_id),
                                 'alt' => $alt
@@ -531,7 +535,9 @@ class Image {
 
         // get thumbnail path from the Featured Image
         if ( 'featured' == $source ) {
-            if ( $thumbnail_id = get_post_thumbnail_id($id) ) {
+            $thumbnail_id = get_post_thumbnail_id($id);
+
+            if ( $thumbnail_id ) {
                 // image path
                 $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
             }
@@ -617,7 +623,9 @@ class Image {
         // Example: /uploads/2013/05/test-image.jpg
         global $wpdb;
 
-        if ( ! $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1])) ) {
+        $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1]));
+
+        if ( ! $attachment ) {
             // Maybe it's a resized image, so try to get the full one
             $parse_url[1] = preg_replace('/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $parse_url[1]);
             $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1]));

@@ -72,7 +72,9 @@ if ( ! empty($selected_taxonomies) ) {
 }
 
 // Taxonomy filter
-if ( $_taxonomies = get_taxonomies(['public' => true], 'objects') ) {
+$_taxonomies = get_taxonomies(['public' => true], 'objects');
+
+if ( $_taxonomies ) {
     foreach ( $_taxonomies as $_taxonomy ) {
         if ( 'post_format' == $_taxonomy->name )
             continue;

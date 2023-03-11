@@ -60,7 +60,9 @@ class Admin {
             }
         } else {
             // Remove the scheduled event if exists
-            if ( $timestamp = wp_next_scheduled('wpp_cache_event') ) {
+            $timestamp = wp_next_scheduled('wpp_cache_event');
+
+            if ( $timestamp ) {
                 wp_unschedule_event($timestamp, 'wpp_cache_event');
             }
         }
@@ -78,7 +80,9 @@ class Admin {
             }
         } else {
             // Remove the scheduled performance nag if found
-            if ( $timestamp = wp_next_scheduled('wpp_maybe_performance_nag') ) {
+            $timestamp = wp_next_scheduled('wpp_maybe_performance_nag');
+
+            if ( $timestamp ) {
                 wp_unschedule_event($timestamp, 'wpp_maybe_performance_nag');
             }
         }
@@ -235,7 +239,9 @@ class Admin {
         $now = Helper::now();
 
         // Keep the upgrade process from running too many times
-        if ( $wpp_update = get_option('wpp_update') ) {
+        $wpp_update = get_option('wpp_update');
+
+        if ( $wpp_update ) {
             $from_time = strtotime($wpp_update);
             $to_time = strtotime($now);
             $difference_in_minutes = round(abs($to_time - $from_time)/60, 2);
