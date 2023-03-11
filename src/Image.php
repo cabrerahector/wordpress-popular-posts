@@ -673,7 +673,7 @@ class Image {
             ! is_wp_error($response) 
             && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes)
         ) {
-            require_once(ABSPATH . 'wp-admin/includes/file.php');
+            require_once ABSPATH . 'wp-admin/includes/file.php';
 
             $url = str_replace('https://', 'http://', $url);
             $tmp = download_url($url);

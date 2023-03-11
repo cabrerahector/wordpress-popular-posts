@@ -130,7 +130,7 @@ class Activator {
             PRIMARY KEY  (ID)
         ) {$charset_collate} ENGINE=InnoDB";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         \dbDelta($sql);
 
         \update_option('wpp_ver', WPP_VERSION);
