@@ -466,7 +466,7 @@ class Query {
             // List only published, non password-protected posts
             $where .= " AND p.post_password = '' AND p.post_status = 'publish'";
 
-            if ( !empty($args) ) {
+            if ( ! empty($args) ) {
                 $where = $wpdb->prepare($where, $args); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $where and $args are built and prepared dynamically, see above
             }
 
@@ -497,7 +497,7 @@ class Query {
          */
         global $wpdb;
 
-        if ( isset($wpdb) && !empty($this->query) && !is_wp_error($this->query) ) {
+        if ( isset($wpdb) && ! empty($this->query) && ! is_wp_error($this->query) ) {
             $this->posts = $wpdb->get_results($this->query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- at this point $this->query has been prepared already
         }
     }

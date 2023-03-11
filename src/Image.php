@@ -491,7 +491,7 @@ class Image {
                         $alt = '';
                         preg_match('/(alt)="([^"]*)"/i', $img[0], $alt_attr);
 
-                        if ( isset($alt_attr[2]) && !empty($alt_attr[2]) ) {
+                        if ( isset($alt_attr[2]) && ! empty($alt_attr[2]) ) {
                             $alt = $alt_attr[2];
                         }
 
@@ -570,7 +570,7 @@ class Image {
                     // get img alt attribute from the first image found
                     preg_match('/(alt)="([^"]*)"/i', $img[0], $alt_attr);
 
-                    if ( isset($alt_attr[2]) && !empty($alt_attr[2]) ) {
+                    if ( isset($alt_attr[2]) && ! empty($alt_attr[2]) ) {
                         $alt = $alt_attr[2];
                     }
                 }

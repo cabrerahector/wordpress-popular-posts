@@ -268,7 +268,7 @@ class Front {
         ));
         //phpcs:enable
 
-        if ( !$result1 || !$result2 )
+        if ( ! $result1 || ! $result2 )
             return false;
 
         // Allow WP themers / coders perform an action

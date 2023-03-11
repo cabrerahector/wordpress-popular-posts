@@ -13,7 +13,7 @@ class Helper {
      */
     public static function is_number($number) /** @TODO: starting PHP 8.0 $number can be declared as mixed $number */
     {
-        return !empty($number) && is_numeric($number) && (intval($number) == floatval($number));
+        return ! empty($number) && is_numeric($number) && (intval($number) == floatval($number));
     }
 
     /**
@@ -215,7 +215,7 @@ class Helper {
      */
     public static function debug($v) /** @TODO: remove this function, we don't use it at all */
     {
-        if ( !defined('WPP_DEBUG') || !WPP_DEBUG )
+        if ( ! defined('WPP_DEBUG') || ! WPP_DEBUG )
             return;
 
         foreach( func_get_args() as $arg ) {
@@ -275,12 +275,12 @@ class Helper {
 
         if (
             is_singular($trackable) 
-            && !is_front_page() 
-            && !is_preview() 
-            && !is_trackback() 
-            && !is_feed() 
-            && !is_robots() 
-            && !is_customize_preview()
+            && ! is_front_page() 
+            && ! is_preview() 
+            && ! is_trackback() 
+            && ! is_feed() 
+            && ! is_robots() 
+            && ! is_customize_preview()
         ) {
             return get_queried_object_id();
         }

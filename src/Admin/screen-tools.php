@@ -72,7 +72,7 @@ if ( 'tools' == $current ) {
                             <th scope="row"><label for="thumb_field_resize"><?php esc_html_e('Resize image from Custom field?', 'wordpress-popular-posts'); ?>:</label></th>
                             <td>
                                 <select name="thumb_field_resize" id="thumb_field_resize">
-                                    <option <?php if ( !$this->config['tools']['thumbnail']['resize'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('No, use image as is', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ( ! $this->config['tools']['thumbnail']['resize'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('No, use image as is', 'wordpress-popular-posts'); ?></option>
                                     <option <?php if ($this->config['tools']['thumbnail']['resize'] == 1 ) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Yes', 'wordpress-popular-posts'); ?></option>
                                 </select>
                             </td>
@@ -183,7 +183,7 @@ if ( 'tools' == $current ) {
                                 <th scope="row"><label for="sampling"><?php esc_html_e('Data Sampling', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
                                 <td>
                                     <select name="sampling" id="sampling">
-                                        <option <?php if ( !$this->config['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
+                                        <option <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
                                         <option <?php if ( $this->config['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
                                     </select>
 
@@ -241,7 +241,7 @@ if ( 'tools' == $current ) {
                             <td>
                                 <select name="css" id="css">
                                     <option <?php if ($this->config['tools']['css']) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
-                                    <option <?php if (!$this->config['tools']['css']) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if (! $this->config['tools']['css']) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
                                 </select>
                                 <br />
                                 <p class="description"><?php esc_html_e('By default, the plugin includes a stylesheet called wpp.css which you can use to style your popular posts listing. If you wish to use your own stylesheet or do not want it to have it included in the header section of your site, use this.', 'wordpress-popular-posts'); ?></p>
