@@ -21,7 +21,7 @@ class Widget extends \WP_Widget {
      * Administrative settings.
      *
      * @since   2.3.3
-     * @var	    array
+     * @var     array
      */
     private $config = [];
 

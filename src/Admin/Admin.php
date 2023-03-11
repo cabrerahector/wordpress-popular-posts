@@ -1256,8 +1256,8 @@ class Admin {
     /**
      * Truncates thumbnails cache on demand.
      *
-     * @since	2.0.0
-     * @global	object	wpdb
+     * @since   2.0.0
+     * @global  object  $wpdb
      */
     public function clear_thumbnails()
     {

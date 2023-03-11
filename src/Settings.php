@@ -44,7 +44,7 @@ class Settings {
             'shorten_title' => [
                 'active' => false,
                 'length' => 25,
-                'words'	=> false
+                'words' => false
             ],
             'post-excerpt' => [
                 'active' => false,

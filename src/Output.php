@@ -159,7 +159,7 @@ class Output {
     /**
      * Build the HTML output.
      *
-     * @since	4.0.0
+     * @since   4.0.0
      */
     public function build_output()
     {
