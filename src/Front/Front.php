@@ -167,8 +167,9 @@ class Front {
             if ( false !== strpos($tag, 'type') ) {
                 $pos = strpos($tag, 'text/javascript');
 
-                if ( false !== $pos )
+                if ( false !== $pos ) {
                     $tag = substr_replace($tag, 'application/json', $pos, strlen('text/javascript'));
+                }
             } // type attribute missing, let's add it
             else {
                 $pos = strpos($tag, '>');
@@ -235,8 +236,9 @@ class Front {
 
         // Allow WP themers / coders perform an action
         // before updating views count
-        if ( has_action('wpp_pre_update_views') )
+        if ( has_action('wpp_pre_update_views') ) {
             do_action('wpp_pre_update_views', $post_ID, $views);
+        }
 
         // Update all-time table
         //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
@@ -268,13 +270,15 @@ class Front {
         ));
         //phpcs:enable
 
-        if ( ! $result1 || ! $result2 )
+        if ( ! $result1 || ! $result2 ) {
             return false;
+        }
 
         // Allow WP themers / coders perform an action
         // after updating views count
-        if ( has_action('wpp_post_update_views' ))
+        if ( has_action('wpp_post_update_views' )) {
             do_action('wpp_post_update_views', $post_ID);
+        }
 
         return true;
     }

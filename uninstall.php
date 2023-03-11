@@ -49,8 +49,9 @@ function wordpress_popular_posts_delete_thumb_cache() {
 
         if ( is_array($files) && ! empty($files) ) {
             foreach( $files as $file ){ // iterate files
-                if ( is_file($file) )
+                if ( is_file($file) ) {
                     @unlink($file); // delete file
+                }
             }
         }
 

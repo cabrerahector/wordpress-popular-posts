@@ -27,8 +27,9 @@ class Helper {
      */
     public static function prettify_number($number, $precision = 1) /** @TODO: starting PHP 8.0 $number can be declared as mixed $number */
     {
-        if ( ! is_numeric($number) )
+        if ( ! is_numeric($number) ) {
             return false;
+        }
 
         if ( $number < 900 ) {
             // 0 - 900
@@ -215,8 +216,9 @@ class Helper {
      */
     public static function debug($v) /** @TODO: remove this function, we don't use it at all */
     {
-        if ( ! defined('WPP_DEBUG') || ! WPP_DEBUG )
+        if ( ! defined('WPP_DEBUG') || ! WPP_DEBUG ) {
             return;
+        }
 
         foreach( func_get_args() as $arg ) {
             print '<pre>';
@@ -302,8 +304,9 @@ class Helper {
 
         if ( $url_args ) {
             // No need to do anything, URL is fine
-            if ( isset($url_args['scheme']) )
+            if ( isset($url_args['scheme']) ) {
                 return $url;
+            }
             // Return URL with scheme
             return $scheme . $url_args['host'] . $url_args['path'];
         }
@@ -329,8 +332,9 @@ class Helper {
         $encoded_path = array_map('urlencode', explode('/', $path));
         $parse_url = str_replace($path, implode('/', $encoded_path), $url);
 
-        if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) )
+        if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) ) {
             return false;
+        }
 
         // Check extension
         $file_name = basename($path);
@@ -338,8 +342,9 @@ class Helper {
         $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
         $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
 
-        if ( ! in_array($ext, $allowed_ext) )
+        if ( ! in_array($ext, $allowed_ext) ) {
             return false;
+        }
 
         // sanitize URL, just in case
         $image_url = esc_url($url);

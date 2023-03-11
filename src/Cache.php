@@ -49,8 +49,9 @@ class Cache {
      */
     public static function set(string $key = null, $data = [], int $time_value = 1, string $time_unit = 'minute') /** @TODO: starting PHP 8.0 $data can be declared as mixed $data */
     {
-        if ( ! $key )
+        if ( ! $key ) {
             return false;
+        }
 
         if (
             false === filter_var($time_value, FILTER_VALIDATE_INT)

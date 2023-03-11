@@ -16,8 +16,9 @@
 function wpp_get_views(int $id = null, $range = null, bool $number_format = true) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range */
 {
     // have we got an id?
-    if ( empty($id) || is_null($id) || ! is_numeric($id) )
+    if ( empty($id) || is_null($id) || ! is_numeric($id) ) {
         return '-1';
+    }
 
     $id = absint($id);
 
@@ -144,8 +145,9 @@ function wpp_get_views(int $id = null, $range = null, bool $number_format = true
 
     $results = $wpdb->get_var($query); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query above
 
-    if ( ! $results )
+    if ( ! $results ) {
         return 0;
+    }
 
     return $number_format ? number_format_i18n(intval($results)) : $results;
 }

@@ -18,8 +18,9 @@ if ( 'tools' == $current ) {
                                 <?php
                                 $fallback_thumbnail_url = trim($this->config['tools']['thumbnail']['default']);
 
-                                if ( ! $fallback_thumbnail_url )
+                                if ( ! $fallback_thumbnail_url ) {
                                     $fallback_thumbnail_url = $this->thumbnail->get_default_url();
+                                }
 
                                 $fallback_thumbnail_url = str_replace(
                                     parse_url(

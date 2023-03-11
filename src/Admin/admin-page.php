@@ -1,6 +1,7 @@
 <?php
-if ( basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__) )
+if ( basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__) ) {
     exit('Please do not load this page directly');
+}
 
 $wpp_tabs = [
     'stats' => __('Stats', 'wordpress-popular-posts'),
@@ -10,10 +11,11 @@ $wpp_tabs = [
 ];
 
 // Set active tab
-if ( isset($_GET['tab'] ) && isset($wpp_tabs[$_GET['tab']] ) )
+if ( isset($_GET['tab'] ) && isset($wpp_tabs[$_GET['tab']] ) ) {
     $current = $_GET['tab'];
-else
+} else {
     $current = 'stats';
+}
 
 // Update options on form submission
 if ( isset($_POST['section']) ) {

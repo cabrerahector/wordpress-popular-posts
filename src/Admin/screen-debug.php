@@ -38,8 +38,9 @@ if ( 'debug' == $current ) {
         }
 
         foreach( $site_plugins as $main_file => $plugin_meta ) :
-            if ( ! is_plugin_active($main_file) )
+            if ( ! is_plugin_active($main_file) ) {
                 continue;
+            }
             $plugin_names[] = sanitize_text_field($plugin_meta['Name'] . ' ' . $plugin_meta['Version']);
         endforeach;
         ?>

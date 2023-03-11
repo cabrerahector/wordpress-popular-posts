@@ -69,13 +69,15 @@ class ViewLoggerEndpoint extends Endpoint {
         $original_views_count = $views;
         $views = apply_filters('wpp_update_views_count_value', $views, $post_ID, $sampling, $sampling_rate);
 
-        if ( ! Helper::is_number($views) || $views <= 0 )
+        if ( ! Helper::is_number($views) || $views <= 0 ) {
             $views = $original_views_count;
+        }
 
         // Allow WP themers / coders perform an action
         // before updating views count
-        if ( has_action('wpp_pre_update_views') )
+        if ( has_action('wpp_pre_update_views') ) {
             do_action('wpp_pre_update_views', $post_ID, $views);
+        }
 
         $result1 = $result2 = false;
 
@@ -214,8 +216,9 @@ class ViewLoggerEndpoint extends Endpoint {
 
         // Allow WP themers / coders perform an action
         // after updating views count
-        if ( has_action('wpp_post_update_views') )
+        if ( has_action('wpp_post_update_views') ) {
             do_action('wpp_post_update_views', $post_ID);
+        }
 
         $response['results'] = 'WPP: OK. Execution time: ' . $exec_time . ' seconds';
         return new \WP_REST_Response($response, 201);

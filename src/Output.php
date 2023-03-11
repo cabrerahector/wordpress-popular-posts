@@ -105,8 +105,9 @@ class Output {
 
         $this->wp_date_format = get_option('date_format');
 
-        if ( ! $this->wp_date_format )
+        if ( ! $this->wp_date_format ) {
             $this->wp_date_format = 'F j, Y';
+        }
     }
 
     /**
@@ -193,8 +194,9 @@ class Output {
                 if ( has_filter('wpp_additional_theme_styles') ) {
                     $additional_styles = wp_strip_all_tags(apply_filters('wpp_additional_theme_styles', '', $this->public_options['theme']['name']), true);
 
-                    if ( $additional_styles )
+                    if ( $additional_styles ) {
                         $additional_styles = ' /* additional rules */ ' . $additional_styles;
+                    }
                 }
 
                 $this->output .= '<style>' . $theme_css_rules . $additional_styles . '</style>';
@@ -215,8 +217,9 @@ class Output {
 
                 $classes = 'wpp-list';
 
-                if ( $this->public_options['thumbnail']['active'] )
+                if ( $this->public_options['thumbnail']['active'] ) {
                     $classes .= ' wpp-list-with-thumbnails';
+                }
 
                 $this->output .= "\n" . "<ul class=\"{$classes}\">" . "\n";
 
@@ -349,12 +352,14 @@ class Output {
             $new_meta_arr = [];
 
             foreach($keys as $key) {
-                if ( isset($meta_arr[$key]))
+                if ( isset($meta_arr[$key])) {
                     $new_meta_arr[$key] = $meta_arr[$key];
+                }
             }
 
-            if ( ! empty($new_meta_arr) )
+            if ( ! empty($new_meta_arr) ) {
                 $meta_arr = $new_meta_arr;
+            }
         }
 
         $post_meta_separator = esc_html(apply_filters('wpp_post_meta_separator', ' | '));
@@ -586,8 +591,9 @@ class Output {
             $more = apply_filters('wpp_excerpt_more', $more);
             $excerpt = Helper::truncate($excerpt, $this->public_options['post-excerpt']['length'], $this->public_options['post-excerpt']['words'], $more);
 
-            if ( $this->public_options['post-excerpt']['keep_format'] )
+            if ( $this->public_options['post-excerpt']['keep_format'] ) {
                 $excerpt = force_balance_tags($excerpt);
+            }
         }
 
         return $excerpt;
@@ -693,8 +699,9 @@ class Output {
                     foreach ($terms as $term) {
                         $term_link = get_term_link($term);
 
-                        if ( is_wp_error($term_link) )
+                        if ( is_wp_error($term_link) ) {
                             continue;
+                        }
 
                         $term_link = esc_url($this->translate->url($term_link, $this->translate->get_current_language()));
                         $post_tax .= "<a href=\"{$term_link}\" class=\"wpp-taxonomy {$taxonomy} {$taxonomy}-{$term->term_id}\">" . esc_html($term->name) . '</a>' . $taxonomy_separator;
@@ -702,8 +709,9 @@ class Output {
                 }
             }
 
-            if ( '' != $post_tax )
+            if ( '' != $post_tax ) {
                 $post_tax = rtrim($post_tax, $taxonomy_separator);
+            }
 
         }
 
@@ -849,8 +857,9 @@ class Output {
      */
     private function format_content(string $string, array $data, bool $rating) {
 
-        if ( empty($string) || ( empty($data) || ! is_array($data) ) )
+        if ( empty($string) || ( empty($data) || ! is_array($data) ) ) {
             return false;
+        }
 
         $params = [];
         $pattern = '/\{(pid|current_class|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|author_copy|author_name|author_url|taxonomy|taxonomy_copy|category|category_copy|views|views_copy|comments|comments_copy|date|date_copy|total_items|item_position)\}/i';

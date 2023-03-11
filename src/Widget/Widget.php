@@ -420,8 +420,9 @@ class Widget extends \WP_Widget {
         $sidebars = wp_get_sidebars_widgets();
 
         foreach ( (array) $sidebars as $sidebar_id => $sidebar ) {
-            if ( in_array($this->id, (array) $sidebar, true ) )
+            if ( in_array($this->id, (array) $sidebar, true ) ) {
                 return $wp_registered_sidebars[$sidebar_id];
+            }
         }
 
         return null;

@@ -247,8 +247,10 @@ class Admin {
             $difference_in_minutes = round(abs($to_time - $from_time)/60, 2);
 
             // Upgrade flag is still valid, abort
-            if ( $difference_in_minutes <= 15 )
+            if ( $difference_in_minutes <= 15 ) {
                 return;
+            }
+
             // Upgrade flag expired, delete it and continue
             delete_option('wpp_update');
         }
@@ -333,8 +335,9 @@ class Admin {
      */
     public function activate_new_site(int $blog_id)
     {
-        if ( 1 !== did_action('wpmu_new_blog') )
+        if ( 1 !== did_action('wpmu_new_blog') ) {
             return;
+        }
 
         // run activation for the new blog
         switch_to_blog($blog_id);
@@ -509,8 +512,9 @@ class Admin {
         ];
         $options = apply_filters('wpp_trending_dashboard_widget_args', []);
 
-        if ( is_array($options) && ! empty($options) )
+        if ( is_array($options) && ! empty($options) ) {
             $args = Helper::merge_array_r($args, $options);
+        }
 
         $query = new Query($args);
         $posts = $query->get_posts();
@@ -759,10 +763,11 @@ class Admin {
             $comments[] = ( ! isset($comments_data[$key]) ) ? 0 : $comments_data[$key]->comments;
         }
 
-        if ( $start_date != $end_date )
+        if ( $start_date != $end_date ) {
             $label_date_range = date_i18n('M, D d', strtotime($start_date)) . ' &mdash; ' . date_i18n('M, D d', strtotime($end_date));
-        else
+        } else {
             $label_date_range = date_i18n('M, D d', strtotime($start_date));
+        }
 
         $total_views = array_sum($views);
         $total_comments = array_sum($comments);
@@ -1252,8 +1257,9 @@ class Admin {
         $wpp_transients = $wpdb->get_results("SELECT tkey FROM {$wpdb->prefix}popularpoststransients;");
 
         if ( $wpp_transients && is_array($wpp_transients) && ! empty($wpp_transients) ) {
-            foreach( $wpp_transients as $wpp_transient )
+            foreach( $wpp_transients as $wpp_transient ) {
                 delete_transient($wpp_transient->tkey);
+            }
 
             $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}popularpoststransients;");
         }
@@ -1375,8 +1381,9 @@ class Admin {
      */
     public function purge_post_data()
     {
-        if ( current_user_can('delete_posts') )
+        if ( current_user_can('delete_posts') ) {
             add_action('delete_post', [$this, 'purge_post']);
+        }
     }
 
     /**

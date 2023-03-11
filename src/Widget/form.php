@@ -18,9 +18,9 @@ $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
 <p>
     <label for="<?php echo esc_attr($this->get_field_id('order_by')); ?>"><?php esc_html_e('Sort posts by', 'wordpress-popular-posts'); ?>:</label><br />
     <select id="<?php echo esc_attr($this->get_field_id('order_by')); ?>" name="<?php echo esc_attr($this->get_field_name('order_by')); ?>" class="widefat">
-        <option value="comments" <?php if ('comments' == $instance['order_by'] ) echo 'selected="selected"'; ?>><?php esc_html_e('Comments', 'wordpress-popular-posts'); ?></option>
-        <option value="views" <?php if ('views' == $instance['order_by'] ) echo 'selected="selected"'; ?>><?php esc_html_e('Total views', 'wordpress-popular-posts'); ?></option>
-        <option value="avg" <?php if ('avg' == $instance['order_by'] ) echo 'selected="selected"'; ?>><?php esc_html_e('Avg. daily views', 'wordpress-popular-posts'); ?></option>
+        <option value="comments" <?php if ('comments' == $instance['order_by'] ) { echo 'selected="selected"'; } ?>><?php esc_html_e('Comments', 'wordpress-popular-posts'); ?></option>
+        <option value="views" <?php if ('views' == $instance['order_by'] ) { echo 'selected="selected"'; } ?>><?php esc_html_e('Total views', 'wordpress-popular-posts'); ?></option>
+        <option value="avg" <?php if ('avg' == $instance['order_by'] ) { echo 'selected="selected"'; } ?>><?php esc_html_e('Avg. daily views', 'wordpress-popular-posts'); ?></option>
     </select>
 </p>
 
@@ -31,11 +31,11 @@ $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
 
 <label for="<?php echo esc_attr($this->get_field_id('range')); ?>"><?php esc_html_e('Time Range', 'wordpress-popular-posts'); ?>:</label><br />
 <select id="<?php echo esc_attr($this->get_field_id('range')); ?>" name="<?php echo esc_attr($this->get_field_name('range')); ?>" class="widefat" style="margin-bottom:5px;">
-    <option value="daily" <?php if ('daily' == $instance['range'] || 'last24hours' == $instance['range'] ) echo 'selected="selected"'; ?>><?php esc_html_e('Last 24 hours', 'wordpress-popular-posts'); ?></option>
-    <option value="weekly" <?php if ('weekly' == $instance['range'] || 'last7days' == $instance['range'] ) echo 'selected="selected"'; ?>><?php esc_html_e('Last 7 days', 'wordpress-popular-posts'); ?></option>
-    <option value="monthly" <?php if ('monthly' == $instance['range'] || 'last30days' == $instance['range'] ) echo 'selected="selected"'; ?>><?php esc_html_e('Last 30 days', 'wordpress-popular-posts'); ?></option>
-    <option value="all" <?php if ('all' == $instance['range'] ) echo 'selected="selected"'; ?>><?php esc_html_e('All-time', 'wordpress-popular-posts'); ?></option>
-    <option value="custom" <?php if ('custom' == $instance['range'] ) echo 'selected="selected"'; ?>><?php esc_html_e('Custom', 'wordpress-popular-posts'); ?></option>
+    <option value="daily" <?php if ('daily' == $instance['range'] || 'last24hours' == $instance['range'] ) { echo 'selected="selected"'; } ?>><?php esc_html_e('Last 24 hours', 'wordpress-popular-posts'); ?></option>
+    <option value="weekly" <?php if ('weekly' == $instance['range'] || 'last7days' == $instance['range'] ) { echo 'selected="selected"'; } ?>><?php esc_html_e('Last 7 days', 'wordpress-popular-posts'); ?></option>
+    <option value="monthly" <?php if ('monthly' == $instance['range'] || 'last30days' == $instance['range'] ) { echo 'selected="selected"'; } ?>><?php esc_html_e('Last 30 days', 'wordpress-popular-posts'); ?></option>
+    <option value="all" <?php if ('all' == $instance['range'] ) { echo 'selected="selected"'; } ?>><?php esc_html_e('All-time', 'wordpress-popular-posts'); ?></option>
+    <option value="custom" <?php if ('custom' == $instance['range'] ) { echo 'selected="selected"'; } ?>><?php esc_html_e('Custom', 'wordpress-popular-posts'); ?></option>
 </select><br />
 
 <div style="display: <?php echo ('custom' == $instance['range'] ) ? 'block' : 'none'; ?>">
@@ -76,8 +76,9 @@ $_taxonomies = get_taxonomies(['public' => true], 'objects');
 
 if ( $_taxonomies ) {
     foreach ( $_taxonomies as $_taxonomy ) {
-        if ( 'post_format' == $_taxonomy->name )
+        if ( 'post_format' == $_taxonomy->name ) {
             continue;
+        }
         echo '<label><input type="checkbox" name="' . esc_attr($this->get_field_name('taxonomy')) . '[names][]" value="' . esc_attr($_taxonomy->name) . '"' . ( isset($tax_filter[$_taxonomy->name]) ? ' checked' : '') . '> ' . esc_html($_taxonomy->labels->singular_name) . ' <small>(' . esc_html($_taxonomy->name) . ')</small></label><br>';
         echo '<input type="text" name="' . esc_attr($this->get_field_name('taxonomy')) . '[terms][' . esc_attr($_taxonomy->name) . ']" value="' . ( isset($tax_filter[$_taxonomy->name]) ? esc_attr($tax_filter[$_taxonomy->name]) : '') . '" class="widefat" style="margin-top: 4px;" /><br />';
         /* translators: %s here represents the singular name of the taxonomy (eg. Category) */
@@ -174,8 +175,9 @@ if ( $_taxonomies ) {
 <div style="display:<?php if ($instance['stats_tag']['taxonomy']['active'] || $instance['stats_tag']['category']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
 <?php
     foreach ( $_taxonomies  as $_taxonomy ) {
-        if ('post_format' == $_taxonomy->name )
+        if ('post_format' == $_taxonomy->name ) {
             continue;
+        }
 
         echo '<label><input type="radio" name="' . esc_attr($this->get_field_name('stats_taxonomy_name')) . '" value="' . esc_attr($_taxonomy->name) . '"' . ( ( $instance['stats_tag']['taxonomy']['name'] == $_taxonomy->name ) ? ' checked' : '') . '> ' . esc_html($_taxonomy->labels->singular_name) . '</label><br>';
     }
@@ -226,9 +228,9 @@ ksort($registered_themes);
 ?>
 
 <select id="<?php echo esc_attr($this->get_field_id('theme')); ?>" name="<?php echo esc_attr($this->get_field_name('theme')); ?>" class="widefat" style="margin-bottom: 5px;"<?php echo ( ! $current_sidebar ) ? ' disabled="disabled"' : ''; ?>>
-    <option value="" <?php if ( '' == $instance['theme']['name'] || ! $current_sidebar ) echo 'selected="selected"'; ?>><?php esc_html_e('None', 'wordpress-popular-posts'); ?></option>
+    <option value="" <?php if ( '' == $instance['theme']['name'] || ! $current_sidebar ) { echo 'selected="selected"'; } ?>><?php esc_html_e('None', 'wordpress-popular-posts'); ?></option>
     <?php foreach ($registered_themes as $theme => $data) : ?>
-    <option value="<?php echo esc_attr($theme); ?>" <?php if ( $theme == $instance['theme']['name'] && $current_sidebar ) echo 'selected="selected"'; ?>><?php echo esc_html($data['json']['name']); ?></option>
+    <option value="<?php echo esc_attr($theme); ?>" <?php if ( $theme == $instance['theme']['name'] && $current_sidebar ) { echo 'selected="selected"'; } ?>><?php echo esc_html($data['json']['name']); ?></option>
     <?php endforeach; ?>
 </select>
 <input type="hidden" id="<?php echo esc_attr($this->get_field_id('theme-applied')); ?>" name="<?php echo esc_attr($this->get_field_name('theme-applied')); ?>" value="<?php echo ($instance['theme']['applied'] && $current_sidebar) ? 1 : 0; ?>" />

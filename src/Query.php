@@ -221,10 +221,11 @@ class Query {
                                 $term_IDs = array_map('trim', explode(',', $term_IDs_for_taxonomies[$taxIndex]));
 
                                 foreach ( $term_IDs as $term_ID ) {
-                                    if ( $term_ID >= 0 )
+                                    if ( $term_ID >= 0 ) {
                                         $tax_terms[$taxonomy]['term_id_include'][] = (int) $term_ID;
-                                    else
+                                    } else {
                                         $tax_terms[$taxonomy]['term_id_exclude'][] = abs((int) $term_ID);
+                                    }
                                 }
                             }
 
