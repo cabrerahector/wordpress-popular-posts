@@ -18,10 +18,10 @@ abstract class Block {
     /**
      * 
      */
-    abstract function register();
+    abstract public function register();
 
     /**
      * 
      */
-    abstract function render(array $attributes);
+    abstract public function render(array $attributes);
 }

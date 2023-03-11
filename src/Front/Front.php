@@ -151,7 +151,7 @@ class Front {
      * @param   string  $src
      * @return  string  $tag
      */
-    function convert_inline_js_into_json(string $tag, string $handle, string $src)
+    public function convert_inline_js_into_json(string $tag, string $handle, string $src)
     {
         if ( 'wpp-js' === $handle ) {
             // id attribute found, replace it

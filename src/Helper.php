@@ -298,7 +298,7 @@ class Helper {
      * @param   string      $scheme
      * @return  string|bool
      */
-    static function add_scheme(?string $url, string $scheme = 'https://')
+    public static function add_scheme(?string $url, string $scheme = 'https://')
     {
         $url_args = parse_url($url);
 
@@ -326,7 +326,7 @@ class Helper {
      * @param   string
      * @return  array|bool
      */
-    static function is_image_url(string $url)
+    public static function is_image_url(string $url)
     {
         $path = parse_url($url, PHP_URL_PATH);
         $encoded_path = array_map('urlencode', explode('/', $path));

@@ -442,7 +442,7 @@ class Admin {
      *
      * @since   5.0.0
      */
-    function trending_dashboard_widget()
+    public function trending_dashboard_widget()
     {
         ?>
         <style>
