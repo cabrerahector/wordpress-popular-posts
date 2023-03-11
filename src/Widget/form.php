@@ -42,9 +42,9 @@ $current_sidebar = $current_sidebar_data ? $current_sidebar_data['id'] : null;
     <input type="text" id="<?php echo esc_attr($this->get_field_id('time_quantity')); ?>" name="<?php echo esc_attr($this->get_field_name('time_quantity')); ?>" value="<?php echo esc_attr($instance['time_quantity']); ?>" style="display: inline; float: left; width: 50px!important;" />
 
     <select id="<?php echo esc_attr($this->get_field_id('time_unit')); ?>" name="<?php echo esc_attr($this->get_field_name('time_unit')); ?>" style="margin-bottom: 5px;">
-        <option <?php if ($instance['time_unit'] == 'minute') {?>selected="selected"<?php } ?> value="minute"><?php esc_html_e('Minute(s)', 'wordpress-popular-posts'); ?></option>
-        <option <?php if ($instance['time_unit'] == 'hour') {?>selected="selected"<?php } ?> value="hour"><?php esc_html_e('Hour(s)', 'wordpress-popular-posts'); ?></option>
-        <option <?php if ($instance['time_unit'] == 'day') {?>selected="selected"<?php } ?> value="day"><?php esc_html_e('Day(s)', 'wordpress-popular-posts'); ?></option>
+        <option <?php if ($instance['time_unit'] == 'minute') { ?>selected="selected"<?php } ?> value="minute"><?php esc_html_e('Minute(s)', 'wordpress-popular-posts'); ?></option>
+        <option <?php if ($instance['time_unit'] == 'hour') { ?>selected="selected"<?php } ?> value="hour"><?php esc_html_e('Hour(s)', 'wordpress-popular-posts'); ?></option>
+        <option <?php if ($instance['time_unit'] == 'day') { ?>selected="selected"<?php } ?> value="day"><?php esc_html_e('Day(s)', 'wordpress-popular-posts'); ?></option>
     </select>
 </div>
 <div class="clearfix"></div>
