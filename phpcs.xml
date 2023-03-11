@@ -96,6 +96,7 @@
     </rule>
 
     <rule ref="WordPress.NamingConventions">
+        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase" />
     </rule>
