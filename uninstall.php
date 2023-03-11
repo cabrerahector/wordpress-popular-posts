@@ -44,8 +44,8 @@ if (
 function wordpress_popular_posts_delete_thumb_cache() {
     $wp_upload_dir = wp_get_upload_dir();
 
-    if ( is_dir($wp_upload_dir['basedir'] . "/wordpress-popular-posts") ) {
-        $files = glob($wp_upload_dir['basedir'] . "/wordpress-popular-posts/*"); // get all file names
+    if ( is_dir($wp_upload_dir['basedir'] . '/wordpress-popular-posts') ) {
+        $files = glob($wp_upload_dir['basedir'] . '/wordpress-popular-posts/*'); // get all file names
 
         if ( is_array($files) && ! empty($files) ) {
             foreach( $files as $file ){ // iterate files
@@ -55,7 +55,7 @@ function wordpress_popular_posts_delete_thumb_cache() {
         }
 
         // Finally, delete WPP's upload directory
-        @rmdir($wp_upload_dir['basedir'] . "/wordpress-popular-posts");
+        @rmdir($wp_upload_dir['basedir'] . '/wordpress-popular-posts');
     }
 }
 
@@ -71,7 +71,7 @@ function wordpress_popular_posts_uninstall() {
     delete_option('wpp_performance_nag');
 
     // Delete WPP's DB tables
-    $prefix = $wpdb->prefix . "popularposts";
+    $prefix = $wpdb->prefix . 'popularposts';
     //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}data;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}datacache;");

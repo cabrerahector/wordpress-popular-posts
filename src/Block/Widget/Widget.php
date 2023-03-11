@@ -363,9 +363,9 @@ class Widget extends Block
         $html = '<div class="widget popular-posts' . (( isset($attributes['className']) && $attributes['className'] ) ? ' '. esc_attr($attributes['className']) : '') . '">';
 
         // possible values for "Time Range" and "Order by"
-        $time_units = ["minute", "hour", "day", "week", "month"];
-        $range_values = ["daily", "last24hours", "weekly", "last7days", "monthly", "last30days", "all", "custom"];
-        $order_by_values = ["comments", "views", "avg"];
+        $time_units = ['minute', 'hour', 'day', 'week', 'month'];
+        $range_values = ['daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
+        $order_by_values = ['comments', 'views', 'avg'];
 
         $theme_data = $this->themer->get_theme($theme);
 
@@ -383,11 +383,11 @@ class Widget extends Block
             'freshness' => empty($freshness) ? false : $freshness,
             'order_by' => ( in_array($order_by, $order_by_values) ) ? $order_by : 'views',
             'post_type' => empty($post_type) ? 'post' : $post_type,
-            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ","),
-            'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ","),
+            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ','),
+            'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ','),
             'taxonomy' => empty($tax) ? 'category' : $tax,
-            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ","),
-            'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ","),
+            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ','),
+            'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ','),
             'shorten_title' => [
                 'active' => ( ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
                 'length' => ( ! empty($title_length) && Helper::is_number($title_length) ) ? $title_length : 0,
@@ -435,21 +435,21 @@ class Widget extends Block
         ];
 
         // Post / Page / CTP filter
-        $ids = array_filter(explode(",", $query_args['pid']), 'is_numeric');
+        $ids = array_filter(explode(',', $query_args['pid']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $query_args['pid'] = '';
         }
 
         // Category filter
-        $ids = array_filter(explode(",", $query_args['cat']), 'is_numeric');
+        $ids = array_filter(explode(',', $query_args['cat']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $query_args['cat'] = '';
         }
 
         // Author filter
-        $ids = array_filter(explode(",", $query_args['author']), 'is_numeric');
+        $ids = array_filter(explode(',', $query_args['author']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $query_args['author'] = '';

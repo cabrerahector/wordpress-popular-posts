@@ -147,8 +147,8 @@ class Widget extends \WP_Widget {
 
             if (
                 $instance['markup']['custom_html']
-                && $instance['markup']['title-start'] != ""
-                && $instance['markup']['title-end'] != ""
+                && $instance['markup']['title-start'] != ''
+                && $instance['markup']['title-end'] != ''
             ) {
                 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
@@ -230,13 +230,13 @@ class Widget extends \WP_Widget {
         $instance['freshness'] = isset($new_instance['freshness']);
 
         // Post / Page / CTP filter
-        $ids = array_filter(explode(",", rtrim(preg_replace('|[^0-9,]|', '', $new_instance['pid']), ",")), 'is_numeric');
+        $ids = array_filter(explode(',', rtrim(preg_replace('|[^0-9,]|', '', $new_instance['pid']), ',')), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $instance['pid'] = '';
         }
         else {
-            $instance['pid'] = implode(",", $ids);
+            $instance['pid'] = implode(',', $ids);
         }
 
         // Taxonomy filter
@@ -246,7 +246,7 @@ class Widget extends \WP_Widget {
             // Remove taxonomies that don't have any valid term IDs
             foreach( $taxonomies['terms'] as $taxonomy => $terms ) {
                 $taxonomies['terms'][$taxonomy] = array_filter(
-                    explode(",", trim(preg_replace('|[^0-9,-]|', '', $taxonomies['terms'][$taxonomy]), ", ")),
+                    explode(',', trim(preg_replace('|[^0-9,-]|', '', $taxonomies['terms'][$taxonomy]), ', ')),
                     'is_numeric'
                 );
 
@@ -271,13 +271,13 @@ class Widget extends \WP_Widget {
         }
 
         // Author filter
-        $ids = array_filter(explode(",", rtrim(preg_replace('|[^0-9,]|', '', $new_instance['uid']), ",")), 'is_numeric');
+        $ids = array_filter(explode(',', rtrim(preg_replace('|[^0-9,]|', '', $new_instance['uid']), ',')), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $instance['author'] = '';
         }
         else {
-            $instance['author'] = implode( ",", $ids );
+            $instance['author'] = implode( ',', $ids );
         }
 
         $instance['shorten_title']['words'] = $new_instance['shorten_title-words'];

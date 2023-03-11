@@ -100,7 +100,7 @@ class Cache {
         global $wpdb;
 
         $wpdb->insert(
-            $wpdb->prefix . "popularpoststransients",
+            $wpdb->prefix . 'popularpoststransients',
             [
                 'tkey' => $key,
                 'tkey_date' => Helper::now()

@@ -253,17 +253,17 @@ class Admin {
         add_option('wpp_update', $now);
 
         // Set table name
-        $prefix = $wpdb->prefix . "popularposts";
+        $prefix = $wpdb->prefix . 'popularposts';
 
         // Update data table structure and indexes
         $dataFields = $wpdb->get_results("SHOW FIELDS FROM {$prefix}data;"); //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $prefix is safe to use
 
         foreach ( $dataFields as $column ) {
-            if ( "day" == $column->Field ) {
+            if ( 'day' == $column->Field ) {
                 $wpdb->query("ALTER TABLE {$prefix}data ALTER COLUMN day DROP DEFAULT;");
             }
 
-            if ( "last_viewed" == $column->Field ) {
+            if ( 'last_viewed' == $column->Field ) {
                 $wpdb->query("ALTER TABLE {$prefix}data ALTER COLUMN last_viewed DROP DEFAULT;");
             }
         }
@@ -272,15 +272,15 @@ class Admin {
         $summaryFields = $wpdb->get_results("SHOW FIELDS FROM {$prefix}summary;");
 
         foreach ( $summaryFields as $column ) {
-            if ( "last_viewed" == $column->Field ) {
+            if ( 'last_viewed' == $column->Field ) {
                 $wpdb->query("ALTER TABLE {$prefix}summary CHANGE last_viewed view_datetime datetime NOT NULL, ADD KEY view_datetime (view_datetime);");
             }
 
-            if ( "view_date" == $column->Field ) {
+            if ( 'view_date' == $column->Field ) {
                 $wpdb->query("ALTER TABLE {$prefix}summary ALTER COLUMN view_date DROP DEFAULT;");
             }
 
-            if ( "view_datetime" == $column->Field ) {
+            if ( 'view_datetime' == $column->Field ) {
                 $wpdb->query("ALTER TABLE {$prefix}summary ALTER COLUMN view_datetime DROP DEFAULT;");
             }
         }
@@ -539,10 +539,10 @@ class Admin {
 
                 wp_register_script('wordpress-popular-posts-admin-script', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin.js', ['jquery'], WPP_VERSION, true);
                 wp_localize_script('wordpress-popular-posts-admin-script', 'wpp_admin_params', [
-                    'label_media_upload_button' => __("Use this image", "wordpress-popular-posts"),
-                    'nonce' => wp_create_nonce("wpp_admin_nonce"),
-                    'nonce_reset_data' => wp_create_nonce("wpp_nonce_reset_data"),
-                    'nonce_reset_thumbnails' => wp_create_nonce("wpp_nonce_reset_thumbnails"),
+                    'label_media_upload_button' => __('Use this image', 'wordpress-popular-posts'),
+                    'nonce' => wp_create_nonce('wpp_admin_nonce'),
+                    'nonce_reset_data' => wp_create_nonce('wpp_nonce_reset_data'),
+                    'nonce_reset_thumbnails' => wp_create_nonce('wpp_nonce_reset_thumbnails'),
                     'text_confirm_reset_cache_table' => __("This operation will delete all entries from WordPress Popular Posts' cache table and cannot be undone.", 'wordpress-popular-posts'),
                     'text_cache_table_cleared' => __('Success! The cache table has been cleared!', 'wordpress-popular-posts'),
                     'text_cache_table_missing' => __('Error: cache table does not exist.', 'wordpress-popular-posts'),
@@ -587,7 +587,7 @@ class Admin {
             ) {
                 wp_register_script('wpp-admin-notices', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin-notices.js', [], WPP_VERSION);
                 wp_localize_script('wpp-admin-notices', 'wpp_admin_notices_params', [
-                    'nonce_performance_nag' => wp_create_nonce("wpp_nonce_performance_nag")
+                    'nonce_performance_nag' => wp_create_nonce('wpp_nonce_performance_nag')
                 ]);
                 wp_enqueue_script('wpp-admin-notices');
             }
@@ -634,7 +634,7 @@ class Admin {
                 [
                     'id'        => 'wpp_help_overview',
                     'title'     => __('Overview', 'wordpress-popular-posts'),
-                    'content'   => "<p>" . __("Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics on what's popular on your site, tools to further tweak WPP to your needs, and more!", "wordpress-popular-posts") . "</p>"
+                    'content'   => '<p>' . __("Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics on what's popular on your site, tools to further tweak WPP to your needs, and more!", 'wordpress-popular-posts') . '</p>'
                 ]
             );
             $screen->add_help_tab(
@@ -657,8 +657,8 @@ class Admin {
             $screen->set_help_sidebar(
                 sprintf(
                     __('<p><strong>For more information:</strong></p><ul><li><a href="%1$s">Documentation</a></li><li><a href="%2$s">Support</a></li></ul>', 'wordpress-popular-posts'),
-                    "https://github.com/cabrerahector/wordpress-popular-posts/",
-                    "https://wordpress.org/support/plugin/wordpress-popular-posts/"
+                    'https://github.com/cabrerahector/wordpress-popular-posts/',
+                    'https://wordpress.org/support/plugin/wordpress-popular-posts/'
                 )
             );
         }
@@ -782,11 +782,11 @@ class Admin {
             'labels' => $date_range,
             'datasets' => [
                 [
-                    'label' => __("Comments", "wordpress-popular-posts"),
+                    'label' => __('Comments', 'wordpress-popular-posts'),
                     'data' => $comments
                 ],
                 [
-                    'label' => __("Views", "wordpress-popular-posts"),
+                    'label' => __('Views', 'wordpress-popular-posts'),
                     'data' => $views
                 ]
             ]
@@ -809,30 +809,30 @@ class Admin {
 
         // Determine time range
         switch( $range ){
-            case "last24hours":
-            case "daily":
+            case 'last24hours':
+            case 'daily':
                 $end_date = $now->format('Y-m-d H:i:s');
                 $start_date = $now->modify('-1 day')->format('Y-m-d H:i:s');
                 break;
 
-            case "today":
+            case 'today':
                 $start_date = $now->format('Y-m-d') . ' 00:00:00';
                 $end_date = $now->format('Y-m-d') . ' 23:59:59';
                 break;
 
-            case "last7days":
-            case "weekly":
+            case 'last7days':
+            case 'weekly':
                 $end_date = $now->format('Y-m-d') . ' 23:59:59';
                 $start_date = $now->modify('-6 day')->format('Y-m-d') . ' 00:00:00';
                 break;
 
-            case "last30days":
-            case "monthly":
+            case 'last30days':
+            case 'monthly':
                 $end_date = $now->format('Y-m-d') . ' 23:59:59';
                 $start_date = $now->modify('-29 day')->format('Y-m-d') . ' 00:00:00';
                 break;
 
-            case "custom":
+            case 'custom':
                 $end_date = $now->format('Y-m-d H:i:s');
 
                 if (
@@ -859,7 +859,7 @@ class Admin {
                 $dates = null;
 
                 if ( isset($_GET['dates']) ) {
-                    $dates = explode(" ~ ", esc_html($_GET['dates']));
+                    $dates = explode(' ~ ', esc_html($_GET['dates']));
 
                     if (
                         ! is_array($dates)
@@ -932,9 +932,9 @@ class Admin {
             $query = $wpdb->prepare(
                 "SELECT DATE(`c`.`comment_date_gmt`) AS `c_date`, COUNT(*) AS `comments` 
                 FROM `{$wpdb->comments}` c INNER JOIN `{$wpdb->posts}` p ON `c`.`comment_post_ID` = `p`.`ID`
-                WHERE (`c`.`comment_date_gmt` BETWEEN %s AND %s) AND `c`.`comment_approved` = '1' AND `p`.`post_type` IN (". implode(", ", $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
-                " . ( $this->config['stats']['freshness'] ? " AND `p`.`post_date` >= %s" : "" ) . "
-                GROUP BY `c_date` ORDER BY `c_date` DESC;",
+                WHERE (`c`.`comment_date_gmt` BETWEEN %s AND %s) AND `c`.`comment_approved` = '1' AND `p`.`post_type` IN (". implode(', ', $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
+                " . ( $this->config['stats']['freshness'] ? ' AND `p`.`post_date` >= %s' : '' ) . '
+                GROUP BY `c_date` ORDER BY `c_date` DESC;',
                 $args
             );
             //phpcs:enable
@@ -943,9 +943,9 @@ class Admin {
             $query = $wpdb->prepare(
                 "SELECT `v`.`view_date`, SUM(`v`.`pageviews`) AS `pageviews` 
                 FROM `{$wpdb->prefix}popularpostssummary` v INNER JOIN `{$wpdb->posts}` p ON `v`.`postid` = `p`.`ID`
-                WHERE (`v`.`view_datetime` BETWEEN %s AND %s) AND `p`.`post_type` IN (". implode(", ", $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
-                " . ( $this->config['stats']['freshness'] ? " AND `p`.`post_date` >= %s" : "" ) . "
-                GROUP BY `v`.`view_date` ORDER BY `v`.`view_date` DESC;",
+                WHERE (`v`.`view_datetime` BETWEEN %s AND %s) AND `p`.`post_type` IN (". implode(', ', $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
+                " . ( $this->config['stats']['freshness'] ? ' AND `p`.`post_date` >= %s' : '' ) . '
+                GROUP BY `v`.`view_date` ORDER BY `v`.`view_date` DESC;',
                 $args
             );
             //phpcs:enable
@@ -971,7 +971,7 @@ class Admin {
         if ( wp_verify_nonce($nonce, 'wpp_admin_nonce') ) {
 
             $valid_ranges = ['today', 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
-            $time_units = ["MINUTE", "HOUR", "DAY"];
+            $time_units = ['MINUTE', 'HOUR', 'DAY'];
 
             $range = ( isset($_GET['range']) && in_array($_GET['range'], $valid_ranges) ) ? $_GET['range'] : 'last7days';
             $time_quantity = ( isset($_GET['time_quantity']) && filter_var($_GET['time_quantity'], FILTER_VALIDATE_INT) ) ? $_GET['time_quantity'] : 24;
@@ -1043,7 +1043,7 @@ class Admin {
                     $dates = null;
 
                     if ( isset($_GET['dates']) ) {
-                        $dates = explode(" ~ ", esc_html($_GET['dates']));
+                        $dates = explode(' ~ ', esc_html($_GET['dates']));
 
                         if (
                             ! is_array($dates)
@@ -1077,30 +1077,30 @@ class Admin {
 
                     // Determine time range
                     switch( $options['range'] ){
-                        case "last24hours":
-                        case "daily":
-                            $interval = "24 HOUR";
+                        case 'last24hours':
+                        case 'daily':
+                            $interval = '24 HOUR';
                             break;
 
-                        case "today":
+                        case 'today':
                             $hours = date('H', strtotime($now));
                             $minutes = $hours * 60 + (int) date( 'i', strtotime($now) );
                             $interval = "{$minutes} MINUTE";
                             break;
 
-                        case "last7days":
-                        case "weekly":
-                            $interval = "6 DAY";
+                        case 'last7days':
+                        case 'weekly':
+                            $interval = '6 DAY';
                             break;
 
-                        case "last30days":
-                        case "monthly":
-                            $interval = "29 DAY";
+                        case 'last30days':
+                        case 'monthly':
+                            $interval = '29 DAY';
                             break;
 
-                        case "custom":
-                            $time_units = ["MINUTE", "HOUR", "DAY"];
-                            $interval = "24 HOUR";
+                        case 'custom':
+                            $time_units = ['MINUTE', 'HOUR', 'DAY'];
+                            $interval = '24 HOUR';
 
                             // Valid time unit
                             if (
@@ -1116,7 +1116,7 @@ class Admin {
                             break;
 
                         default:
-                            $interval = "1 DAY";
+                            $interval = '1 DAY';
                             break;
                     }
 
@@ -1165,7 +1165,7 @@ class Admin {
                     <?php else : ?>
                     <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>, <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
                     <?php endif; ?>
-                    <small> &mdash; <a href="<?php echo esc_url(get_permalink($post->id)); ?>"><?php esc_html_e('View'); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo esc_url(get_edit_post_link($post->id)); ?>"><?php esc_html_e("Edit"); ?></a><?php endif; ?></small>
+                    <small> &mdash; <a href="<?php echo esc_url(get_permalink($post->id)); ?>"><?php esc_html_e('View'); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo esc_url(get_edit_post_link($post->id)); ?>"><?php esc_html_e('Edit'); ?></a><?php endif; ?></small>
                 </div>
             </li>
             <?php
@@ -1176,7 +1176,7 @@ class Admin {
         }
         else {
         ?>
-        <p class="no-data" style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", "wordpress-popular-posts"); //phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?></p>
+        <p class="no-data" style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", 'wordpress-popular-posts'); //phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?></p>
         <?php
         }
     }
@@ -1200,7 +1200,7 @@ class Admin {
             global $wpdb;
 
             // set table name
-            $prefix = $wpdb->prefix . "popularposts";
+            $prefix = $wpdb->prefix . 'popularposts';
 
             //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $prefix is safe to use
             if ( $clear == 'cache' ) {
@@ -1447,7 +1447,7 @@ class Admin {
                     'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance'
                 );?></p>
                 <?php if ( current_user_can('manage_options') ) : ?>
-                <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_dismiss_performance_notice', '1')); ?>"><?php esc_html_e("Dismiss", "wordpress-popular-posts"); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_remind_performance_notice', '1')); ?>"><?php _esc_html_e("Remind me later", "wordpress-popular-posts"); ?></a> <span class="spinner" style="float: none;"></span></p>
+                <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_dismiss_performance_notice', '1')); ?>"><?php esc_html_e('Dismiss', 'wordpress-popular-posts'); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_remind_performance_notice', '1')); ?>"><?php _esc_html_e('Remind me later', 'wordpress-popular-posts'); ?></a> <span class="spinner" style="float: none;"></span></p>
                 <?php endif; ?>
             </div>
             <?php

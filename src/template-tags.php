@@ -17,12 +17,12 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
 {
     // have we got an id?
     if ( empty($id) || is_null($id) || ! is_numeric($id) )
-        return "-1";
+        return '-1';
 
     $id = absint($id);
 
     global $wpdb;
-    $table_name = $wpdb->prefix . "popularposts";
+    $table_name = $wpdb->prefix . 'popularposts';
     $translate = new \WordPressPopularPosts\Translate;
 
     $id = $translate->get_object_id(
@@ -66,26 +66,26 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
 
         // Determine time range
         switch( $args['range'] ){
-            case "last24hours":
-            case "daily":
+            case 'last24hours':
+            case 'daily':
                 $start_date = $start_date->sub(new \DateInterval('P1D'));
                 $start_datetime = $start_date->format('Y-m-d H:i:s');
                 $views_time_range = "view_datetime >= '{$start_datetime}'";
                 break;
-            case "last7days":
-            case "weekly":
+            case 'last7days':
+            case 'weekly':
                 $start_date = $start_date->sub(new \DateInterval('P6D'));
                 $start_datetime = $start_date->format('Y-m-d');
                 $views_time_range = "view_date >= '{$start_datetime}'";
                 break;
-            case "last30days":
-            case "monthly":
+            case 'last30days':
+            case 'monthly':
                 $start_date = $start_date->sub(new \DateInterval('P29D'));
                 $start_datetime = $start_date->format('Y-m-d');
                 $views_time_range = "view_date >= '{$start_datetime}'";
                 break;
-            case "custom":
-                $time_units = ["MINUTE", "HOUR", "DAY", "WEEK", "MONTH"];
+            case 'custom':
+                $time_units = ['MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH'];
 
                 // Valid time unit
                 if (
@@ -175,10 +175,10 @@ function wpp_get_mostpopular($args = NULL) /** @TODO: starting PHP 8.0 $args can
                     $arg = join(',', $arg);
                 }
 
-                $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, $encoding = ini_get("default_charset"), false) . '"';
+                $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, $encoding = ini_get('default_charset'), false) . '"';
             }
         } else {
-            $atts = trim(str_replace("&", " ", $args));
+            $atts = trim(str_replace('&', ' ', $args));
         }
 
         $shortcode .= ' ' . $atts . ' php=true]';

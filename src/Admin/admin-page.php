@@ -18,19 +18,19 @@ else
 // Update options on form submission
 if ( isset($_POST['section']) ) {
 
-    if ( "stats" == $_POST['section'] ) {
+    if ( 'stats' == $_POST['section'] ) {
         $current = 'stats';
 
         if ( isset($_POST['wpp-update-stats-options-token']) && wp_verify_nonce($_POST['wpp-update-stats-options-token'], 'wpp-update-stats-options') ) {
             $this->config['stats']['limit'] = ( \WordPressPopularPosts\Helper::is_number($_POST['stats_limit']) && $_POST['stats_limit'] > 0 ) ? (int) $_POST['stats_limit'] : 10;
-            $this->config['stats']['post_type'] = empty($_POST['stats_type']) ? "post" : sanitize_text_field($_POST['stats_type']);
+            $this->config['stats']['post_type'] = empty($_POST['stats_type']) ? 'post' : sanitize_text_field($_POST['stats_type']);
             $this->config['stats']['freshness'] = isset($_POST['stats_freshness']);
 
             update_option('wpp_settings_config', $this->config);
-            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . "</strong></p></div>";
+            echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . '</strong></p></div>';
         }
     }
-    elseif ( "misc" == $_POST['section'] ) {
+    elseif ( 'misc' == $_POST['section'] ) {
         $current = 'tools';
 
         if ( isset($_POST['wpp-update-misc-options-token'] ) && wp_verify_nonce($_POST['wpp-update-misc-options-token'], 'wpp-update-misc-options') ) {
@@ -39,15 +39,15 @@ if ( isset($_POST['section']) ) {
             $this->config['tools']['experimental'] = isset($_POST['experimental_features']);
 
             update_option('wpp_settings_config', $this->config);
-            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . "</strong></p></div>";
+            echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . '</strong></p></div>';
         }
     }
-    elseif ( "thumb" == $_POST['section'] ) {
+    elseif ( 'thumb' == $_POST['section'] ) {
         $current = 'tools';
 
         if ( isset($_POST['wpp-update-thumbnail-options-token']) && wp_verify_nonce($_POST['wpp-update-thumbnail-options-token'], 'wpp-update-thumbnail-options') ) {
             if (
-                $_POST['thumb_source'] == "custom_field"
+                $_POST['thumb_source'] == 'custom_field'
                 && ( ! isset($_POST['thumb_field']) || empty($_POST['thumb_field']) )
             ) {
                 echo '<div id="wpp-message" class="error fade"><p>' . esc_html(__('Please provide the name of your custom field.', 'wordpress-popular-posts')) . '</p></div>';
@@ -59,17 +59,17 @@ if ( isset($_POST['section']) ) {
                 }
 
                 $this->config['tools']['thumbnail']['source'] = sanitize_text_field($_POST['thumb_source']);
-                $this->config['tools']['thumbnail']['field'] = ( ! empty($_POST['thumb_field']) ) ? sanitize_text_field($_POST['thumb_field']) : "wpp_thumbnail";
-                $this->config['tools']['thumbnail']['default'] = ( ! empty($_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
+                $this->config['tools']['thumbnail']['field'] = ( ! empty($_POST['thumb_field']) ) ? sanitize_text_field($_POST['thumb_field']) : 'wpp_thumbnail';
+                $this->config['tools']['thumbnail']['default'] = ( ! empty($_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : '';
                 $this->config['tools']['thumbnail']['resize'] = (bool) $_POST['thumb_field_resize'];
                 $this->config['tools']['thumbnail']['lazyload'] = (bool) $_POST['thumb_lazy_load'];
 
                 update_option('wpp_settings_config', $this->config );
-                echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . "</strong></p></div>";
+                echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . '</strong></p></div>';
             }
         }
     }
-    elseif ( "data" == $_POST['section'] && current_user_can('manage_options') ) {
+    elseif ( 'data' == $_POST['section'] && current_user_can('manage_options') ) {
         $current = 'tools';
 
         if ( isset($_POST['wpp-update-data-options-token'] ) && wp_verify_nonce($_POST['wpp-update-data-options-token'], 'wpp-update-data-options') ) {
@@ -97,7 +97,7 @@ if ( isset($_POST['section']) ) {
               : 100;
 
             update_option('wpp_settings_config', $this->config);
-            echo "<div class=\"notice notice-success is-dismissible\"><p><strong>" . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . "</strong></p></div>";
+            echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . '</strong></p></div>';
         }
     }
 

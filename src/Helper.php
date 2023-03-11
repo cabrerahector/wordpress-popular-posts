@@ -219,9 +219,9 @@ class Helper {
             return;
 
         foreach( func_get_args() as $arg ) {
-            print "<pre>";
+            print '<pre>';
             var_dump($arg);
-            print "</pre>";
+            print '</pre>';
         }
     }
 
@@ -241,16 +241,16 @@ class Helper {
 
             // Truncate by words
             if ( $truncate_by_words ) {
-                $words = explode(" ", $text, $length + 1);
+                $words = explode(' ', $text, $length + 1);
 
                 if ( count($words) > $length ) {
                     array_pop($words);
-                    $text = rtrim(implode(" ", $words), ",.") . $more;
+                    $text = rtrim(implode(' ', $words), ',.') . $more;
                 }
             }
             // Truncate by characters
             elseif ( mb_strlen($text, $charset) > $length ) {
-                $text = rtrim(mb_substr($text, 0, $length , $charset), " ,.") . $more;
+                $text = rtrim(mb_substr($text, 0, $length , $charset), ' ,.') . $more;
             }
         }
 

@@ -100,7 +100,7 @@ class Front {
             $theme_file = get_stylesheet_directory() . '/wpp.css';
 
             if ( @is_file($theme_file) ) {
-                wp_enqueue_style('wordpress-popular-posts-css', get_stylesheet_directory_uri() . "/wpp.css", [], WPP_VERSION, 'all');
+                wp_enqueue_style('wordpress-popular-posts-css', get_stylesheet_directory_uri() . '/wpp.css', [], WPP_VERSION, 'all');
             } // Load stock stylesheet
             else {
                 wp_enqueue_style('wordpress-popular-posts-css', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/wpp.css', [], WPP_VERSION, 'all');
@@ -187,7 +187,7 @@ class Front {
     public function update_views()
     {
         if ( ! wp_verify_nonce($_POST['token'], 'wpp-token') || ! Helper::is_number($_POST['wpp_id']) ) {
-            die( "WPP: Oops, invalid request!" );
+            die( 'WPP: Oops, invalid request!' );
         }
 
         $nonce = $_POST['token'];
@@ -200,10 +200,10 @@ class Front {
         $exec_time += round($end - $start, 6);
 
         if ( $result ) {
-            die("WPP: OK. Execution time: " . $exec_time . " seconds"); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            die('WPP: OK. Execution time: ' . $exec_time . ' seconds'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
 
-        die("WPP: Oops, could not update the views count!");
+        die('WPP: Oops, could not update the views count!');
     }
 
     /**
@@ -217,7 +217,7 @@ class Front {
      */
     private function update_views_count(int $post_ID) {
         global $wpdb;
-        $table = $wpdb->prefix . "popularposts";
+        $table = $wpdb->prefix . 'popularposts';
         $wpdb->show_errors();
 
         // Get translated object ID
@@ -359,9 +359,9 @@ class Front {
         ], $atts, 'wpp'));
 
         // possible values for "Time Range" and "Order by"
-        $time_units = ["minute", "hour", "day", "week", "month"];
-        $range_values = ["daily", "last24hours", "weekly", "last7days", "monthly", "last30days", "all", "custom"];
-        $order_by_values = ["comments", "views", "avg"];
+        $time_units = ['minute', 'hour', 'day', 'week', 'month'];
+        $range_values = ['daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
+        $order_by_values = ['comments', 'views', 'avg'];
 
         $shortcode_ops = [
             'title' => strip_tags($header),
@@ -373,11 +373,11 @@ class Front {
             'freshness' => empty($freshness) ? false : $freshness,
             'order_by' => ( in_array($order_by, $order_by_values) ) ? $order_by : 'views',
             'post_type' => empty($post_type) ? 'post' : $post_type,
-            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ","),
-            'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ","),
+            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ','),
+            'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ','),
             'taxonomy' => empty($taxonomy) ? 'category' : $taxonomy,
-            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ","),
-            'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ","),
+            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ','),
+            'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ','),
             'shorten_title' => [
                 'active' => ( ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
                 'length' => ( ! empty($title_length) && Helper::is_number($title_length) ) ? $title_length : 0,
@@ -423,21 +423,21 @@ class Front {
         ];
 
         // Post / Page / CTP filter
-        $ids = array_filter(explode(",", $shortcode_ops['pid']), 'is_numeric');
+        $ids = array_filter(explode(',', $shortcode_ops['pid']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $shortcode_ops['pid'] = '';
         }
 
         // Category filter
-        $ids = array_filter(explode(",", $shortcode_ops['cat']), 'is_numeric');
+        $ids = array_filter(explode(',', $shortcode_ops['cat']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $shortcode_ops['cat'] = '';
         }
 
         // Author filter
-        $ids = array_filter(explode( ",", $shortcode_ops['author']), 'is_numeric');
+        $ids = array_filter(explode( ',', $shortcode_ops['author']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $shortcode_ops['author'] = '';

@@ -69,8 +69,8 @@ class Image {
 
         // Set uploads folder
         $wp_upload_dir = wp_get_upload_dir();
-        $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts';
-        $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . "/" . 'wordpress-popular-posts';
+        $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . '/' . 'wordpress-popular-posts';
+        $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . '/' . 'wordpress-popular-posts';
 
         if ( ! is_dir($this->uploads_dir['basedir']) ) {
             // Couldn't create the folder, store thumbnails in Uploads
@@ -439,7 +439,7 @@ class Image {
     private function get_file_meta(int $id, string $source)
     {
         // get thumbnail path from the Featured Image
-        if ( "featured" == $source ) {
+        if ( 'featured' == $source ) {
             if ( $thumbnail_id = get_post_thumbnail_id($id) ) {
                 // image path
                 return [
@@ -449,7 +449,7 @@ class Image {
             }
         }
         // get thumbnail path from first image attachment
-        elseif ( "first_attachment" == $source ) {
+        elseif ( 'first_attachment' == $source ) {
             $args = [
                 'numberposts' => 1,
                 'order' => 'ASC',
@@ -469,7 +469,7 @@ class Image {
             }
         }
         // get thumbnail path from post content
-        elseif ( "first_image" == $source ) {
+        elseif ( 'first_image' == $source ) {
             /** @var wpdb $wpdb */
             global $wpdb;
 
@@ -530,14 +530,14 @@ class Image {
         $alt = '';
 
         // get thumbnail path from the Featured Image
-        if ( "featured" == $source ) {
+        if ( 'featured' == $source ) {
             if ( $thumbnail_id = get_post_thumbnail_id($id) ) {
                 // image path
                 $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
             }
         }
         // get thumbnail path from first image attachment
-        elseif ( "first_attachment" == $source ) {
+        elseif ( 'first_attachment' == $source ) {
             $args = [
                 'numberposts' => 1,
                 'order' => 'ASC',
@@ -553,7 +553,7 @@ class Image {
             }
         }
         // get thumbnail path from post content
-        elseif ( "first_image" == $source ) {
+        elseif ( 'first_image' == $source ) {
             /** @var wpdb $wpdb */
             global $wpdb;
 
@@ -856,7 +856,7 @@ class Image {
         }
 
         // Make sure we use the right protocol
-        $src = esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src);
+        $src = esc_url(is_ssl() ? str_ireplace('http://', 'https://', $src) : $src);
         // Get srcset, if available
         $srcset = $this->get_srcset($src);
 

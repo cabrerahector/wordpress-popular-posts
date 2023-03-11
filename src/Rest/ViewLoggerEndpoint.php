@@ -49,7 +49,7 @@ class ViewLoggerEndpoint extends Endpoint {
         $sampling = $sampling != $_sampling ? $_sampling : $sampling;
         $sampling_rate = $sampling_rate != $_sampling_rate ? $_sampling_rate : $sampling_rate;
 
-        $table = $wpdb->prefix . "popularposts";
+        $table = $wpdb->prefix . 'popularposts';
         $wpdb->show_errors();
 
         // Get translated object ID
@@ -136,15 +136,15 @@ class ViewLoggerEndpoint extends Endpoint {
                         $views_count += $cached_views;
                         $ts = Helper::is_timestamp($ts) ? $ts : strtotime($ts);
 
-                        $query_summary .= $wpdb->prepare("(%d,%d,%s,%s),", [
+                        $query_summary .= $wpdb->prepare('(%d,%d,%s,%s),', [
                             $pid,
                             $cached_views,
-                            date("Y-m-d", $ts),
-                            date("Y-m-d H:i:s", $ts)
+                            date('Y-m-d', $ts),
+                            date('Y-m-d H:i:s', $ts)
                         ]);
                     }
 
-                    $query_data .= $wpdb->prepare( "(%d,%s,%s,%s),", [
+                    $query_data .= $wpdb->prepare( '(%d,%s,%s,%s),', [
                         $pid,
                         $date_time_with_seconds,
                         $date_time_with_seconds,
@@ -152,8 +152,8 @@ class ViewLoggerEndpoint extends Endpoint {
                     ]);
                 }
 
-                $query_data = rtrim($query_data, ",") . " ON DUPLICATE KEY UPDATE pageviews=pageviews+VALUES(pageviews),last_viewed=VALUES(last_viewed);";
-                $query_summary = rtrim($query_summary, ",") . ";";
+                $query_data = rtrim($query_data, ',') . ' ON DUPLICATE KEY UPDATE pageviews=pageviews+VALUES(pageviews),last_viewed=VALUES(last_viewed);';
+                $query_summary = rtrim($query_summary, ',') . ';';
 
                 // Clear cache
                 $wpp_cache['last_updated'] = $date_time_with_seconds;
@@ -215,7 +215,7 @@ class ViewLoggerEndpoint extends Endpoint {
         if ( has_action('wpp_post_update_views') )
             do_action('wpp_post_update_views', $post_ID);
 
-        $response['results'] = "WPP: OK. Execution time: " . $exec_time . " seconds";
+        $response['results'] = 'WPP: OK. Execution time: ' . $exec_time . ' seconds';
         return new \WP_REST_Response($response, 201);
     }
 

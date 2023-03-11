@@ -79,7 +79,7 @@ class Activator {
         ) {
             global $wpdb;
 
-            $prefix = $wpdb->prefix . "popularposts";
+            $prefix = $wpdb->prefix . 'popularposts';
             self::do_db_tables($prefix);
         }
     }
@@ -94,7 +94,7 @@ class Activator {
     private static function do_db_tables(string $prefix)
     {
         global $wpdb;
-        $charset_collate = "";
+        $charset_collate = '';
 
         if ( !empty($wpdb->charset) )
             $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset} ";

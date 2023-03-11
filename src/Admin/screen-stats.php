@@ -15,10 +15,10 @@ if ( 'stats' == $current ) {
 
         <div id="wpp-stats-config" class="wpp-lightbox">
             <form action="" method="post" id="wpp_stats_options" name="wpp_stats_options">
-                <label for="stats_type"><?php esc_html_e("Post type", 'wordpress-popular-posts'); ?>:</label>
+                <label for="stats_type"><?php esc_html_e('Post type', 'wordpress-popular-posts'); ?>:</label>
                 <input type="text" name="stats_type" value="<?php echo esc_attr($this->config['stats']['post_type']); ?>" size="15">
 
-                <label for="stats_limits"><?php esc_html_e("Limit", 'wordpress-popular-posts'); ?>:</label>
+                <label for="stats_limits"><?php esc_html_e('Limit', 'wordpress-popular-posts'); ?>:</label>
                 <input type="text" name="stats_limit" value="<?php echo esc_attr($this->config['stats']['limit']); ?>" size="5">
 
                 <label for="stats_freshness">
@@ -29,8 +29,8 @@ if ( 'stats' == $current ) {
                 <br /><br />
 
                 <input type="hidden" name="section" value="stats">
-                <button type="submit" class="button-primary action"><?php esc_html_e("Apply", 'wordpress-popular-posts'); ?></button>
-                <button class="button-secondary action right"><?php esc_html_e("Cancel"); ?></button>
+                <button type="submit" class="button-primary action"><?php esc_html_e('Apply', 'wordpress-popular-posts'); ?></button>
+                <button class="button-secondary action right"><?php esc_html_e('Cancel'); ?></button>
 
                 <?php wp_nonce_field('wpp-update-stats-options', 'wpp-update-stats-options-token'); ?>
             </form>
@@ -48,9 +48,9 @@ if ( 'stats' == $current ) {
                 <input type="text" id="stats_range_time_quantity" name="stats_range_time_quantity" value="<?php echo esc_attr($this->config['stats']['time_quantity']); ?>">
 
                 <select id="stats_range_time_unit" name="stats_range_time_unit">
-                    <option <?php if ($this->config['stats']['time_unit'] == "minute") { ?>selected="selected"<?php } ?> value="minute"><?php esc_html_e("Minute(s)", 'wordpress-popular-posts'); ?></option>
-                    <option <?php if ($this->config['stats']['time_unit'] == "hour") { ?>selected="selected"<?php } ?> value="hour"><?php esc_html_e("Hour(s)", 'wordpress-popular-posts'); ?></option>
-                    <option <?php if ($this->config['stats']['time_unit'] == "day") { ?>selected="selected"<?php } ?> value="day"><?php esc_html_e("Day(s)", 'wordpress-popular-posts'); ?></option>
+                    <option <?php if ($this->config['stats']['time_unit'] == 'minute') { ?>selected="selected"<?php } ?> value="minute"><?php esc_html_e('Minute(s)', 'wordpress-popular-posts'); ?></option>
+                    <option <?php if ($this->config['stats']['time_unit'] == 'hour') { ?>selected="selected"<?php } ?> value="hour"><?php esc_html_e('Hour(s)', 'wordpress-popular-posts'); ?></option>
+                    <option <?php if ($this->config['stats']['time_unit'] == 'day') { ?>selected="selected"<?php } ?> value="day"><?php esc_html_e('Day(s)', 'wordpress-popular-posts'); ?></option>
                 </select>
             </div>
 
@@ -62,10 +62,10 @@ if ( 'stats' == $current ) {
             <br />
 
             <button type="submit" class="button-primary action">
-                <?php esc_html_e("Apply", 'wordpress-popular-posts'); ?>
+                <?php esc_html_e('Apply', 'wordpress-popular-posts'); ?>
             </button>
             <button class="button-secondary action right">
-                <?php esc_html_e("Cancel"); ?>
+                <?php esc_html_e('Cancel'); ?>
             </button>
         </form>
     </div>
