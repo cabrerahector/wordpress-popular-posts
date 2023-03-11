@@ -252,7 +252,7 @@ class Helper {
             }
             // Truncate by characters
             elseif ( mb_strlen($text, $charset) > $length ) {
-                $text = rtrim(mb_substr($text, 0, $length , $charset), ' ,.') . $more;
+                $text = rtrim(mb_substr($text, 0, $length, $charset), ' ,.') . $more;
             }
         }
 

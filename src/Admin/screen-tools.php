@@ -23,10 +23,7 @@ if ( 'tools' == $current ) {
                                 }
 
                                 $fallback_thumbnail_url = str_replace(
-                                    parse_url(
-                                        $fallback_thumbnail_url
-                                        , PHP_URL_SCHEME
-                                    ) . ':',
+                                    parse_url($fallback_thumbnail_url, PHP_URL_SCHEME) . ':',
                                     '',
                                     $fallback_thumbnail_url
                                 );
