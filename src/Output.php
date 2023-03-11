@@ -208,7 +208,7 @@ class Output {
                && isset($this->public_options['markup']['wpp-start'])
                && isset($this->public_options['markup']['wpp-end'])
             ){
-                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-start'], ENT_QUOTES) ."\n";
+                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-start'], ENT_QUOTES) . "\n";
             }
             // Output the default wrapper
             else {
@@ -238,7 +238,7 @@ class Output {
                && isset($this->public_options['markup']['wpp-start'])
                && isset($this->public_options['markup']['wpp-end'])
             ){
-                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-end'], ENT_QUOTES) ."\n";
+                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-end'], ENT_QUOTES) . "\n";
             }
             // Output default wrapper
             else {
@@ -390,7 +390,7 @@ class Output {
                 'total_items' => count($this->data),
                 'item_position' => $position
             ];
-            $post = $this->format_content(htmlspecialchars_decode($this->public_options['markup']['post-html'], ENT_QUOTES), $data, $this->public_options['rating']). "\n";
+            $post = $this->format_content(htmlspecialchars_decode($this->public_options['markup']['post-html'], ENT_QUOTES), $data, $this->public_options['rating']) . "\n";
         } // Use the "stock" HTML output
         else {
             $wpp_post_class = [];

@@ -360,7 +360,7 @@ class Widget extends Block
     {
         extract($this->parse_attributes($attributes));
 
-        $html = '<div class="widget popular-posts' . (( isset($attributes['className']) && $attributes['className'] ) ? ' '. esc_attr($attributes['className']) : '') . '">';
+        $html = '<div class="widget popular-posts' . (( isset($attributes['className']) && $attributes['className'] ) ? ' ' . esc_attr($attributes['className']) : '') . '">';
 
         // possible values for "Time Range" and "Order by"
         $time_units = ['minute', 'hour', 'day', 'week', 'month'];

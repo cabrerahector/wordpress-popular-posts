@@ -233,7 +233,7 @@ class Image {
                     );
 
                     if ( strpos($featured_image, 'class="') && is_array($classes) && ! empty($classes) )
-                        $featured_image = str_replace('class="', 'class="'. esc_attr(implode(' ', $classes)) . ' ', $featured_image);
+                        $featured_image = str_replace('class="', 'class="' . esc_attr(implode(' ', $classes)) . ' ', $featured_image);
 
                     if ( $this->admin_options['tools']['thumbnail']['lazyload'] && false == strpos($featured_image, 'loading="lazy"') ) {
                         $featured_image = str_replace('src="', 'loading="lazy" src="', $featured_image);
@@ -860,7 +860,7 @@ class Image {
         // Get srcset, if available
         $srcset = $this->get_srcset($src);
 
-        $src = 'src="' . $src. '"' . $srcset;
+        $src = 'src="' . $src . '"' . $srcset;
 
         // Lazy Load attribute, if enabled
         $lazyload = ( $this->admin_options['tools']['thumbnail']['lazyload'] ) ? ' loading="lazy"' : '';

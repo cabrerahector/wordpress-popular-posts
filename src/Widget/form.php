@@ -76,7 +76,7 @@ if ( $_taxonomies = get_taxonomies(['public' => true], 'objects') ) {
     foreach ( $_taxonomies as $_taxonomy ) {
         if ( 'post_format' == $_taxonomy->name )
             continue;
-        echo '<label><input type="checkbox" name="' . esc_attr($this->get_field_name('taxonomy')) . '[names][]" value="' . esc_attr($_taxonomy->name) . '"' . ( isset($tax_filter[$_taxonomy->name]) ? ' checked' : '') . '> ' . esc_html($_taxonomy->labels->singular_name) . ' <small>('. esc_html($_taxonomy->name) .')</small></label><br>';
+        echo '<label><input type="checkbox" name="' . esc_attr($this->get_field_name('taxonomy')) . '[names][]" value="' . esc_attr($_taxonomy->name) . '"' . ( isset($tax_filter[$_taxonomy->name]) ? ' checked' : '') . '> ' . esc_html($_taxonomy->labels->singular_name) . ' <small>(' . esc_html($_taxonomy->name) . ')</small></label><br>';
         echo '<input type="text" name="' . esc_attr($this->get_field_name('taxonomy')) . '[terms][' . esc_attr($_taxonomy->name) . ']" value="' . ( isset($tax_filter[$_taxonomy->name]) ? esc_attr($tax_filter[$_taxonomy->name]) : '') . '" class="widefat" style="margin-top: 4px;" /><br />';
         /* translators: %s here represents the singular name of the taxonomy (eg. Category) */
         $taxonomy_instructions = __('%s IDs, separated by comma (prefix a minus sign to exclude)', 'wordpress-popular-posts');
