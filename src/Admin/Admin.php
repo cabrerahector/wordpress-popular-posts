@@ -1048,8 +1048,7 @@ class Admin {
 
             if ( 'trending' != $items ) {
 
-                add_filter('wpp_query_join', function($join, $options) use ($items)
-                {
+                add_filter('wpp_query_join', function($join, $options) use ($items) {
                     global $wpdb;
                     $dates = null;
 
