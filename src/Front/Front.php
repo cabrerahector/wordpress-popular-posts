@@ -286,7 +286,8 @@ class Front {
      * @param    array    $atts    User defined attributes in shortcode tag
      * @return   string
      */
-    public function wpp_shortcode($atts = null) { /** @TODO: starting PHP 8.0 $atts can be declared as mixed $meta_value (if not set WP gives an string, and it set we get an array) */
+    public function wpp_shortcode($atts = null) {
+ /** @TODO: starting PHP 8.0 $atts can be declared as mixed $meta_value (if not set WP gives an string, and it set we get an array) */
         /**
         * @var string $header
         * @var int $limit

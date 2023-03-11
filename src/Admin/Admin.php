@@ -771,7 +771,7 @@ class Admin {
 
         // Format labels
         if ( 'today' != $range ) {
-            $date_range = array_map(function($d){
+            $date_range = array_map(function($d) {
                 return date_i18n('D d', strtotime($d));
             }, $date_range);
         } else {

@@ -33,7 +33,7 @@ class ViewLoggerEndpoint extends Endpoint {
      * @param   \WP_REST_Request    $request Full details about the request.
      * @return  string
      */
-    public function update_views_count($request){
+    public function update_views_count($request) {
         global $wpdb;
 
         $post_ID = $request->get_param('wpp_id');
