@@ -79,7 +79,8 @@ class ViewLoggerEndpoint extends Endpoint {
             do_action('wpp_pre_update_views', $post_ID, $views);
         }
 
-        $result1 = $result2 = false;
+        $result1 = false;
+        $result2 = false;
 
         $exec_time = 0;
         $start = Helper::microtime_float();
@@ -169,7 +170,8 @@ class ViewLoggerEndpoint extends Endpoint {
                 $result2 = $wpdb->query($query_summary); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query_summary above
             }
             else {
-                $result1 = $result2 = true;
+                $result1 = true;
+                $result2 = true;
             }
         } // Live update to the DB
         else {
