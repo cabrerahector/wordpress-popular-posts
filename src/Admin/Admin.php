@@ -1162,33 +1162,30 @@ class Admin {
     public function render_list(array $posts, $list = 'most-viewed')
     {
         if ( ! empty($posts) ) {
-        ?>
-        <ol class="popular-posts-list">
-        <?php
-            foreach( $posts as $post ) { ?>
-            <li>
-                <a href="<?php echo esc_url(get_permalink($post->id)); ?>" class="wpp-title"><?php echo esc_html(sanitize_text_field(apply_filters('the_title', $post->title, $post->id))); ?></a>
-                <div>
-                    <?php if ( 'most-viewed' == $list ) : ?>
-                    <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>
-                    <?php elseif ( 'most-commented' == $list ) : ?>
-                    <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
-                    <?php else : ?>
-                    <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>, <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
-                    <?php endif; ?>
-                    <small> &mdash; <a href="<?php echo esc_url(get_permalink($post->id)); ?>"><?php esc_html_e('View'); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo esc_url(get_edit_post_link($post->id)); ?>"><?php esc_html_e('Edit'); ?></a><?php endif; ?></small>
-                </div>
-            </li>
+            ?>
+            <ol class="popular-posts-list">
+                <?php foreach( $posts as $post ) { ?>
+                    <li>
+                        <a href="<?php echo esc_url(get_permalink($post->id)); ?>" class="wpp-title"><?php echo esc_html(sanitize_text_field(apply_filters('the_title', $post->title, $post->id))); ?></a>
+                        <div>
+                            <?php if ( 'most-viewed' == $list ) : ?>
+                            <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>
+                            <?php elseif ( 'most-commented' == $list ) : ?>
+                            <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
+                            <?php else : ?>
+                            <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>, <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
+                            <?php endif; ?>
+                            <small> &mdash; <a href="<?php echo esc_url(get_permalink($post->id)); ?>"><?php esc_html_e('View'); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo esc_url(get_edit_post_link($post->id)); ?>"><?php esc_html_e('Edit'); ?></a><?php endif; ?></small>
+                        </div>
+                    </li>
+                <?php } ?>
+            </ol>
             <?php
-            }
-        ?>
-        </ol>
-        <?php
         }
         else {
-        ?>
-        <p class="no-data" style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", 'wordpress-popular-posts'); //phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?></p>
-        <?php
+            ?>
+            <p class="no-data" style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", 'wordpress-popular-posts'); //phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?></p>
+            <?php
         }
     }
 
@@ -1453,17 +1450,20 @@ class Admin {
                 1 == $performance_nag['status']
                 || ( 2 == $performance_nag['status'] && $last_checked && $last_checked >= 24 )
             ) {
-            ?>
-            <div class="notice notice-warning">
-                <p><?php printf(
-                    __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these recommendations</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'), //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
-                    'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance'
-                );?></p>
-                <?php if ( current_user_can('manage_options') ) : ?>
-                <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_dismiss_performance_notice', '1')); ?>"><?php esc_html_e('Dismiss', 'wordpress-popular-posts'); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_remind_performance_notice', '1')); ?>"><?php _esc_html_e('Remind me later', 'wordpress-popular-posts'); ?></a> <span class="spinner" style="float: none;"></span></p>
-                <?php endif; ?>
-            </div>
-            <?php
+                ?>
+                <div class="notice notice-warning">
+                    <p>
+                        <?php printf(
+                            __("<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You may want to check <a href=\"%s\">these recommendations</a> to make sure your website's performance stays up to par.", 'wordpress-popular-posts'), //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+                            'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance'
+                        );
+                        ?>
+                    </p>
+                    <?php if ( current_user_can('manage_options') ) : ?>
+                        <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_dismiss_performance_notice', '1')); ?>"><?php esc_html_e('Dismiss', 'wordpress-popular-posts'); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_remind_performance_notice', '1')); ?>"><?php _esc_html_e('Remind me later', 'wordpress-popular-posts'); ?></a> <span class="spinner" style="float: none;"></span></p>
+                    <?php endif; ?>
+                </div>
+                <?php
             }
         }
     }

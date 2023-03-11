@@ -81,15 +81,15 @@ if ( 'tools' == $current ) {
                         <?php
                         $wp_upload_dir = wp_get_upload_dir();
                         if ( is_dir($wp_upload_dir['basedir'] . '/' . 'wordpress-popular-posts') ) :
-                        ?>
-                        <tr valign="top">
-                            <th scope="row"></th>
-                            <td>
-                                <input type="button" name="wpp-reset-image-cache" id="wpp-reset-image-cache" class="button-secondary" value="<?php esc_attr_e('Empty image cache', 'wordpress-popular-posts'); ?>">
-                                <p class="description"><?php esc_html_e("Use this button to clear WPP's thumbnails cache", 'wordpress-popular-posts'); ?>.</p>
-                            </td>
-                        </tr>
-                        <?php
+                            ?>
+                            <tr valign="top">
+                                <th scope="row"></th>
+                                <td>
+                                    <input type="button" name="wpp-reset-image-cache" id="wpp-reset-image-cache" class="button-secondary" value="<?php esc_attr_e('Empty image cache', 'wordpress-popular-posts'); ?>">
+                                    <p class="description"><?php esc_html_e("Use this button to clear WPP's thumbnails cache", 'wordpress-popular-posts'); ?>.</p>
+                                </td>
+                            </tr>
+                            <?php
                         endif;
                         ?>
                         <tr valign="top">

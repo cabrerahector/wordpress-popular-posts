@@ -171,19 +171,19 @@ if ( $_taxonomies ) {
 <input type="checkbox" class="checkbox" <?php echo ($instance['stats_tag']['taxonomy']['active'] || $instance['stats_tag']['category']) ? 'checked="checked"' : ''; ?> id="<?php echo esc_attr($this->get_field_id('stats_taxonomy')); ?>" name="<?php echo esc_attr($this->get_field_name('stats_taxonomy')); ?>" /> <label for="<?php echo esc_attr($this->get_field_id('stats_taxonomy')); ?>"><?php esc_html_e('Display taxonomy', 'wordpress-popular-posts'); ?></label><br />
 <?php
 if ( $_taxonomies ) {
-?>
-<div style="display:<?php if ($instance['stats_tag']['taxonomy']['active'] || $instance['stats_tag']['category']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
-<?php
-    foreach ( $_taxonomies  as $_taxonomy ) {
-        if ('post_format' == $_taxonomy->name ) {
-            continue;
-        }
+    ?>
+    <div style="display:<?php if ($instance['stats_tag']['taxonomy']['active'] || $instance['stats_tag']['category']) : ?>block<?php else: ?>none<?php endif; ?>; width:90%; margin:10px 0; padding:3% 5%; background:#f5f5f5;">
+        <?php
+        foreach ( $_taxonomies  as $_taxonomy ) {
+            if ('post_format' == $_taxonomy->name ) {
+                continue;
+            }
 
-        echo '<label><input type="radio" name="' . esc_attr($this->get_field_name('stats_taxonomy_name')) . '" value="' . esc_attr($_taxonomy->name) . '"' . ( ( $instance['stats_tag']['taxonomy']['name'] == $_taxonomy->name ) ? ' checked' : '') . '> ' . esc_html($_taxonomy->labels->singular_name) . '</label><br>';
-    }
-?>
-</div>
-<?php
+            echo '<label><input type="radio" name="' . esc_attr($this->get_field_name('stats_taxonomy_name')) . '" value="' . esc_attr($_taxonomy->name) . '"' . ( ( $instance['stats_tag']['taxonomy']['name'] == $_taxonomy->name ) ? ' checked' : '') . '> ' . esc_html($_taxonomy->labels->singular_name) . '</label><br>';
+        }
+        ?>
+    </div>
+    <?php
 }
 ?>
 

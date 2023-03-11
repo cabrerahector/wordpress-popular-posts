@@ -291,38 +291,38 @@ class Front {
      * @return   string
      */
     public function wpp_shortcode($atts = null) {
- /** @TODO: starting PHP 8.0 $atts can be declared as mixed $meta_value (if not set WP gives an string, and it set we get an array) */
+        /** @TODO: starting PHP 8.0 $atts can be declared as mixed $meta_value (if not set WP gives an string, and it set we get an array) */
         /**
-        * @var string $header
-        * @var int $limit
-        * @var int $offset
-        * @var string $range
-        * @var bool $freshness
-        * @var string $order_by
-        * @var string $post_type
-        * @var string $pid
-        * @var string $cat
-        * @var string $author
-        * @var int $title_length
-        * @var int $title_by_words
-        * @var int $excerpt_length
-        * @var int $excerpt_format
-        * @var int $excerpt_by_words
-        * @var int $thumbnail_width
-        * @var int $thumbnail_height
-        * @var bool $rating
-        * @var bool $stats_comments
-        * @var bool $stats_views
-        * @var bool $stats_author
-        * @var bool $stats_date
-        * @var string $stats_date_format
-        * @var bool $stats_category
-        * @var string $wpp_start
-        * @var string $wpp_end
-        * @var string $header_start
-        * @var string $header_end
-        * @var string $post_html
-        * @var bool $php
+         * @var string $header
+         * @var int $limit
+         * @var int $offset
+         * @var string $range
+         * @var bool $freshness
+         * @var string $order_by
+         * @var string $post_type
+         * @var string $pid
+         * @var string $cat
+         * @var string $author
+         * @var int $title_length
+         * @var int $title_by_words
+         * @var int $excerpt_length
+         * @var int $excerpt_format
+         * @var int $excerpt_by_words
+         * @var int $thumbnail_width
+         * @var int $thumbnail_height
+         * @var bool $rating
+         * @var bool $stats_comments
+         * @var bool $stats_views
+         * @var bool $stats_author
+         * @var bool $stats_date
+         * @var string $stats_date_format
+         * @var bool $stats_category
+         * @var string $wpp_start
+         * @var string $wpp_end
+         * @var string $header_start
+         * @var string $header_end
+         * @var string $post_html
+         * @var bool $php
         */
         extract(shortcode_atts([
             'header' => '',
