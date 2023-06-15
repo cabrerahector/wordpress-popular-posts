@@ -389,40 +389,40 @@ class Widget extends Block
             'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ','),
             'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ','),
             'shorten_title' => [
-                'active' => ( ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
+                'active' => ( (bool) $attributes['shorten_title'] && ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
                 'length' => ( ! empty($title_length) && Helper::is_number($title_length) ) ? $title_length : 0,
                 'words' => (( ! empty($title_by_words) && Helper::is_number($title_by_words) && $title_by_words > 0 )),
             ],
             'post-excerpt' => [
-                'active' => ( ! empty($excerpt_length) && Helper::is_number($excerpt_length) && $excerpt_length > 0 ),
+                'active' => ( (bool) $attributes['display_post_excerpt'] && ! empty($excerpt_length) && Helper::is_number($excerpt_length) && $excerpt_length > 0 ),
                 'length' => ( ! empty($excerpt_length) && Helper::is_number($excerpt_length) ) ? $excerpt_length : 0,
                 'keep_format' => ( ! empty($excerpt_format) && Helper::is_number($excerpt_format) && $excerpt_format > 0 ),
                 'words' => ( ! empty($excerpt_by_words) && Helper::is_number($excerpt_by_words) && $excerpt_by_words > 0 ),
             ],
             'thumbnail' => [
-                'active' => ( 'predefined' == $thumbnail_build && $attributes['display_post_thumbnail'] ) ? true : ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ),
+                'active' => ( 'predefined' == $thumbnail_build && (bool) $attributes['display_post_thumbnail'] ) ? true : ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ),
                 'width' => ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ) ? $thumbnail_width : 0,
                 'height' => ( ! empty($thumbnail_height) && Helper::is_number($thumbnail_height) && $thumbnail_height > 0 ) ? $thumbnail_height : 0,
                 'build' => 'predefined' == $thumbnail_build ? 'predefined' : 'manual',
                 'size' => empty($thumbnail_size) ? '' : $thumbnail_size,
             ],
-            'rating' => empty($rating) ? false : $rating,
+            'rating' => (bool) $attributes['rating'],
             'stats_tag' => [
-                'comment_count' => empty($stats_comments) ? false : $stats_comments,
-                'views' => empty($stats_views) ? false : $stats_views,
-                'author' => empty($stats_author) ? false : $stats_author,
+                'comment_count' => (bool) $attributes['stats_comments'],
+                'views' => (bool) $attributes['stats_views'],
+                'author' => (bool) $attributes['stats_author'],
                 'date' => [
-                    'active' => empty($stats_date) ? false : $stats_date,
+                    'active' => (bool) $attributes['stats_date'],
                     'format' => empty($stats_date_format) ? 'F j, Y' : $stats_date_format
                 ],
-                'category' => empty($stats_category) ? false : $stats_category,
+                'category' => (bool) $attributes['stats_category'],
                 'taxonomy' => [
-                    'active' => empty($stats_taxonomy) ? false : $stats_taxonomy,
+                    'active' => (bool) $attributes['stats_taxonomy'],
                     'name' => empty($taxonomy) ? 'category' : $taxonomy,
                 ]
             ],
             'markup' => [
-                'custom_html' => empty($custom_html) ? false : $custom_html,
+                'custom_html' => (bool) $attributes['custom_html'],
                 'wpp-start' => empty($wpp_start) ? '' : $wpp_start,
                 'wpp-end' => empty($wpp_end) ? '' : $wpp_end,
                 'title-start' => empty($header_start) ? '' : $header_start,
