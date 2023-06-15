@@ -692,7 +692,7 @@ class Admin {
         ) {
             array_unshift(
                 $links,
-                '<a href="' . admin_url('options-general.php?page=wordpress-popular-posts') . '">' . __('Settings') . '</a>',
+                '<a href="' . admin_url('options-general.php?page=wordpress-popular-posts') . '">' . __('Settings') . '</a>', // phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- We're using WordPress' translation here
                 '<a href="https://wordpress.org/support/plugin/wordpress-popular-posts/">' . __('Support', 'wordpress-popular-posts') . '</a>'
             );
         }
@@ -939,7 +939,7 @@ class Admin {
         array_unshift($args, $start_date, $end_date);
 
         if ( $item == 'comments' ) {
-            //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- $post_type_placeholders is already prepared above
+            //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- $post_type_placeholders is already prepared above
             $query = $wpdb->prepare(
                 "SELECT DATE(`c`.`comment_date_gmt`) AS `c_date`, COUNT(*) AS `comments` 
                 FROM `{$wpdb->comments}` c INNER JOIN `{$wpdb->posts}` p ON `c`.`comment_post_ID` = `p`.`ID`
@@ -950,7 +950,7 @@ class Admin {
             );
             //phpcs:enable
         } else {
-            //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- $post_type_placeholders is already prepared above
+            //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- $post_type_placeholders is already prepared above
             $query = $wpdb->prepare(
                 "SELECT `v`.`view_date`, SUM(`v`.`pageviews`) AS `pageviews` 
                 FROM `{$wpdb->prefix}popularpostssummary` v INNER JOIN `{$wpdb->posts}` p ON `v`.`postid` = `p`.`ID`
@@ -977,7 +977,7 @@ class Admin {
         $response = [
             'status' => 'error'
         ];
-        $nonce = isset($_GET['nonce']) ? $_GET['nonce'] : null;
+        $nonce = isset($_GET['nonce']) ? $_GET['nonce'] : null; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- This is a nonce
 
         if ( wp_verify_nonce($nonce, 'wpp_admin_nonce') ) {
 
@@ -1013,8 +1013,8 @@ class Admin {
      */
     public function get_popular_items()
     {
-        $items = isset($_GET['items']) ? $_GET['items'] : null;
-        $nonce = isset($_GET['nonce']) ? $_GET['nonce'] : null;
+        $items = isset($_GET['items']) ? $_GET['items'] : null; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification happens below
+        $nonce = isset($_GET['nonce']) ? $_GET['nonce'] : null; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- This is a nonce
 
         if ( wp_verify_nonce($nonce, 'wpp_admin_nonce') ) {
             $args = [
@@ -1052,8 +1052,8 @@ class Admin {
                     global $wpdb;
                     $dates = null;
 
-                    if ( isset($_GET['dates']) ) {
-                        $dates = explode(' ~ ', esc_html($_GET['dates']));
+                    if ( isset($_GET['dates']) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is checked above, 'dates' is verified below
+                        $dates = explode(' ~ ', esc_html($_GET['dates'])); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
                         if (
                             ! is_array($dates)

@@ -12,7 +12,7 @@ $wpp_tabs = [
 
 // Set active tab
 if ( isset($_GET['tab'] ) && isset($wpp_tabs[$_GET['tab']] ) ) {
-    $current = $_GET['tab'];
+    $current = $_GET['tab']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- $current will be equal to one of the registered tabs
 } else {
     $current = 'stats';
 }
