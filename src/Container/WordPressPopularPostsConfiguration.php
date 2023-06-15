@@ -26,7 +26,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         });
 
         $container['translate'] = $container->service(function(Container $container) {
-            return new Translate();
+            return new Translate(); //phpcs:ignore WordPress.WP.I18n.LowLevelTranslationFunction,WordPress.WP.I18n.MissingArgText -- We're using namespaces, it's fine
         });
 
         $container['image'] = $container->service(function(Container $container) {

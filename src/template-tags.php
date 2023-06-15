@@ -13,17 +13,18 @@
  * @param   bool            $number_format  Whether to format the number (eg. 9,999) or not (eg. 9999)
  * @return  string
  */
-function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range */
+function wpp_get_views(int $id = null, $range = null, bool $number_format = true) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range */
 {
     // have we got an id?
-    if ( empty($id) || is_null($id) || ! is_numeric($id) )
-        return "-1";
+    if ( empty($id) || is_null($id) || ! is_numeric($id) ) {
+        return '-1';
+    }
 
     $id = absint($id);
 
     global $wpdb;
-    $table_name = $wpdb->prefix . "popularposts";
-    $translate = new \WordPressPopularPosts\Translate;
+    $table_name = $wpdb->prefix . 'popularposts';
+    $translate = new \WordPressPopularPosts\Translate();
 
     $id = $translate->get_object_id(
         $id,
@@ -52,10 +53,11 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
 
     // Get all-time views count
     if ( 'all' == $args['range'] ) {
-        $query = $wpdb->prepare(
-            "SELECT pageviews FROM {$table_name}data WHERE postid = %d;",
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table_name is safe to use
+        $query = $wpdb->prepare( "SELECT pageviews FROM {$table_name}data WHERE postid = %d;",
             $args['_postID']
         );
+        //phpcs:enable
     } // Get views count within time range
     else {
         $start_date = new \DateTime(
@@ -65,26 +67,26 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
 
         // Determine time range
         switch( $args['range'] ){
-            case "last24hours":
-            case "daily":
+            case 'last24hours':
+            case 'daily':
                 $start_date = $start_date->sub(new \DateInterval('P1D'));
                 $start_datetime = $start_date->format('Y-m-d H:i:s');
                 $views_time_range = "view_datetime >= '{$start_datetime}'";
                 break;
-            case "last7days":
-            case "weekly":
+            case 'last7days':
+            case 'weekly':
                 $start_date = $start_date->sub(new \DateInterval('P6D'));
                 $start_datetime = $start_date->format('Y-m-d');
                 $views_time_range = "view_date >= '{$start_datetime}'";
                 break;
-            case "last30days":
-            case "monthly":
+            case 'last30days':
+            case 'monthly':
                 $start_date = $start_date->sub(new \DateInterval('P29D'));
                 $start_datetime = $start_date->format('Y-m-d');
                 $views_time_range = "view_date >= '{$start_datetime}'";
                 break;
-            case "custom":
-                $time_units = ["MINUTE", "HOUR", "DAY", "WEEK", "MONTH"];
+            case 'custom':
+                $time_units = ['MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH'];
 
                 // Valid time unit
                 if (
@@ -133,16 +135,19 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
                 break;
         }
 
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $views_time_range is safe to use
         $query = $wpdb->prepare(
             "SELECT SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} AND postid = %d;",
             $args['_postID']
         );
+        //phpcs:enable
     }
 
-    $results = $wpdb->get_var($query);
+    $results = $wpdb->get_var($query); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query above
 
-    if ( ! $results )
+    if ( ! $results ) {
         return 0;
+    }
 
     return $number_format ? number_format_i18n(intval($results)) : $results;
 }
@@ -154,7 +159,7 @@ function wpp_get_views(int $id = NULL, $range = NULL, bool $number_format = true
  * @since   2.0.3
  * @param   mixed   $args
  */
-function wpp_get_mostpopular($args = NULL) /** @TODO: starting PHP 8.0 $args can be declared as mixed $args */
+function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can be declared as mixed $args */
 {
     $shortcode = '[wpp';
 
@@ -172,10 +177,10 @@ function wpp_get_mostpopular($args = NULL) /** @TODO: starting PHP 8.0 $args can
                     $arg = join(',', $arg);
                 }
 
-                $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, $encoding = ini_get("default_charset"), false) . '"';
+                $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, $encoding = ini_get('default_charset'), false) . '"';
             }
         } else {
-            $atts = trim(str_replace("&", " ", $args));
+            $atts = trim(str_replace('&', ' ', $args));
         }
 
         $shortcode .= ' ' . $atts . ' php=true]';

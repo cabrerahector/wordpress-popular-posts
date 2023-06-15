@@ -105,8 +105,9 @@ class Output {
 
         $this->wp_date_format = get_option('date_format');
 
-        if ( ! $this->wp_date_format )
+        if ( ! $this->wp_date_format ) {
             $this->wp_date_format = 'F j, Y';
+        }
     }
 
     /**
@@ -141,7 +142,7 @@ class Output {
      */
     public function output()
     {
-        echo $this->get_output();
+        echo $this->get_output(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- At this point everything has been escaped / sanitized already
     }
 
     /**
@@ -159,7 +160,7 @@ class Output {
     /**
      * Build the HTML output.
      *
-     * @since	4.0.0
+     * @since   4.0.0
      */
     public function build_output()
     {
@@ -193,8 +194,9 @@ class Output {
                 if ( has_filter('wpp_additional_theme_styles') ) {
                     $additional_styles = wp_strip_all_tags(apply_filters('wpp_additional_theme_styles', '', $this->public_options['theme']['name']), true);
 
-                    if ( $additional_styles )
+                    if ( $additional_styles ) {
                         $additional_styles = ' /* additional rules */ ' . $additional_styles;
+                    }
                 }
 
                 $this->output .= '<style>' . $theme_css_rules . $additional_styles . '</style>';
@@ -208,17 +210,18 @@ class Output {
                && isset($this->public_options['markup']['wpp-start'])
                && isset($this->public_options['markup']['wpp-end'])
             ){
-                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-start'], ENT_QUOTES) ."\n";
+                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-start'], ENT_QUOTES) . "\n";
             }
             // Output the default wrapper
             else {
 
-                $classes = "wpp-list";
+                $classes = 'wpp-list';
 
-                if ( $this->public_options['thumbnail']['active'] )
-                    $classes .= " wpp-list-with-thumbnails";
+                if ( $this->public_options['thumbnail']['active'] ) {
+                    $classes .= ' wpp-list-with-thumbnails';
+                }
 
-                $this->output .= "\n" . "<ul class=\"{$classes}\">" . "\n";
+                $this->output .= "\n<ul class=\"{$classes}\">\n";
 
             }
 
@@ -238,24 +241,24 @@ class Output {
                && isset($this->public_options['markup']['wpp-start'])
                && isset($this->public_options['markup']['wpp-end'])
             ){
-                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-end'], ENT_QUOTES) ."\n";
+                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-end'], ENT_QUOTES) . "\n";
             }
             // Output default wrapper
             else {
-                $this->output .= "</ul>" . "\n";
+                $this->output .= '</ul>' . "\n";
             }
 
             if (
                 isset($this->public_options['theme']['name'])
                 && $this->public_options['theme']['name']
             ) {
-                $this->output .= "</div>";
+                $this->output .= '</div>';
             }
 
         }
         // Got nothing to show, give 'em the old "Sorry. No data so far." message!
         else {
-            $this->output = apply_filters('wpp_no_data', "<p class=\"wpp-no-data\">" . __('Sorry. No data so far.', 'wordpress-popular-posts') . "</p>");
+            $this->output = apply_filters('wpp_no_data', '<p class="wpp-no-data">' . __('Sorry. No data so far.', 'wordpress-popular-posts') . '</p>');
         }
     }
 
@@ -343,18 +346,20 @@ class Output {
         if (
             is_array($meta_arr)
             && ! empty($meta_arr)
-            && "views" == $this->public_options['order_by']
+            && 'views' == $this->public_options['order_by']
         ) {
             $keys = ['views', 'comments', 'author', 'date', 'taxonomy'];
             $new_meta_arr = [];
 
             foreach($keys as $key) {
-                if ( isset($meta_arr[$key]))
+                if ( isset($meta_arr[$key])) {
                     $new_meta_arr[$key] = $meta_arr[$key];
+                }
             }
 
-            if ( ! empty($new_meta_arr) )
+            if ( ! empty($new_meta_arr) ) {
                 $meta_arr = $new_meta_arr;
+            }
         }
 
         $post_meta_separator = esc_html(apply_filters('wpp_post_meta_separator', ' | '));
@@ -381,7 +386,7 @@ class Output {
                 'author_copy' => isset($meta_arr['author']) ? $meta_arr['author'] : null,
                 'author_name' => esc_html($post_author),
                 'author_url' => ( ! empty($post_author) ) ? esc_url(get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid)) : '',
-                'views' => ( $this->public_options['order_by'] == "views" || $this->public_options['order_by'] == "comments" ) ? ($prettify_numbers ? Helper::prettify_number($post_views) : number_format_i18n($post_views)) : ($prettify_numbers ? Helper::prettify_number($post_views, 2) : number_format_i18n($post_views, 2)),
+                'views' => ( $this->public_options['order_by'] == 'views' || $this->public_options['order_by'] == 'comments' ) ? ($prettify_numbers ? Helper::prettify_number($post_views) : number_format_i18n($post_views)) : ($prettify_numbers ? Helper::prettify_number($post_views, 2) : number_format_i18n($post_views, 2)),
                 'views_copy' => isset($meta_arr['views']) ? $meta_arr['views'] : null,
                 'comments' => $prettify_numbers ? Helper::prettify_number($post_comments) : number_format_i18n($post_comments),
                 'comments_copy' => isset($meta_arr['comments']) ? $meta_arr['comments'] : null,
@@ -390,26 +395,26 @@ class Output {
                 'total_items' => count($this->data),
                 'item_position' => $position
             ];
-            $post = $this->format_content(htmlspecialchars_decode($this->public_options['markup']['post-html'], ENT_QUOTES), $data, $this->public_options['rating']). "\n";
+            $post = $this->format_content(htmlspecialchars_decode($this->public_options['markup']['post-html'], ENT_QUOTES), $data, $this->public_options['rating']) . "\n";
         } // Use the "stock" HTML output
         else {
             $wpp_post_class = [];
 
             if ( $is_current_post ) {
-                $wpp_post_class[] = "current";
+                $wpp_post_class[] = 'current';
             }
 
             // Allow themers / plugin developer
             // to add custom classes to each post
-            $wpp_post_class = apply_filters("wpp_post_class", $wpp_post_class, $post_id);
+            $wpp_post_class = apply_filters('wpp_post_class', $wpp_post_class, $post_id);
 
             $post_thumbnail = ( ! empty($post_thumbnail) )
-                ? "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : "") . "target=\"" . esc_attr($this->admin_options['tools']['link']['target']) . "\">{$post_thumbnail}</a>\n"
-                : "";
+                ? "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : '') . 'target="' . esc_attr($this->admin_options['tools']['link']['target']) . "\">{$post_thumbnail}</a>\n"
+                : '';
 
             $post_excerpt = ( ! empty($post_excerpt) )
                 ? " <span class=\"wpp-excerpt\">{$post_excerpt}</span>\n"
-                : "";
+                : '';
 
             $post_meta = ( ! empty($post_meta) )
                 ? " <span class=\"wpp-meta post-stats\">{$post_meta}</span>\n"
@@ -417,12 +422,12 @@ class Output {
 
             $post_rating = ( ! empty($post_rating) )
                 ? " <span class=\"wpp-rating\">{$post_rating}</span>\n"
-                : "";
+                : '';
 
             $post =
-                "<li" . ( ( is_array($wpp_post_class) && ! empty($wpp_post_class) ) ? ' class="' . esc_attr(implode(" ", $wpp_post_class)) . '"' : '') . ">\n"
+                '<li' . ( ( is_array($wpp_post_class) && ! empty($wpp_post_class) ) ? ' class="' . esc_attr(implode(' ', $wpp_post_class)) . '"' : '') . ">\n"
                 . $post_thumbnail
-                . "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : "") . "class=\"wpp-post-title\" target=\"" . esc_attr($this->admin_options['tools']['link']['target']) . "\">{$post_title}</a>\n"
+                . "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : '') . 'class="wpp-post-title" target="' . esc_attr($this->admin_options['tools']['link']['target']) . "\">{$post_title}</a>\n"
                 . $post_excerpt
                 . $post_meta
                 . $post_rating
@@ -532,13 +537,13 @@ class Output {
             }
 
             // remove caption tags
-            $excerpt = preg_replace("/\[caption.*\[\/caption\]/", "", $excerpt);
+            $excerpt = preg_replace('/\[caption.*\[\/caption\]/', '', $excerpt);
 
             // remove Flash objects
-            $excerpt = preg_replace("/<object[0-9 a-z_?*=\":\-\/\.#\,\\n\\r\\t]+/smi", "", $excerpt);
+            $excerpt = preg_replace("/<object[0-9 a-z_?*=\":\-\/\.#\,\\n\\r\\t]+/smi", '', $excerpt);
 
             // remove iframes
-            $excerpt = preg_replace("/<iframe.*?\/iframe>/i", "", $excerpt);
+            $excerpt = preg_replace('/<iframe.*?\/iframe>/i', '', $excerpt);
 
             // remove WP shortcodes
             $excerpt = strip_shortcodes($excerpt);
@@ -586,8 +591,9 @@ class Output {
             $more = apply_filters('wpp_excerpt_more', $more);
             $excerpt = Helper::truncate($excerpt, $this->public_options['post-excerpt']['length'], $this->public_options['post-excerpt']['words'], $more);
 
-            if ( $this->public_options['post-excerpt']['keep_format'] )
+            if ( $this->public_options['post-excerpt']['keep_format'] ) {
                 $excerpt = force_balance_tags($excerpt);
+            }
         }
 
         return $excerpt;
@@ -693,17 +699,19 @@ class Output {
                     foreach ($terms as $term) {
                         $term_link = get_term_link($term);
 
-                        if ( is_wp_error($term_link) )
+                        if ( is_wp_error($term_link) ) {
                             continue;
+                        }
 
                         $term_link = esc_url($this->translate->url($term_link, $this->translate->get_current_language()));
-                        $post_tax .= "<a href=\"{$term_link}\" class=\"wpp-taxonomy {$taxonomy} {$taxonomy}-{$term->term_id}\">" . esc_html($term->name) . "</a>" . $taxonomy_separator;
+                        $post_tax .= "<a href=\"{$term_link}\" class=\"wpp-taxonomy {$taxonomy} {$taxonomy}-{$term->term_id}\">" . esc_html($term->name) . '</a>' . $taxonomy_separator;
                     }
                 }
             }
 
-            if ( '' != $post_tax )
+            if ( '' != $post_tax ) {
                 $post_tax = rtrim($post_tax, $taxonomy_separator);
+            }
 
         }
 
@@ -723,7 +731,7 @@ class Output {
     {
         $author = ( $this->public_options['stats_tag']['author'] )
           ? get_the_author_meta('display_name', $post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid)
-          : "";
+          : '';
 
         return $author;
     }
@@ -742,13 +750,13 @@ class Output {
 
         if (
             (
-                $this->public_options['order_by'] == "views"
-                || $this->public_options['order_by'] == "avg"
+                $this->public_options['order_by'] == 'views'
+                || $this->public_options['order_by'] == 'avg'
                 || $this->public_options['stats_tag']['views']
             )
             && ( isset($post_object->pageviews) || isset($post_object->avg_views) )
         ) {
-            $pageviews = ( $this->public_options['order_by'] == "views" || $this->public_options['order_by'] == "comments" )
+            $pageviews = ( $this->public_options['order_by'] == 'views' || $this->public_options['order_by'] == 'comments' )
             ? $post_object->pageviews
             : $post_object->avg_views;
         }
@@ -766,7 +774,7 @@ class Output {
      */
     private function get_comments(\stdClass $post_object)
     {
-        $comments = ( ( $this->public_options['order_by'] == "comments" || $this->public_options['stats_tag']['comment_count'] ) && isset($post_object->comment_count) )
+        $comments = ( ( $this->public_options['order_by'] == 'comments' || $this->public_options['stats_tag']['comment_count'] ) && isset($post_object->comment_count) )
           ? $post_object->comment_count
           : 0;
 
@@ -814,7 +822,7 @@ class Output {
                 );
             }
 
-            $stats['views'] = '<span class="wpp-views">' . $views_text . "</span>";
+            $stats['views'] = '<span class="wpp-views">' . $views_text . '</span>';
         }
 
         // author
@@ -849,8 +857,9 @@ class Output {
      */
     private function format_content(string $string, array $data, bool $rating) {
 
-        if ( empty($string) || ( empty($data) || ! is_array($data) ) )
+        if ( empty($string) || ( empty($data) || ! is_array($data) ) ) {
             return false;
+        }
 
         $params = [];
         $pattern = '/\{(pid|current_class|excerpt|summary|meta|stats|title|title_attr|image|thumb|thumb_img|thumb_url|rating|score|url|text_title|author|author_copy|author_name|author_url|taxonomy|taxonomy_copy|category|category_copy|views|views_copy|comments|comments_copy|date|date_copy|total_items|item_position)\}/i';
@@ -858,40 +867,40 @@ class Output {
 
         array_map('strtolower', $matches[0]);
 
-        if ( in_array("{pid}", $matches[0]) ) {
-            $string = str_replace("{pid}", $data['id'], $string);
+        if ( in_array('{pid}', $matches[0]) ) {
+            $string = str_replace('{pid}', $data['id'], $string);
         }
 
-        if ( in_array("{current_class}", $matches[0]) ) {
-            $string = str_replace("{current_class}", ( $data['is_current_post'] ? 'current' : '' ), $string);
+        if ( in_array('{current_class}', $matches[0]) ) {
+            $string = str_replace('{current_class}', ( $data['is_current_post'] ? 'current' : '' ), $string);
         }
 
-        if ( in_array("{title}", $matches[0]) ) {
-            $string = str_replace("{title}", $data['title'], $string);
+        if ( in_array('{title}', $matches[0]) ) {
+            $string = str_replace('{title}', $data['title'], $string);
         }
 
-        if ( in_array("{title_attr}", $matches[0]) ) {
-            $string = str_replace("{title_attr}", $data['title_attr'], $string);
+        if ( in_array('{title_attr}', $matches[0]) ) {
+            $string = str_replace('{title_attr}', $data['title_attr'], $string);
         }
 
-        if ( in_array("{meta}", $matches[0]) || in_array("{stats}", $matches[0]) ) {
-            $string = str_replace(["{meta}", "{stats}"], $data['stats'], $string);
+        if ( in_array('{meta}', $matches[0]) || in_array('{stats}', $matches[0]) ) {
+            $string = str_replace(['{meta}', '{stats}'], $data['stats'], $string);
         }
 
-        if ( in_array("{excerpt}", $matches[0]) || in_array("{summary}", $matches[0]) ) {
-            $string = str_replace(["{excerpt}", "{summary}"], $data['summary'], $string);
+        if ( in_array('{excerpt}', $matches[0]) || in_array('{summary}', $matches[0]) ) {
+            $string = str_replace(['{excerpt}', '{summary}'], $data['summary'], $string);
         }
 
-        if ( in_array("{image}", $matches[0]) || in_array("{thumb}", $matches[0]) ) {
-            $string = str_replace(["{image}", "{thumb}"], $data['img'], $string);
+        if ( in_array('{image}', $matches[0]) || in_array('{thumb}', $matches[0]) ) {
+            $string = str_replace(['{image}', '{thumb}'], $data['img'], $string);
         }
 
-        if ( in_array("{thumb_img}", $matches[0]) ) {
-            $string = str_replace("{thumb_img}", $data['img_no_link'], $string);
+        if ( in_array('{thumb_img}', $matches[0]) ) {
+            $string = str_replace('{thumb_img}', $data['img_no_link'], $string);
         }
 
-        if ( in_array("{thumb_url}", $matches[0]) && ! empty($data['img_no_link']) ) {
-            $dom = new \DOMDocument;
+        if ( in_array('{thumb_url}', $matches[0]) && ! empty($data['img_no_link']) ) {
+            $dom = new \DOMDocument();
 
             if ( $dom->loadHTML($data['img_no_link']) ) {
                 $img_tag = $dom->getElementsByTagName('img');
@@ -900,7 +909,7 @@ class Output {
                     foreach( $img_tag as $node ) {
                         if ( $node->hasAttribute('src') ) {
                             $src = $node->getAttribute('src');
-                            $string = str_replace("{thumb_url}", $src, $string);
+                            $string = str_replace('{thumb_url}', $src, $string);
                         }
                     }
                 }
@@ -909,82 +918,82 @@ class Output {
 
         // WP-PostRatings check
         if ( $rating ) {
-            if ( function_exists('the_ratings_results') && in_array("{rating}", $matches[0]) ) {
-                $string = str_replace("{rating}", the_ratings_results($data['id']), $string);
+            if ( function_exists('the_ratings_results') && in_array('{rating}', $matches[0]) ) {
+                $string = str_replace('{rating}', the_ratings_results($data['id']), $string);
             }
 
-            if ( function_exists('expand_ratings_template') && in_array("{score}", $matches[0]) ) {
-                $string = str_replace("{score}", expand_ratings_template('%RATINGS_SCORE%', $data['id']), $string);
+            if ( function_exists('expand_ratings_template') && in_array('{score}', $matches[0]) ) {
+                $string = str_replace('{score}', expand_ratings_template('%RATINGS_SCORE%', $data['id']), $string);
                 // removing the redundant plus sign
                 $string = str_replace('+', '', $string);
             }
         }
 
-        if ( in_array("{url}", $matches[0]) ) {
-            $string = str_replace("{url}", $data['url'], $string);
+        if ( in_array('{url}', $matches[0]) ) {
+            $string = str_replace('{url}', $data['url'], $string);
         }
 
-        if ( in_array("{text_title}", $matches[0]) ) {
-            $string = str_replace("{text_title}", $data['text_title'], $string);
+        if ( in_array('{text_title}', $matches[0]) ) {
+            $string = str_replace('{text_title}', $data['text_title'], $string);
         }
 
-        if ( in_array("{author}", $matches[0]) ) {
-            $string = str_replace("{author}", $data['author'], $string);
+        if ( in_array('{author}', $matches[0]) ) {
+            $string = str_replace('{author}', $data['author'], $string);
         }
 
-        if ( in_array("{author_copy}", $matches[0]) ) {
-            $string = str_replace("{author_copy}", $data['author_copy'], $string);
+        if ( in_array('{author_copy}', $matches[0]) ) {
+            $string = str_replace('{author_copy}', $data['author_copy'], $string);
         }
 
-        if ( in_array("{author_name}", $matches[0]) ) {
-            $string = str_replace("{author_name}", $data['author_name'], $string);
+        if ( in_array('{author_name}', $matches[0]) ) {
+            $string = str_replace('{author_name}', $data['author_name'], $string);
         }
 
-        if ( in_array("{author_url}", $matches[0]) ) {
-            $string = str_replace("{author_url}", $data['author_url'], $string);
+        if ( in_array('{author_url}', $matches[0]) ) {
+            $string = str_replace('{author_url}', $data['author_url'], $string);
         }
 
-        if ( in_array("{taxonomy}", $matches[0]) || in_array("{category}", $matches[0]) ) {
-            $string = str_replace(["{taxonomy}", "{category}"], $data['taxonomy'], $string);
+        if ( in_array('{taxonomy}', $matches[0]) || in_array('{category}', $matches[0]) ) {
+            $string = str_replace(['{taxonomy}', '{category}'], $data['taxonomy'], $string);
         }
 
-        if ( in_array("{taxonomy_copy}", $matches[0]) || in_array("{category_copy}", $matches[0]) ) {
-            $string = str_replace(["{taxonomy_copy}", "{category_copy}"], $data['taxonomy_copy'], $string);
+        if ( in_array('{taxonomy_copy}', $matches[0]) || in_array('{category_copy}', $matches[0]) ) {
+            $string = str_replace(['{taxonomy_copy}', '{category_copy}'], $data['taxonomy_copy'], $string);
         }
 
-        if ( in_array("{views}", $matches[0]) ) {
-            $string = str_replace("{views}", $data['views'], $string);
+        if ( in_array('{views}', $matches[0]) ) {
+            $string = str_replace('{views}', $data['views'], $string);
         }
 
-        if ( in_array("{views_copy}", $matches[0]) ) {
-            $string = str_replace("{views_copy}", $data['views_copy'], $string);
+        if ( in_array('{views_copy}', $matches[0]) ) {
+            $string = str_replace('{views_copy}', $data['views_copy'], $string);
         }
 
-        if ( in_array("{comments}", $matches[0]) ) {
-            $string = str_replace("{comments}", $data['comments'], $string);
+        if ( in_array('{comments}', $matches[0]) ) {
+            $string = str_replace('{comments}', $data['comments'], $string);
         }
 
-        if ( in_array("{comments_copy}", $matches[0]) ) {
-            $string = str_replace("{comments_copy}", $data['comments_copy'], $string);
+        if ( in_array('{comments_copy}', $matches[0]) ) {
+            $string = str_replace('{comments_copy}', $data['comments_copy'], $string);
         }
 
-        if ( in_array("{date}", $matches[0]) ) {
-            $string = str_replace("{date}", $data['date'], $string);
+        if ( in_array('{date}', $matches[0]) ) {
+            $string = str_replace('{date}', $data['date'], $string);
         }
 
-        if ( in_array("{date_copy}", $matches[0]) ) {
-            $string = str_replace("{date_copy}", $data['date_copy'], $string);
+        if ( in_array('{date_copy}', $matches[0]) ) {
+            $string = str_replace('{date_copy}', $data['date_copy'], $string);
         }
 
-        if ( in_array("{total_items}", $matches[0]) ) {
-            $string = str_replace("{total_items}", $data['total_items'], $string);
+        if ( in_array('{total_items}', $matches[0]) ) {
+            $string = str_replace('{total_items}', $data['total_items'], $string);
         }
 
-        if ( in_array("{item_position}", $matches[0]) ) {
-            $string = str_replace("{item_position}", $data['item_position'], $string);
+        if ( in_array('{item_position}', $matches[0]) ) {
+            $string = str_replace('{item_position}', $data['item_position'], $string);
         }
 
-        return apply_filters("wpp_parse_custom_content_tags", $string, $data['id']);
+        return apply_filters('wpp_parse_custom_content_tags', $string, $data['id']);
     }
 
     /**

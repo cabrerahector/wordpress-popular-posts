@@ -33,7 +33,7 @@ class ViewLoggerEndpoint extends Endpoint {
      * @param   \WP_REST_Request    $request Full details about the request.
      * @return  string
      */
-    public function update_views_count($request){
+    public function update_views_count($request) {
         global $wpdb;
 
         $post_ID = $request->get_param('wpp_id');
@@ -49,7 +49,7 @@ class ViewLoggerEndpoint extends Endpoint {
         $sampling = $sampling != $_sampling ? $_sampling : $sampling;
         $sampling_rate = $sampling_rate != $_sampling_rate ? $_sampling_rate : $sampling_rate;
 
-        $table = $wpdb->prefix . "popularposts";
+        $table = $wpdb->prefix . 'popularposts';
         $wpdb->show_errors();
 
         // Get translated object ID
@@ -69,15 +69,18 @@ class ViewLoggerEndpoint extends Endpoint {
         $original_views_count = $views;
         $views = apply_filters('wpp_update_views_count_value', $views, $post_ID, $sampling, $sampling_rate);
 
-        if ( ! Helper::is_number($views) || $views <= 0 )
+        if ( ! Helper::is_number($views) || $views <= 0 ) {
             $views = $original_views_count;
+        }
 
         // Allow WP themers / coders perform an action
         // before updating views count
-        if ( has_action('wpp_pre_update_views') )
+        if ( has_action('wpp_pre_update_views') ) {
             do_action('wpp_pre_update_views', $post_ID, $views);
+        }
 
-        $result1 = $result2 = false;
+        $result1 = false;
+        $result2 = false;
 
         $exec_time = 0;
         $start = Helper::microtime_float();
@@ -97,7 +100,9 @@ class ViewLoggerEndpoint extends Endpoint {
 
             $key = $high_accuracy ? $timestamp : $date_time;
 
-            if ( ! $wpp_cache = wp_cache_get('_wpp_cache', 'transient') ) {
+            $wpp_cache = wp_cache_get('_wpp_cache', 'transient');
+
+            if ( ! $wpp_cache ) {
                 $wpp_cache = [
                     'last_updated' => $date_time_with_seconds,
                     'data' => [
@@ -136,15 +141,15 @@ class ViewLoggerEndpoint extends Endpoint {
                         $views_count += $cached_views;
                         $ts = Helper::is_timestamp($ts) ? $ts : strtotime($ts);
 
-                        $query_summary .= $wpdb->prepare("(%d,%d,%s,%s),", [
+                        $query_summary .= $wpdb->prepare('(%d,%d,%s,%s),', [
                             $pid,
                             $cached_views,
-                            date("Y-m-d", $ts),
-                            date("Y-m-d H:i:s", $ts)
+                            date('Y-m-d', $ts),
+                            date('Y-m-d H:i:s', $ts)
                         ]);
                     }
 
-                    $query_data .= $wpdb->prepare( "(%d,%s,%s,%s),", [
+                    $query_data .= $wpdb->prepare( '(%d,%s,%s,%s),', [
                         $pid,
                         $date_time_with_seconds,
                         $date_time_with_seconds,
@@ -152,8 +157,8 @@ class ViewLoggerEndpoint extends Endpoint {
                     ]);
                 }
 
-                $query_data = rtrim($query_data, ",") . " ON DUPLICATE KEY UPDATE pageviews=pageviews+VALUES(pageviews),last_viewed=VALUES(last_viewed);";
-                $query_summary = rtrim($query_summary, ",") . ";";
+                $query_data = rtrim($query_data, ',') . ' ON DUPLICATE KEY UPDATE pageviews=pageviews+VALUES(pageviews),last_viewed=VALUES(last_viewed);';
+                $query_summary = rtrim($query_summary, ',') . ';';
 
                 // Clear cache
                 $wpp_cache['last_updated'] = $date_time_with_seconds;
@@ -161,15 +166,17 @@ class ViewLoggerEndpoint extends Endpoint {
                 wp_cache_set('_wpp_cache', $wpp_cache, 'transient', 0);
 
                 // Save
-                $result1 = $wpdb->query($query_data);
-                $result2 = $wpdb->query($query_summary);
+                $result1 = $wpdb->query($query_data); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query_data above
+                $result2 = $wpdb->query($query_summary); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query_summary above
             }
             else {
-                $result1 = $result2 = true;
+                $result1 = true;
+                $result2 = true;
             }
         } // Live update to the DB
         else {
             // Update all-time table
+            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
             $result1 = $wpdb->query($wpdb->prepare(
                 "INSERT INTO {$table}data
                 (postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
@@ -181,8 +188,10 @@ class ViewLoggerEndpoint extends Endpoint {
                 $views,
                 $now
             ));
+            //phpcs:enable
 
             // Update range (summary) table
+            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
             $result2 = $wpdb->query($wpdb->prepare(
                 "INSERT INTO {$table}summary
                 (postid, pageviews, view_date, view_datetime) VALUES (%d, %d, %s, %s)
@@ -194,6 +203,7 @@ class ViewLoggerEndpoint extends Endpoint {
                 $views,
                 $now
             ));
+            //phpcs:enable
         }
 
         $end = Helper::microtime_float();
@@ -208,10 +218,11 @@ class ViewLoggerEndpoint extends Endpoint {
 
         // Allow WP themers / coders perform an action
         // after updating views count
-        if ( has_action('wpp_post_update_views') )
+        if ( has_action('wpp_post_update_views') ) {
             do_action('wpp_post_update_views', $post_ID);
+        }
 
-        $response['results'] = "WPP: OK. Execution time: " . $exec_time . " seconds";
+        $response['results'] = 'WPP: OK. Execution time: ' . $exec_time . ' seconds';
         return new \WP_REST_Response($response, 201);
     }
 

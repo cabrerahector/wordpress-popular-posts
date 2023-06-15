@@ -360,12 +360,12 @@ class Widget extends Block
     {
         extract($this->parse_attributes($attributes));
 
-        $html = '<div class="widget popular-posts' . (( isset($attributes['className']) && $attributes['className'] ) ? ' '. esc_attr($attributes['className']) : '') . '">';
+        $html = '<div class="widget popular-posts' . (( isset($attributes['className']) && $attributes['className'] ) ? ' ' . esc_attr($attributes['className']) : '') . '">';
 
         // possible values for "Time Range" and "Order by"
-        $time_units = ["minute", "hour", "day", "week", "month"];
-        $range_values = ["daily", "last24hours", "weekly", "last7days", "monthly", "last30days", "all", "custom"];
-        $order_by_values = ["comments", "views", "avg"];
+        $time_units = ['minute', 'hour', 'day', 'week', 'month'];
+        $range_values = ['daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
+        $order_by_values = ['comments', 'views', 'avg'];
 
         $theme_data = $this->themer->get_theme($theme);
 
@@ -383,46 +383,44 @@ class Widget extends Block
             'freshness' => empty($freshness) ? false : $freshness,
             'order_by' => ( in_array($order_by, $order_by_values) ) ? $order_by : 'views',
             'post_type' => empty($post_type) ? 'post' : $post_type,
-            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ","),
-            'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ","),
+            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ','),
             'taxonomy' => empty($tax) ? 'category' : $tax,
-            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ","),
-            'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ","),
+            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ','),
+            'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ','),
             'shorten_title' => [
-                'active' => ( ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
+                'active' => ( (bool) $attributes['shorten_title'] && ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
                 'length' => ( ! empty($title_length) && Helper::is_number($title_length) ) ? $title_length : 0,
                 'words' => (( ! empty($title_by_words) && Helper::is_number($title_by_words) && $title_by_words > 0 )),
             ],
             'post-excerpt' => [
-                'active' => ( ! empty($excerpt_length) && Helper::is_number($excerpt_length) && $excerpt_length > 0 ),
+                'active' => ( (bool) $attributes['display_post_excerpt'] && ! empty($excerpt_length) && Helper::is_number($excerpt_length) && $excerpt_length > 0 ),
                 'length' => ( ! empty($excerpt_length) && Helper::is_number($excerpt_length) ) ? $excerpt_length : 0,
                 'keep_format' => ( ! empty($excerpt_format) && Helper::is_number($excerpt_format) && $excerpt_format > 0 ),
                 'words' => ( ! empty($excerpt_by_words) && Helper::is_number($excerpt_by_words) && $excerpt_by_words > 0 ),
             ],
             'thumbnail' => [
-                'active' => ( 'predefined' == $thumbnail_build && $attributes['display_post_thumbnail'] ) ? true : ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ),
+                'active' => ( 'predefined' == $thumbnail_build && (bool) $attributes['display_post_thumbnail'] ) ? true : ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ),
                 'width' => ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ) ? $thumbnail_width : 0,
                 'height' => ( ! empty($thumbnail_height) && Helper::is_number($thumbnail_height) && $thumbnail_height > 0 ) ? $thumbnail_height : 0,
                 'build' => 'predefined' == $thumbnail_build ? 'predefined' : 'manual',
                 'size' => empty($thumbnail_size) ? '' : $thumbnail_size,
             ],
-            'rating' => empty($rating) ? false : $rating,
+            'rating' => (bool) $attributes['rating'],
             'stats_tag' => [
-                'comment_count' => empty($stats_comments) ? false : $stats_comments,
-                'views' => empty($stats_views) ? false : $stats_views,
-                'author' => empty($stats_author) ? false : $stats_author,
+                'comment_count' => (bool) $attributes['stats_comments'],
+                'views' => (bool) $attributes['stats_views'],
+                'author' => (bool) $attributes['stats_author'],
                 'date' => [
-                    'active' => empty($stats_date) ? false : $stats_date,
+                    'active' => (bool) $attributes['stats_date'],
                     'format' => empty($stats_date_format) ? 'F j, Y' : $stats_date_format
                 ],
-                'category' => empty($stats_category) ? false : $stats_category,
                 'taxonomy' => [
-                    'active' => empty($stats_taxonomy) ? false : $stats_taxonomy,
+                    'active' => (bool) $attributes['stats_taxonomy'],
                     'name' => empty($taxonomy) ? 'category' : $taxonomy,
                 ]
             ],
             'markup' => [
-                'custom_html' => empty($custom_html) ? false : $custom_html,
+                'custom_html' => (bool) $attributes['custom_html'],
                 'wpp-start' => empty($wpp_start) ? '' : $wpp_start,
                 'wpp-end' => empty($wpp_end) ? '' : $wpp_end,
                 'title-start' => empty($header_start) ? '' : $header_start,
@@ -435,21 +433,21 @@ class Widget extends Block
         ];
 
         // Post / Page / CTP filter
-        $ids = array_filter(explode(",", $query_args['pid']), 'is_numeric');
+        $ids = array_filter(explode(',', $query_args['pid']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $query_args['pid'] = '';
         }
 
-        // Category filter
-        $ids = array_filter(explode(",", $query_args['cat']), 'is_numeric');
-        // Got no valid IDs, clear
+        // Taxonomy filter
+        $ids = array_filter(explode(',', $query_args['term_id']), 'is_numeric');
+        // Got no valid term IDs, clear
         if ( empty($ids) ) {
-            $query_args['cat'] = '';
+            $query_args['term_id'] = '';
         }
 
         // Author filter
-        $ids = array_filter(explode(",", $query_args['author']), 'is_numeric');
+        $ids = array_filter(explode(',', $query_args['author']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $query_args['author'] = '';

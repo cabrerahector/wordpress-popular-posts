@@ -64,13 +64,14 @@ class Image {
         // Set default thumbnail
         $this->default_thumbnail = plugins_url('assets/images/no_thumb.jpg', dirname(__FILE__, 1));
 
-        if ( Helper::is_image_url($this->admin_options['tools']['thumbnail']['default']) )
+        if ( Helper::is_image_url($this->admin_options['tools']['thumbnail']['default']) ) {
             $this->default_thumbnail = $this->admin_options['tools']['thumbnail']['default'];
+        }
 
         // Set uploads folder
         $wp_upload_dir = wp_get_upload_dir();
-        $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . "/" . 'wordpress-popular-posts';
-        $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . "/" . 'wordpress-popular-posts';
+        $this->uploads_dir['basedir'] = $wp_upload_dir['basedir'] . '/wordpress-popular-posts';
+        $this->uploads_dir['baseurl'] = $wp_upload_dir['baseurl'] . '/wordpress-popular-posts';
 
         if ( ! is_dir($this->uploads_dir['basedir']) ) {
             // Couldn't create the folder, store thumbnails in Uploads
@@ -93,8 +94,9 @@ class Image {
      */
     public function get_plugin_uploads_dir()
     {
-        if ( is_array($this->uploads_dir) && ! empty($this->uploads_dir) )
+        if ( is_array($this->uploads_dir) && ! empty($this->uploads_dir) ) {
             return $this->uploads_dir;
+        }
         return false;
     }
 
@@ -232,8 +234,9 @@ class Image {
                         $stock_size
                     );
 
-                    if ( strpos($featured_image, 'class="') && is_array($classes) && ! empty($classes) )
-                        $featured_image = str_replace('class="', 'class="'. esc_attr(implode(' ', $classes)) . ' ', $featured_image);
+                    if ( strpos($featured_image, 'class="') && is_array($classes) && ! empty($classes) ) {
+                        $featured_image = str_replace('class="', 'class="' . esc_attr(implode(' ', $classes)) . ' ', $featured_image);
+                    }
 
                     if ( $this->admin_options['tools']['thumbnail']['lazyload'] && false == strpos($featured_image, 'loading="lazy"') ) {
                         $featured_image = str_replace('src="', 'loading="lazy" src="', $featured_image);
@@ -420,8 +423,9 @@ class Image {
             }
 
             // Image hosted elsewhere?
-            if ( $post_ID && Helper::is_number($post_ID) )
+            if ( $post_ID && Helper::is_number($post_ID) ) {
                 return $this->fetch_external_image($post_ID, $url);
+            }
         }
 
         return false;
@@ -439,8 +443,10 @@ class Image {
     private function get_file_meta(int $id, string $source)
     {
         // get thumbnail path from the Featured Image
-        if ( "featured" == $source ) {
-            if ( $thumbnail_id = get_post_thumbnail_id($id) ) {
+        if ( 'featured' == $source ) {
+            $thumbnail_id = get_post_thumbnail_id($id);
+
+            if ( $thumbnail_id ) {
                 // image path
                 return [
                     'path' => get_attached_file($thumbnail_id),
@@ -449,7 +455,7 @@ class Image {
             }
         }
         // get thumbnail path from first image attachment
-        elseif ( "first_attachment" == $source ) {
+        elseif ( 'first_attachment' == $source ) {
             $args = [
                 'numberposts' => 1,
                 'order' => 'ASC',
@@ -469,11 +475,18 @@ class Image {
             }
         }
         // get thumbnail path from post content
-        elseif ( "first_image" == $source ) {
+        elseif ( 'first_image' == $source ) {
             /** @var wpdb $wpdb */
             global $wpdb;
 
-            if ( $content = $wpdb->get_var("SELECT post_content FROM {$wpdb->posts} WHERE ID = {$id};") ) {
+            $content = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT post_content FROM {$wpdb->posts} WHERE ID = %d;",
+                    $id
+                )
+            );
+
+            if ( $content ) {
                 // at least one image has been found
                 if ( preg_match('/<img[^>]+>/i', $content, $img) ) {
                     // get img src attribute from the first image found
@@ -484,12 +497,14 @@ class Image {
                         $alt = '';
                         preg_match('/(alt)="([^"]*)"/i', $img[0], $alt_attr);
 
-                        if ( isset($alt_attr[2]) && !empty($alt_attr[2]) ) {
+                        if ( isset($alt_attr[2]) && ! empty($alt_attr[2]) ) {
                             $alt = $alt_attr[2];
                         }
 
                         // image from Media Library
-                        if ( $attachment_id = $this->get_attachment_id($src_attr[2]) ) {
+                        $attachment_id = $this->get_attachment_id($src_attr[2]);
+
+                        if ( $attachment_id ) {
                             return [
                                 'path' => get_attached_file($attachment_id),
                                 'alt' => $alt
@@ -523,14 +538,16 @@ class Image {
         $alt = '';
 
         // get thumbnail path from the Featured Image
-        if ( "featured" == $source ) {
-            if ( $thumbnail_id = get_post_thumbnail_id($id) ) {
+        if ( 'featured' == $source ) {
+            $thumbnail_id = get_post_thumbnail_id($id);
+
+            if ( $thumbnail_id ) {
                 // image path
                 $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
             }
         }
         // get thumbnail path from first image attachment
-        elseif ( "first_attachment" == $source ) {
+        elseif ( 'first_attachment' == $source ) {
             $args = [
                 'numberposts' => 1,
                 'order' => 'ASC',
@@ -546,17 +563,24 @@ class Image {
             }
         }
         // get thumbnail path from post content
-        elseif ( "first_image" == $source ) {
+        elseif ( 'first_image' == $source ) {
             /** @var wpdb $wpdb */
             global $wpdb;
 
-            if ( $content = $wpdb->get_var("SELECT post_content FROM {$wpdb->posts} WHERE ID = {$id};") ) {
+            $content = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT post_content FROM {$wpdb->posts} WHERE ID = %d;",
+                    $id
+                )
+            );
+
+            if ( $content ) {
                 // at least one image has been found
                 if ( preg_match('/<img[^>]+>/i', $content, $img) ) {
                     // get img alt attribute from the first image found
                     preg_match('/(alt)="([^"]*)"/i', $img[0], $alt_attr);
 
-                    if ( isset($alt_attr[2]) && !empty($alt_attr[2]) ) {
+                    if ( isset($alt_attr[2]) && ! empty($alt_attr[2]) ) {
                         $alt = $alt_attr[2];
                     }
                 }
@@ -603,14 +627,16 @@ class Image {
         // Example: /uploads/2013/05/test-image.jpg
         global $wpdb;
 
-        if ( ! $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1])) ) {
+        $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1]));
+
+        if ( ! $attachment ) {
             // Maybe it's a resized image, so try to get the full one
             $parse_url[1] = preg_replace('/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $parse_url[1]);
             $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1]));
         }
 
         // Returns null if no attachment is found.
-        return isset($attachment[0]) ? $attachment[0] : NULL;
+        return isset($attachment[0]) ? $attachment[0] : null;
     }
 
     /**
@@ -624,14 +650,16 @@ class Image {
      */
     private function fetch_external_image(int $id, string $url)
     {
-        if ( ! Helper::is_image_url($url) )
+        if ( ! Helper::is_image_url($url) ) {
             return false;
+        }
 
         $full_image_path = trailingslashit($this->get_plugin_uploads_dir()['basedir']) . "{$id}_" . sanitize_file_name(rawurldecode(wp_basename($url)));
 
         // if the file exists already, return URL and path
-        if ( file_exists($full_image_path) )
+        if ( file_exists($full_image_path) ) {
             return $full_image_path;
+        }
 
         $url = Helper::add_scheme(
             $url,
@@ -645,7 +673,7 @@ class Image {
             ! is_wp_error($response) 
             && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes)
         ) {
-            require_once(ABSPATH . 'wp-admin/includes/file.php');
+            require_once ABSPATH . 'wp-admin/includes/file.php';
 
             $url = str_replace('https://', 'http://', $url);
             $tmp = download_url($url);
@@ -657,7 +685,7 @@ class Image {
                     $image_type = exif_imagetype($tmp);
                 } else {
                     $image_type = getimagesize($tmp);
-                    $image_type = ( isset($image_type[2]) ) ? $image_type[2] : NULL;
+                    $image_type = ( isset($image_type[2]) ) ? $image_type[2] : null;
                 }
 
                 // Valid image, save it
@@ -733,11 +761,13 @@ class Image {
                     $thumbnail = $this->generate_thumbnail($path, $filename, $s, $crop);
 
                     // Image could not be generated, let's bail early.
-                    if ( ! $thumbnail )
+                    if ( ! $thumbnail ) {
                         break;
+                    }
                 } else {
-                    if ( ! $path_parts )
+                    if ( ! $path_parts ) {
                         $path_parts = pathinfo($filename);
+                    }
 
                     $filename_with_descriptor = $path_parts['filename'] . "@{$d}." . $path_parts['extension'];
                     $this->generate_thumbnail($path, $filename_with_descriptor, $s, $crop);
@@ -773,16 +803,18 @@ class Image {
              */
             $quality = apply_filters('wpp_thumbnail_compression_quality', null);
 
-            if ( ! ctype_digit($quality) )
+            if ( ! ctype_digit($quality) ) {
                 $quality = null; // Fallback to core's default
+            }
 
             $image->set_quality($quality);
 
             $image->resize($size[0], $size[1], $crop);
             $new_img = $image->save(trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $filename);
 
-            if ( ! is_wp_error($new_img) )
+            if ( ! is_wp_error($new_img) ) {
                 return trailingslashit($this->get_plugin_uploads_dir()['baseurl']) . $filename;
+            }
         }
 
         return false;
@@ -803,8 +835,9 @@ class Image {
          */
         $retina_support = apply_filters('wpp_retina_support', true);
 
-        if ( ! $retina_support )
+        if ( ! $retina_support ) {
             return '';
+        }
 
         $path_parts = pathinfo($src);
         $srcset = [$src];
@@ -842,16 +875,16 @@ class Image {
         }
 
         // Make sure we use the right protocol
-        $src = esc_url(is_ssl() ? str_ireplace("http://", "https://", $src) : $src);
+        $src = esc_url(is_ssl() ? str_ireplace('http://', 'https://', $src) : $src);
         // Get srcset, if available
         $srcset = $this->get_srcset($src);
 
-        $src = 'src="' . $src. '"' . $srcset;
+        $src = 'src="' . $src . '"' . $srcset;
 
         // Lazy Load attribute, if enabled
         $lazyload = ( $this->admin_options['tools']['thumbnail']['lazyload'] ) ? ' loading="lazy"' : '';
 
-        $img_tag .= '<img ' . $src . ' width="' . esc_attr($size[0]) . '" height="' . esc_attr($size[1]) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '"' . $lazyload . ' />';
+        $img_tag .= '<img ' . $src . ' width="' . esc_attr($size[0]) . '" height="' . esc_attr($size[1]) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '" decoding="async" ' . $lazyload . ' />';
 
         return apply_filters('wpp_render_image', $img_tag);
     }
@@ -911,8 +944,9 @@ class Image {
         if ( has_filter('wpp_default_thumbnail_url') ) {
             $default_thumbnail_url = apply_filters('wpp_default_thumbnail_url', $this->default_thumbnail, $post_ID);
 
-            if ( $default_thumbnail_url != $this->default_thumbnail && Helper::is_image_url($default_thumbnail_url) )
+            if ( $default_thumbnail_url != $this->default_thumbnail && Helper::is_image_url($default_thumbnail_url) ) {
                 return $default_thumbnail_url;
+            }
         }
 
         return $this->default_thumbnail;

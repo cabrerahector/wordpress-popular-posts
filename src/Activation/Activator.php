@@ -79,7 +79,7 @@ class Activator {
         ) {
             global $wpdb;
 
-            $prefix = $wpdb->prefix . "popularposts";
+            $prefix = $wpdb->prefix . 'popularposts';
             self::do_db_tables($prefix);
         }
     }
@@ -94,13 +94,15 @@ class Activator {
     private static function do_db_tables(string $prefix)
     {
         global $wpdb;
-        $charset_collate = "";
+        $charset_collate = '';
 
-        if ( !empty($wpdb->charset) )
+        if ( ! empty($wpdb->charset) ) {
             $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset} ";
+        }
 
-        if ( !empty($wpdb->collate) )
+        if ( ! empty($wpdb->collate) ) {
             $charset_collate .= "COLLATE {$wpdb->collate}";
+        }
 
         $sql = "
         CREATE TABLE {$prefix}data (
@@ -128,7 +130,7 @@ class Activator {
             PRIMARY KEY  (ID)
         ) {$charset_collate} ENGINE=InnoDB";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         \dbDelta($sql);
 
         \update_option('wpp_ver', WPP_VERSION);

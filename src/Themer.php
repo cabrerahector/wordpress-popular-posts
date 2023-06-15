@@ -59,8 +59,9 @@ class Themer {
         $directories = new \DirectoryIterator($this->path);
 
         foreach( $directories as $fileinfo ) {
-            if ( $fileinfo->isDot() || $fileinfo->isFile() )
+            if ( $fileinfo->isDot() || $fileinfo->isFile() ) {
                 continue;
+            }
             $this->load_theme($fileinfo->getPathName());
         }
 
@@ -84,7 +85,7 @@ class Themer {
     private function load_theme(string $path)
     {
         $theme_folder = is_string($path) && is_dir($path) && is_readable($path) ? basename($path) : null;
-        $theme_folder = $theme_folder ? preg_replace("/[^a-z0-9\_\-\.]/i", '', $theme_folder) : null;
+        $theme_folder = $theme_folder ? preg_replace('/[^a-z0-9\_\-\.]/i', '', $theme_folder) : null;
         $theme_path = $theme_folder ? $path : null;
 
         if (

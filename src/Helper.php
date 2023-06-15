@@ -13,7 +13,7 @@ class Helper {
      */
     public static function is_number($number) /** @TODO: starting PHP 8.0 $number can be declared as mixed $number */
     {
-        return !empty($number) && is_numeric($number) && (intval($number) == floatval($number));
+        return ! empty($number) && is_numeric($number) && (intval($number) == floatval($number));
     }
 
     /**
@@ -27,8 +27,9 @@ class Helper {
      */
     public static function prettify_number($number, $precision = 1) /** @TODO: starting PHP 8.0 $number can be declared as mixed $number */
     {
-        if ( ! is_numeric($number) )
+        if ( ! is_numeric($number) ) {
             return false;
+        }
 
         if ( $number < 900 ) {
             // 0 - 900
@@ -207,25 +208,6 @@ class Helper {
     }
 
     /**
-     * Debug function.
-     *
-     * @since   3.0.0
-     * @param   mixed $v variable to display with var_dump()
-     * @param   mixed $v,... unlimited optional number of variables to display with var_dump()
-     */
-    public static function debug($v) /** @TODO: remove this function, we don't use it at all */
-    {
-        if ( !defined('WPP_DEBUG') || !WPP_DEBUG )
-            return;
-
-        foreach( func_get_args() as $arg ) {
-            print "<pre>";
-            var_dump($arg);
-            print "</pre>";
-        }
-    }
-
-    /**
      * Truncates text.
      *
      * @since   4.0.0
@@ -241,16 +223,16 @@ class Helper {
 
             // Truncate by words
             if ( $truncate_by_words ) {
-                $words = explode(" ", $text, $length + 1);
+                $words = explode(' ', $text, $length + 1);
 
                 if ( count($words) > $length ) {
                     array_pop($words);
-                    $text = rtrim(implode(" ", $words), ",.") . $more;
+                    $text = rtrim(implode(' ', $words), ',.') . $more;
                 }
             }
             // Truncate by characters
             elseif ( mb_strlen($text, $charset) > $length ) {
-                $text = rtrim(mb_substr($text, 0, $length , $charset), " ,.") . $more;
+                $text = rtrim(mb_substr($text, 0, $length, $charset), ' ,.') . $more;
             }
         }
 
@@ -275,12 +257,12 @@ class Helper {
 
         if (
             is_singular($trackable) 
-            && !is_front_page() 
-            && !is_preview() 
-            && !is_trackback() 
-            && !is_feed() 
-            && !is_robots() 
-            && !is_customize_preview()
+            && ! is_front_page() 
+            && ! is_preview() 
+            && ! is_trackback() 
+            && ! is_feed() 
+            && ! is_robots() 
+            && ! is_customize_preview()
         ) {
             return get_queried_object_id();
         }
@@ -296,14 +278,15 @@ class Helper {
      * @param   string      $scheme
      * @return  string|bool
      */
-    static function add_scheme(?string $url, string $scheme = 'https://')
+    public static function add_scheme(?string $url, string $scheme = 'https://')
     {
         $url_args = parse_url($url);
 
         if ( $url_args ) {
             // No need to do anything, URL is fine
-            if ( isset($url_args['scheme']) )
+            if ( isset($url_args['scheme']) ) {
                 return $url;
+            }
             // Return URL with scheme
             return $scheme . $url_args['host'] . $url_args['path'];
         }
@@ -323,14 +306,15 @@ class Helper {
      * @param   string
      * @return  array|bool
      */
-    static function is_image_url(string $url)
+    public static function is_image_url(string $url)
     {
         $path = parse_url($url, PHP_URL_PATH);
         $encoded_path = array_map('urlencode', explode('/', $path));
         $parse_url = str_replace($path, implode('/', $encoded_path), $url);
 
-        if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) )
+        if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) ) {
             return false;
+        }
 
         // Check extension
         $file_name = basename($path);
@@ -338,8 +322,9 @@ class Helper {
         $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
         $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
 
-        if ( ! in_array($ext, $allowed_ext) )
+        if ( ! in_array($ext, $allowed_ext) ) {
             return false;
+        }
 
         // sanitize URL, just in case
         $image_url = esc_url($url);

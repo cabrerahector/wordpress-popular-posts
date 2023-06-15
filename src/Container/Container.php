@@ -35,8 +35,9 @@ class Container implements \ArrayAccess
     public function configure(array $configurations)
     {
         foreach ($configurations as $configuration) {
-            if ( $configuration instanceof ContainerConfigurationInterface )
+            if ( $configuration instanceof ContainerConfigurationInterface ) {
                 $configuration->modify($this);
+            }
         }
     }
 

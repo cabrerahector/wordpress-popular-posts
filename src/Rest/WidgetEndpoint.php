@@ -77,8 +77,11 @@ class WidgetEndpoint extends Endpoint {
         $lang = $request->get_param('lang');
         $widget = get_option('widget_wpp');
 
-        if ( $data = $this->prepare_widget_item_for_response($instance_id, $is_single, $lang, $widget, $request) )
+        $data = $this->prepare_widget_item_for_response($instance_id, $is_single, $lang, $widget, $request);
+
+        if ( $data ) {
             return new \WP_REST_Response($data, 200);
+        }
 
         return new \WP_Error('invalid_instance', __('Invalid Widget Instance ID', 'wordpress-popular-posts'));
     }
@@ -102,8 +105,9 @@ class WidgetEndpoint extends Endpoint {
             $instance = $widget[$instance_id];
 
             // Expose widget ID for customization
-            if ( ! isset($instance['widget_id']) )
+            if ( ! isset($instance['widget_id']) ) {
                 $instance['widget_id'] = 'wpp-' . $instance_id;
+            }
 
             // Multilang support
             $this->set_lang($lang);

@@ -100,7 +100,7 @@ class Front {
             $theme_file = get_stylesheet_directory() . '/wpp.css';
 
             if ( @is_file($theme_file) ) {
-                wp_enqueue_style('wordpress-popular-posts-css', get_stylesheet_directory_uri() . "/wpp.css", [], WPP_VERSION, 'all');
+                wp_enqueue_style('wordpress-popular-posts-css', get_stylesheet_directory_uri() . '/wpp.css', [], WPP_VERSION, 'all');
             } // Load stock stylesheet
             else {
                 wp_enqueue_style('wordpress-popular-posts-css', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/wpp.css', [], WPP_VERSION, 'all');
@@ -151,7 +151,7 @@ class Front {
      * @param   string  $src
      * @return  string  $tag
      */
-    function convert_inline_js_into_json(string $tag, string $handle, string $src)
+    public function convert_inline_js_into_json(string $tag, string $handle, string $src)
     {
         if ( 'wpp-js' === $handle ) {
             // id attribute found, replace it
@@ -167,8 +167,9 @@ class Front {
             if ( false !== strpos($tag, 'type') ) {
                 $pos = strpos($tag, 'text/javascript');
 
-                if ( false !== $pos )
+                if ( false !== $pos ) {
                     $tag = substr_replace($tag, 'application/json', $pos, strlen('text/javascript'));
+                }
             } // type attribute missing, let's add it
             else {
                 $pos = strpos($tag, '>');
@@ -187,7 +188,7 @@ class Front {
     public function update_views()
     {
         if ( ! wp_verify_nonce($_POST['token'], 'wpp-token') || ! Helper::is_number($_POST['wpp_id']) ) {
-            die( "WPP: Oops, invalid request!" );
+            die( 'WPP: Oops, invalid request!' );
         }
 
         $nonce = $_POST['token'];
@@ -200,10 +201,10 @@ class Front {
         $exec_time += round($end - $start, 6);
 
         if ( $result ) {
-            die("WPP: OK. Execution time: " . $exec_time . " seconds");
+            die('WPP: OK. Execution time: ' . $exec_time . ' seconds'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
 
-        die("WPP: Oops, could not update the views count!");
+        die('WPP: Oops, could not update the views count!');
     }
 
     /**
@@ -217,7 +218,7 @@ class Front {
      */
     private function update_views_count(int $post_ID) {
         global $wpdb;
-        $table = $wpdb->prefix . "popularposts";
+        $table = $wpdb->prefix . 'popularposts';
         $wpdb->show_errors();
 
         // Get translated object ID
@@ -235,10 +236,12 @@ class Front {
 
         // Allow WP themers / coders perform an action
         // before updating views count
-        if ( has_action('wpp_pre_update_views') )
+        if ( has_action('wpp_pre_update_views') ) {
             do_action('wpp_pre_update_views', $post_ID, $views);
+        }
 
         // Update all-time table
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
         $result1 = $wpdb->query($wpdb->prepare(
             "INSERT INTO {$table}data
             (postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
@@ -250,8 +253,10 @@ class Front {
             $views,
             $now
         ));
+        //phpcs:enable
 
         // Update range (summary) table
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
         $result2 = $wpdb->query($wpdb->prepare(
             "INSERT INTO {$table}summary
             (postid, pageviews, view_date, view_datetime) VALUES (%d, %d, %s, %s)
@@ -263,14 +268,17 @@ class Front {
             $views,
             $now
         ));
+        //phpcs:enable
 
-        if ( !$result1 || !$result2 )
+        if ( ! $result1 || ! $result2 ) {
             return false;
+        }
 
         // Allow WP themers / coders perform an action
         // after updating views count
-        if ( has_action('wpp_post_update_views' ))
+        if ( has_action('wpp_post_update_views' )) {
             do_action('wpp_post_update_views', $post_ID);
+        }
 
         return true;
     }
@@ -282,38 +290,39 @@ class Front {
      * @param    array    $atts    User defined attributes in shortcode tag
      * @return   string
      */
-    public function wpp_shortcode($atts = null) { /** @TODO: starting PHP 8.0 $atts can be declared as mixed $meta_value (if not set WP gives an string, and it set we get an array) */
+    public function wpp_shortcode($atts = null) {
+        /** @TODO: starting PHP 8.0 $atts can be declared as mixed $meta_value (if not set WP gives an string, and it set we get an array) */
         /**
-        * @var string $header
-        * @var int $limit
-        * @var int $offset
-        * @var string $range
-        * @var bool $freshness
-        * @var string $order_by
-        * @var string $post_type
-        * @var string $pid
-        * @var string $cat
-        * @var string $author
-        * @var int $title_length
-        * @var int $title_by_words
-        * @var int $excerpt_length
-        * @var int $excerpt_format
-        * @var int $excerpt_by_words
-        * @var int $thumbnail_width
-        * @var int $thumbnail_height
-        * @var bool $rating
-        * @var bool $stats_comments
-        * @var bool $stats_views
-        * @var bool $stats_author
-        * @var bool $stats_date
-        * @var string $stats_date_format
-        * @var bool $stats_category
-        * @var string $wpp_start
-        * @var string $wpp_end
-        * @var string $header_start
-        * @var string $header_end
-        * @var string $post_html
-        * @var bool $php
+         * @var string $header
+         * @var int $limit
+         * @var int $offset
+         * @var string $range
+         * @var bool $freshness
+         * @var string $order_by
+         * @var string $post_type
+         * @var string $pid
+         * @var string $cat
+         * @var string $author
+         * @var int $title_length
+         * @var int $title_by_words
+         * @var int $excerpt_length
+         * @var int $excerpt_format
+         * @var int $excerpt_by_words
+         * @var int $thumbnail_width
+         * @var int $thumbnail_height
+         * @var bool $rating
+         * @var bool $stats_comments
+         * @var bool $stats_views
+         * @var bool $stats_author
+         * @var bool $stats_date
+         * @var string $stats_date_format
+         * @var bool $stats_category
+         * @var string $wpp_start
+         * @var string $wpp_end
+         * @var string $header_start
+         * @var string $header_end
+         * @var string $post_html
+         * @var bool $php
         */
         extract(shortcode_atts([
             'header' => '',
@@ -355,9 +364,9 @@ class Front {
         ], $atts, 'wpp'));
 
         // possible values for "Time Range" and "Order by"
-        $time_units = ["minute", "hour", "day", "week", "month"];
-        $range_values = ["daily", "last24hours", "weekly", "last7days", "monthly", "last30days", "all", "custom"];
-        $order_by_values = ["comments", "views", "avg"];
+        $time_units = ['minute', 'hour', 'day', 'week', 'month'];
+        $range_values = ['daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
+        $order_by_values = ['comments', 'views', 'avg'];
 
         $shortcode_ops = [
             'title' => strip_tags($header),
@@ -369,11 +378,11 @@ class Front {
             'freshness' => empty($freshness) ? false : $freshness,
             'order_by' => ( in_array($order_by, $order_by_values) ) ? $order_by : 'views',
             'post_type' => empty($post_type) ? 'post' : $post_type,
-            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ","),
-            'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ","),
+            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ','),
+            'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ','),
             'taxonomy' => empty($taxonomy) ? 'category' : $taxonomy,
-            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ","),
-            'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ","),
+            'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ','),
+            'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ','),
             'shorten_title' => [
                 'active' => ( ! empty($title_length) && Helper::is_number($title_length) && $title_length > 0 ),
                 'length' => ( ! empty($title_length) && Helper::is_number($title_length) ) ? $title_length : 0,
@@ -419,21 +428,21 @@ class Front {
         ];
 
         // Post / Page / CTP filter
-        $ids = array_filter(explode(",", $shortcode_ops['pid']), 'is_numeric');
+        $ids = array_filter(explode(',', $shortcode_ops['pid']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $shortcode_ops['pid'] = '';
         }
 
         // Category filter
-        $ids = array_filter(explode(",", $shortcode_ops['cat']), 'is_numeric');
+        $ids = array_filter(explode(',', $shortcode_ops['cat']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $shortcode_ops['cat'] = '';
         }
 
         // Author filter
-        $ids = array_filter(explode( ",", $shortcode_ops['author']), 'is_numeric');
+        $ids = array_filter(explode( ',', $shortcode_ops['author']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
             $shortcode_ops['author'] = '';
