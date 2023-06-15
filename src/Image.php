@@ -884,7 +884,7 @@ class Image {
         // Lazy Load attribute, if enabled
         $lazyload = ( $this->admin_options['tools']['thumbnail']['lazyload'] ) ? ' loading="lazy"' : '';
 
-        $img_tag .= '<img ' . $src . ' width="' . esc_attr($size[0]) . '" height="' . esc_attr($size[1]) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '"' . $lazyload . ' />';
+        $img_tag .= '<img ' . $src . ' width="' . esc_attr($size[0]) . '" height="' . esc_attr($size[1]) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '" decoding="async" ' . $lazyload . ' />';
 
         return apply_filters('wpp_render_image', $img_tag);
     }
