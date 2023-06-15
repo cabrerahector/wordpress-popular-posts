@@ -124,8 +124,35 @@ class WidgetEndpoint extends Endpoint {
             $this->output->set_public_options($instance);
             $this->output->build_output();
 
+            $notice = '<p>HEY</p>';
+            $notice .= is_user_logged_in() ? '<p>User in</p>' : '<p>User not in?</p>';
+
+            if ( is_user_logged_in() && current_user_can('manage_options') ) {
+                ob_start();
+                ?>
+                <style>
+                    .wpp-notice {
+                        margin: 0 0 22px;
+                        padding: 18px 22px;
+                        background: #fcfcf7;
+                        border: #ffff63 4px solid;
+                    }
+
+                        .wpp-notice p:nth-child(2n) {
+                            margin: 0;
+                            font-size: 0.85em;
+                        }
+                </style>
+                <div class="wpp-notice">
+                    <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget is going away!</p>
+                    <p><a href="#">This widget has been deprecated</a>. Please replace it with the <a href="#">WordPress Popular Posts block</a> or the <a href="#">wpp shortcode</a> as soon as possible.</p>
+                </div>
+                <?php
+                $notice = ob_get_clean() . "\n";
+            }
+
             return [
-                'widget' => ( $this->config['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $this->output->get_output()
+                'widget' => ( $this->config['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $notice . $this->output->get_output()
             ];
         }
 
