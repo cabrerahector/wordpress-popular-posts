@@ -384,7 +384,6 @@ class Widget extends Block
             'order_by' => ( in_array($order_by, $order_by_values) ) ? $order_by : 'views',
             'post_type' => empty($post_type) ? 'post' : $post_type,
             'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ','),
-            'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ','),
             'taxonomy' => empty($tax) ? 'category' : $tax,
             'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ','),
             'author' => rtrim(preg_replace('|[^0-9,]|', '', $author), ','),
@@ -415,7 +414,6 @@ class Widget extends Block
                     'active' => (bool) $attributes['stats_date'],
                     'format' => empty($stats_date_format) ? 'F j, Y' : $stats_date_format
                 ],
-                'category' => (bool) $attributes['stats_category'],
                 'taxonomy' => [
                     'active' => (bool) $attributes['stats_taxonomy'],
                     'name' => empty($taxonomy) ? 'category' : $taxonomy,
@@ -441,11 +439,11 @@ class Widget extends Block
             $query_args['pid'] = '';
         }
 
-        // Category filter
-        $ids = array_filter(explode(',', $query_args['cat']), 'is_numeric');
-        // Got no valid IDs, clear
+        // Taxonomy filter
+        $ids = array_filter(explode(',', $query_args['term_id']), 'is_numeric');
+        // Got no valid term IDs, clear
         if ( empty($ids) ) {
-            $query_args['cat'] = '';
+            $query_args['term_id'] = '';
         }
 
         // Author filter
