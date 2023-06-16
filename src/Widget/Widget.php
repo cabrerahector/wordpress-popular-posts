@@ -188,7 +188,7 @@ class Widget extends \WP_Widget {
                 </style>
                 <div class="wpp-notice">
                     <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget is going away!</p>
-                    <p><a href="#">This widget has been deprecated</a>. Please replace it with the <a href="#">WordPress Popular Posts block</a> or the <a href="#">wpp shortcode</a> as soon as possible.</p>
+                    <p>This widget has been deprecated. Please replace it with the WordPress Popular Posts block or the wpp shortcode as soon as possible.</p>
                 </div>
                 <?php
                 $notice = ob_get_clean() . "\n";
