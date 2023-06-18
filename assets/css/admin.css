@@ -111,8 +111,9 @@
         position: absolute;
         top: 22px;
         left: 0;
-        width: 21px;
-        height: 21px;
+        width: 25px;
+        height: 25px;
+        font-size: 25px;
         transition: transform 0.3s;
     }
 
