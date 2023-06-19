@@ -1,13 +1,27 @@
 Changelog
 =========
 
+## 6.1.2 ##
+
+**If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
+
+- **Deprecation Notice:** The WordPress Popular Posts "classic" widget is going away! If you're using the classic widget please replace it with the [WordPress Popular Posts block](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wordpress-popular-posts-block) or the [[wpp]](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode) shortcode as soon as possible. See release notes for more details.
+- Plugin now uses the [Tax_Query](https://developer.wordpress.org/reference/classes/wp_tax_query/) class to filter popular posts by taxonomy, pretty much similar to how WP_Query does it.
+- Fixes an issue where selecting the Tiny theme would override the heading of the popular posts list.
+- Fixes an issue where taxonomy links would render an extra whitespace for some browsers.
+- Fixes issue where when using a theme (eg. Cards) post titles would be unintentionally truncated.
+- Adds decoding=async property to WPP's thumbnail.
+- General PHPCS/WPCS code improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-1-0-improved-php-8-1-support-plus-minor-enhancements/#6.1.2)
+
 ## 6.1.1 ##
 
 - Fixes a rare PHP fatal error that can occur during plugin activation.
 - Block: adds links to documentation within the block form for ease of access.
 - Updates dependencies.
 
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-1-0-improved-php-8-1-support-plus-minor-enhancements/#minor-updates-and-hotfixes)
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-1-0-improved-php-8-1-support-plus-minor-enhancements/#6.1.1)
 
 ## 6.1.0 ##
 
