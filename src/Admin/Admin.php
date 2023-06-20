@@ -1440,7 +1440,7 @@ class Admin {
                         ?>
                     </p>
                     <?php if ( current_user_can('manage_options') ) : ?>
-                        <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_dismiss_performance_notice', '1')); ?>"><?php esc_html_e('Dismiss', 'wordpress-popular-posts'); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_remind_performance_notice', '1')); ?>"><?php _esc_html_e('Remind me later', 'wordpress-popular-posts'); ?></a> <span class="spinner" style="float: none;"></span></p>
+                        <p><a class="button button-primary wpp-dismiss-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_dismiss_performance_notice', '1')); ?>"><?php esc_html_e('Dismiss', 'wordpress-popular-posts'); ?></a> <a class="button wpp-remind-performance-notice" href="<?php echo esc_url(add_query_arg('wpp_remind_performance_notice', '1')); ?>"><?php esc_html_e('Remind me later', 'wordpress-popular-posts'); ?></a> <span class="spinner" style="float: none;"></span></p>
                     <?php endif; ?>
                 </div>
                 <?php
