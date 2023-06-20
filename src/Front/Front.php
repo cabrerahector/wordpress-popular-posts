@@ -322,7 +322,6 @@ class Front {
          * @var string $header_start
          * @var string $header_end
          * @var string $post_html
-         * @var bool $php
         */
         extract(shortcode_atts([
             'header' => '',
@@ -359,8 +358,7 @@ class Front {
             'header_start' => '<h2>',
             'header_end' => '</h2>',
             'post_html' => '',
-            'theme' => '',
-            'php' => false
+            'theme' => ''
         ], $atts, 'wpp'));
 
         // possible values for "Time Range" and "Order by"
