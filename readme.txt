@@ -109,6 +109,12 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 6.1.3 =
+
+- **Hotfix**: Fixes rare PHP fatal error in Admin.php (props to winetravelista and scotttripatrek!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-1-0-improved-php-8-1-support-plus-minor-enhancements/#6.1.3)
+
 = 6.1.2 =
 
 **If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
