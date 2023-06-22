@@ -153,7 +153,33 @@ class Output {
      */
     public function get_output()
     {
-        $this->output = "\n" . ( WP_DEBUG ? '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' : '' ) . "\n" . $this->output;
+        $this->output = ( WP_DEBUG ? "\n" . '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' . "\n" : '' ) . $this->output;
+
+        // Attempt to close open tags
+        $this->output = force_balance_tags($this->output);
+
+        // Remove empty tags
+        $clean_html = '';
+        $html = '<!DOCTYPE html><html><head><meta charset="UTF-8" /></head><body>' . trim($this->output) . '</body></html>';
+
+        $dom = new \DOMDocument();
+        $dom->loadHTML($html);
+        $xpath = new \DOMXPath($dom);
+
+        while ( ($node_list = $xpath->query('//*[not(*) and not(@*) and not(text()[normalize-space()])]')) && $node_list->length ) {
+            foreach ($node_list as $node) {
+                $node->parentNode->removeChild($node);
+            }
+        }
+
+        $body = $dom->getElementsByTagName('body')->item(0);
+
+        foreach( $body->childNodes as $node ) {
+            $clean_html .= $dom->saveHTML($node);
+        }
+
+        $this->output = trim($clean_html);
+
         return $this->output;
     }
 
