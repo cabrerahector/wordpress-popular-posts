@@ -197,6 +197,8 @@ class Output {
             ];
         }
 
+        $allowed_tags['img']['decoding'] = true;
+
         $this->output = wp_kses($this->output, $allowed_tags);
 
         return $this->output;
