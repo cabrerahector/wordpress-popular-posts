@@ -83,7 +83,7 @@ class Front {
 
         if ( $wpp_insert_loading_animation_styles ) :
             ?>
-            <style id="wpp-loading-animation-styles">@-webkit-keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}@keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}.wpp-widget-placeholder,.wpp-widget-block-placeholder{margin:0 auto;width:60px;height:3px;background:#dd3737;background:linear-gradient(90deg,#dd3737 0%,#571313 10%,#dd3737 100%);background-size:200% auto;border-radius:3px;-webkit-animation:bgslide 1s infinite linear;animation:bgslide 1s infinite linear}</style>
+            <style id="wpp-loading-animation-styles">@-webkit-keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}@keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}.wpp-widget-placeholder,.wpp-widget-block-placeholder,.wpp-shortcode-placeholder{margin:0 auto;width:60px;height:3px;background:#dd3737;background:linear-gradient(90deg,#dd3737 0%,#571313 10%,#dd3737 100%);background-size:200% auto;border-radius:3px;-webkit-animation:bgslide 1s infinite linear;animation:bgslide 1s infinite linear}</style>
             <?php
         endif;
     }
@@ -458,29 +458,24 @@ class Front {
             $shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . $header . htmlspecialchars_decode($header_end, ENT_QUOTES);
         }
 
-        $popular_posts = $this->maybe_query($shortcode_ops);
+        $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;
 
-        $this->output->set_data($popular_posts->get_posts());
-        $this->output->set_public_options($shortcode_ops);
-        $this->output->build_output();
+        if ( $this->config['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
+            $shortcode_content .= '<div class="wpp-shortcode">';
+            $shortcode_content .= '<script type="application/json">' . wp_json_encode($shortcode_ops) . '</script>';
+            $shortcode_content .= '<div class="wpp-shortcode-placeholder"></div>';
+            $shortcode_content .= '</div>';
+        } else {
+            $popular_posts = $this->maybe_query($shortcode_ops);
 
-        $shortcode_content .= $this->output->get_output();
+            $this->output->set_data($popular_posts->get_posts());
+            $this->output->set_public_options($shortcode_ops);
+            $this->output->build_output();
 
-        // Sanitize and return shortcode HTML
-        $allowed_tags = wp_kses_allowed_html('post');
-
-        if ( isset($allowed_tags['form']) ) {
-            unset($allowed_tags['form']);
+            $shortcode_content .= $this->output->get_output();
         }
 
-        if ( ! empty($shortcode_ops['theme']['name']) ) {
-            $allowed_tags['style'] = [
-                'id' => 1,
-                'nonce' => 1,
-            ];
-        }
-
-        return wp_kses($shortcode_content, $allowed_tags);
+        return $shortcode_content;
     }
 
 }

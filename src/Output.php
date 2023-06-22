@@ -154,6 +154,26 @@ class Output {
     public function get_output()
     {
         $this->output = "\n" . ( WP_DEBUG ? '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' : '' ) . "\n" . $this->output;
+
+        // Sanitize HTML
+        $allowed_tags = wp_kses_allowed_html('post');
+
+        if ( isset($allowed_tags['form']) ) {
+            unset($allowed_tags['form']);
+        }
+
+        if (
+            isset($this->public_options['theme']['name'])
+            && $this->public_options['theme']['name']
+        ) {
+            $allowed_tags['style'] = [
+                'id' => 1,
+                'nonce' => 1,
+            ];
+        }
+
+        $this->output = wp_kses($this->output, $allowed_tags);
+
         return $this->output;
     }
 

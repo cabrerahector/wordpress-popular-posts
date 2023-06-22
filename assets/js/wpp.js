@@ -123,7 +123,7 @@ var WordPressPopularPosts = (function(){
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
-    var widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder, .wpp-widget-block-placeholder'),
+    var widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder, .wpp-widget-block-placeholder, .wpp-shortcode-placeholder'),
         w = 0;
 
     while ( w < widget_placeholders.length ) {
