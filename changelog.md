@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## 6.1.4 ##
+
+**If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
+
+- Fixes an issue where the [[wpp]](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode) shortcode might output empty paragraphs under certain conditions.
+- Reverts "uglification" of wpp.min.js which caused popular post list(s) not to load under certain conditions.
+- Widget's deprecation notice has been reworded for clarity.
+- Updates dependencies + minor code cleanup.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-1-0-improved-php-8-1-support-plus-minor-enhancements/#6.1.4)
+
 ## 6.1.3 ##
 
 - **Hotfix**: Fixes rare PHP fatal error in Admin.php (props to winetravelista and scotttripatrek!)
