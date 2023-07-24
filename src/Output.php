@@ -163,7 +163,7 @@ class Output {
         $html = '<!DOCTYPE html><html><head><meta charset="UTF-8" /></head><body>' . trim($this->output) . '</body></html>';
 
         $dom = new \DOMDocument();
-        $dom->loadHTML($html);
+        $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $xpath = new \DOMXPath($dom);
 
         while ( ($node_list = $xpath->query('//*[not(*) and not(@*) and not(text()[normalize-space()])]')) && $node_list->length ) {
