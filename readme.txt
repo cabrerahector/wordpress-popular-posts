@@ -109,6 +109,10 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 6.1.2 =
+
+- Fixes an issue where the [wpp] shortcode would get stuck at the loading animation.
+
 = 6.2.0 =
 
 **If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
