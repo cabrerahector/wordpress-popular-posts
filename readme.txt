@@ -109,6 +109,16 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 6.2.0 =
+
+**If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
+
+- The [wpp] shortcode has now the ability to load itself via AJAX.
+- Fixes an issue where for certain server configurations the popular posts list would output garbled text.
+- Fixes an issue where PHP would throw notices due to the usage of HTML5 tags.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-2-shortcode-is-now-page-caching-friendly-other-minor-fixes/)
+
 = 6.1.4 =
 
 **If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
