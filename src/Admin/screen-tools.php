@@ -138,7 +138,7 @@ if ( 'tools' == $current ) {
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><label for="ajax"><?php esc_html_e('Ajaxify widget', 'wordpress-popular-posts'); ?>:</label></th>
+                                <th scope="row"><label for="ajax"><?php esc_html_e('Load popular posts list via AJAX', 'wordpress-popular-posts'); ?>:</label></th>
                                 <td>
                                     <select name="ajax" id="ajax">
                                         <option <?php if (! $this->config['tools']['ajax']) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>

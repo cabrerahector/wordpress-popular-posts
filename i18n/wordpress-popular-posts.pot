@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2023-06-19 15:36-0400\n"
+"POT-Creation-Date: 2023-07-24 13:09-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -457,7 +457,7 @@ msgid "Support"
 msgstr ""
 
 #: src/Admin/Admin.php:755 src/Admin/Admin.php:1151 src/Admin/Admin.php:1155
-#: src/Output.php:820
+#: src/Output.php:868
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
@@ -465,7 +465,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Admin/Admin.php:755 src/Admin/Admin.php:1153 src/Admin/Admin.php:1155
-#: src/Output.php:803
+#: src/Output.php:851
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
@@ -496,6 +496,10 @@ msgstr ""
 
 #: src/Admin/Admin.php:1443
 msgid "Dismiss"
+msgstr ""
+
+#: src/Admin/Admin.php:1443
+msgid "Remind me later"
 msgstr ""
 
 #: src/Admin/admin-page.php:7 src/Admin/admin-page.php:112
@@ -703,7 +707,7 @@ msgid "Data older than the specified time frame will be automatically discarded"
 msgstr ""
 
 #: src/Admin/screen-tools.php:141
-msgid "Ajaxify widget"
+msgid "Load popular posts list via AJAX"
 msgstr ""
 
 #: src/Admin/screen-tools.php:145 src/Admin/screen-tools.php:185
@@ -841,38 +845,38 @@ msgstr ""
 msgid "A highly customizable block that displays your most popular posts."
 msgstr ""
 
-#: src/Output.php:261
+#: src/Output.php:309
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: src/Output.php:636
+#: src/Output.php:684
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: src/Output.php:814
+#: src/Output.php:862
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Output.php:832
+#: src/Output.php:880
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: src/Output.php:837
+#: src/Output.php:885
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: src/Output.php:837
+#: src/Output.php:885
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: src/Output.php:842
+#: src/Output.php:890
 #, php-format
 msgid "under %s"
 msgstr ""
