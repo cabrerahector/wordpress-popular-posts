@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let json_tag = widget_placeholder.parentNode.querySelector('script[type="application/json"]');
 
             if ( json_tag ) {
-                let args = JSON.parse(json_tag.textContent);
+                let args = JSON.parse(json_tag.textContent.replace(/[\n\r]/g,''));
                 params = JSON.stringify(args);
             }
         }
