@@ -143,22 +143,18 @@ document.addEventListener('DOMContentLoaded', function() {
         let widget_id_attr = widget_placeholder.getAttribute('data-widget-id'),
             method = 'GET',
             url = '',
-            headers = {},
+            headers = {
+                'X-WP-Nonce': wpp_params.token
+            },
             params = '';
 
         if ( widget_id_attr ) {
             url = wpp_params.ajax_url + '/widget/' + widget_id_attr.split('-')[1];
             params = 'is_single=' + wpp_params.ID + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
-            headers = {
-                'X-WP-Nonce': wpp_params.token
-            };
         } else {
             method = 'POST';
             url = wpp_params.api_url + '/v2/widget?is_single=' + wpp_params.ID + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
-            headers = {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': wpp_params.token
-            };
+            headers['Content-Type'] = 'application/json';
 
             let json_tag = widget_placeholder.parentNode.querySelector('script[type="application/json"]');
 
