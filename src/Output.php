@@ -158,27 +158,36 @@ class Output {
         // Attempt to close open tags
         $this->output = force_balance_tags($this->output);
 
-        // Remove empty tags
-        $clean_html = '';
-        $html = '<!DOCTYPE html><html><head><meta charset="UTF-8" /></head><body>' . trim($this->output) . '</body></html>';
+        if ( extension_loaded('mbstring') && function_exists('mb_encode_numericentity') ) {
+            // Process special characters
+            $html = htmlspecialchars_decode(mb_encode_numericentity(htmlentities(trim($this->output), ENT_QUOTES, 'UTF-8'), [0x80, 0x10FFFF, 0, ~0], 'UTF-8'));
 
-        $dom = new \DOMDocument();
-        $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $xpath = new \DOMXPath($dom);
+            // Remove empty tags
+            $clean_html = '';
+            $html = '<!DOCTYPE html><html><head><meta charset="UTF-8" /></head><body>' . $html . '</body></html>';
 
-        while ( ($node_list = $xpath->query('//*[not(*) and not(@*) and not(text()[normalize-space()])]')) && $node_list->length ) {
-            foreach ($node_list as $node) {
-                $node->parentNode->removeChild($node);
+            $dom = new \DOMDocument();
+            $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $xpath = new \DOMXPath($dom);
+
+            while ( ($node_list = $xpath->query('//*[not(*) and not(@*) and not(text()[normalize-space()])]')) && $node_list->length ) {
+                foreach ($node_list as $node) {
+                    $node->parentNode->removeChild($node);
+                }
+            }
+
+            $body = $dom->getElementsByTagName('body')->item(0);
+
+            foreach( $body->childNodes as $node ) {
+                $clean_html .= $dom->saveHTML($node);
+            }
+
+            $this->output = trim($clean_html);
+        } else {
+            if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                trigger_error('WordPress Popular Posts - looks like PHP\'s mbstring extension isn\'t enabled on this site. Please enable it for the plugin to be able to properly format your popular post list.', E_USER_WARNING);
             }
         }
-
-        $body = $dom->getElementsByTagName('body')->item(0);
-
-        foreach( $body->childNodes as $node ) {
-            $clean_html .= $dom->saveHTML($node);
-        }
-
-        $this->output = trim($clean_html);
 
         // Sanitize HTML
         $allowed_tags = wp_kses_allowed_html('post');
