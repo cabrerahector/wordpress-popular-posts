@@ -375,6 +375,7 @@ class Admin {
         );
 
         $total_views = $wpdb->get_var($query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $query is built and prepared dynamically, see above
+        $total_views = (float) $total_views;
 
         $pageviews = sprintf(
             _n('%s view in the last hour', '%s views in the last hour', $total_views, 'wordpress-popular-posts'),
