@@ -5,6 +5,7 @@ use WordPressPopularPosts\{ Image, I18N, Output, Settings, Themer, Translate, Wo
 use WordPressPopularPosts\Admin\Admin;
 use WordPressPopularPosts\Block\Widget\Widget as BlockWidget;
 use WordPressPopularPosts\Front\Front;
+use WordPressPopularPosts\ShortCode\ShortcodeLoader;
 use WordPressPopularPosts\Rest\{ Controller, PostsEndpoint, TaxonomiesEndpoint, ThemesEndpoint, ThumbnailsEndpoint, ViewLoggerEndpoint, WidgetEndpoint };
 use WordPressPopularPosts\Widget\Widget;
 
@@ -138,6 +139,10 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
             );
         });
 
+        $container['shortcode_loader'] = $container->service(function(Container $container) {
+            return new ShortcodeLoader();
+        });
+
         $container['wpp'] = $container->service(function(Container $container) {
             return new WordPressPopularPosts(
                 $container['i18n'],
@@ -145,7 +150,8 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
                 $container['admin'],
                 $container['front'],
                 $container['widget'],
-                $container['block_widget']
+                $container['block_widget'],
+                $container['shortcode_loader']
             );
         });
     }
