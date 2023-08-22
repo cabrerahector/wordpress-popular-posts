@@ -1144,21 +1144,27 @@ class Admin {
         if ( ! empty($posts) ) {
             ?>
             <ol class="popular-posts-list">
-                <?php foreach( $posts as $post ) { ?>
+                <?php
+                foreach( $posts as $post ) {
+                    $pageviews = isset($post->pageviews) ? (int) $post->pageviews : 0;
+                    $comments_count = isset($post->comment_count) ? (int) $post->comment_count : 0;
+                    ?>
                     <li>
                         <a href="<?php echo esc_url(get_permalink($post->id)); ?>" class="wpp-title"><?php echo esc_html(sanitize_text_field(apply_filters('the_title', $post->title, $post->id))); ?></a>
                         <div>
                             <?php if ( 'most-viewed' == $list ) : ?>
-                            <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>
+                            <span><?php printf(esc_html(_n('%s view', '%s views', $pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($pageviews))); ?></span>
                             <?php elseif ( 'most-commented' == $list ) : ?>
-                            <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
+                            <span><?php printf(esc_html(_n('%s comment', '%s comments', $comments_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($comments_count))); ?></span>
                             <?php else : ?>
-                            <span><?php printf(esc_html(_n('%s view', '%s views', $post->pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->pageviews))); ?></span>, <span><?php printf(esc_html(_n('%s comment', '%s comments', $post->comment_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($post->comment_count))); ?></span>
+                            <span><?php printf(esc_html(_n('%s view', '%s views', $pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($pageviews))); ?></span>, <span><?php printf(esc_html(_n('%s comment', '%s comments', $comments_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($comments_count))); ?></span>
                             <?php endif; ?>
                             <small> &mdash; <a href="<?php echo esc_url(get_permalink($post->id)); ?>"><?php esc_html_e('View'); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo esc_url(get_edit_post_link($post->id)); ?>"><?php esc_html_e('Edit'); ?></a><?php endif; ?></small>
                         </div>
                     </li>
-                <?php } ?>
+                    <?php
+                }
+                ?>
             </ol>
             <?php
         }
