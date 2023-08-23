@@ -134,13 +134,15 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         $container['front'] = $container->service(function(Container $container) {
             return new Front(
                 $container['admin_options'],
-                $container['translate'],
-                $container['output']
+                $container['translate']
             );
         });
 
         $container['shortcode_loader'] = $container->service(function(Container $container) {
-            return new ShortcodeLoader();
+            return new ShortcodeLoader(
+                $container['admin_options'],
+                $container['output']
+            );
         });
 
         $container['wpp'] = $container->service(function(Container $container) {

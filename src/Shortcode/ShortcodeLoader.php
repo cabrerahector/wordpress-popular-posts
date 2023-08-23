@@ -2,6 +2,8 @@
 
 namespace WordPressPopularPosts\Shortcode;
 
+use WordPressPopularPosts\Output;
+
 class ShortcodeLoader {
 
     /**
@@ -14,11 +16,34 @@ class ShortcodeLoader {
     protected $shortcodes;
 
     /**
-     * Construct.
+     * Admin settings.
+     *
+     * @since   6.3.0
+     * @var     array
      */
-    public function __construct()
+    private $admin_options = [];
+
+    /**
+     * Output object.
+     *
+     * @since  6.3.0
+     * @var     \WordPressPopularPosts\Output       $output
+     * @access  private
+     */
+    private $output;
+
+    /**
+     * Construct.
+     *
+     * @param   array                               $admin_options
+     * @param   \WordPressPopularPosts\Output       $output         Output class.
+     */
+    public function __construct(array $admin_options, Output $output)
     {
+        $this->admin_options = $admin_options;
+        $this->output = $output;
         $this->shortcodes = [
+            __NAMESPACE__ . '\Posts',
             __NAMESPACE__ . '\ViewsCount'
         ];
     }
@@ -32,7 +57,7 @@ class ShortcodeLoader {
     {
         if ( is_array($this->shortcodes) && ! empty($this->shortcodes) ) {
             foreach ($this->shortcodes as $shortcode) {
-                $instance = new $shortcode();
+                $instance = new $shortcode($this->admin_options, $this->output);
                 $instance->init();
             }
         }
