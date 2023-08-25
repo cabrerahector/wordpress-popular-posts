@@ -66,6 +66,7 @@ class Posts extends Shortcode {
          * @var int $excerpt_by_words
          * @var int $thumbnail_width
          * @var int $thumbnail_height
+         * @var string $thumbnail_build
          * @var bool $rating
          * @var bool $stats_comments
          * @var bool $stats_views
@@ -101,6 +102,7 @@ class Posts extends Shortcode {
             'excerpt_by_words' => 0,
             'thumbnail_width' => 0,
             'thumbnail_height' => 0,
+            'thumbnail_build' => 'manual',
             'rating' => false,
             'stats_comments' => false,
             'stats_views' => true,
@@ -150,6 +152,7 @@ class Posts extends Shortcode {
             ],
             'thumbnail' => [
                 'active' => ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ),
+                'build' => 'predefined' === $thumbnail_build ? 'predefined' : 'manual',
                 'width' => ( ! empty($thumbnail_width) && Helper::is_number($thumbnail_width) && $thumbnail_width > 0 ) ? $thumbnail_width : 0,
                 'height' => ( ! empty($thumbnail_height) && Helper::is_number($thumbnail_height) && $thumbnail_height > 0 ) ? $thumbnail_height : 0,
             ],
