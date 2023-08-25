@@ -156,6 +156,7 @@ class Image {
             );
 
             return $this->render(
+                $post_id,
                 $cached,
                 $size,
                 is_array($classes) ? implode(' ', $classes) : 'wpp-thumbnail wpp_' . $source,
@@ -325,6 +326,7 @@ class Image {
         );
 
         return $this->render(
+            $post_id,
             $thumb_url,
             $size,
             is_array($classes) ? implode(' ', $classes) : 'wpp-thumbnail wpp_' . $source,
@@ -859,6 +861,7 @@ class Image {
      *
      * @since   3.0.0
      * @access  public
+     * @param   int         $post_id        The post/page ID
      * @param   string      $src            Image URL
      * @param   array       $dimension      Image's width and height
      * @param   string      $class          CSS class
@@ -866,7 +869,7 @@ class Image {
      * @param   string      $error          Error, if the image could not be created
      * @return  string
      */
-    public function render(string $src, array $size, string $class, string $alt = '', string $error = '')
+    public function render(int $post_id, string $src, array $size, string $class, string $alt = '', string $error = '')
     {
         $img_tag = '';
 
@@ -886,7 +889,7 @@ class Image {
 
         $img_tag .= '<img ' . $src . ' width="' . esc_attr($size[0]) . '" height="' . esc_attr($size[1]) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '" decoding="async" ' . $lazyload . ' />';
 
-        return apply_filters('wpp_render_image', $img_tag);
+        return apply_filters('wpp_render_image', $img_tag, $post_id);
     }
 
     /**
