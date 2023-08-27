@@ -109,7 +109,19 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
-= 6.1.2 =
+= 6.3.0 =
+
+**If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
+
+- Improves compatibility with newer versions of PHP 8 (thanks ispreview and dimal for the heads-up!)
+- Introduces new shortcode to render views count (see [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-3-new-shortcode-to-display-views-count-php-8-compatibility-improvements/) for more details).
+- Shares post_id value with render_image filter hook for more flexibility.
+- Fixes a fatal error when the PHP extension mbstring is not installed.
+- Updates wpp.min.js.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-3-new-shortcode-to-display-views-count-php-8-compatibility-improvements/)
+
+= 6.2.1 =
 
 - Fixes an issue where the [wpp] shortcode would get stuck at the loading animation.
 
@@ -170,63 +182,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Updates dependencies.
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-1-0-improved-php-8-1-support-plus-minor-enhancements/)
-
-= 6.0.5 =
-
-- Fixes yet another issue where excerpts may output broken HTML under certain conditions (thanks dxylott54!)
-- Updates .pot file.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.5)
-
-= 6.0.4 =
-
-- Block: improves logic when toggling certain settings.
-- Block: adds back option to show post rating.
-- get_views() is now compatible with Polylang/WPML.
-- Updates dependencies.
-- Updates .pot file.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.4)
-
-= 6.0.3 =
-
-- WPCS updates.
-- Fixes an issue where excerpts may output broken HTML under certain conditions (thanks ozboss1!)
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.3)
-
-= 6.0.2 =
-
-- Fixes issue with Stats dashboard not loading for Linux users (thanks agbuere!)
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#6.0.2)
-
-= 6.0.1 =
-
-- Security improvements.
-- Fixes fatal error in Image class (thanks Senri Miura!)
-- Fixes fatal error in "classic" widget when using widget themes (thanks Finn Jackson!)
-- Updates ChartJS to version 3.8.0.
-- Small improvements / fixes.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/#minor-updates-and-hotfixes)
-
-= 6.0.0 =
-
-**This release introduces a couple of major changes so please review before updating.**
-
-- Minimum required PHP version is now 7.2.
-- Minimum required WordPress version is now 5.3.
-- Breaking change: this version removes code that has been deprecated for a long time. See the release notes for more details.
-- Widget block: fixes an issue where the length of the title when set via theme was being ignored.
-- Widget block: fixes bug with thumbnail not rendering under certain circumstances (thanks the9mm!)
-- Admin: the Statistics screen will now by default only lists posts. See the release notes for more details.
-- Admin: only users with `edit_others_posts` capability (usually Editors and Administrators) will be able to access certain areas of WPP's dashboard.
-- Admin: makes sure to escape params from `add_query_arg()`.
-- Fixes an issue where widget themes stored in child theme's folder would not be recognized by the plugin.
-- Small improvements / fixes.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-0-php-5-support-dropped-minimum-supported-wordpress-changed/)
 
 [Full Changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md)
 

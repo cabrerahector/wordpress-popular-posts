@@ -1,7 +1,19 @@
 Changelog
 =========
 
-## 6.1.2 ##
+## 6.3.0 ##
+
+**If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
+
+- Improves compatibility with newer versions of PHP 8 (thanks ispreview and dimal for the heads-up!)
+- Introduces new shortcode to render views count (see [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-3-new-shortcode-to-display-views-count-php-8-compatibility-improvements/) for more details).
+- Shares post_id value with render_image filter hook for more flexibility.
+- Fixes a fatal error when the PHP extension mbstring is not installed.
+- Updates wpp.min.js.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-3-new-shortcode-to-display-views-count-php-8-compatibility-improvements/)
+
+## 6.2.1 ##
 
 - Fixes an issue where the [wpp] shortcode would get stuck at the loading animation.
 
