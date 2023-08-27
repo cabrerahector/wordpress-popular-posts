@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 6.3.0 ##
+## 6.3.1 ##
 
 **If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
 
