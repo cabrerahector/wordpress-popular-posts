@@ -5,7 +5,7 @@ use WordPressPopularPosts\{ Image, I18N, Output, Settings, Themer, Translate, Wo
 use WordPressPopularPosts\Admin\Admin;
 use WordPressPopularPosts\Block\Widget\Widget as BlockWidget;
 use WordPressPopularPosts\Front\Front;
-use WordPressPopularPosts\ShortCode\ShortcodeLoader;
+use WordPressPopularPosts\Shortcode\ShortcodeLoader;
 use WordPressPopularPosts\Rest\{ Controller, PostsEndpoint, TaxonomiesEndpoint, ThemesEndpoint, ThumbnailsEndpoint, ViewLoggerEndpoint, WidgetEndpoint };
 use WordPressPopularPosts\Widget\Widget;
 
