@@ -52,8 +52,6 @@ class Front {
     public function hooks()
     {
         add_action('wp_head', [$this, 'inline_loading_css']);
-        add_action('wp_ajax_update_views_ajax', [$this, 'update_views']);
-        add_action('wp_ajax_nopriv_update_views_ajax', [$this, 'update_views']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
         add_filter('script_loader_tag', [$this, 'convert_inline_js_into_json'], 10, 3);
     }
@@ -165,108 +163,4 @@ class Front {
 
         return $tag;
     }
-
-    /**
-     * Updates views count on page load via AJAX.
-     *
-     * @since   2.0.0
-     */
-    public function update_views()
-    {
-        if ( ! wp_verify_nonce($_POST['token'], 'wpp-token') || ! Helper::is_number($_POST['wpp_id']) ) {
-            die( 'WPP: Oops, invalid request!' );
-        }
-
-        $nonce = $_POST['token'];
-        $post_ID = $_POST['wpp_id'];
-        $exec_time = 0;
-
-        $start = Helper::microtime_float();
-        $result = $this->update_views_count($post_ID);
-        $end = Helper::microtime_float();
-        $exec_time += round($end - $start, 6);
-
-        if ( $result ) {
-            die('WPP: OK. Execution time: ' . $exec_time . ' seconds'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        }
-
-        die('WPP: Oops, could not update the views count!');
-    }
-
-    /**
-     * Updates views count.
-     *
-     * @since    1.4.0
-     * @access   private
-     * @global   object    $wpdb
-     * @param    int       $post_ID
-     * @return   bool|int  FALSE if query failed, TRUE on success
-     */
-    private function update_views_count(int $post_ID) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'popularposts';
-        $wpdb->show_errors();
-
-        // Get translated object ID
-        $post_ID = $this->translate->get_object_id(
-            $post_ID,
-            get_post_type($post_ID),
-            true,
-            $this->translate->get_default_language()
-        );
-        $now = Helper::now();
-        $curdate = Helper::curdate();
-        $views = ( $this->config['tools']['sampling']['active'] )
-          ? $this->config['tools']['sampling']['rate']
-          : 1;
-
-        // Allow WP themers / coders perform an action
-        // before updating views count
-        if ( has_action('wpp_pre_update_views') ) {
-            do_action('wpp_pre_update_views', $post_ID, $views);
-        }
-
-        // Update all-time table
-        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
-        $result1 = $wpdb->query($wpdb->prepare(
-            "INSERT INTO {$table}data
-            (postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
-            ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, last_viewed = %s;",
-            $post_ID,
-            $now,
-            $now,
-            $views,
-            $views,
-            $now
-        ));
-        //phpcs:enable
-
-        // Update range (summary) table
-        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
-        $result2 = $wpdb->query($wpdb->prepare(
-            "INSERT INTO {$table}summary
-            (postid, pageviews, view_date, view_datetime) VALUES (%d, %d, %s, %s)
-            ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, view_datetime = %s;",
-            $post_ID,
-            $views,
-            $curdate,
-            $now,
-            $views,
-            $now
-        ));
-        //phpcs:enable
-
-        if ( ! $result1 || ! $result2 ) {
-            return false;
-        }
-
-        // Allow WP themers / coders perform an action
-        // after updating views count
-        if ( has_action('wpp_post_update_views' )) {
-            do_action('wpp_post_update_views', $post_ID);
-        }
-
-        return true;
-    }
-
 }
