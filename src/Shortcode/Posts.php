@@ -15,7 +15,7 @@ class Posts extends Shortcode {
      * @since   6.3.0
      * @var     array
      */
-    private $admin_options = [];
+    private $config = [];
 
     /**
      * Output object.
@@ -34,7 +34,7 @@ class Posts extends Shortcode {
      */
     public function __construct(array $admin_options, Output $output)
     {
-        $this->admin_options = $admin_options;
+        $this->config = $admin_options;
         $this->output = $output;
         $this->tag = 'wpp';
     }
@@ -219,7 +219,7 @@ class Posts extends Shortcode {
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;
 
-        if ( $this->admin_options['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
+        if ( $this->config['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
             $shortcode_content .= '<div class="wpp-shortcode">';
             $shortcode_content .= '<script type="application/json">' . wp_json_encode($shortcode_ops) . '</script>';
             $shortcode_content .= '<div class="wpp-shortcode-placeholder"></div>';
