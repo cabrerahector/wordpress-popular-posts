@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 6.3.2 ##
+
+- Fixes a PHP notice coming from the [wpp] shortcode.
+- Removes legacy AJAX code from the plugin.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-3-new-shortcode-to-display-views-count-php-8-compatibility-improvements/#6.3.2)
+
 ## 6.3.1 ##
 
 **If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
