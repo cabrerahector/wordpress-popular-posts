@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2023-08-28 14:55-0400\n"
+"POT-Creation-Date: 2023-10-04 14:51-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-KeywordsList: _e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;"
 "esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
 "X-Poedit-Basepath: ..\n"
@@ -457,7 +457,7 @@ msgid "Support"
 msgstr ""
 
 #: src/Admin/Admin.php:756 src/Admin/Admin.php:1156 src/Admin/Admin.php:1160
-#: src/Output.php:877 src/Shortcode/ViewsCount.php:73
+#: src/Output.php:858 src/Shortcode/ViewsCount.php:73
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
@@ -465,7 +465,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Admin/Admin.php:756 src/Admin/Admin.php:1158 src/Admin/Admin.php:1160
-#: src/Output.php:860
+#: src/Output.php:841
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
@@ -845,38 +845,38 @@ msgstr ""
 msgid "A highly customizable block that displays your most popular posts."
 msgstr ""
 
-#: src/Output.php:318
+#: src/Output.php:299
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: src/Output.php:693
+#: src/Output.php:674
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: src/Output.php:871
+#: src/Output.php:852
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Output.php:889
+#: src/Output.php:870
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: src/Output.php:894
+#: src/Output.php:875
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: src/Output.php:894
+#: src/Output.php:875
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: src/Output.php:899
+#: src/Output.php:880
 #, php-format
 msgid "under %s"
 msgstr ""
