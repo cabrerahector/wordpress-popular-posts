@@ -460,6 +460,7 @@ class Widget extends Block
             && ! empty($query_args['markup']['title-end'])
         ) {
             $html .= htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
+            $html = Helper::sanitize_html($html, $query_args);
         }
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;

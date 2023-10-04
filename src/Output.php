@@ -190,26 +190,7 @@ class Output {
         }
 
         // Sanitize HTML
-        $allowed_tags = wp_kses_allowed_html('post');
-
-        if ( isset($allowed_tags['form']) ) {
-            unset($allowed_tags['form']);
-        }
-
-        if (
-            isset($this->public_options['theme']['name'])
-            && $this->public_options['theme']['name']
-        ) {
-            $allowed_tags['style'] = [
-                'id' => 1,
-                'nonce' => 1,
-            ];
-        }
-
-        $allowed_tags['img']['decoding'] = true;
-        $allowed_tags['img']['srcset'] = true;
-
-        $this->output = wp_kses($this->output, $allowed_tags);
+        $this->output = Helper::sanitize_html($this->output, $this->public_options);
 
         return $this->output;
     }

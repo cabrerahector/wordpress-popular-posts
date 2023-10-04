@@ -215,6 +215,7 @@ class Posts extends Shortcode {
             && ! empty($header_end)
         ) {
             $shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . $header . htmlspecialchars_decode($header_end, ENT_QUOTES);
+            $shortcode_content = Helper::sanitize_html($shortcode_content, $shortcode_ops);
         }
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;

@@ -333,4 +333,36 @@ class Helper {
 
         return ( is_array($matches) && ! empty($matches) ) ? $matches : false;
     }
+
+    /**
+     * Sanitizes HTML output.
+     *
+     * @since   6.3.3
+     * @param   string  $html
+     * @param   array   $options  Public options
+     * @return  string  $html     The (sanitized) HTML code
+     */
+    public static function sanitize_html(string $html, array $options)
+    {
+        $allowed_tags = wp_kses_allowed_html('post');
+
+        if ( isset($allowed_tags['form']) ) {
+            unset($allowed_tags['form']);
+        }
+
+        if (
+            isset($options['theme']['name'])
+            && $options['theme']['name']
+        ) {
+            $allowed_tags['style'] = [
+                'id' => 1,
+                'nonce' => 1
+            ];
+        }
+
+        $allowed_tags['img']['decoding'] = true;
+        $allowed_tags['img']['srcset'] = true;
+
+        return wp_kses($html, $allowed_tags);
+    }
 }
