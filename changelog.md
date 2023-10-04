@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 6.3.3 ##
+
+- Security enhancements (props to the Patchstack team!)
+- Updates dependencies.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-3-new-shortcode-to-display-views-count-php-8-compatibility-improvements/#6.3.3)
+
 ## 6.3.2 ##
 
 - Fixes a PHP notice coming from the [wpp] shortcode.
