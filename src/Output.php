@@ -403,7 +403,12 @@ class Output {
         $post_meta_separator = esc_html(apply_filters('wpp_post_meta_separator', ' | '));
         $post_meta = join($post_meta_separator, $meta_arr);
 
-        $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
+        $prettify_numbers = apply_filters('wpp_prettify_numbers', true);
+
+        /** Legacy, should be removed */
+        if ( has_filter('wpp_pretiffy_numbers') ) {
+            $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
+        }
 
         // Build custom HTML output
         if ( $this->public_options['markup']['custom_html'] ) {
@@ -833,7 +838,12 @@ class Output {
     {
         $stats = [];
 
-        $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
+        $prettify_numbers = apply_filters('wpp_prettify_numbers', true);
+
+        /* Legacy, should be removed */
+        if ( has_filter('wpp_pretiffy_numbers') ) {
+            $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
+        }
 
         // comments
         if ( $this->public_options['stats_tag']['comment_count'] ) {
