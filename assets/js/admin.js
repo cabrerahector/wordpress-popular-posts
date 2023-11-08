@@ -300,6 +300,12 @@
             .open();
 
         });
+
+        $('#reset_thumb_button').on('click', function(e) {
+            e.preventDefault();
+            reset_default_thumbnail();
+        });
+
         $('#wpp-reset-image-cache').on('click', function(e){
             e.preventDefault();
             confirm_clear_image_cache();
@@ -451,6 +457,25 @@
                 }
             );
         }
+    }
+
+    function reset_default_thumbnail() {
+        jQuery.post(
+            ajaxurl,
+            {
+                action: 'wpp_reset_thumbnail',
+                token: wpp_admin_params.nonce_reset_default_thumbnail
+            }, function(thumb_url) {
+
+                var img = new Image();
+                img.onload = function() {
+                    $("#thumb-review").html( this ).parent().fadeIn();
+                }
+                img.src = thumb_url;
+
+                $('#upload_thumb_src').val(thumb_url);
+            }
+        );
     }
 
     function confirm_clear_image_cache() {

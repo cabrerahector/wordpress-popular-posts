@@ -33,6 +33,7 @@ if ( 'tools' == $current ) {
                                 </div>
 
                                 <input id="upload_thumb_button" type="button" class="button" value="<?php esc_attr_e('Change thumbnail', 'wordpress-popular-posts'); ?>">
+                                <input id="reset_thumb_button" type="button" class="button" value="<?php esc_attr_e('Reset thumbnail', 'wordpress-popular-posts'); ?>">
                                 <input type="hidden" id="upload_thumb_src" name="upload_thumb_src" value="">
 
                                 <p class="description"><?php esc_html_e('This image will be displayed when no thumbnail is available', 'wordpress-popular-posts'); ?>.</p>

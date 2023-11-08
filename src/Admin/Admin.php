@@ -122,6 +122,8 @@ class Admin {
         add_action('wp_ajax_wpp_get_trending', [$this, 'get_popular_items']);
         // Delete plugin data
         add_action('wp_ajax_wpp_clear_data', [$this, 'clear_data']);
+        // Reset plugin's default thumbnail
+        add_action('wp_ajax_wpp_reset_thumbnail', [$this, 'get_default_thumbnail']);
         // Empty plugin's images cache
         add_action('wp_ajax_wpp_clear_thumbnail', [$this, 'clear_thumbnails']);
         // Flush cached thumbnail on featured image change/deletion
@@ -1246,6 +1248,17 @@ class Admin {
 
             $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}popularpoststransients;");
         }
+    }
+
+    /**
+     * Returns WPP's default thumbnail.
+     *
+     * @since 6.3.4
+     */
+    public function get_default_thumbnail()
+    {
+        echo esc_url(plugins_url('assets/images/no_thumb.jpg', dirname(__FILE__, 2)));
+        wp_die();
     }
 
     /**
