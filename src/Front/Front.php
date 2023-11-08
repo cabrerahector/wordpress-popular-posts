@@ -159,6 +159,17 @@ class Front {
                 $pos = strpos($tag, '>');
                 $tag = substr_replace($tag, ' type="application/json">', $pos, 1);
             }
+
+            /**
+             * Remove CDATA block added automatically by WordPress 6.4
+             * to themes that don't support HTML5 script tags.
+             */
+            $is_html5 = current_theme_supports('html5', 'script');
+
+            if ( ! $is_html5 ) {
+                $tag = str_replace('/* <![CDATA[ */', '', $tag);
+                $tag = str_replace('/* ]]> */', '', $tag);
+            }
         }
 
         return $tag;
