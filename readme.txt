@@ -109,6 +109,16 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 6.3.4 =
+
+**If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**
+
+- Patches issue affecting non-HTML5 friendly WordPress themes after the WP 6.4 update.
+- Adds a button to reset the default thumbnail.
+- Minor fixes and improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-3-new-shortcode-to-display-views-count-php-8-compatibility-improvements/#6.3.4)
+
 = 6.3.3 =
 
 - Security enhancements (props to the Patchstack team!)
