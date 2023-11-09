@@ -52,7 +52,7 @@ If for some reason you prefer using the "classic" WordPress Popular Posts widget
 
 If you'd like to support my work and efforts to creating and maintaining more open source projects your donations and messages of support mean a lot!
 
-[Buy me a coffee](https://ko-fi.com/cabrerahector)
+[Buy me a coffee](https://ko-fi.com/cabrerahector) | [PayPal](https://www.paypal.com/paypalme/cabrerahector)
 
 **WordPress Popular Posts** is now also on [GitHub](https://github.com/cabrerahector/wordpress-popular-posts)!
 
