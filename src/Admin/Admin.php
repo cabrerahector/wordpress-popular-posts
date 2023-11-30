@@ -1243,7 +1243,14 @@ class Admin {
 
         if ( $wpp_transients && is_array($wpp_transients) && ! empty($wpp_transients) ) {
             foreach( $wpp_transients as $wpp_transient ) {
-                delete_transient($wpp_transient->tkey);
+                try {
+                    delete_transient($wpp_transient->tkey);
+                } catch (\Throwable $e) {
+                    if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                        error_log( "Error: " . $e->getMessage() );
+                    }
+                    continue;
+                }
             }
 
             $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}popularpoststransients;");
