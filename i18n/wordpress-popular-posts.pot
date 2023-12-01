@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2023-11-08 19:52-0400\n"
+"POT-Creation-Date: 2023-12-01 22:29+0800\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -102,17 +102,17 @@ msgid "Time Unit"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:51
-#: src/Admin/screen-tools.php:170 src/Block/Widget/edit.js:218 src/Widget/form.php:45
+#: src/Admin/screen-tools.php:185 src/Block/Widget/edit.js:218 src/Widget/form.php:45
 msgid "Minute(s)"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:52
-#: src/Admin/screen-tools.php:171 src/Block/Widget/edit.js:219 src/Widget/form.php:46
+#: src/Admin/screen-tools.php:186 src/Block/Widget/edit.js:219 src/Widget/form.php:46
 msgid "Hour(s)"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:53
-#: src/Admin/screen-tools.php:172 src/Block/Widget/edit.js:220 src/Widget/form.php:47
+#: src/Admin/screen-tools.php:187 src/Block/Widget/edit.js:220 src/Widget/form.php:47
 msgid "Day(s)"
 msgstr ""
 
@@ -303,7 +303,7 @@ msgid "HTML Markup settings"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-tools.php:56
-#: src/Admin/screen-tools.php:154 src/Admin/screen-tools.php:182
+#: src/Admin/screen-tools.php:169 src/Admin/screen-tools.php:197
 #: src/Block/Widget/edit.js:684 src/Widget/form.php:7 src/Widget/form.php:54
 #: src/Widget/form.php:60 src/Widget/form.php:91 src/Widget/form.php:101
 #: src/Widget/form.php:195
@@ -486,7 +486,7 @@ msgid ""
 "come back later!"
 msgstr ""
 
-#: src/Admin/Admin.php:1457
+#: src/Admin/Admin.php:1464
 #, php-format
 msgid ""
 "<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You "
@@ -494,19 +494,19 @@ msgid ""
 "performance stays up to par."
 msgstr ""
 
-#: src/Admin/Admin.php:1463
+#: src/Admin/Admin.php:1470
 msgid "Dismiss"
 msgstr ""
 
-#: src/Admin/Admin.php:1463
+#: src/Admin/Admin.php:1470
 msgid "Remind me later"
 msgstr ""
 
-#: src/Admin/admin-page.php:7 src/Admin/admin-page.php:112
+#: src/Admin/admin-page.php:7 src/Admin/admin-page.php:122
 msgid "Stats"
 msgstr ""
 
-#: src/Admin/admin-page.php:8 src/Admin/admin-page.php:113
+#: src/Admin/admin-page.php:8 src/Admin/admin-page.php:123
 msgid "Tools"
 msgstr ""
 
@@ -515,7 +515,7 @@ msgid "Parameters"
 msgstr ""
 
 #: src/Admin/admin-page.php:32 src/Admin/admin-page.php:44 src/Admin/admin-page.php:70
-#: src/Admin/admin-page.php:102
+#: src/Admin/admin-page.php:111
 msgid "Settings saved."
 msgstr ""
 
@@ -523,13 +523,17 @@ msgstr ""
 msgid "Please provide the name of your custom field."
 msgstr ""
 
+#: src/Admin/admin-page.php:82
+msgid "Please provide your cookies name in the field."
+msgstr ""
+
 #: src/Admin/screen-stats.php:18
 msgid "Post type"
 msgstr ""
 
 #: src/Admin/screen-stats.php:32 src/Admin/screen-stats.php:65
-#: src/Admin/screen-tools.php:96 src/Admin/screen-tools.php:211
-#: src/Admin/screen-tools.php:258
+#: src/Admin/screen-tools.php:96 src/Admin/screen-tools.php:226
+#: src/Admin/screen-tools.php:273
 msgid "Apply"
 msgstr ""
 
@@ -641,11 +645,12 @@ msgstr ""
 msgid "Lazy load"
 msgstr ""
 
-#: src/Admin/screen-tools.php:59
+#: src/Admin/screen-tools.php:59 src/Admin/screen-tools.php:145
 msgid "No"
 msgstr ""
 
 #: src/Admin/screen-tools.php:60 src/Admin/screen-tools.php:75
+#: src/Admin/screen-tools.php:146
 msgid "Yes"
 msgstr ""
 
@@ -693,8 +698,8 @@ msgstr ""
 msgid "Log limit"
 msgstr ""
 
-#: src/Admin/screen-tools.php:128 src/Admin/screen-tools.php:145
-#: src/Admin/screen-tools.php:185 src/Admin/screen-tools.php:243
+#: src/Admin/screen-tools.php:128 src/Admin/screen-tools.php:160
+#: src/Admin/screen-tools.php:200 src/Admin/screen-tools.php:258
 msgid "Disabled"
 msgstr ""
 
@@ -711,63 +716,71 @@ msgid "Data older than the specified time frame will be automatically discarded"
 msgstr ""
 
 #: src/Admin/screen-tools.php:142
+msgid "Exclude log views with cookies"
+msgstr ""
+
+#: src/Admin/screen-tools.php:151
+msgid "Cookies field name"
+msgstr ""
+
+#: src/Admin/screen-tools.php:157
 msgid "Load popular posts list via AJAX"
 msgstr ""
 
-#: src/Admin/screen-tools.php:146 src/Admin/screen-tools.php:186
-#: src/Admin/screen-tools.php:242
+#: src/Admin/screen-tools.php:161 src/Admin/screen-tools.php:201
+#: src/Admin/screen-tools.php:257
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin/screen-tools.php:150
+#: src/Admin/screen-tools.php:165
 msgid ""
 "If you are using a caching plugin such as WP Super Cache, enabling this feature will "
 "keep the popular list from being cached by it"
 msgstr ""
 
-#: src/Admin/screen-tools.php:154
+#: src/Admin/screen-tools.php:169
 msgid "Data Caching"
 msgstr ""
 
-#: src/Admin/screen-tools.php:157
+#: src/Admin/screen-tools.php:172
 msgid "Never cache"
 msgstr ""
 
-#: src/Admin/screen-tools.php:158
+#: src/Admin/screen-tools.php:173
 msgid "Enable caching"
 msgstr ""
 
-#: src/Admin/screen-tools.php:162
+#: src/Admin/screen-tools.php:177
 msgid ""
 "WPP can cache the popular list for a specified amount of time. Recommended for large / "
 "high traffic sites"
 msgstr ""
 
-#: src/Admin/screen-tools.php:166
+#: src/Admin/screen-tools.php:181
 msgid "Refresh cache every"
 msgstr ""
 
-#: src/Admin/screen-tools.php:173
+#: src/Admin/screen-tools.php:188
 msgid "Week(s)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:174
+#: src/Admin/screen-tools.php:189
 msgid "Month(s)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:175
+#: src/Admin/screen-tools.php:190
 msgid "Year(s)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:178
+#: src/Admin/screen-tools.php:193
 msgid "Really? That long?"
 msgstr ""
 
-#: src/Admin/screen-tools.php:182
+#: src/Admin/screen-tools.php:197
 msgid "Data Sampling"
 msgstr ""
 
-#: src/Admin/screen-tools.php:192
+#: src/Admin/screen-tools.php:207
 #, php-format
 msgid ""
 "By default, WordPress Popular Posts stores in database every single visit your site "
@@ -778,49 +791,49 @@ msgid ""
 "(for more, <a href=\"%2$s\" target=\"_blank\">please read here</a>)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:201
+#: src/Admin/screen-tools.php:216
 msgid "Sample Rate"
 msgstr ""
 
-#: src/Admin/screen-tools.php:205
+#: src/Admin/screen-tools.php:220
 #, php-format
 msgid ""
 "A sampling rate of %d is recommended for large / high traffic sites. For lower traffic "
 "sites, you should lower the value"
 msgstr ""
 
-#: src/Admin/screen-tools.php:223
+#: src/Admin/screen-tools.php:238
 msgid "Miscellaneous"
 msgstr ""
 
-#: src/Admin/screen-tools.php:229
+#: src/Admin/screen-tools.php:244
 msgid "Open links in"
 msgstr ""
 
-#: src/Admin/screen-tools.php:232
+#: src/Admin/screen-tools.php:247
 msgid "Current window"
 msgstr ""
 
-#: src/Admin/screen-tools.php:233
+#: src/Admin/screen-tools.php:248
 msgid "New tab/window"
 msgstr ""
 
-#: src/Admin/screen-tools.php:239
+#: src/Admin/screen-tools.php:254
 msgid "Use plugin's stylesheet"
 msgstr ""
 
-#: src/Admin/screen-tools.php:246
+#: src/Admin/screen-tools.php:261
 msgid ""
 "By default, the plugin includes a stylesheet called wpp.css which you can use to style "
 "your popular posts listing. If you wish to use your own stylesheet or do not want it "
 "to have it included in the header section of your site, use this."
 msgstr ""
 
-#: src/Admin/screen-tools.php:250
+#: src/Admin/screen-tools.php:265
 msgid "Enable experimental features"
 msgstr ""
 
-#: src/Admin/screen-tools.php:271
+#: src/Admin/screen-tools.php:286
 msgid ""
 "WordPress Popular Posts maintains data in two separate tables: one for storing the "
 "most popular entries on a daily basis (from now on, \"cache\"), and another one to "
@@ -829,19 +842,19 @@ msgid ""
 "tables, please use the buttons below to do so."
 msgstr ""
 
-#: src/Admin/screen-tools.php:272
+#: src/Admin/screen-tools.php:287
 msgid "Empty cache"
 msgstr ""
 
-#: src/Admin/screen-tools.php:272
+#: src/Admin/screen-tools.php:287
 msgid "Use this button to manually clear entries from WPP cache only"
 msgstr ""
 
-#: src/Admin/screen-tools.php:273
+#: src/Admin/screen-tools.php:288
 msgid "Clear all data"
 msgstr ""
 
-#: src/Admin/screen-tools.php:273
+#: src/Admin/screen-tools.php:288
 msgid "Use this button to manually clear entries from all WPP data tables"
 msgstr ""
 

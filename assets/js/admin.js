@@ -276,6 +276,14 @@
                 $("#lbl_field, #thumb_field, #row_custom_field, #row_custom_field_resize").hide();
             }
         });
+        // cookies exclude selection
+        $("#cookies_exclude").change(function() {
+            if ($(this).val() == '1') {
+                $("#cookies_name, #row_cookies_exclude").show();
+            } else {
+                $("#cookies_name, #row_cookies_exclude").hide();
+            }
+        });
         // file upload
         $('#upload_thumb_button').click(function(e) {
             e.preventDefault();

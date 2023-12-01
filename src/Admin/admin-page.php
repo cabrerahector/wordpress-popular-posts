@@ -75,31 +75,41 @@ if ( isset($_POST['section']) ) {
         $current = 'tools';
 
         if ( isset($_POST['wpp-update-data-options-token'] ) && wp_verify_nonce($_POST['wpp-update-data-options-token'], 'wpp-update-data-options') ) {
-            $this->config['tools']['log']['level'] = (int) $_POST['log_option'];
-            $this->config['tools']['log']['limit'] = (int) $_POST['log_limit'];
-            $this->config['tools']['log']['expires_after'] = ( \WordPressPopularPosts\Helper::is_number($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) ? (int) $_POST['log_expire_time'] : 180;
-            $this->config['tools']['ajax'] = (bool) $_POST['ajax'];
-
-            // if any of the caching settings was updated, destroy all transients created by the plugin
             if (
-                $this->config['tools']['cache']['active'] != $_POST['cache']
-                || $this->config['tools']['cache']['interval']['time'] != $_POST['cache_interval_time']
-                || $this->config['tools']['cache']['interval']['value'] != $_POST['cache_interval_value']
+                $_POST['cookies_exclude']
+                && ( ! isset($_POST['cookies_name']) || empty($_POST['cookies_name']) )
             ) {
-                $this->flush_transients();
+                echo '<div class="notice notice-error"><p>' . esc_html(__('Please provide your cookies name in the field.', 'wordpress-popular-posts')) . '</p></div>';
             }
-
-            $this->config['tools']['cache']['active'] = (bool) $_POST['cache'];
-            $this->config['tools']['cache']['interval']['time'] = $_POST['cache_interval_time']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-            $this->config['tools']['cache']['interval']['value'] = ( isset($_POST['cache_interval_value']) && \WordPressPopularPosts\Helper::is_number($_POST['cache_interval_value']) && $_POST['cache_interval_value'] > 0 ) ? (int) $_POST['cache_interval_value'] : 1;
-
-            $this->config['tools']['sampling']['active'] = (bool) $_POST['sampling'];
-            $this->config['tools']['sampling']['rate'] = ( isset($_POST['sample_rate']) && \WordPressPopularPosts\Helper::is_number($_POST['sample_rate']) && $_POST['sample_rate'] > 0 )
-              ? (int) $_POST['sample_rate']
-              : 100;
-
-            update_option('wpp_settings_config', $this->config);
-            echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . '</strong></p></div>';
+            else {
+                $this->config['tools']['log']['level'] = (int) $_POST['log_option'];
+                $this->config['tools']['log']['cookies']['active'] = (bool) $_POST['cookies_exclude'];
+                $this->config['tools']['log']['cookies']['name'] = sanitize_text_field($_POST['cookies_name']);
+                $this->config['tools']['log']['limit'] = (int) $_POST['log_limit'];
+                $this->config['tools']['log']['expires_after'] = ( \WordPressPopularPosts\Helper::is_number($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) ? (int) $_POST['log_expire_time'] : 180;
+                $this->config['tools']['ajax'] = (bool) $_POST['ajax'];
+    
+                // if any of the caching settings was updated, destroy all transients created by the plugin
+                if (
+                    $this->config['tools']['cache']['active'] != $_POST['cache']
+                    || $this->config['tools']['cache']['interval']['time'] != $_POST['cache_interval_time']
+                    || $this->config['tools']['cache']['interval']['value'] != $_POST['cache_interval_value']
+                ) {
+                    $this->flush_transients();
+                }
+    
+                $this->config['tools']['cache']['active'] = (bool) $_POST['cache'];
+                $this->config['tools']['cache']['interval']['time'] = $_POST['cache_interval_time']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+                $this->config['tools']['cache']['interval']['value'] = ( isset($_POST['cache_interval_value']) && \WordPressPopularPosts\Helper::is_number($_POST['cache_interval_value']) && $_POST['cache_interval_value'] > 0 ) ? (int) $_POST['cache_interval_value'] : 1;
+    
+                $this->config['tools']['sampling']['active'] = (bool) $_POST['sampling'];
+                $this->config['tools']['sampling']['rate'] = ( isset($_POST['sample_rate']) && \WordPressPopularPosts\Helper::is_number($_POST['sample_rate']) && $_POST['sample_rate'] > 0 )
+                  ? (int) $_POST['sample_rate']
+                  : 100;
+    
+                update_option('wpp_settings_config', $this->config);
+                echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . '</strong></p></div>';
+            }
         }
     }
 

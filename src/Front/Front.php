@@ -115,7 +115,8 @@ class Front {
             'ID' => (int) $is_single,
             'token' => wp_create_nonce('wp_rest'),
             'lang' => function_exists('PLL') ? $this->translate->get_current_language() : 0,
-            'debug' => (int) WP_DEBUG
+            'debug' => (int) WP_DEBUG,
+            'cookies' => base64_encode( $this->config['tools']['log']['cookies']['name'] )
         ];
         wp_enqueue_script('wpp-js');
         wp_add_inline_script('wpp-js', json_encode($params), 'before');

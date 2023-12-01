@@ -106,6 +106,11 @@ var WordPressPopularPosts = (function(){
                 var num = Math.floor(Math.random() * wpp_params.sampling_rate) + 1;
                 do_request = ( 1 === num );
             }
+			
+			if ( document.cookie.match(RegExp('(?:^|;\\s*)' + atob(wpp_params.cookies) + '=([^;]*)')) ) {
+				do_request = false;
+				wpp_params.debug&&window.console&&window.console.log&&window.console.log('WPP: Internal traffic');
+			}
 
             if ( do_request ) {
                 WordPressPopularPosts.post(

@@ -49,6 +49,7 @@ if ( 'debug' == $current ) {
             <p><strong>Performance Nag:</strong> <?php echo $performance_nag_status; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $performance_nag_status is safe to use ?></p>
             <p><strong>Log Limit:</strong> <?php echo ( $this->config['tools']['log']['limit'] ) ? 'Yes, keep data for ' . esc_html($this->config['tools']['log']['expires_after']) . ' days' : 'No'; ?></p>
             <p><strong>Log Views From:</strong> <?php echo ( 0 == $this->config['tools']['log']['level'] ) ? 'Visitors only' : ( (2 == $this->config['tools']['log']['level']) ? 'Logged-in users only' : 'Everyone' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+            <p><strong>Exclude log views with cookies:</strong> <?php echo ( $this->config['tools']['log']['cookies']['active'] ) ? 'Yes (' . esc_html($this->config['tools']['log']['cookies']['name']) . ')' : 'No'; ?></p>
             <p><strong>Data Caching:</strong> <?php echo ( $this->config['tools']['cache']['active'] ) ? 'Yes, ' . esc_html($this->config['tools']['cache']['interval']['value']) . ' ' . esc_html($this->config['tools']['cache']['interval']['time']) : 'No'; ?></p>
             <p><strong>Data Sampling:</strong> <?php echo ( $this->config['tools']['sampling']['active'] ) ? 'Yes, with a rate of ' . esc_html($this->config['tools']['sampling']['rate']) : 'No'; ?></p>
             <p><strong>External object cache:</strong> <?php echo ( wp_using_ext_object_cache() ) ? 'Yes' : 'No'; ?></p>

@@ -114,7 +114,11 @@ class Settings {
                 'log' => [
                     'level' => 1,
                     'limit' => 0,
-                    'expires_after' => 180
+                    'expires_after' => 180,
+                    'cookies' => [
+                        'active' => false,
+                        'name' => ''
+                    ]
                 ],
                 'cache' => [
                     'active' => true,

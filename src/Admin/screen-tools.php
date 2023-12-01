@@ -139,6 +139,21 @@ if ( 'tools' == $current ) {
                                 </td>
                             </tr>
                             <tr valign="top">
+                                <th scope="row"><label for="cookies_exclude"><?php esc_html_e('Exclude log views with cookies', 'wordpress-popular-posts'); ?>:</label></th>
+                                <td>
+                                    <select name="cookies_exclude" id="cookies_exclude">
+                                        <option <?php if ( ! $this->config['tools']['log']['cookies']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('No', 'wordpress-popular-posts'); ?></option>
+                                        <option <?php if ( $this->config['tools']['log']['cookies']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Yes', 'wordpress-popular-posts'); ?></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr valign="top" <?php if ( ! $this->config['tools']['log']['cookies']['active'] ) { ?>style="display: none;"<?php } ?> id="row_cookies_exclude">
+                                <th scope="row"><label for="cookies_name"><?php esc_html_e('Cookies field name', 'wordpress-popular-posts'); ?>:</label></th>
+                                <td>
+                                    <input type="text" id="cookies_name" name="cookies_name" value="<?php echo esc_attr($this->config['tools']['log']['cookies']['name']); ?>" size="15" <?php if ( ! $this->config['tools']['log']['cookies']['active'] ) { ?>style="display: none;"<?php } ?> />
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><label for="ajax"><?php esc_html_e('Load popular posts list via AJAX', 'wordpress-popular-posts'); ?>:</label></th>
                                 <td>
                                     <select name="ajax" id="ajax">
