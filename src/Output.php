@@ -679,7 +679,7 @@ class Output {
                     __('%s ago', 'wordpress-popular-posts'),
                     human_time_diff(
                         strtotime($post_object->date),
-                        current_time('timestamp')
+                        Helper::timestamp()
                     )
                 );
             } else {

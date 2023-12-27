@@ -125,7 +125,7 @@ class Helper {
      */
     public static function curdate()
     {
-        return current_time('Y-m-d', false);
+        return current_datetime()->format('Y-m-d');
     }
 
     /**
@@ -137,7 +137,7 @@ class Helper {
      */
     public static function now()
     {
-        return current_time('mysql');
+        return current_datetime()->format('Y-m-d H:i:s');
     }
 
     /**
@@ -148,8 +148,7 @@ class Helper {
      */
     public static function timestamp()
     {
-        // current_datetime() is WP 5.3+
-        return ( function_exists('current_datetime') ) ? current_datetime()->getTimestamp() : current_time('timestamp');
+        return current_datetime()->getTimestamp();
     }
 
     /**
