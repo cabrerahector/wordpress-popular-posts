@@ -109,8 +109,8 @@ var WordPressPopularPosts = (function(){
 
             if ( do_request ) {
                 WordPressPopularPosts.post(
-                    wpp_params.ajax_url,
-                    "_wpnonce=" + wpp_params.token + "&wpp_id=" + wpp_params.ID + "&sampling=" + wpp_params.sampling_active + "&sampling_rate=" + wpp_params.sampling_rate,
+                    wpp_params.api_url + '/v2/views/' + wpp_params.ID,
+                    "_wpnonce=" + wpp_params.token + "&sampling=" + wpp_params.sampling_active + "&sampling_rate=" + wpp_params.sampling_rate,
                     function( response ) {
                         wpp_params.debug&&window.console&&window.console.log&&window.console.log(JSON.parse(response));
                     }
