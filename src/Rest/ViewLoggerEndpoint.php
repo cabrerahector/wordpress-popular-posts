@@ -67,8 +67,6 @@ class ViewLoggerEndpoint extends Endpoint {
 
         $views_count_shortcode .= ']';
 
-        error_log($views_count_shortcode);
-
         $response['text'] = do_shortcode($views_count_shortcode);
 
         return new \WP_REST_Response( $response, 200 );
