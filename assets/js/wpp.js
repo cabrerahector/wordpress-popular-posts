@@ -1,24 +1,23 @@
 const wpp_params = document.currentScript.dataset;
-var WordPressPopularPosts = (function(){
+const WordPressPopularPosts = (function() {
 
     "use strict";
 
-    var noop = function(){};
-    var supportsShadowDOMV1 = !! HTMLElement.prototype.attachShadow;
+    const noop = function(){};
 
-    var get = function( url, params, callback, additional_headers ){
+    const get = function( url, params, callback, additional_headers ){
         callback = ( 'function' === typeof callback ) ? callback : noop;
         ajax( "GET", url, params, callback, additional_headers );
     };
 
-    var post = function( url, params, callback, additional_headers ){
+    const post = function( url, params, callback, additional_headers ){
         callback = ( 'function' === typeof callback ) ? callback : noop;
         ajax( "POST", url, params, callback, additional_headers );
     };
 
-    var ajax = function( method, url, params, callback, additional_headers ){
+    const ajax = function( method, url, params, callback, additional_headers ){
         /* Create XMLHttpRequest object and set variables */
-        var xhr = new XMLHttpRequest(),
+        let xhr = new XMLHttpRequest(),
             target = url,
             args = params,
             valid_methods = ["GET", "POST"],
@@ -59,29 +58,27 @@ var WordPressPopularPosts = (function(){
         xhr.send( ( 'POST' == method ? args : null ) );
     };
 
-    var theme = function(wpp_list) {
-        if ( supportsShadowDOMV1 ) {
-            let base_styles = document.createElement('style'),
-                dummy_list = document.createElement('ul');
+    const theme = function(wpp_list) {
+        let base_styles = document.createElement('style'),
+            dummy_list = document.createElement('ul');
 
-            dummy_list.innerHTML = '<li><a href="#"></a></li>';
-            wpp_list.parentNode.appendChild(dummy_list);
+        dummy_list.innerHTML = '<li><a href="#"></a></li>';
+        wpp_list.parentNode.appendChild(dummy_list);
 
-            let dummy_list_item_styles = getComputedStyle(dummy_list.querySelector('li')),
-                dummy_link_item_styles = getComputedStyle(dummy_list.querySelector('li a'));
+        let dummy_list_item_styles = getComputedStyle(dummy_list.querySelector('li')),
+            dummy_link_item_styles = getComputedStyle(dummy_list.querySelector('li a'));
 
-            base_styles.innerHTML = '.wpp-list li {font-size: '+ dummy_list_item_styles.fontSize +'}';
-            base_styles.innerHTML += '.wpp-list li a {color: '+ dummy_link_item_styles.color +'}';
+        base_styles.innerHTML = '.wpp-list li {font-size: '+ dummy_list_item_styles.fontSize +'}';
+        base_styles.innerHTML += '.wpp-list li a {color: '+ dummy_link_item_styles.color +'}';
 
-            wpp_list.parentNode.removeChild(dummy_list);
+        wpp_list.parentNode.removeChild(dummy_list);
 
-            let wpp_list_sr = wpp_list.attachShadow({mode: "open"});
+        let wpp_list_sr = wpp_list.attachShadow({mode: "open"});
 
-            wpp_list_sr.append(base_styles);
+        wpp_list_sr.append(base_styles);
 
-            while(wpp_list.firstElementChild) {
-                wpp_list_sr.append(wpp_list.firstElementChild);
-            }
+        while(wpp_list.firstElementChild) {
+            wpp_list_sr.append(wpp_list.firstElementChild);
         }
     };
 
@@ -96,11 +93,11 @@ var WordPressPopularPosts = (function(){
 
 (function(){
     const post_id = Number(wpp_params.postId);
-    var do_request = true;
+    let do_request = true;
 
     if ( post_id ) {
         if ( '1' == wpp_params.sampling ) {
-            var num = Math.floor(Math.random() * wpp_params.samplingRate) + 1;
+            let num = Math.floor(Math.random() * wpp_params.samplingRate) + 1;
             do_request = ( 1 === num );
         }
 
@@ -117,18 +114,18 @@ var WordPressPopularPosts = (function(){
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
-    var widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder, .wpp-widget-block-placeholder, .wpp-shortcode-placeholder'),
-        w = 0;
+    const widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder, .wpp-widget-block-placeholder, .wpp-shortcode-placeholder');
+    let w = 0;
 
     while ( w < widget_placeholders.length ) {
         fetchWidget(widget_placeholders[w]);
         w++;
     }
 
-    var sr = document.querySelectorAll('.popular-posts-sr');
+    const sr = document.querySelectorAll('.popular-posts-sr');
 
     if ( sr.length ) {
-        for( var s = 0; s < sr.length; s++ ) {
+        for( let s = 0; s < sr.length; s++ ) {
             WordPressPopularPosts.theme(sr[s]);
         }
     }
