@@ -53,7 +53,7 @@ class Front {
     {
         add_action('wp_head', [$this, 'inline_loading_css']);
         add_action('wp_head', [$this, 'enqueue_scripts'], 1);
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_styles']);
     }
 
     /**
