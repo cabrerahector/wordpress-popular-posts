@@ -37,6 +37,7 @@ class WidgetEndpoint extends Endpoint {
      */
     public function register()
     {
+        /** @TODO: Remove V1 endpoint after deleting all code related to the classic widget */
         $version = '1';
         $namespace = 'wordpress-popular-posts/v' . $version;
 
@@ -102,28 +103,6 @@ class WidgetEndpoint extends Endpoint {
         // Valid instance
         if ( $widget && isset($widget[$instance_id]) ) {
 
-            $instance = $widget[$instance_id];
-
-            // Expose widget ID for customization
-            if ( ! isset($instance['widget_id']) ) {
-                $instance['widget_id'] = 'wpp-' . $instance_id;
-            }
-
-            // Multilang support
-            $this->set_lang($lang);
-
-            $popular_posts = $this->maybe_query($instance);
-
-            if ( is_numeric($is_single) && $is_single > 0 ) {
-                add_filter('wpp_is_single', function($id) use ($is_single) {
-                    return $is_single;
-                });
-            }
-
-            $this->output->set_data($popular_posts->get_posts());
-            $this->output->set_public_options($instance);
-            $this->output->build_output();
-
             $notice = '';
 
             if ( is_user_logged_in() && current_user_can('manage_options') ) {
@@ -143,15 +122,15 @@ class WidgetEndpoint extends Endpoint {
                         }
                 </style>
                 <div class="wpp-notice">
-                    <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget is going away!</p>
-                    <p>This widget has been deprecated and will be removed in version 7.0 to be released sometime around June 2024. Please use either the WordPress Popular Posts block or the wpp shortcode instead.</p>
+                    <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget has been removed.</p>
+                    <p>This widget has been removed as of version 7.0. Please use either the WordPress Popular Posts block or the wpp shortcode instead.</p>
                 </div>
                 <?php
                 $notice = ob_get_clean() . "\n";
             }
 
             return [
-                'widget' => ( $this->config['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $notice . $this->output->get_output()
+                'widget' => ( $this->config['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $notice
             ];
         }
 
