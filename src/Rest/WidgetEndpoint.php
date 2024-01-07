@@ -144,7 +144,7 @@ class WidgetEndpoint extends Endpoint {
                 </style>
                 <div class="wpp-notice">
                     <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget is going away!</p>
-                    <p>This widget has been deprecated and will be removed in WordPress Popular Posts 7.0. Please use either the WordPress Popular Posts block or the wpp shortcode instead.</p>
+                    <p>This widget has been deprecated and will be removed in version 7.0 to be released sometime around June 2024. Please use either the WordPress Popular Posts block or the wpp shortcode instead.</p>
                 </div>
                 <?php
                 $notice = ob_get_clean() . "\n";
