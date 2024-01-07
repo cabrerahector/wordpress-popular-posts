@@ -52,8 +52,8 @@ class Front {
     public function hooks()
     {
         add_action('wp_head', [$this, 'inline_loading_css']);
+        add_action('wp_head', [$this, 'enqueue_scripts'], 1);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
-        add_filter('script_loader_tag', [$this, 'convert_inline_js_into_json'], 10, 3);
     }
 
     /**
@@ -73,13 +73,12 @@ class Front {
     }
 
     /**
-     * Enqueues public facing assets.
+     * Enqueues public facing styles.
      *
      * @since   5.0.0
      */
-    public function enqueue_assets()
+    public function enqueue_styles()
     {
-        // Enqueue WPP's stylesheet.
         if ( $this->config['tools']['css'] ) {
             $theme_file = get_stylesheet_directory() . '/wpp.css';
 
@@ -90,8 +89,15 @@ class Front {
                 wp_enqueue_style('wordpress-popular-posts-css', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/wpp.css', [], WPP_VERSION, 'all');
             }
         }
+    }
 
-        // Enqueue WPP's library.
+    /**
+     * Enqueues public facing scripts.
+     *
+     * @since   7.0.0
+     */
+    public function enqueue_scripts()
+    {
         $is_single = 0;
 
         if (
@@ -102,76 +108,21 @@ class Front {
             $is_single = Helper::is_single();
         }
 
-        $wpp_js = ( defined('WP_DEBUG') && WP_DEBUG )
-            ? plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp.js'
-            : plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp.min.js';
+        $wpp_js_url = plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp.' . (! defined('WP_DEBUG') || false === WP_DEBUG ? 'min.' : '') . 'js';
 
-        wp_register_script('wpp-js', $wpp_js, [], WPP_VERSION, false);
-        $params = [
-            'sampling_active' => (int) $this->config['tools']['sampling']['active'],
-            'sampling_rate' => (int) $this->config['tools']['sampling']['rate'],
-            'ajax_url' => esc_url_raw(rest_url('wordpress-popular-posts/v1/popular-posts')),
-            'api_url' => esc_url_raw(rest_url('wordpress-popular-posts')),
-            'ID' => (int) $is_single,
-            'token' => wp_create_nonce('wp_rest'),
-            'lang' => function_exists('PLL') ? $this->translate->get_current_language() : 0,
-            'debug' => (int) WP_DEBUG
-        ];
-        wp_enqueue_script('wpp-js');
-        wp_add_inline_script('wpp-js', json_encode($params), 'before');
-    }
-
-    /**
-     * Converts inline script tag into type=application/json.
-     *
-     * This function mods the original script tag as printed
-     * by WordPress which contains the data for the wpp_params
-     * object into a JSON script. This improves compatibility
-     * with Content Security Policy (CSP).
-     *
-     * @since   5.2.0
-     * @param   string  $tag
-     * @param   string  $handle
-     * @param   string  $src
-     * @return  string  $tag
-     */
-    public function convert_inline_js_into_json(string $tag, string $handle, string $src)
-    {
-        if ( 'wpp-js' === $handle ) {
-            // id attribute found, replace it
-            if ( false !== strpos($tag, 'wpp-js-js-before') ) {
-                $tag = str_replace('wpp-js-js-before', 'wpp-json', $tag);
-            } // id attribute missing, let's add it
-            else {
-                $pos = strpos($tag, '>');
-                $tag = substr_replace($tag, ' id="wpp-json">', $pos, 1);
-            }
-
-            // type attribute found, replace it
-            if ( false !== strpos($tag, 'type') ) {
-                $pos = strpos($tag, 'text/javascript');
-
-                if ( false !== $pos ) {
-                    $tag = substr_replace($tag, 'application/json', $pos, strlen('text/javascript'));
-                }
-            } // type attribute missing, let's add it
-            else {
-                $pos = strpos($tag, '>');
-                $tag = substr_replace($tag, ' type="application/json">', $pos, 1);
-            }
-
-            /**
-             * Remove CDATA block added automatically by WordPress 6.4
-             * to themes that don't support HTML5 script tags.
-             */
-            $is_html5 = current_theme_supports('html5', 'script');
-
-            if ( ! $is_html5 ) {
-                $tag = str_replace('/* <![CDATA[ */', '', $tag);
-                $tag = str_replace('/* ]]> */', '', $tag);
-            }
-        }
-
-        return $tag;
+        wp_print_script_tag(
+            [
+                'id' => 'wpp-js',
+                'src' => $wpp_js_url,
+                'async' => true,
+                'data-sampling' => (int) $this->config['tools']['sampling']['active'],
+                'data-sampling-rate' => (int) $this->config['tools']['sampling']['rate'],
+                'data-api-url' => esc_url_raw(rest_url('wordpress-popular-posts')),
+                'data-post-id' => (int) $is_single,
+                'data-token' => wp_create_nonce('wp_rest'),
+                'data-lang' => function_exists('PLL') ? $this->translate->get_current_language() : 0,
+                'data-debug' => (int) WP_DEBUG
+            ]
+        );
     }
 }

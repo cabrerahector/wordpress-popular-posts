@@ -1,4 +1,4 @@
-var wpp_params = null;
+const wpp_params = document.currentScript.dataset;
 var WordPressPopularPosts = (function(){
 
     "use strict";
@@ -95,30 +95,24 @@ var WordPressPopularPosts = (function(){
 })();
 
 (function(){
-    try {
-        var wpp_json = document.querySelector("script#wpp-json"),
-            do_request = true;
+    const post_id = Number(wpp_params.postId);
+    var do_request = true;
 
-        wpp_params = JSON.parse(wpp_json.textContent);
-
-        if ( wpp_params.ID ) {
-            if ( '1' == wpp_params.sampling_active ) {
-                var num = Math.floor(Math.random() * wpp_params.sampling_rate) + 1;
-                do_request = ( 1 === num );
-            }
-
-            if ( do_request ) {
-                WordPressPopularPosts.post(
-                    wpp_params.api_url + '/v2/views/' + wpp_params.ID,
-                    "_wpnonce=" + wpp_params.token + "&sampling=" + wpp_params.sampling_active + "&sampling_rate=" + wpp_params.sampling_rate,
-                    function( response ) {
-                        wpp_params.debug&&window.console&&window.console.log&&window.console.log(JSON.parse(response));
-                    }
-                );
-            }
+    if ( post_id ) {
+        if ( '1' == wpp_params.sampling ) {
+            var num = Math.floor(Math.random() * wpp_params.samplingRate) + 1;
+            do_request = ( 1 === num );
         }
-    } catch (err) {
-        console.error("WPP: Couldn't read JSON data");
+
+        if ( do_request ) {
+            WordPressPopularPosts.post(
+                wpp_params.apiUrl + '/v2/views/' + post_id,
+                "_wpnonce=" + wpp_params.token + "&sampling=" + wpp_params.sampling + "&sampling_rate=" + wpp_params.samplingRate,
+                function( response ) {
+                    wpp_params.debug&&window.console&&window.console.log&&window.console.log(JSON.parse(response));
+                }
+            );
+        }
     }
 })();
 
@@ -149,11 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
             params = '';
 
         if ( widget_id_attr ) {
-            url = wpp_params.ajax_url + '/widget/' + widget_id_attr.split('-')[1];
-            params = 'is_single=' + wpp_params.ID + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
+            url = wpp_params.apiUrl + '/v1/popular-posts/widget/' + widget_id_attr.split('-')[1];
+            params = 'is_single=' + wpp_params.postId + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
         } else {
             method = 'POST';
-            url = wpp_params.api_url + '/v2/widget?is_single=' + wpp_params.ID + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
+            url = wpp_params.apiUrl + '/v2/widget?is_single=' + wpp_params.postId + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
             headers['Content-Type'] = 'application/json';
 
             let json_tag = widget_placeholder.parentNode.querySelector('script[type="application/json"]');
