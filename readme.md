@@ -113,7 +113,7 @@ When submitting an issue, please make sure to include the following:
 
 [GNU General Public License version 2 or later](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Copyright (C) 2008-2023  Héctor Cabrera - https://cabrerahector.com
+Copyright (C) 2008-2024  Héctor Cabrera - https://cabrerahector.com
 
 The WordPress Popular Posts plugin is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
