@@ -92,6 +92,11 @@ const WordPressPopularPosts = (function() {
 })();
 
 (function(){
+    if ( ! Object.keys(wpp_params).length ) {
+        console.error('WPP params not found, if you are using a JS minifier tool please add wpp.min.js to its exclusion list');
+        return;
+    }
+
     const post_id = Number(wpp_params.postId);
     let do_request = true;
 
@@ -114,6 +119,10 @@ const WordPressPopularPosts = (function() {
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
+    if ( ! Object.keys(wpp_params).length ) {
+        return;
+    }
+
     const widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder, .wpp-widget-block-placeholder, .wpp-shortcode-placeholder');
     let w = 0;
 
