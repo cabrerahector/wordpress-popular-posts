@@ -50,7 +50,7 @@ class ViewsCount extends Shortcode {
 
                 if (
                     'all' === $attributes['range']
-                    || ! in_array($valid_time_ranges, $attributes['range'])
+                    || ! in_array($attributes['range'], $valid_time_ranges)
                 ) {
                     $views = wpp_get_views($attributes['post_id'], 'all', false);
                 } elseif ( 'custom' !== $attributes['range'] ) {
