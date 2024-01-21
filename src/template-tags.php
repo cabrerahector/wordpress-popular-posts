@@ -10,10 +10,10 @@
  * @since   2.0.3
  * @param   int             $id             The Post ID.
  * @param   string|array    $range          Either an string (eg. 'last7days') or -since 5.3- an array (eg. ['range' => 'custom', 'time_unit' => 'day', 'time_quantity' => 7])
- * @param   bool            $number_format  Whether to format the number (eg. 9,999) or not (eg. 9999)
+ * @param   bool|string     $number_format  Whether to format the number (eg. 9,999) or not (eg. 9999)
  * @return  string
  */
-function wpp_get_views(int $id = null, $range = null, bool $number_format = true) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range */
+function wpp_get_views(int $id = null, $range = null, $number_format = true) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range, $number_format as mixed or bool|string */
 {
     // have we got an id?
     if ( empty($id) || is_null($id) || ! is_numeric($id) ) {
@@ -149,7 +149,17 @@ function wpp_get_views(int $id = null, $range = null, bool $number_format = true
         return 0;
     }
 
-    return $number_format ? number_format_i18n(intval($results)) : $results;
+    if ( $number_format ) {
+        $results = intval($results);
+
+        if ( 'prettify' === $number_format ) {
+            return \WordPressPopularPosts\Helper::prettify_number($results);
+        }
+
+        return number_format_i18n($results);
+    }
+
+    return $results;
 }
 
 /**
