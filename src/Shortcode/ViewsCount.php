@@ -1,6 +1,7 @@
 <?php
 namespace WordPressPopularPosts\Shortcode;
 
+use WordPressPopularPosts\Helper;
 use WordPressPopularPosts\Shortcode\Shortcode;
 
 class ViewsCount extends Shortcode {
@@ -67,15 +68,20 @@ class ViewsCount extends Shortcode {
                 }
 
                 $views = (int) $views;
+                $views_string = $views;
+
+                if ( $views && $attributes['number_format'] ) {
+                    $views_string = ( 'prettify' === $attributes['number_format'] ) ? Helper::prettify_number($views) : number_format_i18n($views);
+                }
 
                 if ( $attributes['include_views_text'] ) {
                     return sprintf(
                         _n('%s view', '%s views', $views, 'wordpress-popular-posts'),
-                        $attributes['number_format'] ? number_format_i18n($views) : $views
+                        $views_string
                     );
                 }
 
-                return $attributes['number_format'] ? number_format_i18n($views) : $views;
+                return $views_string;
             }
         }
 
