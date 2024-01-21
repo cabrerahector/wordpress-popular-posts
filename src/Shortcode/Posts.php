@@ -116,7 +116,8 @@ class Posts extends Shortcode {
             'header_start' => '<h2>',
             'header_end' => '</h2>',
             'post_html' => '',
-            'theme' => ''
+            'theme' => '',
+            'ajaxify' => true
         ], $attributes, 'wpp'));
 
         // possible values for "Time Range" and "Order by"
@@ -220,7 +221,13 @@ class Posts extends Shortcode {
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;
 
-        if ( $this->config['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
+        $load_via_ajax = $this->config['tools']['ajax'];
+
+        if ( isset($attributes['ajax']) && is_numeric($attributes['ajax']) ) {
+            $load_via_ajax = (bool) absint($attributes['ajax']);
+        }
+
+        if ( $load_via_ajax && ! is_customize_preview() && ! $isAdmin ) {
             $shortcode_content .= '<div class="wpp-shortcode">';
             $shortcode_content .= '<script type="application/json">' . wp_json_encode($shortcode_ops) . '</script>';
             $shortcode_content .= '<div class="wpp-shortcode-placeholder"></div>';
