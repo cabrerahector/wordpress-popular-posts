@@ -81,7 +81,11 @@ That's it!
 
 ## Usage
 
-WPP can be used as a [WordPress Widget](https://wordpress.org/support/article/wordpress-widgets/), which means you can place it on any of your theme's sidebars (and it even supports multiple instances!) However, you can also embed it directly in posts / pages by using the [WordPress Popular Posts block](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wordpress-popular-posts-block) or via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode); or anywhere on your theme using the [`wpp_get_mostpopular()`](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular) template tag.
+WordPress Popular Posts can be used in three different ways:
+
+1. If you're using the [Block Editor](https://wordpress.org/support/article/wordpress-editor/) you can insert a WordPress Popular Posts block on your sidear and even anywhere within your posts and pages.
+2. As a template tag: you can place it anywhere on your theme with [`wpp_get_mostpopular()`](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular).
+3. Via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages), so you can embed it inside a post or a page.
 
 ... and there's even more on the **[Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki)** section, so make sure to stop by!
 
