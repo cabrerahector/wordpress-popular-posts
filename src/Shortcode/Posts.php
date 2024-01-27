@@ -117,7 +117,7 @@ class Posts extends Shortcode {
             'header_end' => '</h2>',
             'post_html' => '',
             'theme' => '',
-            'ajaxify' => true
+            'ajaxify' => 1
         ], $attributes, 'wpp'));
 
         // possible values for "Time Range" and "Order by"
@@ -223,8 +223,8 @@ class Posts extends Shortcode {
 
         $load_via_ajax = $this->config['tools']['ajax'];
 
-        if ( isset($attributes['ajax']) && is_numeric($attributes['ajax']) ) {
-            $load_via_ajax = (bool) absint($attributes['ajax']);
+        if ( isset($attributes['ajaxify']) && is_numeric($attributes['ajaxify']) ) {
+            $load_via_ajax = (bool) absint($attributes['ajaxify']);
         }
 
         if ( $load_via_ajax && ! is_customize_preview() && ! $isAdmin ) {
