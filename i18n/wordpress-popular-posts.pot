@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2023-11-08 19:52-0400\n"
+"POT-Creation-Date: 2024-01-27 17:11-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-KeywordsList: _e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;"
 "esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
 "X-Poedit-Basepath: ..\n"
@@ -457,7 +457,7 @@ msgid "Support"
 msgstr ""
 
 #: src/Admin/Admin.php:758 src/Admin/Admin.php:1158 src/Admin/Admin.php:1162
-#: src/Output.php:868 src/Shortcode/ViewsCount.php:73
+#: src/Output.php:868 src/Shortcode/ViewsCount.php:79
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
@@ -486,7 +486,7 @@ msgid ""
 "come back later!"
 msgstr ""
 
-#: src/Admin/Admin.php:1457
+#: src/Admin/Admin.php:1464
 #, php-format
 msgid ""
 "<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You "
@@ -494,11 +494,11 @@ msgid ""
 "performance stays up to par."
 msgstr ""
 
-#: src/Admin/Admin.php:1463
+#: src/Admin/Admin.php:1470
 msgid "Dismiss"
 msgstr ""
 
-#: src/Admin/Admin.php:1463
+#: src/Admin/Admin.php:1470
 msgid "Remind me later"
 msgstr ""
 
@@ -933,15 +933,15 @@ msgstr ""
 msgid "Include popular posts from author ID(s)."
 msgstr ""
 
-#: src/Rest/ViewLoggerEndpoint.php:240
+#: src/Rest/ViewLoggerEndpoint.php:298
 msgid "The post / page ID."
 msgstr ""
 
-#: src/Rest/ViewLoggerEndpoint.php:247
+#: src/Rest/ViewLoggerEndpoint.php:305
 msgid "Enables Data Sampling."
 msgstr ""
 
-#: src/Rest/ViewLoggerEndpoint.php:254
+#: src/Rest/ViewLoggerEndpoint.php:312
 msgid "Sets the Sampling Rate."
 msgstr ""
 
