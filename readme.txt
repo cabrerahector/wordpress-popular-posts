@@ -102,8 +102,8 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Screenshots ==
 
-1. The WordPress Popular Posts Widget.
-2. The WordPress Popular Posts Widget on theme's sidebar.
+1. The WordPress Popular Posts block.
+2. The WordPress Popular Posts block on theme's sidebar.
 3. Dashboard widget.
 4. Statistics panel.
 
