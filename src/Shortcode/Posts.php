@@ -126,7 +126,7 @@ class Posts extends Shortcode {
         $order_by_values = ['comments', 'views', 'avg'];
 
         $shortcode_ops = [
-            'title' => strip_tags($header),
+            'title' => strip_tags($header), // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- We want the behavior of strip_tags
             'limit' => ( ! empty($limit ) && Helper::is_number($limit) && $limit > 0 ) ? $limit : 10,
             'offset' => ( ! empty($offset) && Helper::is_number($offset) && $offset >= 0 ) ? $offset : 0,
             'range' => ( in_array($range, $range_values) ) ? $range : 'daily',
@@ -219,7 +219,7 @@ class Posts extends Shortcode {
             $shortcode_content = Helper::sanitize_html($shortcode_content, $shortcode_ops);
         }
 
-        $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;
+        $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- isSelected is a boolean from wp-admin
 
         $load_via_ajax = $this->config['tools']['ajax'];
 

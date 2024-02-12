@@ -226,7 +226,7 @@ class Output {
                     $theme_stylesheet = $this->themer->get_theme($this->public_options['theme']['name'])['path'] . '/style.css';
                 }
 
-                $theme_css_rules = wp_strip_all_tags(file_get_contents($theme_stylesheet), true);
+                $theme_css_rules = wp_strip_all_tags(file_get_contents($theme_stylesheet), true); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- We're loading a local file
                 $additional_styles = '';
 
                 if ( has_filter('wpp_additional_theme_styles') ) {

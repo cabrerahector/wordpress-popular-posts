@@ -97,7 +97,7 @@ class Themer {
             && file_exists($theme_path . '/config.json')
             && file_exists($theme_path . '/style.css')
         ) {
-            $str = file_get_contents($theme_path . '/config.json');
+            $str = file_get_contents($theme_path . '/config.json'); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- We're loading a local file
             $json = json_decode($str, true);
 
             if ( $this->is_valid_config($json) ) {
