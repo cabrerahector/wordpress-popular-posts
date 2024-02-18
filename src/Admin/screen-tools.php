@@ -202,7 +202,7 @@ if ( 'tools' == $current ) {
                                 <td>
                                     <input name="sample_rate" type="text" id="sample_rate" value="<?php echo ( isset($this->config['tools']['sampling']['rate']) ) ? (int) $this->config['tools']['sampling']['rate'] : 100; ?>" class="small-text">
                                     <br />
-                                    <p class="description"><?php echo sprintf(__('A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value', 'wordpress-popular-posts'), 100); ?>.</p>
+                                    <p class="description"><?php echo sprintf(esc_html__('A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value.', 'wordpress-popular-posts'), 100); ?></p>
                                 </td>
                             </tr>
                             <tr valign="top">
