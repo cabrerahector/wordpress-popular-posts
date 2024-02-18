@@ -374,7 +374,7 @@ class Widget extends Block
         }
 
         $query_args = [
-            'title' => strip_tags($title),
+            'title' => strip_tags($title), // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- We want the behavior of strip_tags
             'limit' => ( ! empty($limit) && Helper::is_number($limit) && $limit > 0 ) ? $limit : 10,
             'offset' => ( ! empty($offset) && Helper::is_number($offset) && $offset >= 0 ) ? $offset : 0,
             'range' => ( in_array($range, $range_values) ) ? $range : 'daily',
@@ -463,7 +463,7 @@ class Widget extends Block
             $html = Helper::sanitize_html($html, $query_args);
         }
 
-        $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false;
+        $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- isSelected is a boolean from wp-admin
 
         if ( $this->config['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
             $html .= '<script type="application/json">' . json_encode($query_args) . '</script>';

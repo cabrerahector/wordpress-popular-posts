@@ -691,7 +691,7 @@ class Image {
                 }
 
                 // Valid image, save it
-                if ( in_array($image_type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG]) ) {
+                if ( in_array($image_type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_WEBP]) ) {
                     // move file to Uploads
                     if ( @rename($tmp, $full_image_path) ) {
                         // borrowed from WP - set correct file permissions

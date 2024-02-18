@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 6.4.0 ##
+
+**If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
+
+- Fixes a fatal issue caused by the views_count shortcode when providing an invalid time range.
+- The views_count shortcode can now render a "prettified" version of the views count (eg. 6.2k instead of 6,265).
+- The wpp shortcode has now a "toggle" to enable/disable AJAX loading.
+- Adds /views REST API endpoints.
+- Fixes fatal error that can happen when themes define image sizes using the array format for the crop parameter.
+- Fixes fatal error that can happen while the plugin is deleting its own transients.
+- Other minor fixes / improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-4-shortcode-enhancements-new-rest-api-endpoints/)
+
 ## 6.3.4 ##
 
 **If you're using a caching plugin on your website, clearing its cache after installing / updating to this version is highly recommended.**

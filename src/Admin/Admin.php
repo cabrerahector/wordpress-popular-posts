@@ -852,6 +852,7 @@ class Admin {
                 // Check if custom date range has been requested
                 $dates = null;
 
+                // phpcs:disable WordPress.Security.NonceVerification.Recommended -- 'dates' are date strings, and we're validating those below
                 if ( isset($_GET['dates']) ) {
                     $dates = explode(' ~ ', esc_html($_GET['dates']));
 
@@ -873,6 +874,7 @@ class Admin {
                         $end_date = $dates[1] . ' 23:59:59';
                     }
                 }
+                // phpcs:enable
 
                 break;
 

@@ -5,7 +5,7 @@ Tags: popular, posts, widget, popularity, top
 Requires at least: 5.7
 Tested up to: 6.4.1
 Requires PHP: 7.2
-Stable tag: 6.3.4
+Stable tag: 6.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,17 +36,17 @@ WordPress Popular Posts is a highly customizable widget that displays your most 
 * **Localization** - [Translate WPP into your own language](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do).
 * **[WP-PostRatings](https://wordpress.org/plugins/wp-postratings/) support** - Show your visitors how your readers are rating your posts!
 
-= PSA: do not use the classic WordPress Popular Posts widget with the new Widgets screen! =
+= PSA: The classic WordPress Popular Posts widget is going away! =
 
 The classic WordPress Popular Posts widget doesn't work very well / at all with the new Widgets screen introduced with WordPress 5.8.
 
-This new Widgets screen expects WordPress blocks instead of regular WordPress widgets. If you're using the WordPress Popular Posts widget on your block-based Widgets screen please consider replacing it with the [WordPress Popular Posts block](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#block-editor-support) instead - it has the same features as the "classic" widget and will likely end up replacing it entirely in the future.
+This new Widgets screen expects WordPress blocks instead of regular WordPress widgets. If you're using the classic WordPress Popular Posts widget on your block-based Widgets screen please replace it with the [WordPress Popular Posts block](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#block-editor-support) instead - it has the same features and functionality as the "classic" widget so you won't be missing anything at all.
 
 Bjorn from wplearninglab.com was kind enough to create a video explaining how to use the new block for all of you visual learners:
 
 [youtube https://www.youtube.com/watch?v=mtzk6yNEaFs]
 
-If for some reason you prefer using the "classic" WordPress Popular Posts widget with WordPress 5.8 and beyond please install the [Classic Widgets](https://wordpress.org/plugins/classic-widgets/) plugin.
+If you cannot (or do not want to) use WordPress blocks on your website then please replace your classic widget with the [[wpp] shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode).
 
 = Support the Project! =
 
@@ -90,7 +90,7 @@ That's it!
 
 WordPress Popular Posts can be used in three different ways:
 
-1. As a [widget](https://wordpress.org/support/article/wordpress-widgets/): simply drag and drop it into your theme's sidebar and configure it or, if you're using the [Block Editor](https://wordpress.org/support/article/wordpress-editor/), you can also add it to your posts and pages.
+1. If you're using the [Block Editor](https://wordpress.org/support/article/wordpress-editor/) you can insert a WordPress Popular Posts block on your sidebar and even anywhere within your posts and pages.
 2. As a template tag: you can place it anywhere on your theme with [`wpp_get_mostpopular()`](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular).
 3. Via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages), so you can embed it inside a post or a page.
 
@@ -102,12 +102,26 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Screenshots ==
 
-1. The WordPress Popular Posts Widget.
-2. The WordPress Popular Posts Widget on theme's sidebar.
+1. The WordPress Popular Posts block.
+2. The WordPress Popular Posts block on theme's sidebar.
 3. Dashboard widget.
 4. Statistics panel.
 
 == Changelog ==
+
+= 6.4.0 =
+
+**If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
+
+- Fixes a fatal issue caused by the views_count shortcode when providing an invalid time range.
+- The views_count shortcode can now render a "prettified" version of the views count (eg. 6.2k instead of 6,265).
+- The wpp shortcode has now a "toggle" to enable/disable AJAX loading.
+- Adds /views REST API endpoints.
+- Fixes fatal error that can happen when themes define image sizes using the array format for the crop parameter.
+- Fixes fatal error that can happen while the plugin is deleting its own transients.
+- Other minor fixes / improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-4-shortcode-enhancements-new-rest-api-endpoints/)
 
 = 6.3.4 =
 
@@ -214,5 +228,5 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
-= 5.5.1 =
-If you're using a caching plugin flushing its cache after upgrading to this version is highly recommended.
+= 6.4.0 =
+If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.
