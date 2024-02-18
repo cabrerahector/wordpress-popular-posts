@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2024-01-27 17:11-0400\n"
+"POT-Creation-Date: 2024-02-18 10:30-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:1164
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:1166
 #: src/Block/Widget/edit.js:125
 msgid "Edit"
 msgstr ""
@@ -456,7 +456,7 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: src/Admin/Admin.php:758 src/Admin/Admin.php:1158 src/Admin/Admin.php:1162
+#: src/Admin/Admin.php:758 src/Admin/Admin.php:1160 src/Admin/Admin.php:1164
 #: src/Output.php:868 src/Shortcode/ViewsCount.php:79
 #, php-format
 msgid "%s view"
@@ -464,7 +464,7 @@ msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:758 src/Admin/Admin.php:1160 src/Admin/Admin.php:1162
+#: src/Admin/Admin.php:758 src/Admin/Admin.php:1162 src/Admin/Admin.php:1164
 #: src/Output.php:851
 #, php-format
 msgid "%s comment"
@@ -476,17 +476,17 @@ msgstr[1] ""
 msgid "Views"
 msgstr ""
 
-#: src/Admin/Admin.php:1164
+#: src/Admin/Admin.php:1166
 msgid "View"
 msgstr ""
 
-#: src/Admin/Admin.php:1175
+#: src/Admin/Admin.php:1177
 msgid ""
 "Looks like your site's activity is a little low right now. <br />Spread the word and "
 "come back later!"
 msgstr ""
 
-#: src/Admin/Admin.php:1464
+#: src/Admin/Admin.php:1466
 #, php-format
 msgid ""
 "<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You "
@@ -494,11 +494,11 @@ msgid ""
 "performance stays up to par."
 msgstr ""
 
-#: src/Admin/Admin.php:1470
+#: src/Admin/Admin.php:1472
 msgid "Dismiss"
 msgstr ""
 
-#: src/Admin/Admin.php:1470
+#: src/Admin/Admin.php:1472
 msgid "Remind me later"
 msgstr ""
 
@@ -786,7 +786,7 @@ msgstr ""
 #, php-format
 msgid ""
 "A sampling rate of %d is recommended for large / high traffic sites. For lower traffic "
-"sites, you should lower the value"
+"sites, you should lower the value."
 msgstr ""
 
 #: src/Admin/screen-tools.php:223
