@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 6.4.1 ##
+
+- Adds support for webp images.
+- Minor fixes / improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-4-shortcode-enhancements-new-rest-api-endpoints/#6.4.1)
+
 ## 6.4.0 ##
 
 **If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
