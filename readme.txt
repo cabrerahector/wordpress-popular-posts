@@ -5,7 +5,7 @@ Tags: popular, posts, widget, popularity, top
 Requires at least: 5.7
 Tested up to: 6.4.1
 Requires PHP: 7.2
-Stable tag: 6.4.0
+Stable tag: 6.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,13 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+
+= 6.4.1 =
+
+- Adds support for webp images.
+- Minor fixes / improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-4-shortcode-enhancements-new-rest-api-endpoints/#6.4.1)
 
 = 6.4.0 =
 
