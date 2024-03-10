@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 6.4.2 ##
+
+- Fixes default thumbnail resetting to the stock "No Thumbnail" image (props to aalmans!)
+- Fixes filtering by category / taxonomy when using Polylang (props to mlepore and wpfed!)
+- Updates dependencies.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-4-shortcode-enhancements-new-rest-api-endpoints/#6.4.2)
+
 ## 6.4.1 ##
 
 - Adds support for webp images.
