@@ -319,7 +319,7 @@ class Helper {
         $file_name = basename($path);
         $file_name = sanitize_file_name($file_name);
         $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
 
         if ( ! in_array($ext, $allowed_ext) ) {
             return false;
@@ -328,7 +328,7 @@ class Helper {
         // sanitize URL, just in case
         $image_url = esc_url($url);
         // remove querystring
-        preg_match('/[^\?]+\.(jpg|jpeg|gif|png|webp)/i', $image_url, $matches);
+        preg_match('/[^\?]+\.(jpg|jpeg|gif|png|webp|avif)/i', $image_url, $matches);
 
         return ( is_array($matches) && ! empty($matches) ) ? $matches : false;
     }
