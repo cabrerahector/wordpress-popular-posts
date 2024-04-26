@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/cabrerahector/wordpress-popular-posts#readme",
   "devDependencies": {
-    "babel-plugin-transform-class-properties": "^6.24.1",
     "@babel/preset-env": "^7.24.4",
     "@babel/preset-react": "^7.24.1",
     "@wordpress/scripts": "^27.7.0"
