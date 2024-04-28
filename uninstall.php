@@ -22,7 +22,7 @@ if (
     global $wpdb;
 
     $original_blog_id = get_current_blog_id();
-    $blogs_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
+    $blogs_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
     foreach( $blogs_ids as $b_id ) {
         switch_to_blog($b_id);
@@ -73,7 +73,7 @@ function wordpress_popular_posts_uninstall() {
 
     // Delete WPP's DB tables
     $prefix = $wpdb->prefix . 'popularposts';
-    //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+    //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}data;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}datacache;");
     $wpdb->query("DROP TABLE IF EXISTS {$prefix}datacache_backup;");

@@ -3,9 +3,9 @@ Contributors: hcabrera
 Donate link: https://ko-fi.com/cabrerahector
 Tags: popular, posts, widget, popularity, top
 Requires at least: 5.7
-Tested up to: 6.4.1
+Tested up to: 6.4.3
 Requires PHP: 7.2
-Stable tag: 6.4.1
+Stable tag: 6.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,14 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+
+= 6.4.2 =
+
+- Fixes default thumbnail resetting to the stock "No Thumbnail" image (props to aalmans!)
+- Fixes filtering by category / taxonomy when using Polylang (props to mlepore and wpfed!)
+- Updates dependencies.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-6-4-shortcode-enhancements-new-rest-api-endpoints/#6.4.2)
 
 = 6.4.1 =
 

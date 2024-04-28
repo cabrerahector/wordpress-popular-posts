@@ -481,12 +481,14 @@ class Image {
             /** @var wpdb $wpdb */
             global $wpdb;
 
+            //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
             $content = $wpdb->get_var(
                 $wpdb->prepare(
                     "SELECT post_content FROM {$wpdb->posts} WHERE ID = %d;",
                     $id
                 )
             );
+            //phpcs:enable
 
             if ( $content ) {
                 // at least one image has been found
@@ -569,12 +571,14 @@ class Image {
             /** @var wpdb $wpdb */
             global $wpdb;
 
+            //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
             $content = $wpdb->get_var(
                 $wpdb->prepare(
                     "SELECT post_content FROM {$wpdb->posts} WHERE ID = %d;",
                     $id
                 )
             );
+            //phpcs:enable
 
             if ( $content ) {
                 // at least one image has been found
@@ -629,12 +633,12 @@ class Image {
         // Example: /uploads/2013/05/test-image.jpg
         global $wpdb;
 
-        $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1]));
+        $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1])); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
         if ( ! $attachment ) {
             // Maybe it's a resized image, so try to get the full one
             $parse_url[1] = preg_replace('/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $parse_url[1]);
-            $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1]));
+            $attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}posts WHERE guid RLIKE %s;", $parse_url[1])); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
         }
 
         // Returns null if no attachment is found.

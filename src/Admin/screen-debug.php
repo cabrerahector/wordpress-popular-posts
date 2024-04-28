@@ -59,8 +59,8 @@ if ( 'debug' == $current ) {
             <h3>System Info</h3>
             <p><strong>PHP version:</strong> <?php echo phpversion(); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
             <p><strong>PHP extensions:</strong> <?php echo implode(', ', get_loaded_extensions()); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-            <p><strong>Database version:</strong> <?php echo $wpdb->get_var('SELECT VERSION();'); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-            <p><strong>InnoDB availability:</strong> <?php echo $wpdb->get_var("SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB';"); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+            <p><strong>Database version:</strong> <?php echo $wpdb->get_var('SELECT VERSION();'); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching ?></p>
+            <p><strong>InnoDB availability:</strong> <?php echo $wpdb->get_var("SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB';"); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching ?></p>
             <p><strong>WordPress version:</strong> <?php echo $wp_version; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $wp_version is safe to use ?></p>
             <p><strong>Multisite:</strong> <?php echo ( function_exists('is_multisite') && is_multisite() ) ? 'Yes' : 'No'; ?></p>
             <p><strong>Active plugins:</strong> <?php echo implode(', ', $plugin_names); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $plugin_names is safe to use ?></p>
