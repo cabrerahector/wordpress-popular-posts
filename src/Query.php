@@ -251,6 +251,7 @@ class Query {
                                 }
 
                                 if ( ! empty($terms['term_id_exclude']) ) {
+                                    //phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_tax_query
                                     $post_ids = get_posts(
                                         [
                                             'post_type' => $post_types,
@@ -265,6 +266,7 @@ class Query {
                                             'fields' => 'ids'
                                         ]
                                     );
+                                    //phpcs:enable
 
                                     if ( is_array($post_ids) && ! empty($post_ids) ) {
                                         if ( isset($this->options['pid']) && ! empty($this->options['pid']) ) {

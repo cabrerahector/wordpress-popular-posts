@@ -223,7 +223,7 @@ class ViewLoggerEndpoint extends Endpoint {
                 wp_cache_set('_wpp_cache', $wpp_cache, 'transient', 0);
 
                 // Save
-                //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery -- We already prepared $query_data and $query_summary above
+                //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query_data and $query_summary above
                 $result1 = $wpdb->query($query_data);
                 $result2 = $wpdb->query($query_summary);
                 //phpcs:enable

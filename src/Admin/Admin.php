@@ -247,10 +247,10 @@ class Admin {
         // Set table name
         $prefix = $wpdb->prefix . 'popularposts';
 
-        //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange
 
         // Update data table structure and indexes
-        $dataFields = $wpdb->get_results("SHOW FIELDS FROM {$prefix}data;"); //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $prefix is safe to use
+        $dataFields = $wpdb->get_results("SHOW FIELDS FROM {$prefix}data;");
 
         foreach ( $dataFields as $column ) {
             if ( 'day' == $column->Field ) {
@@ -375,12 +375,14 @@ class Admin {
 
         $args[] = Helper::now();
 
+        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $post_type_placeholder is safe to use
         $query = $wpdb->prepare(
             "SELECT SUM(pageviews) AS total 
             FROM `{$wpdb->prefix}popularpostssummary` v LEFT JOIN `{$wpdb->prefix}posts` p ON v.postid = p.ID 
             WHERE p.post_type IN({$post_type_placeholders}) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
             $args
         );
+        //phpcs:enable
 
         $total_views = $wpdb->get_var($query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- $query is built and prepared above
         $total_views = (float) $total_views;
