@@ -92,6 +92,7 @@ class Cache {
         // Store transient keys in WPP's transients table for garbage collection
         global $wpdb;
 
+        //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->insert(
             $wpdb->prefix . 'popularpoststransients',
             [
@@ -100,5 +101,6 @@ class Cache {
             ],
             ['%s', '%s']
         );
+        //phpcs:disable
     }
 }

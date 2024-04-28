@@ -223,8 +223,10 @@ class ViewLoggerEndpoint extends Endpoint {
                 wp_cache_set('_wpp_cache', $wpp_cache, 'transient', 0);
 
                 // Save
-                $result1 = $wpdb->query($query_data); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query_data above
-                $result2 = $wpdb->query($query_summary); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query_summary above
+                //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery -- We already prepared $query_data and $query_summary above
+                $result1 = $wpdb->query($query_data);
+                $result2 = $wpdb->query($query_summary);
+                //phpcs:enable
             }
             else {
                 $result1 = true;
@@ -232,8 +234,8 @@ class ViewLoggerEndpoint extends Endpoint {
             }
         } // Live update to the DB
         else {
+            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery -- $table is safe to use
             // Update all-time table
-            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
             $result1 = $wpdb->query($wpdb->prepare(
                 "INSERT INTO {$table}data
                 (postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
@@ -245,10 +247,8 @@ class ViewLoggerEndpoint extends Endpoint {
                 $views,
                 $now
             ));
-            //phpcs:enable
 
             // Update range (summary) table
-            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table is safe to use
             $result2 = $wpdb->query($wpdb->prepare(
                 "INSERT INTO {$table}summary
                 (postid, pageviews, view_date, view_datetime) VALUES (%d, %d, %s, %s)

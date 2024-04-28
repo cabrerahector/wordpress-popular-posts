@@ -172,12 +172,14 @@ class Admin {
         if ( 3 != $performance_nag['status'] ) { // 0 = inactive, 1 = active, 2 = remind me later, 3 = dismissed
             global $wpdb;
 
+            //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
             $views_count = $wpdb->get_var(
                 $wpdb->prepare(
                     "SELECT IFNULL(SUM(pageviews), 0) AS views FROM {$wpdb->prefix}popularpostssummary WHERE view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
                     Helper::now()
                 )
             );
+            //phpcs:enable
 
             // This site is probably a mid/high traffic one,
             // display performance nag
@@ -245,6 +247,8 @@ class Admin {
         // Set table name
         $prefix = $wpdb->prefix . 'popularposts';
 
+        //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange
+
         // Update data table structure and indexes
         $dataFields = $wpdb->get_results("SHOW FIELDS FROM {$prefix}data;"); //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $prefix is safe to use
 
@@ -302,6 +306,8 @@ class Admin {
         if ( 'InnoDB' != $storage_engine_summary ) {
             $wpdb->query("ALTER TABLE {$prefix}summary ENGINE=InnoDB;");
         }
+
+        //phpcs:enable
 
         // Update WPP version
         update_option('wpp_ver', WPP_VERSION);
@@ -376,7 +382,7 @@ class Admin {
             $args
         );
 
-        $total_views = $wpdb->get_var($query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $query is built and prepared dynamically, see above
+        $total_views = $wpdb->get_var($query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- $query is built and prepared above
         $total_views = (float) $total_views;
 
         $pageviews = sprintf(
@@ -949,7 +955,7 @@ class Admin {
             //error_log($query);
         }
 
-        return $wpdb->get_results($query, OBJECT_K); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- at this point $query has been prepared already
+        return $wpdb->get_results($query, OBJECT_K); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- at this point $query has been prepared already
     }
 
     /**
@@ -1241,7 +1247,7 @@ class Admin {
     {
         global $wpdb;
 
-        $wpp_transients = $wpdb->get_results("SELECT tkey FROM {$wpdb->prefix}popularpoststransients;");
+        $wpp_transients = $wpdb->get_results("SELECT tkey FROM {$wpdb->prefix}popularpoststransients;"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
         if ( $wpp_transients && is_array($wpp_transients) && ! empty($wpp_transients) ) {
             foreach( $wpp_transients as $wpp_transient ) {
@@ -1402,11 +1408,15 @@ class Admin {
     {
         global $wpdb;
 
-        if ( $wpdb->get_var($wpdb->prepare("SELECT postid FROM {$wpdb->prefix}popularpostsdata WHERE postid = %d", $post_ID)) ) {
+        $post_ID_exists = $wpdb->get_var($wpdb->prepare("SELECT postid FROM {$wpdb->prefix}popularpostsdata WHERE postid = %d", $post_ID)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+
+        if ( $post_ID_exists ) {
+            // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
             // Delete from data table
             $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}popularpostsdata WHERE postid = %d;", $post_ID));
             // Delete from summary table
             $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}popularpostssummary WHERE postid = %d;", $post_ID));
+            // phpcs:enable
         }
 
         // Delete cached thumbnail(s) as well
@@ -1422,6 +1432,7 @@ class Admin {
     public function purge_data()
     {
         global $wpdb;
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$wpdb->prefix}popularpostssummary WHERE view_date < DATE_SUB(%s, INTERVAL %d DAY);",
@@ -1429,6 +1440,7 @@ class Admin {
                 $this->config['tools']['log']['expires_after']
             )
         );
+        //phpcs:enable
     }
 
     /**

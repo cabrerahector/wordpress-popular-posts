@@ -499,7 +499,7 @@ class Query {
         global $wpdb;
 
         if ( isset($wpdb) && ! empty($this->query) && ! is_wp_error($this->query) ) {
-            $this->posts = $wpdb->get_results($this->query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- at this point $this->query has been prepared already
+            $this->posts = $wpdb->get_results($this->query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- at this point $this->query has been prepared already
         }
     }
 
