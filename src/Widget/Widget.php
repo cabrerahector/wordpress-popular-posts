@@ -140,21 +140,24 @@ class Widget extends \WP_Widget {
         );
 
         echo "\n" . $before_widget . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        if ( has_filter('wpp_custom_header_html') ) {
+            echo apply_filters('wpp_custom_header_html', $instance);
+        } else {
+            // Has user set a title?
+            if ( '' != $instance['title'] ) {
+                $title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base);
 
-        // Has user set a title?
-        if ( '' != $instance['title'] ) {
-            $title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base);
-
-            if (
-                $instance['markup']['custom_html']
-                && $instance['markup']['title-start'] != ''
-                && $instance['markup']['title-end'] != ''
-            ) {
-                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
-            } else {
-                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $before_title . $title . $after_title;
+                if (
+                    $instance['markup']['custom_html']
+                    && $instance['markup']['title-start'] != ''
+                    && $instance['markup']['title-end'] != ''
+                ) {
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
+                } else {
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo $before_title . $title . $after_title;
+                }
             }
         }
 

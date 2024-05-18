@@ -208,15 +208,18 @@ class Posts extends Shortcode {
 
         $shortcode_content = '';
         $cached = false;
-
-        // is there a title defined by user?
-        if (
-            ! empty($header)
-            && ! empty($header_start)
-            && ! empty($header_end)
-        ) {
-            $shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . $header . htmlspecialchars_decode($header_end, ENT_QUOTES);
-            $shortcode_content = Helper::sanitize_html($shortcode_content, $shortcode_ops);
+        if ( has_filter('wpp_custom_header_html') ) {
+            $shortcode_content .= apply_filters('wpp_custom_header_html', $shortcode_ops);
+        } else {
+            // is there a title defined by user?
+            if (
+                ! empty($header)
+                && ! empty($header_start)
+                && ! empty($header_end)
+            ) {
+                $shortcode_content .= htmlspecialchars_decode($header_start, ENT_QUOTES) . $header . htmlspecialchars_decode($header_end, ENT_QUOTES);
+                $shortcode_content = Helper::sanitize_html($shortcode_content, $shortcode_ops);
+            }
         }
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- isSelected is a boolean from wp-admin

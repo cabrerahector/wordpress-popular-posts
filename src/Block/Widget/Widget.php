@@ -452,15 +452,18 @@ class Widget extends Block
         if ( empty($ids) ) {
             $query_args['author'] = '';
         }
-
-        // Has user set a title?
-        if (
-            ! empty($query_args['title'])
-            && ! empty($query_args['markup']['title-start'])
-            && ! empty($query_args['markup']['title-end'])
-        ) {
-            $html .= htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
-            $html = Helper::sanitize_html($html, $query_args);
+        if ( has_filter('wpp_custom_header_html') ) {
+            $html .= apply_filters('wpp_custom_header_html', $query_args);
+        } else {
+            // Has user set a title?
+            if (
+                ! empty($query_args['title'])
+                && ! empty($query_args['markup']['title-start'])
+                && ! empty($query_args['markup']['title-end'])
+            ) {
+                $html .= htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
+                $html = Helper::sanitize_html($html, $query_args);
+            }
         }
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- isSelected is a boolean from wp-admin
