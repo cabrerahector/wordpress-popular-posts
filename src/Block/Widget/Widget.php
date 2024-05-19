@@ -452,18 +452,17 @@ class Widget extends Block
         if ( empty($ids) ) {
             $query_args['author'] = '';
         }
-        if ( has_filter('wpp_custom_header_html') ) {
-            $html .= apply_filters('wpp_custom_header_html', $query_args);
-        } else {
-            // Has user set a title?
-            if (
-                ! empty($query_args['title'])
+
+        $isTitle = ! empty($query_args['title'])
                 && ! empty($query_args['markup']['title-start'])
-                && ! empty($query_args['markup']['title-end'])
-            ) {
+                && ! empty($query_args['markup']['title-end']);
+        if ( $isTitle || has_filter('wpp_custom_header_html') ) {
+            if ( has_filter('wpp_custom_header_html') ) {
+                $html .= apply_filters('wpp_custom_header_html', $query_args);
+            } else {
                 $html .= htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
-                $html = Helper::sanitize_html($html, $query_args);
             }
+            $html = Helper::sanitize_html($html, $query_args);
         }
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- isSelected is a boolean from wp-admin

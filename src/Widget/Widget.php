@@ -140,11 +140,13 @@ class Widget extends \WP_Widget {
         );
 
         echo "\n" . $before_widget . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        if ( has_filter('wpp_custom_header_html') ) {
-            echo apply_filters('wpp_custom_header_html', $instance);
-        } else {
+
+        if ( '' != $instance['title'] || has_filter('wpp_custom_header_html') ) {
+            $header_html = '';
             // Has user set a title?
-            if ( '' != $instance['title'] ) {
+            if ( has_filter('wpp_custom_header_html') ) {
+                $header_html = apply_filters('wpp_custom_header_html', $instance);
+            } else {
                 $title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base);
 
                 if (
@@ -153,12 +155,14 @@ class Widget extends \WP_Widget {
                     && $instance['markup']['title-end'] != ''
                 ) {
                     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    echo htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
+                    $header_html = htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
                 } else {
                     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    echo $before_title . $title . $after_title;
+                    $header_html = $before_title . $title . $after_title;
                 }
             }
+            $header_html = Helper::sanitize_html($header_html, $query_args);
+            echo $header_html;
         }
 
         // Expose Widget ID & base for customization
