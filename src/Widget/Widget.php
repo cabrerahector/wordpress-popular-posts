@@ -141,26 +141,21 @@ class Widget extends \WP_Widget {
 
         echo "\n" . $before_widget . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-        if ( '' != $instance['title'] || has_filter('wpp_custom_header_html') ) {
+        if ( '' != $instance['title'] ) {
             $header_html = '';
-            // Has user set a title?
-            if ( has_filter('wpp_custom_header_html') ) {
-                $header_html = apply_filters('wpp_custom_header_html', $instance);
+            $title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base);
+            if (
+                $instance['markup']['custom_html']
+                && $instance['markup']['title-start'] != ''
+                && $instance['markup']['title-end'] != ''
+            ) {
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                $header_html = htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
             } else {
-                $title = apply_filters('widget_title', $instance['title'], $instance, $this->id_base);
-
-                if (
-                    $instance['markup']['custom_html']
-                    && $instance['markup']['title-start'] != ''
-                    && $instance['markup']['title-end'] != ''
-                ) {
-                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    $header_html = htmlspecialchars_decode($instance['markup']['title-start'], ENT_QUOTES) . $title . htmlspecialchars_decode($instance['markup']['title-end'], ENT_QUOTES);
-                } else {
-                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    $header_html = $before_title . $title . $after_title;
-                }
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                $header_html = $before_title . $title . $after_title;
             }
+            $header_html = apply_filters('wpp_custom_header_html', $header_html, $query_args);
             $header_html = Helper::sanitize_html($header_html, $query_args);
             echo $header_html;
         }
