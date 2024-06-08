@@ -1,6 +1,6 @@
 # WordPress Popular Posts
 
-A highly customizable widget that displays your most popular posts.
+A highly customizable plugin that displays your most popular posts.
 
 ----
 ## Table of contents
@@ -18,12 +18,12 @@ A highly customizable widget that displays your most popular posts.
 
 ## Description
 
-WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [widget](https://wordpress.org/plugins/wordpress-popular-posts/) to showcase the most commented / viewed entries on your [WordPress](https://wordpress.org/) powered site.
+WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [plugin](https://wordpress.org/plugins/wordpress-popular-posts/) to showcase the most commented / viewed entries on your [WordPress](https://wordpress.org/) powered site.
 
 
 ## Features
 
-* **Multi-widget capable** - You can have several WordPress Popular Posts widgets on your blog, each with its own settings!
+* **Multiple Popular Posts Lists** - You can have several Popular Posts lists on your blog, each with its own settings!
 * **Time Range** - List those posts of your blog that have been the most popular ones within a specific time range (eg. last 24 hours, last 7 days, last 30 days, etc)!
 * **Custom Post-type support** - Want to show other stuff than just posts and pages, eg. Popular *Products*? [You can](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-have-a-popular-list-of-my-custom-post-type-how-can-i-do-that)!
 * **Thumbnails!** - Display a thumbnail of your posts! (*see the [FAQ section](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-does-wordpress-popular-posts-pick-my-posts-thumbnails) for more details*.)
@@ -69,11 +69,11 @@ Looking for a **Recent Posts** widget just as featured-packed as WordPress Popul
 
 ### Done! What's next? ###
 
-1. Go to Appearance > Widgets, drag and drop the **WordPress Popular Posts** widget to your sidebar. Once you're done configuring it, hit the Save button.
+1. Please see the Usage section below to learn how to add a popular post list to your site. Once you're done, keep reading.
 2. If you have a caching plugin installed on your site, flush its cache now so WPP can start tracking your site.
 3. If you have a plugin that minifies JavaScript (JS) installed on your site please read this FAQ: [Is WordPress Popular Posts compatible with plugins that minify/bundle JavaScript code?](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#is-wordpress-popular-posts-compatible-with-plugins-that-minifybundle-javascript-code)
 4. If you have a security / firewall plugin installed on your site, make sure you [allow WPP access to the REST API](https://wordpress.org/support/topic/wpp-does-not-count-properly/#post-10411163) so it can start tracking your site.
-5. Go to Appearance > Editor. Under "Templates", click on `header.php` and make sure that the `<?php wp_head(); ?>` tag is present (should be right before the closing `</head>` tag).
+5. Go to Appearance > Editor > Theme File Editor. Under "Theme Files", click on "Theme Header" (`header.php`) and make sure that the `<?php wp_head(); ?>` tag is present (it should be somewhere before the closing `</head>` tag).
 6. (Optional but highly recommended) Are you running a medium/high traffic site? If so, it might be a good idea to check [these suggestions](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) to make sure your site's performance stays up to par.
 
 That's it!
@@ -83,7 +83,7 @@ That's it!
 
 WordPress Popular Posts can be used in three different ways:
 
-1. If you're using the [Block Editor](https://wordpress.org/support/article/wordpress-editor/) you can insert a WordPress Popular Posts block on your sidebar and even anywhere within your posts and pages.
+1. If you're using the [Block Editor](https://wordpress.org/support/article/wordpress-editor/) you can insert a WordPress Popular Posts block on your sidebar (eg. via Appearance > Widgets) and even anywhere within your posts and pages.
 2. As a template tag: you can place it anywhere on your theme with [`wpp_get_mostpopular()`](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular).
 3. Via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages), so you can embed it inside a post or a page.
 
