@@ -54,7 +54,7 @@ function wpp_get_views(int $id = null, $range = null, $number_format = true, $ca
 
     $args['range'] = strtolower($args['range']);
 
-    $key = 'wpp_views_' . $id . '_' . md5(json_encode($params));
+    $key = 'wpp_views_' . $id . '_' . md5(json_encode($args));
 
     if ( $cache ) {
         $results = \WordPressPopularPosts\Cache::get($key);
