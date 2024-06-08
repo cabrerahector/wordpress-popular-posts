@@ -36,11 +36,11 @@ WordPress Popular Posts is a highly customizable plugin that displays your most 
 * **Localization** - [Translate WPP into your own language](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do).
 * **[WP-PostRatings](https://wordpress.org/plugins/wp-postratings/) support** - Show your visitors how your readers are rating your posts!
 
-= PSA: The classic WordPress Popular Posts widget is going away! =
+= PSA: The classic WordPress Popular Posts widget has reached End-of-Life =
 
 The classic WordPress Popular Posts widget doesn't work very well / at all with the new Widgets screen introduced with WordPress 5.8.
 
-This new Widgets screen expects WordPress blocks instead of regular WordPress widgets. If you're using the classic WordPress Popular Posts widget on your block-based Widgets screen please replace it with the [WordPress Popular Posts block](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#block-editor-support) instead - it has the same features and functionality as the "classic" widget so you won't be missing anything at all.
+This new Widgets screen expects WordPress blocks instead of regular WordPress widgets. If you're using the classic WordPress Popular Posts widget please replace it with the [WordPress Popular Posts block](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#block-editor-support) instead - it has the same features and functionality as the "classic" widget so you won't be missing anything at all. See the [Migration Guide](https://cabrerahector.com/wordpress/migrating-from-the-classic-popular-posts-widget/) for more details.
 
 Bjorn from wplearninglab.com was kind enough to create a video explaining how to use the new block for all of you visual learners:
 
