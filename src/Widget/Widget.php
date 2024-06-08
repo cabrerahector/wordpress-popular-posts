@@ -136,40 +136,37 @@ class Widget extends \WP_Widget {
 
         echo "\n" . $before_widget . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-        // Get posts
-        if ( $this->config['tools']['ajax'] && ! is_customize_preview() ) {
-            ?>
-            <div class="wpp-widget-placeholder" data-widget-id="<?php echo esc_attr($widget_id); ?>"></div>
-            <?php
-        } else {
-            $notice = '';
+        $notice = '';
 
-            if ( is_user_logged_in() && current_user_can('manage_options') ) {
-                ob_start();
-                ?>
-                <style>
-                    .wpp-notice {
-                        margin: 0 0 22px;
-                        padding: 18px 22px;
-                        background: #fcfcf7;
-                        border: #ffff63 4px solid;
+        if ( is_user_logged_in() && current_user_can('manage_options') ) {
+            ob_start();
+            ?>
+            <style>
+                .wpp-notice {
+                    margin: 0 0 22px;
+                    padding: 18px 22px;
+                    background: #fcfcf7;
+                    border: #ffff63 4px solid;
+                }
+
+                    .wpp-notice p {
+                        color: #000 !important;
                     }
 
-                        .wpp-notice p:nth-child(2n) {
-                            margin: 0;
-                            font-size: 0.85em;
-                        }
-                </style>
-                <div class="wpp-notice">
-                    <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget has been discontinued.</p>
-                    <p>This widget has been discontinued as of version 7.0. Please switch to either the WordPress Popular Posts block or the wpp shortcode.</p>
-                </div>
-                <?php
-                $notice = ob_get_clean() . "\n";
-            }
-
-            echo $notice;
+                    .wpp-notice p:nth-child(2n) {
+                        margin: 0;
+                        font-size: 0.85em;
+                    }
+            </style>
+            <div class="wpp-notice">
+                <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget has been removed.</p>
+                <p>This widget has reached end-of-life as of version 7.0. Please go to <strong>Appearance > Widgets > [Your Sidebar] > WordPress Popular Posts</strong> for instructions on migrating your popular posts list to either the WordPress Popular Posts block or the wpp shortcode.</p>
+            </div>
+            <?php
+            $notice = ob_get_clean() . "\n";
         }
+
+        echo $notice;
 
         echo "\n" . $after_widget . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
