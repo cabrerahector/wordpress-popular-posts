@@ -37,7 +37,7 @@ WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [plug
 * **Polylang & WPML 3.2+ support** - Show the translated version of your popular posts!
 * **WordPress Multisite support** - Each site on the network can have its own popular posts list!
 * **Shortcode support** - Use the [wpp] shortcode to showcase your most popular posts on pages, too! For usage and instructions, please refer to the [Usage section](https://github.com/cabrerahector/wordpress-popular-posts/#usage).
-* **Template tags** - Don't feel like using widgets? No problem! You can still embed your most popular entries on your theme using the `wpp_get_mostpopular()` template tag. Additionally, the `wpp_get_views()` template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [Usage section](https://github.com/cabrerahector/wordpress-popular-posts/#usage).
+* **Template tags** - Don't feel like using blocks? No problem! You can still embed your most popular entries on your theme using the `wpp_get_mostpopular()` template tag. Additionally, the `wpp_get_views()` template tag allows you to retrieve the views count for a particular post. For usage and instructions, please refer to the [Usage section](https://github.com/cabrerahector/wordpress-popular-posts/#usage).
 * **Localization** - [Translate WPP into your own language](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do).
 * **[WP-PostRatings](https://wordpress.org/plugins/wp-postratings/) support** - Show your visitors how your readers are rating your posts!
 
@@ -101,7 +101,7 @@ When submitting an issue, please make sure to include the following:
 
 1. WordPress version.
 2. WPP version.
-3. Are you using the widget or the shortcode/template tag?
+3. Are you using the block or the shortcode/template tag?
 4. Describe what the issue is (include steps to reproduce it, if necessary).
 
 

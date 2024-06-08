@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       WordPress Popular Posts
  * Plugin URI:        https://wordpress.org/plugins/wordpress-popular-posts/
- * Description:       A highly customizable widget that displays the most popular posts on your blog.
+ * Description:       A highly customizable plugin that displays the most popular posts on your blog.
  * Version:           6.4.2
  * Requires at least: 5.7
  * Requires PHP:      7.2
