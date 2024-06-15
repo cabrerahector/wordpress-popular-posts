@@ -695,7 +695,7 @@ class Image {
                 }
 
                 // Valid image, save it
-                if ( in_array($image_type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_WEBP]) ) {
+                if ( in_array($image_type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_WEBP, IMAGETYPE_AVIF]) ) {
                     // move file to Uploads
                     if ( @rename($tmp, $full_image_path) ) {
                         // borrowed from WP - set correct file permissions
@@ -814,9 +814,37 @@ class Image {
             }
 
             $image->set_quality($quality);
-
             $image->resize($size[0], $size[1], $crop);
-            $new_img = $image->save(trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $filename);
+
+            $mime_type = null;
+
+            /**
+             * Hook to tell WPP whether to generate thumbnails in the original format.
+             * @since   6.5.0
+             */
+            $keep_original_format = apply_filters('wpp_thumbnail_use_original_format', false);
+
+            if ( ! $keep_original_format ) {
+                /**
+                 * Let's try to generate an .avif/.webp thumbnail if server's image 
+                 * processing library (Imagick / GD) supports it.
+                 *
+                 * @since   6.5.0
+                 */
+                // .avif support requires WP 6.5 or higher
+                if ( $image->supports_mime_type('image/avif') ) {
+                    $filename = substr($filename, 0, strrpos($filename, '.')) . '.avif';
+                    $mime_type = 'image/avif';
+                }
+                // .webp support requires WP 5.8 or higher
+                elseif ( $image->supports_mime_type('image/webp') ) {
+                    $filename = substr($filename, 0, strrpos($filename, '.')) . '.webp';
+                    $mime_type = 'image/webp';
+                }
+            }
+
+            $file_path = trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $filename;
+            $new_img = $image->save($file_path, $mime_type);
 
             if ( ! is_wp_error($new_img) ) {
                 return trailingslashit($this->get_plugin_uploads_dir()['baseurl']) . $filename;
