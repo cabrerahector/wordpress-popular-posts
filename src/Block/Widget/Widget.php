@@ -453,11 +453,13 @@ class Widget extends Block
             $query_args['author'] = '';
         }
 
+        // Has the user set a title?
         if ( 
             ! empty($query_args['title'])
             && ! empty($query_args['markup']['title-start'])
-            && ! empty($query_args['markup']['title-end']) ) {
-            $header_html = htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);;
+            && ! empty($query_args['markup']['title-end'])
+        ) {
+            $header_html = htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
             $header_html = apply_filters('wpp_custom_header_html', $header_html, $query_args);
             $header_html = Helper::sanitize_html($header_html, $query_args);
             $html .= $header_html;
