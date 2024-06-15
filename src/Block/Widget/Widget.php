@@ -453,14 +453,14 @@ class Widget extends Block
             $query_args['author'] = '';
         }
 
-        // Has user set a title?
-        if (
+        if ( 
             ! empty($query_args['title'])
             && ! empty($query_args['markup']['title-start'])
-            && ! empty($query_args['markup']['title-end'])
-        ) {
-            $html .= htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
-            $html = Helper::sanitize_html($html, $query_args);
+            && ! empty($query_args['markup']['title-end']) ) {
+            $header_html = htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);;
+            $header_html = apply_filters('wpp_custom_header_html', $header_html, $query_args);
+            $header_html = Helper::sanitize_html($header_html, $query_args);
+            $html .= $header_html;
         }
 
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- isSelected is a boolean from wp-admin

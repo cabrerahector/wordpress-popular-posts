@@ -251,6 +251,7 @@ class Query {
                                 }
 
                                 if ( ! empty($terms['term_id_exclude']) ) {
+                                    //phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_tax_query
                                     $post_ids = get_posts(
                                         [
                                             'post_type' => $post_types,
@@ -265,6 +266,7 @@ class Query {
                                             'fields' => 'ids'
                                         ]
                                     );
+                                    //phpcs:enable
 
                                     if ( is_array($post_ids) && ! empty($post_ids) ) {
                                         if ( isset($this->options['pid']) && ! empty($this->options['pid']) ) {
@@ -499,7 +501,7 @@ class Query {
         global $wpdb;
 
         if ( isset($wpdb) && ! empty($this->query) && ! is_wp_error($this->query) ) {
-            $this->posts = $wpdb->get_results($this->query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- at this point $this->query has been prepared already
+            $this->posts = $wpdb->get_results($this->query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- at this point $this->query has been prepared already
         }
     }
 

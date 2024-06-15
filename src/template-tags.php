@@ -11,14 +11,17 @@
  * @param   int             $id             The Post ID.
  * @param   string|array    $range          Either an string (eg. 'last7days') or -since 5.3- an array (eg. ['range' => 'custom', 'time_unit' => 'day', 'time_quantity' => 7])
  * @param   bool|string     $number_format  Whether to format the number (eg. 9,999) or not (eg. 9999)
+ * @param   bool            $cache          Whether to cache the views data to improve performance
  * @return  string
  */
-function wpp_get_views(int $id = null, $range = null, $number_format = true) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range, $number_format as mixed or bool|string */
+function wpp_get_views(int $id = null, $range = null, $number_format = true, $cache = false) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range, $number_format as mixed or bool|string */
 {
     // have we got an id?
     if ( empty($id) || is_null($id) || ! is_numeric($id) ) {
         return '-1';
     }
+
+    $results = null;
 
     $id = absint($id);
 
@@ -51,102 +54,114 @@ function wpp_get_views(int $id = null, $range = null, $number_format = true) /**
 
     $args['range'] = strtolower($args['range']);
 
-    // Get all-time views count
-    if ( 'all' == $args['range'] ) {
-        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table_name is safe to use
-        $query = $wpdb->prepare( "SELECT pageviews FROM {$table_name}data WHERE postid = %d;",
-            $args['_postID']
-        );
-        //phpcs:enable
-    } // Get views count within time range
-    else {
-        $start_date = new \DateTime(
-            \WordPressPopularPosts\Helper::now(),
-            wp_timezone()
-        );
+    $key = 'wpp_views_' . $id . '_' . md5(json_encode($params));
 
-        // Determine time range
-        switch( $args['range'] ){
-            case 'last24hours':
-            case 'daily':
-                $start_date = $start_date->sub(new \DateInterval('P1D'));
-                $start_datetime = $start_date->format('Y-m-d H:i:s');
-                $views_time_range = "view_datetime >= '{$start_datetime}'";
-                break;
-            case 'last7days':
-            case 'weekly':
-                $start_date = $start_date->sub(new \DateInterval('P6D'));
-                $start_datetime = $start_date->format('Y-m-d');
-                $views_time_range = "view_date >= '{$start_datetime}'";
-                break;
-            case 'last30days':
-            case 'monthly':
-                $start_date = $start_date->sub(new \DateInterval('P29D'));
-                $start_datetime = $start_date->format('Y-m-d');
-                $views_time_range = "view_date >= '{$start_datetime}'";
-                break;
-            case 'custom':
-                $time_units = ['MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH'];
+    if ( $cache ) {
+        $results = \WordPressPopularPosts\Cache::get($key);
+    }
 
-                // Valid time unit
-                if (
-                    isset($args['time_unit'])
-                    && in_array(strtoupper($args['time_unit']), $time_units)
-                    && isset($args['time_quantity'])
-                    && filter_var($args['time_quantity'], FILTER_VALIDATE_INT)
-                    && $args['time_quantity'] > 0
-                ) {
-                    $time_quantity = $args['time_quantity'];
-                    $time_unit = strtoupper($args['time_unit']);
+    if ( ! $results ) {
+        // Get all-time views count
+        if ( 'all' == $args['range'] ) {
+            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table_name is safe to use
+            $query = $wpdb->prepare( "SELECT pageviews FROM {$table_name}data WHERE postid = %d;",
+                $args['_postID']
+            );
+            //phpcs:enable
+        } // Get views count within time range
+        else {
+            $start_date = new \DateTime(
+                \WordPressPopularPosts\Helper::now(),
+                wp_timezone()
+            );
 
-                    if ( 'MINUTE' == $time_unit ) {
-                        $start_date = $start_date->sub(new \DateInterval('PT' . (60 * $time_quantity) . 'S'));
-                        $start_datetime = $start_date->format('Y-m-d H:i:s');
-                        $views_time_range = "view_datetime >= '{$start_datetime}'";
-                    } elseif ( 'HOUR' == $time_unit ) {
-                        $start_date = $start_date->sub(new \DateInterval('PT' . ((60 * $time_quantity) - 1) . 'M59S'));
-                        $start_datetime = $start_date->format('Y-m-d H:i:s');
-                        $views_time_range = "view_datetime >= '{$start_datetime}'";
-                    } elseif ( 'DAY' == $time_unit ) {
-                        $start_date = $start_date->sub(new \DateInterval('P' . ($time_quantity - 1) . 'D'));
-                        $start_datetime = $start_date->format('Y-m-d');
-                        $views_time_range = "view_date >= '{$start_datetime}'";
-                    } elseif ( 'WEEK' == $time_unit ) {
-                        $start_date = $start_date->sub(new \DateInterval('P' . ((7 * $time_quantity) - 1) . 'D'));
-                        $start_datetime = $start_date->format('Y-m-d');
-                        $views_time_range = "view_date >= '{$start_datetime}'";
-                    } else {
-                        $start_date = $start_date->sub(new \DateInterval('P' . ((30 * $time_quantity) - 1) . 'D'));
-                        $start_datetime = $start_date->format('Y-m-d');
-                        $views_time_range = "view_date >= '{$start_datetime}'";
-                    }
-                } // Invalid time unit, default to last 24 hours
-                else {
+            // Determine time range
+            switch( $args['range'] ){
+                case 'last24hours':
+                case 'daily':
                     $start_date = $start_date->sub(new \DateInterval('P1D'));
                     $start_datetime = $start_date->format('Y-m-d H:i:s');
                     $views_time_range = "view_datetime >= '{$start_datetime}'";
-                }
+                    break;
+                case 'last7days':
+                case 'weekly':
+                    $start_date = $start_date->sub(new \DateInterval('P6D'));
+                    $start_datetime = $start_date->format('Y-m-d');
+                    $views_time_range = "view_date >= '{$start_datetime}'";
+                    break;
+                case 'last30days':
+                case 'monthly':
+                    $start_date = $start_date->sub(new \DateInterval('P29D'));
+                    $start_datetime = $start_date->format('Y-m-d');
+                    $views_time_range = "view_date >= '{$start_datetime}'";
+                    break;
+                case 'custom':
+                    $time_units = ['MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH'];
 
-                break;
-            default:
-                $start_date = $start_date->sub(new \DateInterval('P1D'));
-                $start_datetime = $start_date->format('Y-m-d H:i:s');
-                $views_time_range = "view_datetime >= '{$start_datetime}'";
-                break;
+                    // Valid time unit
+                    if (
+                        isset($args['time_unit'])
+                        && in_array(strtoupper($args['time_unit']), $time_units)
+                        && isset($args['time_quantity'])
+                        && filter_var($args['time_quantity'], FILTER_VALIDATE_INT)
+                        && $args['time_quantity'] > 0
+                    ) {
+                        $time_quantity = $args['time_quantity'];
+                        $time_unit = strtoupper($args['time_unit']);
+
+                        if ( 'MINUTE' == $time_unit ) {
+                            $start_date = $start_date->sub(new \DateInterval('PT' . (60 * $time_quantity) . 'S'));
+                            $start_datetime = $start_date->format('Y-m-d H:i:s');
+                            $views_time_range = "view_datetime >= '{$start_datetime}'";
+                        } elseif ( 'HOUR' == $time_unit ) {
+                            $start_date = $start_date->sub(new \DateInterval('PT' . ((60 * $time_quantity) - 1) . 'M59S'));
+                            $start_datetime = $start_date->format('Y-m-d H:i:s');
+                            $views_time_range = "view_datetime >= '{$start_datetime}'";
+                        } elseif ( 'DAY' == $time_unit ) {
+                            $start_date = $start_date->sub(new \DateInterval('P' . ($time_quantity - 1) . 'D'));
+                            $start_datetime = $start_date->format('Y-m-d');
+                            $views_time_range = "view_date >= '{$start_datetime}'";
+                        } elseif ( 'WEEK' == $time_unit ) {
+                            $start_date = $start_date->sub(new \DateInterval('P' . ((7 * $time_quantity) - 1) . 'D'));
+                            $start_datetime = $start_date->format('Y-m-d');
+                            $views_time_range = "view_date >= '{$start_datetime}'";
+                        } else {
+                            $start_date = $start_date->sub(new \DateInterval('P' . ((30 * $time_quantity) - 1) . 'D'));
+                            $start_datetime = $start_date->format('Y-m-d');
+                            $views_time_range = "view_date >= '{$start_datetime}'";
+                        }
+                    } // Invalid time unit, default to last 24 hours
+                    else {
+                        $start_date = $start_date->sub(new \DateInterval('P1D'));
+                        $start_datetime = $start_date->format('Y-m-d H:i:s');
+                        $views_time_range = "view_datetime >= '{$start_datetime}'";
+                    }
+
+                    break;
+                default:
+                    $start_date = $start_date->sub(new \DateInterval('P1D'));
+                    $start_datetime = $start_date->format('Y-m-d H:i:s');
+                    $views_time_range = "view_datetime >= '{$start_datetime}'";
+                    break;
+            }
+
+            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- $views_time_range is safe to use
+            $query = $wpdb->prepare(
+                "SELECT SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} AND postid = %d;",
+                $args['_postID']
+            );
+            //phpcs:enable
         }
-
-        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $views_time_range is safe to use
-        $query = $wpdb->prepare(
-            "SELECT SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} AND postid = %d;",
-            $args['_postID']
-        );
-        //phpcs:enable
     }
 
-    $results = $wpdb->get_var($query); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query above
+    $results = $wpdb->get_var($query); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- We already prepared $query above
 
     if ( ! $results ) {
         return 0;
+    }
+
+    if ( $cache ) {
+        \WordPressPopularPosts\Cache::set($key, $results);
     }
 
     if ( $number_format ) {

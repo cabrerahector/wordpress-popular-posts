@@ -85,7 +85,7 @@ class Container implements \ArrayAccess
     public function offsetGet($key) /** @TODO: starting PHP 8.0 $key can be declared as mixed $key */
     {
         if ( ! $this->offsetExists($key) ) {
-            throw new \InvalidArgumentException(sprintf('Container doesn\'t have a value stored for the "%s" key.', $key));
+            throw new \InvalidArgumentException(sprintf('Container doesn\'t have a value stored for the "%s" key.', esc_html($key)));
         }
         return $this->values[$key] instanceof \Closure ? $this->values[$key]($this) : $this->values[$key];
     }
