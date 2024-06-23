@@ -43,6 +43,10 @@ if ( 'debug' == $current ) {
             }
             $plugin_names[] = sanitize_text_field($plugin_meta['Name'] . ' ' . $plugin_meta['Version']);
         endforeach;
+
+        // Image formats support
+        $webp_support = \WP_Image_Editor_GD::supports_mime_type('image/webp');
+        $avif_support = \WP_Image_Editor_GD::supports_mime_type('image/avif');
         ?>
         <div id="wpp_debug">
             <h3>Plugin Configuration</h3>
@@ -59,6 +63,8 @@ if ( 'debug' == $current ) {
             <h3>System Info</h3>
             <p><strong>PHP version:</strong> <?php echo phpversion(); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
             <p><strong>PHP extensions:</strong> <?php echo implode(', ', get_loaded_extensions()); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+            <p><strong>AVIF support:</strong> <?php echo $avif_support ? 'Yes' : 'No'; ?></p>
+            <p><strong>WebP support:</strong> <?php echo $webp_support ? 'Yes' : 'No'; ?></p>
             <p><strong>Database version:</strong> <?php echo $wpdb->get_var('SELECT VERSION();'); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching ?></p>
             <p><strong>InnoDB availability:</strong> <?php echo $wpdb->get_var("SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB';"); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching ?></p>
             <p><strong>WordPress version:</strong> <?php echo $wp_version; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $wp_version is safe to use ?></p>
