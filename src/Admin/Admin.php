@@ -1287,36 +1287,51 @@ class Admin {
     public function clear_thumbnails()
     {
         $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
+        $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
 
-        if ( is_array($wpp_uploads_dir) && ! empty($wpp_uploads_dir) ) {
-            $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
-
-            if (
-                current_user_can('edit_published_posts')
-                && wp_verify_nonce($token, 'wpp_nonce_reset_thumbnails')
-            ) {
-                if ( is_dir($wpp_uploads_dir['basedir']) ) {
-                    $files = glob("{$wpp_uploads_dir['basedir']}/*"); // get all related images
-
-                    if ( is_array($files) && ! empty($files) ) {
-                        foreach( $files as $file ){ // iterate files
-                            if ( is_file($file) ) {
-                                @unlink($file); // delete file
-                            }
-                        }
-                        echo 1;
-                    } else {
-                        echo 2;
-                    }
-                } else {
-                    echo 3;
-                }
-            } else {
-                echo 4;
-            }
+        if (
+            current_user_can('edit_published_posts')
+            && wp_verify_nonce($token, 'wpp_nonce_reset_thumbnails')
+        ) {
+            echo $this->delete_thumbnails();
+        } else {
+            echo 4;
         }
 
         wp_die();
+    }
+
+    /**
+     * Deletes WPP thumbnails from the uploads/wordpress-popular-posts folder.
+     *
+     * @since  7.0.0
+     * @return int   1 on success, 2 if no thumbnails were found, 3 if WPP's folder can't be reached
+     */
+    private function delete_thumbnails()
+    {
+        $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
+
+        if (
+            is_array($wpp_uploads_dir)
+            && ! empty($wpp_uploads_dir)
+            && is_dir($wpp_uploads_dir['basedir'])
+        ) {
+            $files = glob("{$wpp_uploads_dir['basedir']}/*");
+
+            if ( is_array($files) && ! empty($files) ) {
+                foreach( $files as $file ) {
+                    if ( is_file($file) ) {
+                        @unlink($file); // delete file
+                    }
+                }
+
+                return 1;
+            }
+
+            return 2;
+        }
+
+        return 3;
     }
 
     /**

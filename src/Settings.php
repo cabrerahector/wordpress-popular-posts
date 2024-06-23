@@ -106,6 +106,7 @@ class Settings {
                 ],
                 'thumbnail' => [
                     'source' => 'featured',
+                    'format' => 'original',
                     'field' => '',
                     'resize' => false,
                     'default' => '',

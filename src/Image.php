@@ -818,29 +818,21 @@ class Image {
 
             $mime_type = null;
 
-            /**
-             * Hook to tell WPP whether to generate thumbnails in the original format.
-             * @since   6.5.0
-             */
-            $keep_original_format = apply_filters('wpp_thumbnail_use_original_format', false);
-
-            if ( ! $keep_original_format ) {
-                /**
-                 * Let's try to generate an .avif/.webp thumbnail if server's image 
-                 * processing library (Imagick / GD) supports it.
-                 *
-                 * @since   6.5.0
-                 */
-                // .avif support requires WP 6.5 or higher
-                if ( $image->supports_mime_type('image/avif') ) {
-                    $filename = substr($filename, 0, strrpos($filename, '.')) . '.avif';
-                    $mime_type = 'image/avif';
-                }
-                // .webp support requires WP 5.8 or higher
-                elseif ( $image->supports_mime_type('image/webp') ) {
-                    $filename = substr($filename, 0, strrpos($filename, '.')) . '.webp';
-                    $mime_type = 'image/webp';
-                }
+            // .webp thumbnails?
+            if (
+                'webp' === $this->admin_options['tools']['thumbnail']['format']
+                && $image->supports_mime_type('image/webp') // .webp support requires WP 5.8 or higher
+            ) {
+                $filename = substr($filename, 0, strrpos($filename, '.')) . '.webp';
+                $mime_type = 'image/webp';
+            }
+            // .avif thumbnails?
+            elseif (
+                'avif' === $this->admin_options['tools']['thumbnail']['format']
+                && $image->supports_mime_type('image/avif') // .avif support requires WP 6.5 or higher
+            ) {
+                $filename = substr($filename, 0, strrpos($filename, '.')) . '.avif';
+                $mime_type = 'image/avif';
             }
 
             $file_path = trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $filename;

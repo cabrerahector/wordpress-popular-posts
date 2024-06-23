@@ -5,6 +5,9 @@ if ( 'tools' == $current ) {
         echo '<p style="text-align: center;">' . esc_html(__('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts')) . '</p>';
     }
     else {
+        // Image formats support
+        $webp_support = \WP_Image_Editor_GD::supports_mime_type('image/webp');
+        $avif_support = \WP_Image_Editor_GD::supports_mime_type('image/avif');
         ?>
         <div id="wpp_tools">
             <h3 class="wmpp-subtitle"><?php esc_html_e('Thumbnails', 'wordpress-popular-posts'); ?></h3>
@@ -52,6 +55,18 @@ if ( 'tools' == $current ) {
                                 <p class="description"><?php esc_html_e('Tell WordPress Popular Posts where it should get thumbnails from', 'wordpress-popular-posts'); ?>.</p>
                             </td>
                         </tr>
+                        <?php if ( $webp_support || $avif_support ) : ?>
+                            <tr valign="top">
+                                <th scope="row"><label for="thumb_format"><?php esc_html_e('Thumbnail format', 'wordpress-popular-posts'); ?>:</label></th>
+                                <td>
+                                    <select name="thumb_format" id="thumb_format">
+                                        <option <?php if ($this->config['tools']['thumbnail']['format'] == 'original') { ?>selected="selected"<?php } ?> value="original"><?php esc_html_e('Use original format', 'wordpress-popular-posts'); ?></option>
+                                        <?php if ( $avif_support ) : ?><option <?php if ($this->config['tools']['thumbnail']['format'] == 'avif') { ?>selected="selected"<?php } ?> value="avif">avif</option><?php endif; ?>
+                                        <?php if ( $webp_support ) : ?><option <?php if ($this->config['tools']['thumbnail']['format'] == 'webp') { ?>selected="selected"<?php } ?> value="webp">webp</option><?php endif; ?>
+                                    </select>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
                         <tr valign="top">
                             <th scope="row"><label for="thumb_lazy_load"><?php esc_html_e('Lazy load', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#lazy-loading" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
                             <td>

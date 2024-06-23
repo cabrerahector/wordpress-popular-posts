@@ -60,7 +60,14 @@ if ( isset($_POST['section']) ) {
                     $this->flush_transients();
                 }
 
+                $thumbnail_format = sanitize_text_field($_POST['thumb_format']);
+
+                if ( $thumbnail_format !== $this->config['tools']['thumbnail']['format'] ) {
+                    $this->delete_thumbnails();
+                }
+
                 $this->config['tools']['thumbnail']['source'] = sanitize_text_field($_POST['thumb_source']);
+                $this->config['tools']['thumbnail']['format'] = $thumbnail_format;
                 $this->config['tools']['thumbnail']['field'] = ( ! empty($_POST['thumb_field']) ) ? sanitize_text_field($_POST['thumb_field']) : 'wpp_thumbnail';
                 $this->config['tools']['thumbnail']['default'] = ( ! empty($_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : $this->config['tools']['thumbnail']['default'];
                 $this->config['tools']['thumbnail']['resize'] = (bool) $_POST['thumb_field_resize'];
