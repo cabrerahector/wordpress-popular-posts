@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## 7.0.0 ##
+
+- **Breaking Change:** The WordPress Popular Posts "classic" widget will stop working after this version! If you're using the classic widget please replace it with the [WordPress Popular Posts block](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wordpress-popular-posts-block) or the [[wpp]](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode) shortcode as soon as possible. See release notes for more details.
+- **Breaking Change:** The .widget CSS class has been removed from the WordPress Popular Posts block. If you were using it to style your popular posts block adjustments may be required.
+- Native WebP / AVIF support: your thumbnails can now be created as .webp / .avif images without requiring third-party plugins. Check the release notes for more.
+- New filter hook to dynamically change the headline of the popular post list (props to abid76!)
+- PHPCS / WPCS improvements.
+- Minor enhancements / fixes.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-0-classic-widget-is-no-more-webp-avif-support/)
+
 ## 6.4.2 ##
 
 - Fixes default thumbnail resetting to the stock "No Thumbnail" image (props to aalmans!)
