@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    const widget_placeholders = document.querySelectorAll('.wpp-widget-placeholder, .wpp-widget-block-placeholder, .wpp-shortcode-placeholder');
+    const widget_placeholders = document.querySelectorAll('.wpp-widget-block-placeholder, .wpp-shortcode-placeholder');
     let w = 0;
 
     while ( w < widget_placeholders.length ) {
@@ -140,28 +140,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchWidget(widget_placeholder) {
-        let widget_id_attr = widget_placeholder.getAttribute('data-widget-id'),
-            method = 'GET',
-            url = '',
-            headers = {
+        let headers = {
+                'Content-Type': 'application/json',
                 'X-WP-Nonce': wpp_params.token
             },
-            params = '';
-
-        if ( widget_id_attr ) {
-            url = wpp_params.apiUrl + '/v1/popular-posts/widget/' + widget_id_attr.split('-')[1];
-            params = 'is_single=' + wpp_params.postId + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
-        } else {
-            method = 'POST';
+            params = '',
+            method = 'POST',
             url = wpp_params.apiUrl + '/v2/widget?is_single=' + wpp_params.postId + ( wpp_params.lang ? '&lang=' + wpp_params.lang : '' );
-            headers['Content-Type'] = 'application/json';
 
-            let json_tag = widget_placeholder.parentNode.querySelector('script[type="application/json"]');
+        let json_tag = widget_placeholder.parentNode.querySelector('script[type="application/json"]');
 
-            if ( json_tag ) {
-                let args = JSON.parse(json_tag.textContent.replace(/[\n\r]/g,''));
-                params = JSON.stringify(args);
-            }
+        if ( json_tag ) {
+            let args = JSON.parse(json_tag.textContent.replace(/[\n\r]/g,''));
+            params = JSON.stringify(args);
         }
 
         WordPressPopularPosts.ajax(

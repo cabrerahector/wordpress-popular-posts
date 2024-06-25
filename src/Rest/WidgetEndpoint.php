@@ -37,19 +37,6 @@ class WidgetEndpoint extends Endpoint {
      */
     public function register()
     {
-        /** @TODO: Remove V1 endpoint after deleting all code related to the classic widget */
-        $version = '1';
-        $namespace = 'wordpress-popular-posts/v' . $version;
-
-        register_rest_route($namespace, '/popular-posts/widget/(?P<id>[\d]+)', [
-            [
-                'methods'             => \WP_REST_Server::READABLE,
-                'callback'            => [$this, 'get_widget'],
-                'permission_callback' => '__return_true',
-                'args'                => $this->get_widget_params(),
-            ]
-        ]);
-
         $version = '2';
         $namespace = 'wordpress-popular-posts/v' . $version;
 
@@ -61,80 +48,6 @@ class WidgetEndpoint extends Endpoint {
                 'args'                => $this->get_widget_params(),
             ]
         ]);
-    }
-
-    /**
-     * Retrieves a popular posts widget for display.
-     *
-     * @since 4.1.0
-     *
-     * @param \WP_REST_Request $request Full details about the request.
-     * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
-     */
-    public function get_widget($request)
-    {
-        $instance_id = $request->get_param('id');
-        $is_single = $request->get_param('is_single');
-        $lang = $request->get_param('lang');
-        $widget = get_option('widget_wpp');
-
-        $data = $this->prepare_widget_item_for_response($instance_id, $is_single, $lang, $widget, $request);
-
-        if ( $data ) {
-            return new \WP_REST_Response($data, 200);
-        }
-
-        return new \WP_Error('invalid_instance', __('Invalid Widget Instance ID', 'wordpress-popular-posts'));
-    }
-
-    /**
-     * Prepares widget instance for response.
-     *
-     * @since   5.0.0
-     * @param   int
-     * @param   int
-     * @param   string
-     * @param   array
-     * @param  \WP_REST_Request
-     * @return  array|boolean
-     */
-    public function prepare_widget_item_for_response($instance_id, $is_single, $lang, $widget, $request)
-    {
-        // Valid instance
-        if ( $widget && isset($widget[$instance_id]) ) {
-
-            $notice = '';
-
-            if ( is_user_logged_in() && current_user_can('manage_options') ) {
-                ob_start();
-                ?>
-                <style>
-                    .wpp-notice {
-                        margin: 0 0 22px;
-                        padding: 18px 22px;
-                        background: #fcfcf7;
-                        border: #ffff63 4px solid;
-                    }
-
-                        .wpp-notice p:nth-child(2n) {
-                            margin: 0;
-                            font-size: 0.85em;
-                        }
-                </style>
-                <div class="wpp-notice">
-                    <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget has been discontinued.</p>
-                    <p>This widget has been discontinued as of version 7.0. Please switch to either the WordPress Popular Posts block or the wpp shortcode.</p>
-                </div>
-                <?php
-                $notice = ob_get_clean() . "\n";
-            }
-
-            return [
-                'widget' => ( $this->config['tools']['cache']['active'] ? '<!-- cached -->' : '' ) . $notice
-            ];
-        }
-
-        return false;
     }
 
     /**
