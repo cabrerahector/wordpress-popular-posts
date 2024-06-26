@@ -154,8 +154,10 @@ function wpp_get_views(int $id = null, $range = null, $number_format = true, $ca
         }
     }
 
-    $results = $wpdb->get_var($query); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- We already prepared $query above
-
+    if (isset($query)) {
+        $results = $wpdb->get_var($query); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- We already prepared $query above
+    }
+    
     if ( ! $results ) {
         return 0;
     }
