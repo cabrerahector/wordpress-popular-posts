@@ -1,8 +1,7 @@
 <?php
 /**
- * The public-facing functionality of the plugin.
- *
- * Defines hooks to enqueue the public-specific stylesheet and JavaScript.
+ * Hooks into LiteSpeedCache's hooks
+ * to exclude wpp(.min).js from its JS optimization
  *
  * @package    WordPressPopularPosts
  * @subpackage WordPressPopularPosts/Front
