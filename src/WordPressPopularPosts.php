@@ -65,6 +65,14 @@ class WordPressPopularPosts {
     private $shortcode_loader;
 
     /**
+     * Compatibility class.
+     *
+     * @var     Compatibility\Compatibility $compatibility
+     * @access  private
+     */
+    private $compatibility;
+
+    /**
      * Constructor.
      *
      * @since   5.0.0
@@ -74,7 +82,7 @@ class WordPressPopularPosts {
      * @param   Front\Front     $front
      * @param   Widget\Widget   $widget
      */
-    public function __construct(I18N $i18n, Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget, Block\Widget\Widget $block_widget, Shortcode\ShortcodeLoader $shortcode_loader)
+    public function __construct(I18N $i18n, Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget, Block\Widget\Widget $block_widget, Shortcode\ShortcodeLoader $shortcode_loader, Compatibility\Compatibility $compatibility)
     {
         $this->i18n = $i18n;
         $this->rest = $rest;
@@ -83,6 +91,7 @@ class WordPressPopularPosts {
         $this->widget = $widget;
         $this->block_widget = $block_widget;
         $this->shortcode_loader = $shortcode_loader;
+        $this->compatibility = $compatibility;
     }
 
     /**
@@ -92,6 +101,7 @@ class WordPressPopularPosts {
      */
     public function init()
     {
+        $this->compatibility->load();
         $this->i18n->load_plugin_textdomain();
         $this->rest->hooks();
         $this->admin->hooks();

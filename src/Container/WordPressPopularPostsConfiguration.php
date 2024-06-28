@@ -4,6 +4,7 @@ namespace WordPressPopularPosts\Container;
 use WordPressPopularPosts\{ Image, I18N, Output, Settings, Themer, Translate, WordPressPopularPosts };
 use WordPressPopularPosts\Admin\Admin;
 use WordPressPopularPosts\Block\Widget\Widget as BlockWidget;
+use WordPressPopularPosts\Compatibility\Compatibility;
 use WordPressPopularPosts\Front\Front;
 use WordPressPopularPosts\Shortcode\ShortcodeLoader;
 use WordPressPopularPosts\Rest\{ Controller, PostsEndpoint, TaxonomiesEndpoint, ThemesEndpoint, ThumbnailsEndpoint, ViewLoggerEndpoint, WidgetEndpoint };
@@ -21,6 +22,10 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
     {
         $container['admin_options'] = Settings::get('admin_options');
         $container['widget_options'] = Settings::get('widget_options');
+
+        $container['compatibility'] = $container->service(function(Container $container) {
+            return new Compatibility();
+        });
 
         $container['i18n'] = $container->service(function(Container $container) {
             return new I18N($container['admin_options']);
@@ -153,7 +158,8 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
                 $container['front'],
                 $container['widget'],
                 $container['block_widget'],
-                $container['shortcode_loader']
+                $container['shortcode_loader'],
+                $container['compatibility']
             );
         });
     }
