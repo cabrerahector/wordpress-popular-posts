@@ -33,7 +33,7 @@ class Compatibility
     }
 
     /**
-     * Loads all registered shortcodes.
+     * Loads all registered compatibility scripts.
      *
      * @since  7.0.1
      */
