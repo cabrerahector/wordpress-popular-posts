@@ -8,7 +8,7 @@
  * @author     Hector Cabrera <me@cabrerahector.com>
  */
 
-namespace WordPressPopularPosts\Compatibility;
+namespace WordPressPopularPosts\Compatibility\LiteSpeedCache;
 
 use WordPressPopularPosts\Compatibility\Compat;
 

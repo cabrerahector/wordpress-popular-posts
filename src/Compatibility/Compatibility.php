@@ -26,9 +26,9 @@ class Compatibility
     public function __construct()
     {
         $this->compat = [
-            __NAMESPACE__ . '\Autoptimize',
-            __NAMESPACE__ . '\LiteSpeedCache',
-            __NAMESPACE__ . '\SiteGroundOptimizer',
+            __NAMESPACE__ . '\Autoptimize\Autoptimize',
+            __NAMESPACE__ . '\LiteSpeedCache\LiteSpeedCache',
+            __NAMESPACE__ . '\SiteGroundOptimizer\SiteGroundOptimizer',
         ];
     }
 
