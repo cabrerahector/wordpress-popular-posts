@@ -4,7 +4,7 @@
  * to exclude wpp(.min).js from its JS optimization
  *
  * @package    WordPressPopularPosts
- * @subpackage WordPressPopularPosts/Front
+ * @subpackage WordPressPopularPosts/Compatibility
  * @author     Hector Cabrera <me@cabrerahector.com>
  */
 
