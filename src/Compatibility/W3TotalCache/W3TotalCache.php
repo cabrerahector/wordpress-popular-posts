@@ -23,10 +23,10 @@ class W3TotalCache extends Compat
     }
 
     /**
-     * Adds wpp(.min).js to the exclusions list.
+     * Removes wpp(.min).js from the minification list.
      *
-     * @param  array  An array of file exclusions
-     * @return array  The modified array of exclusions
+     * @param  array  An array of files to minify
+     * @return array  The modified array of files to minify
      */
     public function exclude_from_js_optimization($scripts) {
 
