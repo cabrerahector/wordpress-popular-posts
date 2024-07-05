@@ -114,7 +114,6 @@ class Front {
             [
                 'id' => 'wpp-js',
                 'src' => $wpp_js_url,
-                'async' => true,
                 'data-sampling' => (int) $this->config['tools']['sampling']['active'],
                 'data-sampling-rate' => (int) $this->config['tools']['sampling']['rate'],
                 'data-api-url' => esc_url_raw(rest_url('wordpress-popular-posts')),
