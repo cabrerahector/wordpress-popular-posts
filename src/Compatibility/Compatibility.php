@@ -30,6 +30,7 @@ class Compatibility
             __NAMESPACE__ . '\LiteSpeedCache\LiteSpeedCache',
             __NAMESPACE__ . '\SiteGroundOptimizer\SiteGroundOptimizer',
             __NAMESPACE__ . '\W3TotalCache\W3TotalCache',
+            __NAMESPACE__ . '\WPRocket\WPRocket',
         ];
     }
 
