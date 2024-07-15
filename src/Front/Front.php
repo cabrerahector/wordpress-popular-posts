@@ -108,7 +108,7 @@ class Front {
             $is_single = Helper::is_single();
         }
 
-        $wpp_js_url = plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp.' . (! defined('WP_DEBUG') || false === WP_DEBUG ? 'min.' : '') . 'js';
+        $wpp_js_url = plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/wpp.' . (! defined('WP_DEBUG') || false === WP_DEBUG ? 'min.' : '') . 'js?ver=' . WPP_VERSION;
 
         wp_print_script_tag(
             [
