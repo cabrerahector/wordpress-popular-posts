@@ -19,9 +19,11 @@ class LiteSpeedCache extends Compat
      */
     public function init()
     {
-        add_filter('litespeed_optimize_js_excludes', [$this, 'exclude_from_js_optimization']);
-        add_filter('litespeed_optm_js_defer_exc', [$this, 'exclude_from_js_optimization']);
-        add_filter('litespeed_optm_js_delay_inc', [$this, 'exclude_from_js_optimization']);
+        if ( defined('LSCWP_V') ) {
+            add_filter('litespeed_optimize_js_excludes', [$this, 'exclude_from_js_optimization']);
+            add_filter('litespeed_optm_js_defer_exc', [$this, 'exclude_from_js_optimization']);
+            add_filter('litespeed_optm_js_delay_inc', [$this, 'exclude_from_js_optimization']);
+        }
     }
 
     /**

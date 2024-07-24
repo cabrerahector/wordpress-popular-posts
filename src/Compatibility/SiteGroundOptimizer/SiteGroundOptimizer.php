@@ -19,7 +19,9 @@ class SiteGroundOptimizer extends Compat
      */
     public function init()
     {
-        add_filter('sgo_javascript_combine_exclude_ids', [$this, 'exclude_from_js_optimization']);
+        if ( defined('SiteGround_Optimizer\VERSION') ) {
+            add_filter('sgo_javascript_combine_exclude_ids', [$this, 'exclude_from_js_optimization']);
+        }
     }
 
     /**

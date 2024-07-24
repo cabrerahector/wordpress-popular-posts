@@ -19,7 +19,9 @@ class Autoptimize extends Compat
      */
     public function init()
     {
-        add_filter('autoptimize_filter_js_exclude', [$this, 'exclude_from_js_optimization']);
+        if ( defined('AUTOPTIMIZE_PLUGIN_VERSION') ) {
+            add_filter('autoptimize_filter_js_exclude', [$this, 'exclude_from_js_optimization']);
+        }
     }
 
     /**
