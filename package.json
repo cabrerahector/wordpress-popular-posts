@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/cabrerahector/wordpress-popular-posts#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
-    "@wordpress/scripts": "^28.5.0"
+    "@wordpress/scripts": "^28.6.0"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001651"
+    "caniuse-lite": "^1.0.30001655"
   }
 }
