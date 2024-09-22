@@ -158,6 +158,13 @@ class Output {
         // Attempt to close open tags
         $this->output = force_balance_tags($this->output);
 
+        /**
+         * @ToDo
+         *
+         * Look into \Dom\HTMLDocument (PHP 8.4 apparently) to see
+         * if it's a good alternative to the code below.
+         */
+
         if ( extension_loaded('mbstring') && function_exists('mb_encode_numericentity') ) {
             // Process special characters
             $html = htmlspecialchars_decode(mb_encode_numericentity(htmlentities(trim($this->output), ENT_QUOTES, 'UTF-8'), [0x80, 0x10FFFF, 0, ~0], 'UTF-8'));
