@@ -19,7 +19,9 @@ class W3TotalCache extends Compat
      */
     public function init()
     {
-        add_filter('w3tc_minify_js_script_tags', [$this, 'exclude_from_js_optimization']);
+        if ( defined('W3TC_VERSION') ) {
+            add_filter('w3tc_minify_js_script_tags', [$this, 'exclude_from_js_optimization']);
+        }
     }
 
     /**

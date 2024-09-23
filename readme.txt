@@ -3,9 +3,9 @@ Contributors: hcabrera
 Donate link: https://ko-fi.com/cabrerahector
 Tags: popular, posts, widget, popularity, top
 Requires at least: 5.7
-Tested up to: 6.5.4
+Tested up to: 6.5.5
 Requires PHP: 7.2
-Stable tag: 7.0.0
+Stable tag: 7.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,16 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. Statistics panel.
 
 == Changelog ==
+
+= 7.0.1 =
+
+**If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
+
+- Improves compatibility with LiteSpeed Cache, Autoptimize, W3 Total Cache, and Speed Optimizer (formerly known as SiteGround Optimizer.)
+- Fixes an issue where the popular posts list may not load on iOS browsers (props to Marlys Arnold and abid76!)
+- Fixes an issue where get_views() might not return the expected value (props to robwkirby!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-0-classic-widget-is-no-more-webp-avif-support/#7.0.1)
 
 = 7.0.0 =
 

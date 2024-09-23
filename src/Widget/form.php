@@ -170,6 +170,13 @@ if ( $instance['markup']['custom_html'] ) {
 }
 
 if ( $instance['theme']['name'] ) {
+    // On the new Widgets screen $new_instance['theme'] is
+    // an array for some reason, let's grab the theme name
+    // from the array and move on
+    if ( is_array($instance['theme']['name']) ) {
+        $instance['theme']['name'] = $instance['theme']['name']['name'];
+    }
+
     $wpp_shortcode .= " theme='" . sanitize_title($instance['theme']['name']) . "'";
 }
 

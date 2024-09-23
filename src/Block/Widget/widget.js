@@ -177,7 +177,7 @@ registerBlockType('wordpress-popular-posts/widget', {
         },
         post_html: {
             type: 'string',
-            default: '<li>{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>'
+            default: '<li class="{current_class}">{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>'
         },
         theme: {
             type: 'string',
