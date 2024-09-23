@@ -185,8 +185,10 @@ class Output {
 
             $body = $dom->getElementsByTagName('body')->item(0);
 
-            foreach( $body->childNodes as $node ) {
-                $clean_html .= $dom->saveHTML($node);
+            if ( isset($body->childNodes) ) {
+                foreach( $body->childNodes as $node ) {
+                    $clean_html .= $dom->saveHTML($node);
+                }
             }
 
             $this->output = trim($clean_html);
