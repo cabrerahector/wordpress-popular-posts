@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2024-07-05 07:50-0400\n"
+"POT-Creation-Date: 2024-09-29 10:40-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -422,7 +422,7 @@ msgid "Support"
 msgstr ""
 
 #: src/Admin/Admin.php:766 src/Admin/Admin.php:1168 src/Admin/Admin.php:1172
-#: src/Output.php:868 src/Shortcode/ViewsCount.php:79
+#: src/Output.php:877 src/Shortcode/ViewsCount.php:79
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
@@ -430,7 +430,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Admin/Admin.php:766 src/Admin/Admin.php:1170 src/Admin/Admin.php:1172
-#: src/Output.php:851
+#: src/Output.php:860
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
@@ -822,38 +822,38 @@ msgstr ""
 msgid "A highly customizable block that displays your most popular posts."
 msgstr ""
 
-#: src/Output.php:299
+#: src/Output.php:308
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: src/Output.php:679
+#: src/Output.php:688
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: src/Output.php:862
+#: src/Output.php:871
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Output.php:880
+#: src/Output.php:889
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: src/Output.php:885
+#: src/Output.php:894
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: src/Output.php:885
+#: src/Output.php:894
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: src/Output.php:890
+#: src/Output.php:899
 #, php-format
 msgid "under %s"
 msgstr ""
@@ -916,10 +916,6 @@ msgstr ""
 
 #: src/Rest/ViewLoggerEndpoint.php:312
 msgid "Sets the Sampling Rate."
-msgstr ""
-
-#: src/Rest/WidgetEndpoint.php:87
-msgid "Invalid Widget Instance ID"
 msgstr ""
 
 #: src/Widget/Widget.php:79
