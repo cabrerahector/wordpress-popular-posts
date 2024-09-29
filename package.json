@@ -1,6 +1,6 @@
 {
   "name": "wordpress-popular-posts",
-  "version": "7.0.1",
+  "version": "7.1.0",
   "description": "A highly customizable widget that displays your most popular posts.",
   "main": "index.js",
   "scripts": {
@@ -25,9 +25,9 @@
   "devDependencies": {
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
-    "@wordpress/scripts": "^28.6.0"
+    "@wordpress/scripts": "^30.0.2"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001655"
+    "caniuse-lite": "^1.0.30001664"
   }
 }
