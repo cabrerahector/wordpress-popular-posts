@@ -36,7 +36,8 @@ class Settings {
             'freshness' => false,
             'order_by' => 'views',
             'post_type' => 'post',
-            'pid' => '',
+            'pid' => '', /* Deprecated */
+            'exclude' => '',
             'author' => '',
             'cat' => '',
             'taxonomy' => 'category',

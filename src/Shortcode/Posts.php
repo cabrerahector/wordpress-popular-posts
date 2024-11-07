@@ -90,7 +90,8 @@ class Posts extends Shortcode {
             'freshness' => false,
             'order_by' => 'views',
             'post_type' => 'post',
-            'pid' => '',
+            'pid' => '', /* Deprecated */
+            'exclude' => '',
             'cat' => '',
             'taxonomy' => 'category',
             'term_id' => '',
@@ -135,7 +136,8 @@ class Posts extends Shortcode {
             'freshness' => empty($freshness) ? false : $freshness,
             'order_by' => ( in_array($order_by, $order_by_values) ) ? $order_by : 'views',
             'post_type' => empty($post_type) ? 'post' : $post_type,
-            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ','),
+            'pid' => rtrim(preg_replace('|[^0-9,]|', '', $pid), ','), /* Deprecated */
+            'exclude' => rtrim(preg_replace('|[^0-9,]|', '', $exclude), ','),
             'cat' => rtrim(preg_replace('|[^0-9,-]|', '', $cat), ','),
             'taxonomy' => empty($taxonomy) ? 'category' : $taxonomy,
             'term_id' => rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ','),
@@ -186,10 +188,12 @@ class Posts extends Shortcode {
         ];
 
         // Post / Page / CTP filter
-        $ids = array_filter(explode(',', $shortcode_ops['pid']), 'is_numeric');
+        $shortcode_ops['exclude'] = ( ! empty($shortcode_ops['pid']) ) ? $shortcode_ops['pid'] : $shortcode_ops['exclude'];
+
+        $ids = array_filter(explode(',', $shortcode_ops['exclude']), 'is_numeric');
         // Got no valid IDs, clear
         if ( empty($ids) ) {
-            $shortcode_ops['pid'] = '';
+            $shortcode_ops['exclude'] = '';
         }
 
         // Category filter

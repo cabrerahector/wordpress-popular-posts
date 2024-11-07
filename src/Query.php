@@ -269,8 +269,8 @@ class Query {
                                     //phpcs:enable
 
                                     if ( is_array($post_ids) && ! empty($post_ids) ) {
-                                        if ( isset($this->options['pid']) && ! empty($this->options['pid']) ) {
-                                            $pid_arr = explode(',', $this->options['pid']);
+                                        if ( isset($this->options['exclude']) && ! empty($this->options['exclude']) ) {
+                                            $pid_arr = explode(',', $this->options['exclude']);
                                             $pid_arr = array_merge($pid_arr, $post_ids);
 
                                             // Remove duplicates
@@ -280,9 +280,9 @@ class Query {
                                             }
                                             $pid_arr_no_dupes = array_keys($pid_arr_no_dupes);
 
-                                            $this->options['pid'] = implode(',', $pid_arr_no_dupes);
+                                            $this->options['exclude'] = implode(',', $pid_arr_no_dupes);
                                         } else {
-                                            $this->options['pid'] = implode(',', $post_ids);
+                                            $this->options['exclude'] = implode(',', $post_ids);
                                         }
                                     }
                                 }
@@ -293,8 +293,8 @@ class Query {
             }
 
             // Exclude these entries from the listing
-            if ( isset($this->options['pid']) && ! empty($this->options['pid']) ) {
-                $excluded_post_IDs = explode(',', $this->options['pid']);
+            if ( isset($this->options['exclude']) && ! empty($this->options['exclude']) ) {
+                $excluded_post_IDs = explode(',', $this->options['exclude']);
                 $xpid = '';
                 $where .= ' AND p.ID NOT IN(';
 

@@ -182,6 +182,14 @@ class PostsEndpoint extends Endpoint {
                 },
                 'validate_callback' => 'rest_validate_request_arg',
             ],
+            'exclude' => [
+                'description'       => __('Post IDs to exclude from the listing.'),
+                'type'              => 'string',
+                'sanitize_callback' => function($exclude) {
+                    return rtrim(preg_replace('|[^0-9,]|', '', $exclude), ',');
+                },
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
             'taxonomy' => [
                 'description'       => __('Include posts in a specified taxonomy.'),
                 'type'              => 'string',

@@ -196,7 +196,7 @@ function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can
             foreach( $args as $key => $arg ){
                 if (
                     is_array($arg)
-                    && ('post_type' == $key || 'cat' == $key || 'term_id' == $key || 'pid' == $key || 'author' == $key)
+                    && ('post_type' == $key || 'cat' == $key || 'term_id' == $key || 'pid' == $key || 'exclude' == $key || 'author' == $key)
                 ) {
                     $arg = array_filter($arg, 'is_int');
                     $arg = join(',', $arg);

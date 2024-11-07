@@ -56,7 +56,11 @@ registerBlockType('wordpress-popular-posts/widget', {
             type: 'string',
             default: 'post'
         },
-        pid: {
+        pid: /* Deprecated */ {
+            type: 'string',
+            default: ''
+        },
+        exclude: {
             type: 'string',
             default: ''
         },
