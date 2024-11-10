@@ -106,6 +106,10 @@ const WordPressPopularPosts = (function() {
             do_request = ( 1 === num );
         }
 
+        if ( 'boolean' === typeof window.wpp_do_request ) {
+            do_request = window.wpp_do_request;
+        }
+
         if ( do_request ) {
             WordPressPopularPosts.post(
                 wpp_params.apiUrl + '/v2/views/' + post_id,
