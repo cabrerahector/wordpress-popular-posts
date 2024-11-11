@@ -291,6 +291,21 @@ class Admin {
             }
         }
 
+        $transientsIndexes = $wpdb->get_results("SHOW INDEX FROM {$prefix}transients;");
+        $transientsHasTKeyIndex = false;
+
+        foreach( $transientsIndexes as $index ) {
+            if ( 'tkey' == $index->Key_name ) {
+                $transientsHasTKeyIndex == true;
+                break;
+            }
+        }
+
+        if ( ! $transientsHasTKeyIndex ) {
+            $wpdb->query("TRUNCATE TABLE {$prefix}transients;");
+            $wpdb->query("ALTER TABLE {$prefix}transients ADD UNIQUE KEY tkey (tkey);");
+        }
+
         // Validate the structure of the tables, create missing tables / fields if necessary
         \WordPressPopularPosts\Activation\Activator::track_new_site();
 

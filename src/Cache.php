@@ -92,14 +92,18 @@ class Cache {
         // Store transient keys in WPP's transients table for garbage collection
         global $wpdb;
 
+        $now = Helper::now();
+
         //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $wpdb->insert(
-            $wpdb->prefix . 'popularpoststransients',
-            [
-                'tkey' => $key,
-                'tkey_date' => Helper::now()
-            ],
-            ['%s', '%s']
+        $wpdb->query(
+            $wpdb->prepare(
+                "INSERT INTO {$wpdb->prefix}popularpoststransients (tkey, tkey_date) VALUES (%s, %s) ON DUPLICATE KEY UPDATE tkey_date = %s;",
+                [
+                    $key,
+                    $now,
+                    $now
+                ]
+            )
         );
         //phpcs:disable
     }
