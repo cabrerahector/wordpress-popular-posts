@@ -301,6 +301,12 @@ class ViewLoggerEndpoint extends Endpoint {
                 'sanitize_callback' => 'absint',
                 'validate_callback' => 'rest_validate_request_arg',
             ],
+            'id' => [
+                'type'              => 'integer',
+                'minimum'           => 1,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
             'sampling' => [
                 'description'       => __('Enables Data Sampling.'),
                 'type'              => 'integer',
@@ -328,6 +334,12 @@ class ViewLoggerEndpoint extends Endpoint {
     public function get_views_params()
     {
         return [
+            'id' => [
+                'type'              => 'integer',
+                'minimum'           => 1,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
             'range' => [
                 'type'              => 'string',
                 'enum'              => ['last24hours', 'last7days', 'last30days', 'all', 'custom'],
