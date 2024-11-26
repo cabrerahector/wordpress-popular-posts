@@ -8,13 +8,6 @@
 namespace WordPressPopularPosts;
 
 class WordPressPopularPosts {
-    /**
-     * I18N class.
-     * 
-     * @var     I18N $i18n
-     * @access  private
-     */
-    private $i18n;
 
     /**
      * REST controller class.
@@ -82,9 +75,8 @@ class WordPressPopularPosts {
      * @param   Front\Front     $front
      * @param   Widget\Widget   $widget
      */
-    public function __construct(I18N $i18n, Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget, Block\Widget\Widget $block_widget, Shortcode\ShortcodeLoader $shortcode_loader, Compatibility\Compatibility $compatibility)
+    public function __construct(Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget, Block\Widget\Widget $block_widget, Shortcode\ShortcodeLoader $shortcode_loader, Compatibility\Compatibility $compatibility)
     {
-        $this->i18n = $i18n;
         $this->rest = $rest;
         $this->admin = $admin;
         $this->front = $front;
@@ -102,7 +94,6 @@ class WordPressPopularPosts {
     public function init()
     {
         $this->compatibility->load();
-        $this->i18n->load_plugin_textdomain();
         $this->rest->hooks();
         $this->admin->hooks();
         $this->front->hooks();

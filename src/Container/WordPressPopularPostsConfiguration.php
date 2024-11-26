@@ -24,11 +24,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
         $container['widget_options'] = Settings::get('widget_options');
 
         $container['compatibility'] = $container->service(function(Container $container) {
-            return new Compatibility();
-        });
-
-        $container['i18n'] = $container->service(function(Container $container) {
-            return new I18N($container['admin_options']);
+            return new Compatibility($container['admin_options']);
         });
 
         $container['translate'] = $container->service(function(Container $container) {
@@ -152,7 +148,6 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
 
         $container['wpp'] = $container->service(function(Container $container) {
             return new WordPressPopularPosts(
-                $container['i18n'],
                 $container['rest'],
                 $container['admin'],
                 $container['front'],
