@@ -208,6 +208,8 @@ class Admin {
         } elseif ( version_compare($wpp_ver, WPP_VERSION, '<') ) {
             $this->upgrade();
         }
+
+        $this->upgrade();
     }
 
     /**
@@ -296,7 +298,7 @@ class Admin {
 
         foreach( $transientsIndexes as $index ) {
             if ( 'tkey' == $index->Key_name ) {
-                $transientsHasTKeyIndex == true;
+                $transientsHasTKeyIndex = true;
                 break;
             }
         }
