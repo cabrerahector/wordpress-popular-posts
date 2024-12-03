@@ -208,8 +208,6 @@ class Admin {
         } elseif ( version_compare($wpp_ver, WPP_VERSION, '<') ) {
             $this->upgrade();
         }
-
-        $this->upgrade();
     }
 
     /**
