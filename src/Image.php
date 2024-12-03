@@ -809,7 +809,7 @@ class Image {
              */
             $quality = apply_filters('wpp_thumbnail_compression_quality', null);
 
-            if ( ! ctype_digit( (string) $quality) ) {
+            if ( $quality && ! ctype_digit( (string) $quality) ) {
                 $quality = null; // Fallback to core's default
             }
 
