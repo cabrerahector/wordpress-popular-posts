@@ -161,5 +161,5 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
-= 6.4.0 =
+= 7.2.0 =
 If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.
