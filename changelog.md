@@ -1,6 +1,18 @@
 Changelog
 =========
 
+## 7.2.0 ##
+
+**If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
+
+- Fixes a security issue that allows unintended arbitrary shortcode execution (props to mikemyers and the Wordfence team!)
+- Fixes an issue that would allow the _popularpoststransients table to store more data than intended.
+- Adds ability to hook into WPP's script to perform certain actions before updating the views count of a post/page (see [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-2-security-enhancements-ability-to-hook-into-wpp-min-js/#views-tracking-hook) for more details.)
+- Deprecates pid parameter in favor of exclude.
+- Minor code improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-2-security-enhancements-ability-to-hook-into-wpp-min-js/)
+
 ## 7.1.0 ##
 
 **If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
