@@ -76,7 +76,7 @@ class Widget extends \WP_Widget {
             'WordPress Popular Posts',
             [
                 'classname'     =>  'popular-posts',
-                'description'   =>  __('The most Popular Posts on your blog.', 'wordpress-popular-posts')
+                'description'   =>  'The most Popular Posts on your blog.'
             ]
         );
 
