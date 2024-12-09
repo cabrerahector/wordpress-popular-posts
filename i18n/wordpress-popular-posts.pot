@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2024-09-29 10:40-0400\n"
+"POT-Creation-Date: 2024-12-09 09:08-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-KeywordsList: _e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;"
 "esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
 "X-Poedit-Basepath: ..\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:1174
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:1189
 #: src/Block/Widget/edit.js:125
 msgid "Edit"
 msgstr ""
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Avg. daily views"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:787
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:802
 #: src/Block/Widget/edit.js:191
 msgid "Comments"
 msgstr ""
@@ -309,119 +309,119 @@ msgstr ""
 msgid "Theme"
 msgstr ""
 
-#: src/Admin/Admin.php:391
+#: src/Admin/Admin.php:406
 #, php-format
 msgid "%s view in the last hour"
 msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:425 src/Admin/screen-stats.php:94
+#: src/Admin/Admin.php:440 src/Admin/screen-stats.php:94
 msgid "Trending now"
 msgstr ""
 
-#: src/Admin/Admin.php:514
+#: src/Admin/Admin.php:529
 msgid "View more"
 msgstr ""
 
-#: src/Admin/Admin.php:543
+#: src/Admin/Admin.php:558
 msgid "Use this image"
 msgstr ""
 
-#: src/Admin/Admin.php:547
+#: src/Admin/Admin.php:562
 msgid ""
 "This operation will delete all entries from WordPress Popular Posts' cache table and "
 "cannot be undone."
 msgstr ""
 
-#: src/Admin/Admin.php:548
+#: src/Admin/Admin.php:563
 msgid "Success! The cache table has been cleared!"
 msgstr ""
 
-#: src/Admin/Admin.php:549
+#: src/Admin/Admin.php:564
 msgid "Error: cache table does not exist."
 msgstr ""
 
-#: src/Admin/Admin.php:550
+#: src/Admin/Admin.php:565
 msgid ""
 "This operation will delete all stored info from WordPress Popular Posts' data tables "
 "and cannot be undone."
 msgstr ""
 
-#: src/Admin/Admin.php:551
+#: src/Admin/Admin.php:566
 msgid "Success! All data have been cleared!"
 msgstr ""
 
-#: src/Admin/Admin.php:552
+#: src/Admin/Admin.php:567
 msgid "Error: one or both data tables are missing."
 msgstr ""
 
-#: src/Admin/Admin.php:553
+#: src/Admin/Admin.php:568
 msgid "This operation will delete all cached thumbnails and cannot be undone."
 msgstr ""
 
-#: src/Admin/Admin.php:554
+#: src/Admin/Admin.php:569
 msgid "Success! All files have been deleted!"
 msgstr ""
 
-#: src/Admin/Admin.php:555
+#: src/Admin/Admin.php:570
 msgid "The thumbnail cache is already empty!"
 msgstr ""
 
-#: src/Admin/Admin.php:556
+#: src/Admin/Admin.php:571
 msgid "Do you want to continue?"
 msgstr ""
 
-#: src/Admin/Admin.php:557 src/Admin/screen-debug.php:5 src/Admin/screen-tools.php:5
+#: src/Admin/Admin.php:572 src/Admin/screen-debug.php:5 src/Admin/screen-tools.php:5
 msgid ""
 "Sorry, you do not have enough permissions to do this. Please contact the site "
 "administrator for support."
 msgstr ""
 
-#: src/Admin/Admin.php:558
+#: src/Admin/Admin.php:573
 msgid "Invalid action."
 msgstr ""
 
-#: src/Admin/Admin.php:637
+#: src/Admin/Admin.php:652
 msgid "Overview"
 msgstr ""
 
-#: src/Admin/Admin.php:638
+#: src/Admin/Admin.php:653
 msgid ""
 "Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics "
 "on what's popular on your site, tools to further tweak WPP to your needs, and more!"
 msgstr ""
 
-#: src/Admin/Admin.php:644
+#: src/Admin/Admin.php:659
 msgid "Like this plugin?"
 msgstr ""
 
-#: src/Admin/Admin.php:646
+#: src/Admin/Admin.php:661
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress community!"
 msgstr ""
 
-#: src/Admin/Admin.php:653
+#: src/Admin/Admin.php:668
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 
-#: src/Admin/Admin.php:660
+#: src/Admin/Admin.php:675
 #, php-format
 msgid ""
 "<p><strong>For more information:</strong></p><ul><li><a href=\"%1$s\">Documentation</"
 "a></li><li><a href=\"%2$s\">Support</a></li></ul>"
 msgstr ""
 
-#: src/Admin/Admin.php:686
+#: src/Admin/Admin.php:701
 msgid "Settings"
 msgstr ""
 
-#: src/Admin/Admin.php:687
+#: src/Admin/Admin.php:702
 msgid "Support"
 msgstr ""
 
-#: src/Admin/Admin.php:766 src/Admin/Admin.php:1168 src/Admin/Admin.php:1172
+#: src/Admin/Admin.php:781 src/Admin/Admin.php:1183 src/Admin/Admin.php:1187
 #: src/Output.php:877 src/Shortcode/ViewsCount.php:79
 #, php-format
 msgid "%s view"
@@ -429,7 +429,7 @@ msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:766 src/Admin/Admin.php:1170 src/Admin/Admin.php:1172
+#: src/Admin/Admin.php:781 src/Admin/Admin.php:1185 src/Admin/Admin.php:1187
 #: src/Output.php:860
 #, php-format
 msgid "%s comment"
@@ -437,21 +437,21 @@ msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:791
+#: src/Admin/Admin.php:806
 msgid "Views"
 msgstr ""
 
-#: src/Admin/Admin.php:1174
+#: src/Admin/Admin.php:1189
 msgid "View"
 msgstr ""
 
-#: src/Admin/Admin.php:1185
+#: src/Admin/Admin.php:1200
 msgid ""
 "Looks like your site's activity is a little low right now. <br />Spread the word and "
 "come back later!"
 msgstr ""
 
-#: src/Admin/Admin.php:1495
+#: src/Admin/Admin.php:1510
 #, php-format
 msgid ""
 "<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You "
@@ -459,11 +459,11 @@ msgid ""
 "performance stays up to par."
 msgstr ""
 
-#: src/Admin/Admin.php:1501
+#: src/Admin/Admin.php:1516
 msgid "Dismiss"
 msgstr ""
 
-#: src/Admin/Admin.php:1501
+#: src/Admin/Admin.php:1516
 msgid "Remind me later"
 msgstr ""
 
@@ -890,19 +890,19 @@ msgstr ""
 msgid "Specifies the number of time units of the custom time range."
 msgstr ""
 
-#: src/Rest/PostsEndpoint.php:178
+#: src/Rest/PostsEndpoint.php:178 src/Rest/PostsEndpoint.php:186
 msgid "Post IDs to exclude from the listing."
 msgstr ""
 
-#: src/Rest/PostsEndpoint.php:186
+#: src/Rest/PostsEndpoint.php:194
 msgid "Include posts in a specified taxonomy."
 msgstr ""
 
-#: src/Rest/PostsEndpoint.php:194
+#: src/Rest/PostsEndpoint.php:202
 msgid "Taxonomy IDs, separated by comma (prefix a minus sign to exclude)."
 msgstr ""
 
-#: src/Rest/PostsEndpoint.php:202
+#: src/Rest/PostsEndpoint.php:210
 msgid "Include popular posts from author ID(s)."
 msgstr ""
 
@@ -910,14 +910,10 @@ msgstr ""
 msgid "The post / page ID."
 msgstr ""
 
-#: src/Rest/ViewLoggerEndpoint.php:305
+#: src/Rest/ViewLoggerEndpoint.php:311
 msgid "Enables Data Sampling."
 msgstr ""
 
-#: src/Rest/ViewLoggerEndpoint.php:312
+#: src/Rest/ViewLoggerEndpoint.php:318
 msgid "Sets the Sampling Rate."
-msgstr ""
-
-#: src/Widget/Widget.php:79
-msgid "The most Popular Posts on your blog."
 msgstr ""
