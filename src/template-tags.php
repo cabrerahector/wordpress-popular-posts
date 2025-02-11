@@ -228,6 +228,7 @@ function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can
  *
  * eg. $popular_post_ids = wpp_get_ids(['range' => 'last24hours', 'limit' => 5]);
  *
+ * @since  7.3.0
  * @link https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#parameters
  * @param  array  $args  Popular Posts parameters
  * @return array
