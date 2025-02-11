@@ -221,3 +221,26 @@ function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can
 
     echo do_shortcode($shortcode);
 }
+
+/**
+ * Returns an array of popular posts IDs, or an empty array if
+ * nothing is found.
+ *
+ * eg. $popular_post_ids = wpp_get_ids(['range' => 'last24hours', 'limit' => 5]);
+ *
+ * @link https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#parameters
+ * @param  array  $args  Popular Posts parameters
+ * @return array
+ */
+function wpp_get_ids(array $args) {
+    $ids = [];
+
+    $wpp_query = new \WordPressPopularPosts\Query($args);
+    $popular_posts_arr = $wpp_query->get_posts();
+
+    if ( $popular_posts_arr ) {
+        $ids = wp_list_pluck($popular_posts_arr, 'id');
+    }
+
+    return $ids;
+}
