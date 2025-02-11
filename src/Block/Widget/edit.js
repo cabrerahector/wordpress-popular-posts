@@ -143,8 +143,7 @@ export class WPPWidgetBlockEdit extends Component
 
         function onLimitChange(value)
         {
-            let limit = Number.isInteger(Number(value)) && Number(value) > 0 ? value : 10;
-            setAttributes({ limit: Number(limit) });
+            setAttributes({ limit: parseInt(value, 10) });
         }
 
         function onOrderByChange(value)
@@ -158,8 +157,7 @@ export class WPPWidgetBlockEdit extends Component
         }
 
         function onTimeQuantityChange(value) {
-            let qty = Number.isInteger(Number(value)) && Number(value) > 0 ? value : 24;
-            setAttributes({ time_quantity: Number(qty) });
+            setAttributes({ time_quantity: parseInt(value, 10) });
         }
 
         function onTimeUnitChange(value) {
@@ -179,7 +177,9 @@ export class WPPWidgetBlockEdit extends Component
             />
             <TextControl
                 label={__('Limit', 'wordpress-popular-posts')}
+                type='number'
                 value={attributes.limit}
+                min='1'
                 onChange={onLimitChange}
             />
             <SelectControl
@@ -208,7 +208,9 @@ export class WPPWidgetBlockEdit extends Component
                 <div className='option-subset'>
                     <TextControl
                         label={__('Time Quantity', 'wordpress-popular-posts')}
+                        type='number'
                         value={attributes.time_quantity}
+                        min='1'
                         onChange={onTimeQuantityChange}
                     />
                     <SelectControl
@@ -374,8 +376,7 @@ export class WPPWidgetBlockEdit extends Component
 
         function onTitleLengthChange(value)
         {
-            let length = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
-            setAttributes({ title_length: Number(length) });
+            setAttributes({ title_length: parseInt(value, 10) });
         }
 
         function onDisplayExcerptChange(value) {
@@ -387,8 +388,7 @@ export class WPPWidgetBlockEdit extends Component
 
         function onExcerptLengthChange(value)
         {
-            let length = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
-            setAttributes({ excerpt_length: Number(length) });
+            setAttributes({ excerpt_length: parseInt(value, 10) });
         }
 
         function onDisplayThumbnailChange(value) {
@@ -400,8 +400,8 @@ export class WPPWidgetBlockEdit extends Component
 
         function onThumbnailDimChange(dim, value)
         {
-            let width = Number.isInteger(Number(value)) && Number(value) >= 0 ? value : 0;
-            setAttributes(( 'width' == dim ? { thumbnail_width: Number(width) } : { thumbnail_height: Number(width) } ));
+            value = parseInt(value, 10);
+            setAttributes(( 'width' == dim ? { thumbnail_width: value } : { thumbnail_height: value } ));
         }
 
         function onThumbnailBuildChange(value)
@@ -456,7 +456,9 @@ export class WPPWidgetBlockEdit extends Component
                 <div className='option-subset'>
                     <TextControl
                         label={__('Shorten title to', 'wordpress-popular-posts')}
+                        type='number'
                         value={attributes.title_length}
+                        min='1'
                         onChange={onTitleLengthChange}
                     />
                     <SelectControl
@@ -483,7 +485,9 @@ export class WPPWidgetBlockEdit extends Component
                     />
                     <TextControl
                         label={__('Excerpt length', 'wordpress-popular-posts')}
+                        type='number'
                         value={attributes.excerpt_length}
+                        min='1'
                         onChange={onExcerptLengthChange}
                     />
                     <SelectControl
@@ -515,14 +519,18 @@ export class WPPWidgetBlockEdit extends Component
                         <Fragment>
                             <TextControl
                                 label={__('Thumbnail width', 'wordpress-popular-posts')}
+                                type='number'
                                 help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
                                 value={attributes.thumbnail_width}
+                                min='1'
                                 onChange={(value) => onThumbnailDimChange('width', value)}
                             />
                             <TextControl
                                 label={__('Thumbnail height', 'wordpress-popular-posts')}
+                                type='number'
                                 help={__('Size in px units (pixels)', 'wordpress-popular-posts')}
                                 value={attributes.thumbnail_height}
+                                min='1'
                                 onChange={(value) => onThumbnailDimChange('height', value)}
                             />
                         </Fragment>
