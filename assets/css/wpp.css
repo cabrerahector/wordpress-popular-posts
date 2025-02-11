@@ -46,6 +46,10 @@ Use the following classes to style your popular posts list as you like.
         .wpp-excerpt {
         }
 
+        .wpp-excerpt:empty {
+            display: none;
+        }
+
         /* Stats tag styles */
         .wpp-meta, .post-stats {
             display: block;

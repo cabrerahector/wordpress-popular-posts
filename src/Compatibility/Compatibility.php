@@ -9,6 +9,8 @@
 
 namespace WordPressPopularPosts\Compatibility;
 
+use WordPressPopularPosts\{Image, Themer};
+
 class Compatibility
 {
     /**
@@ -30,14 +32,32 @@ class Compatibility
     protected $config;
 
     /**
+     * Image object.
+     *
+     * @var     \WordPressPopularPosts\Image
+     * @access  private
+     */
+    private $thumbnail;
+
+    /**
+     * Themer object.
+     *
+     * @var     \WordPressPopularPosts\Themer       $themer
+     * @access  private
+     */
+    private $themer;
+
+    /**
      * Construct.
      *
      * @param array $admin_settings
+     * @param   \WordPressPopularPosts\Themer
      */
-    public function __construct(array $admin_settings)
+    public function __construct(array $admin_settings, Image $image, Themer $themer)
     {
         $this->compat = [
             __NAMESPACE__ . '\Autoptimize\Autoptimize',
+            __NAMESPACE__ . '\Elementor\Elementor',
             __NAMESPACE__ . '\LiteSpeedCache\LiteSpeedCache',
             __NAMESPACE__ . '\Polylang\Polylang',
             __NAMESPACE__ . '\SiteGroundOptimizer\SiteGroundOptimizer',
@@ -46,6 +66,8 @@ class Compatibility
         ];
 
         $this->config = $admin_settings;
+        $this->thumbnail = $image;
+        $this->themer = $themer;
     }
 
     /**
@@ -57,7 +79,7 @@ class Compatibility
     {
         if ( is_array($this->compat) && ! empty($this->compat) ) {
             foreach ($this->compat as $compat) {
-                $instance = new $compat($this->config);
+                $instance = new $compat($this->config, $this->thumbnail, $this->themer);
                 $instance->init();
             }
         }

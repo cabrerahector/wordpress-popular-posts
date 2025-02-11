@@ -202,7 +202,15 @@ function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can
                     $arg = join(',', $arg);
                 }
 
-                $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, $encoding = ini_get('default_charset'), false) . '"';
+                $arg = (null !== $arg) ? trim($arg) : '';
+
+                if ( '' !== $arg ) {
+                    if ( is_numeric($arg) ) {
+                        $atts .= ' ' . $key . '=' . $arg . '';
+                    } else {
+                        $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, $encoding = ini_get('default_charset'), false) . '"';
+                    }
+                }
             }
         } else {
             $atts = trim(str_replace('&', ' ', $args));

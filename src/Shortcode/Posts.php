@@ -180,7 +180,7 @@ class Posts extends Shortcode {
                 'wpp-end' => empty($wpp_end) ? '' : $wpp_end,
                 'title-start' => empty($header_start) ? '' : $header_start,
                 'title-end' => empty($header_end) ? '' : $header_end,
-                'post-html' => empty($post_html) ? '<li class="{current_class}">{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>' : $post_html
+                'post-html' => empty($post_html) ? '<li class="{current_class}">{thumb} {title} <span class="wpp-meta post-stats">{stats}</span><p class="wpp-excerpt">{excerpt}</p></li>' : $post_html
             ],
             'theme' => [
                 'name' => trim($theme)
