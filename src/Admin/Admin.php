@@ -553,7 +553,7 @@ class Admin {
                 ]);
                 wp_enqueue_script('wpp-chart');
 
-                wp_register_script('wordpress-popular-posts-admin-script', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin.js', ['jquery'], WPP_VERSION, true);
+                wp_register_script('wordpress-popular-posts-admin-script', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin.js', ['jquery'], WPP_VERSION, true); /** @TODO Drop jQuery datepicker dep */
                 wp_localize_script('wordpress-popular-posts-admin-script', 'wpp_admin_params', [
                     'label_media_upload_button' => __('Use this image', 'wordpress-popular-posts'),
                     'nonce' => wp_create_nonce('wpp_admin_nonce'),
@@ -1303,6 +1303,8 @@ class Admin {
     {
         $wpp_uploads_dir = $this->thumbnail->get_plugin_uploads_dir();
         $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
+
+        error_log('clear_thumbnails() called');
 
         if (
             current_user_can('edit_published_posts')

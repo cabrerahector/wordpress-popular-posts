@@ -36,6 +36,58 @@
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
+.wpp-tabs {
+    box-sizing: border-box;
+}
+
+    .wpp-tabs .wpp-tabs-container {
+        display: grid;
+        grid-auto-columns: 1fr;
+    }
+
+        .wpp-tabs .wpp-tabs-container button {
+            cursor: pointer;
+            padding: 8px 3px;
+            background: #f9f9f9;
+            border: none;
+            border-right: #bbb 1px solid;
+            border-bottom: #f0f0f0 1px solid;
+            border-radius: 0 !important;
+        }
+
+        .wpp-tabs .wpp-tabs-container button:focus,
+        .wpp-tabs .wpp-tabs-container button:hover {
+            background: #fff;
+        }
+
+        .wpp-tabs .wpp-tabs-container button[aria-selected="false"] {
+            background: #e9e9e9;
+        }
+
+        .wpp-tabs .wpp-tabs-container button[aria-selected="false"]:focus,
+        .wpp-tabs .wpp-tabs-container button[aria-selected="false"]:hover {
+            background: #e0e0e0;
+        }
+
+        .wpp-tabs .wpp-tabs-container button:last-of-type {
+            border-right: none;
+        }
+
+            .wpp-tabs .wpp-tabs-container button span {
+                pointer-events: none;
+            }
+
+    .wpp-tabs .wpp-tabs-panel {
+        overflow: hidden;
+        display: none;
+    }
+
+    .wpp-tabs .wpp-tabs-panel.active {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
 .wpp-lightbox {
     display: none;
     position: fixed;
@@ -44,50 +96,20 @@
     z-index: 999;
     margin: -140px 0 0 -140px;
     padding: 15px;
-    width: 250px;
+    width: 300px;
     max-height: 280px;
     background: #fff;
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    box-sizing: border-box;
 }
 
     .wpp-lightbox-tabs {
-        margin: 0 0 25px 0;
-        padding: 0 0 0 0;
+        margin: -15px -15px 25px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         text-align: center;
     }
-
-        .wpp-lightbox-tabs li {
-            display: inline;
-            list-style: none;
-            margin: 0;
-            padding: 0 15px 0 10px;
-            border-right: #ddd 1px solid;
-        }
-
-        .wpp-lightbox-tabs li:first-child {
-            padding: 0 15px 0 0;
-        }
-
-        .wpp-lightbox-tabs li:last-child {
-            padding: 0 0 0 10px;
-            border-right: none;
-        }
-
-            .wpp-lightbox-tabs li.active a {
-                color: #00a0d2;
-                text-decoration: none;
-            }
-
-        .wpp-lightbox-tab-content {
-            overflow: hidden;
-            display: none;
-            width: 100%;
-        }
-
-        .wpp-lightbox-tab-content-active {
-            display: block;
-        }
 
     .wpp-lightbox form {
         display: block;
@@ -104,19 +126,24 @@
     position: relative;
 }
 
-    .wpp-section-stats .dashicons-admin-generic {
+    .wpp-section-stats #wpp-stats-config-btn {
         position: absolute;
         top: 22px;
         left: 0;
+        cursor: pointer;
+        outline: inherit;
+        padding: 0;
         width: 25px;
         height: 25px;
+        min-height: auto;
         font-size: 25px;
-        transition: transform 0.3s;
+        background: none;
+        border: none;
     }
 
-    .wpp-section-stats .dashicons-admin-generic:hover {
-        transform: rotate(360deg);
-    }
+        .wpp-section-stats #wpp-stats-config-btn .dashicons-admin-generic {
+            font-size: inherit;
+        }
 
     .wpp-header {
         overflow: hidden;
@@ -175,19 +202,12 @@
                 padding: 0;
             }
 
-                .wpp-header-nav li a {
-                    display: inline-block;
-                    padding: 6px 12px 7px;
-                    line-height: 1.1em;
-                }
-
-                .wpp-section-stats .wpp-header-nav li a:hover,
-                .wpp-section-stats .wpp-header-nav li.current a {
-                    color: #00a0d2;
-                }
-
-                .wpp-section-stats .wpp-header-nav li.current a {
-                    text-decoration: none;
+                .wpp-header-nav li button {
+                    cursor: pointer;
+                    outline: inherit;
+                    min-height: auto;
+                    background: none;
+                    border: none;
                 }
 
     #wpp-chart-wrapper {
@@ -222,6 +242,36 @@
         width: 100%;
         background: #fff;
     }
+
+        #wpp-listing .wpp-tabs-container {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-auto-columns: unset;
+        }
+
+            #wpp-listing .wpp-tabs-container button {
+                padding-top: 15px;
+                padding-bottom: 15px;
+                font-size: 1.2em;
+            }
+
+            @media (max-width: 639px) {
+                #wpp-listing .wpp-tabs-container button span:not([class]) {
+                    display: none;
+                }
+            }
+
+        #wpp-listing .wpp-tabs-panel {
+            overflow: hidden;
+            padding: 2% 30px;
+            width: 100%;
+        }
+
+            #wpp-listing .wpp-tabs-panel .spinner {
+                display: block;
+                margin: 0 auto;
+                float: none;
+                visibility: visible;
+            }
 
         .wpp-content .wpp-tabbed-nav {
             overflow: hidden;
@@ -346,6 +396,13 @@
                     .popular-posts-list li:hover small {
                         display: inline;
                     }
+
+#thumb-review {}
+
+    #thumb-review img {
+        max-width: 300px;
+        height: auto;
+    }
 
 #wpp_params {}
 

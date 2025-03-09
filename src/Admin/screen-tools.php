@@ -79,7 +79,7 @@ if ( 'tools' == $current ) {
                         <tr valign="top" <?php if ($this->config['tools']['thumbnail']['source'] != 'custom_field') { ?>style="display: none;"<?php } ?> id="row_custom_field">
                             <th scope="row"><label for="thumb_field"><?php esc_html_e('Custom field name', 'wordpress-popular-posts'); ?>:</label></th>
                             <td>
-                                <input type="text" id="thumb_field" name="thumb_field" value="<?php echo esc_attr($this->config['tools']['thumbnail']['field']); ?>" size="10" <?php if ($this->config['tools']['thumbnail']['source'] != 'custom_field') { ?>style="display: none;"<?php } ?> />
+                                <input type="text" id="thumb_field" name="thumb_field" value="<?php echo esc_attr($this->config['tools']['thumbnail']['field']); ?>" size="10" />
                             </td>
                         </tr>
                         <tr valign="top" <?php if ($this->config['tools']['thumbnail']['source'] != 'custom_field') { ?>style="display: none;"<?php } ?> id="row_custom_field_resize">
@@ -145,7 +145,7 @@ if ( 'tools' == $current ) {
                                     </select>
 
                                     <label for="log_expire_time"<?php echo ($this->config['tools']['log']['limit'] == 0) ? ' style="display: none;"' : ''; ?>>
-                                        <input type="text" id="log_expire_time" name="log_expire_time" value="<?php echo esc_attr($this->config['tools']['log']['expires_after']); ?>" size="3"> <?php esc_html_e('day(s)', 'wordpress-popular-posts'); ?>
+                                        <input type="number" min="1" id="log_expire_time" name="log_expire_time" value="<?php echo esc_attr($this->config['tools']['log']['expires_after']); ?>" size="3"> <?php esc_html_e('day(s)', 'wordpress-popular-posts'); ?>
                                     </label>
 
                                     <p class="description"<?php echo ($this->config['tools']['log']['limit'] == 0) ? ' style="display: none;"' : ''; ?>><?php esc_html_e('Data older than the specified time frame will be automatically discarded', 'wordpress-popular-posts'); ?>.</p>
@@ -180,7 +180,7 @@ if ( 'tools' == $current ) {
                             <tr valign="top" <?php if ( ! $this->config['tools']['cache']['active'] ) { ?>style="display: none;"<?php } ?> id="cache_refresh_interval">
                                 <th scope="row"><label for="cache_interval_value"><?php esc_html_e('Refresh cache every', 'wordpress-popular-posts'); ?>:</label></th>
                                 <td>
-                                    <input name="cache_interval_value" type="text" id="cache_interval_value" value="<?php echo ( isset($this->config['tools']['cache']['interval']['value']) ) ? (int) $this->config['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
+                                    <input name="cache_interval_value" type="number" min="1" id="cache_interval_value" value="<?php echo ( isset($this->config['tools']['cache']['interval']['value']) ) ? (int) $this->config['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
                                     <select name="cache_interval_time" id="cache_interval_time">
                                         <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'minute') { ?>selected="selected"<?php } ?> value="minute"><?php esc_html_e('Minute(s)', 'wordpress-popular-posts'); ?></option>
                                         <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'hour') { ?>selected="selected"<?php } ?> value="hour"><?php esc_html_e('Hour(s)', 'wordpress-popular-posts'); ?></option>
@@ -212,10 +212,10 @@ if ( 'tools' == $current ) {
                                     <p class="description"><?php echo $description; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>.</p>
                                 </td>
                             </tr>
-                            <tr valign="top" <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>style="display: none;"<?php } ?>>
-                                <th scope="row"><label for="sample_rate"><?php esc_html_e('Sample Rate', 'wordpress-popular-posts'); ?>:</label></th>
+                            <tr valign="top" <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>style="display: none;"<?php } ?> id="sampling_rate">
+                                <th scope="row"><label for="sample_rate"><?php esc_html_e('Sample Rate', 'wordpress-popular-posts'); ?>: <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#what-is-sample-rate-for" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></label></th>
                                 <td>
-                                    <input name="sample_rate" type="text" id="sample_rate" value="<?php echo ( isset($this->config['tools']['sampling']['rate']) ) ? (int) $this->config['tools']['sampling']['rate'] : 100; ?>" class="small-text">
+                                    <input name="sample_rate" type="number" min="1" id="sample_rate" value="<?php echo ( isset($this->config['tools']['sampling']['rate']) ) ? (int) $this->config['tools']['sampling']['rate'] : 100; ?>" class="small-text">
                                     <br />
                                     <p class="description"><?php echo sprintf(esc_html__('A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value.', 'wordpress-popular-posts'), 100); ?></p>
                                 </td>
