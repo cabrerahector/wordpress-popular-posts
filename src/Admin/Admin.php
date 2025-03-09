@@ -120,8 +120,6 @@ class Admin {
         add_action('wp_ajax_wpp_get_most_viewed', [$this, 'get_popular_items']);
         add_action('wp_ajax_wpp_get_most_commented', [$this, 'get_popular_items']);
         add_action('wp_ajax_wpp_get_trending', [$this, 'get_popular_items']);
-        // Delete plugin data
-        add_action('wp_ajax_wpp_clear_data', [$this, 'clear_data']);
         // Reset plugin's default thumbnail
         add_action('wp_ajax_wpp_reset_thumbnail', [$this, 'get_default_thumbnail']);
         // Empty plugin's images cache
@@ -557,14 +555,7 @@ class Admin {
                 wp_localize_script('wordpress-popular-posts-admin-script', 'wpp_admin_params', [
                     'label_media_upload_button' => __('Use this image', 'wordpress-popular-posts'),
                     'nonce' => wp_create_nonce('wpp_admin_nonce'),
-                    'nonce_reset_data' => wp_create_nonce('wpp_nonce_reset_data'),
                     'nonce_reset_thumbnails' => wp_create_nonce('wpp_nonce_reset_thumbnails'),
-                    'text_confirm_reset_cache_table' => __("This operation will delete all entries from WordPress Popular Posts' cache table and cannot be undone.", 'wordpress-popular-posts'),
-                    'text_cache_table_cleared' => __('Success! The cache table has been cleared!', 'wordpress-popular-posts'),
-                    'text_cache_table_missing' => __('Error: cache table does not exist.', 'wordpress-popular-posts'),
-                    'text_confirm_reset_all_tables' => __("This operation will delete all stored info from WordPress Popular Posts' data tables and cannot be undone.", 'wordpress-popular-posts'),
-                    'text_all_table_cleared' => __('Success! All data have been cleared!', 'wordpress-popular-posts'),
-                    'text_tables_missing' => __('Error: one or both data tables are missing.', 'wordpress-popular-posts'),
                     'text_confirm_image_cache_reset' => __('This operation will delete all cached thumbnails and cannot be undone.', 'wordpress-popular-posts'),
                     'text_image_cache_cleared' => __('Success! All files have been deleted!', 'wordpress-popular-posts'),
                     'text_image_cache_already_empty' => __('The thumbnail cache is already empty!', 'wordpress-popular-posts'),
@@ -1200,58 +1191,6 @@ class Admin {
             <p class="no-data" style="text-align: center;"><?php _e("Looks like your site's activity is a little low right now. <br />Spread the word and come back later!", 'wordpress-popular-posts'); //phpcs:ignore WordPress.Security.EscapeOutput.UnsafePrintingFunction ?></p>
             <?php
         }
-    }
-
-    /**
-     * Truncates data and cache on demand.
-     *
-     * @since   2.0.0
-     * @global  object  $wpdb
-     */
-    public function clear_data()
-    {
-        $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
-        $clear = isset($_POST['clear']) ? $_POST['clear'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-
-        if (
-            current_user_can('manage_options')
-            && wp_verify_nonce($token, 'wpp_nonce_reset_data')
-            && $clear
-        ) {
-            global $wpdb;
-
-            // set table name
-            $prefix = $wpdb->prefix . 'popularposts';
-
-            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $prefix is safe to use
-            if ( $clear == 'cache' ) {
-                if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
-                    $wpdb->query("TRUNCATE TABLE {$prefix}summary;");
-                    $this->flush_transients();
-
-                    echo 1;
-                } else {
-                    echo 2;
-                }
-            } elseif ( $clear == 'all' ) {
-                if ( $wpdb->get_var("SHOW TABLES LIKE '{$prefix}data'") && $wpdb->get_var("SHOW TABLES LIKE '{$prefix}summary'") ) {
-                    $wpdb->query("TRUNCATE TABLE {$prefix}data;");
-                    $wpdb->query("TRUNCATE TABLE {$prefix}summary;");
-                    $this->flush_transients();
-
-                    echo 1;
-                } else {
-                    echo 2;
-                }
-            } else {
-                echo 3;
-            }
-            //phpcs:enable
-        } else {
-            echo 4;
-        }
-
-        wp_die();
     }
 
     /**

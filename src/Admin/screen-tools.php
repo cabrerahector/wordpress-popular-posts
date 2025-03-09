@@ -278,16 +278,6 @@ if ( 'tools' == $current ) {
 
                 <?php wp_nonce_field('wpp-update-misc-options', 'wpp-update-misc-options-token'); ?>
             </form>
-            <br />
-            <p style="display: block; float: none; clear: both;">&nbsp;</p>
-
-            <?php if ( current_user_can('manage_options') ) : ?>
-                <div style="margin-top: 2em;">
-                    <p><?php esc_html_e('WordPress Popular Posts maintains data in two separate tables: one for storing the most popular entries on a daily basis (from now on, "cache"), and another one to keep the All-time data (from now on, "historical data" or just "data"). If for some reason you need to clear the cache table, or even both historical and cache tables, please use the buttons below to do so.', 'wordpress-popular-posts'); ?></p>
-                    <p><input type="button" name="wpp-reset-cache" id="wpp-reset-cache" class="button-secondary" value="<?php esc_attr_e('Empty cache', 'wordpress-popular-posts'); ?>"> <label for="wpp-reset-cache"><small><?php esc_html_e('Use this button to manually clear entries from WPP cache only', 'wordpress-popular-posts'); ?></small></label></p>
-                    <p><input type="button" name="wpp-reset-all" id="wpp-reset-all" class="button-secondary" value="<?php esc_attr_e('Clear all data', 'wordpress-popular-posts'); ?>"> <label for="wpp-reset-all"><small><?php esc_html_e('Use this button to manually clear entries from all WPP data tables', 'wordpress-popular-posts'); ?></small></label></p>
-                </div>
-            <?php endif; ?>
         </div>
         <?php
     }
