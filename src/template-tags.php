@@ -14,7 +14,7 @@
  * @param   bool            $cache          Whether to cache the views data to improve performance
  * @return  string
  */
-function wpp_get_views(int $id = null, $range = null, $number_format = true, $cache = false) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range, $number_format as mixed or bool|string */
+function wpp_get_views(?int $id = null, $range = null, $number_format = true, $cache = false) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range, $number_format as mixed or bool|string */
 {
     // have we got an id?
     if ( empty($id) || is_null($id) || ! is_numeric($id) ) {
