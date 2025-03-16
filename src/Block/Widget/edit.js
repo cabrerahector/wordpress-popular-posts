@@ -3,7 +3,7 @@ import { escape_html, unescape_html } from '../utils';
 const { serverSideRender: ServerSideRender } = wp;
 const { Component, Fragment } = wp.element;
 const { BlockControls } = wp.blockEditor;
-const { CheckboxControl, Disabled, SelectControl, Spinner, TextareaControl, TextControl, Toolbar, ToolbarButton } = wp.components;
+const { CheckboxControl, Disabled, SelectControl, Spinner, TextareaControl, TextControl, ToolbarGroup, ToolbarButton } = wp.components;
 const { __ } = wp.i18n;
 const endpoint = 'wordpress-popular-posts/v1';
 
@@ -120,13 +120,13 @@ export class WPPWidgetBlockEdit extends Component
 
         return (
             <BlockControls>
-                <Toolbar label="{ __('Settings') }">
+                <ToolbarGroup>
                     <ToolbarButton
                         label={ this.state.editMode ? __('Preview', 'wordpress-popular-posts') : __('Edit', 'wordpress-popular-posts') }
                         icon={ this.state.editMode ? "format-image" : "edit" }
                         onClick={onPreviewChange}
                     />
-                </Toolbar>
+                </ToolbarGroup>
             </BlockControls>
         );
     }
