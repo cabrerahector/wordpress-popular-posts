@@ -3,7 +3,7 @@ Contributors: hcabrera
 Donate link: https://ko-fi.com/cabrerahector
 Tags: popular, posts, widget, popularity, top
 Requires at least: 5.9
-Tested up to: 6.7.1
+Tested up to: 6.7.2
 Requires PHP: 7.3
 Stable tag: 7.3.0
 License: GPLv2 or later
