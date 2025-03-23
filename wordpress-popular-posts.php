@@ -18,7 +18,7 @@
  * Description:       A highly customizable plugin that displays the most popular posts on your blog.
  * Version:           7.3.0
  * Requires at least: 5.7
- * Requires PHP:      7.2
+ * Requires PHP:      7.3
  * Author:            Hector Cabrera
  * Author URI:        https://cabrerahector.com/
  * License:           GPL-2.0+
