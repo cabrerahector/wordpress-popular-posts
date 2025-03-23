@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2024-12-09 09:08-0400\n"
+"POT-Creation-Date: 2025-03-23 11:07-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -29,399 +29,434 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:1189
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:1180
 #: src/Block/Widget/edit.js:125
 msgid "Edit"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:176
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:174
+#: src/Compatibility/Elementor/widgets/widget-controls.php:15
 msgid "Title"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:21
-#: src/Block/Widget/edit.js:181
+#: src/Block/Widget/edit.js:179
+#: src/Compatibility/Elementor/widgets/widget-controls.php:32
 msgid "Limit"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:186
+#: src/Compatibility/Elementor/widgets/widget-controls.php:39
 msgid "Sort posts by"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:189
+#: src/Compatibility/Elementor/widgets/widget-controls.php:43
 msgid "Total views"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:190
+#: src/Compatibility/Elementor/widgets/widget-controls.php:44
 msgid "Avg. daily views"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:802
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/Admin.php:793
 #: src/Block/Widget/edit.js:191
+#: src/Compatibility/Elementor/widgets/widget-controls.php:45
 msgid "Comments"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:196
+#: src/Compatibility/Elementor/widgets/widget-controls.php:53
 msgid "Time Range"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:199
+#: src/Compatibility/Elementor/widgets/widget-controls.php:57
 msgid "Last 24 Hours"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:80
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:85
 #: src/Block/Widget/edit.js:200
+#: src/Compatibility/Elementor/widgets/widget-controls.php:58
 msgid "Last 7 days"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:81
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:88
 #: src/Block/Widget/edit.js:201
+#: src/Compatibility/Elementor/widgets/widget-controls.php:59
 msgid "Last 30 days"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:202
+#: src/Compatibility/Elementor/widgets/widget-controls.php:60
 msgid "All-time"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:82
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:91
 #: src/Block/Widget/edit.js:203
+#: src/Compatibility/Elementor/widgets/widget-controls.php:61
 msgid "Custom"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:210
+#: src/Compatibility/Elementor/widgets/widget-controls.php:74
 msgid "Time Quantity"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:215
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:217
+#: src/Compatibility/Elementor/widgets/widget-controls.php:84
 msgid "Time Unit"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:51
-#: src/Admin/screen-tools.php:185 src/Block/Widget/edit.js:218
+#: src/Admin/screen-tools.php:185 src/Block/Widget/edit.js:220
+#: src/Compatibility/Elementor/widgets/widget-controls.php:88
 msgid "Minute(s)"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:52
-#: src/Admin/screen-tools.php:186 src/Block/Widget/edit.js:219
+#: src/Admin/screen-tools.php:186 src/Block/Widget/edit.js:221
+#: src/Compatibility/Elementor/widgets/widget-controls.php:89
 msgid "Hour(s)"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:53
-#: src/Admin/screen-tools.php:187 src/Block/Widget/edit.js:220
+#: src/Admin/screen-tools.php:187 src/Block/Widget/edit.js:222
+#: src/Compatibility/Elementor/widgets/widget-controls.php:90
 msgid "Day(s)"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:25
-#: src/Block/Widget/edit.js:227
+#: src/Block/Widget/edit.js:229
+#: src/Compatibility/Elementor/widgets/widget-controls.php:101
 msgid "Display only posts published within the selected Time Range"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:328
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:330
+#: src/Compatibility/Elementor/widgets/widget-controls.php:116
 msgid "Filters"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:330
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:332
 msgid "Post type(s)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:331
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:333
+#: src/Compatibility/Elementor/widgets/widget-controls.php:127
 msgid "Post types must be comma separated."
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:336
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:338
+#: src/Compatibility/Elementor/widgets/widget-controls.php:139
 msgid "Post ID(s) to exclude"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:337
-#: src/Block/Widget/edit.js:343
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:339
+#: src/Block/Widget/edit.js:345
+#: src/Compatibility/Elementor/widgets/widget-controls.php:141
+#: src/Compatibility/Elementor/widgets/widget-controls.php:154
 msgid "IDs must be comma separated."
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:342
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:344
+#: src/Compatibility/Elementor/widgets/widget-controls.php:152
 msgid "Author ID(s)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:352
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:354
+#: src/Compatibility/Elementor/widgets/widget-controls.php:185
 msgid "Term IDs must be comma separated, prefix a minus sign to exclude."
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:449
+#: src/Compatibility/Elementor/widgets/widget-controls.php:200
 msgid "Posts settings"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:451
+#: src/Compatibility/Elementor/widgets/widget-controls.php:223
 msgid "Shorten title"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:458
+#: src/Compatibility/Elementor/widgets/widget-controls.php:233
 msgid "Shorten title to"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:465
-#: src/Block/Widget/edit.js:492
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:467
+#: src/Block/Widget/edit.js:496
+#: src/Compatibility/Elementor/widgets/widget-controls.php:251
+#: src/Compatibility/Elementor/widgets/widget-controls.php:303
 msgid "characters"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:466
-#: src/Block/Widget/edit.js:493
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:468
+#: src/Block/Widget/edit.js:497
+#: src/Compatibility/Elementor/widgets/widget-controls.php:252
+#: src/Compatibility/Elementor/widgets/widget-controls.php:304
 msgid "words"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:473
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:475
+#: src/Compatibility/Elementor/widgets/widget-controls.php:263
 msgid "Display post excerpt"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:480
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:482
+#: src/Compatibility/Elementor/widgets/widget-controls.php:273
 msgid "Keep text format and links"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:485
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:487
+#: src/Compatibility/Elementor/widgets/widget-controls.php:286
 msgid "Excerpt length"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:500
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:504
+#: src/Compatibility/Elementor/widgets/widget-controls.php:315
 msgid "Display post thumbnail"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:509
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:513
+#: src/Compatibility/Elementor/widgets/widget-controls.php:329
 msgid "Set size manually"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:510
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:514
+#: src/Compatibility/Elementor/widgets/widget-controls.php:330
 msgid "Use predefined size"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:517
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:521
+#: src/Compatibility/Elementor/widgets/widget-controls.php:341
 msgid "Thumbnail width"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:518
-#: src/Block/Widget/edit.js:524
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:523
+#: src/Block/Widget/edit.js:531
+#: src/Compatibility/Elementor/widgets/widget-controls.php:346
+#: src/Compatibility/Elementor/widgets/widget-controls.php:362
 msgid "Size in px units (pixels)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:523
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:529
+#: src/Compatibility/Elementor/widgets/widget-controls.php:357
 msgid "Thumbnail height"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:543
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:551
+#: src/Compatibility/Elementor/widgets/widget-controls.php:212
 msgid "Display post rating"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:569
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:577
+#: src/Compatibility/Elementor/widgets/widget-controls.php:400
 msgid "Stats Tag settings"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:571
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:579
+#: src/Compatibility/Elementor/widgets/widget-controls.php:411
 msgid "Display comments count"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:576
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:584
+#: src/Compatibility/Elementor/widgets/widget-controls.php:421
 msgid "Display views"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:581
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:589
+#: src/Compatibility/Elementor/widgets/widget-controls.php:431
 msgid "Display author"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:586
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:594
+#: src/Compatibility/Elementor/widgets/widget-controls.php:441
 msgid "Display date"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:593
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:601
+#: src/Compatibility/Elementor/widgets/widget-controls.php:451
 msgid "Date Format"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:596
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:604
+#: src/Compatibility/Elementor/widgets/widget-controls.php:455
 msgid "Relative"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:597
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:605
+#: src/Compatibility/Elementor/widgets/widget-controls.php:456
 msgid "Month Day, Year"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:598
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:606
+#: src/Compatibility/Elementor/widgets/widget-controls.php:457
 msgid "yyyy/mm/dd"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:599
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:607
+#: src/Compatibility/Elementor/widgets/widget-controls.php:458
 msgid "mm/dd/yyyy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:600
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:608
+#: src/Compatibility/Elementor/widgets/widget-controls.php:459
 msgid "dd/mm/yyyy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:601
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:609
+#: src/Compatibility/Elementor/widgets/widget-controls.php:460
 msgid "WordPress Date Format"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:608
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:616
 msgid "Display taxonomy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:615
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:623
 msgid "Taxonomy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:667
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:675
 msgid "None"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:684
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:692
+#: src/Compatibility/Elementor/widgets/widget-controls.php:474
 msgid "HTML Markup settings"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-tools.php:71
 #: src/Admin/screen-tools.php:169 src/Admin/screen-tools.php:197
-#: src/Block/Widget/edit.js:684
+#: src/Admin/screen-tools.php:216 src/Block/Widget/edit.js:692
 msgid "What is this?"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:686
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:694
 msgid "Use custom HTML Markup"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:694
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:702
+#: src/Compatibility/Elementor/widgets/widget-controls.php:515
 msgid "Before title"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:700
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:708
+#: src/Compatibility/Elementor/widgets/widget-controls.php:531
 msgid "After title"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:706
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:714
+#: src/Compatibility/Elementor/widgets/widget-controls.php:547
 msgid "Before popular posts"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:712
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:720
+#: src/Compatibility/Elementor/widgets/widget-controls.php:563
 msgid "After popular posts"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:717
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:725
+#: src/Compatibility/Elementor/widgets/widget-controls.php:579
 msgid "Post HTML markup"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:721
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:729
+#: src/Compatibility/Elementor/widgets/widget-controls.php:583
 msgid "Content Tags List"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:725
+#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:733
+#: src/Compatibility/Elementor/widgets/widget-controls.php:493
 msgid "Theme"
 msgstr ""
 
-#: src/Admin/Admin.php:406
+#: src/Admin/Admin.php:404
 #, php-format
 msgid "%s view in the last hour"
 msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:440 src/Admin/screen-stats.php:94
+#: src/Admin/Admin.php:438 src/Admin/screen-stats.php:104
 msgid "Trending now"
 msgstr ""
 
-#: src/Admin/Admin.php:529
+#: src/Admin/Admin.php:527
 msgid "View more"
 msgstr ""
 
-#: src/Admin/Admin.php:558
+#: src/Admin/Admin.php:556
 msgid "Use this image"
 msgstr ""
 
-#: src/Admin/Admin.php:562
-msgid ""
-"This operation will delete all entries from WordPress Popular Posts' cache table and "
-"cannot be undone."
-msgstr ""
-
-#: src/Admin/Admin.php:563
-msgid "Success! The cache table has been cleared!"
-msgstr ""
-
-#: src/Admin/Admin.php:564
-msgid "Error: cache table does not exist."
-msgstr ""
-
-#: src/Admin/Admin.php:565
-msgid ""
-"This operation will delete all stored info from WordPress Popular Posts' data tables "
-"and cannot be undone."
-msgstr ""
-
-#: src/Admin/Admin.php:566
-msgid "Success! All data have been cleared!"
-msgstr ""
-
-#: src/Admin/Admin.php:567
-msgid "Error: one or both data tables are missing."
-msgstr ""
-
-#: src/Admin/Admin.php:568
+#: src/Admin/Admin.php:559
 msgid "This operation will delete all cached thumbnails and cannot be undone."
 msgstr ""
 
-#: src/Admin/Admin.php:569
+#: src/Admin/Admin.php:560
 msgid "Success! All files have been deleted!"
 msgstr ""
 
-#: src/Admin/Admin.php:570
+#: src/Admin/Admin.php:561
 msgid "The thumbnail cache is already empty!"
 msgstr ""
 
-#: src/Admin/Admin.php:571
+#: src/Admin/Admin.php:562
 msgid "Do you want to continue?"
 msgstr ""
 
-#: src/Admin/Admin.php:572 src/Admin/screen-debug.php:5 src/Admin/screen-tools.php:5
+#: src/Admin/Admin.php:563 src/Admin/screen-debug.php:5 src/Admin/screen-tools.php:5
 msgid ""
 "Sorry, you do not have enough permissions to do this. Please contact the site "
 "administrator for support."
 msgstr ""
 
-#: src/Admin/Admin.php:573
+#: src/Admin/Admin.php:564
 msgid "Invalid action."
 msgstr ""
 
-#: src/Admin/Admin.php:652
+#: src/Admin/Admin.php:643
 msgid "Overview"
 msgstr ""
 
-#: src/Admin/Admin.php:653
+#: src/Admin/Admin.php:644
 msgid ""
 "Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics "
 "on what's popular on your site, tools to further tweak WPP to your needs, and more!"
 msgstr ""
 
-#: src/Admin/Admin.php:659
+#: src/Admin/Admin.php:650
 msgid "Like this plugin?"
 msgstr ""
 
-#: src/Admin/Admin.php:661
+#: src/Admin/Admin.php:652
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress community!"
 msgstr ""
 
-#: src/Admin/Admin.php:668
+#: src/Admin/Admin.php:659
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 
-#: src/Admin/Admin.php:675
+#: src/Admin/Admin.php:666
 #, php-format
 msgid ""
 "<p><strong>For more information:</strong></p><ul><li><a href=\"%1$s\">Documentation</"
 "a></li><li><a href=\"%2$s\">Support</a></li></ul>"
 msgstr ""
 
-#: src/Admin/Admin.php:701
+#: src/Admin/Admin.php:692
 msgid "Settings"
 msgstr ""
 
-#: src/Admin/Admin.php:702
+#: src/Admin/Admin.php:693
 msgid "Support"
 msgstr ""
 
-#: src/Admin/Admin.php:781 src/Admin/Admin.php:1183 src/Admin/Admin.php:1187
+#: src/Admin/Admin.php:772 src/Admin/Admin.php:1174 src/Admin/Admin.php:1178
 #: src/Output.php:877 src/Shortcode/ViewsCount.php:79
 #, php-format
 msgid "%s view"
@@ -429,7 +464,7 @@ msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:781 src/Admin/Admin.php:1185 src/Admin/Admin.php:1187
+#: src/Admin/Admin.php:772 src/Admin/Admin.php:1176 src/Admin/Admin.php:1178
 #: src/Output.php:860
 #, php-format
 msgid "%s comment"
@@ -437,21 +472,21 @@ msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:806
+#: src/Admin/Admin.php:797
 msgid "Views"
 msgstr ""
 
-#: src/Admin/Admin.php:1189
+#: src/Admin/Admin.php:1180
 msgid "View"
 msgstr ""
 
-#: src/Admin/Admin.php:1200
+#: src/Admin/Admin.php:1191
 msgid ""
 "Looks like your site's activity is a little low right now. <br />Spread the word and "
 "come back later!"
 msgstr ""
 
-#: src/Admin/Admin.php:1510
+#: src/Admin/Admin.php:1449
 #, php-format
 msgid ""
 "<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You "
@@ -459,11 +494,11 @@ msgid ""
 "performance stays up to par."
 msgstr ""
 
-#: src/Admin/Admin.php:1516
+#: src/Admin/Admin.php:1455
 msgid "Dismiss"
 msgstr ""
 
-#: src/Admin/Admin.php:1516
+#: src/Admin/Admin.php:1455
 msgid "Remind me later"
 msgstr ""
 
@@ -488,6 +523,14 @@ msgstr ""
 msgid "Please provide the name of your custom field."
 msgstr ""
 
+#: src/Admin/screen-stats.php:14
+msgid "Open Settings"
+msgstr ""
+
+#: src/Admin/screen-stats.php:16
+msgid "Stats Settings"
+msgstr ""
+
 #: src/Admin/screen-stats.php:18
 msgid "Post type"
 msgstr ""
@@ -502,6 +545,10 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: src/Admin/screen-stats.php:40
+msgid "Custom Time Range Settings"
+msgstr ""
+
 #: src/Admin/screen-stats.php:43
 msgid "Custom Time Range"
 msgstr ""
@@ -514,15 +561,15 @@ msgstr ""
 msgid "Select a date..."
 msgstr ""
 
-#: src/Admin/screen-stats.php:78
+#: src/Admin/screen-stats.php:79
 msgid "Today"
 msgstr ""
 
-#: src/Admin/screen-stats.php:79
+#: src/Admin/screen-stats.php:82
 msgid "Last 24 hours"
 msgstr ""
 
-#: src/Admin/screen-stats.php:86
+#: src/Admin/screen-stats.php:96
 #, php-format
 msgid ""
 "Err... A nice little chart is supposed to be here, instead you are seeing this because "
@@ -530,31 +577,31 @@ msgid ""
 "browser</a>."
 msgstr ""
 
-#: src/Admin/screen-stats.php:92
+#: src/Admin/screen-stats.php:102
 msgid "See your most viewed posts within the selected time range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:92
+#: src/Admin/screen-stats.php:102
 msgid "Most viewed"
 msgstr ""
 
-#: src/Admin/screen-stats.php:93
+#: src/Admin/screen-stats.php:103
 msgid "See your most commented posts within the selected time range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:93
+#: src/Admin/screen-stats.php:103
 msgid "Most commented"
 msgstr ""
 
-#: src/Admin/screen-stats.php:94
+#: src/Admin/screen-stats.php:104
 msgid "See your most viewed posts within the last hour"
 msgstr ""
 
-#: src/Admin/screen-stats.php:95
+#: src/Admin/screen-stats.php:105
 msgid "See your most viewed posts of all time"
 msgstr ""
 
-#: src/Admin/screen-stats.php:95
+#: src/Admin/screen-stats.php:105
 msgid "Hall of Fame"
 msgstr ""
 
@@ -793,33 +840,28 @@ msgstr ""
 msgid "Enable experimental features"
 msgstr ""
 
-#: src/Admin/screen-tools.php:286
-msgid ""
-"WordPress Popular Posts maintains data in two separate tables: one for storing the "
-"most popular entries on a daily basis (from now on, \"cache\"), and another one to "
-"keep the All-time data (from now on, \"historical data\" or just \"data\"). If for "
-"some reason you need to clear the cache table, or even both historical and cache "
-"tables, please use the buttons below to do so."
-msgstr ""
-
-#: src/Admin/screen-tools.php:287
-msgid "Empty cache"
-msgstr ""
-
-#: src/Admin/screen-tools.php:287
-msgid "Use this button to manually clear entries from WPP cache only"
-msgstr ""
-
-#: src/Admin/screen-tools.php:288
-msgid "Clear all data"
-msgstr ""
-
-#: src/Admin/screen-tools.php:288
-msgid "Use this button to manually clear entries from all WPP data tables"
-msgstr ""
-
 #: src/Block/Widget/widget.js:11
 msgid "A highly customizable block that displays your most popular posts."
+msgstr ""
+
+#: src/Compatibility/Elementor/widgets/widget-controls.php:6
+msgid "General"
+msgstr ""
+
+#: src/Compatibility/Elementor/widgets/widget-controls.php:17
+msgid "Enter your title"
+msgstr ""
+
+#: src/Compatibility/Elementor/widgets/widget-controls.php:125
+msgid "Post Type(s)"
+msgstr ""
+
+#: src/Compatibility/Elementor/widgets/widget-controls.php:183
+msgid "Term ID(s)"
+msgstr ""
+
+#: src/Compatibility/Elementor/widgets/widget-controls.php:505
+msgid "How do I customize this theme?"
 msgstr ""
 
 #: src/Output.php:308
