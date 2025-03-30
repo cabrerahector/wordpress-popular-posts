@@ -118,6 +118,7 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Admin section usability improvements.
 - The "Empty cache" and "Clear all data" buttons have been removed from the Admin section.
 - Improves compatibility with PHP 8.4 (thanks ispreview for the heads-up!)
+- Minimum required PHP version is now 7.3.
 - Minor code changes & improvements.
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/)
