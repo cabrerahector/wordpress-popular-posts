@@ -109,6 +109,19 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 7.3.0 =
+
+**If you're using a caching plugin and/or a plugin that minifies JavaScript code it's highly recommended to clear its cache after installing / updating to this version.**
+
+- Adds Elementor support: WordPress Popular Posts now includes a native Elementor widget! See [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/) for more details.
+- Adds [get_ids()](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_ids) function to facilitate getting the IDs of your popular posts.
+- Admin section usability improvements.
+- The "Empty cache" and "Clear all data" buttons have been removed from the Admin section.
+- Improves compatibility with PHP 8.4 (thanks ispreview for the heads-up!)
+- Minor code changes & improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/)
+
 = 7.2.0 =
 
 **If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
