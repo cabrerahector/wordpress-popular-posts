@@ -33,6 +33,7 @@ WordPress Popular Posts (from now on, just *WPP*) is a highly customizable [plug
 * **Use your own layout!** - WPP is flexible enough to let you customize the look and feel of your popular posts! (see [customizing WPP's HTML markup](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-can-i-use-my-own-html-markup-with-your-plugin) and [How to style WordPress Popular Posts](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) for more.)
 * **Advanced caching features!** - WordPress Popular Posts includes a few options to make sure your site's performance stays as good as ever! (see [Performance](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more details.)
 * **REST API Support** - Embed your popular posts in your (web) app! (see [REST API Endpoints](https://github.com/cabrerahector/wordpress-popular-posts/wiki/8.-REST-API-Endpoints) for more.)
+* **Elementor support** - Are you building sites with Elementor? There's a popular posts widget for it too!
 * **Disqus support** - Sort your popular posts by Disqus comments count!
 * **Polylang & WPML 3.2+ support** - Show the translated version of your popular posts!
 * **WordPress Multisite support** - Each site on the network can have its own popular posts list!
