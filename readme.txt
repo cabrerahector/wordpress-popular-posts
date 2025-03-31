@@ -89,11 +89,12 @@ That's it!
 
 = USAGE =
 
-WordPress Popular Posts can be used in three different ways:
+WordPress Popular Posts can be used in four different ways:
 
 1. If you're using the [Block Editor](https://wordpress.org/support/article/wordpress-editor/) you can insert a WordPress Popular Posts block on your sidebar and even anywhere within your posts and pages.
 2. As a template tag: you can place it anywhere on your theme with [`wpp_get_mostpopular()`](https://github.com/cabrerahector/wordpress-popular-posts/wiki/2.-Template-tags#wpp_get_mostpopular).
 3. Via [shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages), so you can embed it inside a post or a page.
+4. If you're using [Elementor](https://wordpress.org/plugins/elementor/) on your site you can use the [WordPress Popular Posts widget for Elementor](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/).
 
 Make sure to stop by the **[Wiki](https://github.com/cabrerahector/wordpress-popular-posts/wiki)** as well, you'll find even more info there!
 
