@@ -193,7 +193,7 @@ function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can
     } else {
         if ( is_array($args) ) {
             $atts = '';
-            foreach( $args as $key => $arg ){
+            foreach( $args as $key => $arg ) {
                 if (
                     is_array($arg)
                     && ('post_type' == $key || 'cat' == $key || 'term_id' == $key || 'pid' == $key || 'exclude' == $key || 'author' == $key)
@@ -204,12 +204,10 @@ function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can
 
                 $arg = (null !== $arg) ? trim($arg) : '';
 
-                if ( '' !== $arg ) {
-                    if ( is_numeric($arg) ) {
-                        $atts .= ' ' . $key . '=' . $arg . '';
-                    } else {
-                        $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, $encoding = ini_get('default_charset'), false) . '"';
-                    }
+                if ( is_numeric($arg) ) {
+                    $atts .= ' ' . $key . '=' . $arg . '';
+                } else {
+                    $atts .= ' ' . $key . '="' . htmlspecialchars($arg, ENT_QUOTES, ini_get('default_charset'), false) . '"';
                 }
             }
         } else {
