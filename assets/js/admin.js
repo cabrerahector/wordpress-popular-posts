@@ -22,16 +22,18 @@ if ( wppChartContainer && WPPChart.canRender() ) {
     const wppTabComponents = document.querySelectorAll('.wpp-tabs');
 
     /** Event listeners */
-    wppBtnStatsConfig.addEventListener('click', () => {
-        closeAllModals();
-        wppStatsModal.style.display = 'block';
-        wppStatsModal.querySelector('input[id="stats_type"]').focus();
-    });
+    if ( wppBtnStatsConfig && wppStatsModal ) {
+        wppBtnStatsConfig.addEventListener('click', () => {
+            closeAllModals();
+            wppStatsModal.style.display = 'block';
+            wppStatsModal.querySelector('input[id="stats_type"]').focus();
+        });
 
-    wppStatsModal.querySelector('.button-secondary').addEventListener('click', () => {
-        closeAllModals();
-        wppBtnStatsConfig.focus();
-    });
+        wppStatsModal.querySelector('.button-secondary').addEventListener('click', () => {
+            closeAllModals();
+            wppBtnStatsConfig.focus();
+        });
+    }
 
     wppTimeRangeOptions.querySelectorAll('li button').forEach((timerRangeBtn) => {
         timerRangeBtn.addEventListener('click', (e) => {
