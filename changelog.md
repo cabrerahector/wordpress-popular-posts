@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 7.3.1 ##
+
+- Fixes wpp_start/end being striped out if empty (props to ispreview!)
+- Fixes posts not loading on the Stats screen for Author users (props to waheed61!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.1)
+
 ## 7.3.0 ##
 
 **If you're using a caching plugin and/or a plugin that minifies JavaScript code it's highly recommended to clear its cache after installing / updating to this version.**
