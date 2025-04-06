@@ -28,6 +28,6 @@
     "@wordpress/scripts": "^30.14.1"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001710"
+    "caniuse-lite": "^1.0.30001712"
   }
 }
