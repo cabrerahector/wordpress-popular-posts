@@ -106,8 +106,9 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 1. The WordPress Popular Posts block.
 2. The WordPress Popular Posts block on theme's sidebar.
-3. Dashboard widget.
-4. Statistics panel.
+3. The WordPress Popular Posts widget for Elementor.
+4. Dashboard widget.
+5. Statistics panel.
 
 == Changelog ==
 
