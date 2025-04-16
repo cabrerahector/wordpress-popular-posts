@@ -229,8 +229,8 @@ class Posts extends Shortcode {
 
         $load_via_ajax = $this->config['tools']['ajax'];
 
-        if ( isset($attributes['ajaxify']) && is_numeric($attributes['ajaxify']) ) {
-            $load_via_ajax = (bool) absint($attributes['ajaxify']);
+        if ( is_numeric($ajaxify) ) {
+            $load_via_ajax = (bool) absint($ajaxify);
         }
 
         if ( $load_via_ajax && ! is_customize_preview() && ! $isAdmin ) {
