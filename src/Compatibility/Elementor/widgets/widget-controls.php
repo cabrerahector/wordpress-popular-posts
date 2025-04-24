@@ -55,8 +55,11 @@ $this->add_control(
         'default' => 'last24hours',
         'options' => [
             'last24hours' => esc_html__('Last 24 Hours', 'wordpress-popular-posts'),
+            'today' => esc_html__('Today', 'wordpress-popular-posts'),
             'last7days'  => esc_html__('Last 7 days', 'wordpress-popular-posts'),
+            'thisweek' => esc_html__('This week', 'wordpress-popular-posts'),
             'last30days' => esc_html__('Last 30 days', 'wordpress-popular-posts'),
+            'thismonth' => esc_html__('This month', 'wordpress-popular-posts'),
             'all' => esc_html__('All-time', 'wordpress-popular-posts'),
             'custom' => esc_html__('Custom', 'wordpress-popular-posts')
         ]
