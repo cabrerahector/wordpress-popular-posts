@@ -376,7 +376,10 @@ class Query {
                         $views_time_range = "view_date >= '{$start_datetime}'";
                         break;
                     case 'thisweek':
-                        $start_date = new \DateTime('Monday this week', wp_timezone());
+                        $start_of_week = Helper::get_start_of_week();
+                        $today_weekday = $now->format('l');
+                        $datetime = ( $today_weekday === $start_of_week ) ? 'today' : 'last ' .  $start_of_week;
+                        $start_date = new \DateTime($datetime, wp_timezone());
                         $start_datetime = $start_date->format('Y-m-d 00:00:00');
                         $start_date->add(new \DateInterval('P6D'));
                         $end_datetime = $start_date->format('Y-m-d 23:59:59');
