@@ -398,7 +398,6 @@ class Query {
                         $end_datetime = $end_date->format('Y-m-d 23:59:59');
                         $views_time_range = "view_date >= '{$start_datetime}' AND view_date <= '{$end_datetime}'";
                         break;
-                        break;
                     case 'custom':
                         $time_units = ['MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH'];
 
