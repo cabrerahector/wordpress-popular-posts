@@ -60,6 +60,7 @@ $this->add_control(
             'thisweek' => esc_html__('This week', 'wordpress-popular-posts'),
             'last30days' => esc_html__('Last 30 days', 'wordpress-popular-posts'),
             'thismonth' => esc_html__('This month', 'wordpress-popular-posts'),
+            'thisyear' => esc_html__('This year', 'wordpress-popular-posts'),
             'all' => esc_html__('All-time', 'wordpress-popular-posts'),
             'custom' => esc_html__('Custom', 'wordpress-popular-posts')
         ]

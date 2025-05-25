@@ -369,7 +369,7 @@ class Widget extends Block
 
         // possible values for "Time Range" and "Order by"
         $time_units = ['minute', 'hour', 'day', 'week', 'month'];
-        $range_values = ['daily', 'last24hours', 'today', 'weekly', 'last7days', 'thisweek', 'monthly', 'last30days', 'thismonth', 'all', 'custom'];
+        $range_values = ['daily', 'last24hours', 'today', 'weekly', 'last7days', 'thisweek', 'monthly', 'last30days', 'thismonth', 'thisyear', 'all', 'custom'];
         $order_by_values = ['comments', 'views', 'avg'];
 
         $theme_data = $this->themer->get_theme($theme);

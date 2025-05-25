@@ -366,7 +366,7 @@ class Query {
                         break;
                     case 'today':
                         $start_datetime = $start_date->format('Y-m-d 00:00:00');
-                        $end_datetime = $start_date->format('Y-m-d 23:59:55');
+                        $end_datetime = $start_date->format('Y-m-d 23:59:59');
                         $views_time_range = "view_date >= '{$start_datetime}' AND view_date <= '{$end_datetime}'";
                         break;
                     case 'last7days':
@@ -396,6 +396,12 @@ class Query {
                         $start_datetime = $start_date->format('Y-m-d 00:00:00');
                         $end_date = new \DateTime('Last day of this month', wp_timezone());
                         $end_datetime = $end_date->format('Y-m-d 23:59:59');
+                        $views_time_range = "view_date >= '{$start_datetime}' AND view_date <= '{$end_datetime}'";
+                        break;
+                    case 'thisyear':
+                        $current_year = $start_date->format('Y');
+                        $start_datetime = $current_year . '-01-01 00:00:00';
+                        $end_datetime = $current_year . '-12-31 23:59:59';
                         $views_time_range = "view_date >= '{$start_datetime}' AND view_date <= '{$end_datetime}'";
                         break;
                     case 'custom':
