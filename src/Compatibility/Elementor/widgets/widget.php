@@ -208,11 +208,6 @@ class Elementor_WPP_Widget extends \Elementor\Widget_Base {
         $widget_id = $this->get_id();
         $settings = $this->parse_settings();
 
-        /** We're in Edit mode, disable AJAX loading and display widget ID */
-        if ( $is_edit_mode ) {
-            $settings['ajaxify'] = '0';
-        }
-
         /**
          * Allows to modify settings passed to wpp_get_mostpopular()
          *

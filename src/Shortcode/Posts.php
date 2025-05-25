@@ -123,7 +123,7 @@ class Posts extends Shortcode {
 
         // possible values for "Time Range" and "Order by"
         $time_units = ['minute', 'hour', 'day', 'week', 'month'];
-        $range_values = ['daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
+        $range_values = ['daily', 'last24hours', 'today', 'weekly', 'last7days', 'thisweek', 'monthly', 'last30days', 'thismonth', 'thisyear', 'all', 'custom'];
         $order_by_values = ['comments', 'views', 'avg'];
 
         $shortcode_ops = [
@@ -229,8 +229,8 @@ class Posts extends Shortcode {
 
         $load_via_ajax = $this->config['tools']['ajax'];
 
-        if ( isset($attributes['ajaxify']) && is_numeric($attributes['ajaxify']) ) {
-            $load_via_ajax = (bool) absint($attributes['ajaxify']);
+        if ( is_numeric($ajaxify) ) {
+            $load_via_ajax = (bool) absint($ajaxify);
         }
 
         if ( $load_via_ajax && ! is_customize_preview() && ! $isAdmin ) {

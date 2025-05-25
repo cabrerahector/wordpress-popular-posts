@@ -53,6 +53,8 @@ class Elementor extends Compat
             add_action('elementor/editor/after_enqueue_scripts', [$this, 'elementor_icon_css']);
             // Registers WPP widget
             add_action('elementor/widgets/register', [$this, 'register_widget']);
+            // Disable [wpp] shortcode AJAX loading in editor mode
+            add_filter('shortcode_atts_wpp', [$this, 'disable_ajax_in_editor'], 10, 4);
         }
     }
 
@@ -94,5 +96,25 @@ class Elementor extends Compat
                 ]
             )
         );
+    }
+
+    /**
+     * Disables [wpp] AJAX loading in editor mode.
+     *
+     * @since 7.4.0
+     * @param array  $out       The output array of shortcode attributes.
+     * @param array  $pairs     The supported attributes and their defaults.
+     * @param array  $atts      The user defined shortcode attributes.
+     * @param string $shortcode The shortcode name.
+     */
+    public function disable_ajax_in_editor(array $out, array $pairs, array $atts, string $shortcode) {
+        if (
+            'wpp' === $shortcode &&
+            \Elementor\Plugin::$instance->editor->is_edit_mode()
+        ) {
+            $out['ajaxify'] = 0;
+        }
+
+        return $out;
     }
 }
