@@ -1458,6 +1458,35 @@ class Admin {
                 <?php
             }
         }
+
+        $pretty_permalinks_enabled = get_option('permalink_structure');
+
+        if ( ! $pretty_permalinks_enabled ) {
+            ?>
+            <div class="notice notice-warning">
+                <p>
+                    <strong>WordPress Popular Posts:</strong> 
+                    <?php
+                    printf(
+                        wp_kses(
+                            /* translators: third placeholder corresponds to the I18N version of the "Plain" permalink structure option */
+                            __('It looks like your site is not using <a href="%s">Pretty Permalinks</a>. Please <a href="%s">select a permalink structure</a> other than <em>%s</em> so WordPress Popular Posts can do its job.', 'wordpress-popular-posts'),
+                            [
+                                'a' => [
+                                    'href' => []
+                                ],
+                                'em' => []
+                            ]
+                        ),
+                        'https://wordpress.org/documentation/article/customize-permalinks/#pretty-permalinks',
+                        esc_url(admin_url('options-permalink.php')),
+                        __('Plain')
+                    );
+                    ?>
+                </p>
+            </div>
+            <?php
+        }
     }
 
     /**
