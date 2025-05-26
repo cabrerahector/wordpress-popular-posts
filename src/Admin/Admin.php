@@ -1465,11 +1465,22 @@ class Admin {
             ?>
             <div class="notice notice-warning">
                 <p>
+                    <strong>WordPress Popular Posts:</strong> 
                     <?php
                     printf(
-                        __('<strong>WordPress Popular Posts:</strong> It looks like your site is not using <a href="%s">Pretty Permalinks</a>. Please select a permalink structure other than <em>Plain</em> so WordPress Popular Posts can do its job.', 'wordpress-popular-posts'), //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+                        wp_kses(
+                            /* translators: third placeholder corresponds to the I18N version of the "Plain" permalink structure option */
+                            __('It looks like your site is not using <a href="%s">Pretty Permalinks</a>. Please <a href="%s">select a permalink structure</a> other than <em>%s</em> so WordPress Popular Posts can do its job.', 'wordpress-popular-posts'),
+                            [
+                                'a' => [
+                                    'href' => []
+                                ],
+                                'em' => []
+                            ]
+                        ),
                         'https://wordpress.org/documentation/article/customize-permalinks/#pretty-permalinks',
-                        esc_url(admin_url('options-permalink.php'))
+                        esc_url(admin_url('options-permalink.php')),
+                        __('Plain')
                     );
                     ?>
                 </p>
