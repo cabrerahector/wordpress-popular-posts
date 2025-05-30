@@ -477,7 +477,7 @@ class Widget extends Block
         $isAdmin = isset($_GET['isSelected']) ? $_GET['isSelected'] : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- isSelected is a boolean from wp-admin
 
         if ( $this->config['tools']['ajax'] && ! is_customize_preview() && ! $isAdmin ) {
-            $html .= '<script type="application/json">' . json_encode($query_args) . '</script>';
+            $html .= '<script type="application/json" data-id="wpp-block-inline-js">' . json_encode($query_args) . '</script>';
             $html .= '<div class="wpp-widget-block-placeholder"></div>';
 
             return $html . '</div>';

@@ -35,7 +35,8 @@ class WPRocket extends Compat
      */
     public function exclude_from_js_optimization($scripts) {
         if ( is_array($scripts) ) {
-            $scripts[] = '(.*)/wordpress-popular-posts/assets/js/(.*).js';
+            $scripts[] = 'wordpress-popular-posts/assets/js/(.*).js';
+            $scripts[] = 'wpp-(block|shortcode)-inline-js';
         }
 
         return $scripts;

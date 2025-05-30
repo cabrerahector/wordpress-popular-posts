@@ -235,7 +235,7 @@ class Posts extends Shortcode {
 
         if ( $load_via_ajax && ! is_customize_preview() && ! $isAdmin ) {
             $shortcode_content .= '<div class="wpp-shortcode">';
-            $shortcode_content .= '<script type="application/json">' . wp_json_encode($shortcode_ops) . '</script>';
+            $shortcode_content .= '<script type="application/json" data-id="wpp-shortcode-inline-js">' . wp_json_encode($shortcode_ops) . '</script>';
             $shortcode_content .= '<div class="wpp-shortcode-placeholder"></div>';
             $shortcode_content .= '</div>';
         } else {
