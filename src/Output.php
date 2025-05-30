@@ -328,7 +328,7 @@ class Output {
             get_post_type($post_object->id)
         );
 
-        if ( $post_id != $trid ) {
+        if ( $trid && $post_id != $trid ) {
             $post_id = $trid;
         }
 
