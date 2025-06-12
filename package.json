@@ -25,9 +25,9 @@
   "devDependencies": {
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
-    "@wordpress/scripts": "^30.17.0"
+    "@wordpress/scripts": "^30.18.0"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001718"
+    "caniuse-lite": "^1.0.30001722"
   }
 }
