@@ -112,6 +112,15 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 7.3.2 =
+
+- Compatibility: Fixes a fatal error that can happen when using Polylang.
+- Compatibility: Themes should now work with WP-Rocket.
+- New notice about Pretty Permalinks being required has been added.
+- Fixes shortcode getting stuck on the loading animation in Elementor's editor.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.2)
+
 = 7.3.1 =
 
 - Fixes wpp_start/end being striped out if empty (props to ispreview!)
