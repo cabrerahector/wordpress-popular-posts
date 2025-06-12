@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2025-03-23 11:07-0400\n"
+"POT-Creation-Date: 2025-06-12 10:13-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -14,9 +14,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
-"X-Poedit-KeywordsList: _e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;"
-"esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
+"X-Generator: Poedit 3.6\n"
+"X-Poedit-KeywordsList: "
+"_e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: i18n\n"
@@ -128,7 +128,6 @@ msgid "Day(s)"
 msgstr ""
 
 #: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:25
-#: src/Block/Widget/edit.js:229
 #: src/Compatibility/Elementor/widgets/widget-controls.php:101
 msgid "Display only posts published within the selected Time Range"
 msgstr ""
@@ -310,7 +309,7 @@ msgstr ""
 msgid "WordPress Date Format"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:616
+#: assets/js/blocks/block-wpp-widget.js:1
 msgid "Display taxonomy"
 msgstr ""
 
@@ -318,11 +317,11 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:675
+#: assets/js/blocks/block-wpp-widget.js:1
 msgid "None"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:692
+#: assets/js/blocks/block-wpp-widget.js:1
 #: src/Compatibility/Elementor/widgets/widget-controls.php:474
 msgid "HTML Markup settings"
 msgstr ""
@@ -333,7 +332,7 @@ msgstr ""
 msgid "What is this?"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Block/Widget/edit.js:694
+#: assets/js/blocks/block-wpp-widget.js:1
 msgid "Use custom HTML Markup"
 msgstr ""
 
@@ -486,20 +485,31 @@ msgid ""
 "come back later!"
 msgstr ""
 
-#: src/Admin/Admin.php:1449
+#: src/Admin/Admin.php:1451
 #, php-format
 msgid ""
-"<strong>WordPress Popular Posts:</strong> It seems your site is popular (great!) You "
-"may want to check <a href=\"%s\">these recommendations</a> to make sure your website's "
-"performance stays up to par."
+"It seems that your site is popular (great!) You may want to check <a href=\"%s\">these "
+"recommendations</a> to make sure that its performance stays up to par."
 msgstr ""
 
-#: src/Admin/Admin.php:1455
+#: src/Admin/Admin.php:1463
 msgid "Dismiss"
 msgstr ""
 
-#: src/Admin/Admin.php:1455
+#: src/Admin/Admin.php:1463
 msgid "Remind me later"
+msgstr ""
+
+#: src/Admin/Admin.php:1481
+#, php-format
+msgid ""
+"It looks like your site is not using <a href=\"%s\">Pretty Permalinks</a>. Please <a "
+"href=\"%s\">select a permalink structure</a> other than <em>%s</em> so WordPress "
+"Popular Posts can do its job."
+msgstr ""
+
+#: src/Admin/Admin.php:1491
+msgid "Plain"
 msgstr ""
 
 #: src/Admin/admin-page.php:7 src/Admin/admin-page.php:119
