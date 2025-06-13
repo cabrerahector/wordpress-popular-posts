@@ -249,51 +249,19 @@ class Output {
                 $this->output .= '<style>' . $theme_css_rules . $additional_styles . '</style>';
             }
 
-            /* Open HTML wrapper */
-            // Output a custom wrapper
-            if (
-               isset($this->public_options['markup']['custom_html'])
-               && $this->public_options['markup']['custom_html']
-               && isset($this->public_options['markup']['wpp-start'])
-               && isset($this->public_options['markup']['wpp-end'])
-            ){
-                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-start'], ENT_QUOTES) . "\n";
-            }
-            // Output the default wrapper
-            else {
-
-                $classes = 'wpp-list';
-
-                if ( $this->public_options['thumbnail']['active'] ) {
-                    $classes .= ' wpp-list-with-thumbnails';
-                }
-
-                $this->output .= "\n<ul class=\"{$classes}\">\n";
-
-            }
-
-            $position = 0;
+            // Opening HTML wrapper
+            $this->output .= $this->build_opening_wrapper();
 
             // Format each post
+            $position = 0;
+
             foreach( $this->data as $post_object ) {
                 $position++;
                 $this->output .= $this->render_post($post_object, $position);
             }
 
-            /* Close HTML wrapper */
-            // Output a custom wrapper
-            if (
-               isset($this->public_options['markup']['custom_html'])
-               && $this->public_options['markup']['custom_html']
-               && isset($this->public_options['markup']['wpp-start'])
-               && isset($this->public_options['markup']['wpp-end'])
-            ){
-                $this->output .= "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-end'], ENT_QUOTES) . "\n";
-            }
-            // Output default wrapper
-            else {
-                $this->output .= '</ul>' . "\n";
-            }
+            // Closing HTML wrapper
+            $this->output .= $this->build_closing_wrapper();
 
             if (
                 isset($this->public_options['theme']['name'])
@@ -307,6 +275,56 @@ class Output {
         else {
             $this->output = apply_filters('wpp_no_data', '<p class="wpp-no-data">' . __('Sorry. No data so far.', 'wordpress-popular-posts') . '</p>');
         }
+    }
+
+    /**
+     * Builds the opening HTML wrapper for the list.
+     *
+     * @since   7.3.3
+     * @return  string
+     */
+    public function build_opening_wrapper()
+    {
+        // Custom opening HTML wrapper
+        if (
+            isset($this->public_options['markup']['custom_html'])
+            && $this->public_options['markup']['custom_html']
+            && isset($this->public_options['markup']['wpp-start'])
+            && isset($this->public_options['markup']['wpp-end'])
+        ){
+            return "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-start'], ENT_QUOTES) . "\n";
+        }
+
+        // Default opening HTML wrapper
+        $classes = 'wpp-list';
+
+        if ( $this->public_options['thumbnail']['active'] ) {
+            $classes .= ' wpp-list-with-thumbnails';
+        }
+
+        return "\n<ul class=\"{$classes}\">\n";
+    }
+
+    /**
+     * Builds the closing HTML wrapper for the list.
+     *
+     * @since   7.3.3
+     * @return  string
+     */
+    public function build_closing_wrapper()
+    {
+        // Custom closing HTML wrapper
+        if (
+            isset($this->public_options['markup']['custom_html'])
+            && $this->public_options['markup']['custom_html']
+            && isset($this->public_options['markup']['wpp-start'])
+            && isset($this->public_options['markup']['wpp-end'])
+        ){
+            return "\n" . htmlspecialchars_decode($this->public_options['markup']['wpp-end'], ENT_QUOTES) . "\n";
+        }
+
+        // Default closing HTML wrapper
+        return '</ul>' . "\n";
     }
 
     /**
