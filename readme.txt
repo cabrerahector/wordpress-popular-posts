@@ -112,6 +112,12 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 7.3.3 =
+
+- Hotfix: wpp shortcode no longer forces AJAX loading on.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.3)
+
 = 7.3.2 =
 
 - Compatibility: Fixes a fatal error that can happen when using Polylang.
