@@ -229,7 +229,7 @@ class Posts extends Shortcode {
 
         $load_via_ajax = $this->config['tools']['ajax'];
 
-        if ( is_numeric($ajaxify) ) {
+        if ( isset($attributes['ajaxify']) && is_numeric($attributes['ajaxify']) ) {
             $load_via_ajax = (bool) absint($ajaxify);
         }
 
