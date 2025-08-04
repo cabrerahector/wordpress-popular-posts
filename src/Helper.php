@@ -364,4 +364,42 @@ class Helper {
 
         return wp_kses($html, $allowed_tags);
     }
+
+    /**
+     * Returns the name of the first day of the week as per
+     * WordPress settings.
+     *
+     * @since   7.4.0
+     * @return  string
+     */
+    public static function get_start_of_week()
+    {
+        $start_of_week = absint(get_option('start_of_week', 0));
+
+        switch( $start_of_week ) {
+            case 1;
+                $day = 'Monday';
+                break;
+            case 2;
+                $day = 'Tuesday';
+                break;
+            case 3;
+                $day = 'Wednesday';
+                break;
+            case 4;
+                $day = 'Thurdsday';
+                break;
+            case 5;
+                $day = 'Friday';
+                break;
+            case 6;
+                $day = 'Saturday';
+                break;
+            default:
+                $day = 'Sunday';
+                break;
+        }
+
+        return $day;
+    }
 }

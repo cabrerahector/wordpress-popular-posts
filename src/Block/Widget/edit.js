@@ -197,8 +197,12 @@ export class WPPWidgetBlockEdit extends Component
                 value={attributes.range}
                 options={[
                     {label: __('Last 24 Hours', 'wordpress-popular-posts'), value: 'last24hours'},
+                    {label: __('Today', 'wordpress-popular-posts'), value: 'today'},
                     {label: __('Last 7 days', 'wordpress-popular-posts'), value: 'last7days'},
+                    {label: __('This week', 'wordpress-popular-posts'), value: 'thisweek'},
                     {label: __('Last 30 days', 'wordpress-popular-posts'), value: 'last30days'},
+                    {label: __('This month', 'wordpress-popular-posts'), value: 'thismonth'},
+                    {label: __('This year', 'wordpress-popular-posts'), value: 'thisyear'},
                     {label: __('All-time', 'wordpress-popular-posts'), value: 'all'},
                     {label: __('Custom', 'wordpress-popular-posts'), value: 'custom'},
                 ]}

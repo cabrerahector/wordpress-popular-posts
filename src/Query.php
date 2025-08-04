@@ -364,16 +364,42 @@ class Query {
                         $start_datetime = $start_date->format('Y-m-d H:i:s');
                         $views_time_range = "view_datetime >= '{$start_datetime}'";
                         break;
+                    case 'today':
+                        $start_datetime = $start_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}'";
+                        break;
                     case 'last7days':
                     case 'weekly':
                         $start_date = $start_date->sub(new \DateInterval('P6D'));
                         $start_datetime = $start_date->format('Y-m-d');
                         $views_time_range = "view_date >= '{$start_datetime}'";
                         break;
+                    case 'thisweek':
+                        $start_of_week = Helper::get_start_of_week();
+                        $today_weekday = $now->format('l');
+                        $datetime = ( $today_weekday === $start_of_week ) ? 'today' : 'last ' .  $start_of_week;
+                        $start_date = new \DateTime($datetime, wp_timezone());
+                        $start_datetime = $start_date->format('Y-m-d');
+                        $start_date->add(new \DateInterval('P6D'));
+                        $end_datetime = $start_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}' AND view_date <= '{$end_datetime}'";
+                        break;
                     case 'last30days':
                     case 'monthly':
                         $start_date = $start_date->sub(new \DateInterval('P29D'));
                         $start_datetime = $start_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}'";
+                        break;
+                    case 'thismonth':
+                        $start_date = new \DateTime('First day of this month', wp_timezone());
+                        $start_datetime = $start_date->format('Y-m-d');
+                        $end_date = new \DateTime('Last day of this month', wp_timezone());
+                        $end_datetime = $end_date->format('Y-m-d');
+                        $views_time_range = "view_date >= '{$start_datetime}' AND view_date <= '{$end_datetime}'";
+                        break;
+                    case 'thisyear':
+                        $current_year = $start_date->format('Y');
+                        $start_datetime = $current_year . '-01-01';
                         $views_time_range = "view_date >= '{$start_datetime}'";
                         break;
                     case 'custom':
