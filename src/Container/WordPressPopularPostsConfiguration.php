@@ -1,7 +1,7 @@
 <?php
 namespace WordPressPopularPosts\Container;
 
-use WordPressPopularPosts\{ Image, I18N, Output, Settings, Themer, Translate, WordPressPopularPosts };
+use WordPressPopularPosts\{ Image, I18N, Output, Settings, Themer, Translate, Upgrader, WordPressPopularPosts };
 use WordPressPopularPosts\Admin\Admin;
 use WordPressPopularPosts\Block\Widget\Widget as BlockWidget;
 use WordPressPopularPosts\Compatibility\Compatibility;
@@ -22,6 +22,10 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
     {
         $container['admin_options'] = Settings::get('admin_options');
         $container['widget_options'] = Settings::get('widget_options');
+
+        $container['upgrader'] = $container->service(function(Container $container) {
+            return new Upgrader();
+        });
 
         $container['translate'] = $container->service(function(Container $container) {
             return new Translate(); //phpcs:ignore WordPress.WP.I18n.LowLevelTranslationFunction,WordPress.WP.I18n.MissingArgText -- We're using namespaces, it's fine
@@ -148,6 +152,7 @@ class WordPressPopularPostsConfiguration implements ContainerConfigurationInterf
 
         $container['wpp'] = $container->service(function(Container $container) {
             return new WordPressPopularPosts(
+                $container['upgrader'],
                 $container['rest'],
                 $container['admin'],
                 $container['front'],

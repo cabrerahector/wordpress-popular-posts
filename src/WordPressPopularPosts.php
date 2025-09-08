@@ -66,6 +66,14 @@ class WordPressPopularPosts {
     private $compatibility;
 
     /**
+     * Upgrader class.
+     *
+     * @var     Upgrader $upgrader
+     * @access  private
+     */
+    private $upgrader;
+
+    /**
      * Constructor.
      *
      * @since   5.0.0
@@ -75,8 +83,18 @@ class WordPressPopularPosts {
      * @param   Front\Front     $front
      * @param   Widget\Widget   $widget
      */
-    public function __construct(Rest\Controller $rest, Admin\Admin $admin, Front\Front $front, Widget\Widget $widget, Block\Widget\Widget $block_widget, Shortcode\ShortcodeLoader $shortcode_loader, Compatibility\Compatibility $compatibility)
+    public function __construct(
+        Upgrader $upgrader,
+        Rest\Controller $rest,
+        Admin\Admin $admin,
+        Front\Front $front,
+        Widget\Widget $widget,
+        Block\Widget\Widget $block_widget,
+        Shortcode\ShortcodeLoader $shortcode_loader,
+        Compatibility\Compatibility $compatibility
+    )
     {
+        $this->upgrader = $upgrader;
         $this->rest = $rest;
         $this->admin = $admin;
         $this->front = $front;
@@ -93,6 +111,7 @@ class WordPressPopularPosts {
      */
     public function init()
     {
+        $this->upgrader->hooks();
         $this->compatibility->load();
         $this->rest->hooks();
         $this->admin->hooks();
