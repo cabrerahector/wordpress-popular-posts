@@ -313,7 +313,7 @@ if ( wppThumbnailSrc ) {
 
     wppThumbnailUploadBtn.addEventListener('click', () => {
         const custom_uploader = wp.media({
-            title: 'WordPress Popular Posts',
+            title: 'WP Popular Posts',
             library: { type: 'image' },
             button: { text: wpp_admin_params.label_media_upload_button },
             id: 'library-' + (Math.floor(Math.random() * 10) + 1),
