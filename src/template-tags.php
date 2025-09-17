@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPress Popular Posts template tags for use in themes.
+ * WP Popular Posts template tags for use in themes.
  */
 
 /**

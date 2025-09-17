@@ -460,8 +460,8 @@ class Admin {
     public function add_plugin_admin_menu()
     {
         $this->screen_hook_suffix = add_options_page(
-            'WordPress Popular Posts',
-            'WordPress Popular Posts',
+            'WP Popular Posts',
+            'WP Popular Posts',
             'edit_published_posts',
             'wordpress-popular-posts',
             [$this, 'display_plugin_admin_page']
@@ -492,7 +492,7 @@ class Admin {
                 [
                     'id'        => 'wpp_help_overview',
                     'title'     => __('Overview', 'wordpress-popular-posts'),
-                    'content'   => '<p>' . __("Welcome to WordPress Popular Posts' Dashboard! In this screen you will find statistics on what's popular on your site, tools to further tweak WPP to your needs, and more!", 'wordpress-popular-posts') . '</p>'
+                    'content'   => '<p>' . __("Welcome to WP Popular Posts' Dashboard! In this screen you will find statistics on what's popular on your site, tools to further tweak WPP to your needs, and more!", 'wordpress-popular-posts') . '</p>'
                 ]
             );
             $screen->add_help_tab(
@@ -1295,7 +1295,7 @@ class Admin {
                 ?>
                 <div class="notice notice-warning">
                     <p>
-                        <strong>WordPress Popular Posts:</strong> 
+                        <strong>WP Popular Posts:</strong> 
                         <?php
                         printf(
                             wp_kses(
@@ -1324,12 +1324,12 @@ class Admin {
             ?>
             <div class="notice notice-warning">
                 <p>
-                    <strong>WordPress Popular Posts:</strong> 
+                    <strong>WP Popular Posts:</strong> 
                     <?php
                     printf(
                         wp_kses(
                             /* translators: third placeholder corresponds to the I18N version of the "Plain" permalink structure option */
-                            __('It looks like your site is not using <a href="%s">Pretty Permalinks</a>. Please <a href="%s">select a permalink structure</a> other than <em>%s</em> so WordPress Popular Posts can do its job.', 'wordpress-popular-posts'),
+                            __('It looks like your site is not using <a href="%s">Pretty Permalinks</a>. Please <a href="%s">select a permalink structure</a> other than <em>%s</em> so WP Popular Posts can do its job.', 'wordpress-popular-posts'),
                             [
                                 'a' => [
                                     'href' => []

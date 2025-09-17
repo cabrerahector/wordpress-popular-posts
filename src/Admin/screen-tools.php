@@ -52,7 +52,7 @@ if ( 'tools' == $current ) {
                                     <option <?php if ($this->config['tools']['thumbnail']['source'] == 'custom_field') { ?>selected="selected"<?php } ?> value="custom_field"><?php esc_html_e('Custom field', 'wordpress-popular-posts'); ?></option>
                                 </select>
                                 <br />
-                                <p class="description"><?php esc_html_e('Tell WordPress Popular Posts where it should get thumbnails from', 'wordpress-popular-posts'); ?>.</p>
+                                <p class="description"><?php esc_html_e('Tell WP Popular Posts where it should get thumbnails from', 'wordpress-popular-posts'); ?>.</p>
                             </td>
                         </tr>
                         <?php if ( $webp_support || $avif_support ) : ?>
@@ -204,7 +204,7 @@ if ( 'tools' == $current ) {
                                     <br />
                                     <?php
                                     $description = sprintf(
-                                        __('By default, WordPress Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With <a href="%1$s" target="_blank">data sampling</a>, WordPress Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more, <a href="%2$s" target="_blank">please read here</a>)', 'wordpress-popular-posts'),
+                                        __('By default, WP Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With <a href="%1$s" target="_blank">data sampling</a>, WP Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more, <a href="%2$s" target="_blank">please read here</a>)', 'wordpress-popular-posts'),
                                         'http://en.wikipedia.org/wiki/Sample_%28statistics%29',
                                         'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling'
                                     );

@@ -13,7 +13,7 @@
  * @package           WordPressPopularPosts
  *
  * @wordpress-plugin
- * Plugin Name:       WordPress Popular Posts
+ * Plugin Name:       WP Popular Posts
  * Plugin URI:        https://wordpress.org/plugins/wordpress-popular-posts/
  * Description:       A highly customizable plugin that displays the most popular posts on your blog.
  * Version:           7.3.3

@@ -125,7 +125,7 @@ if ( isset($_POST['section']) ) {
 
 <div class="wpp-wrapper wpp-section-<?php echo esc_attr($current); ?>">
     <div class="wpp-header">
-        <h2>WordPress Popular Posts</h2>
+        <h2>WP Popular Posts</h2>
         <h3><?php echo esc_html($wpp_tabs[$current]); ?></h3>
     </div>
 

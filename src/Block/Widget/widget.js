@@ -5,7 +5,7 @@ const { registerBlockType } = wp.blocks;
 const { __ } = wp.i18n;
 
 registerBlockType('wordpress-popular-posts/widget', {
-    title: 'WordPress Popular Posts',
+    title: 'WP Popular Posts',
     category: 'widgets',
     icon: icons.flame,
     description: __('A highly customizable block that displays your most popular posts.', 'wordpress-popular-posts'),

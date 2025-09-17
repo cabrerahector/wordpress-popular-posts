@@ -73,7 +73,7 @@ class Widget extends \WP_Widget {
         // Create the widget
         parent::__construct(
             'wpp',
-            'WordPress Popular Posts',
+            'WP Popular Posts',
             [
                 'classname'     =>  'popular-posts',
                 'description'   =>  'The most Popular Posts on your blog.'
@@ -159,8 +159,8 @@ class Widget extends \WP_Widget {
                     }
             </style>
             <div class="wpp-notice">
-                <p><strong>Important notice for administrators:</strong> The WordPress Popular Posts "classic" widget has been removed.</p>
-                <p>This widget has reached end-of-life as of version 7.0. Please go to <strong>Appearance > Widgets > [Your Sidebar] > WordPress Popular Posts</strong> for instructions on migrating your popular posts list to either the WordPress Popular Posts block or the wpp shortcode.</p>
+                <p><strong>Important notice for administrators:</strong> The WP Popular Posts "classic" widget has been removed.</p>
+                <p>This widget has reached end-of-life as of version 7.0. Please go to <strong>Appearance > Widgets > [Your Sidebar] > WP Popular Posts</strong> for instructions on migrating your popular posts list to either the WP Popular Posts block or the wpp shortcode.</p>
             </div>
             <?php
             $notice = ob_get_clean() . "\n";

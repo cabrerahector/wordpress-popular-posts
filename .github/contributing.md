@@ -20,7 +20,7 @@ email, or any other method with the owner of this repository before making a cha
 
 ## Pull Request Process
 
-WordPress Popular Posts follows a feature branch pull request workflow for all code and documentation changes:
+WP Popular Posts follows a feature branch pull request workflow for all code and documentation changes:
 
 1. Check out a new feature branch locally.
 2. Make your changes, testing thoroughly.
@@ -32,7 +32,7 @@ Along with this process, there are a few important points to mention:
 -   Non-trivial pull requests should be preceded by a related issue that defines the problem to solve and allows for discussion of the most appropriate solution before actually writing code.
 -   To make it far easier to merge your code, each pull request should only contain one conceptual change. Keeping contributions atomic keeps the pull request discussion focused on one topic and makes it possible to approve changes on a case-by-case basis.
 -   Separate pull requests can address different items or todos from their linked issue, there's no need for a single pull request to cover a single issue if the issue is non-trivial.
--   Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality, or testability of WordPress Popular Posts (eg. whitespaces, code formatting, etc.) will generally not be accepted.
+-   Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality, or testability of WP Popular Posts (eg. whitespaces, code formatting, etc.) will generally not be accepted.
 
 ### Code Review
 

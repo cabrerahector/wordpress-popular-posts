@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Elementor WPP Widget.
  *
- * Elementor widget that inserts a WordPress Popular Posts list on your site.
+ * Elementor widget that inserts a WP Popular Posts list on your site.
  *
  * @since 7.3.0
  */
@@ -78,7 +78,7 @@ class Elementor_WPP_Widget extends \Elementor\Widget_Base {
      * @return string Widget title.
      */
     public function get_title(): string {
-        return 'WordPress Popular Posts';
+        return 'WP Popular Posts';
     }
 
     /**

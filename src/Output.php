@@ -153,7 +153,7 @@ class Output {
      */
     public function get_output()
     {
-        $this->output = ( WP_DEBUG ? "\n" . '<!-- WordPress Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' . "\n" : '' ) . $this->output;
+        $this->output = ( WP_DEBUG ? "\n" . '<!-- WP Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' . "\n" : '' ) . $this->output;
 
         // Attempt to close open tags
         $this->output = force_balance_tags($this->output);
@@ -194,7 +194,7 @@ class Output {
             $this->output = trim($clean_html);
         } else {
             if ( defined('WP_DEBUG') && WP_DEBUG ) {
-                trigger_error('WordPress Popular Posts - looks like PHP\'s mbstring extension isn\'t enabled on this site. Please enable it for the plugin to be able to properly format your popular post list.', E_USER_WARNING);
+                trigger_error('WP Popular Posts - looks like PHP\'s mbstring extension isn\'t enabled on this site. Please enable it for the plugin to be able to properly format your popular post list.', E_USER_WARNING);
             }
         }
 
