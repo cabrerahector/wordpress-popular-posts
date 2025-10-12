@@ -216,14 +216,15 @@ class Elementor_WPP_Widget extends \Elementor\Widget_Base {
          */
         $settings = apply_filters('wpp_elementor_widget_settings', $settings, $widget_id);
 
-        /** Display widget ID above the list when in edit mode */
-        if ( $is_edit_mode && defined('WP_DEBUG') && WP_DEBUG ) {
-            echo '<p style="margin: 0 0 1em; font-size: 10px; font-weight: 600;">[Widget ID:' . esc_html($widget_id) . ']</p>';
-        }
-
-        /** Disable AJAX loading when in edit mode */
+        /** While on edit mode... */
         if ( $is_edit_mode ) {
+            /** ... disable AJAX loading */
             $settings['ajaxify'] = 0;
+
+            /** ... display widget ID above the list when debug mode is on */
+            if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                echo '<p style="margin: 0 0 1em; font-size: 10px; font-weight: 600;">[Widget ID:' . esc_html($widget_id) . ']</p>';
+            }
         }
 
         wpp_get_mostpopular($settings);
