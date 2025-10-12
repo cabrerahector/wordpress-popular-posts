@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 7.3.4 ##
+
+- New name! See the [Rename announcement](https://cabrerahector.com/wordpress/wordpress-popular-posts-renamed-to-wp-popular-posts/) for more details.
+- Minimum required WordPress version is now 6.2.
+- Minor code improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.4)
+
 ## 7.3.3 ##
 
 - Hotfix: wpp shortcode no longer forces AJAX loading on.

@@ -112,6 +112,14 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 7.3.4 =
+
+- New name! See the [Rename announcement](https://cabrerahector.com/wordpress/wordpress-popular-posts-renamed-to-wp-popular-posts/) for more details.
+- Minimum required WordPress version is now 6.2.
+- Minor code improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.4)
+
 = 7.3.3 =
 
 - Hotfix: wpp shortcode no longer forces AJAX loading on.
@@ -147,51 +155,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Minor code changes & improvements.
 
 [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/)
-
-= 7.2.0 =
-
-**If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
-
-- Fixes a security issue that allows unintended arbitrary shortcode execution (props to mikemyers and the Wordfence team!)
-- Fixes an issue that would allow the _popularpoststransients table to store more data than intended.
-- Adds ability to hook into WPP's script to perform certain actions before updating the views count of a post/page (see [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-2-security-enhancements-ability-to-hook-into-wpp-min-js/#views-tracking-hook) for more details.)
-- Deprecates pid parameter in favor of exclude.
-- Minor code improvements.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-2-security-enhancements-ability-to-hook-into-wpp-min-js/)
-
-= 7.1.0 =
-
-**If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
-
-- Fixes a PHP fatal error that can happen on the block-based Widgets screen when using the "classic" widget (props to andymoonshine!)
-- Fixes an issue where the shortcode didn't add the "current" CSS class to the current post.
-- Fixes a PHP warning that can occur when the HTML output is empty (props to wpfed!)
-- Adds plugin version to wpp.js URL for cache busting.
-- Improves compatibility with WP Rocket.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-1-improved-wp-rocket-compatibility-plus-various-fixes/)
-
-= 7.0.1 =
-
-**If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.**
-
-- Improves compatibility with LiteSpeed Cache, Autoptimize, W3 Total Cache, and Speed Optimizer (formerly known as SiteGround Optimizer.)
-- Fixes an issue where the popular posts list may not load on iOS browsers (props to Marlys Arnold and abid76!)
-- Fixes an issue where get_views() might not return the expected value (props to robwkirby!)
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-0-classic-widget-is-no-more-webp-avif-support/#7.0.1)
-
-= 7.0.0 =
-
-- **Breaking Change:** The WordPress Popular Posts "classic" widget will stop working after this version! If you're using the classic widget please replace it with the [WordPress Popular Posts block](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wordpress-popular-posts-block) or the [[wpp]](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode) shortcode as soon as possible. See release notes for more details.
-- **Breaking Change:** The .widget CSS class has been removed from the WordPress Popular Posts block. If you were using it to style your popular posts block adjustments may be required.
-- Native WebP / AVIF support: your thumbnails can now be created as .webp / .avif images without requiring third-party plugins. Check the release notes for more.
-- New filter hook to dynamically change the headline of the popular post list (props to abid76!)
-- PHPCS / WPCS improvements.
-- Minor enhancements / fixes.
-
-[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-0-classic-widget-is-no-more-webp-avif-support/)
 
 [Full Changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md)
 
