@@ -221,6 +221,11 @@ class Elementor_WPP_Widget extends \Elementor\Widget_Base {
             echo '<p style="margin: 0 0 1em; font-size: 10px; font-weight: 600;">[Widget ID:' . esc_html($widget_id) . ']</p>';
         }
 
+        /** Disable AJAX loading when in edit mode */
+        if ( $is_edit_mode ) {
+            $settings['ajaxify'] = 0;
+        }
+
         wpp_get_mostpopular($settings);
     }
 
