@@ -1,6 +1,6 @@
 {
   "name": "wordpress-popular-posts",
-  "version": "7.3.3",
+  "version": "7.3.4",
   "description": "A highly customizable widget that displays your most popular posts.",
   "main": "index.js",
   "scripts": {
@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/cabrerahector/wordpress-popular-posts#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
-    "@wordpress/scripts": "^30.18.0"
+    "@wordpress/scripts": "^30.25.0"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001722"
+    "caniuse-lite": "^1.0.30001750"
   }
 }
