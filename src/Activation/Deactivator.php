@@ -34,8 +34,9 @@ class Deactivator {
         if ( function_exists('is_multisite') && is_multisite() ) {
             // Run deactivation for each blog in the network
             if ( $network_wide ) {
+                $blogs_table = "{$wpdb->blogs}";
                 $original_blog_id = get_current_blog_id();
-                $blogs_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+                $blogs_ids = $wpdb->get_col($wpdb->prepare("SELECT blog_id FROM %i;", $blogs_table)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
                 foreach( $blogs_ids as $blog_id ) {
                     switch_to_blog($blog_id);

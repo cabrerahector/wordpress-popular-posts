@@ -364,4 +364,30 @@ class Helper {
 
         return wp_kses($html, $allowed_tags);
     }
+
+    /**
+     * Retrieves post/page content from the database.
+     *
+     * @param  int $id
+     * @return mixed
+     */
+    public static function get_post_content(int $id)
+    {
+        /** @var wpdb $wpdb */
+        global $wpdb;
+
+        $posts_table = "{$wpdb->posts}";
+
+        //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+        $content = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT post_content FROM %i WHERE ID = %d;",
+                $posts_table,
+                $id
+            )
+        );
+        //phpcs:enable
+
+        return ( $content ) ? sanitize_post_field('post_content', $content, $id, 'display') : '';
+    }
 }

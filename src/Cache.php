@@ -93,12 +93,14 @@ class Cache {
         global $wpdb;
 
         $now = Helper::now();
+        $transients_table = "{$wpdb->prefix}popularpoststransients";
 
         //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->query(
             $wpdb->prepare(
-                "INSERT INTO {$wpdb->prefix}popularpoststransients (tkey, tkey_date) VALUES (%s, %s) ON DUPLICATE KEY UPDATE tkey_date = %s;",
+                "INSERT INTO %i (tkey, tkey_date) VALUES (%s, %s) ON DUPLICATE KEY UPDATE tkey_date = %s;",
                 [
+                    $transients_table,
                     $key,
                     $now,
                     $now

@@ -63,8 +63,11 @@ function wpp_get_views(?int $id = null, $range = null, $number_format = true, $c
     if ( ! $results ) {
         // Get all-time views count
         if ( 'all' == $args['range'] ) {
-            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $table_name is safe to use
-            $query = $wpdb->prepare( "SELECT pageviews FROM {$table_name}data WHERE postid = %d;",
+            $data_table = "{$table_name}data";
+
+            //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+            $query = $wpdb->prepare('SELECT pageviews FROM %i WHERE postid = %d;',
+                $data_table,
                 $args['_postID']
             );
             //phpcs:enable
@@ -145,17 +148,20 @@ function wpp_get_views(?int $id = null, $range = null, $number_format = true, $c
                     break;
             }
 
+            $summary_table = "{$wpdb->prefix}popularpostssummary";
+
             //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- $views_time_range is safe to use
             $query = $wpdb->prepare(
-                "SELECT SUM(pageviews) AS pageviews FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} AND postid = %d;",
+                'SELECT SUM(pageviews) AS pageviews FROM %i WHERE {$views_time_range} AND postid = %d;',
+                $summary_table,
                 $args['_postID']
             );
             //phpcs:enable
         }
-        
+
         $results = $wpdb->get_var($query); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- We already prepared $query above
     }
-    
+
     if ( ! $results ) {
         return 0;
     }

@@ -158,10 +158,13 @@ class Admin {
         if ( 3 != $performance_nag['status'] ) { // 0 = inactive, 1 = active, 2 = remind me later, 3 = dismissed
             global $wpdb;
 
+            $summary_table = "{$wpdb->prefix}popularpostssummary";
+
             //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
             $views_count = $wpdb->get_var(
                 $wpdb->prepare(
-                    "SELECT IFNULL(SUM(pageviews), 0) AS views FROM {$wpdb->prefix}popularpostssummary WHERE view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
+                    "SELECT IFNULL(SUM(pageviews), 0) AS views FROM %i WHERE view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
+                    $summary_table,
                     Helper::now()
                 )
             );
@@ -239,12 +242,15 @@ class Admin {
 
         $args[] = Helper::now();
 
+        $posts_table = "{$wpdb->prefix}posts";
+        $summary_table = "{$wpdb->prefix}popularpostssummary";
+
         //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $post_type_placeholder is safe to use
         $query = $wpdb->prepare(
             "SELECT SUM(pageviews) AS total 
-            FROM `{$wpdb->prefix}popularpostssummary` v LEFT JOIN `{$wpdb->prefix}posts` p ON v.postid = p.ID 
+            FROM %i v LEFT JOIN %i p ON v.postid = p.ID 
             WHERE p.post_type IN({$post_type_placeholders}) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
-            $args
+            [$summary_table, $posts_table, ...$args]
         );
         //phpcs:enable
 
@@ -788,30 +794,34 @@ class Admin {
         // Append dates to arguments list
         array_unshift($args, $start_date, $end_date);
 
+        $posts_table = "{$wpdb->posts}";
+
         if ( $item == 'comments' ) {
+            $comments_table = "{$wpdb->comments}";
+
             //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- $post_type_placeholders is already prepared above
             $query = $wpdb->prepare(
                 "SELECT DATE(`c`.`comment_date_gmt`) AS `c_date`, COUNT(*) AS `comments` 
-                FROM `{$wpdb->comments}` c INNER JOIN `{$wpdb->posts}` p ON `c`.`comment_post_ID` = `p`.`ID`
+                FROM %i c INNER JOIN %i p ON `c`.`comment_post_ID` = `p`.`ID`
                 WHERE (`c`.`comment_date_gmt` BETWEEN %s AND %s) AND `c`.`comment_approved` = '1' AND `p`.`post_type` IN (" . implode(', ', $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
                 " . ( $this->config['stats']['freshness'] ? ' AND `p`.`post_date` >= %s' : '' ) . '
                 GROUP BY `c_date` ORDER BY `c_date` DESC;',
-                $args
+                [$comments_table, $posts_table, ...$args]
             );
             //phpcs:enable
         } else {
+            $views_table = "{$wpdb->prefix}popularpostssummary";
+
             //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- $post_type_placeholders is already prepared above
             $query = $wpdb->prepare(
                 "SELECT `v`.`view_date`, SUM(`v`.`pageviews`) AS `pageviews` 
-                FROM `{$wpdb->prefix}popularpostssummary` v INNER JOIN `{$wpdb->posts}` p ON `v`.`postid` = `p`.`ID`
+                FROM %i v INNER JOIN %i p ON `v`.`postid` = `p`.`ID`
                 WHERE (`v`.`view_datetime` BETWEEN %s AND %s) AND `p`.`post_type` IN (" . implode(', ', $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
                 " . ( $this->config['stats']['freshness'] ? ' AND `p`.`post_date` >= %s' : '' ) . '
                 GROUP BY `v`.`view_date` ORDER BY `v`.`view_date` DESC;',
-                $args
+                [$views_table, $posts_table, ...$args]
             );
             //phpcs:enable
-
-            //error_log($query);
         }
 
         return $wpdb->get_results($query, OBJECT_K); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- at this point $query has been prepared already
@@ -1053,8 +1063,9 @@ class Admin {
     private function flush_transients()
     {
         global $wpdb;
+        $transients_table = "{$wpdb->prefix}popularpoststransients";
 
-        $wpp_transients = $wpdb->get_results("SELECT tkey FROM {$wpdb->prefix}popularpoststransients;"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+        $wpp_transients = $wpdb->get_results($wpdb->prepare("SELECT tkey FROM %i;", $transients_table)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
         if ( $wpp_transients && is_array($wpp_transients) && ! empty($wpp_transients) ) {
             foreach( $wpp_transients as $wpp_transient ) {
@@ -1068,7 +1079,7 @@ class Admin {
                 }
             }
 
-            $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}popularpoststransients;");
+            $wpdb->query($wpdb->prepare("TRUNCATE TABLE %i;", $transients_table));
         }
     }
 
@@ -1229,15 +1240,18 @@ class Admin {
     public function purge_post(int $post_ID)
     {
         global $wpdb;
+        $data_table = "{$wpdb->prefix}popularpostsdata";
 
-        $post_ID_exists = $wpdb->get_var($wpdb->prepare("SELECT postid FROM {$wpdb->prefix}popularpostsdata WHERE postid = %d", $post_ID)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+        $post_ID_exists = $wpdb->get_var($wpdb->prepare("SELECT postid FROM %i WHERE postid = %d", $data_table, $post_ID)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
         if ( $post_ID_exists ) {
+            $summary_table = "{$wpdb->prefix}popularpostssummary";
+
             // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
             // Delete from data table
-            $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}popularpostsdata WHERE postid = %d;", $post_ID));
+            $wpdb->query($wpdb->prepare("DELETE FROM %i WHERE postid = %d;", $data_table, $post_ID));
             // Delete from summary table
-            $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}popularpostssummary WHERE postid = %d;", $post_ID));
+            $wpdb->query($wpdb->prepare("DELETE FROM %i WHERE postid = %d;", $summary_table, $post_ID));
             // phpcs:enable
         }
 
@@ -1254,10 +1268,13 @@ class Admin {
     public function purge_data()
     {
         global $wpdb;
+        $summary_table = "{$wpdb->prefix}popularpostssummary";
+
         // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->query(
             $wpdb->prepare(
-                "DELETE FROM {$wpdb->prefix}popularpostssummary WHERE view_date < DATE_SUB(%s, INTERVAL %d DAY);",
+                "DELETE FROM %i WHERE view_date < DATE_SUB(%s, INTERVAL %d DAY);",
+                $summary_table,
                 Helper::curdate(),
                 $this->config['tools']['log']['expires_after']
             )

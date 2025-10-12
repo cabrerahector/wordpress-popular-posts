@@ -107,6 +107,8 @@ class ViewLoggerEndpoint extends Endpoint {
         $sampling_rate = $sampling_rate != $_sampling_rate ? $_sampling_rate : $sampling_rate;
 
         $table = $wpdb->prefix . 'popularposts';
+        $data_table = "{$table}data";
+        $summary_table = "{$table}summary";
         $wpdb->show_errors();
 
         // Get translated object ID
@@ -188,8 +190,8 @@ class ViewLoggerEndpoint extends Endpoint {
             // It's been more than 2 minutes, save everything to DB
             if ( $diff_in_minutes > 2 ) {
 
-                $query_data = "INSERT INTO {$table}data (`postid`,`day`,`last_viewed`,`pageviews`) VALUES ";
-                $query_summary = "INSERT INTO {$table}summary (`postid`,`pageviews`,`view_date`,`view_datetime`) VALUES ";
+                $query_data = $wpdb->prepare("INSERT INTO %i (`postid`,`day`,`last_viewed`,`pageviews`) VALUES ", $data_table);
+                $query_summary = $wpdb->prepare("INSERT INTO %i (`postid`,`pageviews`,`view_date`,`view_datetime`) VALUES ", $summary_table);
 
                 foreach( $wpp_cache['data'] as $pid => $data ) {
                     $views_count = 0;
@@ -223,7 +225,7 @@ class ViewLoggerEndpoint extends Endpoint {
                 wp_cache_set('_wpp_cache', $wpp_cache, 'transient', 0);
 
                 // Save
-                //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query_data and $query_summary above
+                //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.PreparedSQL.NotPrepared -- We already prepared $query_data and $query_summary above
                 $result1 = $wpdb->query($query_data);
                 $result2 = $wpdb->query($query_summary);
                 //phpcs:enable
@@ -234,12 +236,13 @@ class ViewLoggerEndpoint extends Endpoint {
             }
         } // Live update to the DB
         else {
-            //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery -- $table is safe to use
+            //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
             // Update all-time table
             $result1 = $wpdb->query($wpdb->prepare(
-                "INSERT INTO {$table}data
+                "INSERT INTO %i
                 (postid, day, last_viewed, pageviews) VALUES (%d, %s, %s, %d)
                 ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, last_viewed = %s;",
+                $data_table,
                 $post_ID,
                 $now,
                 $now,
@@ -250,9 +253,10 @@ class ViewLoggerEndpoint extends Endpoint {
 
             // Update range (summary) table
             $result2 = $wpdb->query($wpdb->prepare(
-                "INSERT INTO {$table}summary
+                "INSERT INTO %i
                 (postid, pageviews, view_date, view_datetime) VALUES (%d, %d, %s, %s)
                 ON DUPLICATE KEY UPDATE pageviews = pageviews + %d, view_datetime = %s;",
+                $summary_table,
                 $post_ID,
                 $views,
                 $curdate,

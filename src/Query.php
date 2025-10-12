@@ -229,13 +229,16 @@ class Query {
                                 }
                             }
 
+                            $term_rel_table = $wpdb->prepare("%i", "{$wpdb->term_relationships}");
+                            $term_tax_table = $wpdb->prepare("%i", "{$wpdb->term_taxonomy}");
+
                             foreach( $tax_terms as $taxonomy => $terms ) {
 
                                 if ( ! empty($terms['term_id_include']) ) {
                                     $where .= " AND p.ID IN (
                                         SELECT object_id
-                                        FROM `{$wpdb->term_relationships}` AS r
-                                            JOIN `{$wpdb->term_taxonomy}` AS x ON x.term_taxonomy_id = r.term_taxonomy_id
+                                        FROM {$term_rel_table} AS r
+                                            JOIN {$term_tax_table} AS x ON x.term_taxonomy_id = r.term_taxonomy_id
                                         WHERE x.taxonomy = %s";
 
                                     array_push($args, $taxonomy);
@@ -306,7 +309,10 @@ class Query {
                 $where .= rtrim($xpid, ', ') . ')';
             }
 
-            $table = "`{$wpdb->posts}` p";
+            $table = $wpdb->prepare("%i", "{$wpdb->posts}") . " p";
+            $comments_table = $wpdb->prepare("%i", "{$wpdb->comments}");
+            $data_table = $wpdb->prepare("%i", "{$wpdb->prefix}popularpostsdata");
+            $summary_table = $wpdb->prepare("%i", "{$wpdb->prefix}popularpostssummary");
 
             // All-time range
             if ( 'all' == $this->options['range'] ) {
@@ -314,7 +320,7 @@ class Query {
                 // Order by views count
                 if ( 'comments' != $this->options['order_by'] ) {
 
-                    $join = "INNER JOIN `{$wpdb->prefix}popularpostsdata` v ON p.ID = v.postid";
+                    $join = "INNER JOIN {$data_table} v ON p.ID = v.postid";
 
                     // Order by views
                     if ( 'views' == $this->options['order_by'] ) {
@@ -348,7 +354,7 @@ class Query {
                     // Display views count, too
                     if ( isset($this->options['stats_tag']['views']) && $this->options['stats_tag']['views'] ) {
                         $fields .= ', IFNULL(v.pageviews, 0) AS pageviews';
-                        $join = "INNER JOIN `{$wpdb->prefix}popularpostsdata` v ON p.ID = v.postid";
+                        $join = "INNER JOIN {$data_table} v ON p.ID = v.postid";
                     }
                 }
             }
@@ -436,32 +442,32 @@ class Query {
                     // Order by views
                     if ( 'views' == $this->options['order_by'] ) {
                         $fields .= ', v.pageviews';
-                        $join = "INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
+                        $join = "INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM {$summary_table} WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
                         $orderby = 'ORDER BY pageviews DESC';
                     }
                     // Order by average views
                     else {
                         $fields .= ', v.avg_views';
-                        $join = "INNER JOIN (SELECT SUM(pageviews)/(IF ( DATEDIFF('{$now->format('Y-m-d H:i:s')}', '{$start_datetime}') > 0, DATEDIFF('{$now->format('Y-m-d H:i:s')}', '{$start_datetime}'), 1) ) AS avg_views, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
+                        $join = "INNER JOIN (SELECT SUM(pageviews)/(IF ( DATEDIFF('{$now->format('Y-m-d H:i:s')}', '{$start_datetime}') > 0, DATEDIFF('{$now->format('Y-m-d H:i:s')}', '{$start_datetime}'), 1) ) AS avg_views, postid FROM {$summary_table} WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
                         $orderby = 'ORDER BY avg_views DESC';
                     }
 
                     // Display comments count, too
                     if ( isset($this->options['stats_tag']['comment_count']) && $this->options['stats_tag']['comment_count'] ) {
                         $fields .= ', IFNULL(c.comment_count, 0) AS comment_count';
-                        $join .= " LEFT JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count FROM `{$wpdb->comments}` WHERE comment_date_gmt >= '{$start_datetime}' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
+                        $join .= " LEFT JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count FROM {$comments_table} WHERE comment_date_gmt >= '{$start_datetime}' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
                     }
                 }
                 // Order by comments count
                 else {
                     $fields .= ', c.comment_count';
-                    $join = "INNER JOIN (SELECT COUNT(comment_post_ID) AS comment_count, comment_post_ID FROM `{$wpdb->comments}` WHERE comment_date_gmt >= '{$start_datetime}' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
+                    $join = "INNER JOIN (SELECT COUNT(comment_post_ID) AS comment_count, comment_post_ID FROM {$comments_table} WHERE comment_date_gmt >= '{$start_datetime}' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
                     $orderby = 'ORDER BY comment_count DESC';
 
                     // Display views count, too
                     if ( isset($this->options['stats_tag']['views']) && $this->options['stats_tag']['views'] ) {
                         $fields .= ', v.pageviews';
-                        $join .= " INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
+                        $join .= " INNER JOIN (SELECT SUM(pageviews) AS pageviews, postid FROM {$summary_table} WHERE {$views_time_range} GROUP BY postid) v ON p.ID = v.postid";
                     }
                 }
             }
