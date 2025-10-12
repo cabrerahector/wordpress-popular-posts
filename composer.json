@@ -1,6 +1,6 @@
 {
     "name": "cabrerahector/wordpress-popular-posts",
-    "description": "A highly customizable widget that displays the most popular posts on your blog.",
+    "description": "A highly customizable widget that displays your most popular posts.",
     "keywords": ["popular", "posts", "popularity", "trending"],
     "license": "GPL2",
     "authors": [
