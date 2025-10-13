@@ -152,7 +152,7 @@ function wpp_get_views(?int $id = null, $range = null, $number_format = true, $c
 
             //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- $views_time_range is safe to use
             $query = $wpdb->prepare(
-                'SELECT SUM(pageviews) AS pageviews FROM %i WHERE {$views_time_range} AND postid = %d;',
+                "SELECT SUM(pageviews) AS pageviews FROM %i WHERE {$views_time_range} AND postid = %d;",
                 $summary_table,
                 $args['_postID']
             );
