@@ -84,9 +84,22 @@ class Themer {
      */
     private function load_theme(string $path)
     {
+        /** @TODO Looks like this entire code block could use a refactor */
+        $override_folder = get_stylesheet_directory() . '/wordpress-popular-posts/themes';
+        $theme_override = false;
         $theme_folder = is_string($path) && is_dir($path) && is_readable($path) ? basename($path) : null;
-        $theme_folder = $theme_folder ? preg_replace('/[^a-z0-9\_\-\.]/i', '', $theme_folder) : null;
+        $theme_folder = $theme_folder ? preg_replace('/[^a-z0-9\_\-]/i', '', $theme_folder) : null;
         $theme_path = $theme_folder ? $path : null;
+
+        // Override from WP theme
+        if (
+            $theme_folder
+            && @file_exists($override_folder . '/' . $theme_folder . '/style.css')
+            && @file_exists($override_folder . '/' . $theme_folder . '/config.json')
+        ) {
+            $theme_override = true;
+            $theme_path = $override_folder  . '/' . $theme_folder;
+        }
 
         if (
             $theme_path
@@ -101,6 +114,10 @@ class Themer {
             $json = json_decode($str, true);
 
             if ( $this->is_valid_config($json) ) {
+                if ( $theme_override ) {
+                    $json['name'] .= ' (override)';
+                }
+
                 $this->themes[$theme_folder] = [
                     'json' => $json,
                     'path' => $theme_path
