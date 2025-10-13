@@ -112,6 +112,15 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 7.3.5 =
+
+- Fixes Elementor widget stuck in infinite loading animation.
+- Fixes broken database query in get_views() (props to raphaelw!)
+- Fixes an issue where config.json files from theme overrides would be ignored (thanks alexg904!)
+- Minor styling enhancements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.5)
+
 = 7.3.4 =
 
 - New name! See the [Rename announcement](https://cabrerahector.com/wordpress/wordpress-popular-posts-renamed-to-wp-popular-posts/) for more details.
