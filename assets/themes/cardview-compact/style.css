@@ -41,6 +41,10 @@
             border: none;
         }
 
+        .wpp-cardview-compact li .wpp-thumbnail.wpp_def_no_src {
+            object-fit: contain;
+        }
+
         .wpp-cardview-compact li a {
             text-decoration: none;
         }

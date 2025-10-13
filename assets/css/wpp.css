@@ -38,6 +38,10 @@ Use the following classes to style your popular posts list as you like.
             border: none;
         }
 
+        .wpp_def_no_src {
+            object-fit: contain;
+        }
+
         /* Title styles */
         .wpp-post-title {
         }

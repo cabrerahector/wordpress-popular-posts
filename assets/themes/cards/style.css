@@ -37,6 +37,10 @@
             border: none;
         }
 
+        .wpp-cards li .wpp-thumbnail.wpp_def_no_src {
+            object-fit: contain;
+        }
+
         .wpp-cards li a {
             text-decoration: none;
         }

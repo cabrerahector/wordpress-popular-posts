@@ -32,6 +32,10 @@
             border: none;
         }
 
+        .wpp-tiles li .wpp-thumbnail.wpp_def_no_src {
+            object-fit: contain;
+        }
+
         .wpp-tiles li a {
             text-decoration: none;
         }
