@@ -15,16 +15,6 @@ class ViewLoggerEndpoint extends Endpoint {
         $version = '2';
         $namespace = 'wordpress-popular-posts/v' . $version;
 
-        /** @TODO: This endpoint has been superseeded by /views, please remove */
-        register_rest_route('wordpress-popular-posts/v1', '/popular-posts', [
-            [
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => [$this, 'update_views_count'],
-                'permission_callback' => '__return_true',
-                'args'                => $this->get_tracking_params(),
-            ]
-        ]);
-
         register_rest_route($namespace, '/views/(?P<id>[\d]+)', [
             [
                 'methods'             => \WP_REST_Server::READABLE,
@@ -83,16 +73,7 @@ class ViewLoggerEndpoint extends Endpoint {
     public function update_views_count($request) {
         global $wpdb;
 
-        /** @TODO: Remove this check once the /v1/popular-posts is removed */
-        if ( false !== strpos($request->get_route(), '/v1/popular-posts') ) {
-            $post_ID = $request->get_param('wpp_id');
-            // Throw warning to let developers know that
-            // the /v1/popular-posts endpoint is going away
-            trigger_error('The /wordpress-popular-posts/v1/popular-posts POST endpoint has been deprecated, please POST to /wordpress-popular-posts/v2/views/[ID] instead.', E_USER_WARNING);
-        }
-        else {
-            $post_ID = $request->get_param('id');
-        }
+        $post_ID = $request->get_param('id');
 
         $sampling = $request->get_param('sampling');
         $sampling_rate = $request->get_param('sampling_rate');
@@ -296,15 +277,7 @@ class ViewLoggerEndpoint extends Endpoint {
      */
     public function get_tracking_params()
     {
-        /** @TODO: Remove wpp_id key once the /v1/popular-posts is removed */
         return [
-            'wpp_id' => [
-                'description'       => __('The post / page ID.'),
-                'type'              => 'integer',
-                'default'           => 0,
-                'sanitize_callback' => 'absint',
-                'validate_callback' => 'rest_validate_request_arg',
-            ],
             'id' => [
                 'type'              => 'integer',
                 'minimum'           => 1,
