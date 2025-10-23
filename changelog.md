@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## 7.3.6 ##
+
+**If you're updating from a previous version please clear your popular posts thumbnails cache via WP Dashboard > Settings > WP Popular Posts > Tools > Thumbnails > Empty image cache button.**
+
+- Improves security around thumbnail generation (props to smile9381!)
+- Removes deprecated /v1/popular-posts POST endpoint.
+- Minimum required PHP version is now 7.4.
+- Minor code improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.6)
+
 ## 7.3.5 ##
 
 - Fixes Elementor widget stuck in infinite loading animation.
