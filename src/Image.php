@@ -118,6 +118,22 @@ class Image {
             return '';
         }
 
+        // Let's make sure that the image source is a known one
+        if (
+            ! in_array(
+                $source,
+                ['featured', 'first_image', 'first_attachment', 'custom_field']
+            )
+        ) {
+            $source = 'featured';
+        }
+
+        // Let's make sure that we're getting integer values here
+        $size = array_map('absint', $size);
+        $size = array_map(function($dimension) {
+            return $dimension <= 0 ? 75 : $dimension;
+        }, $size);
+
         $alt = '';
         $classes = ['wpp-thumbnail', 'wpp_' . $source];
         $filename = $post_id . '-' . $source . '-' . $size[0] . 'x' . $size[1];
@@ -879,7 +895,7 @@ class Image {
         $img_tag = '';
 
         if ( $error ) {
-            $img_tag = '<!-- ' . $error . ' --> ';
+            $img_tag = '<!-- ' . esc_html($error) . ' --> ';
         }
 
         // Make sure we use the right protocol

@@ -36,7 +36,7 @@ if ( isset($_POST['section']) ) {
         $current = 'tools';
 
         if ( isset($_POST['wpp-update-misc-options-token'] ) && wp_verify_nonce($_POST['wpp-update-misc-options-token'], 'wpp-update-misc-options') ) {
-            $this->config['tools']['link']['target'] = sanitize_text_field($_POST['link_target']);
+            $this->config['tools']['link']['target'] = '_blank' === $_POST['link_target'] ? '_blank' : '_self';
             $this->config['tools']['css'] = (bool) $_POST['css'];
             $this->config['tools']['experimental'] = isset($_POST['experimental_features']);
 
@@ -48,8 +48,13 @@ if ( isset($_POST['section']) ) {
         $current = 'tools';
 
         if ( isset($_POST['wpp-update-thumbnail-options-token']) && wp_verify_nonce($_POST['wpp-update-thumbnail-options-token'], 'wpp-update-thumbnail-options') ) {
+            $valid_sources = ['featured', 'first_image', 'first_attachment', 'custom_field'];
+            $valid_formats = ['original', 'avif', 'webp'];
+            $thumb_source = isset($_POST['thumb_source']) && in_array($_POST['thumb_source'], $valid_sources) ? $_POST['thumb_source'] : 'featured';
+            $thumbnail_format = isset($_POST['thumb_format']) && in_array($_POST['thumb_format'], $valid_formats) ? $_POST['thumb_format'] : 'original';
+
             if (
-                $_POST['thumb_source'] == 'custom_field'
+                $thumb_source == 'custom_field'
                 && ( ! isset($_POST['thumb_field']) || empty($_POST['thumb_field']) )
             ) {
                 echo '<div class="notice notice-error"><p>' . esc_html(__('Please provide the name of your custom field.', 'wordpress-popular-posts')) . '</p></div>';
@@ -60,13 +65,11 @@ if ( isset($_POST['section']) ) {
                     $this->flush_transients();
                 }
 
-                $thumbnail_format = sanitize_text_field($_POST['thumb_format']);
-
                 if ( $thumbnail_format !== $this->config['tools']['thumbnail']['format'] ) {
                     $this->delete_thumbnails();
                 }
 
-                $this->config['tools']['thumbnail']['source'] = sanitize_text_field($_POST['thumb_source']);
+                $this->config['tools']['thumbnail']['source'] = $thumb_source;
                 $this->config['tools']['thumbnail']['format'] = $thumbnail_format;
                 $this->config['tools']['thumbnail']['field'] = ( ! empty($_POST['thumb_field']) ) ? sanitize_text_field($_POST['thumb_field']) : 'wpp_thumbnail';
                 $this->config['tools']['thumbnail']['default'] = ( ! empty($_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : $this->config['tools']['thumbnail']['default'];
