@@ -58,7 +58,6 @@ class Upgrader {
      *
      * @since   2.4.0
      * @access  private
-     * @global  object  $wpdb
      */
     private function upgrade()
     {
@@ -81,10 +80,27 @@ class Upgrader {
             delete_option('wpp_update');
         }
 
-        global $wpdb;
-
         // Upgrade flag
         add_option('wpp_update', $now);
+
+        $this->update_db_tables($now);
+
+        // Update WPP version
+        update_option('wpp_ver', WPP_VERSION);
+        // Remove upgrade flag
+        delete_option('wpp_update');
+    }
+
+    /**
+     * Updates plugin's database tables.
+     *
+     * @since  7.3.6
+     * @access  private
+     * @global  object  $wpdb
+     */
+    private function update_db_tables($now)
+    {
+        global $wpdb;
 
         // Set table name
         $prefix = $wpdb->prefix . 'popularposts';
@@ -199,10 +215,5 @@ class Upgrader {
         }
 
         //phpcs:enable
-
-        // Update WPP version
-        update_option('wpp_ver', WPP_VERSION);
-        // Remove upgrade flag
-        delete_option('wpp_update');
     }
 }
