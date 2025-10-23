@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2025-10-12 10:27-0400\n"
+"POT-Creation-Date: 2025-10-23 14:50-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-KeywordsList: "
 "_e;__;__ngettext;__ngettext_noop;_n_noop;_x;_nx;_nx_noop;_ex;esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;_c;_nc;_n:1,2\n"
 "X-Poedit-Basepath: ..\n"
@@ -513,11 +513,11 @@ msgstr ""
 msgid "Plain"
 msgstr ""
 
-#: src/Admin/admin-page.php:7 src/Admin/admin-page.php:119
+#: src/Admin/admin-page.php:7 src/Admin/admin-page.php:122
 msgid "Stats"
 msgstr ""
 
-#: src/Admin/admin-page.php:8 src/Admin/admin-page.php:120
+#: src/Admin/admin-page.php:8 src/Admin/admin-page.php:123
 msgid "Tools"
 msgstr ""
 
@@ -525,12 +525,12 @@ msgstr ""
 msgid "Parameters"
 msgstr ""
 
-#: src/Admin/admin-page.php:32 src/Admin/admin-page.php:44 src/Admin/admin-page.php:77
-#: src/Admin/admin-page.php:109
+#: src/Admin/admin-page.php:32 src/Admin/admin-page.php:44 src/Admin/admin-page.php:80
+#: src/Admin/admin-page.php:112
 msgid "Settings saved."
 msgstr ""
 
-#: src/Admin/admin-page.php:55
+#: src/Admin/admin-page.php:60
 msgid "Please provide the name of your custom field."
 msgstr ""
 
@@ -959,14 +959,10 @@ msgstr ""
 msgid "Include popular posts from author ID(s)."
 msgstr ""
 
-#: src/Rest/ViewLoggerEndpoint.php:302
-msgid "The post / page ID."
-msgstr ""
-
-#: src/Rest/ViewLoggerEndpoint.php:315
+#: src/Rest/ViewLoggerEndpoint.php:288
 msgid "Enables Data Sampling."
 msgstr ""
 
-#: src/Rest/ViewLoggerEndpoint.php:322
+#: src/Rest/ViewLoggerEndpoint.php:295
 msgid "Sets the Sampling Rate."
 msgstr ""
