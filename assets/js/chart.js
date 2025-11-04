@@ -1,54 +1,58 @@
-var WPPChart = (function() {
-    "use strict";
+const WPPChart = (() => {
+    'use strict';
 
     /**
      * Private functions and variables
      */
 
-    var defaults = {
+    let chart = null,
+        element = null,
+        cvs = null;
+
+    const defaults = {
         type: 'line',
         data: {
             labels: [],
             datasets: [
                 {
-                    label: "",
+                    label: '',
                     fill: true,
                     lineTension: 0.2,
                     borderWidth: 3,
-                    backgroundColor: "rgba(221, 66, 66, 0.8)",
-                    borderColor: "#881111",
+                    backgroundColor: 'rgba(221, 66, 66, 0.8)',
+                    borderColor: '#881111',
                     borderCapStyle: 'butt',
                     borderDash: [],
                     borderDashOffset: 0.0,
                     borderJoinStyle: 'miter',
-                    pointBorderColor: "#881111",
-                    pointBackgroundColor: "#fff",
+                    pointBorderColor: '#881111',
+                    pointBackgroundColor: '#fff',
                     pointBorderWidth: 2,
                     pointHoverRadius: 4,
-                    pointHoverBackgroundColor: "#881111",
-                    pointHoverBorderColor: "#881111",
+                    pointHoverBackgroundColor: '#881111',
+                    pointHoverBorderColor: '#881111',
                     pointHoverBorderWidth: 3,
                     pointRadius: 3,
                     pointHitRadius: 10,
                     data: [],
                 },
                 {
-                    label: "",
+                    label: '',
                     fill: true,
                     lineTension: 0.2,
                     borderWidth: 3,
-                    backgroundColor: "rgba(136, 17, 17, 0.3)",
-                    borderColor: "#a80000",
+                    backgroundColor: 'rgba(136, 17, 17, 0.3)',
+                    borderColor: '#a80000',
                     borderCapStyle: 'butt',
                     borderDash: [],
                     borderDashOffset: 0.0,
                     borderJoinStyle: 'miter',
-                    pointBorderColor: "#a80000",
-                    pointBackgroundColor: "#fff",
+                    pointBorderColor: '#a80000',
+                    pointBackgroundColor: '#fff',
                     pointBorderWidth: 2,
                     pointHoverRadius: 4,
-                    pointHoverBackgroundColor: "#a80000",
-                    pointHoverBorderColor: "#a80000",
+                    pointHoverBackgroundColor: '#a80000',
+                    pointHoverBorderColor: '#a80000',
                     pointHoverBorderWidth: 3,
                     pointRadius: 3,
                     pointHitRadius: 10,
@@ -91,36 +95,29 @@ var WPPChart = (function() {
                         minRotation: 90
                     }
                 },
-                  y: {
+                y: {
                     grid: {
-                        display: false,
+                        display: true,
                         drawBorder: false
                     },
                     ticks: {
-                        display: false
+                        display: true
                     }
                 }
             }
-        }
+        },
     },
-    chart = null,
-    canRender = !! window.CanvasRenderingContext2D,
-    element = null,
-    cvs = null;
-
-    var canRender = function(){
-        return canRender;
-    };
+    canRender = !! window.CanvasRenderingContext2D;
 
     // Source: http://stackoverflow.com/a/5624139
-    var HexToRGB = function( hex ){
-        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    const HexToRGB = ( hex ) => {
+        const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
 
-        hex = hex.replace(shorthandRegex, function( m, r, g, b ) {
+        hex = hex.replace(shorthandRegex, ( _m, r, g, b ) => {
             return r + r + g + g + b + b;
         });
 
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
         return result ? {
             r: parseInt( result[1], 16 ),
@@ -133,8 +130,8 @@ var WPPChart = (function() {
      * Public functions
      */
 
-    var init = function(container, options){
-        if ( ! canRender() ) {
+    const init = (container) => {
+        if ( ! canRender ) {
             throw new Error('Your browser is too old, WPPChart cannot create its data chart.');
         }
 
@@ -156,12 +153,25 @@ var WPPChart = (function() {
         element.appendChild(cvs);
     };
 
-    var populate = function(data){
+    const populate = (data) => {
         if ( chart ) {
             chart.destroy();
         }
 
-        var config = defaults;
+        const totalComments = data.datasets[0].data.reduce(
+            (accumulator, currentValue) => accumulator + parseInt(currentValue, 10),
+            0,
+        );
+
+        const totalViews = data.datasets[1].data.reduce(
+            (accumulator, currentValue) => accumulator + parseInt(currentValue, 10),
+            0,
+        );
+
+        const config = defaults;
+
+        config.options.scales.y.grid.display = ! ( totalComments <= 0 && totalViews <= 0 );
+        config.options.scales.y.ticks.display = ! ( totalComments <= 0 && totalViews <= 0 );
 
         config.data.labels = data.labels;
         config.data.datasets[0].label = data.datasets[0].label;
@@ -169,17 +179,17 @@ var WPPChart = (function() {
         config.data.datasets[1].label = data.datasets[1].label;
         config.data.datasets[1].data = data.datasets[1].data;
 
-        var colors_arr = wpp_chart_params.colors.slice(-2);
+        const colors_arr = wpp_chart_params.colors.slice(-2);
 
-        var rgb_comments = HexToRGB(colors_arr[0]);
-        config.data.datasets[1].backgroundColor = "rgba(" + rgb_comments.r + ", " + rgb_comments.g + ", " + rgb_comments.b + ", 0.9)";
+        const rgb_comments = HexToRGB(colors_arr[0]);
+        config.data.datasets[1].backgroundColor = `rgba(${rgb_comments.r}, ${rgb_comments.g}, ${rgb_comments.b}, 0.9)`;
         config.data.datasets[1].borderColor = colors_arr[0];
         config.data.datasets[1].pointBorderColor = colors_arr[0];
         config.data.datasets[1].pointHoverBackgroundColor = colors_arr[0];
         config.data.datasets[1].pointHoverBorderColor = colors_arr[0];
 
-        var rgb_views = HexToRGB(colors_arr[1]);
-        config.data.datasets[0].backgroundColor = "rgba(" + rgb_views.r + ", " + rgb_views.g + ", " + rgb_views.b + ",  0.7)";
+        const rgb_views = HexToRGB(colors_arr[1]);
+        config.data.datasets[0].backgroundColor = `rgba(${rgb_views.r}, ${rgb_views.g}, ${rgb_views.b},  0.7)`;
         config.data.datasets[0].borderColor = colors_arr[1];
         config.data.datasets[0].pointBorderColor = colors_arr[1];
         config.data.datasets[0].pointHoverBackgroundColor = colors_arr[1];
@@ -193,8 +203,8 @@ var WPPChart = (function() {
      */
 
     return {
-        init: init,
-        populate: populate,
-        canRender: canRender
+        init,
+        populate,
+        canRender: () => canRender
     };
 })();
