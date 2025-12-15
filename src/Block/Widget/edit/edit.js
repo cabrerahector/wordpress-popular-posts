@@ -6,12 +6,20 @@ import { StatsTagFields } from './fields-stats-tag';
 import { HTMLMarkupFields } from './fields-html-markup';
 
 const { apiFetch, serverSideRender: ServerSideRender } = wp;
-// const { useBlockProps } = wp.blockEditor;
+const { useBlockProps } = wp.blockEditor;
 const { Disabled, Spinner } = wp.components;
 const { Fragment, useEffect, useState } = wp.element;
 const endpoint = 'wordpress-popular-posts/v1';
 
 export function WPPWidgetBlockEdit({ attributes, setAttributes, isSelected, className, name }) {
+    const blockProps = useBlockProps({
+        className: [
+            ( className || '' ),
+            ( attributes._editMode ? 'in-edit-mode' : 'in-preview-mode' ),
+            ( isSelected ? 'is-selected' : '' ),
+        ].filter(Boolean).join(' '),
+    });
+
     const { _editMode: editMode } = attributes;
 
     const [error, setError] = useState(null);
@@ -89,7 +97,7 @@ export function WPPWidgetBlockEdit({ attributes, setAttributes, isSelected, clas
 
     return ([
         <Controls attributes={attributes} setAttributes={setAttributes} key="wpp-widget-controls" />,
-        <div className={classes} key="wpp-widget-edit">
+        <div {... blockProps} key="wpp-widget-edit">
             { editMode &&
                 <Fragment>
                     <MainFields attributes={attributes} setAttributes={setAttributes} />

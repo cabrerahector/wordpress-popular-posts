@@ -169,6 +169,7 @@ class Widget extends Block
         register_block_type(
             'wordpress-popular-posts/widget',
             [
+                'api_version' => 3,
                 'editor_style'  => 'block-wpp-editor-css',
                 'editor_script' => 'block-wpp-widget-js',
                 'render_callback' => [$this, 'render'],
