@@ -12,14 +12,6 @@ const { Fragment, useEffect, useState } = wp.element;
 const endpoint = 'wordpress-popular-posts/v1';
 
 export function WPPWidgetBlockEdit({ attributes, setAttributes, isSelected, className, name }) {
-    const blockProps = useBlockProps({
-        className: [
-            ( className || '' ),
-            ( attributes._editMode ? 'in-edit-mode' : 'in-preview-mode' ),
-            ( isSelected ? 'is-selected' : '' ),
-        ].filter(Boolean).join(' '),
-    });
-
     const { _editMode: editMode } = attributes;
 
     const [error, setError] = useState(null);
@@ -87,13 +79,17 @@ export function WPPWidgetBlockEdit({ attributes, setAttributes, isSelected, clas
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const blockProps = useBlockProps({
+        className: [
+            ( className || '' ),
+            ( editMode ? 'in-edit-mode' : 'in-preview-mode' ),
+            ( isSelected ? 'is-selected' : '' ),
+        ].filter(Boolean).join(' '),
+    });
+
     if ( ! taxonomies || ! themes || ! imgSizes ) {
         return <Spinner />;
     }
-
-    let classes = className || '';
-    classes += editMode ? ' in-edit-mode' : ' in-preview-mode';
-    classes += isSelected ? ' is-selected' : '';
 
     return ([
         <Controls attributes={attributes} setAttributes={setAttributes} key="wpp-widget-controls" />,
