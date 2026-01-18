@@ -177,9 +177,12 @@ class Output {
             $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             $xpath = new \DOMXPath($dom);
 
-            while ( ($node_list = $xpath->query('//*[not(*) and not(@*) and not(text()[normalize-space()])]')) && $node_list->length ) {
-                foreach ($node_list as $node) {
-                    $node->parentNode->removeChild($node);
+            $empty_elements = $xpath->query('//*[not(*) and not(text()[normalize-space()])]');
+
+            foreach( $empty_elements as $element ) {
+                // Exclude some self-closing tags from removal
+                if ( ! in_array($element->tagName, ['br', 'hr', 'img', 'source']) ) {
+                    $element->parentNode->removeChild($element);
                 }
             }
 
