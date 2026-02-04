@@ -475,9 +475,19 @@ class Output {
 
         $prettify_numbers = apply_filters('wpp_prettify_numbers', true);
 
-        /** Legacy, should be removed */
+        /**
+         * @ToDo
+         *
+         * Remove this filter, it's a typo and the correct one has been around since 6.3.4
+         *
+         * @since  7.3.7
+         */
         if ( has_filter('wpp_pretiffy_numbers') ) {
             $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
+
+            if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                trigger_error('WP Popular Posts - wpp_pretiffy_numbers has been deprecated. Please use wpp_prettify_numbers instead.', E_USER_WARNING);
+            }
         }
 
         // Build custom HTML output
@@ -910,9 +920,19 @@ class Output {
 
         $prettify_numbers = apply_filters('wpp_prettify_numbers', true);
 
-        /* Legacy, should be removed */
+        /**
+         * @ToDo
+         *
+         * Remove this filter, it's a typo and the correct one has been around since 6.3.4
+         *
+         * @since  7.3.7
+         */
         if ( has_filter('wpp_pretiffy_numbers') ) {
             $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
+
+            if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                trigger_error('WP Popular Posts - wpp_pretiffy_numbers has been deprecated. Please use wpp_prettify_numbers instead..', E_USER_WARNING);
+            }
         }
 
         // comments
