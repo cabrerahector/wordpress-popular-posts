@@ -27,6 +27,7 @@ if ( isset($_POST['section']) ) {
             $this->config['stats']['limit'] = ( \WordPressPopularPosts\Helper::is_number($_POST['stats_limit']) && $_POST['stats_limit'] > 0 ) ? (int) $_POST['stats_limit'] : 10;
             $this->config['stats']['post_type'] = empty($_POST['stats_type']) ? 'post' : sanitize_text_field($_POST['stats_type']);
             $this->config['stats']['freshness'] = isset($_POST['stats_freshness']);
+            $this->config['stats']['y_scale'] = isset($_POST['stats_y_scale']);
 
             update_option('wpp_settings_config', $this->config);
             echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . '</strong></p></div>';

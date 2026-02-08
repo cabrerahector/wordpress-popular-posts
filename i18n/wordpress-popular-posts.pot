@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2025-10-23 14:50-0400\n"
+"POT-Creation-Date: 2026-02-08 18:32-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -76,13 +76,13 @@ msgstr ""
 msgid "Last 24 Hours"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:85
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:91
 #: src/Block/Widget/edit.js:200
 #: src/Compatibility/Elementor/widgets/widget-controls.php:58
 msgid "Last 7 days"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:88
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:94
 #: src/Block/Widget/edit.js:201
 #: src/Compatibility/Elementor/widgets/widget-controls.php:59
 msgid "Last 30 days"
@@ -93,7 +93,7 @@ msgstr ""
 msgid "All-time"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:91
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:97
 #: src/Block/Widget/edit.js:203
 #: src/Compatibility/Elementor/widgets/widget-controls.php:61
 msgid "Custom"
@@ -109,19 +109,19 @@ msgstr ""
 msgid "Time Unit"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:51
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:57
 #: src/Admin/screen-tools.php:185 src/Block/Widget/edit.js:220
 #: src/Compatibility/Elementor/widgets/widget-controls.php:88
 msgid "Minute(s)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:52
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:58
 #: src/Admin/screen-tools.php:186 src/Block/Widget/edit.js:221
 #: src/Compatibility/Elementor/widgets/widget-controls.php:89
 msgid "Hour(s)"
 msgstr ""
 
-#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:53
+#: assets/js/blocks/block-wpp-widget.js:1 src/Admin/screen-stats.php:59
 #: src/Admin/screen-tools.php:187 src/Block/Widget/edit.js:222
 #: src/Compatibility/Elementor/widgets/widget-controls.php:90
 msgid "Day(s)"
@@ -379,7 +379,7 @@ msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:295 src/Admin/screen-stats.php:104
+#: src/Admin/Admin.php:295 src/Admin/screen-stats.php:110
 msgid "Trending now"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgid "Support"
 msgstr ""
 
 #: src/Admin/Admin.php:629 src/Admin/Admin.php:1035 src/Admin/Admin.php:1039
-#: src/Output.php:895 src/Shortcode/ViewsCount.php:79
+#: src/Output.php:958 src/Shortcode/ViewsCount.php:79
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
@@ -465,7 +465,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Admin/Admin.php:629 src/Admin/Admin.php:1037 src/Admin/Admin.php:1039
-#: src/Output.php:878
+#: src/Output.php:941
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
@@ -513,11 +513,11 @@ msgstr ""
 msgid "Plain"
 msgstr ""
 
-#: src/Admin/admin-page.php:7 src/Admin/admin-page.php:122
+#: src/Admin/admin-page.php:7 src/Admin/admin-page.php:123
 msgid "Stats"
 msgstr ""
 
-#: src/Admin/admin-page.php:8 src/Admin/admin-page.php:123
+#: src/Admin/admin-page.php:8 src/Admin/admin-page.php:124
 msgid "Tools"
 msgstr ""
 
@@ -525,12 +525,12 @@ msgstr ""
 msgid "Parameters"
 msgstr ""
 
-#: src/Admin/admin-page.php:32 src/Admin/admin-page.php:44 src/Admin/admin-page.php:80
-#: src/Admin/admin-page.php:112
+#: src/Admin/admin-page.php:33 src/Admin/admin-page.php:45 src/Admin/admin-page.php:81
+#: src/Admin/admin-page.php:113
 msgid "Settings saved."
 msgstr ""
 
-#: src/Admin/admin-page.php:60
+#: src/Admin/admin-page.php:61
 msgid "Please provide the name of your custom field."
 msgstr ""
 
@@ -546,41 +546,45 @@ msgstr ""
 msgid "Post type"
 msgstr ""
 
-#: src/Admin/screen-stats.php:32 src/Admin/screen-stats.php:65
+#: src/Admin/screen-stats.php:31
+msgid "Display Y scale"
+msgstr ""
+
+#: src/Admin/screen-stats.php:38 src/Admin/screen-stats.php:71
 #: src/Admin/screen-tools.php:111 src/Admin/screen-tools.php:226
 #: src/Admin/screen-tools.php:273
 msgid "Apply"
 msgstr ""
 
-#: src/Admin/screen-stats.php:33 src/Admin/screen-stats.php:68
+#: src/Admin/screen-stats.php:39 src/Admin/screen-stats.php:74
 msgid "Cancel"
 msgstr ""
 
-#: src/Admin/screen-stats.php:40
+#: src/Admin/screen-stats.php:46
 msgid "Custom Time Range Settings"
 msgstr ""
 
-#: src/Admin/screen-stats.php:43
+#: src/Admin/screen-stats.php:49
 msgid "Custom Time Range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:44
+#: src/Admin/screen-stats.php:50
 msgid "Date Range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:58
+#: src/Admin/screen-stats.php:64
 msgid "Select a date..."
 msgstr ""
 
-#: src/Admin/screen-stats.php:79
+#: src/Admin/screen-stats.php:85
 msgid "Today"
 msgstr ""
 
-#: src/Admin/screen-stats.php:82
+#: src/Admin/screen-stats.php:88
 msgid "Last 24 hours"
 msgstr ""
 
-#: src/Admin/screen-stats.php:96
+#: src/Admin/screen-stats.php:102
 #, php-format
 msgid ""
 "Err... A nice little chart is supposed to be here, instead you are seeing this because "
@@ -588,31 +592,31 @@ msgid ""
 "browser</a>."
 msgstr ""
 
-#: src/Admin/screen-stats.php:102
+#: src/Admin/screen-stats.php:108
 msgid "See your most viewed posts within the selected time range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:102
+#: src/Admin/screen-stats.php:108
 msgid "Most viewed"
 msgstr ""
 
-#: src/Admin/screen-stats.php:103
+#: src/Admin/screen-stats.php:109
 msgid "See your most commented posts within the selected time range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:103
+#: src/Admin/screen-stats.php:109
 msgid "Most commented"
 msgstr ""
 
-#: src/Admin/screen-stats.php:104
+#: src/Admin/screen-stats.php:110
 msgid "See your most viewed posts within the last hour"
 msgstr ""
 
-#: src/Admin/screen-stats.php:105
+#: src/Admin/screen-stats.php:111
 msgid "See your most viewed posts of all time"
 msgstr ""
 
-#: src/Admin/screen-stats.php:105
+#: src/Admin/screen-stats.php:111
 msgid "Hall of Fame"
 msgstr ""
 
@@ -875,38 +879,38 @@ msgstr ""
 msgid "How do I customize this theme?"
 msgstr ""
 
-#: src/Output.php:276
+#: src/Output.php:319
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: src/Output.php:706
+#: src/Output.php:759
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: src/Output.php:889
+#: src/Output.php:952
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Output.php:907
+#: src/Output.php:970
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: src/Output.php:912
+#: src/Output.php:975
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: src/Output.php:912
+#: src/Output.php:975
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: src/Output.php:917
+#: src/Output.php:980
 #, php-format
 msgid "under %s"
 msgstr ""
