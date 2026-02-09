@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 7.3.7 ##
+
+- Fixes shortcode rendering empty tags (props to NetzzJD for the report!)
+- Renames filter hook pretiffy_numbers to prettify_numbers.
+- Adds toggle to display the Y-axis in the Stats chart.
+- Minor code improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.7)
+
 ## 7.3.6 ##
 
 **If you're updating from a previous version please clear your popular posts thumbnails cache via WP Dashboard > Settings > WP Popular Posts > Tools > Thumbnails > Empty image cache button.**
