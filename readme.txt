@@ -15,6 +15,10 @@ A highly customizable, easy-to-use popular posts plugin!
 
 WP Popular Posts is a highly customizable plugin that displays your most popular posts.
 
+= PSA: Plugin has been renamed as WP Popular Posts! =
+
+See the [announcement](https://cabrerahector.com/wordpress/wordpress-popular-posts-renamed-to-wp-popular-posts/) for more details.
+
 = Main Features =
 * **Multiple Popular Posts Lists** - You can have several Popular Posts lists on your blog, each with its own settings!
 * **Time Range** - List those posts of your blog that have been the most popular ones within a specific time range (eg. last 24 hours, last 7 days, last 30 days, etc)!
