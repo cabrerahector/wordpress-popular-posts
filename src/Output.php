@@ -238,7 +238,11 @@ class Output {
             }
 
             // Remove excess line jumps
-            $this->output = preg_replace('/\R+/', "\n", $this->output);
+            // @TODO
+            // Causes encoding artifacts in some languages
+            // See: https://wordpress.org/support/topic/encoding-issue-with-titles-and-excerpts-in-wpp-shortcode/
+            // Using the /u modifier may fix this, requires further testing
+            // $this->output = preg_replace('/\R+/', "\n", $this->output);
 
             // Sanitize HTML
             $this->output = Helper::sanitize_html($this->output, $this->public_options);
