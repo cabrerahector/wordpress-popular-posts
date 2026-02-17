@@ -263,8 +263,14 @@
 
         #wpp-listing .wpp-tabs-panel {
             overflow: hidden;
-            padding: 2% 30px;
+            padding: 30px;
             width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            #wpp-listing .wpp-tabs-panel {
+                padding: 45px;
+            }
         }
 
             #wpp-listing .wpp-tabs-panel .spinner {
@@ -309,26 +315,6 @@
                         margin: 0 8px 0 0;
                     }
 
-        .wpp-tab-content {
-            display: none;
-            overflow: hidden;
-            padding: 2% 30px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .wpp-tab-content-active {
-            display: block;
-        }
-
-            .wpp-tab-content .spinner {
-                display: block;
-                visibility: visible;
-                float: none;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
             .popular-posts-list {
                 margin: 0 0 0 0;
                 padding: 0;
@@ -340,7 +326,7 @@
 
                 .popular-posts-list li {
                     counter-increment: wpp-counter;
-                    margin: 0 1% 15px 1%;
+                    margin: 0 0 15px 0;
                     padding: 0 0 10px 0;
                     border-bottom: #f0f0f0 1px solid;
                 }
@@ -353,7 +339,8 @@
 
                 .popular-posts-list li:last-child,
                 .popular-posts-list li:last-child {
-                    margin: 0 1%;
+                    margin: 0;
+                    padding-bottom: 0;
                     border: none;
                 }
 
@@ -405,39 +392,10 @@
         height: auto;
     }
 
-#wpp_params {}
-
-    #wpp_params div {
-    }
-
-        #wpp_params div table {
-            width: 100%;
-            min-width: 800px;
-            background: white;
-        }
-
-            #wpp_params div table tr th {
-                font-size: 1.2em;
-                text-align: left;
-                border-bottom: #dedede 1px solid;
-            }
-
-            #wpp_params div table tr th,
-            #wpp_params div table tr td {
-                padding: 1em;
-            }
-
-            #wpp_params div table tr td {
-                position: static !important;
-                clear: none !important;
-                display: table-cell !important;
-                vertical-align: top;
-            }
-
 .clear {
-    float:none;
-    clear:both;
-    width:100%;
+    float: none;
+    clear: both;
+    width: 100%;
 }
 
 /*
