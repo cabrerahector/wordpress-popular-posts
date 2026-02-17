@@ -240,8 +240,8 @@ if ( wppChartContainer && WPPChart.canRender() ) {
 
     const updateChart = (data) => {
         // Update titles
-        wppChartContainer.parentNode.querySelector('h4').innerHTML = data.totals.label_summary;
-        wppChartContainer.parentNode.querySelector('h5').innerHTML = data.totals.label_date_range;
+        wppChartContainer.parentNode.querySelector('p:nth-of-type(1)').innerHTML = data.totals.label_summary;
+        wppChartContainer.parentNode.querySelector('p:nth-of-type(2)').innerHTML = data.totals.label_date_range;
         // Update chart
         WPPChart.populate(data);
     };

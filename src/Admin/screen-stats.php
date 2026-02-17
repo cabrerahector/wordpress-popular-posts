@@ -77,8 +77,8 @@ if ( 'stats' == $current ) {
     </div>
 
     <div id="wpp-chart-wrapper">
-        <h4><?php echo wp_kses_post($chart_data['totals']['label_summary']); ?></h4>
-        <h5><?php echo esc_html($chart_data['totals']['label_date_range']); ?></h5>
+        <p><?php echo wp_kses_post($chart_data['totals']['label_summary']); ?></p>
+        <p><?php echo esc_html($chart_data['totals']['label_date_range']); ?></p>
 
         <ul class="wpp-header-nav" id="wpp-time-ranges">
             <li <?php echo ('today' == $this->config['stats']['range']) ? ' class="current"' : ''; ?>>
