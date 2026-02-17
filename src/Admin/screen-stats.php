@@ -98,9 +98,7 @@ if ( 'stats' == $current ) {
             </li>
         </ul>
 
-        <div id="wpp-chart" data-y-scale="<?php echo absint($this->config['stats']['y_scale']); ?>">
-            <p><?php echo sprintf( __('Err... A nice little chart is supposed to be here, instead you are seeing this because your browser is too old. <br /> Please <a href="%s" target="_blank">get a better browser</a>.', 'wordpress-popular-posts'), 'https://browsehappy.com/'); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-        </div>
+        <div id="wpp-chart" data-y-scale="<?php echo absint($this->config['stats']['y_scale']); ?>"></div>
     </div>
 
     <div id="wpp-listing" class="wpp-content wpp-tabs">

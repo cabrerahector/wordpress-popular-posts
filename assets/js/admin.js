@@ -6,7 +6,6 @@
 const wppChartContainer = document.getElementById('wpp-chart');
 
 if ( wppChartContainer && WPPChart.canRender() ) {
-    wppChartContainer.querySelector('p').remove();
     WPPChart.init('wpp-chart');
 
     let updatingStats = false;
