@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 7.3.8 ##
+
+- Fixes a character encoding issue that can happen under some circumstances (props to qwe987299 for the report!)
+
+[Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-7-3-experimental-elementor-support/#7.3.8)
+
 ## 7.3.7 ##
 
 - Fixes shortcode rendering empty tags (props to NetzzJD for the report!)
