@@ -64,6 +64,104 @@ class Helper {
     }
 
     /**
+     * Returns an array of start date and end date (with timestamps maybe).
+     *
+     * @since  7.3.9
+     * @param  string
+     * @param  int
+     * @param  string
+     * @return array
+     */
+    public static function get_dates($time_range = 'last24hours', $time_unit = 24, $time_quantity = 'hour')
+    {
+        $time_units = ['MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH'];
+        $now = new \DateTime(Helper::now(), wp_timezone());
+        $end_date = clone $now;
+
+        $start_date = null;
+        $include_timestamp = true;
+
+        switch($time_range) {
+            case 'last24hours':
+            case 'daily':
+                $start_date = $now->sub(new \DateInterval('P1D'));
+                break;
+            case 'today':
+                $start_date = $now->setTime(0, 0, 0);
+                $end_date = $end_date->setTime(23, 59, 59);
+                break;
+            case 'last7days':
+            case 'weekly':
+                $start_date = $now->sub(new \DateInterval('P6D'));
+                $include_timestamp = false;
+                break;
+            case 'last30days':
+            case 'monthly':
+                $start_date = $now->sub(new \DateInterval('P29D'));
+                $include_timestamp = false;
+                break;
+            case 'custom':
+                $time_units = ['MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH'];
+
+                // Valid time unit
+                if (
+                    $time_unit
+                    && in_array(strtoupper($time_unit), $time_units)
+                    && $time_quantity
+                    && filter_var($time_quantity, FILTER_VALIDATE_INT)
+                    && $time_quantity > 0
+                ) {
+                    $time_unit = strtoupper($time_unit);
+
+                    if ( 'MINUTE' == $time_unit ) {
+                        $start_date = $now->sub(new \DateInterval('PT' . $time_quantity . 'M'));
+                    } elseif ( 'HOUR' == $time_unit ) {
+                        $start_date = $now->sub(new \DateInterval('PT' . $time_quantity . 'H'));
+                    } elseif ( 'DAY' == $time_unit ) {
+                        if ( $time_quantity === 1 ) {
+                            $start_date = $end_date;
+                        } else {
+                            $start_date = $now->sub(new \DateInterval('P' . $time_quantity . 'D'))
+                                ->add(new \DateInterval('P1D'));
+                        }
+
+                        $include_timestamp = false;
+                    } elseif ( 'WEEK' == $time_unit ) {
+                        $start_date = $now->sub(new \DateInterval('P' . $time_quantity . 'W'))
+                            ->add(new \DateInterval('P1D'));
+                        $include_timestamp = false;
+                    } else {
+                        $start_date = $now->sub(new \DateInterval('P' . $time_quantity . 'M'))
+                            ->add(new \DateInterval('P1D'));
+                        $include_timestamp = false;
+                    }
+                }
+                // Invalid time unit, default to last 24 hours
+                else {
+                    $start_date = $now->sub(new \DateInterval('P1D'));
+                }
+                break;
+            default:
+                $start_date = $now->sub(new \DateInterval('P1D'));
+                break;
+        }
+
+        $dates = [
+            [
+                $start_date->format('Y-m-d'),
+                $end_date->format('Y-m-d')
+            ],
+            [
+                $start_date->format('Y-m-d H:i:s'),
+                $end_date->format('Y-m-d H:i:s')
+            ],
+            $include_timestamp
+        ];
+
+        return $dates;
+    }
+
+    /**
      * Checks for valid date.
      *
      * @since   4.0.0

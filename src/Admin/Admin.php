@@ -596,11 +596,9 @@ class Admin {
      */
     public function get_chart_data(string $range = 'last7days', string $time_unit = 'HOUR', int $time_quantity = 24)
     {
-        $dates = $this->get_dates($range, $time_unit, $time_quantity);
-        $start_date = $dates[0];
-        $end_date = $dates[count($dates) - 1];
-        $date_range = Helper::get_date_range($start_date, $end_date, 'Y-m-d H:i:s');
-        $views_data = $this->get_range_item_count($start_date, $end_date, 'views');
+        list($start_date, $end_date, $include_timestamps) = $this->get_dates($range, $time_unit, $time_quantity);
+        $date_range = Helper::get_date_range($start_date, $end_date, ($include_timestamps ? 'Y-m-d H:i:s' : 'Y-m-d'));
+        $views_data = $this->get_range_item_count($start_date, $end_date, 'views', $include_timestamps);
         $views = [];
         $comments_data = $this->get_range_item_count($start_date, $end_date, 'comments');
         $comments = [];
@@ -612,13 +610,14 @@ class Admin {
                 $comments[] = ( ! isset($comments_data[$key]) ) ? 0 : $comments_data[$key]->comments;
             }
         } else {
-            $key = date('Y-m-d', strtotime($dates[0]));
+            $key = date('Y-m-d', strtotime($start_date));
             $views[] = ( ! isset($views_data[$key]) ) ? 0 : $views_data[$key]->pageviews;
             $comments[] = ( ! isset($comments_data[$key]) ) ? 0 : $comments_data[$key]->comments;
         }
 
-        if ( $start_date != $end_date ) {
-            $label_date_range = date_i18n('M, D d', strtotime($start_date)) . ' &mdash; ' . date_i18n('M, D d', strtotime($end_date));
+        if ( $start_date != $end_date && 'today' != $range ) {
+            $label_date_format = $include_timestamps ? 'M, D d h:i:s a' : 'M, D d';
+            $label_date_range = date_i18n($label_date_format, strtotime($start_date)) . ' &mdash; ' . date_i18n($label_date_format, strtotime($end_date));
         } else {
             $label_date_range = date_i18n('M, D d', strtotime($start_date));
         }
@@ -668,94 +667,47 @@ class Admin {
      */
     private function get_dates(string $range = 'last7days', string $time_unit = 'HOUR', int $time_quantity = 24)
     {
-        $valid_ranges = ['today', 'daily', 'last24hours', 'weekly', 'last7days', 'monthly', 'last30days', 'all', 'custom'];
-        $range = in_array($range, $valid_ranges) ? $range : 'last7days';
-        $now = new \DateTime(Helper::now(), wp_timezone());
+        $start_date = '';
+        $end_date = '';
 
-        // Determine time range
-        switch( $range ){
-            case 'last24hours':
-            case 'daily':
-                $end_date = $now->format('Y-m-d H:i:s');
-                $start_date = $now->modify('-1 day')->format('Y-m-d H:i:s');
-                break;
+        $include_timestamps = true;
 
-            case 'today':
-                $start_date = $now->format('Y-m-d') . ' 00:00:00';
-                $end_date = $now->format('Y-m-d') . ' 23:59:59';
-                break;
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- 'dates' are date strings, and we're validating those below
+        if (
+            'custom' == $range 
+            && isset($_GET['dates']) 
+            && ! empty($_GET['dates'])
+        ) {
+            $dates = explode(' ~ ', esc_html($_GET['dates']));
 
-            case 'last7days':
-            case 'weekly':
-                $end_date = $now->format('Y-m-d') . ' 23:59:59';
-                $start_date = $now->modify('-6 day')->format('Y-m-d') . ' 00:00:00';
-                break;
+            if (
+                $dates
+                && isset($dates[0])
+                && isset($dates[1])
+                && Helper::is_valid_date($dates[0])
+                && Helper::is_valid_date($dates[1])
+            ) {
+                $start_date = $dates[0] . ' 00:00:00';
+                $end_date = $dates[1] . ' 23:59:59';
+            }
+        }
+        // phpcs:enable
 
-            case 'last30days':
-            case 'monthly':
-                $end_date = $now->format('Y-m-d') . ' 23:59:59';
-                $start_date = $now->modify('-29 day')->format('Y-m-d') . ' 00:00:00';
-                break;
+        if ( ! $start_date ) {
+            list($dates, $datetimes, $include_timestamps) = Helper::get_dates(
+                $range,
+                $time_unit,
+                $time_quantity
+            );
 
-            case 'custom':
-                $end_date = $now->format('Y-m-d H:i:s');
-
-                if (
-                    Helper::is_number($time_quantity)
-                    && $time_quantity >= 1
-                ) {
-                    $end_date = $now->format('Y-m-d H:i:s');
-                    $time_unit = strtoupper($time_unit);
-
-                    if ( 'MINUTE' == $time_unit ) {
-                        $start_date = $now->sub(new \DateInterval('PT' . (60 * $time_quantity) . 'S'))->format('Y-m-d H:i:s');
-                    } elseif ( 'HOUR' == $time_unit ) {
-                        $start_date = $now->sub(new \DateInterval('PT' . ((60 * $time_quantity) - 1) . 'M59S'))->format('Y-m-d H:i:s');
-                    } else {
-                        $end_date = $now->format('Y-m-d') . ' 23:59:59';
-                        $start_date = $now->sub(new \DateInterval('P' . ($time_quantity - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
-                    }
-                } // fallback to last 24 hours
-                else {
-                    $start_date = $now->modify('-1 day')->format('Y-m-d H:i:s');
-                }
-
-                // Check if custom date range has been requested
-                $dates = null;
-
-                // phpcs:disable WordPress.Security.NonceVerification.Recommended -- 'dates' are date strings, and we're validating those below
-                if ( isset($_GET['dates']) ) {
-                    $dates = explode(' ~ ', esc_html($_GET['dates']));
-
-                    if (
-                        ! is_array($dates)
-                        || empty($dates)
-                        || ! Helper::is_valid_date($dates[0])
-                    ) {
-                        $dates = null;
-                    } else {
-                        if (
-                            ! isset($dates[1])
-                            || ! Helper::is_valid_date($dates[1])
-                        ) {
-                            $dates[1] = $dates[0];
-                        }
-
-                        $start_date = $dates[0] . ' 00:00:00';
-                        $end_date = $dates[1] . ' 23:59:59';
-                    }
-                }
-                // phpcs:enable
-
-                break;
-
-            default:
-                $end_date = $now->format('Y-m-d') . ' 23:59:59';
-                $start_date = $now->modify('-6 day')->format('Y-m-d') . ' 00:00:00';
-                break;
+            if ( $include_timestamps ) {
+                list($start_date, $end_date) = $datetimes;
+            } else {
+                list($start_date, $end_date) = $dates;
+            }
         }
 
-        return [$start_date, $end_date];
+        return [$start_date, $end_date, $include_timestamps];
     }
 
     /**
@@ -801,9 +753,9 @@ class Admin {
 
             //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- $post_type_placeholders is already prepared above
             $query = $wpdb->prepare(
-                "SELECT DATE(`c`.`comment_date_gmt`) AS `c_date`, COUNT(*) AS `comments` 
+                "SELECT DATE(`c`.`comment_date`) AS `c_date`, COUNT(*) AS `comments` 
                 FROM %i c INNER JOIN %i p ON `c`.`comment_post_ID` = `p`.`ID`
-                WHERE (`c`.`comment_date_gmt` BETWEEN %s AND %s) AND `c`.`comment_approved` = '1' AND `p`.`post_type` IN (" . implode(', ', $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
+                WHERE (`c`.`comment_date` BETWEEN %s AND %s) AND `c`.`comment_approved` = '1' AND `p`.`post_type` IN (" . implode(', ', $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
                 " . ( $this->config['stats']['freshness'] ? ' AND `p`.`post_date` >= %s' : '' ) . '
                 GROUP BY `c_date` ORDER BY `c_date` DESC;',
                 [$comments_table, $posts_table, ...$args]
@@ -907,96 +859,51 @@ class Admin {
             }
 
             if ( 'trending' != $items ) {
+                $datepicker_dates = $_GET['dates'] ?? null; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- This is not a nonce
 
-                add_filter('wpp_query_join', function($join, $options) use ($items) {
-                    global $wpdb;
-                    $dates = null;
+                if ( $datepicker_dates ) {
+                    $dates = explode(' ~ ', $datepicker_dates);
 
-                    if ( isset($_GET['dates']) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is checked above, 'dates' is verified below
-                        $dates = explode(' ~ ', esc_html($_GET['dates'])); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                    if (
+                        is_array($dates)
+                        && isset($dates[0])
+                        && isset($dates[1])
+                        && Helper::is_valid_date($dates[0])
+                        && Helper::is_valid_date($dates[1])
+                    ) {
+                        $start_date = $dates[0];
+                        $end_date = $dates[1];
 
-                        if (
-                            ! is_array($dates)
-                            || empty($dates)
-                            || ! Helper::is_valid_date($dates[0])
-                        ) {
-                            $dates = null;
-                        } else {
-                            if (
-                                ! isset($dates[1])
-                                || ! Helper::is_valid_date($dates[1])
-                            ) {
-                                $dates[1] = $dates[0];
-                            }
-
-                            $start_date = $dates[0];
-                            $end_date = $dates[1];
+                        if ( strtotime($start_date) > strtotime($end_date) ) {
+                            $start_date = $end_date;
                         }
 
-                    }
+                        $start_date .= ' 00:00:00';
+                        $end_date .= ' 23:59:59';
 
-                    if ( $dates ) {
-                        if ( 'most-commented' == $items ) {
-                            return "INNER JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count, comment_date_gmt FROM `{$wpdb->comments}` WHERE comment_date_gmt BETWEEN '{$dates[0]} 00:00:00' AND '{$dates[1]} 23:59:59' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
-                        }
+                        $filter_by_date_range = function($join, $options) use ($items, $start_date, $end_date) {
+                            global $wpdb;
 
-                        return "INNER JOIN (SELECT SUM(pageviews) AS pageviews, view_date, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime BETWEEN '{$dates[0]} 00:00:00' AND '{$dates[1]} 23:59:59' GROUP BY postid) v ON p.ID = v.postid";
-                    }
-
-                    $now = Helper::now();
-
-                    // Determine time range
-                    switch( $options['range'] ){
-                        case 'last24hours':
-                        case 'daily':
-                            $interval = '24 HOUR';
-                            break;
-
-                        case 'today':
-                            $hours = date('H', strtotime($now));
-                            $minutes = $hours * 60 + (int) date( 'i', strtotime($now) );
-                            $interval = "{$minutes} MINUTE";
-                            break;
-
-                        case 'last7days':
-                        case 'weekly':
-                            $interval = '6 DAY';
-                            break;
-
-                        case 'last30days':
-                        case 'monthly':
-                            $interval = '29 DAY';
-                            break;
-
-                        case 'custom':
-                            $time_units = ['MINUTE', 'HOUR', 'DAY'];
-                            $interval = '24 HOUR';
-
-                            // Valid time unit
-                            if (
-                                isset($options['time_unit'])
-                                && in_array(strtoupper($options['time_unit']), $time_units)
-                                && isset($options['time_quantity'])
-                                && filter_var($options['time_quantity'], FILTER_VALIDATE_INT)
-                                && $options['time_quantity'] > 0
-                            ) {
-                                $interval = "{$options['time_quantity']} " . strtoupper($options['time_unit']);
+                            if ( 'most-commented' == $items ) {
+                                return $wpdb->prepare(
+                                    'INNER JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count, comment_date FROM %i WHERE (comment_date BETWEEN %s AND %s) AND comment_approved = "1" GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID',
+                                    $wpdb->comments,
+                                    $start_date,
+                                    $end_date
+                                );
                             }
 
-                            break;
+                            return $wpdb->prepare(
+                                'INNER JOIN (SELECT SUM(pageviews) AS pageviews, view_date, postid FROM %i WHERE (view_datetime BETWEEN %s AND %s) GROUP BY postid) v ON p.ID = v.postid',
+                                $wpdb->prefix . 'popularpostssummary',
+                                $start_date,
+                                $end_date
+                            );
+                        };
 
-                        default:
-                            $interval = '1 DAY';
-                            break;
+                        add_filter('wpp_query_join', $filter_by_date_range, 1, 2);
                     }
-
-                    if ( 'most-commented' == $items ) {
-                        return "INNER JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count, comment_date_gmt FROM `{$wpdb->comments}` WHERE comment_date_gmt > DATE_SUB('{$now}', INTERVAL {$interval}) AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
-                    }
-
-                    return "INNER JOIN (SELECT SUM(pageviews) AS pageviews, view_date, postid FROM `{$wpdb->prefix}popularpostssummary` WHERE view_datetime > DATE_SUB('{$now}', INTERVAL {$interval}) GROUP BY postid) v ON p.ID = v.postid";
-                }, 1, 2);
-
+                }
             }
 
             $query = new Query($args);

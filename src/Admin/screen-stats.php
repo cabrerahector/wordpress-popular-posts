@@ -51,7 +51,7 @@ if ( 'stats' == $current ) {
             </div>
 
             <div class="wpp-lightbox-tab-content active wpp-tabs-panel" id="custom-time-range" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
-                <input type="text" id="stats_range_time_quantity" name="stats_range_time_quantity" value="<?php echo esc_attr($this->config['stats']['time_quantity']); ?>">
+                <input type="number" id="stats_range_time_quantity" name="stats_range_time_quantity" min="1" step="1" value="<?php echo esc_attr($this->config['stats']['time_quantity']); ?>">
 
                 <select id="stats_range_time_unit" name="stats_range_time_unit">
                     <option <?php if ($this->config['stats']['time_unit'] == 'minute') { ?>selected="selected"<?php } ?> value="minute"><?php esc_html_e('Minute(s)', 'wordpress-popular-posts'); ?></option>
