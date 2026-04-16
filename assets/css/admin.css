@@ -149,44 +149,45 @@
         overflow: hidden;
         display: block;
         padding: 25px 0 0 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     }
 
-        .wpp-header h2,
-        .wpp-header h3,
-        .wpp-header h4,
-        .wpp-header h5 {
+        .wpp-header h1,
+        .wpp-header p {
             text-align: center;
         }
 
-        .wpp-header h2 {
+        .wpp-header p {
             margin: 0 0 5px 0;
-            font-size: 1.0em;
+            font-size: 13px;
             font-weight: 400;
-            line-height: 1.0em;
+            line-height: 1;
         }
 
-        .wpp-header h3 {
+        .wpp-header h1 {
             margin: 0 0 30px 0;
-            font-size: 3.5em;
+            font-size: 45.5px;
             letter-spacing: -1px;
-            line-height: 1.0em;
+            line-height: 1;
         }
 
-        .wpp-header h4,
-        #wpp-chart-wrapper h4 {
+        #wpp-chart-wrapper p:nth-of-type(1),
+        #wpp-chart-wrapper p:nth-of-type(2) {
+            line-height: 1;
+            text-align: center;
+        }
+
+        #wpp-chart-wrapper p:nth-of-type(1) {
             margin: 0 0 8px 0;
-            font-size: 2.0em;
+            font-size: 26px;
             font-weight: 100;
-            line-height: 1.0em;
             letter-spacing: -2px;
         }
 
-        .wpp-header h5,
-        #wpp-chart-wrapper h5 {
+        #wpp-chart-wrapper p:nth-of-type(2) {
             margin: 0 0 0 0;
-            font-size: 0.9em;
+            font-size: 11.7px;
             font-weight: 300;
-            line-height: 0.9em;
         }
 
         .wpp-header-nav {
@@ -262,8 +263,14 @@
 
         #wpp-listing .wpp-tabs-panel {
             overflow: hidden;
-            padding: 2% 30px;
+            padding: 30px;
             width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            #wpp-listing .wpp-tabs-panel {
+                padding: 45px;
+            }
         }
 
             #wpp-listing .wpp-tabs-panel .spinner {
@@ -308,26 +315,6 @@
                         margin: 0 8px 0 0;
                     }
 
-        .wpp-tab-content {
-            display: none;
-            overflow: hidden;
-            padding: 2% 30px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .wpp-tab-content-active {
-            display: block;
-        }
-
-            .wpp-tab-content .spinner {
-                display: block;
-                visibility: visible;
-                float: none;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
             .popular-posts-list {
                 margin: 0 0 0 0;
                 padding: 0;
@@ -339,7 +326,7 @@
 
                 .popular-posts-list li {
                     counter-increment: wpp-counter;
-                    margin: 0 1% 15px 1%;
+                    margin: 0 0 15px 0;
                     padding: 0 0 10px 0;
                     border-bottom: #f0f0f0 1px solid;
                 }
@@ -352,7 +339,8 @@
 
                 .popular-posts-list li:last-child,
                 .popular-posts-list li:last-child {
-                    margin: 0 1%;
+                    margin: 0;
+                    padding-bottom: 0;
                     border: none;
                 }
 
@@ -404,39 +392,10 @@
         height: auto;
     }
 
-#wpp_params {}
-
-    #wpp_params div {
-    }
-
-        #wpp_params div table {
-            width: 100%;
-            min-width: 800px;
-            background: white;
-        }
-
-            #wpp_params div table tr th {
-                font-size: 1.2em;
-                text-align: left;
-                border-bottom: #dedede 1px solid;
-            }
-
-            #wpp_params div table tr th,
-            #wpp_params div table tr td {
-                padding: 1em;
-            }
-
-            #wpp_params div table tr td {
-                position: static !important;
-                clear: none !important;
-                display: table-cell !important;
-                vertical-align: top;
-            }
-
 .clear {
-    float:none;
-    clear:both;
-    width:100%;
+    float: none;
+    clear: both;
+    width: 100%;
 }
 
 /*

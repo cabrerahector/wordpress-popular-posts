@@ -49,7 +49,7 @@ if ( 'debug' == $current ) {
         $avif_support = \WP_Image_Editor_GD::supports_mime_type('image/avif');
         ?>
         <div id="wpp_debug">
-            <h3>Plugin Configuration</h3>
+            <h2>Plugin Configuration</h2>
             <p><strong>Performance Nag:</strong> <?php echo $performance_nag_status; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $performance_nag_status is safe to use ?></p>
             <p><strong>Log Limit:</strong> <?php echo ( $this->config['tools']['log']['limit'] ) ? 'Yes, keep data for ' . esc_html($this->config['tools']['log']['expires_after']) . ' days' : 'No'; ?></p>
             <p><strong>Log Views From:</strong> <?php echo ( 0 == $this->config['tools']['log']['level'] ) ? 'Visitors only' : ( (2 == $this->config['tools']['log']['level']) ? 'Logged-in users only' : 'Everyone' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
@@ -60,7 +60,7 @@ if ( 'debug' == $current ) {
 
             <br />
 
-            <h3>System Info</h3>
+            <h2>System Info</h2>
             <p><strong>PHP version:</strong> <?php echo phpversion(); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
             <p><strong>PHP extensions:</strong> <?php echo implode(', ', get_loaded_extensions()); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
             <p><strong>AVIF support:</strong> <?php echo $avif_support ? 'Yes' : 'No'; ?></p>

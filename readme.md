@@ -31,8 +31,8 @@ WP Popular Posts (from now on, just *WPP*) is a highly customizable [plugin](htt
 * **Sorting options** - Order your popular list by comments, views (default) or average views per day!
 * **Custom themes** - Out of the box, WP Popular Posts includes some themes so you can style your popular posts list (see [Widget Themes](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list#themes) for more details).
 * **Use your own layout!** - WPP is flexible enough to let you customize the look and feel of your popular posts! (see [customizing WPP's HTML markup](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-can-i-use-my-own-html-markup-with-your-plugin) and [How to style WP Popular Posts](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) for more.)
-* **Advanced caching features!** - WP Popular Posts includes a few options to make sure your site's performance stays as good as ever! (see [Performance](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more details.)
-* **REST API Support** - Embed your popular posts in your (web) app! (see [REST API Endpoints](https://github.com/cabrerahector/wordpress-popular-posts/wiki/8.-REST-API-Endpoints) for more.)
+* **Performance Tools!** - WP Popular Posts includes a few options to make sure your site's performance stays as good as ever! (see [Performance](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more details.)
+* **REST API support** - Embed your popular posts in your (web) app! (see [REST API Endpoints](https://github.com/cabrerahector/wordpress-popular-posts/wiki/8.-REST-API-Endpoints) for more.)
 * **Elementor support** - Are you building sites with Elementor? There's a popular posts widget for it too!
 * **Disqus support** - Sort your popular posts by Disqus comments count!
 * **Polylang & WPML 3.2+ support** - Show the translated version of your popular posts!
@@ -111,8 +111,7 @@ When submitting an issue, please make sure to include the following:
 ## Contributing
 
 * If you'd like to support my work and efforts to creating and maintaining more open source projects your donations and messages of support mean a lot! [Buy me a coffee](https://ko-fi.com/cabrerahector) | [PayPal](https://www.paypal.com/paypalme/cabrerahector)
-* If you have any ideas/suggestions/bug reports, and if there's not an issue filed for it already (see [issue tracker](https://github.com/cabrerahector/wordpress-popular-posts/issues)), please [create an issue](https://github.com/cabrerahector/wordpress-popular-posts/issues/new/choose) so I can keep track of it.
-* Developers can send [pull requests](https://help.github.com/articles/using-pull-requests) to suggest fixes / improvements to the source. See [Contributing](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/.github/contributing.md) for more details.
+* Found a bug? Got a feature request? See [Contributing](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/.github/contributing.md) for more details.
 * Want to translate WPP into your language or update a current translation? Check if it's [already supported](https://translate.wordpress.org/projects/wp-plugins/wordpress-popular-posts/) or download [this POT file](https://github.com/cabrerahector/wordpress-popular-posts/tree/master/i18n) to translate the strings (see [I want to translate your plugin into my language / help you update a translation. What do I need to do?](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#i-want-to-translate-your-plugin-into-my-language--help-you-update-a-translation-what-do-i-need-to-do) for more).
 
 
@@ -120,7 +119,7 @@ When submitting an issue, please make sure to include the following:
 
 [GNU General Public License version 2 or later](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Copyright (C) 2008-2025  Héctor Cabrera - https://cabrerahector.com
+Copyright (C) 2008-2026  Héctor Cabrera - https://cabrerahector.com
 
 The WP Popular Posts plugin is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

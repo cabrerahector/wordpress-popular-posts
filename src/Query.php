@@ -360,76 +360,21 @@ class Query {
             }
             // Custom time range
             else {
-                $start_date = clone $now;
+                list($dates, $datetimes, $include_timestamps) = Helper::get_dates(
+                    $this->options['range'],
+                    $this->options['time_unit'],
+                    $this->options['time_quantity']
+                );
 
-                // Determine time range
-                switch( $this->options['range'] ){
-                    case 'last24hours':
-                    case 'daily':
-                        $start_date = $start_date->sub(new \DateInterval('P1D'));
-                        $start_datetime = $start_date->format('Y-m-d H:i:s');
-                        $views_time_range = "view_datetime >= '{$start_datetime}'";
-                        break;
-                    case 'last7days':
-                    case 'weekly':
-                        $start_date = $start_date->sub(new \DateInterval('P6D'));
-                        $start_datetime = $start_date->format('Y-m-d');
-                        $views_time_range = "view_date >= '{$start_datetime}'";
-                        break;
-                    case 'last30days':
-                    case 'monthly':
-                        $start_date = $start_date->sub(new \DateInterval('P29D'));
-                        $start_datetime = $start_date->format('Y-m-d');
-                        $views_time_range = "view_date >= '{$start_datetime}'";
-                        break;
-                    case 'custom':
-                        $time_units = ['MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH'];
+                list($start_date, $end_date) = $dates;
+                list($start_datetime, $end_datetime) = $datetimes;
 
-                        // Valid time unit
-                        if (
-                            isset($this->options['time_unit'])
-                            && in_array(strtoupper($this->options['time_unit']), $time_units)
-                            && isset($this->options['time_quantity'])
-                            && filter_var($this->options['time_quantity'], FILTER_VALIDATE_INT)
-                            && $this->options['time_quantity'] > 0
-                        ) {
-                            $time_quantity = $this->options['time_quantity'];
-                            $time_unit = strtoupper($this->options['time_unit']);
-
-                            if ( 'MINUTE' == $time_unit ) {
-                                $start_date = $start_date->sub(new \DateInterval('PT' . (60 * $time_quantity) . 'S'));
-                                $start_datetime = $start_date->format('Y-m-d H:i:s');
-                                $views_time_range = "view_datetime >= '{$start_datetime}'";
-                            } elseif ( 'HOUR' == $time_unit ) {
-                                $start_date = $start_date->sub(new \DateInterval('PT' . ((60 * $time_quantity) - 1) . 'M59S'));
-                                $start_datetime = $start_date->format('Y-m-d H:i:s');
-                                $views_time_range = "view_datetime >= '{$start_datetime}'";
-                            } elseif ( 'DAY' == $time_unit ) {
-                                $start_date = $start_date->sub(new \DateInterval('P' . ($time_quantity - 1) . 'D'));
-                                $start_datetime = $start_date->format('Y-m-d');
-                                $views_time_range = "view_date >= '{$start_datetime}'";
-                            } elseif ( 'WEEK' == $time_unit ) {
-                                $start_date = $start_date->sub(new \DateInterval('P' . ((7 * $time_quantity) - 1) . 'D'));
-                                $start_datetime = $start_date->format('Y-m-d');
-                                $views_time_range = "view_date >= '{$start_datetime}'";
-                            } else {
-                                $start_date = $start_date->sub(new \DateInterval('P' . ((30 * $time_quantity) - 1) . 'D'));
-                                $start_datetime = $start_date->format('Y-m-d');
-                                $views_time_range = "view_date >= '{$start_datetime}'";
-                            }
-                        } // Invalid time unit, default to last 24 hours
-                        else {
-                            $start_date = $start_date->sub(new \DateInterval('P1D'));
-                            $start_datetime = $start_date->format('Y-m-d H:i:s');
-                            $views_time_range = "view_datetime >= '{$start_datetime}'";
-                        }
-
-                        break;
-                    default:
-                        $start_date = $start_date->sub(new \DateInterval('P1D'));
-                        $start_datetime = $start_date->format('Y-m-d H:i:s');
-                        $views_time_range = "view_datetime >= '{$start_datetime}'";
-                        break;
+                if ( $include_timestamps ) {
+                    $views_time_range = "(view_datetime BETWEEN '{$start_datetime}' AND '{$end_datetime}')";
+                    $comments_time_range = "(comment_date BETWEEN '{$start_datetime}' AND '{$end_datetime}')";
+                } else {
+                    $views_time_range = "(view_date BETWEEN '{$start_date}' AND '{$end_date}')";
+                    $comments_time_range = "(comment_date BETWEEN '{$start_date}' AND '{$end_date}')";
                 }
 
                 // Get entries published within the specified time range
@@ -455,13 +400,13 @@ class Query {
                     // Display comments count, too
                     if ( isset($this->options['stats_tag']['comment_count']) && $this->options['stats_tag']['comment_count'] ) {
                         $fields .= ', IFNULL(c.comment_count, 0) AS comment_count';
-                        $join .= " LEFT JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count FROM {$comments_table} WHERE comment_date_gmt >= '{$start_datetime}' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
+                        $join .= " LEFT JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count FROM {$comments_table} WHERE {$comments_time_range} AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
                     }
                 }
                 // Order by comments count
                 else {
                     $fields .= ', c.comment_count';
-                    $join = "INNER JOIN (SELECT COUNT(comment_post_ID) AS comment_count, comment_post_ID FROM {$comments_table} WHERE comment_date_gmt >= '{$start_datetime}' AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
+                    $join = "INNER JOIN (SELECT COUNT(comment_post_ID) AS comment_count, comment_post_ID FROM {$comments_table} WHERE {$comments_time_range} AND comment_approved = '1' GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID";
                     $orderby = 'ORDER BY comment_count DESC';
 
                     // Display views count, too

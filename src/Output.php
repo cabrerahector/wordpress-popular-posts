@@ -153,56 +153,100 @@ class Output {
      */
     public function get_output()
     {
+        $this->output = $this->get_clean_output();
         $this->output = ( WP_DEBUG ? "\n" . '<!-- WP Popular Posts v' . WPP_VERSION . ( $this->admin_options['tools']['cache']['active'] ? ' - cached' : '' ) . ' -->' . "\n" : '' ) . $this->output;
+        return $this->output;
+    }
 
-        // Attempt to close open tags
-        $this->output = force_balance_tags($this->output);
+    /**
+     * Returns a "clean" version of the HTML output.
+     *
+     * @since   7.3.7
+     * @return  string
+     */
+    private function get_clean_output()
+    {
+        if ( $this->output ) {
+            // Attempt to close open tags
+            $this->output = force_balance_tags($this->output);
 
-        /**
-         * @ToDo
-         *
-         * Look into \Dom\HTMLDocument (PHP 8.4 apparently) to see
-         * if it's a good alternative to the code below.
-         */
+            /**
+             * @ToDo
+             *
+             * Look into \Dom\HTMLDocument (PHP 8.4 apparently) to see
+             * if it's a good alternative to the code below.
+             */
 
-        if ( extension_loaded('mbstring') && function_exists('mb_encode_numericentity') ) {
-            // Process special characters
-            $html = htmlspecialchars_decode(mb_encode_numericentity(htmlentities(trim($this->output), ENT_QUOTES, 'UTF-8'), [0x80, 0x10FFFF, 0, ~0], 'UTF-8'));
+            if ( extension_loaded('mbstring') && function_exists('mb_encode_numericentity') ) {
+                $clean_html = '';
+                $html = trim($this->output);
 
-            // Remove empty tags
-            $clean_html = '';
-            $html = '<!DOCTYPE html><html><head><meta charset="UTF-8" /></head><body>' . $html . '</body></html>';
+                // Process special characters
+                $html = htmlspecialchars_decode(mb_encode_numericentity(htmlentities($html, ENT_QUOTES, 'UTF-8'), [0x80, 0x10FFFF, 0, ~0], 'UTF-8'));
 
-            $dom = new \DOMDocument();
-            $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $xpath = new \DOMXPath($dom);
+                // Remove empty tags
+                $html = '<!DOCTYPE html><html><head><meta charset="UTF-8" /></head><body>' . $html . '</body></html>';
 
-            $empty_elements = $xpath->query('//*[not(*) and not(text()[normalize-space()])]');
+                $dom = new \DOMDocument();
+                $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                $xpath = new \DOMXPath($dom);
 
-            foreach( $empty_elements as $element ) {
-                // Exclude some self-closing tags from removal
-                if ( ! in_array($element->tagName, ['br', 'hr', 'img', 'source']) ) {
-                    $element->parentNode->removeChild($element);
+                // Void/empty tags that should never be removed
+                $voids = ['br', 'div', 'hr', 'img', 'source', 'span'];
+                $voidPred = implode(' or ', array_map(function($n) { return "name() = '" . $n . "'"; }, $voids));
+
+                // Build XPath predicate
+                $query = "//*[not(normalize-space()) and not(*) and not({$voidPred})]";
+
+                // Iterate until no more removable nodes found (because removing can create new empty tags)
+                do {
+                    $removed = false;
+                    $nodes = $xpath->query($query);
+
+                    if ( $nodes === null || $nodes->length === 0 ) {
+                        break;
+                    }
+
+                    // Collect nodes first to avoid live-node issues
+                    $toRemove = [];
+
+                    foreach( $nodes as $node ) {
+                        $toRemove[] = $node;
+                    }
+
+                    foreach( $toRemove as $node ) {
+                        if ($node->parentNode) {
+                            $node->parentNode->removeChild($node);
+                            $removed = true;
+                        }
+                    }
+                } while( $removed );
+
+                $body = $dom->getElementsByTagName('body')->item(0);
+
+                if ( isset($body->childNodes) ) {
+                    foreach( $body->childNodes as $node ) {
+                        $clean_html .= $dom->saveHTML($node);
+                    }
+                }
+
+                $this->output = trim($clean_html);
+            } else {
+                if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                    trigger_error('WP Popular Posts - looks like PHP\'s mbstring extension isn\'t enabled on this site. Please enable it for the plugin to be able to properly format your popular post list.', E_USER_WARNING);
                 }
             }
 
-            $body = $dom->getElementsByTagName('body')->item(0);
+            // Remove excess line jumps
+            // @TODO
+            // Causes encoding artifacts in some languages
+            // See: https://wordpress.org/support/topic/encoding-issue-with-titles-and-excerpts-in-wpp-shortcode/
+            // Using the /u modifier may fix this, requires further testing
+            // $this->output = preg_replace('/\R+/', "\n", $this->output);
 
-            if ( isset($body->childNodes) ) {
-                foreach( $body->childNodes as $node ) {
-                    $clean_html .= $dom->saveHTML($node);
-                }
-            }
-
-            $this->output = trim($clean_html);
-        } else {
-            if ( defined('WP_DEBUG') && WP_DEBUG ) {
-                trigger_error('WP Popular Posts - looks like PHP\'s mbstring extension isn\'t enabled on this site. Please enable it for the plugin to be able to properly format your popular post list.', E_USER_WARNING);
-            }
+            // Sanitize HTML
+            $this->output = Helper::sanitize_html($this->output, $this->public_options);
         }
-
-        // Sanitize HTML
-        $this->output = Helper::sanitize_html($this->output, $this->public_options);
 
         return $this->output;
     }
@@ -435,9 +479,19 @@ class Output {
 
         $prettify_numbers = apply_filters('wpp_prettify_numbers', true);
 
-        /** Legacy, should be removed */
+        /**
+         * @ToDo
+         *
+         * Remove this filter, it's a typo and the correct one has been around since 6.3.4
+         *
+         * @since  7.3.7
+         */
         if ( has_filter('wpp_pretiffy_numbers') ) {
             $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
+
+            if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                trigger_error('WP Popular Posts - wpp_pretiffy_numbers has been deprecated. Please use wpp_prettify_numbers instead.', E_USER_WARNING);
+            }
         }
 
         // Build custom HTML output
@@ -870,9 +924,19 @@ class Output {
 
         $prettify_numbers = apply_filters('wpp_prettify_numbers', true);
 
-        /* Legacy, should be removed */
+        /**
+         * @ToDo
+         *
+         * Remove this filter, it's a typo and the correct one has been around since 6.3.4
+         *
+         * @since  7.3.7
+         */
         if ( has_filter('wpp_pretiffy_numbers') ) {
             $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
+
+            if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                trigger_error('WP Popular Posts - wpp_pretiffy_numbers has been deprecated. Please use wpp_prettify_numbers instead..', E_USER_WARNING);
+            }
         }
 
         // comments

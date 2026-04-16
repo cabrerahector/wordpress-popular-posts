@@ -10,7 +10,7 @@ if ( 'tools' == $current ) {
         $avif_support = \WP_Image_Editor_GD::supports_mime_type('image/avif');
         ?>
         <div id="wpp_tools">
-            <h3 class="wmpp-subtitle"><?php esc_html_e('Thumbnails', 'wordpress-popular-posts'); ?></h3>
+            <h2 class="wpp-subtitle"><?php esc_html_e('Thumbnails', 'wordpress-popular-posts'); ?></h2>
 
             <form action="" method="post" id="wpp_thumbnail_options" name="wpp_thumbnail_options">
                 <table class="form-table">
@@ -120,7 +120,7 @@ if ( 'tools' == $current ) {
             <p style="display: <?php echo ( current_user_can('manage_options') ) ? 'block' : 'none'; ?>; float:none; clear:both;">&nbsp;</p>
 
             <?php if ( current_user_can('manage_options') ) : ?>
-                <h3 class="wmpp-subtitle"><?php esc_html_e('Data', 'wordpress-popular-posts'); ?></h3>
+                <h2 class="wpp-subtitle"><?php esc_html_e('Data', 'wordpress-popular-posts'); ?></h2>
 
                 <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
                     <table class="form-table">
@@ -235,7 +235,7 @@ if ( 'tools' == $current ) {
                 <p style="display: block; float:none; clear: both;">&nbsp;</p>
             <?php endif; ?>
 
-            <h3 class="wmpp-subtitle"><?php esc_html_e('Miscellaneous', 'wordpress-popular-posts'); ?></h3>
+            <h2 class="wpp-subtitle"><?php esc_html_e('Miscellaneous', 'wordpress-popular-posts'); ?></h2>
 
             <form action="" method="post" id="wpp_link_options" name="wpp_link_options">
                 <table class="form-table">

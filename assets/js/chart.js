@@ -97,11 +97,11 @@ const WPPChart = (() => {
                 },
                 y: {
                     grid: {
-                        display: true,
+                        display: false,
                         drawBorder: false
                     },
                     ticks: {
-                        display: true
+                        display: false
                     }
                 }
             }
@@ -168,10 +168,14 @@ const WPPChart = (() => {
             0,
         );
 
+        const display_y_scale = !! parseInt(element.dataset.yScale, 10);
+
         const config = defaults;
 
-        config.options.scales.y.grid.display = ! ( totalComments <= 0 && totalViews <= 0 );
-        config.options.scales.y.ticks.display = ! ( totalComments <= 0 && totalViews <= 0 );
+        if ( display_y_scale ) {
+            config.options.scales.y.grid.display = ! ( totalComments <= 0 && totalViews <= 0 );
+            config.options.scales.y.ticks.display = ! ( totalComments <= 0 && totalViews <= 0 );
+        }
 
         config.data.labels = data.labels;
         config.data.datasets[0].label = data.datasets[0].label;

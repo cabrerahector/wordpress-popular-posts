@@ -96,7 +96,8 @@ class Settings {
                 'order_by' => 'views',
                 'limit' => 10,
                 'post_type' => 'post',
-                'freshness' => false
+                'freshness' => false,
+                'y_scale' => false
             ],
             'tools' => [
                 'experimental' => false,
