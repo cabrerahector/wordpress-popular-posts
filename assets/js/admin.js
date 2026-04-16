@@ -43,7 +43,8 @@ if ( wppChartContainer && WPPChart.canRender() ) {
                 updatingStats = true;
 
                 closeAllModals();
-                wppTimeRangeModal.querySelector('#stats_range_date').value = '';
+                wppTimeRangeModal.querySelector('#stats_range_start_date').readonly = true;
+                wppTimeRangeModal.querySelector('#stats_range_end_date').readonly = true;
 
                 getChartData(range)
                 .then((json) => {
@@ -72,8 +73,8 @@ if ( wppChartContainer && WPPChart.canRender() ) {
         btn.addEventListener('click', (e) => {
             const me = e.target;
 
-            wppTimeRangeModal.querySelector('#stats_range_date').value = '';
-            wppTimeRangeModal.querySelector('#stats_range_date').readonly = ( 'custom-time-range' === me.getAttribute('aria-controls') );
+            wppTimeRangeModal.querySelector('#stats_range_start_date').readonly = ( 'custom-time-range' === me.getAttribute('aria-controls') );
+            wppTimeRangeModal.querySelector('#stats_range_end_date').readonly = ( 'custom-time-range' === me.getAttribute('aria-controls') );
         });
     });
 
@@ -100,65 +101,11 @@ if ( wppChartContainer && WPPChart.canRender() ) {
         });
     }
 
-    // Datepicker
-    const jdp = jQuery.datepicker;
-    jdp._defaults.onAfterUpdate = null;
-    const datepicker__updateDatepicker = jdp._updateDatepicker;
-
-    jdp._updateDatepicker = function(instance) {
-        datepicker__updateDatepicker.call(this, instance);
-
-        const onAfterUpdate = this._get(instance, 'onAfterUpdate');
-
-        if ( onAfterUpdate ) {
-            onAfterUpdate.apply( ( instance.input ? instance.input[0] : null ), [( instance.input ? instance.input.val() : '' ), instance] );
+    wppTimeRangeModal.querySelector('#stats_range_start_date').addEventListener('change', (e) => {
+        if ( e.target.value ) {
+            wppTimeRangeModal.querySelector('#stats_range_end_date').setAttribute('min', e.target.value);
         }
-    };
-
-    let curr = -1,
-        prev = -1;
-
-    const dp_field = jQuery(wppTimeRangeModal.querySelector('#stats_range_date'));
-
-    const wppDatepicker = dp_field.datepicker(
-        {
-            maxDate: 0,
-            dateFormat: 'yy-mm-dd',
-            showButtonPanel: true,
-            beforeShowDay: (date) => {
-                return [true, ( (date.getTime() >= Math.min(prev, curr) && date.getTime() <= Math.max(prev, curr) ) ? 'date-range-selected' : '' )]
-            },
-            onSelect: (dateText, instance) => {
-                let d1, d2;
-
-                prev = curr;
-                curr = ( new Date(instance.selectedYear, instance.selectedMonth, instance.selectedDay) ).getTime();
-
-                if ( -1 == prev || prev == curr ) {
-                    prev = curr;
-                    dp_field.val( dateText );
-                } else {
-                    d1 = jdp.formatDate('yy-mm-dd', new Date( Math.min(prev, curr) ), {});
-                    d2 = jdp.formatDate('yy-mm-dd', new Date( Math.max(prev, curr) ), {});
-                    dp_field.val(d1 + ' ~ ' + d2)
-                }
-
-                dp_field.data('datepicker').inline = true;
-            },
-            onClose: () => {
-                dp_field.data('datepicker').inline = false;
-            },
-            onAfterUpdate: () => {
-                if ( prev > -1 && curr > -1 ) {
-                    jQuery('<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">OK</button>')
-                    .appendTo( jQuery(".ui-datepicker-buttonpane") )
-                    .on('click', () =>{
-                        dp_field.datepicker('hide');
-                    });
-                }
-            }
-        }
-    );
+    });
 
     wppTimeRangeModal.querySelector('form').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -217,8 +164,15 @@ if ( wppChartContainer && WPPChart.canRender() ) {
             time_unit: wppTimeRangeUnit.value
         };
 
-        if ( 'custom' === range && wppTimeRangeModal.querySelector('#stats_range_date').value ) {
-            args.dates = wppTimeRangeModal.querySelector('#stats_range_date').value;
+        if (
+            'custom' === range
+            && ! wppTimeRangeModal.querySelector('#stats_range_start_date').readonly
+            && ! wppTimeRangeModal.querySelector('#stats_range_end_date').readonly
+            && wppTimeRangeModal.querySelector('#stats_range_start_date').value
+            && wppTimeRangeModal.querySelector('#stats_range_end_date').value
+        ) {
+            args.start_date = wppTimeRangeModal.querySelector('#stats_range_start_date').value;
+            args.end_date = wppTimeRangeModal.querySelector('#stats_range_end_date').value;
         }
 
         const url = ajaxurl + '?' + new URLSearchParams(args).toString();
@@ -253,8 +207,14 @@ if ( wppChartContainer && WPPChart.canRender() ) {
             items: items
         };
 
-        if ( wppTimeRangeModal.querySelector('#stats_range_date').value ) {
-            args.dates = wppTimeRangeModal.querySelector('#stats_range_date').value;
+        if (
+            ! wppTimeRangeModal.querySelector('#stats_range_start_date').readonly
+            && ! wppTimeRangeModal.querySelector('#stats_range_end_date').readonly
+            && wppTimeRangeModal.querySelector('#stats_range_start_date').value
+            && wppTimeRangeModal.querySelector('#stats_range_end_date').value
+        ) {
+            args.start_date = wppTimeRangeModal.querySelector('#stats_range_start_date').value;
+            args.end_date = wppTimeRangeModal.querySelector('#stats_range_end_date').value;
         }
 
         const url = ajaxurl + '?' + new URLSearchParams(args).toString();
