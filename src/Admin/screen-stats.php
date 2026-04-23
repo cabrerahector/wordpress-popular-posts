@@ -61,7 +61,21 @@ if ( 'stats' == $current ) {
             </div>
 
             <div class="wpp-lightbox-tab-content wpp-tabs-panel" id="custom-date-range" role="tabpanel" tabindex="0" aria-labelledby="tab-2">
-                <input type="text" id="stats_range_date" name="stats_range_date" value="" placeholder="<?php esc_attr_e('Select a date...', 'wordpress-popular-posts'); ?>" />
+                <?php $today = \WordPressPopularPosts\Helper::curdate(); ?>
+
+                <div class="wpp-date-field">
+                    <div class="wpp-date-field-inner">
+                        <label for="stats_range_start_date"><?php esc_html_e('Start date', 'wordpress-popular-posts'); ?></label>
+                        <input type="date" id="stats_range_start_date" name="stats_range_start_date" max="<?php echo esc_attr($today); ?>" value="<?php echo esc_attr($today); ?>" />
+                    </div>
+                </div>
+
+                <div class="wpp-date-field">
+                    <div class="wpp-date-field-inner">
+                        <label for="stats_range_end_date"><?php esc_html_e('End date', 'wordpress-popular-posts'); ?></label>
+                        <input type="date" id="stats_range_end_date" name="stats_range_end_date" max="<?php echo esc_attr($today); ?>" value="<?php echo esc_attr($today); ?>" />
+                    </div>
+                </div>
             </div>
 
             <div class="clear"></div>

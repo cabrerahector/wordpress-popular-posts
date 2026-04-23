@@ -396,10 +396,8 @@ class Admin {
 
         if ( isset($screen->id) ) {
             if ( $screen->id == $this->screen_hook_suffix ) {
-                wp_enqueue_style('wpp-datepicker-theme', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/css/datepicker.css', [], WPP_VERSION, 'all');
-
                 wp_enqueue_media();
-                wp_enqueue_script('jquery-ui-datepicker');
+
                 wp_enqueue_script('chartjs', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/vendor/chart.3.8.0.min.js', [], WPP_VERSION);
 
                 wp_register_script('wpp-chart', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/chart.js', ['chartjs'], WPP_VERSION);
@@ -408,7 +406,7 @@ class Admin {
                 ]);
                 wp_enqueue_script('wpp-chart');
 
-                wp_register_script('wordpress-popular-posts-admin-script', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin.js', ['jquery'], WPP_VERSION, true); /** @TODO Drop jQuery datepicker dep */
+                wp_register_script('wordpress-popular-posts-admin-script', plugin_dir_url(dirname(dirname(__FILE__))) . 'assets/js/admin.js', [], WPP_VERSION, true);
                 wp_localize_script('wordpress-popular-posts-admin-script', 'wpp_admin_params', [
                     'label_media_upload_button' => __('Use this image', 'wordpress-popular-posts'),
                     'nonce' => wp_create_nonce('wpp_admin_nonce'),
@@ -672,24 +670,26 @@ class Admin {
 
         $include_timestamps = true;
 
-        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- 'dates' are date strings, and we're validating those below
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- 'start_date' and 'end_date' are date strings, and we're validating those below
         if (
             'custom' == $range 
-            && isset($_GET['dates']) 
-            && ! empty($_GET['dates'])
+            && isset($_GET['start_date']) 
+            && ! empty($_GET['start_date'])
+            && isset($_GET['end_date']) 
+            && ! empty($_GET['end_date'])
+            && Helper::is_valid_date($_GET['start_date'])
+            && Helper::is_valid_date($_GET['end_date'])
         ) {
-            $dates = explode(' ~ ', esc_html($_GET['dates']));
 
-            if (
-                $dates
-                && isset($dates[0])
-                && isset($dates[1])
-                && Helper::is_valid_date($dates[0])
-                && Helper::is_valid_date($dates[1])
-            ) {
-                $start_date = $dates[0] . ' 00:00:00';
-                $end_date = $dates[1] . ' 23:59:59';
+            $start_date = $_GET['start_date'];
+            $end_date = $_GET['end_date'];
+
+            if ( strtotime($start_date) > strtotime($end_date) ) {
+                $start_date = $end_date;
             }
+
+            $start_date .= ' 00:00:00';
+            $end_date .= ' 23:59:59';
         }
         // phpcs:enable
 
@@ -859,50 +859,45 @@ class Admin {
             }
 
             if ( 'trending' != $items ) {
-                $datepicker_dates = $_GET['dates'] ?? null; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- This is not a nonce
+                $datepicker_start_date = $_GET['start_date'] ?? null; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- This is not a nonce
+                $datepicker_end_date = $_GET['end_date'] ?? null; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- This is not a nonce
 
-                if ( $datepicker_dates ) {
-                    $dates = explode(' ~ ', $datepicker_dates);
+                if (
+                    'custom' == $args['range']
+                    && Helper::is_valid_date($datepicker_start_date)
+                    && Helper::is_valid_date($datepicker_end_date)
+                ) {
+                    $start_date = $datepicker_start_date;
+                    $end_date = $datepicker_end_date;
 
-                    if (
-                        is_array($dates)
-                        && isset($dates[0])
-                        && isset($dates[1])
-                        && Helper::is_valid_date($dates[0])
-                        && Helper::is_valid_date($dates[1])
-                    ) {
-                        $start_date = $dates[0];
-                        $end_date = $dates[1];
+                    if ( strtotime($start_date) > strtotime($end_date) ) {
+                        $start_date = $end_date;
+                    }
 
-                        if ( strtotime($start_date) > strtotime($end_date) ) {
-                            $start_date = $end_date;
-                        }
+                    $start_date .= ' 00:00:00';
+                    $end_date .= ' 23:59:59';
 
-                        $start_date .= ' 00:00:00';
-                        $end_date .= ' 23:59:59';
+                    $filter_by_date_range = function($join, $options) use ($items, $start_date, $end_date) {
+                        global $wpdb;
 
-                        $filter_by_date_range = function($join, $options) use ($items, $start_date, $end_date) {
-                            global $wpdb;
-
-                            if ( 'most-commented' == $items ) {
-                                return $wpdb->prepare(
-                                    'INNER JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count, comment_date FROM %i WHERE (comment_date BETWEEN %s AND %s) AND comment_approved = "1" GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID',
-                                    $wpdb->comments,
-                                    $start_date,
-                                    $end_date
-                                );
-                            }
-
+                        if ( 'most-commented' == $items ) {
                             return $wpdb->prepare(
-                                'INNER JOIN (SELECT SUM(pageviews) AS pageviews, view_date, postid FROM %i WHERE (view_datetime BETWEEN %s AND %s) GROUP BY postid) v ON p.ID = v.postid',
-                                $wpdb->prefix . 'popularpostssummary',
+                                'INNER JOIN (SELECT comment_post_ID, COUNT(comment_post_ID) AS comment_count, comment_date FROM %i WHERE (comment_date BETWEEN %s AND %s) AND comment_approved = "1" GROUP BY comment_post_ID) c ON p.ID = c.comment_post_ID',
+                                $wpdb->comments,
                                 $start_date,
                                 $end_date
                             );
-                        };
+                        }
 
-                        add_filter('wpp_query_join', $filter_by_date_range, 1, 2);
-                    }
+                        return $wpdb->prepare(
+                            'INNER JOIN (SELECT SUM(pageviews) AS pageviews, view_date, postid FROM %i WHERE (view_datetime BETWEEN %s AND %s) GROUP BY postid) v ON p.ID = v.postid',
+                            $wpdb->prefix . 'popularpostssummary',
+                            $start_date,
+                            $end_date
+                        );
+                    };
+
+                    add_filter('wpp_query_join', $filter_by_date_range, 1, 2);
                 }
             }
 
