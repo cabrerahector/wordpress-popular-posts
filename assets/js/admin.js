@@ -263,6 +263,8 @@ if ( wppThumbnailSrc ) {
     const wppCacheOptionsRow = document.getElementById('cache_refresh_interval');
     const wppDataSampling = document.getElementById('sampling');
     const wppSamplingRateRow = document.getElementById('sampling_rate');
+    const wppAdminListViewsColumn = document.getElementById('views_column');
+    const wppAdminListViewsColumnForPostTypesRow = document.getElementById('views_for_post_types');
 
     /** Event listeners */
     wppThumbnailSrc.addEventListener('change', (e) => {
@@ -327,6 +329,10 @@ if ( wppThumbnailSrc ) {
 
     wppDataSampling.addEventListener('change', (e) => {
         wppSamplingRateRow.style.display = ( '1' === e.target.value ) ? 'table-row' : 'none';
+    });
+
+    wppAdminListViewsColumn.addEventListener('change', (e) => {
+        wppAdminListViewsColumnForPostTypesRow.style.display = ( '1' === e.target.value ) ? 'table-row' : 'none';
     });
 
     /** Functions */

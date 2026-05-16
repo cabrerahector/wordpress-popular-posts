@@ -221,6 +221,40 @@ if ( 'tools' == $current ) {
                                 </td>
                             </tr>
                             <tr valign="top">
+                                <th scope="row"><label for="views_column"><?php esc_html_e('Display views column', 'wordpress-popular-posts'); ?>:</label></th>
+                                <td>
+                                    <select name="views_column" id="views_column">
+                                        <option <?php if (! $this->config['tools']['views_column']['active']) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
+                                        <option <?php if ($this->config['tools']['views_column']['active']) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
+                                    </select>
+
+                                    <br />
+                                    <p class="description"><?php esc_html_e('Displays a Views column on admin post lists', 'wordpress-popular-posts'); ?>.</p>
+                                </td>
+                            </tr>
+                            <tr valign="top" <?php if ( ! $this->config['tools']['views_column']['active'] ) { ?>style="display: none;"<?php } ?> id="views_for_post_types">
+                                <th scope="row"><label><?php esc_html_e('Display views column for these post types', 'wordpress-popular-posts'); ?>:</label></th>
+                                <td>
+                                    <?php
+                                    $registered_post_types = get_post_types(['public' => true], 'names');
+                                    $post_types = array_map(
+                                        'trim',
+                                        explode(',', $this->config['tools']['views_column']['post_types'])
+                                    );
+
+                                    foreach( $registered_post_types as $registered_post_type ) {
+                                        if ( 'attachment' === $registered_post_type ) {
+                                            continue;
+                                        }
+                                        ?>
+                                         <label><input type="checkbox" class="checkbox" name="views_column_post_types[]" value="<?php echo esc_attr($registered_post_type); ?>" <?php echo ( in_array($registered_post_type, $post_types) ) ? "checked" : ""; ?>> <?php echo esc_html($registered_post_type); ?></label>
+                                         <br />
+                                        <?php
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <td colspan="2">
                                     <input type="hidden" name="section" value="data">
                                     <input type="submit" class="button-primary action" id="btn_ajax_ops" value="<?php esc_attr_e('Apply', 'wordpress-popular-posts'); ?>" name="">

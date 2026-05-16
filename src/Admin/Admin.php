@@ -136,6 +136,20 @@ class Admin {
         add_action('wp_ajax_wpp_handle_performance_notice', [$this, 'handle_performance_notice']);
         // Show notices
         add_action('admin_notices', [$this, 'notices']);
+        // Show admin views column
+        add_action('admin_init', [$this, 'register_views_column']);
+    }
+
+    /**
+     * Renders a "Views" column on post list screens.
+     *
+     * @since
+     */
+    public function register_views_column()
+    {
+        if ( $this->config['tools']['views_column']['active'] ) {
+            new ListColumnTotalViews($this->config);
+        }
     }
 
     /**
