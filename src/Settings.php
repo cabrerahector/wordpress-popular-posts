@@ -116,7 +116,7 @@ class Settings {
                 ],
                 'log' => [
                     'level' => 1,
-                    'limit' => 0,
+                    'limit' => 1,
                     'expires_after' => 180
                 ],
                 'cache' => [
