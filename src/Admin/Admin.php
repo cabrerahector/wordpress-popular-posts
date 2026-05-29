@@ -1186,16 +1186,39 @@ class Admin {
         global $wpdb;
         $summary_table = "{$wpdb->prefix}popularpostssummary";
 
-        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-        $wpdb->query(
-            $wpdb->prepare(
-                "DELETE FROM %i WHERE view_date < DATE_SUB(%s, INTERVAL %d DAY);",
-                $summary_table,
-                Helper::curdate(),
-                $this->config['tools']['log']['expires_after']
-            )
-        );
-        //phpcs:enable
+        $now = new \DateTime(Helper::now(), wp_timezone());
+        $days_limit = $this->config['tools']['log']['expires_after'];
+
+        if ( ! Helper::is_number($days_limit) || $days_limit <= 0 ) {
+            $days_limit = 180;
+        }
+
+        $delete_from = $now->sub(new \DateInterval('P' . $days_limit . 'D'))->format('Y-m-d');
+        $batch_size = 1000;
+
+        do {
+            try {
+                // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+                $rows_affected = $wpdb->query(
+                    $wpdb->prepare(
+                        'DELETE FROM %i WHERE view_date <= %s LIMIT %d;',
+                        $summary_table,
+                        $delete_from,
+                        $batch_size
+                    )
+                );
+                //phpcs:enable
+
+                // Pause briefly between batches to reduce server load
+                usleep(500000); // 0.5 seconds
+            } catch (\Exception $e) {
+                if ( defined('WP_DEBUG') && WP_DEBUG ) {
+                    error_log('WP Popular Posts failed to delete old views data: ' . $e->getMessage());
+                }
+
+                break;
+            }
+        } while ($rows_affected > 0);
     }
 
     /**
