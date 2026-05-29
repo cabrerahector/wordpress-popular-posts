@@ -211,6 +211,27 @@ class Widget extends \WP_Widget {
     }
 
     /**
+     * Returns data on the current sidebar.
+     *
+     * @since   5.0.0
+     * @access  private
+     * @return  array|null
+     */
+    private function get_sidebar_data()
+    {
+        global $wp_registered_sidebars;
+        $sidebars = wp_get_sidebars_widgets();
+
+        foreach ( (array) $sidebars as $sidebar_id => $sidebar ) {
+            if ( in_array($this->id, (array) $sidebar, true ) ) {
+                return $wp_registered_sidebars[$sidebar_id];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Removes the standard widget from the Legacy Widget block.
      *
      * @param   array
