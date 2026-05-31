@@ -143,7 +143,7 @@ class Admin {
     /**
      * Renders a "Views" column on post list screens.
      *
-     * @since
+     * @since   7.4.0
      */
     public function register_views_column()
     {
