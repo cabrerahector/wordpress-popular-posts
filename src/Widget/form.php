@@ -11,7 +11,20 @@ $order_by_values = ['comments', 'views', 'avg'];
 $wpp_shortcode = '[wpp';
 
 if ( $instance['title'] ) {
+    $current_sidebar_data = $this->get_sidebar_data();
+
+    $title_start = $current_sidebar_data['before_title'] ?? '';
+    $title_end = $current_sidebar_data['after_title'] ?? '';
+
     $wpp_shortcode .= " header='" . strip_tags($instance['title']) . "'"; // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- We want the behavior of strip_tags;
+
+    if ( $title_start ) {
+        $wpp_shortcode .= " header_start='" . \WordPressPopularPosts\Helper::sanitize_html($title_start, $instance) . "'";
+    }
+
+    if ( $title_end ) {
+        $wpp_shortcode .= " header_end='" . \WordPressPopularPosts\Helper::sanitize_html($title_end, $instance). "'";
+    }
 }
 
 $wpp_shortcode .= " post_type='" . (empty($instance['post_type']) ? 'post' : esc_html($instance['post_type'])) . "'";

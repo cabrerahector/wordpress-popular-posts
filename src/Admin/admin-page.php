@@ -90,6 +90,21 @@ if ( isset($_POST['section']) ) {
             $this->config['tools']['log']['limit'] = (int) $_POST['log_limit'];
             $this->config['tools']['log']['expires_after'] = ( \WordPressPopularPosts\Helper::is_number($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) ? (int) $_POST['log_expire_time'] : 180;
             $this->config['tools']['ajax'] = (bool) $_POST['ajax'];
+            $this->config['tools']['views_column']['active'] = (bool) $_POST['views_column'];
+            $this->config['tools']['views_column']['post_types'] = '';
+
+            if ( is_array($_POST['views_column_post_types']) && ! empty($_POST['views_column_post_types']) ) {
+                $registered_post_types = get_post_types(['public' => true], 'names');
+
+                $post_types = array_values(
+                    array_intersect(
+                        $_POST['views_column_post_types'],
+                        $registered_post_types
+                    )
+                );
+
+                $this->config['tools']['views_column']['post_types'] = $post_types ? implode(',', $post_types) : '';
+            }
 
             // if any of the caching settings was updated, destroy all transients created by the plugin
             if (
