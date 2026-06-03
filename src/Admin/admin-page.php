@@ -39,7 +39,6 @@ if ( isset($_POST['section']) ) {
         if ( isset($_POST['wpp-update-misc-options-token'] ) && wp_verify_nonce($_POST['wpp-update-misc-options-token'], 'wpp-update-misc-options') ) {
             $this->config['tools']['link']['target'] = '_blank' === $_POST['link_target'] ? '_blank' : '_self';
             $this->config['tools']['css'] = (bool) $_POST['css'];
-            $this->config['tools']['experimental'] = isset($_POST['experimental_features']);
 
             update_option('wpp_settings_config', $this->config);
             echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html(__('Settings saved.', 'wordpress-popular-posts')) . '</strong></p></div>';

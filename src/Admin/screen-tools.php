@@ -296,12 +296,6 @@ if ( 'tools' == $current ) {
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><label for="experimental_features"><?php esc_html_e('Enable experimental features', 'wordpress-popular-posts'); ?>:</label></th>
-                            <td>
-                                <input type="checkbox" class="checkbox" id="experimental_features" name="experimental_features" <?php echo ($this->config['tools']['experimental']) ? 'checked="checked"' : ''; ?>>
-                            </td>
-                        </tr>
-                        <tr valign="top">
                             <td colspan="2">
                                 <input type="hidden" name="section" value="misc">
                                 <input type="submit" class="button-primary action" value="<?php esc_attr_e('Apply', 'wordpress-popular-posts'); ?>" name="">

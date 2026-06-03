@@ -100,7 +100,6 @@ class Settings {
                 'y_scale' => false
             ],
             'tools' => [
-                'experimental' => false,
                 'ajax' => true,
                 'css' => true,
                 'link' => [
