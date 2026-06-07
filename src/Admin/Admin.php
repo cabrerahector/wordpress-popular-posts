@@ -612,7 +612,7 @@ class Admin {
         $date_range = Helper::get_date_range($start_date, $end_date, ($include_timestamps ? 'Y-m-d H:i:s' : 'Y-m-d'));
         $views_data = $this->get_range_item_count($start_date, $end_date, 'views', $include_timestamps);
         $views = [];
-        $comments_data = $this->get_range_item_count($start_date, $end_date, 'comments');
+        $comments_data = $this->get_range_item_count($start_date, $end_date, 'comments', $include_timestamps);
         $comments = [];
 
         if ( 'today' != $range ) {
@@ -731,9 +731,10 @@ class Admin {
      * @param   string  $start_date
      * @param   string  $end_date
      * @param   string  $item
+     * @param   bool    $include_timestamps
      * @return  array
      */
-    public function get_range_item_count(string $start_date, string $end_date, string $item = 'views')
+    public function get_range_item_count(string $start_date, string $end_date, string $item = 'views', bool $include_timestamps = false)
     {
         global $wpdb;
 
@@ -757,6 +758,11 @@ class Admin {
             $args[] = $start_date;
         }
 
+        if ( $item === 'comments' && ! $include_timestamps ) {
+            $start_date .= ' 00:00:00';
+            $end_date .= ' 23:59:59';
+        }
+
         // Append dates to arguments list
         array_unshift($args, $start_date, $end_date);
 
@@ -778,11 +784,15 @@ class Admin {
         } else {
             $views_table = "{$wpdb->prefix}popularpostssummary";
 
+            $views_date_field_condition = $include_timestamps
+              ? '(`v`.`view_datetime` BETWEEN %s AND %s)'
+              : '(`v`.`view_date` BETWEEN %s AND %s)';
+
             //phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- $post_type_placeholders is already prepared above
             $query = $wpdb->prepare(
                 "SELECT `v`.`view_date`, SUM(`v`.`pageviews`) AS `pageviews` 
                 FROM %i v INNER JOIN %i p ON `v`.`postid` = `p`.`ID`
-                WHERE (`v`.`view_datetime` BETWEEN %s AND %s) AND `p`.`post_type` IN (" . implode(', ', $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
+                WHERE " . $views_date_field_condition . " AND `p`.`post_type` IN (" . implode(', ', $post_type_placeholders) . ") AND `p`.`post_status` = 'publish' AND `p`.`post_password` = '' 
                 " . ( $this->config['stats']['freshness'] ? ' AND `p`.`post_date` >= %s' : '' ) . '
                 GROUP BY `v`.`view_date` ORDER BY `v`.`view_date` DESC;',
                 [$views_table, $posts_table, ...$args]

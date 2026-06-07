@@ -374,12 +374,12 @@ class Query {
                     $comments_time_range = "(comment_date BETWEEN '{$start_datetime}' AND '{$end_datetime}')";
                 } else {
                     $views_time_range = "(view_date BETWEEN '{$start_date}' AND '{$end_date}')";
-                    $comments_time_range = "(comment_date BETWEEN '{$start_date}' AND '{$end_date}')";
+                    $comments_time_range = "(comment_date BETWEEN '{$start_date} 00:00:00' AND '{$end_date} 23:59:59')";
                 }
 
                 // Get entries published within the specified time range
                 if ( isset($this->options['freshness']) && $this->options['freshness'] ) {
-                    $where .= " AND p.post_date >= '{$start_datetime}'";
+                    $where .= " AND p.post_date >= '" . ( $include_timestamps ? $start_datetime : $start_date ) . "'";
                 }
 
                 // Order by views count
