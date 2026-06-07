@@ -39,10 +39,11 @@ if ( wppChartContainer && WPPChart.canRender() ) {
             const me = e.target,
                 range = me.dataset.range;
 
+            closeAllModals();
+
             if ( ! updatingStats && 'custom' !== range ) {
                 updatingStats = true;
 
-                closeAllModals();
                 wppTimeRangeModal.querySelector('#stats_range_start_date').readonly = true;
                 wppTimeRangeModal.querySelector('#stats_range_end_date').readonly = true;
 
@@ -62,7 +63,6 @@ if ( wppChartContainer && WPPChart.canRender() ) {
                     }
                 });
             } else {
-                closeAllModals();
                 wppTimeRangeModal.style.display = 'block';
                 wppTimeRangeModal.querySelector('.wpp-tabs-container button[aria-selected="true"]').focus();
             }

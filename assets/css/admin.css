@@ -30,6 +30,7 @@
             }
 
 .wpp-wrapper {
+    position: relative;
     float: none;
     clear: both;
     margin: 20px 20px 0 2px;
@@ -90,18 +91,18 @@
 
 .wpp-lightbox {
     display: none;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     z-index: 999;
-    margin: -140px 0 0 -140px;
     padding: 15px;
-    width: 306px;
-    max-height: 280px;
+    width: 100%;
+    max-width: 320px;
     background: #fff;
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
     box-sizing: border-box;
+    transform: translate(-50%, -50%);
 }
 
     .wpp-lightbox-tabs {
@@ -113,19 +114,41 @@
 
     .wpp-lightbox form {
         display: block;
+
+        * {
+            box-sizing: border-box;
+        }
     }
 
         .wpp-lightbox form input[type=text] {
             display: block;
             margin: 0 0 15px 0;
             width: 100%;
-            box-sizing: border-box;
+        }
+
+        .wpp-lightbox form #custom-time-range.active {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 8px;
+
+            input,
+            select {
+                border-radius: 5px;
+            }
         }
 
         .wpp-lightbox form #custom-date-range.active {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: space-between;
+            flex-direction: column;
+            gap: 6px;
+
+            @media (min-width: 640px) {
+                align-items: flex-start;
+                flex-direction: row;
+                gap: 0;
+            }
         }
 
             .wpp-lightbox form #custom-date-range .wpp-date-field {
@@ -254,11 +277,6 @@
     #wpp-chart-wrapper {
         width: 100%;
     }
-
-        #wpp-chart-wrapper h4,
-        #wpp-chart-wrapper h5 {
-            text-align: center;
-        }
 
         #wpp-chart-wrapper #wpp-chart {
             position: relative;
@@ -446,7 +464,7 @@
 @media only screen and (max-width: 768px) {
 
     .wpp-wrapper {
-        margin: 20px 12px 0 2px;
+        margin: 20px 10px 0 2px;
     }
 
         #wpp-listing .wpp-tabbed-nav li a span:last-child {
