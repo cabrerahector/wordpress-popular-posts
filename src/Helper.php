@@ -171,7 +171,7 @@ class Helper {
      */
     public static function is_valid_date(?string $date, $format = 'Y-m-d')
     {
-        $d = \DateTime::createFromFormat($format, $date);
+        $d = $date ? \DateTime::createFromFormat($format, $date) : false;
         return $d && $d->format($format) === $date;
     }
 
