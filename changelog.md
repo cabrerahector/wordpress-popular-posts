@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## 7.4.0 ##
+
+- The Log Limit functionality is now enabled by default for new installs (see [Log Limit](https://cabrerahector.com/wordpress/wp-popular-posts-7-4-performance-impromevents-new-admin-views-column/#log-limit) for more details)
+- New "Views" column in posts lists (see [Views column](https://cabrerahector.com/wordpress/wp-popular-posts-7-4-performance-impromevents-new-admin-views-column/#views-column) for more)
+- Fixed a bug affecting the Custom time range functionality (props to dxylott54 for reporting the issue!)
+- Improved accessibility in the Stats screen.
+- Plugin has finally dropped all jQuery dependencies!
+- Other minor improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wp-popular-posts-7-4-performance-impromevents-new-admin-views-column/)
+
 ## 7.3.8 ##
 
 - Fixes a character encoding issue that can happen under some circumstances (props to qwe987299 for the report!)
