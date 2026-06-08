@@ -1,6 +1,11 @@
 'use strict';
 
 const wpp_params = document.currentScript.dataset;
+
+if ( ! Object.keys(wpp_params).length ) { 
+    throw new Error('WPP params not found, if you are using a JavaScript minifier tool please add wpp.min.js to its exclusion list');
+}
+
 const WordPressPopularPosts = (() => {
     const noop = () => {};
 
@@ -72,12 +77,7 @@ const WordPressPopularPosts = (() => {
 })();
 
 (() => {
-    if ( ! Object.keys(wpp_params).length ) {
-        console.error('WPP params not found, if you are using a JS minifier tool please add wpp.min.js to its exclusion list');
-        return;
-    }
-
-    const post_id = Number(wpp_params.postId);
+    const post_id = Number(wpp_params.post);
     let do_request = true;
 
     if ( post_id ) {
@@ -109,10 +109,6 @@ const WordPressPopularPosts = (() => {
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-    if ( ! Object.keys(wpp_params).length ) {
-        return;
-    }
-
     const widget_placeholders = document.querySelectorAll('.wpp-widget-block-placeholder, .wpp-shortcode-placeholder');
     widget_placeholders.forEach((widget_placeholder) => fetchWidget(widget_placeholder));
 

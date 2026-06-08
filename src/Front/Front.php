@@ -117,7 +117,7 @@ class Front {
                 'data-sampling' => (int) $this->config['tools']['sampling']['active'],
                 'data-sampling-rate' => (int) $this->config['tools']['sampling']['rate'],
                 'data-api-url' => esc_url_raw(rest_url('wordpress-popular-posts')),
-                'data-post-id' => (int) $is_single,
+                'data-post' => (int) $is_single,
                 'data-token' => wp_create_nonce('wp_rest'),
                 'data-lang' => function_exists('PLL') ? $this->translate->get_current_language() : 0,
                 'data-debug' => (int) WP_DEBUG
