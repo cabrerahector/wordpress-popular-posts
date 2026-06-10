@@ -43,15 +43,13 @@ See the [announcement](https://cabrerahector.com/wordpress/wordpress-popular-pos
 
 = PSA: The classic WP Popular Posts widget has reached End-of-Life =
 
-The classic WP Popular Posts widget doesn't work very well / at all with the [block-based Widgets editor](https://wordpress.org/documentation/article/block-based-widgets-editor/) introduced with WordPress 5.8.
+The classic WP Popular Posts widget doesn't work very well with the [block-based Widgets editor](https://wordpress.org/documentation/article/block-based-widgets-editor/) introduced with WordPress 5.8.
 
-This new Widgets editor expects [WordPress blocks](https://wordpress.org/documentation/article/blocks-list/) instead of regular WordPress widgets. If you're using the classic WP Popular Posts widget please replace it with the [WP Popular Posts block](https://cabrerahector.com/wordpress/wordpress-popular-posts-5-3-improved-php-8-support-retina-display-support-and-more/#block-editor-support) instead - it has the same features and functionality as the "classic" widget so you won't be missing anything at all. See the [Migration Guide](https://cabrerahector.com/wordpress/migrating-from-the-classic-popular-posts-widget/) for more details.
+This new Widgets editor expects [WordPress blocks](https://wordpress.org/documentation/article/blocks-list/) instead of regular WordPress widgets. If you're using the classic WP Popular Posts widget please follow the [Migration Guide](https://cabrerahector.com/wordpress/migrating-from-the-classic-popular-posts-widget/) to replace it with the WP Popular Posts block, the [wpp] shortcode, or the WP Popular Posts widget for Elementor.
 
 Bjorn from wplearninglab.com was kind enough to create a video explaining how to use the new block for all of you visual learners:
 
 [youtube https://www.youtube.com/watch?v=mtzk6yNEaFs]
-
-If you cannot (or do not want to) use WordPress blocks on your website then please replace your classic widget with the [[wpp] shortcode](https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode).
 
 = Support the Project! =
 
