@@ -1,7 +1,7 @@
 === WP Popular Posts ===
 Contributors: hcabrera
 Donate link: https://ko-fi.com/cabrerahector
-Tags: popular, posts, widget, popularity, top, trending, trends
+Tags: popular, posts, popularity, top, trending
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.4
