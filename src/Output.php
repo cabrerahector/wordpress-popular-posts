@@ -496,7 +496,46 @@ class Output {
 
         // Build custom HTML output
         if ( $this->public_options['markup']['custom_html'] ) {
-            $data = [
+            $post_template = htmlspecialchars_decode($this->public_options['markup']['post-html'], ENT_QUOTES) . "\n";
+        }
+        // Build stock HTML output
+        else {
+            $wpp_post_classnames = apply_filters('wpp_post_class', ['{current_class}'], $post_id);
+
+            $post_template_classnames = ( is_array($wpp_post_classnames) && ! empty($wpp_post_classnames) )
+                ? implode(' ', array_map(fn($classname) => esc_attr($classname), $wpp_post_classnames))
+                : '';
+
+            $post_template_thumbnail = ( ! empty($post_thumbnail) )
+                ? '{thumb}'
+                : '';
+
+            $post_template_excerpt = ( ! empty($post_excerpt) )
+                ? ' <span class="wpp-excerpt">{excerpt}</span>'
+                : '';
+
+            $post_template_meta = ( ! empty($post_meta) )
+                ? ' <span class="wpp-meta post-stats">{stats}</span>'
+                : '';
+
+            $post_template_rating = ( ! empty($post_rating) )
+                ? ' <span class="wpp-rating">{rating}</span>'
+                : '';
+
+            $post_template = <<<EOD
+            <li class="$post_template_classnames">
+                $post_template_thumbnail
+                {title}
+                $post_template_excerpt
+                $post_template_meta
+                $post_template_rating
+            </li>
+            EOD;
+        }
+
+        $post = $this->format_content(
+            $post_template,
+            [
                 'id' => $post_id,
                 'is_current_post' => $is_current_post,
                 'title' => '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'class="wpp-post-title" target="' . esc_attr($this->admin_options['tools']['link']['target']) . '">' . $post_title . '</a>',
@@ -508,60 +547,29 @@ class Output {
                 'url' => $permalink,
                 'text_title' => $post_title,
                 'taxonomy' => $post_taxonomies,
-                'taxonomy_copy' => isset($meta_arr['taxonomy']) ? $meta_arr['taxonomy'] : null,
+                'taxonomy_copy' => $meta_arr['taxonomy'] ?? null,
                 'author' => ( ! empty($post_author) ) ? '<a href="' . esc_url(get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid )) . '">' . esc_html($post_author) . '</a>' : '',
-                'author_copy' => isset($meta_arr['author']) ? $meta_arr['author'] : null,
+                'author_copy' => $meta_arr['author'] ?? null,
                 'author_name' => esc_html($post_author),
                 'author_url' => ( ! empty($post_author) ) ? esc_url(get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid)) : '',
                 'views' => ( $this->public_options['order_by'] == 'views' || $this->public_options['order_by'] == 'comments' ) ? ($prettify_numbers ? Helper::prettify_number($post_views) : number_format_i18n($post_views)) : ($prettify_numbers ? Helper::prettify_number($post_views, 2) : number_format_i18n($post_views, 2)),
-                'views_copy' => isset($meta_arr['views']) ? $meta_arr['views'] : null,
+                'views_copy' => $meta_arr['views'] ?? null,
                 'comments' => $prettify_numbers ? Helper::prettify_number($post_comments) : number_format_i18n($post_comments),
-                'comments_copy' => isset($meta_arr['comments']) ? $meta_arr['comments'] : null,
+                'comments_copy' => $meta_arr['comments'] ?? null,
                 'date' => $post_date,
-                'date_copy' => isset($meta_arr['date']) ? $meta_arr['date'] : null,
+                'date_copy' => $meta_arr['date'] ?? null,
                 'total_items' => count($this->data),
                 'item_position' => $position
-            ];
-            $post = $this->format_content(htmlspecialchars_decode($this->public_options['markup']['post-html'], ENT_QUOTES), $data, $this->public_options['rating']) . "\n";
-        } // Use the "stock" HTML output
-        else {
-            $wpp_post_class = [];
+            ],
+            $this->public_options['rating']
+        );
 
-            if ( $is_current_post ) {
-                $wpp_post_class[] = 'current';
-            }
-
-            // Allow themers / plugin developer
-            // to add custom classes to each post
-            $wpp_post_class = apply_filters('wpp_post_class', $wpp_post_class, $post_id);
-
-            $post_thumbnail = ( ! empty($post_thumbnail) )
-                ? "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : '') . 'target="' . esc_attr($this->admin_options['tools']['link']['target']) . "\">{$post_thumbnail}</a>\n"
-                : '';
-
-            $post_excerpt = ( ! empty($post_excerpt) )
-                ? " <span class=\"wpp-excerpt\">{$post_excerpt}</span>\n"
-                : '';
-
-            $post_meta = ( ! empty($post_meta) )
-                ? " <span class=\"wpp-meta post-stats\">{$post_meta}</span>\n"
-                : '';
-
-            $post_rating = ( ! empty($post_rating) )
-                ? " <span class=\"wpp-rating\">{$post_rating}</span>\n"
-                : '';
-
-            $post =
-                '<li' . ( ( is_array($wpp_post_class) && ! empty($wpp_post_class) ) ? ' class="' . esc_attr(implode(' ', $wpp_post_class)) . '"' : '') . ">\n"
-                . $post_thumbnail
-                . "<a href=\"{$permalink}\" " . ($post_title_attr !== $post_title ? "title=\"{$post_title_attr}\" " : '') . 'class="wpp-post-title" target="' . esc_attr($this->admin_options['tools']['link']['target']) . "\">{$post_title}</a>\n"
-                . $post_excerpt
-                . $post_meta
-                . $post_rating
-                . "</li>\n";
-        }
-
-        return apply_filters('wpp_post', $post, $post_object, $this->public_options);
+        return apply_filters(
+            'wpp_post',
+            $post,
+            $post_object,
+            $this->public_options
+        );
     }
 
     /**
