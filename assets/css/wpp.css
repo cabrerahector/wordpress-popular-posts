@@ -12,34 +12,37 @@ Use the following classes to style your popular posts list as you like.
 
 /* UL - Popular Posts container styles */
 .wpp-list {
-}
 
     /* LI - Post container styles */
-    .wpp-list li {
+    li {
         overflow: hidden;
         float: none;
         clear: both;
         margin-bottom: 1rem;
-    }
 
-    .wpp-list li:last-of-type {
-        margin-bottom: 0;
-    }
-
-    /* Styles for the popular post in view */
-    .wpp-list li.current {
-    }
-
-        /* Thumbnail styles */
-        .wpp-thumbnail {
-            display: inline;
-            float: left;
-            margin: 0 1rem 0 0;
-            border: none;
+        &:last-of-type {
+            margin-bottom: 0;
         }
 
-        .wpp_def_no_src {
-            object-fit: contain;
+        /* Styles for the popular post in view */
+        &.current {
+        }
+
+        a {
+            &:has(.wpp-thumbnail) {
+                display: block;
+                float: left;
+                margin: 0 1rem 0 0;
+
+                .wpp-thumbnail {
+                    display: block;
+                    border: none;
+
+                    &.wpp_def_no_src {
+                        object-fit: contain;
+                    }
+                }
+            }
         }
 
         /* Title styles */
@@ -48,6 +51,7 @@ Use the following classes to style your popular posts list as you like.
 
         /* Excerpt styles */
         .wpp-excerpt {
+            display: block;
         }
 
         /* Stats tag styles */
@@ -79,3 +83,5 @@ Use the following classes to style your popular posts list as you like.
         /* WP-PostRatings styles */
         .wpp-rating {
         }
+    }
+}
