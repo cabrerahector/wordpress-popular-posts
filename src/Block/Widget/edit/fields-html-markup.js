@@ -4,6 +4,7 @@ const { __ } = wp.i18n;
 
 export function HTMLMarkupFields({ attributes, setAttributes, themes }) {
     const {
+        display_post_thumbnail,
         custom_html,
         header_start,
         header_end,
@@ -12,6 +13,13 @@ export function HTMLMarkupFields({ attributes, setAttributes, themes }) {
         post_html,
         theme
     } = attributes;
+
+    const defaultHTML = {
+        theme: '',
+        wpp_start: `<ul class="wpp-list${display_post_thumbnail ? ' wpp-list-with-thumbnails' : ''}">`,
+        post_html: '<li class="{current_class}">{thumb} {title} <span class="wpp-meta post-stats">{stats}</span></li>',
+        wpp_end: '</ul>'
+    };
 
     const labelUseCustomHTML = __('Use custom HTML Markup', 'wordpress-popular-posts');
     const labelBeforeTitle = __('Before title', 'wordpress-popular-posts');
@@ -34,8 +42,11 @@ export function HTMLMarkupFields({ attributes, setAttributes, themes }) {
         }
     }
 
-    const onUseCustomHTMLChange = (value) => {
-        setAttributes({ custom_html: value });
+    const onUseCustomHTMLChange = (isChecked) => {
+        setAttributes({
+            custom_html: isChecked,
+            ...(!isChecked && defaultHTML)
+        });
     };
 
     const onBeforeTitleChange = (value) => {
@@ -88,7 +99,7 @@ export function HTMLMarkupFields({ attributes, setAttributes, themes }) {
                 theme: value
             });
         } else {
-            setAttributes({ theme: value });
+            setAttributes(defaultHTML);
         }
     };
 
