@@ -1032,7 +1032,7 @@ class Admin {
         $token = isset($_POST['token']) ? $_POST['token'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
 
         if (
-            current_user_can('edit_published_posts')
+            current_user_can('manage_options')
             && wp_verify_nonce($token, 'wpp_nonce_reset_thumbnails')
         ) {
             echo $this->delete_thumbnails();

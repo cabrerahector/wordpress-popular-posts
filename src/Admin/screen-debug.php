@@ -1,7 +1,7 @@
 <?php
 if ( 'debug' == $current ) {
 
-    if ( ! current_user_can('edit_others_posts') ) {
+    if ( ! current_user_can('manage_options') ) {
         echo '<p style="text-align: center;">' . esc_html(__('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts')) . '</p>';
     }
     else {

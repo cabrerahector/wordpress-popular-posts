@@ -1,7 +1,7 @@
 <?php
 if ( 'tools' == $current ) {
 
-    if ( ! current_user_can('edit_others_posts') ) {
+    if ( ! current_user_can('manage_options') ) {
         echo '<p style="text-align: center;">' . esc_html(__('Sorry, you do not have enough permissions to do this. Please contact the site administrator for support.', 'wordpress-popular-posts')) . '</p>';
     }
     else {
@@ -117,157 +117,155 @@ if ( 'tools' == $current ) {
                 <?php wp_nonce_field('wpp-update-thumbnail-options', 'wpp-update-thumbnail-options-token'); ?>
             </form>
             <br />
-            <p style="display: <?php echo ( current_user_can('manage_options') ) ? 'block' : 'none'; ?>; float:none; clear:both;">&nbsp;</p>
+            <p style="display: block; float:none; clear:both;">&nbsp;</p>
 
-            <?php if ( current_user_can('manage_options') ) : ?>
-                <h2 class="wpp-subtitle"><?php esc_html_e('Data', 'wordpress-popular-posts'); ?></h2>
+            <h2 class="wpp-subtitle"><?php esc_html_e('Data', 'wordpress-popular-posts'); ?></h2>
 
-                <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
-                    <table class="form-table">
-                        <tbody>
-                            <tr valign="top">
-                                <th scope="row"><label for="log_option"><?php esc_html_e('Log views from', 'wordpress-popular-posts'); ?>:</label></th>
-                                <td>
-                                    <select name="log_option" id="log_option">
-                                        <option <?php if ($this->config['tools']['log']['level'] == 0) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Visitors only', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['log']['level'] == 2) { ?>selected="selected"<?php } ?> value="2"><?php esc_html_e('Logged-in users only', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['log']['level'] == 1) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Everyone', 'wordpress-popular-posts'); ?></option>
-                                    </select>
-                                    <br />
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row"><label for="log_limit"><?php esc_html_e('Log limit', 'wordpress-popular-posts'); ?>:</label></th>
-                                <td>
-                                    <select name="log_limit" id="log_limit">
-                                        <option <?php if ($this->config['tools']['log']['limit'] == 0) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['log']['limit'] == 1) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Keep data for', 'wordpress-popular-posts'); ?></option>
-                                    </select>
+            <form action="" method="post" id="wpp_ajax_options" name="wpp_ajax_options">
+                <table class="form-table">
+                    <tbody>
+                        <tr valign="top">
+                            <th scope="row"><label for="log_option"><?php esc_html_e('Log views from', 'wordpress-popular-posts'); ?>:</label></th>
+                            <td>
+                                <select name="log_option" id="log_option">
+                                    <option <?php if ($this->config['tools']['log']['level'] == 0) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Visitors only', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['log']['level'] == 2) { ?>selected="selected"<?php } ?> value="2"><?php esc_html_e('Logged-in users only', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['log']['level'] == 1) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Everyone', 'wordpress-popular-posts'); ?></option>
+                                </select>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label for="log_limit"><?php esc_html_e('Log limit', 'wordpress-popular-posts'); ?>:</label></th>
+                            <td>
+                                <select name="log_limit" id="log_limit">
+                                    <option <?php if ($this->config['tools']['log']['limit'] == 0) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['log']['limit'] == 1) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Keep data for', 'wordpress-popular-posts'); ?></option>
+                                </select>
 
-                                    <label for="log_expire_time"<?php echo ($this->config['tools']['log']['limit'] == 0) ? ' style="display: none;"' : ''; ?>>
-                                        <input type="number" min="1" id="log_expire_time" name="log_expire_time" value="<?php echo esc_attr($this->config['tools']['log']['expires_after']); ?>" size="3"> <?php esc_html_e('day(s)', 'wordpress-popular-posts'); ?>
-                                    </label>
+                                <label for="log_expire_time"<?php echo ($this->config['tools']['log']['limit'] == 0) ? ' style="display: none;"' : ''; ?>>
+                                    <input type="number" min="1" id="log_expire_time" name="log_expire_time" value="<?php echo esc_attr($this->config['tools']['log']['expires_after']); ?>" size="3"> <?php esc_html_e('day(s)', 'wordpress-popular-posts'); ?>
+                                </label>
 
-                                    <p class="description"<?php echo ($this->config['tools']['log']['limit'] == 0) ? ' style="display: none;"' : ''; ?>><?php esc_html_e('Data older than the specified time frame will be automatically discarded', 'wordpress-popular-posts'); ?>.</p>
+                                <p class="description"<?php echo ($this->config['tools']['log']['limit'] == 0) ? ' style="display: none;"' : ''; ?>><?php esc_html_e('Data older than the specified time frame will be automatically discarded', 'wordpress-popular-posts'); ?>.</p>
 
-                                    <br <?php echo (1 == $this->config['tools']['log']['limit']) ? 'style="display: none;"' : ''; ?>/>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row"><label for="ajax"><?php esc_html_e('Load popular posts list via AJAX', 'wordpress-popular-posts'); ?>:</label></th>
-                                <td>
-                                    <select name="ajax" id="ajax">
-                                        <option <?php if (! $this->config['tools']['ajax']) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['ajax']) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
-                                    </select>
+                                <br <?php echo (1 == $this->config['tools']['log']['limit']) ? 'style="display: none;"' : ''; ?>/>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label for="ajax"><?php esc_html_e('Load popular posts list via AJAX', 'wordpress-popular-posts'); ?>:</label></th>
+                            <td>
+                                <select name="ajax" id="ajax">
+                                    <option <?php if (! $this->config['tools']['ajax']) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['ajax']) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
+                                </select>
 
-                                    <br />
-                                    <p class="description"><?php esc_html_e('If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it', 'wordpress-popular-posts'); ?>.</p>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row"><label for="cache"><?php esc_html_e('Data Caching', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching-db-queries-results" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
-                                <td>
-                                    <select name="cache" id="cache">
-                                        <option <?php if ( ! $this->config['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Never cache', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ( $this->config['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enable caching', 'wordpress-popular-posts'); ?></option>
-                                    </select>
+                                <br />
+                                <p class="description"><?php esc_html_e('If you are using a caching plugin such as WP Super Cache, enabling this feature will keep the popular list from being cached by it', 'wordpress-popular-posts'); ?>.</p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label for="cache"><?php esc_html_e('Data Caching', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching-db-queries-results" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                            <td>
+                                <select name="cache" id="cache">
+                                    <option <?php if ( ! $this->config['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Never cache', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ( $this->config['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enable caching', 'wordpress-popular-posts'); ?></option>
+                                </select>
 
-                                    <br />
-                                    <p class="description"><?php esc_html_e('WPP can cache the popular list for a specified amount of time. Recommended for large / high traffic sites', 'wordpress-popular-posts'); ?>.</p>
-                                </td>
-                            </tr>
-                            <tr valign="top" <?php if ( ! $this->config['tools']['cache']['active'] ) { ?>style="display: none;"<?php } ?> id="cache_refresh_interval">
-                                <th scope="row"><label for="cache_interval_value"><?php esc_html_e('Refresh cache every', 'wordpress-popular-posts'); ?>:</label></th>
-                                <td>
-                                    <input name="cache_interval_value" type="number" min="1" id="cache_interval_value" value="<?php echo ( isset($this->config['tools']['cache']['interval']['value']) ) ? (int) $this->config['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
-                                    <select name="cache_interval_time" id="cache_interval_time">
-                                        <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'minute') { ?>selected="selected"<?php } ?> value="minute"><?php esc_html_e('Minute(s)', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'hour') { ?>selected="selected"<?php } ?> value="hour"><?php esc_html_e('Hour(s)', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'day') { ?>selected="selected"<?php } ?> value="day"><?php esc_html_e('Day(s)', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'week') { ?>selected="selected"<?php } ?> value="week"><?php esc_html_e('Week(s)', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'month') { ?>selected="selected"<?php } ?> value="month"><?php esc_html_e('Month(s)', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'year') { ?>selected="selected"<?php } ?> value="month"><?php esc_html_e('Year(s)', 'wordpress-popular-posts'); ?></option>
-                                    </select>
-                                    <br />
-                                    <p class="description" style="display: none;" id="cache_too_long"><?php esc_html_e('Really? That long?', 'wordpress-popular-posts'); ?></p>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row"><label for="sampling"><?php esc_html_e('Data Sampling', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
-                                <td>
-                                    <select name="sampling" id="sampling">
-                                        <option <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ( $this->config['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
-                                    </select>
+                                <br />
+                                <p class="description"><?php esc_html_e('WPP can cache the popular list for a specified amount of time. Recommended for large / high traffic sites', 'wordpress-popular-posts'); ?>.</p>
+                            </td>
+                        </tr>
+                        <tr valign="top" <?php if ( ! $this->config['tools']['cache']['active'] ) { ?>style="display: none;"<?php } ?> id="cache_refresh_interval">
+                            <th scope="row"><label for="cache_interval_value"><?php esc_html_e('Refresh cache every', 'wordpress-popular-posts'); ?>:</label></th>
+                            <td>
+                                <input name="cache_interval_value" type="number" min="1" id="cache_interval_value" value="<?php echo ( isset($this->config['tools']['cache']['interval']['value']) ) ? (int) $this->config['tools']['cache']['interval']['value'] : 1; ?>" class="small-text">
+                                <select name="cache_interval_time" id="cache_interval_time">
+                                    <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'minute') { ?>selected="selected"<?php } ?> value="minute"><?php esc_html_e('Minute(s)', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'hour') { ?>selected="selected"<?php } ?> value="hour"><?php esc_html_e('Hour(s)', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'day') { ?>selected="selected"<?php } ?> value="day"><?php esc_html_e('Day(s)', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'week') { ?>selected="selected"<?php } ?> value="week"><?php esc_html_e('Week(s)', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'month') { ?>selected="selected"<?php } ?> value="month"><?php esc_html_e('Month(s)', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['cache']['interval']['time'] == 'year') { ?>selected="selected"<?php } ?> value="month"><?php esc_html_e('Year(s)', 'wordpress-popular-posts'); ?></option>
+                                </select>
+                                <br />
+                                <p class="description" style="display: none;" id="cache_too_long"><?php esc_html_e('Really? That long?', 'wordpress-popular-posts'); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label for="sampling"><?php esc_html_e('Data Sampling', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                            <td>
+                                <select name="sampling" id="sampling">
+                                    <option <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ( $this->config['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
+                                </select>
 
-                                    <br />
-                                    <?php
-                                    $description = sprintf(
-                                        __('By default, WP Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With <a href="%1$s" target="_blank">data sampling</a>, WP Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more, <a href="%2$s" target="_blank">please read here</a>)', 'wordpress-popular-posts'),
-                                        'http://en.wikipedia.org/wiki/Sample_%28statistics%29',
-                                        'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling'
-                                    );
-                                    ?>
-                                    <p class="description"><?php echo $description; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>.</p>
-                                </td>
-                            </tr>
-                            <tr valign="top" <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>style="display: none;"<?php } ?> id="sampling_rate">
-                                <th scope="row"><label for="sample_rate"><?php esc_html_e('Sample Rate', 'wordpress-popular-posts'); ?>: <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#what-is-sample-rate-for" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></label></th>
-                                <td>
-                                    <input name="sample_rate" type="number" min="1" id="sample_rate" value="<?php echo ( isset($this->config['tools']['sampling']['rate']) ) ? (int) $this->config['tools']['sampling']['rate'] : 100; ?>" class="small-text">
-                                    <br />
-                                    <p class="description"><?php echo sprintf(esc_html__('A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value.', 'wordpress-popular-posts'), 100); ?></p>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row"><label for="views_column"><?php esc_html_e('Display views column', 'wordpress-popular-posts'); ?>:</label></th>
-                                <td>
-                                    <select name="views_column" id="views_column">
-                                        <option <?php if (! $this->config['tools']['views_column']['active']) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
-                                        <option <?php if ($this->config['tools']['views_column']['active']) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
-                                    </select>
+                                <br />
+                                <?php
+                                $description = sprintf(
+                                    __('By default, WP Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With <a href="%1$s" target="_blank">data sampling</a>, WP Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more, <a href="%2$s" target="_blank">please read here</a>)', 'wordpress-popular-posts'),
+                                    'http://en.wikipedia.org/wiki/Sample_%28statistics%29',
+                                    'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling'
+                                );
+                                ?>
+                                <p class="description"><?php echo $description; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>.</p>
+                            </td>
+                        </tr>
+                        <tr valign="top" <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>style="display: none;"<?php } ?> id="sampling_rate">
+                            <th scope="row"><label for="sample_rate"><?php esc_html_e('Sample Rate', 'wordpress-popular-posts'); ?>: <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#what-is-sample-rate-for" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></label></th>
+                            <td>
+                                <input name="sample_rate" type="number" min="1" id="sample_rate" value="<?php echo ( isset($this->config['tools']['sampling']['rate']) ) ? (int) $this->config['tools']['sampling']['rate'] : 100; ?>" class="small-text">
+                                <br />
+                                <p class="description"><?php echo sprintf(esc_html__('A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value.', 'wordpress-popular-posts'), 100); ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><label for="views_column"><?php esc_html_e('Display views column', 'wordpress-popular-posts'); ?>:</label></th>
+                            <td>
+                                <select name="views_column" id="views_column">
+                                    <option <?php if (! $this->config['tools']['views_column']['active']) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
+                                    <option <?php if ($this->config['tools']['views_column']['active']) { ?>selected="selected"<?php } ?> value="1"><?php esc_html_e('Enabled', 'wordpress-popular-posts'); ?></option>
+                                </select>
 
-                                    <br />
-                                    <p class="description"><?php esc_html_e('Displays a Views column on admin post lists', 'wordpress-popular-posts'); ?>.</p>
-                                </td>
-                            </tr>
-                            <tr valign="top" <?php if ( ! $this->config['tools']['views_column']['active'] ) { ?>style="display: none;"<?php } ?> id="views_for_post_types">
-                                <th scope="row"><label><?php esc_html_e('Display views column for these post types', 'wordpress-popular-posts'); ?>:</label></th>
-                                <td>
-                                    <?php
-                                    $registered_post_types = get_post_types(['public' => true], 'names');
-                                    $post_types = array_map(
-                                        'trim',
-                                        explode(',', $this->config['tools']['views_column']['post_types'])
-                                    );
+                                <br />
+                                <p class="description"><?php esc_html_e('Displays a Views column on admin post lists', 'wordpress-popular-posts'); ?>.</p>
+                            </td>
+                        </tr>
+                        <tr valign="top" <?php if ( ! $this->config['tools']['views_column']['active'] ) { ?>style="display: none;"<?php } ?> id="views_for_post_types">
+                            <th scope="row"><label><?php esc_html_e('Display views column for these post types', 'wordpress-popular-posts'); ?>:</label></th>
+                            <td>
+                                <?php
+                                $registered_post_types = get_post_types(['public' => true], 'names');
+                                $post_types = array_map(
+                                    'trim',
+                                    explode(',', $this->config['tools']['views_column']['post_types'])
+                                );
 
-                                    foreach( $registered_post_types as $registered_post_type ) {
-                                        if ( 'attachment' === $registered_post_type ) {
-                                            continue;
-                                        }
-                                        ?>
-                                         <label><input type="checkbox" class="checkbox" name="views_column_post_types[]" value="<?php echo esc_attr($registered_post_type); ?>" <?php echo ( in_array($registered_post_type, $post_types) ) ? "checked" : ""; ?>> <?php echo esc_html($registered_post_type); ?></label>
-                                         <br />
-                                        <?php
+                                foreach( $registered_post_types as $registered_post_type ) {
+                                    if ( 'attachment' === $registered_post_type ) {
+                                        continue;
                                     }
                                     ?>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <td colspan="2">
-                                    <input type="hidden" name="section" value="data">
-                                    <input type="submit" class="button-primary action" id="btn_ajax_ops" value="<?php esc_attr_e('Apply', 'wordpress-popular-posts'); ?>" name="">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        <label><input type="checkbox" class="checkbox" name="views_column_post_types[]" value="<?php echo esc_attr($registered_post_type); ?>" <?php echo ( in_array($registered_post_type, $post_types) ) ? "checked" : ""; ?>> <?php echo esc_html($registered_post_type); ?></label>
+                                        <br />
+                                    <?php
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td colspan="2">
+                                <input type="hidden" name="section" value="data">
+                                <input type="submit" class="button-primary action" id="btn_ajax_ops" value="<?php esc_attr_e('Apply', 'wordpress-popular-posts'); ?>" name="">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                    <?php wp_nonce_field('wpp-update-data-options', 'wpp-update-data-options-token'); ?>
-                </form>
-                <br />
-                <p style="display: block; float:none; clear: both;">&nbsp;</p>
-            <?php endif; ?>
+                <?php wp_nonce_field('wpp-update-data-options', 'wpp-update-data-options-token'); ?>
+            </form>
+            <br />
+            <p style="display: block; float:none; clear: both;">&nbsp;</p>
 
             <h2 class="wpp-subtitle"><?php esc_html_e('Miscellaneous', 'wordpress-popular-posts'); ?></h2>
 

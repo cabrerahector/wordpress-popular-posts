@@ -18,7 +18,7 @@ if ( isset($_GET['tab'] ) && isset($wpp_tabs[$_GET['tab']] ) ) {
 }
 
 // Update options on form submission
-if ( isset($_POST['section']) ) {
+if ( isset($_POST['section']) && current_user_can('manage_options') ) {
 
     if ( 'stats' == $_POST['section'] ) {
         $current = 'stats';
@@ -81,7 +81,7 @@ if ( isset($_POST['section']) ) {
             }
         }
     }
-    elseif ( 'data' == $_POST['section'] && current_user_can('manage_options') ) {
+    elseif ( 'data' == $_POST['section'] ) {
         $current = 'tools';
 
         if ( isset($_POST['wpp-update-data-options-token'] ) && wp_verify_nonce($_POST['wpp-update-data-options-token'], 'wpp-update-data-options') ) {
@@ -131,7 +131,7 @@ if ( isset($_POST['section']) ) {
 }
 ?>
 
-<?php if ( current_user_can('edit_others_posts') ) : ?>
+<?php if ( current_user_can('manage_options') ) : ?>
     <nav id="wpp-menu">
         <ul>
             <li <?php echo ('stats' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo esc_url(admin_url('options-general.php?page=wordpress-popular-posts&tab=stats')); ?>" title="<?php esc_attr_e('Stats', 'wordpress-popular-posts'); ?>"><span><?php esc_html_e('Stats', 'wordpress-popular-posts'); ?></span></a></li>

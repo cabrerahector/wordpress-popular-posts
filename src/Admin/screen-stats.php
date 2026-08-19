@@ -10,7 +10,7 @@ if ( 'stats' == $current ) {
     );
     ?>
 
-    <?php if ( current_user_can('edit_others_posts') ) : ?>
+    <?php if ( current_user_can('manage_options') ) : ?>
         <button type="button" id="wpp-stats-config-btn" class="button-secondary action right"><span class="dashicons dashicons-admin-generic"></span><span class="screen-reader-text"><?php esc_html_e('Open Settings', 'wordpress-popular-posts'); ?></span></button>
 
         <div id="wpp-stats-config" class="wpp-lightbox" role="dialog" aria-label="<?php esc_attr_e('Stats Settings', 'wordpress-popular-posts'); ?>">
