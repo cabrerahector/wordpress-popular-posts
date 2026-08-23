@@ -114,6 +114,14 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 7.4.1 =
+
+- Only administrators can have access to plugin's management screens now (props to @gamefa!)
+- Improved compatibility with Site Optimizer.
+- Various minor fixes and improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wp-popular-posts-7-4-performance-impromevents-new-admin-views-column/#7.4.1)
+
 = 7.4.0 =
 
 - The Log Limit functionality is now enabled by default for new installs (see [Log Limit](https://cabrerahector.com/wordpress/wp-popular-posts-7-4-performance-impromevents-new-admin-views-column/#log-limit) for more details)
