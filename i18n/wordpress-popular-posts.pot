@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2026-06-03 09:36-0400\n"
+"POT-Creation-Date: 2026-08-23 11:01-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -113,16 +113,16 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: src/Admin/Admin.php:640 src/Admin/Admin.php:951 src/Admin/Admin.php:955
-#: src/Output.php:962 src/Shortcode/ViewsCount.php:79
+#: src/Admin/Admin.php:640 src/Admin/Admin.php:961 src/Admin/Admin.php:965
+#: src/Output.php:970 src/Shortcode/ViewsCount.php:79
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:640 src/Admin/Admin.php:953 src/Admin/Admin.php:955
-#: src/Output.php:945
+#: src/Admin/Admin.php:640 src/Admin/Admin.php:963 src/Admin/Admin.php:965
+#: src/Output.php:953
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
@@ -138,36 +138,36 @@ msgstr ""
 msgid "Views"
 msgstr ""
 
-#: src/Admin/Admin.php:957
+#: src/Admin/Admin.php:967
 msgid "View"
 msgstr ""
 
-#: src/Admin/Admin.php:957 src/Block/Widget/edit/controls.js:15
+#: src/Admin/Admin.php:967 src/Block/Widget/edit/controls.js:15
 msgid "Edit"
 msgstr ""
 
-#: src/Admin/Admin.php:968
+#: src/Admin/Admin.php:978
 msgid ""
 "Looks like your site's activity is a little low right now. <br />Spread the word and "
 "come back later!"
 msgstr ""
 
-#: src/Admin/Admin.php:1258
+#: src/Admin/Admin.php:1268
 #, php-format
 msgid ""
 "It seems that your site is popular (great!) You may want to check <a href=\"%s\">these "
 "recommendations</a> to make sure that its performance stays up to par."
 msgstr ""
 
-#: src/Admin/Admin.php:1270
+#: src/Admin/Admin.php:1280
 msgid "Dismiss"
 msgstr ""
 
-#: src/Admin/Admin.php:1270
+#: src/Admin/Admin.php:1280
 msgid "Remind me later"
 msgstr ""
 
-#: src/Admin/Admin.php:1288
+#: src/Admin/Admin.php:1298
 #, php-format
 msgid ""
 "It looks like your site is not using <a href=\"%s\">Pretty Permalinks</a>. Please <a "
@@ -175,7 +175,7 @@ msgid ""
 "Posts can do its job."
 msgstr ""
 
-#: src/Admin/Admin.php:1298
+#: src/Admin/Admin.php:1308
 msgid "Plain"
 msgstr ""
 
@@ -227,8 +227,8 @@ msgid "Display Y scale"
 msgstr ""
 
 #: src/Admin/screen-stats.php:38 src/Admin/screen-stats.php:85
-#: src/Admin/screen-tools.php:111 src/Admin/screen-tools.php:260
-#: src/Admin/screen-tools.php:301
+#: src/Admin/screen-tools.php:111 src/Admin/screen-tools.php:259
+#: src/Admin/screen-tools.php:299
 msgid "Apply"
 msgstr ""
 
@@ -248,19 +248,19 @@ msgstr ""
 msgid "Date Range"
 msgstr ""
 
-#: src/Admin/screen-stats.php:57 src/Admin/screen-tools.php:185
+#: src/Admin/screen-stats.php:57 src/Admin/screen-tools.php:184
 #: src/Block/Widget/edit/fields-main.js:41
 #: src/Compatibility/Elementor/widgets/widget-controls.php:88
 msgid "Minute(s)"
 msgstr ""
 
-#: src/Admin/screen-stats.php:58 src/Admin/screen-tools.php:186
+#: src/Admin/screen-stats.php:58 src/Admin/screen-tools.php:185
 #: src/Block/Widget/edit/fields-main.js:42
 #: src/Compatibility/Elementor/widgets/widget-controls.php:89
 msgid "Hour(s)"
 msgstr ""
 
-#: src/Admin/screen-stats.php:59 src/Admin/screen-tools.php:187
+#: src/Admin/screen-stats.php:59 src/Admin/screen-tools.php:186
 #: src/Block/Widget/edit/fields-main.js:43
 #: src/Compatibility/Elementor/widgets/widget-controls.php:90
 msgid "Day(s)"
@@ -381,9 +381,9 @@ msgstr ""
 msgid "Lazy load"
 msgstr ""
 
-#: src/Admin/screen-tools.php:71 src/Admin/screen-tools.php:169
-#: src/Admin/screen-tools.php:197 src/Admin/screen-tools.php:216
-#: src/Block/Widget/edit/fields-html-markup.js:96
+#: src/Admin/screen-tools.php:71 src/Admin/screen-tools.php:168
+#: src/Admin/screen-tools.php:196 src/Admin/screen-tools.php:215
+#: src/Block/Widget/edit/fields-html-markup.js:107
 msgid "What is this?"
 msgstr ""
 
@@ -415,106 +415,106 @@ msgstr ""
 msgid "Use this button to clear WPP's thumbnails cache"
 msgstr ""
 
-#: src/Admin/screen-tools.php:123
+#: src/Admin/screen-tools.php:122
 msgid "Data"
 msgstr ""
 
-#: src/Admin/screen-tools.php:129
+#: src/Admin/screen-tools.php:128
 msgid "Log views from"
 msgstr ""
 
-#: src/Admin/screen-tools.php:132
+#: src/Admin/screen-tools.php:131
 msgid "Visitors only"
 msgstr ""
 
-#: src/Admin/screen-tools.php:133
+#: src/Admin/screen-tools.php:132
 msgid "Logged-in users only"
 msgstr ""
 
-#: src/Admin/screen-tools.php:134
+#: src/Admin/screen-tools.php:133
 msgid "Everyone"
 msgstr ""
 
-#: src/Admin/screen-tools.php:140
+#: src/Admin/screen-tools.php:139
 msgid "Log limit"
 msgstr ""
 
-#: src/Admin/screen-tools.php:143 src/Admin/screen-tools.php:160
-#: src/Admin/screen-tools.php:200 src/Admin/screen-tools.php:227
-#: src/Admin/screen-tools.php:292
+#: src/Admin/screen-tools.php:142 src/Admin/screen-tools.php:159
+#: src/Admin/screen-tools.php:199 src/Admin/screen-tools.php:226
+#: src/Admin/screen-tools.php:290
 msgid "Disabled"
 msgstr ""
 
-#: src/Admin/screen-tools.php:144
+#: src/Admin/screen-tools.php:143
 msgid "Keep data for"
 msgstr ""
 
-#: src/Admin/screen-tools.php:148
+#: src/Admin/screen-tools.php:147
 msgid "day(s)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:151
+#: src/Admin/screen-tools.php:150
 msgid "Data older than the specified time frame will be automatically discarded"
 msgstr ""
 
-#: src/Admin/screen-tools.php:157
+#: src/Admin/screen-tools.php:156
 msgid "Load popular posts list via AJAX"
 msgstr ""
 
-#: src/Admin/screen-tools.php:161 src/Admin/screen-tools.php:201
-#: src/Admin/screen-tools.php:228 src/Admin/screen-tools.php:291
+#: src/Admin/screen-tools.php:160 src/Admin/screen-tools.php:200
+#: src/Admin/screen-tools.php:227 src/Admin/screen-tools.php:289
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin/screen-tools.php:165
+#: src/Admin/screen-tools.php:164
 msgid ""
 "If you are using a caching plugin such as WP Super Cache, enabling this feature will "
 "keep the popular list from being cached by it"
 msgstr ""
 
-#: src/Admin/screen-tools.php:169
+#: src/Admin/screen-tools.php:168
 msgid "Data Caching"
 msgstr ""
 
-#: src/Admin/screen-tools.php:172
+#: src/Admin/screen-tools.php:171
 msgid "Never cache"
 msgstr ""
 
-#: src/Admin/screen-tools.php:173
+#: src/Admin/screen-tools.php:172
 msgid "Enable caching"
 msgstr ""
 
-#: src/Admin/screen-tools.php:177
+#: src/Admin/screen-tools.php:176
 msgid ""
 "WPP can cache the popular list for a specified amount of time. Recommended for large / "
 "high traffic sites"
 msgstr ""
 
-#: src/Admin/screen-tools.php:181
+#: src/Admin/screen-tools.php:180
 msgid "Refresh cache every"
 msgstr ""
 
-#: src/Admin/screen-tools.php:188
+#: src/Admin/screen-tools.php:187
 msgid "Week(s)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:189
+#: src/Admin/screen-tools.php:188
 msgid "Month(s)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:190
+#: src/Admin/screen-tools.php:189
 msgid "Year(s)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:193
+#: src/Admin/screen-tools.php:192
 msgid "Really? That long?"
 msgstr ""
 
-#: src/Admin/screen-tools.php:197
+#: src/Admin/screen-tools.php:196
 msgid "Data Sampling"
 msgstr ""
 
-#: src/Admin/screen-tools.php:207
+#: src/Admin/screen-tools.php:206
 #, php-format
 msgid ""
 "By default, WP Popular Posts stores in database every single visit your site receives. "
@@ -525,50 +525,50 @@ msgid ""
 "more, <a href=\"%2$s\" target=\"_blank\">please read here</a>)"
 msgstr ""
 
-#: src/Admin/screen-tools.php:216
+#: src/Admin/screen-tools.php:215
 msgid "Sample Rate"
 msgstr ""
 
-#: src/Admin/screen-tools.php:220
+#: src/Admin/screen-tools.php:219
 #, php-format
 msgid ""
 "A sampling rate of %d is recommended for large / high traffic sites. For lower traffic "
 "sites, you should lower the value."
 msgstr ""
 
-#: src/Admin/screen-tools.php:224
+#: src/Admin/screen-tools.php:223
 msgid "Display views column"
 msgstr ""
 
-#: src/Admin/screen-tools.php:232
+#: src/Admin/screen-tools.php:231
 msgid "Displays a Views column on admin post lists"
 msgstr ""
 
-#: src/Admin/screen-tools.php:236
+#: src/Admin/screen-tools.php:235
 msgid "Display views column for these post types"
 msgstr ""
 
-#: src/Admin/screen-tools.php:272
+#: src/Admin/screen-tools.php:270
 msgid "Miscellaneous"
 msgstr ""
 
-#: src/Admin/screen-tools.php:278
+#: src/Admin/screen-tools.php:276
 msgid "Open links in"
 msgstr ""
 
-#: src/Admin/screen-tools.php:281
+#: src/Admin/screen-tools.php:279
 msgid "Current window"
 msgstr ""
 
-#: src/Admin/screen-tools.php:282
+#: src/Admin/screen-tools.php:280
 msgid "New tab/window"
 msgstr ""
 
-#: src/Admin/screen-tools.php:288
+#: src/Admin/screen-tools.php:286
 msgid "Use plugin's stylesheet"
 msgstr ""
 
-#: src/Admin/screen-tools.php:295
+#: src/Admin/screen-tools.php:293
 msgid ""
 "By default, the plugin includes a stylesheet called wpp.css which you can use to style "
 "your popular posts listing. If you wish to use your own stylesheet or do not want it "
@@ -610,50 +610,50 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:16
+#: src/Block/Widget/edit/fields-html-markup.js:24
 msgid "Use custom HTML Markup"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:17
+#: src/Block/Widget/edit/fields-html-markup.js:25
 #: src/Compatibility/Elementor/widgets/widget-controls.php:515
 msgid "Before title"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:18
+#: src/Block/Widget/edit/fields-html-markup.js:26
 #: src/Compatibility/Elementor/widgets/widget-controls.php:531
 msgid "After title"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:19
+#: src/Block/Widget/edit/fields-html-markup.js:27
 #: src/Compatibility/Elementor/widgets/widget-controls.php:547
 msgid "Before popular posts"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:20
+#: src/Block/Widget/edit/fields-html-markup.js:28
 #: src/Compatibility/Elementor/widgets/widget-controls.php:563
 msgid "After popular posts"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:21
+#: src/Block/Widget/edit/fields-html-markup.js:29
 #: src/Compatibility/Elementor/widgets/widget-controls.php:579
 msgid "Post HTML markup"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:22
+#: src/Block/Widget/edit/fields-html-markup.js:30
 #: src/Compatibility/Elementor/widgets/widget-controls.php:583
 msgid "Content Tags List"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:23
+#: src/Block/Widget/edit/fields-html-markup.js:31
 #: src/Compatibility/Elementor/widgets/widget-controls.php:493
 msgid "Theme"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:26
+#: src/Block/Widget/edit/fields-html-markup.js:34
 msgid "None"
 msgstr ""
 
-#: src/Block/Widget/edit/fields-html-markup.js:96
+#: src/Block/Widget/edit/fields-html-markup.js:107
 #: src/Compatibility/Elementor/widgets/widget-controls.php:474
 msgid "HTML Markup settings"
 msgstr ""
@@ -877,34 +877,34 @@ msgstr ""
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: src/Output.php:763
+#: src/Output.php:771
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: src/Output.php:956
+#: src/Output.php:964
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Output.php:974
+#: src/Output.php:982
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: src/Output.php:979
+#: src/Output.php:987
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: src/Output.php:979
+#: src/Output.php:987
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: src/Output.php:984
+#: src/Output.php:992
 #, php-format
 msgid "under %s"
 msgstr ""
