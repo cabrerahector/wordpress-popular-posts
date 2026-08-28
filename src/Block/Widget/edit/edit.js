@@ -49,8 +49,16 @@ export function WPPWidgetBlockEdit({ attributes, setAttributes, isSelected, clas
                     let tax = attributes.tax ? attributes.tax.split(';') : [],
                         term_id = attributes.term_id ? attributes.term_id.split(';') : [];
 
+                    if ( Object.hasOwn(res, 'post_format') ) {
+                        delete res.post_format;
+                    }
+
+                    for ( const tName in res ) {
+                        res[tName]._terms = '';
+                    }
+
                     if ( tax.length && tax.length === term_id.length ) {
-                        let selected_taxonomies = {};
+                        const selected_taxonomies = {};
 
                         for ( let t = 0; t < tax.length; t++ ) {
                             selected_taxonomies[tax[t]] = term_id[t];
