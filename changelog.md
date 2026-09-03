@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 7.4.3 ##
+
+- Fixes a build issue affecting version 7.4.2.
+
 ## 7.4.2 ##
 
 - Fixes a problem where the taxonomy fields were not working within the WP Popular Posts block (props to JRMora!)
