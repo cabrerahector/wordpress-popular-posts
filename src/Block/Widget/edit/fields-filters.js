@@ -35,18 +35,15 @@ export function FilterFields({ attributes, setAttributes, taxonomies, setTaxonom
     }
 
     const onPostTypeChange = (value) => {
-        const new_value = value.replace(/[^a-z0-9-_\,]+/gi, '');
-        setAttributes({ post_type: new_value });
+        setAttributes({ post_type: value.replace(/[^a-z0-9-_\,]+/gi, '') });
     };
 
     const onPostIDExcludeChange = (value) => {
-        const new_value = value.replace(/[^0-9\,]/g, '');
-        setAttributes({ pid: new_value });
+        setAttributes({ pid: value.replace(/[^0-9\,]/g, '') });
     };
 
     const onAuthorChange = (value) => {
-        const new_value = value.replace(/[^0-9\,]/g, '');
-        setAttributes({ author: new_value });
+        setAttributes({ author: value.replace(/[^0-9\,]/g, '') });
     };
 
     const onTaxChange = (taxonomy_name, terms) => {
@@ -66,24 +63,27 @@ export function FilterFields({ attributes, setAttributes, taxonomies, setTaxonom
             let terms_arr = (localTaxonomies[taxonomy_name]._terms || '').split(',');
 
             // Remove invalid values
-            if ( terms_arr.length )
+            if ( terms_arr.length ) {
                 terms_arr = terms_arr.map((term) => term.trim()).filter((term) => term !== '' && term !== '-');
+            }
 
             // Remove duplicates
-            if ( terms_arr.length )
+            if ( terms_arr.length ) {
                 terms_arr = Array.from(new Set(terms_arr));
+            }
 
             localTaxonomies[taxonomy_name]._terms = terms_arr.join(',');
 
             setTaxonomies(Object.assign({}, localTaxonomies));
 
-            let tax = '',
-                term_id = '';
+            let tax = '';
+            let term_id = '';
 
             for ( let key in localTaxonomies ) {
                 if ( localTaxonomies.hasOwnProperty(key) ) {
-                    if ( ! localTaxonomies[key]._terms.length )
+                    if ( ! localTaxonomies[key]._terms.length ) {
                         continue;
+                    }
 
                     tax += key + ';';
                     term_id += localTaxonomies[key]._terms + ';';
