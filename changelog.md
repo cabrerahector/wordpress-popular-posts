@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 7.4.2 ##
+
+- Fixes a problem where the taxonomy fields were not working within the WP Popular Posts block (props to JRMora!)
+- Updates dependencies.
+
+[Release notes](https://cabrerahector.com/wordpress/wp-popular-posts-7-4-performance-impromevents-new-admin-views-column/#7.4.2)
+
 ## 7.4.1 ##
 
 - Only administrators can have access to plugin's management screens now (props to gamefa!)
