@@ -768,6 +768,7 @@ class Output {
         if ( $this->public_options['stats_tag']['date']['active'] ) {
             if ( 'relative' == $this->public_options['stats_tag']['date']['format'] ) {
                 $date = sprintf(
+                    /* translators: %s: refers to a time string, eg. "2 weeks" so the whole string would be "two weeks ago". */
                     __('%s ago', 'wordpress-popular-posts'),
                     human_time_diff(
                         strtotime($post_object->date),
@@ -950,6 +951,7 @@ class Output {
         // comments
         if ( $this->public_options['stats_tag']['comment_count'] ) {
             $comments_text = sprintf(
+                /* translators: 1: singular number of comments, 2: plural number of comments. */
                 _n('%s comment', '%s comments', $comments, 'wordpress-popular-posts'),
                 $prettify_numbers ? Helper::prettify_number($comments) : number_format_i18n($comments)
             );
@@ -961,12 +963,14 @@ class Output {
         if ( $this->public_options['stats_tag']['views'] ) {
             if ( $this->public_options['order_by'] == 'avg' ) {
                 $views_text = sprintf(
+                    /* translators: 1: singular number of views, 2: plural average number of views. */
                     _n('%s view per day', '%s views per day', $pageviews, 'wordpress-popular-posts'),
                     $prettify_numbers ? Helper::prettify_number($pageviews, 2) : number_format_i18n($pageviews, (fmod($pageviews, 1) !== 0.0 ? 2 : 0))
                 );
             }
             else {
                 $views_text = sprintf(
+                    /* translators: 1: singular number of views, 2: plural number of views. */
                     _n('%s view', '%s views', $pageviews, 'wordpress-popular-posts'),
                     $prettify_numbers ? Helper::prettify_number($pageviews) : number_format_i18n($pageviews)
                 );
@@ -979,17 +983,27 @@ class Output {
         if ( $this->public_options['stats_tag']['author'] ) {
             $author_url = get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid);
             $display_name = '<a href="' . esc_url($this->translate->url($author_url, $this->translate->get_current_language())) . '">' . esc_html($author) . '</a>';
-            $stats['author'] = '<span class="wpp-author">' . sprintf(__('by %s', 'wordpress-popular-posts'), $display_name) . '</span>';
+            $stats['author'] = '<span class="wpp-author">' . sprintf(
+                /* translators: %s: the author name. */
+                __('by %s', 'wordpress-popular-posts'),
+                $display_name
+            ) . '</span>';
         }
 
         // date
         if ( $this->public_options['stats_tag']['date']['active'] ) {
-            $stats['date'] = '<span class="wpp-date">' . ( 'relative' == $this->public_options['stats_tag']['date']['format'] ? sprintf(__('posted %s', 'wordpress-popular-posts'), $date) : sprintf(__('posted on %s', 'wordpress-popular-posts'), $date) ) . '</span>';
+            $stats['date'] = '<span class="wpp-date">' . ( 'relative' == $this->public_options['stats_tag']['date']['format']
+                ? /* translators: %s: relative date, eg. "two weeks ago". */ sprintf(__('posted %s', 'wordpress-popular-posts'), $date)
+                : /* translators: %s: publish date of the post. */ sprintf(__('posted on %s', 'wordpress-popular-posts'), $date) ) . '</span>';
         }
 
         // taxonomy
         if ( ($this->public_options['stats_tag']['category'] || $this->public_options['stats_tag']['taxonomy']['active']) && $post_tax != '' ) {
-            $stats['taxonomy'] = '<span class="wpp-category">' . sprintf(__('under %s', 'wordpress-popular-posts'), $post_tax) . '</span>';
+            $stats['taxonomy'] = '<span class="wpp-category">' . sprintf(
+                /* translators: %s: taxonomy name. */
+                __('under %s', 'wordpress-popular-posts'),
+                $post_tax
+            ) . '</span>';
         }
 
         return $stats;

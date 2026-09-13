@@ -272,6 +272,7 @@ class Admin {
         $total_views = (float) $total_views;
 
         $pageviews = sprintf(
+            /* translators: 1: singular number of views, 2: plural number of views. */
             _n('%s view in the last hour', '%s views in the last hour', $total_views, 'wordpress-popular-posts'),
             number_format_i18n($total_views)
         );
@@ -525,13 +526,18 @@ class Admin {
                             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="display: inline; margin: 0;">
                             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                         </form>
-                        <p style="text-align: center;">' . sprintf(__('You can <a href="%s" target="_blank">leave a review</a>, too!', 'wordpress-popular-posts'), 'https://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts?rate=5#postform') . '</p>'
+                        <p style="text-align: center;">' . sprintf(
+                            /* translators: %s: URL to the plugin's review form on wordpress.org. */
+                            __('You can <a href="%s" target="_blank">leave a review</a>, too!', 'wordpress-popular-posts'),
+                            'https://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts?rate=5#postform'
+                        ) . '</p>'
                 ]
             );
 
             // Help sidebar
             $screen->set_help_sidebar(
                 sprintf(
+                    /* translators: 1: URL to plugin's Github repository, 2: URL to plugin's wordpress.org support forum. */
                     __('<p><strong>For more information:</strong></p><ul><li><a href="%1$s">Documentation</a></li><li><a href="%2$s">Support</a></li></ul>', 'wordpress-popular-posts'),
                     'https://github.com/cabrerahector/wordpress-popular-posts/',
                     'https://wordpress.org/support/plugin/wordpress-popular-posts/'
@@ -637,7 +643,17 @@ class Admin {
         $total_views = array_sum($views);
         $total_comments = array_sum($comments);
 
-        $label_summary = sprintf(_n('%s view', '%s views', $total_views, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_views) . '</strong>') . ' / ' . sprintf(_n('%s comment', '%s comments', $total_comments, 'wordpress-popular-posts'), '<strong>' . number_format_i18n($total_comments) . '</strong>');
+        $label_summary = sprintf(
+            /* translators: 1: singular number of views, 2: plural number of views. */
+            _n('%s view', '%s views', $total_views, 'wordpress-popular-posts'),
+            '<strong>' . number_format_i18n($total_views) . '</strong>'
+        );
+
+        $label_summary .= ' / ' . sprintf(
+            /* translators: 1: singular number of comments, 2: plural number of comments. */
+            _n('%s comment', '%s comments', $total_comments, 'wordpress-popular-posts'),
+            '<strong>' . number_format_i18n($total_comments) . '</strong>'
+        );
 
         // Format labels
         if ( 'today' != $range ) {
@@ -953,18 +969,31 @@ class Admin {
                 foreach( $posts as $post ) {
                     $pageviews = isset($post->pageviews) ? (int) $post->pageviews : 0;
                     $comments_count = isset($post->comment_count) ? (int) $post->comment_count : 0;
+
+                    $views_copy = esc_html(sprintf(
+                        /* translators: 1: singular number of views, 2: plural number of views. */
+                        _n('%s view', '%s views', $pageviews, 'wordpress-popular-posts'),
+                        number_format_i18n($pageviews)
+                    ));
+                    $comments_copy = esc_html(sprintf(
+                        /* translators: 1: singular number of comments, 2: plural number of comments. */
+                        _n('%s comment', '%s comments', $comments_count, 'wordpress-popular-posts'),
+                        number_format_i18n($comments_count)
+                    ));
                     ?>
                     <li>
                         <a href="<?php echo esc_url(get_permalink($post->id)); ?>" class="wpp-title"><?php echo esc_html(sanitize_text_field(apply_filters('the_title', $post->title, $post->id))); ?></a>
                         <div>
-                            <?php if ( 'most-viewed' == $list ) : ?>
-                            <span><?php printf(esc_html(_n('%s view', '%s views', $pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($pageviews))); ?></span>
-                            <?php elseif ( 'most-commented' == $list ) : ?>
-                            <span><?php printf(esc_html(_n('%s comment', '%s comments', $comments_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($comments_count))); ?></span>
+                            <?php if ( 'most-viewed' === $list ) : ?>
+                                <span><?php echo $views_copy; ?></span>
+                            <?php elseif ( 'most-commented' === $list ) : ?>
+                                <span><?php echo $comments_copy; ?></span>
                             <?php else : ?>
-                            <span><?php printf(esc_html(_n('%s view', '%s views', $pageviews, 'wordpress-popular-posts')), esc_html(number_format_i18n($pageviews))); ?></span>, <span><?php printf(esc_html(_n('%s comment', '%s comments', $comments_count, 'wordpress-popular-posts')), esc_html(number_format_i18n($comments_count))); ?></span>
+                                <span><?php echo $views_copy; ?></span><span>,</span> <span><?php echo $comments_copy; ?></span>
                             <?php endif; ?>
+                            <?php // phpcs:disable WordPress.WP.I18n.MissingArgDomain ?>
                             <small> &mdash; <a href="<?php echo esc_url(get_permalink($post->id)); ?>"><?php esc_html_e('View'); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo esc_url(get_edit_post_link($post->id)); ?>"><?php esc_html_e('Edit'); ?></a><?php endif; ?></small>
+                            <?php // phpcs:enable ?>
                         </div>
                     </li>
                     <?php
@@ -1265,6 +1294,7 @@ class Admin {
                         <?php
                         printf(
                             wp_kses(
+                                /* translators: %s: URL to the plugin's performance wiki page on Github. */
                                 __('It seems that your site is popular (great!) You may want to check <a href="%s">these recommendations</a> to make sure that its performance stays up to par.', 'wordpress-popular-posts'),
                                 [
                                     'a' => [
@@ -1292,10 +1322,11 @@ class Admin {
                 <p>
                     <strong>WP Popular Posts:</strong> 
                     <?php
+                    // phpcs:disable WordPress.WP.I18n.MissingArgDomain
                     printf(
                         wp_kses(
-                            /* translators: third placeholder corresponds to the I18N version of the "Plain" permalink structure option */
-                            __('It looks like your site is not using <a href="%s">Pretty Permalinks</a>. Please <a href="%s">select a permalink structure</a> other than <em>%s</em> so WP Popular Posts can do its job.', 'wordpress-popular-posts'),
+                            /* translators: 1: URL to the Pretty Permalinks official docs, 2: URL to the Permalink options page, 3: I18N version of the "Plain" permalink structure option */
+                            __('It looks like your site is not using <a href="%1$s">Pretty Permalinks</a>. Please <a href="%2$s">select a permalink structure</a> other than <em>%3$s</em> so WP Popular Posts can do its job.', 'wordpress-popular-posts'),
                             [
                                 'a' => [
                                     'href' => []
@@ -1305,8 +1336,9 @@ class Admin {
                         ),
                         'https://wordpress.org/documentation/article/customize-permalinks/#pretty-permalinks',
                         esc_url(admin_url('options-permalink.php')),
-                        __('Plain')
+                        esc_html(__('Plain'))
                     );
+                    // phpcs:enable
                     ?>
                 </p>
             </div>

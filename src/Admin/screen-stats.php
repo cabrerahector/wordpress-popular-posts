@@ -36,7 +36,7 @@ if ( 'stats' == $current ) {
 
                 <input type="hidden" name="section" value="stats">
                 <button type="submit" class="button-primary action"><?php esc_html_e('Apply', 'wordpress-popular-posts'); ?></button>
-                <button type="button" class="button-secondary action right"><?php esc_html_e('Cancel'); ?></button>
+                <button type="button" class="button-secondary action right"><?php esc_html_e('Cancel'); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain ?></button>
 
                 <?php wp_nonce_field('wpp-update-stats-options', 'wpp-update-stats-options-token'); ?>
             </form>
@@ -85,7 +85,7 @@ if ( 'stats' == $current ) {
                 <?php esc_html_e('Apply', 'wordpress-popular-posts'); ?>
             </button>
             <button type="button" class="button-secondary action right">
-                <?php esc_html_e('Cancel'); ?>
+                <?php esc_html_e('Cancel'); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain ?>
             </button>
         </form>
     </div>

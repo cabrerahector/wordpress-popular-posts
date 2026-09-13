@@ -76,6 +76,7 @@ class ViewsCount extends Shortcode {
 
                 if ( $attributes['include_views_text'] ) {
                     return sprintf(
+                        /* translators: 1: singular number of views, 2: plural number of views. */
                         _n('%s view', '%s views', $views, 'wordpress-popular-posts'),
                         $views_string
                     );

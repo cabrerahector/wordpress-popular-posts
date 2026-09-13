@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Popular Posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-popular-posts\n"
-"POT-Creation-Date: 2026-08-23 11:01-0400\n"
+"POT-Creation-Date: 2026-09-13 16:56-0400\n"
 "PO-Revision-Date: 2015-04-24 13:30-0430\n"
 "Last-Translator: Héctor Cabrera <hcabrerab@gmail.com>\n"
 "Language-Team: Héctor Cabrera <me@cabrerahector.com>\n"
@@ -29,153 +29,152 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: src/Admin/Admin.php:275
+#: src/Admin/Admin.php:276
 #, php-format
 msgid "%s view in the last hour"
 msgid_plural "%s views in the last hour"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:309 src/Admin/screen-stats.php:122
+#: src/Admin/Admin.php:310 src/Admin/screen-stats.php:122
 msgid "Trending now"
 msgstr ""
 
-#: src/Admin/Admin.php:398
+#: src/Admin/Admin.php:399
 msgid "View more"
 msgstr ""
 
-#: src/Admin/Admin.php:425
+#: src/Admin/Admin.php:426
 msgid "Use this image"
 msgstr ""
 
-#: src/Admin/Admin.php:428
+#: src/Admin/Admin.php:429
 msgid "This operation will delete all cached thumbnails and cannot be undone."
 msgstr ""
 
-#: src/Admin/Admin.php:429
+#: src/Admin/Admin.php:430
 msgid "Success! All files have been deleted!"
 msgstr ""
 
-#: src/Admin/Admin.php:430
+#: src/Admin/Admin.php:431
 msgid "The thumbnail cache is already empty!"
 msgstr ""
 
-#: src/Admin/Admin.php:431
+#: src/Admin/Admin.php:432
 msgid "Do you want to continue?"
 msgstr ""
 
-#: src/Admin/Admin.php:432 src/Admin/screen-debug.php:5 src/Admin/screen-tools.php:5
+#: src/Admin/Admin.php:433 src/Admin/screen-debug.php:5 src/Admin/screen-tools.php:5
 msgid ""
 "Sorry, you do not have enough permissions to do this. Please contact the site "
 "administrator for support."
 msgstr ""
 
-#: src/Admin/Admin.php:433
+#: src/Admin/Admin.php:434
 msgid "Invalid action."
 msgstr ""
 
-#: src/Admin/Admin.php:512
+#: src/Admin/Admin.php:513
 msgid "Overview"
 msgstr ""
 
-#: src/Admin/Admin.php:513
+#: src/Admin/Admin.php:514
 msgid ""
 "Welcome to WP Popular Posts' Dashboard! In this screen you will find statistics on "
 "what's popular on your site, tools to further tweak WPP to your needs, and more!"
 msgstr ""
 
-#: src/Admin/Admin.php:519
+#: src/Admin/Admin.php:520
 msgid "Like this plugin?"
 msgstr ""
 
-#: src/Admin/Admin.php:521
+#: src/Admin/Admin.php:522
 msgid ""
 "Each donation motivates me to keep releasing free stuff for the WordPress community!"
 msgstr ""
 
-#: src/Admin/Admin.php:528
+#: src/Admin/Admin.php:531
 #, php-format
 msgid "You can <a href=\"%s\" target=\"_blank\">leave a review</a>, too!"
 msgstr ""
 
-#: src/Admin/Admin.php:535
+#: src/Admin/Admin.php:541
 #, php-format
 msgid ""
 "<p><strong>For more information:</strong></p><ul><li><a href=\"%1$s\">Documentation</"
 "a></li><li><a href=\"%2$s\">Support</a></li></ul>"
 msgstr ""
 
-#: src/Admin/Admin.php:561
+#: src/Admin/Admin.php:567
 msgid "Settings"
 msgstr ""
 
-#: src/Admin/Admin.php:562
+#: src/Admin/Admin.php:568
 msgid "Support"
 msgstr ""
 
-#: src/Admin/Admin.php:640 src/Admin/Admin.php:961 src/Admin/Admin.php:965
-#: src/Output.php:970 src/Shortcode/ViewsCount.php:79
+#: src/Admin/Admin.php:648 src/Admin/Admin.php:975 src/Output.php:974
+#: src/Shortcode/ViewsCount.php:80
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:640 src/Admin/Admin.php:963 src/Admin/Admin.php:965
-#: src/Output.php:953
+#: src/Admin/Admin.php:654 src/Admin/Admin.php:980 src/Output.php:955
 #, php-format
 msgid "%s comment"
 msgid_plural "%s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Admin.php:661 src/Block/Widget/edit/fields-main.js:29
+#: src/Admin/Admin.php:677 src/Block/Widget/edit/fields-main.js:29
 #: src/Compatibility/Elementor/widgets/widget-controls.php:45
 msgid "Comments"
 msgstr ""
 
-#: src/Admin/Admin.php:665 src/Admin/ListColumnTotalViews.php:86
+#: src/Admin/Admin.php:681 src/Admin/ListColumnTotalViews.php:86
 msgid "Views"
 msgstr ""
 
-#: src/Admin/Admin.php:967
+#: src/Admin/Admin.php:995
 msgid "View"
 msgstr ""
 
-#: src/Admin/Admin.php:967 src/Block/Widget/edit/controls.js:15
+#: src/Admin/Admin.php:995 src/Block/Widget/edit/controls.js:15
 msgid "Edit"
 msgstr ""
 
-#: src/Admin/Admin.php:978
+#: src/Admin/Admin.php:1007
 msgid ""
 "Looks like your site's activity is a little low right now. <br />Spread the word and "
 "come back later!"
 msgstr ""
 
-#: src/Admin/Admin.php:1268
+#: src/Admin/Admin.php:1298
 #, php-format
 msgid ""
 "It seems that your site is popular (great!) You may want to check <a href=\"%s\">these "
 "recommendations</a> to make sure that its performance stays up to par."
 msgstr ""
 
-#: src/Admin/Admin.php:1280
+#: src/Admin/Admin.php:1310
 msgid "Dismiss"
 msgstr ""
 
-#: src/Admin/Admin.php:1280
+#: src/Admin/Admin.php:1310
 msgid "Remind me later"
 msgstr ""
 
-#: src/Admin/Admin.php:1298
+#: src/Admin/Admin.php:1329
 #, php-format
 msgid ""
-"It looks like your site is not using <a href=\"%s\">Pretty Permalinks</a>. Please <a "
-"href=\"%s\">select a permalink structure</a> other than <em>%s</em> so WP Popular "
+"It looks like your site is not using <a href=\"%1$s\">Pretty Permalinks</a>. Please <a "
+"href=\"%2$s\">select a permalink structure</a> other than <em>%3$s</em> so WP Popular "
 "Posts can do its job."
 msgstr ""
 
-#: src/Admin/Admin.php:1308
+#: src/Admin/Admin.php:1339
 msgid "Plain"
 msgstr ""
 
@@ -227,8 +226,8 @@ msgid "Display Y scale"
 msgstr ""
 
 #: src/Admin/screen-stats.php:38 src/Admin/screen-stats.php:85
-#: src/Admin/screen-tools.php:111 src/Admin/screen-tools.php:259
-#: src/Admin/screen-tools.php:299
+#: src/Admin/screen-tools.php:111 src/Admin/screen-tools.php:267
+#: src/Admin/screen-tools.php:307
 msgid "Apply"
 msgstr ""
 
@@ -382,7 +381,7 @@ msgid "Lazy load"
 msgstr ""
 
 #: src/Admin/screen-tools.php:71 src/Admin/screen-tools.php:168
-#: src/Admin/screen-tools.php:196 src/Admin/screen-tools.php:215
+#: src/Admin/screen-tools.php:196 src/Admin/screen-tools.php:223
 #: src/Block/Widget/edit/fields-html-markup.js:107
 msgid "What is this?"
 msgstr ""
@@ -440,8 +439,8 @@ msgid "Log limit"
 msgstr ""
 
 #: src/Admin/screen-tools.php:142 src/Admin/screen-tools.php:159
-#: src/Admin/screen-tools.php:199 src/Admin/screen-tools.php:226
-#: src/Admin/screen-tools.php:290
+#: src/Admin/screen-tools.php:199 src/Admin/screen-tools.php:234
+#: src/Admin/screen-tools.php:298
 msgid "Disabled"
 msgstr ""
 
@@ -462,7 +461,7 @@ msgid "Load popular posts list via AJAX"
 msgstr ""
 
 #: src/Admin/screen-tools.php:160 src/Admin/screen-tools.php:200
-#: src/Admin/screen-tools.php:227 src/Admin/screen-tools.php:289
+#: src/Admin/screen-tools.php:235 src/Admin/screen-tools.php:297
 msgid "Enabled"
 msgstr ""
 
@@ -514,61 +513,60 @@ msgstr ""
 msgid "Data Sampling"
 msgstr ""
 
-#: src/Admin/screen-tools.php:206
+#: src/Admin/screen-tools.php:208
 #, php-format
 msgid ""
 "By default, WP Popular Posts stores in database every single visit your site receives. "
 "For small / medium sites this is generally OK, but on large / high traffic sites the "
 "constant writing to the database may have an impact on performance. With <a "
-"href=\"%1$s\" target=\"_blank\">data sampling</a>, WP Popular Posts will store only a "
-"subset of your traffic and report on the tendencies detected in that sample set (for "
-"more, <a href=\"%2$s\" target=\"_blank\">please read here</a>)"
-msgstr ""
-
-#: src/Admin/screen-tools.php:215
-msgid "Sample Rate"
-msgstr ""
-
-#: src/Admin/screen-tools.php:219
-#, php-format
-msgid ""
-"A sampling rate of %d is recommended for large / high traffic sites. For lower traffic "
-"sites, you should lower the value."
+"href=\"%1$s\">data sampling</a>, WP Popular Posts will store only a subset of your "
+"traffic and report on the tendencies detected in that sample set (for more, <a "
+"href=\"%2$s\">please read here</a>)."
 msgstr ""
 
 #: src/Admin/screen-tools.php:223
-msgid "Display views column"
+msgid "Sample Rate"
+msgstr ""
+
+#: src/Admin/screen-tools.php:227
+msgid ""
+"A sampling rate of 100 is recommended for large / high traffic sites. For lower "
+"traffic sites, you should lower the value."
 msgstr ""
 
 #: src/Admin/screen-tools.php:231
+msgid "Display views column"
+msgstr ""
+
+#: src/Admin/screen-tools.php:239
 msgid "Displays a Views column on admin post lists"
 msgstr ""
 
-#: src/Admin/screen-tools.php:235
+#: src/Admin/screen-tools.php:243
 msgid "Display views column for these post types"
 msgstr ""
 
-#: src/Admin/screen-tools.php:270
+#: src/Admin/screen-tools.php:278
 msgid "Miscellaneous"
 msgstr ""
 
-#: src/Admin/screen-tools.php:276
+#: src/Admin/screen-tools.php:284
 msgid "Open links in"
 msgstr ""
 
-#: src/Admin/screen-tools.php:279
+#: src/Admin/screen-tools.php:287
 msgid "Current window"
 msgstr ""
 
-#: src/Admin/screen-tools.php:280
+#: src/Admin/screen-tools.php:288
 msgid "New tab/window"
 msgstr ""
 
-#: src/Admin/screen-tools.php:286
+#: src/Admin/screen-tools.php:294
 msgid "Use plugin's stylesheet"
 msgstr ""
 
-#: src/Admin/screen-tools.php:293
+#: src/Admin/screen-tools.php:301
 msgid ""
 "By default, the plugin includes a stylesheet called wpp.css which you can use to style "
 "your popular posts listing. If you wish to use your own stylesheet or do not want it "
@@ -877,90 +875,34 @@ msgstr ""
 msgid "Sorry. No data so far."
 msgstr ""
 
-#: src/Output.php:771
+#: src/Output.php:772
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: src/Output.php:964
+#: src/Output.php:967
 #, php-format
 msgid "%s view per day"
 msgid_plural "%s views per day"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Output.php:982
+#: src/Output.php:988
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: src/Output.php:987
+#: src/Output.php:996
 #, php-format
 msgid "posted %s"
 msgstr ""
 
-#: src/Output.php:987
+#: src/Output.php:997
 #, php-format
 msgid "posted on %s"
 msgstr ""
 
-#: src/Output.php:992
+#: src/Output.php:1004
 #, php-format
 msgid "under %s"
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:115
-msgid "Return popular posts from specified custom post type(s)."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:122
-msgid "The maximum number of popular posts to return."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:130
-msgid "Retrieve the most popular entries published within the specified time range."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:138
-msgid "An offset point for the collection."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:146
-msgid "Set the sorting option of the popular posts."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:154
-msgid "Return popular posts from a specified time range."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:162
-msgid "Specifies the time unit of the custom time range."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:170
-msgid "Specifies the number of time units of the custom time range."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:178 src/Rest/PostsEndpoint.php:186
-msgid "Post IDs to exclude from the listing."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:194
-msgid "Include posts in a specified taxonomy."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:202
-msgid "Taxonomy IDs, separated by comma (prefix a minus sign to exclude)."
-msgstr ""
-
-#: src/Rest/PostsEndpoint.php:210
-msgid "Include popular posts from author ID(s)."
-msgstr ""
-
-#: src/Rest/ViewLoggerEndpoint.php:288
-msgid "Enables Data Sampling."
-msgstr ""
-
-#: src/Rest/ViewLoggerEndpoint.php:295
-msgid "Sets the Sampling Rate."
 msgstr ""

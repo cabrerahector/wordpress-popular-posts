@@ -285,14 +285,14 @@ class ViewLoggerEndpoint extends Endpoint {
                 'validate_callback' => 'rest_validate_request_arg',
             ],
             'sampling' => [
-                'description'       => __('Enables Data Sampling.'),
+                'description'       => 'Enables Data Sampling.',
                 'type'              => 'integer',
                 'default'           => 0,
                 'sanitize_callback' => 'absint',
                 'validate_callback' => 'rest_validate_request_arg',
             ],
             'sampling_rate' => [
-                'description'       => __('Sets the Sampling Rate.'),
+                'description'       => 'Sets the Sampling Rate.',
                 'type'              => 'integer',
                 'default'           => 100,
                 'sanitize_callback' => 'absint',

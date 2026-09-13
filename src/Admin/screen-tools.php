@@ -68,7 +68,7 @@ if ( 'tools' == $current ) {
                             </tr>
                         <?php endif; ?>
                         <tr valign="top">
-                            <th scope="row"><label for="thumb_lazy_load"><?php esc_html_e('Lazy load', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#lazy-loading" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                            <th scope="row"><label for="thumb_lazy_load"><?php esc_html_e('Lazy load', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#lazy-loading" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
                             <td>
                                 <select name="thumb_lazy_load" id="thumb_lazy_load">
                                     <option <?php if ( ! $this->config['tools']['thumbnail']['lazyload'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('No', 'wordpress-popular-posts'); ?></option>
@@ -165,7 +165,7 @@ if ( 'tools' == $current ) {
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><label for="cache"><?php esc_html_e('Data Caching', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching-db-queries-results" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                            <th scope="row"><label for="cache"><?php esc_html_e('Data Caching', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching-db-queries-results" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
                             <td>
                                 <select name="cache" id="cache">
                                     <option <?php if ( ! $this->config['tools']['cache']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Never cache', 'wordpress-popular-posts'); ?></option>
@@ -193,7 +193,7 @@ if ( 'tools' == $current ) {
                             </td>
                         </tr>
                         <tr valign="top">
-                            <th scope="row"><label for="sampling"><?php esc_html_e('Data Sampling', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
+                            <th scope="row"><label for="sampling"><?php esc_html_e('Data Sampling', 'wordpress-popular-posts'); ?>:</label> <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></th>
                             <td>
                                 <select name="sampling" id="sampling">
                                     <option <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>selected="selected"<?php } ?> value="0"><?php esc_html_e('Disabled', 'wordpress-popular-posts'); ?></option>
@@ -203,20 +203,28 @@ if ( 'tools' == $current ) {
                                 <br />
                                 <?php
                                 $description = sprintf(
-                                    __('By default, WP Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With <a href="%1$s" target="_blank">data sampling</a>, WP Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more, <a href="%2$s" target="_blank">please read here</a>)', 'wordpress-popular-posts'),
-                                    'http://en.wikipedia.org/wiki/Sample_%28statistics%29',
+                                    wp_kses(
+                                        /* translators: 1: URL to the Data Sampling Wikipedia page, 2: URL to the plugin's Data Sampling Github wiki page */
+                                        __('By default, WP Popular Posts stores in database every single visit your site receives. For small / medium sites this is generally OK, but on large / high traffic sites the constant writing to the database may have an impact on performance. With <a href="%1$s">data sampling</a>, WP Popular Posts will store only a subset of your traffic and report on the tendencies detected in that sample set (for more, <a href="%2$s">please read here</a>).', 'wordpress-popular-posts'),
+                                        [
+                                            'a' => [
+                                                'href' => []
+                                            ]
+                                        ]
+                                    ),
+                                    'https://en.wikipedia.org/wiki/Sample_%28statistics%29',
                                     'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling'
                                 );
                                 ?>
-                                <p class="description"><?php echo $description; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>.</p>
+                                <p class="description"><?php echo $description; ?></p>
                             </td>
                         </tr>
                         <tr valign="top" <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>style="display: none;"<?php } ?> id="sampling_rate">
-                            <th scope="row"><label for="sample_rate"><?php esc_html_e('Sample Rate', 'wordpress-popular-posts'); ?>: <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#what-is-sample-rate-for" target="_blank" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></label></th>
+                            <th scope="row"><label for="sample_rate"><?php esc_html_e('Sample Rate', 'wordpress-popular-posts'); ?>: <small>[<a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#what-is-sample-rate-for" title="<?php esc_attr_e('What is this?', 'wordpress-popular-posts'); ?>">?</a>]</small></label></th>
                             <td>
                                 <input name="sample_rate" type="number" min="1" id="sample_rate" value="<?php echo ( isset($this->config['tools']['sampling']['rate']) ) ? (int) $this->config['tools']['sampling']['rate'] : 100; ?>" class="small-text">
                                 <br />
-                                <p class="description"><?php echo sprintf(esc_html__('A sampling rate of %d is recommended for large / high traffic sites. For lower traffic sites, you should lower the value.', 'wordpress-popular-posts'), 100); ?></p>
+                                <p class="description"><?php esc_html_e('A sampling rate of 100 is recommended for large / high traffic sites. For lower traffic sites, you should lower the value.', 'wordpress-popular-posts'); ?></p>
                             </td>
                         </tr>
                         <tr valign="top">
