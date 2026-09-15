@@ -4,6 +4,8 @@
  */
 namespace WordPressPopularPosts;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /** Composer autoloder */
 require __DIR__ . '/../vendor/autoload.php';
 

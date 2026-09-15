@@ -166,7 +166,7 @@ class Widget extends \WP_Widget {
             $notice = ob_get_clean() . "\n";
         }
 
-        echo $notice;
+        echo $notice; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $notice is safely generated above
 
         echo "\n" . $after_widget . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }

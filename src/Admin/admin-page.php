@@ -3,6 +3,8 @@ if ( basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__) ) {
     exit('Please do not load this page directly');
 }
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 $wpp_tabs = [
     'stats' => __('Stats', 'wordpress-popular-posts'),
     'tools' => __('Tools', 'wordpress-popular-posts'),

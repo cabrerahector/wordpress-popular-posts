@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( 'tools' == $current ) {
 
     if ( ! current_user_can('manage_options') ) {
@@ -216,7 +218,7 @@ if ( 'tools' == $current ) {
                                     'https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling'
                                 );
                                 ?>
-                                <p class="description"><?php echo $description; ?></p>
+                                <p class="description"><?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $description is being sanitized via wp_kses() above ?></p>
                             </td>
                         </tr>
                         <tr valign="top" <?php if ( ! $this->config['tools']['sampling']['active'] ) { ?>style="display: none;"<?php } ?> id="sampling_rate">

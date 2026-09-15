@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( 'debug' == $current ) {
 
     if ( ! current_user_can('manage_options') ) {

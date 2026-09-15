@@ -66,6 +66,7 @@ class Elementor extends Compat
     public function elementor_icon_css() {
         $icon_file = esc_url(plugin_dir_url(dirname(__FILE__, 3))) . 'assets/images/flame.svg';
 
+        // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- $icon_file is being escaped above
         echo '<style>
             .wpp-eicon {
                 display: inline-block;
@@ -74,6 +75,7 @@ class Elementor extends Compat
                 background: url("' . $icon_file . '") center center /contain no-repeat;
             }
         </style>';
+        // phpcs:enable
     }
 
     /**

@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( 'stats' == $current ) {
     $chart_data = json_decode(
         $this->get_chart_data(

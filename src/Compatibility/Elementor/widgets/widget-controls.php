@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /* General Controls */
 $this->start_controls_section(
     'general_section',

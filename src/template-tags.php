@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * WP Popular Posts template tags for use in themes.
  */

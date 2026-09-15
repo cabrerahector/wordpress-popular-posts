@@ -97,7 +97,7 @@ class ListColumnTotalViews {
     public function views_column(string $column_name, int $post_id)
     {
         if ( $column_name === 'pageviews' ) {
-            echo wpp_get_views($post_id);
+            echo esc_html(wpp_get_views($post_id));
         }
     }
 

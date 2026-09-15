@@ -970,26 +970,26 @@ class Admin {
                     $pageviews = isset($post->pageviews) ? (int) $post->pageviews : 0;
                     $comments_count = isset($post->comment_count) ? (int) $post->comment_count : 0;
 
-                    $views_copy = esc_html(sprintf(
+                    $views_copy = sprintf(
                         /* translators: 1: singular number of views, 2: plural number of views. */
                         _n('%s view', '%s views', $pageviews, 'wordpress-popular-posts'),
                         number_format_i18n($pageviews)
-                    ));
-                    $comments_copy = esc_html(sprintf(
+                    );
+                    $comments_copy = sprintf(
                         /* translators: 1: singular number of comments, 2: plural number of comments. */
                         _n('%s comment', '%s comments', $comments_count, 'wordpress-popular-posts'),
                         number_format_i18n($comments_count)
-                    ));
+                    );
                     ?>
                     <li>
                         <a href="<?php echo esc_url(get_permalink($post->id)); ?>" class="wpp-title"><?php echo esc_html(sanitize_text_field(apply_filters('the_title', $post->title, $post->id))); ?></a>
                         <div>
                             <?php if ( 'most-viewed' === $list ) : ?>
-                                <span><?php echo $views_copy; ?></span>
+                                <span><?php echo esc_html($views_copy); ?></span>
                             <?php elseif ( 'most-commented' === $list ) : ?>
-                                <span><?php echo $comments_copy; ?></span>
+                                <span><?php echo esc_html($comments_copy); ?></span>
                             <?php else : ?>
-                                <span><?php echo $views_copy; ?></span><span>,</span> <span><?php echo $comments_copy; ?></span>
+                                <span><?php echo esc_html($views_copy); ?></span><span>,</span> <span><?php echo esc_html($comments_copy); ?></span>
                             <?php endif; ?>
                             <?php // phpcs:disable WordPress.WP.I18n.MissingArgDomain ?>
                             <small> &mdash; <a href="<?php echo esc_url(get_permalink($post->id)); ?>"><?php esc_html_e('View'); ?></a><?php if ( current_user_can('edit_others_posts') ): ?> | <a href="<?php echo esc_url(get_edit_post_link($post->id)); ?>"><?php esc_html_e('Edit'); ?></a><?php endif; ?></small>
@@ -1064,7 +1064,7 @@ class Admin {
             current_user_can('manage_options')
             && wp_verify_nonce($token, 'wpp_nonce_reset_thumbnails')
         ) {
-            echo $this->delete_thumbnails();
+            echo $this->delete_thumbnails(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- delete_thumbnails() always returns an integer value
         } else {
             echo 4;
         }

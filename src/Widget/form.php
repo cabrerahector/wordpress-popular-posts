@@ -1,3 +1,5 @@
+<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+
 <p><strong>Important notice for administrators:</strong> The WP Popular Posts "classic" widget has been removed.</p>
 <p>This widget has reached end-of-life as of version 7.0. Please follow the <a href="https://cabrerahector.com/wordpress/migrating-from-the-classic-popular-posts-widget/" rel="nofollow">Migration Guide</a> to switch to either the <a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wordpress-popular-posts-block" rel="nofollow">WP Popular Posts block</a> or the <a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode" rel="nofollow">wpp shortcode</a>.</p>
 <p>If you decide on migrating to the <a href="https://github.com/cabrerahector/wordpress-popular-posts/wiki/1.-Using-WPP-on-posts-&-pages#the-wpp-shortcode" rel="nofollow">wpp shortcode</a>, the one below has the same settings as your classic widget:</p>
@@ -195,4 +197,4 @@ if ( $instance['theme']['name'] ) {
 
 $wpp_shortcode .= ']';
 
-echo htmlentities($wpp_shortcode, ENT_NOQUOTES, 'UTF-8') . '<br /><br />';
+echo htmlentities($wpp_shortcode, ENT_NOQUOTES, 'UTF-8') . '<br /><br />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $wpp_shortcode is being sanitized above
