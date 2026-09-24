@@ -28,7 +28,22 @@ class ViewLoggerEndpoint extends Endpoint {
             [
                 'methods'             => \WP_REST_Server::CREATABLE,
                 'callback'            => [$this, 'update_views_count'],
-                'permission_callback' => '__return_true',
+                'permission_callback' => function($request) {
+                    // Update views count only for publicly
+                    // accessible items
+
+                    $post_id = $request->get_param('id');
+
+                    if ( $post_id && is_post_publicly_viewable($post_id) ) {
+                        return true;
+                    }
+
+                    return new \WP_Error(
+                        'rest_forbidden',
+                        'WPP: Sorry, you are not allowed to do that.',
+                        ['status' => 403]
+                    );
+                },
                 'args'                => $this->get_tracking_params(),
             ]
         ]);
@@ -322,7 +337,7 @@ class ViewLoggerEndpoint extends Endpoint {
                 'enum'              => ['last24hours', 'last7days', 'last30days', 'all', 'custom'],
                 'default'           => 'all',
                 'sanitize_callback' => 'sanitize_text_field',
-                'validate_callback' => '__return_true'
+                'validate_callback' => 'rest_validate_request_arg'
             ],
             'time_unit' => [
                 'type'              => 'string',

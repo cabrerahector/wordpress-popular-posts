@@ -9,16 +9,28 @@ class PostsEndpoint extends Endpoint {
     use QueriesPosts;
 
     /**
+     * Post types we are allowed to query.
+     *
+     * @access  private
+     * @param   array
+     * @since   7.4.3
+     */
+    private array $allowed_post_types = [];
+
+    /**
      * Initializes class.
      *
      * @param   array
      * @param   \WordPressPopularPosts\Translate
-     * @param   \WordPressPopularPosts\Output
      */
     public function __construct(array $config, Translate $translate)
     {
         $this->config = $config;
         $this->translate = $translate;
+        $this->allowed_post_types = get_post_types([
+            'public' => true,
+            'show_in_rest' => true
+        ]);
     }
 
     /**
@@ -50,6 +62,15 @@ class PostsEndpoint extends Endpoint {
      */
     public function get_items($request)
     {
+        // This endpoint doesn't have any use for the context param
+        // so let's drop it if present in the request
+        //
+        // WP will then default to 'view' context which is
+        // the expected behavior
+        if ( $request->offsetExists('context') ) {
+            $request->offsetUnset('context');
+        }
+
         $params = $request->get_params();
         $lang = isset($params['lang']) ? $params['lang'] : null;
         $popular_posts = [];
@@ -92,7 +113,7 @@ class PostsEndpoint extends Endpoint {
         $wp_post = get_post($post_ID);
 
         // Borrow prepare_item_for_response method from WP_REST_Posts_Controller.
-        $posts_controller = new \WP_REST_Posts_Controller($wp_post->post_type, $request);
+        $posts_controller = new \WP_REST_Posts_Controller($wp_post->post_type);
         $data = $posts_controller->prepare_item_for_response($wp_post, $request);
 
         // Add pageviews from popular_post object to response.
@@ -115,7 +136,18 @@ class PostsEndpoint extends Endpoint {
                 'description'       => 'Return popular posts from specified custom post type(s).',
                 'type'              => 'string',
                 'default'           => 'post',
-                'sanitize_callback' => 'sanitize_text_field',
+                'sanitize_callback' => function($post_type) {
+                    $post_type = implode(',', array_intersect(
+                        $this->allowed_post_types,
+                        array_filter(array_map('trim', explode(',', $post_type)))
+                    ));
+
+                    if ( ! $post_type ) {
+                        $post_type = 'post'; // same as 'default'
+                    }
+
+                    return $post_type;
+                },
                 'validate_callback' => 'rest_validate_request_arg',
             ],
             'limit' => [
