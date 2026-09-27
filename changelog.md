@@ -4,6 +4,10 @@ Changelog
 ## 7.4.3 ##
 
 - Fixes a build issue affecting version 7.4.2.
+- Improved REST API endpoints validation rules (props to the Wordfence team!)
+- PHPCS / WPCS improvements.
+
+[Release notes](https://cabrerahector.com/wordpress/wp-popular-posts-7-4-performance-impromevents-new-admin-views-column/#7.4.3)
 
 ## 7.4.2 ##
 
