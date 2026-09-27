@@ -3,7 +3,7 @@ Contributors: hcabrera
 Donate link: https://ko-fi.com/cabrerahector
 Tags: popular, posts, popularity, top, trending
 Requires at least: 6.2
-Tested up to: 7.1
+Tested up to: 7.1.2
 Requires PHP: 7.4
 Stable tag: 7.4.3
 License: GPLv2 or later
