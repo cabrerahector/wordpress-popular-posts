@@ -220,7 +220,7 @@ class Widget extends \WP_Widget {
     private function get_sidebar_data()
     {
         global $wp_registered_sidebars;
-        $sidebars = wp_get_sidebars_widgets();
+        $sidebars = wp_get_sidebars_widgets(); // phpcs:ignore Generic.PHP.ForbiddenFunctions.Found -- This entire class has been deprecated and will go away soon
 
         foreach ( (array) $sidebars as $sidebar_id => $sidebar ) {
             if ( in_array($this->id, (array) $sidebar, true ) ) {

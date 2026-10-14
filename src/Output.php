@@ -522,6 +522,7 @@ class Output {
                 ? ' <span class="wpp-rating">{rating}</span>'
                 : '';
 
+            // phpcs:disable PluginCheck.CodeAnalysis.Heredoc.NotAllowed
             $post_template = <<<EOD
             <li class="$post_template_classnames">
                 $post_template_thumbnail
@@ -531,6 +532,7 @@ class Output {
                 $post_template_rating
             </li>
             EOD;
+            // phpcs:enable
         }
 
         $post = $this->format_content(

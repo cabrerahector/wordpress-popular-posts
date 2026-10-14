@@ -95,7 +95,7 @@ class Cache {
         $now = Helper::now();
         $transients_table = "{$wpdb->prefix}popularpoststransients";
 
-        //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+        //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->query(
             $wpdb->prepare(
                 "INSERT INTO %i (tkey, tkey_date) VALUES (%s, %s) ON DUPLICATE KEY UPDATE tkey_date = %s;",

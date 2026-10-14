@@ -259,16 +259,17 @@ class Admin {
         $posts_table = "{$wpdb->prefix}posts";
         $summary_table = "{$wpdb->prefix}popularpostssummary";
 
-        //phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $post_type_placeholder is safe to use
-        $query = $wpdb->prepare(
-            "SELECT SUM(pageviews) AS total 
-            FROM %i v LEFT JOIN %i p ON v.postid = p.ID 
-            WHERE p.post_type IN({$post_type_placeholders}) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
-            [$summary_table, $posts_table, ...$args]
+        //phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,PluginCheck.Security.DirectDB.UnescapedDBParameter,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $post_type_placeholder is safe to use
+        $total_views = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT SUM(pageviews) AS total 
+                FROM %i v LEFT JOIN %i p ON v.postid = p.ID 
+                WHERE p.post_type IN({$post_type_placeholders}) AND p.post_status = 'publish' AND p.post_password = '' AND v.view_datetime > DATE_SUB(%s, INTERVAL 1 HOUR);",
+                [$summary_table, $posts_table, ...$args]
+            )
         );
         //phpcs:enable
 
-        $total_views = $wpdb->get_var($query); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- $query is built and prepared above
         $total_views = (float) $total_views;
 
         $pageviews = sprintf(
@@ -514,6 +515,7 @@ class Admin {
                     'content'   => '<p>' . __("Welcome to WP Popular Posts' Dashboard! In this screen you will find statistics on what's popular on your site, tools to further tweak WPP to your needs, and more!", 'wordpress-popular-posts') . '</p>'
                 ]
             );
+            // phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- We're only showing a PayPal Donation button here
             $screen->add_help_tab(
                 [
                     'id'        => 'wpp_help_donate',
@@ -533,6 +535,7 @@ class Admin {
                         ) . '</p>'
                 ]
             );
+            // phpcs:enable
 
             // Help sidebar
             $screen->set_help_sidebar(
