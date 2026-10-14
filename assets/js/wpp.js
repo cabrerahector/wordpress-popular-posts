@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         WordPressPopularPosts.post(
-            `${wpp_params.apiUrl}/v2/widget?is_single=${wpp_params.postId}${wpp_params.lang ? `&lang=${wpp_params.lang}` : ''}`,
+            `${wpp_params.apiUrl}/v2/widget?is_single=${wpp_params.post}${wpp_params.lang !== "0" ? `&lang=${wpp_params.lang}` : ''}`,
             params,
             response => renderWidget(response, widget_placeholder),
             {
