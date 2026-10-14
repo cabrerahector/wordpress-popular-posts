@@ -116,13 +116,24 @@ class Translate {
      */
     public function get_object_id(int $object_id, string $object_type = 'post', bool $return_original_if_missing = true, ?string $lang_code = '')
     {
-        return apply_filters(
+        $wpml_object_id = apply_filters(
             'wpml_object_id',
             $object_id,
             $object_type,
             $return_original_if_missing,
             null == $lang_code ? $this->get_current_language() : $lang_code
         );
+
+        // Translation is not publicly available,
+        // return the original ID as is.
+        if (
+            $object_id !== $wpml_object_id
+            && get_post_status($wpml_object_id) !== 'publish'
+        ) {
+            return $object_id;
+        }
+
+        return $wpml_object_id;
     }
 
     /**
