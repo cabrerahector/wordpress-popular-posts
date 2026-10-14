@@ -9,15 +9,6 @@ class PostsEndpoint extends Endpoint {
     use QueriesPosts;
 
     /**
-     * Post types we are allowed to query.
-     *
-     * @access  private
-     * @param   array
-     * @since   7.4.3
-     */
-    private array $allowed_post_types = [];
-
-    /**
      * Initializes class.
      *
      * @param   array
@@ -27,10 +18,6 @@ class PostsEndpoint extends Endpoint {
     {
         $this->config = $config;
         $this->translate = $translate;
-        $this->allowed_post_types = get_post_types([
-            'public' => true,
-            'show_in_rest' => true
-        ]);
     }
 
     /**
@@ -137,8 +124,13 @@ class PostsEndpoint extends Endpoint {
                 'type'              => 'string',
                 'default'           => 'post',
                 'sanitize_callback' => function($post_type) {
+                    $allowed_post_types = get_post_types([
+                        'public' => true,
+                        'show_in_rest' => true
+                    ]);
+
                     $post_type = implode(',', array_intersect(
-                        $this->allowed_post_types,
+                        $allowed_post_types,
                         array_filter(array_map('trim', explode(',', $post_type)))
                     ));
 
