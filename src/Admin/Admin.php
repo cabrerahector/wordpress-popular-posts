@@ -1095,7 +1095,7 @@ class Admin {
             if ( is_array($files) && ! empty($files) ) {
                 foreach( $files as $file ) {
                     if ( is_file($file) ) {
-                        @unlink($file); // delete file
+                        wp_delete_file($file); // delete file
                     }
                 }
 
@@ -1159,7 +1159,7 @@ class Admin {
             if ( is_array($files) && ! empty($files) ) {
                 foreach( $files as $file ){ // iterate files
                     if ( is_file($file) ) {
-                        @unlink($file); // delete file
+                        wp_delete_file($file); // delete file
                     }
                 }
             }

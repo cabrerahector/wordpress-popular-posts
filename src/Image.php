@@ -705,7 +705,7 @@ class Image {
                 }
 
                 // Invalid file, remove it
-                @unlink($tmp);
+                wp_delete_file($tmp);
             }
         }
 
