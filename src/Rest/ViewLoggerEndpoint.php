@@ -37,7 +37,8 @@ class ViewLoggerEndpoint extends Endpoint {
                     // Allow devs to override this check (eg. headless WP setups)
                     $is_post_public = apply_filters(
                         'wpp_logger_is_post_public',
-                        ( $post_id && is_post_publicly_viewable($post_id) )
+                        ( $post_id && is_post_publicly_viewable($post_id) ),
+                        $post_id
                     );
 
                     if ( $is_post_public ) {
