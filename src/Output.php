@@ -928,7 +928,6 @@ class Output {
      * @param   integer $post_id
      * @return  array
      */
-    //private function get_metadata(\stdClass $post_object, $post_id)
     private function get_metadata(\stdClass $post_object, int $post_id, string $date, string $post_tax, string $author, $pageviews, int $comments) /** @TODO: starting PHP 8.0 $pageviews can be declared as mixed $pageviews */
     {
         $stats = [];
