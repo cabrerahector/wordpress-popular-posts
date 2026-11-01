@@ -114,6 +114,18 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 
 == Changelog ==
 
+= 7.4.4 =
+
+- Security enhancements (shoutout to the teams at Wordfence and WordPress Plugins!)
+- REST API: The [/v1/popular-posts/ endpoint](https://github.com/cabrerahector/wordpress-popular-posts/wiki/8.-REST-API-Endpoints#v1popular-posts) now returns a maximum of 100 popular posts.
+- REST API: Updated some validation rules for the /v2/widget endpoint. It now returns up to 100 posts as well.
+- Fixed an issue where the [/v1/popular-posts/ endpoint](https://github.com/cabrerahector/wordpress-popular-posts/wiki/8.-REST-API-Endpoints#v1popular-posts) wouldn't return popular posts when using custom posts types (props to @tmcmn!)
+- PHPCS / WPCS improvements.
+- Minor performance improvements.
+- Updated dependencies.
+
+[Release notes](https://cabrerahector.com/wordpress/wp-popular-posts-7-4-performance-impromevents-new-admin-views-column/#7.4.4)
+
 = 7.4.3 =
 
 - Fixes a build issue affecting version 7.4.2.
@@ -155,5 +167,5 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 * Flame graphic by freevector/Vecteezy.com.
 
 == Upgrade Notice ==
-= 7.2.0 =
-If you're using a caching plugin on your website it's highly recommended to clear its cache after installing / updating to this version.
+= 7.4.4 =
+This release includes a couple of security enhancements, please update as soon as you're able to.
