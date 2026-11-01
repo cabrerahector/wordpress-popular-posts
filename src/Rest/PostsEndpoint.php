@@ -149,6 +149,7 @@ class PostsEndpoint extends Endpoint {
                 'sanitize_callback' => 'absint',
                 'validate_callback' => 'rest_validate_request_arg',
                 'minimum'           => 1,
+                'maximum'           => 100,
             ],
             'freshness' => [
                 'description'       => 'Retrieve the most popular entries published within the specified time range.',
