@@ -105,6 +105,125 @@ class WidgetEndpoint extends Endpoint {
                 'default' => null,
                 'sanitize_callback' => 'sanitize_text_field'
             ],
+            'post_type' => [
+                'description'       => 'Return popular posts from specified custom post type(s).',
+                'type'              => 'string',
+                'default'           => 'post',
+                'sanitize_callback' => function($post_type) {
+                    $allowed_post_types = get_post_types([
+                        'public' => true,
+                    ]);
+
+                    $post_type = implode(',', array_intersect(
+                        $allowed_post_types,
+                        array_filter(array_map('trim', explode(',', $post_type)))
+                    ));
+
+                    if ( ! $post_type ) {
+                        $post_type = 'post'; // same as 'default'
+                    }
+
+                    return $post_type;
+                },
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'limit' => [
+                'description'       => 'The maximum number of popular posts to return.',
+                'type'              => 'integer',
+                'default'           => 10,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+                'minimum'           => 1,
+                'maximum'           => 100,
+            ],
+            'freshness' => [
+                'description'       => 'Retrieve the most popular entries published within the specified time range.',
+                'type'              => ['string', 'boolean'],
+                'enum'              => ['0', '1', false, true],
+                'default'           => '0',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'offset' => [
+                'description'       => 'An offset point for the collection.',
+                'type'              => 'integer',
+                'default'           => 0,
+                'minimum'           => 0,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'order_by' => [
+                'description'       => 'Set the sorting option of the popular posts.',
+                'type'              => 'string',
+                'enum'              => ['views', 'comments'],
+                'default'           => 'views',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'range' => [
+                'description'       => 'Return popular posts from a specified time range.',
+                'type'              => 'string',
+                'enum'              => ['last24hours', 'last7days', 'last30days', 'all', 'custom'],
+                'default'           => 'last24hours',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'time_unit' => [
+                'description'       => 'Specifies the time unit of the custom time range.',
+                'type'              => 'string',
+                'enum'              => ['minute', 'hour', 'day', 'week', 'month'],
+                'default'           => 'hour',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'time_quantity' => [
+                'description'       => 'Specifies the number of time units of the custom time range.',
+                'type'              => 'integer',
+                'default'           => 24,
+                'minimum'           => 1,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'pid' => [
+                'description'       => 'Post IDs to exclude from the listing.',
+                'type'              => 'string',
+                'sanitize_callback' => function($pid) {
+                    return rtrim(preg_replace('|[^0-9,]|', '', $pid), ',');
+                },
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'exclude' => [
+                'description'       => 'Post IDs to exclude from the listing.',
+                'type'              => 'string',
+                'sanitize_callback' => function($exclude) {
+                    return rtrim(preg_replace('|[^0-9,]|', '', $exclude), ',');
+                },
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'taxonomy' => [
+                'description'       => 'Include posts in a specified taxonomy.',
+                'type'              => 'string',
+                'sanitize_callback' => function($taxonomy) {
+                    return empty($taxonomy) ? 'category' : $taxonomy;
+                },
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'term_id' => [
+                'description'       => 'Taxonomy IDs, separated by comma (prefix a minus sign to exclude).',
+                'type'              => 'string',
+                'sanitize_callback' => function($term_id) {
+                    return rtrim(preg_replace('|[^0-9,;-]|', '', $term_id), ',');
+                },
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
+            'author' => [
+                'description'       => 'Include popular posts from author ID(s).',
+                'type'              => 'string',
+                'sanitize_callback' => function($author) {
+                    return rtrim(preg_replace('|[^0-9,]|', '', $author), ',');
+                },
+                'validate_callback' => 'rest_validate_request_arg',
+            ],
         ];
     }
 }
