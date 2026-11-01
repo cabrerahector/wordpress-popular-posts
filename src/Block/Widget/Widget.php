@@ -138,7 +138,7 @@ class Widget extends Block
             return;
         }
 
-        $block_editor_support = apply_filters('wpp_block_editor_support', true);
+        $block_editor_support = apply_filters('wpp_block_editor_support', true); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         if ( ! $block_editor_support ) {
             return;
@@ -470,7 +470,7 @@ class Widget extends Block
             && ! empty($query_args['markup']['title-end'])
         ) {
             $header_html = htmlspecialchars_decode($query_args['markup']['title-start'], ENT_QUOTES) . $query_args['title'] . htmlspecialchars_decode($query_args['markup']['title-end'], ENT_QUOTES);
-            $header_html = apply_filters('wpp_custom_header_html', $header_html, $query_args);
+            $header_html = apply_filters('wpp_custom_header_html', $header_html, $query_args); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
             $header_html = Helper::sanitize_html($header_html, $query_args);
             $html .= $header_html;
         }

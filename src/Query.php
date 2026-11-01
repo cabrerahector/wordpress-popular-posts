@@ -424,6 +424,7 @@ class Query {
                 $where = $wpdb->prepare($where, $args); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $where and $args are built and prepared dynamically, see above
             }
 
+            // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- These hook names are all prefixed
             $fields = apply_filters('wpp_query_fields', $fields, $this->options);
             $table = apply_filters('wpp_query_table', $table, $this->options);
             $join = apply_filters('wpp_query_join', $join, $this->options);
@@ -431,6 +432,7 @@ class Query {
             $groupby = apply_filters('wpp_query_group_by', $groupby, $this->options);
             $orderby = apply_filters('wpp_query_order_by', $orderby, $this->options);
             $limit = apply_filters('wpp_query_limit', $limit, $this->options);
+            // phpcs:enable
 
             // Finally, build the query
             $query = "SELECT {$fields} FROM {$table} {$join} {$where} {$groupby} {$orderby} {$limit};";

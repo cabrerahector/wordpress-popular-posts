@@ -151,11 +151,13 @@ class Image {
              * @param   int     The post ID
              * @return  array   The new CSS classes
              */
+            // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound  -- It is prefixed
             $classes = apply_filters(
                 'wpp_thumbnail_class_attribute',
                 $classes,
                 $post_id
             );
+            // phpcs:enable
 
             /**
              * Filters ALT attribute assigned to the thumbnail
@@ -165,11 +167,13 @@ class Image {
              * @param   int     The post ID
              * @return  string  The new ALT attribute
              */
+            // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
             $alt = apply_filters(
                 'wpp_thumbnail_alt_attribute',
                 $this->get_alt_attribute($post_id, $source),
                 $post_id
             );
+            // phpcs:enable
 
             return $this->render(
                 $post_id,
@@ -240,11 +244,13 @@ class Image {
                      * @param   int     The post ID
                      * @return  array   The new CSS classes
                      */
+                    // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
                     $classes = apply_filters(
                         'wpp_thumbnail_class_attribute',
                         $classes,
                         $post_id
                     );
+                    // phpcs:enable
 
                     $featured_image = get_the_post_thumbnail(
                         $post_id,
@@ -321,11 +327,13 @@ class Image {
          * @param   int     The post ID
          * @return  array   The new CSS classes
          */
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         $classes = apply_filters(
             'wpp_thumbnail_class_attribute',
             $classes,
             $post_id
         );
+        // phpcs:enable
 
         /**
          * Filters ALT attribute assigned to the thumbnail
@@ -335,11 +343,13 @@ class Image {
          * @param   int     The post ID
          * @return  string  The new ALT attribute
          */
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         $alt = apply_filters(
             'wpp_thumbnail_alt_attribute',
             $this->get_alt_attribute($post_id, $source),
             $post_id
         );
+        // phpcs:enable
 
         return $this->render(
             $post_id,
@@ -785,7 +795,7 @@ class Image {
              * Hook to enable/disable retina support.
              * @since   5.3.0
              */
-            $retina_support = apply_filters('wpp_retina_support', true);
+            $retina_support = apply_filters('wpp_retina_support', true); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
             if ( $retina_support ) {
                 // Calculate thumbnail sizes
@@ -850,7 +860,7 @@ class Image {
              * Hook to change the image compression quality of WPP's thumbnails.
              * @since   4.2.1
              */
-            $quality = apply_filters('wpp_thumbnail_compression_quality', null);
+            $quality = apply_filters('wpp_thumbnail_compression_quality', null); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
             if ( $quality && ! ctype_digit( (string) $quality) ) {
                 $quality = null; // Fallback to core's default
@@ -902,7 +912,7 @@ class Image {
          * Hook to enable/disable retina support.
          * @since   5.3.0
          */
-        $retina_support = apply_filters('wpp_retina_support', true);
+        $retina_support = apply_filters('wpp_retina_support', true); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         if ( ! $retina_support ) {
             return '';
@@ -956,7 +966,7 @@ class Image {
 
         $img_tag .= '<img ' . $src . ' width="' . esc_attr($size[0]) . '" height="' . esc_attr($size[1]) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '" decoding="async" ' . $lazyload . ' />';
 
-        return apply_filters('wpp_render_image', $img_tag, $post_id);
+        return apply_filters('wpp_render_image', $img_tag, $post_id); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
     }
 
     /**
@@ -1011,6 +1021,7 @@ class Image {
      */
     public function get_default_url(?int $post_ID = null)
     {
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         if ( has_filter('wpp_default_thumbnail_url') ) {
             $default_thumbnail_url = apply_filters('wpp_default_thumbnail_url', $this->default_thumbnail, $post_ID);
 
@@ -1018,6 +1029,7 @@ class Image {
                 return $default_thumbnail_url;
             }
         }
+        // phpcs:enable
 
         return $this->default_thumbnail;
     }

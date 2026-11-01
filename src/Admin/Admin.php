@@ -68,7 +68,7 @@ class Admin {
         }
 
         // Allow WP themers / coders to override data sampling status (active/inactive)
-        $this->config['tools']['sampling']['active'] = apply_filters('wpp_data_sampling', $this->config['tools']['sampling']['active']);
+        $this->config['tools']['sampling']['active'] = apply_filters('wpp_data_sampling', $this->config['tools']['sampling']['active']); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         if (
             ! ( wp_using_ext_object_cache() && defined('WPP_CACHE_VIEWS') && WPP_CACHE_VIEWS ) // Not using a persistent object cache
@@ -387,7 +387,7 @@ class Admin {
                 'comment_count' => 1
             ]
         ];
-        $options = apply_filters('wpp_trending_dashboard_widget_args', []);
+        $options = apply_filters('wpp_trending_dashboard_widget_args', []); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         if ( is_array($options) && ! empty($options) ) {
             $args = Helper::merge_array_r($args, $options);
@@ -983,6 +983,7 @@ class Admin {
                         _n('%s comment', '%s comments', $comments_count, 'wordpress-popular-posts'),
                         number_format_i18n($comments_count)
                     );
+                    // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- We're using core's the_title filter hook here
                     ?>
                     <li>
                         <a href="<?php echo esc_url(get_permalink($post->id)); ?>" class="wpp-title"><?php echo esc_html(sanitize_text_field(apply_filters('the_title', $post->title, $post->id))); ?></a>
@@ -1000,6 +1001,7 @@ class Admin {
                         </div>
                     </li>
                     <?php
+                    // phpcs:enable
                 }
                 ?>
             </ol>
@@ -1030,9 +1032,12 @@ class Admin {
                 try {
                     delete_transient($wpp_transient->tkey);
                 } catch (\Throwable $e) {
+                    // phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_error_log -- We're only logging errors when WP_DEBUG is true
                     if ( defined('WP_DEBUG') && WP_DEBUG ) {
                         error_log( "Error: " . $e->getMessage() );
                     }
+                    // phpcs:enable
+
                     continue;
                 }
             }
@@ -1254,9 +1259,11 @@ class Admin {
                 // Pause briefly between batches to reduce server load
                 usleep(500000); // 0.5 seconds
             } catch (\Exception $e) {
+                // phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_error_log -- We're only logging errors when WP_DEBUG is true
                 if ( defined('WP_DEBUG') && WP_DEBUG ) {
                     error_log('WP Popular Posts failed to delete old views data: ' . $e->getMessage());
                 }
+                // phpcs:enable
 
                 break;
             }

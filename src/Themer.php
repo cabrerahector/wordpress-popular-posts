@@ -65,6 +65,7 @@ class Themer {
             $this->load_theme($fileinfo->getPathName());
         }
 
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         if ( has_filter('wpp_additional_themes') ) {
             $additional_themes = apply_filters('wpp_additional_themes', []);
 
@@ -74,6 +75,7 @@ class Themer {
                 }
             }
         }
+        // phpcs:enable
     }
 
     /**

@@ -35,11 +35,13 @@ class ViewLoggerEndpoint extends Endpoint {
                     $post_id = $request->get_param('id');
 
                     // Allow devs to override this check (eg. headless WP setups)
+                    // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
                     $is_post_public = apply_filters(
                         'wpp_logger_is_post_public',
                         ( $post_id && is_post_publicly_viewable($post_id) ),
                         $post_id
                     );
+                    // phpcs:enable
 
                     if ( $is_post_public ) {
                         return true;
@@ -129,7 +131,7 @@ class ViewLoggerEndpoint extends Endpoint {
           : 1;
 
         $original_views_count = $views;
-        $views = apply_filters('wpp_update_views_count_value', $views, $post_ID, $sampling, $sampling_rate);
+        $views = apply_filters('wpp_update_views_count_value', $views, $post_ID, $sampling, $sampling_rate);  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         if ( ! Helper::is_number($views) || $views <= 0 ) {
             $views = $original_views_count;
@@ -137,9 +139,11 @@ class ViewLoggerEndpoint extends Endpoint {
 
         // Allow WP themers / coders perform an action
         // before updating views count
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         if ( has_action('wpp_pre_update_views') ) {
             do_action('wpp_pre_update_views', $post_ID, $views);
         }
+        // phpcs:enable
 
         $result1 = false;
         $result2 = false;
@@ -282,9 +286,11 @@ class ViewLoggerEndpoint extends Endpoint {
 
         // Allow WP themers / coders perform an action
         // after updating views count
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         if ( has_action('wpp_post_update_views') ) {
             do_action('wpp_post_update_views', $post_ID);
         }
+        // phpcs:enable
 
         $response['results'] = 'WPP: OK. Execution time: ' . $exec_time . ' seconds';
         return new \WP_REST_Response($response, 201);

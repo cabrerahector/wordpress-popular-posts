@@ -33,6 +33,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 define('WPP_VERSION', '7.4.4');
 
-$wpp_main_plugin_file = __FILE__;
+$wpp_main_plugin_file = __FILE__; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- It is prefixed
 // Load plugin bootstrap
 require __DIR__ . '/src/Bootstrap.php';

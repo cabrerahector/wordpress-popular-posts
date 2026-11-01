@@ -16,7 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @param   bool            $cache          Whether to cache the views data to improve performance
  * @return  string
  */
-function wpp_get_views(?int $id = null, $range = null, $number_format = true, $cache = false) /** @TODO: starting PHP 8.0 $range can be declared as mixed $range, $number_format as mixed or bool|string */
+function wpp_get_views( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- It is prefixed
+    ?int $id = null,
+    $range = null, /** @TODO: starting PHP 8.0 $range can be declared as mixed $range, $number_format as mixed or bool|string */
+    $number_format = true,
+    $cache = false
+)
 {
     // have we got an id?
     if ( empty($id) || is_null($id) || ! is_numeric($id) ) {
@@ -132,7 +137,8 @@ function wpp_get_views(?int $id = null, $range = null, $number_format = true, $c
  * @since   2.0.3
  * @param   mixed   $args
  */
-function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can be declared as mixed $args */
+/** @TODO: starting PHP 8.0 $args can be declared as mixed $args */
+function wpp_get_mostpopular($args = null) // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- It is prefixed
 {
     $shortcode = '[wpp';
 
@@ -179,7 +185,8 @@ function wpp_get_mostpopular($args = null) /** @TODO: starting PHP 8.0 $args can
  * @param  array  $args  Popular Posts parameters
  * @return array
  */
-function wpp_get_ids(array $args) {
+function wpp_get_ids(array $args) // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- It is prefixed
+{
     $ids = [];
 
     $wpp_query = new \WordPressPopularPosts\Query($args);

@@ -3,8 +3,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-//use WordPressPopularPosts\{Image, Themer};
-
 /**
  * Elementor WPP Widget.
  *
@@ -12,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 7.3.0
  */
-class Elementor_WPP_Widget extends \Elementor\Widget_Base {
+class Elementor_WPP_Widget extends \Elementor\Widget_Base { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound -- We're using an unique identifier here
 
     /**
      * Image object.
@@ -214,7 +212,7 @@ class Elementor_WPP_Widget extends \Elementor\Widget_Base {
          * @param array  $settings  WPP settings
          * @param string $widget_id Elementor Widget ID
          */
-        $settings = apply_filters('wpp_elementor_widget_settings', $settings, $widget_id);
+        $settings = apply_filters('wpp_elementor_widget_settings', $settings, $widget_id); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         /** While on edit mode... */
         if ( $is_edit_mode ) {

@@ -14,7 +14,7 @@ $wpp_tabs = [
 
 // Set active tab
 if ( isset($_GET['tab'] ) && isset($wpp_tabs[$_GET['tab']] ) ) {
-    $current = $_GET['tab']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- $current will be equal to one of the registered tabs
+    $current = $_GET['tab']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- $current is being validated and sanitized below
 } else {
     $current = 'stats';
 }
@@ -25,7 +25,7 @@ if ( isset($_POST['section']) && current_user_can('manage_options') ) {
     if ( 'stats' == $_POST['section'] ) {
         $current = 'stats';
 
-        if ( isset($_POST['wpp-update-stats-options-token']) && wp_verify_nonce($_POST['wpp-update-stats-options-token'], 'wpp-update-stats-options') ) {
+        if ( isset($_POST['wpp-update-stats-options-token']) && wp_verify_nonce($_POST['wpp-update-stats-options-token'], 'wpp-update-stats-options') ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
             $this->config['stats']['limit'] = ( \WordPressPopularPosts\Helper::is_number($_POST['stats_limit']) && $_POST['stats_limit'] > 0 ) ? (int) $_POST['stats_limit'] : 10;
             $this->config['stats']['post_type'] = empty($_POST['stats_type']) ? 'post' : sanitize_text_field($_POST['stats_type']);
             $this->config['stats']['freshness'] = isset($_POST['stats_freshness']);
@@ -38,7 +38,7 @@ if ( isset($_POST['section']) && current_user_can('manage_options') ) {
     elseif ( 'misc' == $_POST['section'] ) {
         $current = 'tools';
 
-        if ( isset($_POST['wpp-update-misc-options-token'] ) && wp_verify_nonce($_POST['wpp-update-misc-options-token'], 'wpp-update-misc-options') ) {
+        if ( isset($_POST['wpp-update-misc-options-token'] ) && wp_verify_nonce($_POST['wpp-update-misc-options-token'], 'wpp-update-misc-options') ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
             $this->config['tools']['link']['target'] = '_blank' === $_POST['link_target'] ? '_blank' : '_self';
             $this->config['tools']['css'] = (bool) $_POST['css'];
 
@@ -49,7 +49,7 @@ if ( isset($_POST['section']) && current_user_can('manage_options') ) {
     elseif ( 'thumb' == $_POST['section'] ) {
         $current = 'tools';
 
-        if ( isset($_POST['wpp-update-thumbnail-options-token']) && wp_verify_nonce($_POST['wpp-update-thumbnail-options-token'], 'wpp-update-thumbnail-options') ) {
+        if ( isset($_POST['wpp-update-thumbnail-options-token']) && wp_verify_nonce($_POST['wpp-update-thumbnail-options-token'], 'wpp-update-thumbnail-options') ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
             $valid_sources = ['featured', 'first_image', 'first_attachment', 'custom_field'];
             $valid_formats = ['original', 'avif', 'webp'];
             $thumb_source = isset($_POST['thumb_source']) && in_array($_POST['thumb_source'], $valid_sources) ? $_POST['thumb_source'] : 'featured';
@@ -86,7 +86,7 @@ if ( isset($_POST['section']) && current_user_can('manage_options') ) {
     elseif ( 'data' == $_POST['section'] ) {
         $current = 'tools';
 
-        if ( isset($_POST['wpp-update-data-options-token'] ) && wp_verify_nonce($_POST['wpp-update-data-options-token'], 'wpp-update-data-options') ) {
+        if ( isset($_POST['wpp-update-data-options-token'] ) && wp_verify_nonce($_POST['wpp-update-data-options-token'], 'wpp-update-data-options') ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- This is a nonce
             $this->config['tools']['log']['level'] = (int) $_POST['log_option'];
             $this->config['tools']['log']['limit'] = (int) $_POST['log_limit'];
             $this->config['tools']['log']['expires_after'] = ( \WordPressPopularPosts\Helper::is_number($_POST['log_expire_time']) && $_POST['log_expire_time'] > 0 ) ? (int) $_POST['log_expire_time'] : 180;

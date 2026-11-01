@@ -220,7 +220,7 @@ class Posts extends Shortcode {
             && ! empty($header_end)
         ) {
             $header_html = htmlspecialchars_decode($header_start, ENT_QUOTES) . $header . htmlspecialchars_decode($header_end, ENT_QUOTES);
-            $header_html = apply_filters('wpp_custom_header_html', $header_html, $shortcode_ops);
+            $header_html = apply_filters('wpp_custom_header_html', $header_html, $shortcode_ops); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
             $header_html = Helper::sanitize_html($header_html, $shortcode_ops);
             $shortcode_content .= $header_html;
         }

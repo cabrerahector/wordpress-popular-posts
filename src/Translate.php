@@ -10,6 +10,8 @@
 
 namespace WordPressPopularPosts;
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- These are all WPML's hooks, they're all prefixed
+
 class Translate {
     /**
      * Default language code.

@@ -350,7 +350,7 @@ class Helper {
             $trackable[] = $post_type;
         }
 
-        $trackable = apply_filters('wpp_trackable_post_types', $trackable);
+        $trackable = apply_filters('wpp_trackable_post_types', $trackable); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         if (
             is_singular($trackable) 

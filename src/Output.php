@@ -232,9 +232,11 @@ class Output {
 
                 $this->output = trim($clean_html);
             } else {
+                // phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- We're only triggering an warning when WP_DEBUG is true
                 if ( defined('WP_DEBUG') && WP_DEBUG ) {
                     trigger_error('WP Popular Posts - looks like PHP\'s mbstring extension isn\'t enabled on this site. Please enable it for the plugin to be able to properly format your popular post list.', E_USER_WARNING);
                 }
+                // phpcs:enable
             }
 
             // Remove excess line jumps
@@ -265,10 +267,12 @@ class Output {
 
             // Allow WP themers / coders access to raw data
             // so they can build their own output
+            // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
             if ( has_filter('wpp_custom_html') ) {
                 $this->output .= apply_filters('wpp_custom_html', $this->data, $this->public_options);
                 return;
             }
+            // phpcs:enable
 
             if (
                 isset($this->public_options['theme']['name'])
@@ -285,6 +289,7 @@ class Output {
                 $theme_css_rules = wp_strip_all_tags(file_get_contents($theme_stylesheet), true); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- We're loading a local file
                 $additional_styles = '';
 
+                // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
                 if ( has_filter('wpp_additional_theme_styles') ) {
                     $additional_styles = wp_strip_all_tags(apply_filters('wpp_additional_theme_styles', '', $this->public_options['theme']['name']), true);
 
@@ -292,6 +297,7 @@ class Output {
                         $additional_styles = ' /* additional rules */ ' . $additional_styles;
                     }
                 }
+                // phpcs:enable
 
                 $this->output .= '<style>' . $theme_css_rules . $additional_styles . '</style>';
             }
@@ -320,7 +326,7 @@ class Output {
         }
         // Got nothing to show, give 'em the old "Sorry. No data so far." message!
         else {
-            $this->output = apply_filters('wpp_no_data', '<p class="wpp-no-data">' . __('Sorry. No data so far.', 'wordpress-popular-posts') . '</p>');
+            $this->output = apply_filters('wpp_no_data', '<p class="wpp-no-data">' . __('Sorry. No data so far.', 'wordpress-popular-posts') . '</p>'); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         }
     }
 
@@ -412,7 +418,7 @@ class Output {
               : 25;
 
             $more = $this->public_options['shorten_title']['words'] ? ' ' . $this->more : $this->more;
-            $more = apply_filters('wpp_title_more', $more);
+            $more = apply_filters('wpp_title_more', $more); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
             $post_title = Helper::truncate($post_title, $length, $this->public_options['shorten_title']['words'], $more);
         }
 
@@ -474,10 +480,10 @@ class Output {
             }
         }
 
-        $post_meta_separator = esc_html(apply_filters('wpp_post_meta_separator', ' | '));
+        $post_meta_separator = esc_html(apply_filters('wpp_post_meta_separator', ' | ')); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         $post_meta = join($post_meta_separator, $meta_arr);
 
-        $prettify_numbers = apply_filters('wpp_prettify_numbers', true);
+        $prettify_numbers = apply_filters('wpp_prettify_numbers', true); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         /**
          * @ToDo
@@ -486,13 +492,17 @@ class Output {
          *
          * @since  7.3.7
          */
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         if ( has_filter('wpp_pretiffy_numbers') ) {
             $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
 
+            // phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- We're only triggering an warning when WP_DEBUG is true
             if ( defined('WP_DEBUG') && WP_DEBUG ) {
                 trigger_error('WP Popular Posts - wpp_pretiffy_numbers has been deprecated. Please use wpp_prettify_numbers instead.', E_USER_WARNING);
             }
+            // phpcs:enable
         }
+        // phpcs:enable
 
         // Build custom HTML output
         if ( $this->public_options['markup']['custom_html'] ) {
@@ -500,7 +510,7 @@ class Output {
         }
         // Build stock HTML output
         else {
-            $wpp_post_classnames = apply_filters('wpp_post_class', ['{current_class}'], $post_id);
+            $wpp_post_classnames = apply_filters('wpp_post_class', ['{current_class}'], $post_id); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
             $post_template_classnames = ( is_array($wpp_post_classnames) && ! empty($wpp_post_classnames) )
                 ? implode(' ', array_map(fn($classname) => esc_attr($classname), $wpp_post_classnames))
@@ -566,12 +576,14 @@ class Output {
             $this->public_options['rating']
         );
 
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         return apply_filters(
             'wpp_post',
             $post,
             $post_object,
             $this->public_options
         );
+        // phpcs:enable
     }
 
     /**
@@ -595,9 +607,9 @@ class Output {
 
         // Run the_title filter so core/plugin title hooks can
         // be applied to the post title
-        $title = apply_filters('the_title', $title, $post_object->id);
+        $title = apply_filters('the_title', $title, $post_object->id); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- We're using core's the_title hook here
 
-        return apply_filters('wpp_the_title', $title, $post_object->id, $post_id);
+        return apply_filters('wpp_the_title', $title, $post_object->id, $post_id); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
     }
 
     /**
@@ -725,7 +737,7 @@ class Output {
         if ( '' !== $excerpt ) {
 
             $more = $this->public_options['post-excerpt']['words'] ? ' ' . $this->more : $this->more;
-            $more = apply_filters('wpp_excerpt_more', $more);
+            $more = apply_filters('wpp_excerpt_more', $more); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
             $excerpt = Helper::truncate($excerpt, $this->public_options['post-excerpt']['length'], $this->public_options['post-excerpt']['words'], $more);
 
             if ( $this->public_options['post-excerpt']['keep_format'] ) {
@@ -785,7 +797,7 @@ class Output {
             }
         }
 
-        return apply_filters('wpp_the_date', $date, $post_object->id);
+        return apply_filters('wpp_the_date', $date, $post_object->id); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
     }
 
     /**
@@ -818,18 +830,20 @@ class Output {
 
             if ( ! is_wp_error($terms) ) {
                 // Usage: https://wordpress.stackexchange.com/a/46824
+                // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
                 if ( has_filter('wpp_post_exclude_terms') ) {
                     $args = apply_filters('wpp_post_exclude_terms', []);
                     $terms = wp_list_filter($terms, $args, 'NOT');
                 }
+                // phpcs:enable
 
-                $terms = apply_filters('wpp_post_terms', $terms);
+                $terms = apply_filters('wpp_post_terms', $terms); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
                 if (
                     is_array($terms) 
                     && ! empty($terms)
                 ) {
-                    $taxonomy_separator = esc_html(apply_filters('wpp_taxonomy_separator', ', '));
+                    $taxonomy_separator = esc_html(apply_filters('wpp_taxonomy_separator', ', ')); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
                     // We're going to use the taxonomy slug as a CSS class so let's escape it just in case
                     $taxonomy = esc_attr($taxonomy);
@@ -932,7 +946,7 @@ class Output {
     {
         $stats = [];
 
-        $prettify_numbers = apply_filters('wpp_prettify_numbers', true);
+        $prettify_numbers = apply_filters('wpp_prettify_numbers', true); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         /**
          * @ToDo
@@ -941,13 +955,17 @@ class Output {
          *
          * @since  7.3.7
          */
+        // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
         if ( has_filter('wpp_pretiffy_numbers') ) {
             $prettify_numbers = apply_filters('wpp_pretiffy_numbers', true);
 
+            // phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- We're only triggering an warning when WP_DEBUG is true
             if ( defined('WP_DEBUG') && WP_DEBUG ) {
                 trigger_error('WP Popular Posts - wpp_pretiffy_numbers has been deprecated. Please use wpp_prettify_numbers instead..', E_USER_WARNING);
             }
+            // phpcs:enable
         }
+        // phpcs:enable
 
         // comments
         if ( $this->public_options['stats_tag']['comment_count'] ) {
@@ -1158,7 +1176,7 @@ class Output {
             $string = str_replace('{item_position}', $data['item_position'], $string);
         }
 
-        return apply_filters('wpp_parse_custom_content_tags', $string, $data['id']);
+        return apply_filters('wpp_parse_custom_content_tags', $string, $data['id']); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
     }
 
     /**
@@ -1169,6 +1187,6 @@ class Output {
      */
     public function is_single()
     {
-        return apply_filters('wpp_is_single', Helper::is_single());
+        return apply_filters('wpp_is_single', Helper::is_single()); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
     }
 }

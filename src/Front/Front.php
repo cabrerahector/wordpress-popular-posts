@@ -63,7 +63,7 @@ class Front {
      */
     public function inline_loading_css()
     {
-        $wpp_insert_loading_animation_styles = apply_filters('wpp_insert_loading_animation_styles', true);
+        $wpp_insert_loading_animation_styles = apply_filters('wpp_insert_loading_animation_styles', true); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- It is prefixed
 
         if ( $wpp_insert_loading_animation_styles ) :
             ?>
