@@ -401,34 +401,83 @@ class Helper {
      * @since   5.0.0
      * @access  private
      * @param   string
-     * @return  array|bool
+     * @return  bool
      */
     public static function is_image_url(string $url)
     {
-        $path = parse_url($url, PHP_URL_PATH);
-        $encoded_path = array_map('urlencode', explode('/', $path));
-        $parse_url = str_replace($path, implode('/', $encoded_path), $url);
+        $components = self::get_url_components_with_path($url);
 
-        if ( ! filter_var($parse_url, FILTER_VALIDATE_URL) ) {
+        if ( false === $components ) {
             return false;
         }
 
-        // Check extension
-        $file_name = basename($path);
-        $file_name = sanitize_file_name($file_name);
-        $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
+        $file_name = wp_basename($components['path']);
+        $extension = strtolower( pathinfo($file_name, PATHINFO_EXTENSION) );
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
 
-        if ( ! in_array($ext, $allowed_ext) ) {
+        return in_array($extension, $allowed_extensions, true);
+    }
+
+    /**
+     * Breaks an URL into individual components.
+     *
+     * @since   7.4.4
+     * @return  array|bool  An array of URL components, or false on failure
+     */
+    public static function get_url_components_with_path(string $url)
+    {
+        if ( ! filter_var($url, FILTER_VALIDATE_URL) ) {
             return false;
         }
 
-        // sanitize URL, just in case
-        $image_url = esc_url($url);
-        // remove querystring
-        preg_match('/[^\?]+\.(jpg|jpeg|gif|png|webp|avif)/i', $image_url, $matches);
+        $components = wp_parse_url($url);
 
-        return ( is_array($matches) && ! empty($matches) ) ? $matches : false;
+        if ( ! is_array($components) || empty($components['path']) ) {
+            return false;
+        }
+
+        return $components;
+    }
+
+    /**
+     * Removes params and anchor fragments from the provided URL.
+     *
+     * @since   7.4.4
+     * @return  string|bool  Clean URL string, or false on failure
+     */
+    public static function get_clean_url(string $url)
+    {
+        $components = self::get_url_components_with_path($url);
+
+        if ( false === $components ) {
+            return false;
+        }
+
+        $clean_url = '';
+
+        if ( ! empty($components['scheme']) ) {
+            $clean_url .= $components['scheme'] . '://';
+        }
+
+        if ( ! empty($components['user']) ) {
+            $clean_url .= $components['user'];
+
+            if ( ! empty($components['pass']) ) {
+                $clean_url .= ':' . $components['pass'];
+            }
+
+            $clean_url .= '@';
+        }
+
+        if ( ! empty($components['host']) ) {
+            $clean_url .= $components['host'];
+        }
+
+        if ( ! empty($components['port']) ) {
+            $clean_url .= ':' . $components['port'];
+        }
+
+        return $clean_url . $components['path'];
     }
 
     /**

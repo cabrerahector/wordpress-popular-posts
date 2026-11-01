@@ -657,9 +657,20 @@ class Image {
             return false;
         }
 
-        $full_image_path = trailingslashit($this->get_plugin_uploads_dir()['basedir']) . "{$id}_" . sanitize_file_name(rawurldecode(wp_basename($url)));
+        $url = Helper::get_clean_url($url);
+        $url_components = Helper::get_url_components_with_path($url);
 
-        // if the file exists already, return URL and path
+        if ( false === $url_components ) {
+            return false;
+        }
+
+        $file_name = "{$id}_" . sanitize_file_name(
+            wp_basename($url_components['path'])
+        );
+
+        $full_image_path = trailingslashit($this->get_plugin_uploads_dir()['basedir']) . $file_name;
+
+        // File already exists, return path
         if ( file_exists($full_image_path) ) {
             return $full_image_path;
         }
@@ -669,20 +680,45 @@ class Image {
             is_ssl() ? 'https://' : 'http://'
         );
 
-        $accepted_status_codes = [200, 301, 302];
-        $response = wp_remote_head($url, ['timeout' => 5, 'sslverify' => false]);
+        $is_local = defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local';
+
+        // Check whether the remote file is reachable
+        $response = wp_remote_head(
+            $url,
+            [
+                'timeout' => 1.5, // Stop waiting after 1.5 seconds if server stalls
+                'user-agent' => 'WordPress/' . get_bloginfo('version'),
+                'sslverify' => !$is_local,
+                'reject_unsafe_urls' => !$is_local,
+            ]
+        );
 
         if (
             ! is_wp_error($response) 
-            && in_array(wp_remote_retrieve_response_code($response), $accepted_status_codes)
+            && in_array(wp_remote_retrieve_response_code($response), [200, 301, 302])
         ) {
+            // Verify file size
+            $headers = wp_remote_retrieve_headers($response);
+            $file_size = isset( $headers['content-length'] ) ? (int) $headers['content-length'] : 0;
+            $max_allowed = 5 * 1024 * 1024; // 5 MB
+
+            // File is too big, bail
+            if ( $file_size > $max_allowed ) {
+                return false;
+            }
+
             require_once ABSPATH . 'wp-admin/includes/file.php';
 
-            $url = str_replace('https://', 'http://', $url);
+            if ( ! is_ssl() ) {
+                $url = str_replace('https://', 'http://', $url);
+            }
+
             $tmp = download_url($url);
 
             // File was downloaded successfully
             if ( ! is_wp_error($tmp) ) {
+                $is_valid_image = false;
+
                 // Determine image type
                 if ( function_exists('exif_imagetype') ) {
                     $image_type = exif_imagetype($tmp);
@@ -691,21 +727,31 @@ class Image {
                     $image_type = ( isset($image_type[2]) ) ? $image_type[2] : null;
                 }
 
-                // Valid image, save it
                 if ( in_array($image_type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_WEBP, IMAGETYPE_AVIF]) ) {
-                    // move file to Uploads
-                    if ( @rename($tmp, $full_image_path) ) {
-                        // borrowed from WP - set correct file permissions
-                        $stat = stat(dirname($full_image_path));
-                        $perms = $stat['mode'] & 0000644;
-                        @chmod($full_image_path, $perms);
+                    $image_editor = wp_get_image_editor($tmp);
 
-                        return $full_image_path;
+                    if ( ! is_wp_error($image_editor) ) {
+                        $dimensions = $image_editor->get_size();
+
+                        if ( $dimensions['width'] && $dimensions['height'] ) {
+                            if ( @rename($tmp, $full_image_path) ) {
+                                $is_valid_image = true;
+
+                                // Set correct file permissions
+                                $stat = stat(dirname($full_image_path));
+                                $perms = $stat['mode'] & 0644; 
+                                @chmod($full_image_path, $perms);
+                            }
+                        }
                     }
                 }
 
-                // Invalid file, remove it
-                wp_delete_file($tmp);
+                if ( ! $is_valid_image ) {
+                    wp_delete_file($tmp);
+                    return false;
+                }
+
+                return $full_image_path;
             }
         }
 
