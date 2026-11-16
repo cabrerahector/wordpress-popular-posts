@@ -155,7 +155,7 @@ class WidgetEndpoint extends Endpoint {
             'order_by' => [
                 'description'       => 'Set the sorting option of the popular posts.',
                 'type'              => 'string',
-                'enum'              => ['views', 'comments'],
+                'enum'              => ['views', 'avg', 'comments'],
                 'default'           => 'views',
                 'sanitize_callback' => 'sanitize_text_field',
                 'validate_callback' => 'rest_validate_request_arg',
